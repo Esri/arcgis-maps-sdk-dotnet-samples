@@ -4,15 +4,21 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <StackLayout Orientation="Vertical">
-                <Label Text="Choose a mosaic rule to apply to the image service." />
-                <Picker x:Name="MosaicRulesPicker" SelectedIndexChanged="MosaicRulesBox_SelectedIndexChanged" />
-            </StackLayout>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="auto,auto"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto">
+                <Label Grid.Column="0"
+                       Text="Mosaic rule: "
+                       VerticalTextAlignment="Center" />
+                <Picker x:Name="MosaicRulesPicker"
+                        Grid.Column="1"
+                        MinimumWidthRequest="150"
+                        SelectedIndexChanged="MosaicRulesBox_SelectedIndexChanged" />
+            </Grid>
+        </Border>
+    </Grid>
 </ContentPage>

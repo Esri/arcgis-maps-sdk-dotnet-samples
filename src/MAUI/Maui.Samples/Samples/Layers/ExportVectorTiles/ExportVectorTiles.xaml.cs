@@ -139,7 +139,7 @@ namespace ArcGISRuntime.Samples.ExportVectorTiles
                 await UpdatePreviewMap(vectorTilesResult);
 
                 // Update the UI.
-                MyExportPreviewButton.Text = "Close Preview";
+                MyExportPreviewButton.Text = "Return to online map";
                 MyExportPreviewButton.IsVisible = true;
                 MyExportPreviewButton.IsEnabled = true;
 
@@ -229,9 +229,6 @@ namespace ArcGISRuntime.Samples.ExportVectorTiles
 
             // Show the layer in a new map.
             MyMapView.Map = new Map(new Basemap(myLayer));
-
-            // Re-size the mapview.
-            MyMapView.Margin = new Thickness(40);
         }
 
         private async Task ExportPreviewButtonTask()
@@ -259,9 +256,6 @@ namespace ArcGISRuntime.Samples.ExportVectorTiles
 
                     // Clear the preview open flag.
                     _previewOpen = false;
-
-                    // Re-size the mapview.
-                    MyMapView.Margin = new Thickness(0);
 
                     // Re-apply the original map.
                     MyMapView.Map = _basemap;

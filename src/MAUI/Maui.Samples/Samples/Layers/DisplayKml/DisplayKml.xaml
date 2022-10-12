@@ -4,16 +4,15 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Label Grid.Row="0" Text="Choose a KML data source." />
-        <Picker x:Name="LayerPicker"
-                Grid.Row="1"
-                VerticalOptions="CenterAndExpand" />
-        <esriUI:SceneView x:Name="MySceneView" Grid.Row="2" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <HorizontalStackLayout Padding="5"
+                                   Spacing="5"
+                                   VerticalOptions="Start">
+                <Label Text="KML data source:" VerticalTextAlignment="Center" />
+                <Picker x:Name="LayerPicker" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </Border>
     </Grid>
 </ContentPage>

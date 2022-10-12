@@ -16,15 +16,13 @@
         </Grid.ColumnDefinitions>
         <Label Grid.Row="0"
                Grid.ColumnSpan="2"
-               Text="Static Mode:"
-               TextColor="Red" />
+               Text="Static Mode:" />
         <esriUI:SceneView x:Name="MyStaticSceneView"
                           Grid.Row="1"
                           Grid.ColumnSpan="2" />
         <Label Grid.Row="2"
                Grid.Column="0"
-               Text="Dynamic Mode:"
-               TextColor="Red" />
+               Text="Dynamic Mode:" />
         <Button Grid.Row="2"
                 Grid.Column="1"
                 Clicked="Button_Clicked"

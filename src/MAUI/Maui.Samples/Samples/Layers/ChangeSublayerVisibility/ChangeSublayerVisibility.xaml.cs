@@ -24,8 +24,6 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
         public ChangeSublayerVisibility()
         {
             InitializeComponent();
-
-            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -100,7 +98,7 @@ namespace ArcGISRuntime.Samples.ChangeSublayerVisibility
                 };
 
                 // Navigate to the sublayers page
-                await Navigation.PushAsync(sublayersPage);
+                await Application.Current.MainPage.Navigation.PushAsync(sublayersPage);
             }
             catch (Exception ex)
             {

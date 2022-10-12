@@ -2,56 +2,44 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label x:Name="MapScaleLabel"
-                   Grid.Row="0"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   Margin="5"
-                   HorizontalTextAlignment="Center"
-                   Text="Current map scale"
-                   VerticalTextAlignment="Center" />
-            <Button x:Name="VisibilityButton"
-                    Grid.Row="1"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Margin="5"
-                    Clicked="VisibilityChanged"
-                    Text="Make sublayer invisible" />
-            <Button Grid.Row="2"
-                    Grid.Column="0"
-                    Margin="5"
-                    Clicked="OnSetMinimumScale"
-                    Text="Set min scale" />
-            <Button Grid.Row="2"
-                    Grid.Column="1"
-                    Margin="5"
-                    Clicked="OnChangeRenderer"
-                    Text="Change renderer" />
-            <Label x:Name="MinScaleLabel"
-                   Grid.Row="3"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   Margin="5"
-                   HorizontalTextAlignment="Center"
-                   Text="Current min scale:"
-                   VerticalTextAlignment="Center" />
-            <esriUI:MapView x:Name="MyMapView"
-                            Grid.Row="4"
-                            Grid.Column="0"
-                            Grid.ColumnSpan="2" />
-        </Grid>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto,auto">
+                <Label x:Name="MapScaleLabel"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Margin="5"
+                       HorizontalTextAlignment="Center"
+                       Text="Current map scale"
+                       VerticalTextAlignment="Center" />
+                <Button x:Name="VisibilityButton"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="5"
+                        Clicked="VisibilityChanged"
+                        Text="Make sublayer invisible" />
+                <Button Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="5"
+                        Clicked="OnSetMinimumScale"
+                        Text="Set min scale" />
+                <Button Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="5"
+                        Clicked="OnChangeRenderer"
+                        Text="Change renderer" />
+                <Label x:Name="MinScaleLabel"
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Margin="5"
+                       HorizontalTextAlignment="Center"
+                       Text="Current min scale:"
+                       VerticalTextAlignment="Center" />
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

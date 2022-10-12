@@ -5,74 +5,59 @@
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Entry x:Name="ServiceTextBox"
-                       Grid.Row="0"
-                       Grid.Column="0"
-                       Margin="0,0,5,5">
-                    <Entry.TextColor>
-                        <OnPlatform x:TypeArguments="Color">
-                            <On Platform="Android" Value="Black" />
-                        </OnPlatform>
-                    </Entry.TextColor>
-                </Entry>
-                <Button x:Name="LoadServiceButton"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Margin="0,0,0,5"
-                        Padding="5,0,5,0"
-                        Clicked="LoadServiceButton_Click"
-                        Text="Load service" />
-                <ListView x:Name="WfsLayerList"
-                          Grid.Row="1"
-                          Grid.ColumnSpan="2"
-                          HeightRequest="150"
-                          SelectionMode="Single">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <TextCell Text="{Binding Title}" />
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <StackLayout Grid.Row="2"
-                             Grid.ColumnSpan="2"
-                             Margin="0,5,0,5"
-                             Orientation="Horizontal">
-                    <Switch x:Name="AxisOrderSwapCheckbox" VerticalOptions="Center" />
-                    <Label HorizontalOptions="End"
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <ScrollView>
+                <Grid Padding="5"
+                      ColumnDefinitions="*,auto"
+                      RowDefinitions="auto,auto,auto,auto,auto"
+                      RowSpacing="5">
+                    <Entry x:Name="ServiceTextBox"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           Margin="5"
+                           MaximumWidthRequest="150" />
+                    <Button x:Name="LoadServiceButton"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Clicked="LoadServiceButton_Click"
+                            Text="Load service"
+                            VerticalOptions="Center" />
+                    <ListView x:Name="WfsLayerList"
+                              Grid.Row="1"
+                              Grid.ColumnSpan="2"
+                              HeightRequest="100"
+                              SelectionMode="Single">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Text="{Binding Title}" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
                            Text="Swap coordinate order"
                            VerticalOptions="Center" />
-                </StackLayout>
-                <Button x:Name="LoadLayersButton"
-                        Grid.Row="3"
-                        Grid.ColumnSpan="2"
-                        Clicked="LoadLayers_Clicked"
-                        IsEnabled="False"
-                        Text="Load selected layer" />
-                <ActivityIndicator x:Name="LoadingProgressBar"
-                                   Grid.Row="1"
-                                   Grid.ColumnSpan="2"
-                                   IsEnabled="True"
-                                   IsRunning="True"
-                                   IsVisible="True" />
-            </Grid>
-        </resources:ResponsiveFormContainer>
-    </cmp:RelativeLayout>
+                    <Switch x:Name="AxisOrderSwapCheckbox"
+                            Grid.Row="2"
+                            Grid.Column="1" />
+                    <Button x:Name="LoadLayersButton"
+                            Grid.Row="3"
+                            Grid.ColumnSpan="2"
+                            Clicked="LoadLayers_Clicked"
+                            IsEnabled="False"
+                            Text="Load selected layer" />
+                    <ActivityIndicator x:Name="LoadingProgressBar"
+                                       Grid.Row="4"
+                                       Grid.ColumnSpan="2"
+                                       HeightRequest="30"
+                                       IsEnabled="True"
+                                       IsRunning="True"
+                                       IsVisible="True" />
+                </Grid>
+            </ScrollView>
+
+        </Border>
+    </Grid>
 </ContentPage>

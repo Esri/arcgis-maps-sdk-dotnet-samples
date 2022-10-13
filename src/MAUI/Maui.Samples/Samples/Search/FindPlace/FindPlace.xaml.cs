@@ -73,6 +73,11 @@ namespace ArcGISRuntime.Samples.FindPlace
 
                         status = await Microsoft.Maui.ApplicationModel.Permissions.CheckStatusAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
 
+                        if(status != Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
+                        {
+                            status = await Microsoft.Maui.ApplicationModel.Permissions.RequestAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
+                        }
+
                         if (status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
                         {
                             await MyMapView.LocationDisplay.DataSource.StartAsync();

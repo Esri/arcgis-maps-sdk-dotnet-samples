@@ -68,8 +68,6 @@ namespace ArcGISRuntime.Samples.ConfigureSubnetworkTrace
 
             try
             {
-                ConfigureTable.IsEnabled = false;
-
                 // Create and load the utility network.
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
 
@@ -103,10 +101,6 @@ namespace ArcGISRuntime.Samples.ConfigureSubnetworkTrace
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
-            }
-            finally
-            {
-                ConfigureTable.IsEnabled = true;
             }
         }
 
@@ -272,7 +266,7 @@ namespace ArcGISRuntime.Samples.ConfigureSubnetworkTrace
             _sourceTier.GetDefaultTraceConfiguration().IncludeBarriers = e.Value;
         }
 
-        private void IncludContainersChanged(object sender, ToggledEventArgs e)
+        private void IncludeContainersChanged(object sender, ToggledEventArgs e)
         {
             _sourceTier.GetDefaultTraceConfiguration().IncludeContainers = e.Value;
         }

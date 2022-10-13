@@ -1,90 +1,80 @@
-﻿<ContentPage x:Class="ArcGISRuntime.Samples.TraceUtilityNetwork.TraceUtilityNetwork"
-             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="auto" />
-        </Grid.RowDefinitions>
-        <esriUI:MapView x:Name="MyMapView"
-                        Grid.Row="0"
-                        Grid.RowSpan="2"
-                        GeoViewTapped="OnGeoViewTapped" />
-        <Grid x:Name="StatusGrid">
-            <Label x:Name="Status"
-                   Grid.Row="0"
-                   Margin="5"
-                   HorizontalOptions="FillAndExpand"
-                   Text="Loading sample..."
-                   TextColor="White" />
-        </Grid>
-        <StackLayout x:Name="BusyIndicator"
-                     Grid.Row="0"
-                     Grid.RowSpan="2"
-                     HeightRequest="40"
-                     IsVisible="False"
-                     VerticalOptions="Center">
-            <ActivityIndicator HeightRequest="40"
-                               HorizontalOptions="Center"
-                               IsRunning="True"
-                               VerticalOptions="Center">
-                <!--<ActivityIndicator.Color>
-                    <OnPlatform x:TypeArguments="Color" iOS="#2499CE" />
-                </ActivityIndicator.Color>-->
-            </ActivityIndicator>
+﻿<ContentPage
+    x:Class="ArcGISRuntime.Samples.TraceUtilityNetwork.TraceUtilityNetwork"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView
+            x:Name="MyMapView"
+            GeoViewTapped="OnGeoViewTapped"
+            Style="{DynamicResource EsriSampleGeoView}" />
+        <StackLayout
+            x:Name="BusyIndicator"
+            Grid.Row="0"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            HeightRequest="40"
+            IsVisible="False"
+            VerticalOptions="Center">
+            <ActivityIndicator
+                HeightRequest="40"
+                HorizontalOptions="Center"
+                IsRunning="True"
+                VerticalOptions="Center" />
         </StackLayout>
-        <Grid x:Name="PickerUI"
-              Grid.Row="0"
-              IsVisible="False">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0"
-                   Margin="5"
-                   HorizontalTextAlignment="Center"
-                   Text="Choose a terminal for this junction." />
-            <ListView x:Name="TerminalPicker"
-                      Grid.Row="1"
-                      ItemSelected="Terminal_Selected" />
-        </Grid>
-        <StackLayout x:Name="MainUI"
-                     Grid.Row="2"
-                     Orientation="Vertical">
-            <Button x:Name="TracePickerButton"
+        <Border
+            x:Name="ControlPanelBorder"
+            Padding="5"
+            Style="{DynamicResource EsriSampleControlPanel}">
+            <StackLayout x:Name="MainUI" Orientation="Vertical">
+                <Button
+                    x:Name="TracePickerButton"
                     Clicked="TraceTypeButtonPressed"
                     Text="Trace type: Connected" />
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="0.23*" />
-                    <ColumnDefinition Width="0.23*" />
-                    <ColumnDefinition Width="0.08*" />
-                    <ColumnDefinition Width="0.23*" />
-                    <ColumnDefinition Width="0.23*" />
-                </Grid.ColumnDefinitions>
-                <Button x:Name="IsAddingStartingLocations"
+                <Grid
+                    Margin="0,5"
+                    ColumnSpacing="5"
+                    RowSpacing="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="0.5*" />
+                    </Grid.RowDefinitions>
+                    <Button
+                        x:Name="IsAddingStartingLocations"
+                        Grid.Row="0"
                         Grid.Column="0"
                         Clicked="IsAddingStartingLocations_Clicked"
-                        HorizontalOptions="FillAndExpand"
                         IsEnabled="False"
                         Text="Origin" />
-                <Button x:Name="IsAddingBarriers"
+                    <Button
+                        x:Name="IsAddingBarriers"
+                        Grid.Row="0"
                         Grid.Column="1"
                         Clicked="IsAddingBarriers_Clicked"
-                        HorizontalOptions="FillAndExpand"
                         Text="Barrier" />
-                <Grid Grid.Column="2" />
-                <Button Grid.Column="3"
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="1"
                         Clicked="OnReset"
-                        HorizontalOptions="FillAndExpand"
                         Text="Reset" />
-                <Button Grid.Column="4"
+                    <Button
+                        Grid.Row="1"
+                        Grid.Column="0"
                         Clicked="OnTrace"
-                        HorizontalOptions="FillAndExpand"
                         Text="Trace" />
-            </Grid>
-        </StackLayout>
+                </Grid>
+                <Label
+                    x:Name="Status"
+                    Grid.Row="0"
+                    Margin="5"
+                    HorizontalOptions="Center"
+                    MaximumWidthRequest="200"
+                    Text="Loading sample..." />
+            </StackLayout>
+        </Border>
     </Grid>
 </ContentPage>

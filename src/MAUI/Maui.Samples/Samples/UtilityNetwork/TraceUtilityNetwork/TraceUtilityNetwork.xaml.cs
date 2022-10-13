@@ -43,9 +43,6 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
         private UtilityTier _mediumVoltageTier;
         private UtilityTraceType _selectedTraceType = UtilityTraceType.Connected;
 
-        // Task completion source for the user selected terminal.
-        private TaskCompletionSource<string> _terminalCompletionSource = null;
-
         // Markers for the utility elements.
         private SimpleMarkerSymbol _startingPointSymbol;
         private SimpleMarkerSymbol _barrierPointSymbol;
@@ -204,6 +201,11 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
                 Graphic traceLocationGraphic = new Graphic(feature.Geometry as MapPoint ?? e.Location, symbol);
                 MyMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Add(traceLocationGraphic);
             }
+            catch (OperationCanceledException ex)
+            {
+                Status.Text = "Identify canceled.";
+                return;
+            }
             catch (Exception ex)
             {
                 Status.Text = "Identifying locations failed.";
@@ -218,38 +220,17 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
 
         private async Task<UtilityTerminal> WaitForTerminal(IEnumerable<UtilityTerminal> terminals)
         {
-            try
+            // Load the terminals into a DisplayActionSheet and await the user's selection.
+            var terminalArray = terminals.Select(x => x.Name).ToArray();
+            string choice = await Application.Current.MainPage.DisplayActionSheet("Choose junction.", "Cancel", null, terminalArray);
+            if (terminalArray.Contains(choice))
             {
-                // Switch the UI for the user choosing the junction.
-                MainUI.IsVisible = false;
-                MyMapView.IsVisible = false;
-                StatusGrid.IsVisible = false;
-                PickerUI.IsVisible = true;
-                MyMapView.GeoViewTapped -= OnGeoViewTapped;
-
-                // Load the terminals into the UI.
-                TerminalPicker.ItemsSource = terminals.Select(x => x.Name).ToList();
-                TerminalPicker.SelectedItem = null;
-
-                // Wait for the user to select a terminal.
-                _terminalCompletionSource = new TaskCompletionSource<string>();
-                string selectedName = await _terminalCompletionSource.Task;
-                return terminals.Where(x => x.Name.Equals(selectedName)).FirstOrDefault();
+                return terminals.Single(x => x.Name == choice);
             }
-            finally
+            else
             {
-                // Make the main UI visible again.
-                MainUI.IsVisible = true;
-                MyMapView.IsVisible = true;
-                StatusGrid.IsVisible = true;
-                PickerUI.IsVisible = false;
-                MyMapView.GeoViewTapped += OnGeoViewTapped;
+                throw new OperationCanceledException();
             }
-        }
-
-        private void Terminal_Selected(object sender, EventArgs e)
-        {
-            _terminalCompletionSource.TrySetResult(TerminalPicker.SelectedItem as string);
         }
 
         private void OnReset(object sender, EventArgs e)
@@ -333,7 +314,7 @@ namespace ArcGISRuntime.Samples.TraceUtilityNetwork
             {
                 // Prompt the user to select a type of trace.
                 var traceTypes = new string[] { "Connected", "Subnetwork", "Upstream", "Downstream" };
-                string choice = await ((Page)Parent).DisplayActionSheet("Choose type of trace", "Cancel", null, traceTypes);
+                string choice = await Application.Current.MainPage.DisplayActionSheet("Choose type of trace", "Cancel", null, traceTypes);
 
                 // Set the selected trace type.
                 _selectedTraceType = (UtilityTraceType)Enum.Parse(typeof(UtilityTraceType), choice);

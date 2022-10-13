@@ -146,7 +146,7 @@ namespace ArcGISRuntime.Samples.DisplayUtilityNetworkContainer
                 _associationsOverlay.Graphics.Clear();
 
                 // Enable the close button.
-                CloseButton.IsVisible = true;
+                CloseButton.IsEnabled = true;
 
                 // Get the content features and give them each a symbol, and add them as a graphic to the graphics overlay.
                 foreach (ArcGISFeature contentFeature in contentFeatures)
@@ -207,7 +207,7 @@ namespace ArcGISRuntime.Samples.DisplayUtilityNetworkContainer
 
         private void CloseButton_Clicked(object sender, System.EventArgs e)
         {
-            CloseButton.IsVisible = false;
+            CloseButton.IsEnabled = false;
 
             // Clear the graphics overlay.
             _associationsOverlay.Graphics.Clear();

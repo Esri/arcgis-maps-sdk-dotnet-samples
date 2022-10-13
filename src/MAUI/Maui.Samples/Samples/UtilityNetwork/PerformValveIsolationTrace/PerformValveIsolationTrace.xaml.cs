@@ -207,26 +207,16 @@ namespace ArcGISRuntime.Samples.PerformValveIsolationTrace
 
         private async Task<UtilityTerminal> GetTerminalAsync(IEnumerable<UtilityTerminal> terminals)
         {
-            try
+            // Load the terminals into a DisplayActionSheet and await the user's selection.
+            var terminalArray = terminals.Select(x => x.Name).ToArray();
+            string choice = await Application.Current.MainPage.DisplayActionSheet("Choose junction.", "Cancel", null, terminalArray);
+            if (terminalArray.Contains(choice))
             {
-                // Switch the UI for the user choosing the junction.
-                PickerUI.IsVisible = true;
-                MyMapView.GeoViewTapped -= OnGeoViewTapped;
-
-                // Load the terminals into the UI.
-                TerminalPicker.ItemsSource = terminals.Select(x => x.Name).ToList();
-                TerminalPicker.SelectedItem = null;
-
-                // Wait for the user to select a terminal.
-                _terminalCompletionSource = new TaskCompletionSource<string>();
-                string selectedName = await _terminalCompletionSource.Task;
-                return terminals.Where(x => x.Name.Equals(selectedName)).FirstOrDefault();
+                return terminals.Single(x => x.Name == choice);
             }
-            finally
+            else
             {
-                // Make the main UI visible again.
-                PickerUI.IsVisible = false;
-                MyMapView.GeoViewTapped += OnGeoViewTapped;
+                throw new OperationCanceledException();
             }
         }
 
@@ -282,6 +272,10 @@ namespace ArcGISRuntime.Samples.PerformValveIsolationTrace
                 // Add a graphic for the new utility element.
                 Graphic traceLocationGraphic = new Graphic(feature.Geometry as MapPoint ?? e.Location, symbol);
                 _barrierOverlay.Graphics.Add(traceLocationGraphic);
+            }
+            catch (OperationCanceledException ex)
+            {
+                return;
             }
             catch (Exception ex)
             {

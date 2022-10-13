@@ -1,65 +1,69 @@
-﻿<ContentPage x:Class="ArcGISRuntime.Samples.DisplayUtilityNetworkContainer.DisplayUtilityNetworkContainer"
-             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <cmp:RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        GeoViewTapped="MyMapView_GeoViewTapped"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
-            <StackLayout>
-                <Label Margin="5" Text="Tap an element to view its container." />
-                <Label Margin="5"
-                       FontAttributes="Bold"
-                       Text="Utility association types" />
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="25" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="0"
-                           Grid.Column="1"
-                           Text="Attachment" />
-                    <Label Grid.Row="1"
-                           Grid.Column="1"
-                           Text="Connectivity" />
-                    <Label Grid.Row="2"
-                           Grid.Column="1"
-                           Text="Containment" />
-                    <Image x:Name="AttachmentImage"
-                           Grid.Row="0"
-                           Grid.Column="0" />
-                    <Image x:Name="ConnectivityImage"
-                           Grid.Row="1"
-                           Grid.Column="0" />
-                    <Image x:Name="ContainmentImage"
-                           Grid.Row="2"
-                           Grid.Column="0" />
-                </Grid>
-                <Button x:Name="CloseButton"
+﻿<ContentPage
+    x:Class="ArcGISRuntime.Samples.DisplayUtilityNetworkContainer.DisplayUtilityNetworkContainer"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+    xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView
+            x:Name="MyMapView"
+            GeoViewTapped="MyMapView_GeoViewTapped"
+            Style="{DynamicResource EsriSampleGeoView}" />
+        <Border MinimumHeightRequest="200" Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid>
+                <StackLayout Spacing="10">
+                    <Label FontAttributes="Bold" Text="Select an element to view its container." />
+                    <Label Text="Utility association types" />
+                    <Grid ColumnSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="25" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Label
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Text="Attachment" />
+                        <Label
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Text="Connectivity" />
+                        <Label
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Text="Containment" />
+                        <Image
+                            x:Name="AttachmentImage"
+                            Grid.Row="0"
+                            Grid.Column="0" />
+                        <Image
+                            x:Name="ConnectivityImage"
+                            Grid.Row="1"
+                            Grid.Column="0" />
+                        <Image
+                            x:Name="ContainmentImage"
+                            Grid.Row="2"
+                            Grid.Column="0" />
+                    </Grid>
+                    <Button
+                        x:Name="CloseButton"
                         Margin="5"
                         Clicked="CloseButton_Clicked"
-                        IsVisible="false"
+                        IsEnabled="False"
                         Text="Close container view" />
-            </StackLayout>
-        </resources:ResponsiveFormContainer>
-        <ActivityIndicator x:Name="LoadingIndicator"
-                           HorizontalOptions="CenterAndExpand"
-                           IsRunning="True"
-                           IsVisible="True"
-                           cmp:RelativeLayout.HeightConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                                  Property=Height,
-                                                                                  Factor=1}"
-                           cmp:RelativeLayout.WidthConstraint="{cmp:ConstraintExpression Type=RelativeToParent,
-                                                                                 Property=Width,
-                                                                                 Factor=1}"
-                           VerticalOptions="CenterAndExpand" />
-    </cmp:RelativeLayout>
+                </StackLayout>
+            </Grid>
+        </Border>
+        <ActivityIndicator
+            x:Name="LoadingIndicator"
+            HorizontalOptions="CenterAndExpand"
+            IsRunning="True"
+            IsVisible="True"
+            VerticalOptions="CenterAndExpand" />
+    </Grid>
 </ContentPage>

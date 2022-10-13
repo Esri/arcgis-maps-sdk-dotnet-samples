@@ -2,15 +2,14 @@
     x:Class="ArcGISRuntime.Samples.ConfigureSubnetworkTrace.ConfigureSubnetworkTrace"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Grid VerticalOptions="FillAndExpand">
     <ScrollView>
-        <Grid MinimumHeightRequest="800" Style="{DynamicResource EsriSampleContainer}">
             <StackLayout>
-                <Border
+                <Border 
                     Padding="10"
-                    BackgroundColor="{AppThemeBinding Light=#dedede,
-                                                      Dark=Black}"
+                    BackgroundColor="{AppThemeBinding Light=#dedede, Dark=Black}"
                     StrokeThickness="0">
-                    <Grid ColumnSpacing="10">
+                    <Grid RowSpacing="5" ColumnSpacing="5">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto" />
                             <ColumnDefinition Width="auto" />
@@ -49,7 +48,7 @@
                             Toggled="IncludeContainersChanged" />
                     </Grid>
                 </Border>
-                <Border Padding="10" StrokeThickness="0">
+                <Border Padding="10" StrokeThickness="0" >
                     <StackLayout Spacing="5">
                         <Label FontSize="Medium" Text="Define new condition" />
                         <Label FontAttributes="Italic" Text="(Example barrier condition for this data: 'Transformer Load' Equal '15')" />
@@ -99,7 +98,7 @@
                         <Label x:Name="ConditionBarrierExpression" Text="" />
                     </StackLayout>
                 </ScrollView>
-                <Border Padding="10" StrokeThickness="0">
+                <Border Padding="10" StrokeThickness="0" >
                     <Grid RowSpacing="5">
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -116,6 +115,7 @@
                     </Grid>
                 </Border>
             </StackLayout>
-        </Grid>
+      
     </ScrollView>
+    </Grid>
 </ContentPage>

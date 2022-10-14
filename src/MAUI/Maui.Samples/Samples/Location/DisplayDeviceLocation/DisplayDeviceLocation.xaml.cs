@@ -50,11 +50,18 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
                 // See implementation in MainActivity.cs in the Android platform project.
                 MainActivity.Instance.AskForLocationPermission(MyMapView);
 #else
-                await MyMapView.LocationDisplay.DataSource.StartAsync();
-                MyMapView.LocationDisplay.IsEnabled = true;
+                var status = Microsoft.Maui.ApplicationModel.PermissionStatus.Unknown;
 
-                // Enable the stop device location button.
-                StopButton.IsEnabled = true;
+                status = await Microsoft.Maui.ApplicationModel.Permissions.CheckStatusAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
+
+                if (status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
+                {
+                    await MyMapView.LocationDisplay.DataSource.StartAsync();
+                    MyMapView.LocationDisplay.IsEnabled = true;
+
+                    // Enable the stop device location button.
+                    StopButton.IsEnabled = true;
+                }
 #endif
             }
             catch (Exception ex)

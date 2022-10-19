@@ -44,41 +44,10 @@ namespace ArcGISRuntimeMaui
             // Set up the description page.
             try
             {
-                string folderPath = sampleInfo.Path;
-                string baseUrl = "";
-                string readmePath = "";
-                string basePath = "";
-
-                // Handle AR edge cases
-                folderPath = folderPath.Replace("RoutePlanner", "NavigateAR").Replace("PipePlacer", "ViewHiddenInfrastructureAR");
-
-#if WINDOWS
-                baseUrl = "ms-appx-web:///";
-                basePath = $"{baseUrl}{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";
-                readmePath = System.IO.Path.Combine(folderPath, "readme.md");
-#elif ANDROID
-                baseUrl = "file:///android_asset";
-                basePath = System.IO.Path.Combine(baseUrl, folderPath);
-                readmePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), folderPath, "readme.md");
-#elif IOS
-                baseUrl = Foundation.NSBundle.MainBundle.BundlePath;
-                basePath = folderPath;
-                readmePath = System.IO.Path.Combine(folderPath, "readme.md");
-#endif
-                //string cssPath = $"{baseUrl}/Resources/SyntaxHighlighting/github-markdown.css";
-                string cssPath = $"{baseUrl}SyntaxHighlighting/github-markdown.css";
-
-                string readmeContent = System.IO.File.ReadAllText(readmePath);
-                readmeContent = Markdig.Markdown.ToHtml(readmeContent);
-
-                // Fix paths for images.
-                readmeContent = readmeContent.Replace("src='", "src=\"").Replace(".jpg'", ".jpg\"").Replace("src=\"", $"src=\"{basePath}/");
-
-                string htmlString = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{readmeContent}</body>";
+                var htmlString = GetDescriptionHtml(sampleInfo);
                 DescriptionView.Source = new HtmlWebViewSource()
                 {
-                    Html = htmlString,
-                    BaseUrl = basePath
+                    Html = htmlString
                 };
                 DescriptionView.Navigating += Webview_Navigating;
 
@@ -91,6 +60,54 @@ namespace ArcGISRuntimeMaui
             {
                 Debug.WriteLine(ex);
             }
+        }
+
+        private string GetDescriptionHtml(SampleInfo sampleInfo)
+        {
+            string folderPath = sampleInfo.Path;
+            string baseUrl = "";
+            string readmePath = "";
+            string basePath = "";
+
+            string syntaxPath = folderPath.Substring(0, sampleInfo.Path.LastIndexOf("Samples"));
+
+            // Handle AR edge cases
+            folderPath = folderPath.Replace("RoutePlanner", "NavigateAR").Replace("PipePlacer", "ViewHiddenInfrastructureAR");
+
+#if WINDOWS
+            baseUrl = "ms-appx-web:///";
+            basePath = $"{baseUrl}{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";
+            readmePath = System.IO.Path.Combine(folderPath, "readme.md");
+
+#elif ANDROID
+            baseUrl = "file:///android_asset";
+            basePath = System.IO.Path.Combine(baseUrl, folderPath);
+            readmePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), folderPath, "readme.md");
+#elif IOS
+                baseUrl = Foundation.NSBundle.MainBundle.BundlePath;
+                basePath = folderPath;
+                readmePath = System.IO.Path.Combine(folderPath, "readme.md");
+#endif
+
+            string readmeContent = System.IO.File.ReadAllText(readmePath);
+            readmeContent = Markdig.Markdown.ToHtml(readmeContent);
+
+            string markdownCssType = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "github-markdown-dark.css" : "github-markdown.css";
+
+            string cssContent = System.IO.File.ReadAllText(System.IO.Path.Combine(syntaxPath, "SyntaxHighlighting", markdownCssType));
+
+            // <img src="data:image/jpg;base64, (byte array)">
+            byte[] image = System.IO.File.ReadAllBytes(Path.Combine(sampleInfo.Path, $"{sampleInfo.FormalName}.jpg"));
+
+            var base64 = Convert.ToBase64String(image);
+            var imgSrc = $"data:image/jpg;base64,{base64}";
+
+            // Fix paths for images.
+            readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
+
+            //string htmlString = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{readmeContent}</body>";
+            string htmlString = $"<!doctype html><head><style>{cssContent}</style></head><body class=\"markdown-body\">{readmeContent}</body>";
+            return htmlString;
         }
 
         private void NavigatedFromEvent(object sender, NavigatedFromEventArgs e)

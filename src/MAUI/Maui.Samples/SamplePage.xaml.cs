@@ -65,49 +65,35 @@ namespace ArcGISRuntimeMaui
         private string GetDescriptionHtml(SampleInfo sampleInfo)
         {
             string folderPath = sampleInfo.Path;
-            string baseUrl = "";
-            string readmePath = "";
-            string basePath = "";
-
+            string readmePath = Path.Combine(folderPath, "readme.md");
+            string screenshotPath = Path.Combine(sampleInfo.Path, $"{sampleInfo.FormalName}.jpg");
             string syntaxPath = folderPath.Substring(0, sampleInfo.Path.LastIndexOf("Samples"));
 
             // Handle AR edge cases
             folderPath = folderPath.Replace("RoutePlanner", "NavigateAR").Replace("PipePlacer", "ViewHiddenInfrastructureAR");
 
-#if WINDOWS
-            baseUrl = "ms-appx-web:///";
-            basePath = $"{baseUrl}{folderPath.Substring(folderPath.LastIndexOf("Samples"))}";
-            readmePath = System.IO.Path.Combine(folderPath, "readme.md");
+#if ANDROID
 
-#elif ANDROID
-            baseUrl = "file:///android_asset";
-            basePath = System.IO.Path.Combine(baseUrl, folderPath);
-            readmePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), folderPath, "readme.md");
-#elif IOS
-                baseUrl = Foundation.NSBundle.MainBundle.BundlePath;
-                basePath = folderPath;
-                readmePath = System.IO.Path.Combine(folderPath, "readme.md");
+            readmePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), readmePath);
+            syntaxPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), syntaxPath);
+            screenshotPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), screenshotPath);
 #endif
 
-            string readmeContent = System.IO.File.ReadAllText(readmePath);
+            string readmeContent = File.ReadAllText(readmePath);
             readmeContent = Markdig.Markdown.ToHtml(readmeContent);
 
+            // Set CSS for dark mode or light mode.
             string markdownCssType = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "github-markdown-dark.css" : "github-markdown.css";
+            string cssContent = File.ReadAllText(Path.Combine(syntaxPath, "SyntaxHighlighting", markdownCssType));
 
-            string cssContent = System.IO.File.ReadAllText(System.IO.Path.Combine(syntaxPath, "SyntaxHighlighting", markdownCssType));
+            // Convert the image into a string of bytes to embed into the html.
+            byte[] image = File.ReadAllBytes(screenshotPath);
+            string imgSrc = $"data:image/jpg;base64,{Convert.ToBase64String(image)}";
 
-            // <img src="data:image/jpg;base64, (byte array)">
-            byte[] image = System.IO.File.ReadAllBytes(Path.Combine(sampleInfo.Path, $"{sampleInfo.FormalName}.jpg"));
-
-            var base64 = Convert.ToBase64String(image);
-            var imgSrc = $"data:image/jpg;base64,{base64}";
-
-            // Fix paths for images.
+            // Replace paths for image.
             readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
 
-            //string htmlString = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" /></head><body class=\"markdown-body\">{readmeContent}</body>";
-            string htmlString = $"<!doctype html><head><style>{cssContent}</style></head><body class=\"markdown-body\">{readmeContent}</body>";
-            return htmlString;
+            return $"<!doctype html><head><style>{cssContent}</style></head><body class=\"markdown-body\">{readmeContent}</body>";
         }
 
         private void NavigatedFromEvent(object sender, NavigatedFromEventArgs e)

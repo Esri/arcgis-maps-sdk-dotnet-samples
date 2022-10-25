@@ -134,8 +134,7 @@ namespace ArcGISRuntimeMaui
 
             // Replace paths for image.
             readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
-
-            return $"<!doctype html><head><style>{cssContent}</style></head><body class=\"markdown-body\">{readmeContent}</body>";
+            return $"<!doctype html><head><style>{cssContent} {"body {padding: 10; }"}</style></head><body class=\"markdown-body\">{readmeContent}</body>";
         }
 
         private void NavigatedFromEvent(object sender, NavigatedFromEventArgs e)

@@ -1,7 +1,7 @@
 /* vs2015 theme*/
 
 pre code.hljs {
-    display: block;
+    display: inline-block;
     overflow-x: auto;
     padding: 1em
 }

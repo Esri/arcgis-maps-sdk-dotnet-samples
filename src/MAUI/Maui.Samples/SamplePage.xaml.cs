@@ -231,7 +231,6 @@ namespace ArcGISRuntimeMaui
 
         private void LoadContent()
         {
-            // Source code of the file.
             try
             {
                 string baseContent = File.ReadAllText(_path);
@@ -242,6 +241,10 @@ namespace ArcGISRuntimeMaui
                 // Set CSS for dark mode or light mode.
                 string markdownCssType = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "highlight-dark.css" : "highlight.css";
                 string cssContent = File.ReadAllText(System.IO.Path.Combine(_resourcePath, "SyntaxHighlighting", markdownCssType));
+
+                // Set the background color. Color values are taken from corresponding css files.
+                string backgroundColor = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "#1e1e1e" : "#fff";
+                cssContent = $"{cssContent} body {{ background: {backgroundColor};}}";
 
                 // Read javascript content.
                 string jsContent = File.ReadAllText(System.IO.Path.Combine(_resourcePath, "SyntaxHighlighting", "highlight.pack.js"));
@@ -259,7 +262,7 @@ namespace ArcGISRuntimeMaui
             }
             catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(ex);
+                Debug.WriteLine(ex);
             }
         }
     }

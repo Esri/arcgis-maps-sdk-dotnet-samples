@@ -124,6 +124,16 @@
       <AndroidAsset Include="Samples\**\*.jpg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
       <AndroidAsset Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
     </ItemGroup>
+    <!-- Source code -->
+    <ItemGroup>
+      <None Include="Samples\**\*.cs">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+      <None Include="Samples\**\*.xaml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
     <ItemGroup>
       <None Remove="Resources\Icons\applications.svg" />
       <None Remove="Resources\Icons\applicationsDark.svg" />
@@ -192,5 +202,6 @@
         <PackageReference Include="Markdig" Version="0.30.3" />
         <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
     </ItemGroup>
+    
     <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
 </Project>

@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGISRuntime.Samples.Shared.Models;
+using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace ArcGISRuntimeMaui
@@ -16,6 +17,8 @@ namespace ArcGISRuntimeMaui
     public partial class SamplePage
     {
         private ContentPage _sample;
+
+        public ObservableCollection<SourceCodeFile> SourceFiles { get; } = new ObservableCollection<SourceCodeFile>();
 
         public SamplePage()
         {
@@ -51,15 +54,51 @@ namespace ArcGISRuntimeMaui
                 };
                 DescriptionView.Navigating += Webview_Navigating;
 
+                LoadSourceCode(sampleInfo);
+
                 SourceCodeView.Source = new HtmlWebViewSource()
                 {
-                    Html = "Placeholder for source code.",
+                    Html = SourceFiles[0].HtmlContent,
                 };
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
             }
+            Application.Current.RequestedThemeChanged += (s, a) =>
+            {
+                // Respond to the theme change
+                var htmlString = GetDescriptionHtml(sampleInfo);
+                DescriptionView.Source = new HtmlWebViewSource()
+                {
+                    Html = htmlString
+                };
+            };
+        }
+
+        private void LoadSourceCode(SampleInfo sampleInfo)
+        {
+            //SourceFiles.Clear();
+
+            string folderPath = sampleInfo.Path;
+
+            // Add every .cs and .xaml file in the directory of the sample.
+            foreach (string filepath in Directory.GetFiles(folderPath)
+                .Where(candidate => candidate.EndsWith(".cs") || candidate.EndsWith(".xaml")))
+            {
+                SourceFiles.Insert(0, new SourceCodeFile(filepath, sampleInfo.PathStub));
+            }
+
+            // Add additional class files from the sample.
+            if (sampleInfo.ClassFiles != null)
+            {
+                foreach (string additionalPath in sampleInfo.ClassFiles)
+                {
+                    SourceFiles.Insert(0, new SourceCodeFile(additionalPath, sampleInfo.PathStub));
+                }
+            }
+
+            //SelectedSourceFile = SourceFiles[0];
         }
 
         private string GetDescriptionHtml(SampleInfo sampleInfo)
@@ -67,16 +106,15 @@ namespace ArcGISRuntimeMaui
             string folderPath = sampleInfo.Path;
             string readmePath = Path.Combine(folderPath, "readme.md");
             string screenshotPath = Path.Combine(sampleInfo.Path, $"{sampleInfo.FormalName}.jpg");
-            string syntaxPath = folderPath.Substring(0, sampleInfo.Path.LastIndexOf("Samples"));
 
             // Handle AR edge cases
             folderPath = folderPath.Replace("RoutePlanner", "NavigateAR").Replace("PipePlacer", "ViewHiddenInfrastructureAR");
 
 #if ANDROID
 
-            readmePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), readmePath);
-            syntaxPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), syntaxPath);
-            screenshotPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), screenshotPath);
+            //readmePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), readmePath);
+            //syntaxPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), syntaxPath);
+            //screenshotPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), screenshotPath);
 #endif
 
             string readmeContent = File.ReadAllText(readmePath);
@@ -84,7 +122,11 @@ namespace ArcGISRuntimeMaui
 
             // Set CSS for dark mode or light mode.
             string markdownCssType = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "github-markdown-dark.css" : "github-markdown.css";
-            string cssContent = File.ReadAllText(Path.Combine(syntaxPath, "SyntaxHighlighting", markdownCssType));
+            string cssContent = File.ReadAllText(Path.Combine(sampleInfo.PathStub, "SyntaxHighlighting", markdownCssType));
+
+#if WINDOWS
+            cssContent = $"{cssContent} h1 {{\r\n    display: none;\r\n}}";
+#endif
 
             // Convert the image into a string of bytes to embed into the html.
             byte[] image = File.ReadAllBytes(screenshotPath);
@@ -139,6 +181,86 @@ namespace ArcGISRuntimeMaui
         {
             SourceCodePage.IsVisible = true;
             SampleDetailPage.IsVisible = SampleContentPage.IsVisible = false;
+        }
+    }
+
+    public class SourceCodeFile
+    {
+        // Start of each html string.
+        private const string htmlStart =
+            "<html>" +
+            "<head>" +
+            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=11\">" +
+            "<style>{csscontent}</style>" +
+            "<script type=\"text/javascript\">{jscontent} hljs.initHighlightingOnLoad();</script>" +
+            "</head>" +
+            "<body>" +
+            "<pre>";
+
+        private const string htmlEnd =
+            "</pre>" +
+            "</body>" +
+            "</html>";
+
+        private string _path;
+        private string _resourcePath;
+        private string _fullContent;
+
+        public string Path => _path;
+
+        public string Name => System.IO.Path.GetFileName(_path);
+
+        public string HtmlContent
+        {
+            get
+            {
+                if (_fullContent == null)
+                {
+                    LoadContent();
+                }
+
+                return _fullContent;
+            }
+        }
+
+        public SourceCodeFile(string sourceFilePath, string resourcePath)
+        {
+            _path = sourceFilePath;
+            _resourcePath = resourcePath;
+        }
+
+        private void LoadContent()
+        {
+            // Source code of the file.
+            try
+            {
+                string baseContent = File.ReadAllText(_path);
+
+                // Set the type of highlighting for the source file.
+                string codeClass = _path.EndsWith(".xaml") ? "xml" : "csharp";
+
+                // Set CSS for dark mode or light mode.
+                string markdownCssType = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "highlight-dark.css" : "highlight.css";
+                string cssContent = File.ReadAllText(System.IO.Path.Combine(_resourcePath, "SyntaxHighlighting", markdownCssType));
+
+                // Read javascript content.
+                string jsContent = File.ReadAllText(System.IO.Path.Combine(_resourcePath, "SyntaxHighlighting", "highlight.pack.js"));
+
+                // > and < characters will be incorrectly parsed by the html.
+                baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");
+
+                // Build the html.
+                _fullContent =
+                    htmlStart.Replace("{csscontent}", cssContent).Replace("{jscontent}", jsContent) +
+                    $"<code class=\"{codeClass}\">" +
+                    baseContent +
+                    "</code>" +
+                    htmlEnd;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex);
+            }
         }
     }
 }

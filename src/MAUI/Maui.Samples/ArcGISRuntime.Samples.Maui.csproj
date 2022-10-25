@@ -126,9 +126,9 @@
     </ItemGroup>
     <!-- Source code -->
     <ItemGroup>
-      <Compile Include="Samples\**\*.cs">
+      <None Include="Samples\**\*.cs">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Compile>
+      </None>
 	  <MauiXaml Update="Samples\**\*.xaml">
 		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </MauiXaml>

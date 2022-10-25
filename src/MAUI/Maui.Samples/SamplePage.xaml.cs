@@ -190,7 +190,6 @@ namespace ArcGISRuntimeMaui
         private const string htmlStart =
             "<html>" +
             "<head>" +
-            "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=11\">" +
             "<style>{csscontent}</style>" +
             "<script type=\"text/javascript\">{jscontent} hljs.initHighlightingOnLoad();</script>" +
             "</head>" +

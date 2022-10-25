@@ -60,6 +60,7 @@ namespace ArcGISRuntimeMaui
                 {
                     Html = SourceFiles[0].HtmlContent,
                 };
+                SourceCodeView.Navigating += Webview_Navigating;
             }
             catch (Exception ex)
             {

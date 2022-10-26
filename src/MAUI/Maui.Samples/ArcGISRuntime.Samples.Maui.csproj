@@ -120,7 +120,7 @@
       <EmbeddedResource Include="Resources\SettingsPage\*.md" />
       <Content Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
       <Content Include="Samples\**\*.jpg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
-	  <BundleResource Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'iOS'" />
+	    <BundleResource Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'iOS'" />
       <AndroidAsset Include="Samples\**\*.jpg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
       <AndroidAsset Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
     </ItemGroup>
@@ -132,12 +132,16 @@
       <MauiXaml Update="Samples\**\*.xaml">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </MauiXaml>
+      <None Update="Helpers\*.cs">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
     <ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-android')) == true">
       <EmbeddedResource Include="Samples\**\*.md" />
       <EmbeddedResource Include="Samples\**\*.jpg" />
       <EmbeddedResource Include="Samples\**\*.cs" />
-      <EmbeddedResource Include="SyntaxHighlighting\highlight.js"/>
+      <EmbeddedResource Include="Helpers\**\*.cs" />
+      <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
 	  </ItemGroup>
 
     <ItemGroup>

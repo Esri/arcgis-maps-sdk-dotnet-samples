@@ -96,7 +96,17 @@ namespace ArcGISRuntimeMaui
             {
                 foreach (string additionalPath in sampleInfo.ClassFiles)
                 {
-                    SourceFiles.Insert(0, new SourceCodeFile(additionalPath, sampleInfo.PathStub));
+                    // Don't add source files already found in the directory.
+                    if (!SourceFiles.Any(f => f.Name == additionalPath))
+                    {
+#if ANDROID
+                        var embeddedResourcePath = additionalPath.Replace('\\', '.');
+                        var mobileName = Assembly.GetExecutingAssembly().GetManifestResourceNames().Single(name => name.Contains(embeddedResourcePath));
+                        SourceFiles.Insert(0, new SourceCodeFile(mobileName, sampleInfo.PathStub));
+#else
+                        SourceFiles.Insert(0, new SourceCodeFile(Path.Combine(sampleInfo.PathStub, additionalPath), sampleInfo.PathStub));
+#endif
+                    }
                 }
             }
         }
@@ -274,12 +284,6 @@ namespace ArcGISRuntimeMaui
         {
             _path = sourceFilePath;
             _resourcePath = resourcePath;
-        }
-
-        // Android constructor.
-        public SourceCodeFile(string embeddedResourcePath)
-        {
-            _path = embeddedResourcePath;
         }
 
         private void LoadContent()

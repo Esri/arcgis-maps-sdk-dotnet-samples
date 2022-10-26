@@ -9,11 +9,11 @@
                      IconImageSource="{AppThemeBinding Light=maps.png,
                                                        Dark=mapsdark.png}"
                      Text="Sample" />
-        <ToolbarItem Clicked="Button_Clicked"
+        <ToolbarItem Clicked="DetailButton_Clicked"
                      IconImageSource="{AppThemeBinding Light=description.png,
                                                        Dark=descriptiondark.png}"
                      Text="About" />
-        <ToolbarItem Clicked="Button_Clicked_1"
+        <ToolbarItem Clicked="SourceButton_Clicked"
                      IconImageSource="{AppThemeBinding Light=documentation.png,
                                                        Dark=documentationdark.png}"
                      Text="Source" />
@@ -24,7 +24,18 @@
             <WebView x:Name="DescriptionView" />
         </Border>
         <Border x:Name="SourceCodePage" IsVisible="false">
-            <WebView x:Name="SourceCodeView" />
+            <StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <Button Margin="5"
+                            Clicked="FileChange_Clicked"
+                            Text="Change file" />
+                    <Label x:Name="CurrentFileLabel"
+                           Margin="5"
+                           Text=""
+                           VerticalOptions="Center" />
+                </StackLayout>
+                <WebView x:Name="SourceCodeView" VerticalOptions="FillAndExpand" />
+            </StackLayout>
         </Border>
     </Grid>
 </ContentPage>

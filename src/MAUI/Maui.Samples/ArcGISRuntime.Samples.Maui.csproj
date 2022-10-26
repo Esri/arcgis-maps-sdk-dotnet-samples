@@ -99,7 +99,7 @@
 
 	<!-- Exclude some samples on mac catalyst -->
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-maccatalyst')) == true">
-  	  <AndroidResource Remove="Samples\Geometry\ListTransformations\**" />
+  	<AndroidResource Remove="Samples\Geometry\ListTransformations\**" />
 	  <Compile Remove="Samples\Geometry\ListTransformations\**" />
 	  <EmbeddedResource Remove="Samples\Geometry\ListTransformations\**" />
 	  <MauiCss Remove="Samples\Geometry\ListTransformations\**" />
@@ -129,10 +129,16 @@
       <None Include="Samples\**\*.cs">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
-	  <MauiXaml Update="Samples\**\*.xaml">
-		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </MauiXaml>
+      <MauiXaml Update="Samples\**\*.xaml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </MauiXaml>
     </ItemGroup>
+    <ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-android')) == true">
+      <EmbeddedResource Include="Samples\**\*.md" />
+      <EmbeddedResource Include="Samples\**\*.jpg" />
+      <EmbeddedResource Include="Samples\**\*.cs" />
+      <EmbeddedResource Include="SyntaxHighlighting\highlight.js"/>
+	  </ItemGroup>
 
     <ItemGroup>
       <None Remove="Resources\Icons\applications.svg" />
@@ -191,7 +197,7 @@
       <MauiAsset Include="SyntaxHighlighting\highlight.css">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </MauiAsset>
-      <MauiAsset Include="SyntaxHighlighting\highlight.pack.js">
+      <MauiAsset Include="SyntaxHighlighting\highlight.js">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </MauiAsset>
     </ItemGroup>

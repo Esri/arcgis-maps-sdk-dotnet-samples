@@ -122,7 +122,27 @@ namespace ArcGISRuntimeMaui
 
             // Replace paths for image.
             readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
-            return $"<!doctype html><head><style>{cssContent} {"body {padding: 10; }"}</style></head><body class=\"markdown-body\">{readmeContent}</body>";
+#if IOS
+            // Need to set the viewport on iOS to scale page correctly.
+            string viewportHTML = "<meta name=\"viewport\" content=\"width=" +
+                Application.Current.MainPage.Width +
+                ", shrink-to-fit=YES\">";
+#endif
+
+            // Build the html.
+            var fullContent =
+                "<!doctype html><head><style>" +
+                cssContent +
+                "body {padding: 10; }" +
+                "</style>" +
+#if IOS
+                viewportHTML +
+#endif
+                "</head><body class=\"markdown-body\">" +
+                readmeContent +
+                "</body>";
+
+            return fullContent;
         }
 
         private void LoadSourceCode(SampleInfo sampleInfo)
@@ -191,12 +211,24 @@ namespace ArcGISRuntimeMaui
         {
             SampleDetailPage.IsVisible = true;
             SampleContentPage.IsVisible = SourceCodePage.IsVisible = false;
+#if IOS
+            SourceCodeView.Source = new HtmlWebViewSource()
+            {
+                Html = ((HtmlWebViewSource)SourceCodeView.Source).Html,
+            };
+#endif
         }
 
         private void SourceButton_Clicked(object sender, EventArgs e)
         {
             SourceCodePage.IsVisible = true;
             SampleDetailPage.IsVisible = SampleContentPage.IsVisible = false;
+#if IOS
+            SourceCodeView.Source = new HtmlWebViewSource()
+            {
+                Html = ((HtmlWebViewSource)SourceCodeView.Source).Html,
+            };
+#endif
         }
 
         private async void FileChange_Clicked(object sender, EventArgs e)

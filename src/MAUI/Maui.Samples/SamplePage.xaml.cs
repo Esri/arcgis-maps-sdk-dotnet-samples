@@ -131,9 +131,9 @@ namespace ArcGISRuntimeMaui
             var fileNames = _assembly.GetManifestResourceNames().Where(name => name.Contains(sampleInfo.FormalName));
 
             // Add every .cs and .xaml file in the directory of the sample.
-            foreach (string filepath in fileNames.Where(candidate => candidate.EndsWith(".cs") || candidate.EndsWith(".xaml")))
+            foreach (string filepath in fileNames.Where(file => file.EndsWith(".cs") || file.EndsWith(".xaml")).OrderByDescending(x => x))
             {
-                SourceFiles.Insert(0, new SourceCodeFile(filepath, sampleInfo.PathStub));
+                SourceFiles.Add(new SourceCodeFile(filepath, sampleInfo.PathStub));
             }
 
             // Add additional class files from the sample.
@@ -146,6 +146,8 @@ namespace ArcGISRuntimeMaui
                     {
                         var embeddedResourcePath = additionalPath.Replace('\\', '.');
                         var mobileName = _assembly.GetManifestResourceNames().Single(name => name.Contains(embeddedResourcePath));
+
+                        // Add class files to the front of the list, they are usually critical to the sample.
                         SourceFiles.Insert(0, new SourceCodeFile(mobileName, sampleInfo.PathStub));
                     }
                 }

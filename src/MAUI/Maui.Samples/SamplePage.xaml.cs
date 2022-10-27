@@ -58,6 +58,9 @@ namespace ArcGISRuntimeMaui
                     Html = htmlString
                 };
                 DescriptionView.Navigating += Webview_Navigating;
+#if IOS
+                DescriptionView.Eval("window.scrollTo(0, 0);");
+#endif
             }
             catch (Exception ex)
             {
@@ -73,6 +76,9 @@ namespace ArcGISRuntimeMaui
                     SelectFile(SourceFiles[0].Name);
                 }
                 SourceCodeView.Navigating += Webview_Navigating;
+#if IOS
+                SourceCodeView.Eval("window.scrollTo(0, 0);");
+#endif
             }
             catch (Exception ex)
             {
@@ -211,24 +217,12 @@ namespace ArcGISRuntimeMaui
         {
             SampleDetailPage.IsVisible = true;
             SampleContentPage.IsVisible = SourceCodePage.IsVisible = false;
-#if IOS
-            SourceCodeView.Source = new HtmlWebViewSource()
-            {
-                Html = ((HtmlWebViewSource)SourceCodeView.Source).Html,
-            };
-#endif
         }
 
         private void SourceButton_Clicked(object sender, EventArgs e)
         {
             SourceCodePage.IsVisible = true;
             SampleDetailPage.IsVisible = SampleContentPage.IsVisible = false;
-#if IOS
-            SourceCodeView.Source = new HtmlWebViewSource()
-            {
-                Html = ((HtmlWebViewSource)SourceCodeView.Source).Html,
-            };
-#endif
         }
 
         private async void FileChange_Clicked(object sender, EventArgs e)

@@ -136,7 +136,9 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </None>
     </ItemGroup>
-    <ItemGroup Condition="$(TargetFramework.StartsWith('net6.0-android')) == true">
+
+    <!-- Resource outputs for description and source code viewing -->
+    <ItemGroup>
       <EmbeddedResource Include="Samples\**\*.md" />
       <EmbeddedResource Include="Samples\**\*.jpg" />
       <EmbeddedResource Include="Samples\**\*.cs" />

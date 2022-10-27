@@ -58,9 +58,7 @@ namespace ArcGISRuntimeMaui
                     Html = htmlString
                 };
                 DescriptionView.Navigating += Webview_Navigating;
-#if IOS
-                DescriptionView.Eval("window.scrollTo(0, 0);");
-#endif
+
             }
             catch (Exception ex)
             {
@@ -217,6 +215,15 @@ namespace ArcGISRuntimeMaui
         {
             SampleDetailPage.IsVisible = true;
             SampleContentPage.IsVisible = SourceCodePage.IsVisible = false;
+            DescriptionView.Loaded += DescriptionLoaded;
+        }
+
+        private void DescriptionLoaded(object sender, EventArgs e)
+        {
+            DescriptionView.Loaded -= DescriptionLoaded;
+#if IOS || MACCATALYST
+            DescriptionView.Eval("window.scrollTo(0, 0);");
+#endif
         }
 
         private void SourceButton_Clicked(object sender, EventArgs e)

@@ -58,7 +58,14 @@ namespace ArcGISRuntimeMaui
                     Html = htmlString
                 };
                 DescriptionView.Navigating += Webview_Navigating;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+            }
 
+            try
+            {
                 LoadSourceCode(sampleInfo);
 
                 if (SourceFiles.Any())
@@ -71,42 +78,16 @@ namespace ArcGISRuntimeMaui
             {
                 Debug.WriteLine(ex);
             }
-            Application.Current.RequestedThemeChanged += (s, a) =>
-            {
-                // Respond to the theme change
-                var htmlString = GetDescriptionHtml(sampleInfo);
-                DescriptionView.Source = new HtmlWebViewSource()
-                {
-                    Html = htmlString
-                };
-            };
-        }
 
-        private void LoadSourceCode(SampleInfo sampleInfo)
-        {
-            // Get all files in the samples folder.
-            var fileNames = _assembly.GetManifestResourceNames().Where(name => name.Contains(sampleInfo.FormalName));
-
-            // Add every .cs and .xaml file in the directory of the sample.
-            foreach (string filepath in fileNames.Where(candidate => candidate.EndsWith(".cs") || candidate.EndsWith(".xaml")))
-            {
-                SourceFiles.Insert(0, new SourceCodeFile(filepath, sampleInfo.PathStub));
-            }
-
-            // Add additional class files from the sample.
-            if (sampleInfo.ClassFiles != null)
-            {
-                foreach (string additionalPath in sampleInfo.ClassFiles)
-                {
-                    // Don't add source files already found in the directory.
-                    if (!SourceFiles.Any(f => f.Name == additionalPath))
-                    {
-                        var embeddedResourcePath = additionalPath.Replace('\\', '.');
-                        var mobileName = _assembly.GetManifestResourceNames().Single(name => name.Contains(embeddedResourcePath));
-                        SourceFiles.Insert(0, new SourceCodeFile(mobileName, sampleInfo.PathStub));
-                    }
-                }
-            }
+            //Application.Current.RequestedThemeChanged += (s, a) =>
+            //{
+            //    // Respond to the theme change
+            //    var htmlString = GetDescriptionHtml(sampleInfo);
+            //    DescriptionView.Source = new HtmlWebViewSource()
+            //    {
+            //        Html = htmlString
+            //    };
+            //};
         }
 
         private string GetDescriptionHtml(SampleInfo sampleInfo)
@@ -142,6 +123,33 @@ namespace ArcGISRuntimeMaui
             // Replace paths for image.
             readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
             return $"<!doctype html><head><style>{cssContent} {"body {padding: 10; }"}</style></head><body class=\"markdown-body\">{readmeContent}</body>";
+        }
+
+        private void LoadSourceCode(SampleInfo sampleInfo)
+        {
+            // Get all files in the samples folder.
+            var fileNames = _assembly.GetManifestResourceNames().Where(name => name.Contains(sampleInfo.FormalName));
+
+            // Add every .cs and .xaml file in the directory of the sample.
+            foreach (string filepath in fileNames.Where(candidate => candidate.EndsWith(".cs") || candidate.EndsWith(".xaml")))
+            {
+                SourceFiles.Insert(0, new SourceCodeFile(filepath, sampleInfo.PathStub));
+            }
+
+            // Add additional class files from the sample.
+            if (sampleInfo.ClassFiles != null)
+            {
+                foreach (string additionalPath in sampleInfo.ClassFiles)
+                {
+                    // Don't add source files already found in the directory.
+                    if (!SourceFiles.Any(f => f.Name == additionalPath))
+                    {
+                        var embeddedResourcePath = additionalPath.Replace('\\', '.');
+                        var mobileName = _assembly.GetManifestResourceNames().Single(name => name.Contains(embeddedResourcePath));
+                        SourceFiles.Insert(0, new SourceCodeFile(mobileName, sampleInfo.PathStub));
+                    }
+                }
+            }
         }
 
         private void NavigatedFromEvent(object sender, NavigatedFromEventArgs e)

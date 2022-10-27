@@ -1,4 +1,4 @@
-﻿// Copyright 2019 Esri.
+﻿// Copyright 2022 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -79,16 +79,6 @@ namespace ArcGISRuntimeMaui
             {
                 Debug.WriteLine(ex);
             }
-
-            //Application.Current.RequestedThemeChanged += (s, a) =>
-            //{
-            //    // Respond to the theme change
-            //    var htmlString = GetDescriptionHtml(sampleInfo);
-            //    DescriptionView.Source = new HtmlWebViewSource()
-            //    {
-            //        Html = htmlString
-            //    };
-            //};
         }
 
         private string GetDescriptionHtml(SampleInfo sampleInfo)
@@ -109,6 +99,7 @@ namespace ArcGISRuntimeMaui
             string cssContent = new StreamReader(_assembly.GetManifestResourceStream($"ArcGISRuntimeMaui.SyntaxHighlighting.{markdownCssType}")).ReadToEnd();
 
 #if WINDOWS
+            // Remove the readme header on Windows so it doesn't repeat the title.
             cssContent = $"{cssContent} h1 {{\r\n    display: none;\r\n}}";
 #endif
 
@@ -123,12 +114,6 @@ namespace ArcGISRuntimeMaui
 
             // Replace paths for image.
             readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
-#if IOS
-            // Need to set the viewport on iOS to scale page correctly.
-            string viewportHTML = "<meta name=\"viewport\" content=\"width=" +
-                Application.Current.MainPage.Width +
-                ", shrink-to-fit=YES\">";
-#endif
 
             // Build the html.
             var fullContent =
@@ -137,7 +122,10 @@ namespace ArcGISRuntimeMaui
                 "body {padding: 10; }" +
                 "</style>" +
 #if IOS
-                viewportHTML +
+                // Need to set the viewport on iOS to scale page correctly.
+                "<meta name=\"viewport\" content=\"width=" +
+                Application.Current.MainPage.Width +
+                ", shrink-to-fit=YES\">" +
 #endif
                 "</head><body class=\"markdown-body\">" +
                 readmeContent +
@@ -154,7 +142,7 @@ namespace ArcGISRuntimeMaui
             // Add every .cs and .xaml file in the directory of the sample.
             foreach (string filepath in fileNames.Where(file => file.EndsWith(".cs") || file.EndsWith(".xaml")).OrderByDescending(x => x))
             {
-                SourceFiles.Add(new SourceCodeFile(filepath, sampleInfo.PathStub));
+                SourceFiles.Add(new SourceCodeFile(filepath));
             }
 
             // Add additional class files from the sample.
@@ -166,10 +154,10 @@ namespace ArcGISRuntimeMaui
                     if (!SourceFiles.Any(f => f.Name == additionalPath))
                     {
                         var embeddedResourcePath = additionalPath.Replace('\\', '.');
-                        var mobileName = _assembly.GetManifestResourceNames().Single(name => name.Contains(embeddedResourcePath));
+                        var embeddedName = _assembly.GetManifestResourceNames().Single(name => name.Contains(embeddedResourcePath));
 
                         // Add class files to the front of the list, they are usually critical to the sample.
-                        SourceFiles.Insert(0, new SourceCodeFile(mobileName, sampleInfo.PathStub));
+                        SourceFiles.Insert(0, new SourceCodeFile(embeddedName));
                     }
                 }
             }
@@ -231,6 +219,7 @@ namespace ArcGISRuntimeMaui
                     SelectFile(result);
                 }
             }
+            // No need to handle any cancellation.
             catch
             {
             }
@@ -264,7 +253,6 @@ namespace ArcGISRuntimeMaui
             "</html>";
 
         private string _path;
-        private string _resourcePath;
         private string _fullContent;
 
         public string Path => _path;
@@ -292,10 +280,9 @@ namespace ArcGISRuntimeMaui
             }
         }
 
-        public SourceCodeFile(string sourceFilePath, string resourcePath)
+        public SourceCodeFile(string embeddedResourceFilePath)
         {
-            _path = sourceFilePath;
-            _resourcePath = resourcePath;
+            _path = embeddedResourceFilePath;
         }
 
         private void LoadContent()

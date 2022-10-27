@@ -1,9 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="ArcGISRuntimeMaui.SamplePage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:android="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;assembly=Microsoft.Maui.Controls"
-             xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="SampleButton_Clicked"
                      IconImageSource="{AppThemeBinding Light=maps.png,
@@ -19,11 +17,10 @@
                      Text="Source" />
     </ContentPage.ToolbarItems>
     <Grid>
-        <Border x:Name="SampleContentPage" Padding="0" />
-        <Border x:Name="SampleDetailPage" IsVisible="false">
+        <Border x:Name="SampleDetailPage" >
             <WebView x:Name="DescriptionView" />
         </Border>
-        <Border x:Name="SourceCodePage" IsVisible="false">
+        <Border x:Name="SourceCodePage" >
             <StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Button Margin="5"
@@ -37,5 +34,6 @@
                 <WebView x:Name="SourceCodeView" VerticalOptions="FillAndExpand" />
             </StackLayout>
         </Border>
+        <Border x:Name="SampleContentPage" Padding="0" />
     </Grid>
 </ContentPage>

@@ -185,9 +185,9 @@
       </MauiAsset>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="Esri.ArcGISRuntime" Version="200.0.0-beta" />
-        <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0-beta" />
-        <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="200.0.0-beta" />
+        <PackageReference Include="Esri.ArcGISRuntime" Version="200.0.0-daily3675" />
+        <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0-daily3675" />
+        <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="200.0.0-daily3675" />
         <PackageReference Include="Markdig" Version="0.30.3" />
         <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
     </ItemGroup>

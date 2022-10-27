@@ -30,5 +30,15 @@
 	<string>Assets.xcassets/appicon.appiconset</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location information is used to enable location display on maps and to find points of interest nearby.</string>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>maui-ags-app</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

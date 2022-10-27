@@ -32,13 +32,13 @@ namespace ArcGISRuntimeMaui.Helpers
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
-        public const string AppClientId = @"6wMAmbUEX1rvsOb4";
+        public const string AppClientId = @"NDiGU6O6UiscRDPw";
 
         // - An optional client secret for the app (only needed for the OAuthClientCredentials authorization type).
         private const string ClientSecret = "";
 
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
-        private const string OAuthRedirectUrl = @"maui-samples-app://auth";
+        private const string OAuthRedirectUrl = @"maui-ags-app://auth";
 
         public static async Task<bool> EnsureAGOLCredentialAsync()
         {
@@ -168,7 +168,7 @@ namespace ArcGISRuntimeMaui.Helpers
     [Activity(NoHistory = true, Exported = true, LaunchMode = LaunchMode.SingleTop)]
     [IntentFilter(new[] { Intent.ActionView },
        Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
-       DataScheme = "maui-samples-app", DataHost = "auth")]
+       DataScheme = "NDiGU6O6UiscRDPw", DataHost = "auth")]
     public class WebAuthenticationCallbackActivity : WebAuthenticatorCallbackActivity
     {
     }

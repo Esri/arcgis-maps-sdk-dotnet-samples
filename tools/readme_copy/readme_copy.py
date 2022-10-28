@@ -23,6 +23,8 @@ def get_platform_samples_root(platform, sample_root):
         return os.path.join(sample_root, "Forms", "Shared", "Samples")
     if (platform == "WinUI"):
         return os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer", "Samples")
+    if (platform == "MAUI"):
+        return os.path.join(sample_root, "MAUI", "Maui.Samples", "Samples")
     raise AssertionError(None, None)
 def replace_readmes(category, formal_name, sample_root):
     wpfcontent = None
@@ -39,7 +41,7 @@ def replace_readmes(category, formal_name, sample_root):
         return
 
     # Loop through the other platforms.
-    plats = ["Forms", "WinUI"] # "Android", "iOS", "UWP"
+    plats = ["MAUI", "WinUI"] # "Forms", "Android", "iOS", "UWP"
     for platform in plats:
         # Skip local server for non WinUI platforms.
         if not platform == "WinUI" and category == "LocalServer":

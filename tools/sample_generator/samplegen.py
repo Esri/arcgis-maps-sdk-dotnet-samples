@@ -6,7 +6,7 @@ import sys
 
 # Platforms
 # iOS, Android, UWP can be added when needed
-Platforms = ["WPF", "Forms", "WinUI"]
+Platforms = ["WPF", "MAUI", "WinUI"]
 
 def get_platform_root(platform, sample_root):
     '''
@@ -24,6 +24,8 @@ def get_platform_root(platform, sample_root):
         return os.path.join(sample_root, "iOS", "Xamarin.iOS")
     if (platform == "WinUI"):
         return os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer")
+    if (platform == "MAUI"):
+        return os.path.join(sample_root, "MAUI", "Maui.Samples")
     return ""
 
 def get_proj_file(platform, sample_root):
@@ -43,6 +45,8 @@ def get_proj_file(platform, sample_root):
         return os.path.join(basepath, "Forms.projitems")
     if (platform == "WinUI"):
         return os.path.join(basepath, "ArcGISRuntime.WinUI.Viewer.csproj")
+    if (platform == "MAUI"):
+        return os.path.join(basepath, "ArcGISRuntime.Samples.Maui.csproj")
     return ""
 
 def get_csproj_style_path(category_list, sample_name, file_name):
@@ -63,7 +67,7 @@ def build_csproj_line(category_list, sample_name, platform, entry_type):
     filename = ""
     if (entry_type == "screenshot"):
         filename = sample_name + ".jpg"
-    elif (entry_type == "code" and platform in ["Forms", "UWP", "WPF"]):
+    elif (entry_type == "code" and platform in ["MAUI", "UWP", "WPF"]):
         filename = sample_name + ".xaml.cs"
     elif (entry_type == "code"):
         filename = sample_name + ".cs"

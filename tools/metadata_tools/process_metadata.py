@@ -216,7 +216,7 @@ def main():
     else:
         sample_root = sys.argv[1]
 
-    for platform in ["UWP", "WPF", "Android", "Forms", "iOS", "FormsAR", "WinUI", "MAUI"]:
+    for platform in ["WPF", "WinUI", "MAUI"]: # "Android", "Forms", "iOS", "FormsAR", "UWP", 
         # make a list of samples, so that build_all_csproj.bat can be produced
         list_of_sample_dirs = []
         list_of_samples = {}

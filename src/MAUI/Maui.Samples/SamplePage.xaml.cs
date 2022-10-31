@@ -119,7 +119,7 @@ namespace ArcGISRuntimeMaui
             var fullContent =
                 "<!doctype html><head><style>" +
                 cssContent +
-                "body {padding: 10; }" +
+                "body {padding: 10px; }" +
                 "</style>" +
 #if IOS
                 // Need to set the viewport on iOS to scale page correctly.

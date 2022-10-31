@@ -125,42 +125,36 @@ namespace ArcGISRuntimeMaui.Helpers
     #region IOAuthAuthorizationHandler implementation
 
 #if ANDROID || IOS
-
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
-        // Use a TaskCompletionSource to track the completion of the authorization.
-        private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
-
-        // IOAuthAuthorizeHandler.AuthorizeAsync implementation.
-        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
-        {
-            try
-            {
-                _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
-
 #if IOS
-                Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () =>
-                {
-#endif
+		TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
+		
+        public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        {
+            _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
+            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () =>
+            {
                 try
                 {
                     var result = await WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
-                    _taskCompletionSource.SetResult(result.Properties);
+                    _taskCompletionSource.TrySetResult(result.Properties);
                 }
                 catch (Exception ex)
                 {
                     _taskCompletionSource.TrySetException(ex);
                 }
-#if IOS
-                });
-#endif
-                return await _taskCompletionSource.Task;
-            }
-            catch (Exception) { }
-            return null;
+            });
+            return _taskCompletionSource.Task;
+		}
+#else
+        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        {
+            var result = await WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
+            return result.Properties;
         }
+#endif
     }
-
 #endif
 
 #if ANDROID

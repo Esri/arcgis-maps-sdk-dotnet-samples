@@ -162,7 +162,7 @@ namespace ArcGISRuntimeMaui.Helpers
     [Activity(NoHistory = true, Exported = true, LaunchMode = LaunchMode.SingleTop)]
     [IntentFilter(new[] { Intent.ActionView },
        Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
-       DataScheme = "NDiGU6O6UiscRDPw", DataHost = "auth")]
+       DataScheme = "maui-ags-app", DataHost = "auth")]
     public class WebAuthenticationCallbackActivity : WebAuthenticatorCallbackActivity
     {
     }

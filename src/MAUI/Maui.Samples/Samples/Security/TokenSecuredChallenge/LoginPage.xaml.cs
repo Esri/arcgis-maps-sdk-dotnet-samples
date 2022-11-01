@@ -29,7 +29,7 @@
             string password = PasswordEntry.Text;
 
             // Make sure the user entered all values.
-            if (String.IsNullOrEmpty(username) || String.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
                 Application.Current.MainPage.DisplayAlert("Login", "Please enter a username and password", "OK");
                 return;

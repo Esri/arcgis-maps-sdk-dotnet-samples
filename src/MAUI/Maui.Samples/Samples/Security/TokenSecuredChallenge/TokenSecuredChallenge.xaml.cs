@@ -95,15 +95,11 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             _loginTaskCompletionSrc = new TaskCompletionSource<Credential>(info);
 
             // Provide a title for the login form (show which service needs credentials).
-#if WINDOWS_UWP
-            // UWP doesn't have ServiceUri.GetLeftPart (could use ServiceUri.AbsoluteUri for all, but why not use a compilation condition?)
-            _loginPage.TitleText = "Login for " + info.ServiceUri.AbsoluteUri;
-#else
             _loginPage.TitleText = "Login for " + info.ServiceUri.GetLeftPart(UriPartial.Path);
-#endif
+
             // Show the login controls on the UI thread.
             // OnLoginInfoEntered event will return the values entered (username and password).
-            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () => await Navigation.PushAsync(_loginPage));
+            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () => await Application.Current.MainPage.Navigation.PushAsync(_loginPage));
 
             // Return the login task, the result will be ready when completed (user provides login info and clicks the "Login" button)
             return await _loginTaskCompletionSrc.Task;
@@ -131,7 +127,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
                                             (requestInfo.ServiceUri,
                                              e.Username,
                                              e.Password,
-                                             requestInfo.GenerateTokenOptions);
+                                             null);
 
                 // Set the task completion source result with the ArcGIS network credential.
                 // AuthenticationManager is waiting for this result and will add it to its Credentials collection.
@@ -145,14 +141,14 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             finally
             {
                 // Dismiss the login controls.
-                await Navigation.PopAsync();
+                await Application.Current.MainPage.Navigation.PopAsync();
             }
         }
 
         private void LoginCanceled(object sender, EventArgs e)
         {
             // Dismiss the login controls.
-            Navigation.PopAsync();
+            Application.Current.MainPage.Navigation.PopAsync();
 
             // Cancel the task completion source task.
             _loginTaskCompletionSrc.TrySetCanceled();

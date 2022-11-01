@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Security;
 using Microsoft.Maui.ApplicationModel;
 
-#if ANDROID || IOS
+#if ANDROID || IOS || MACCATALYST
 
 using System.Collections.Generic;
 
@@ -99,7 +99,7 @@ namespace ArcGISRuntimeMaui.Helpers
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(PromptCredentialAsync);
 
             // Set the OAuthAuthorizeHandler component (this class) for Android or iOS platforms.
-#if ANDROID || IOS
+#if ANDROID || IOS || MACCATALYST
             AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize();
 #endif
         }
@@ -124,10 +124,10 @@ namespace ArcGISRuntimeMaui.Helpers
 
     #region IOAuthAuthorizationHandler implementation
 
-#if ANDROID || IOS
+#if ANDROID || IOS || MACCATALYST
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
-#if IOS
+#if IOS || MACCATALYST
 		TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 		
         public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)

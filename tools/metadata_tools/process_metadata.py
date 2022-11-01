@@ -175,7 +175,7 @@ def main():
             d.sort()
             for sample_dir in d:
 
-                if 'resources' in sample_dir:
+                if sample_dir == 'resources':
                     continue
 
                 # skip category directories

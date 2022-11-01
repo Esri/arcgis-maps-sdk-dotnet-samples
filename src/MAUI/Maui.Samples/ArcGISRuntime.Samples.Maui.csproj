@@ -191,5 +191,10 @@
         <PackageReference Include="Markdig" Version="0.30.3" />
         <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
     </ItemGroup>
+    <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows10.0.19041.0'">
+      <PackageReference Include="WinUIEx">
+        <Version>1.8.0</Version>
+      </PackageReference>
+    </ItemGroup>
     <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
 </Project>

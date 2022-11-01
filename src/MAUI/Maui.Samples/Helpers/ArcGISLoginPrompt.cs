@@ -99,9 +99,7 @@ namespace ArcGISRuntimeMaui.Helpers
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(PromptCredentialAsync);
 
             // Set the OAuthAuthorizeHandler component (this class) for Android or iOS platforms.
-#if ANDROID || IOS || MACCATALYST
             AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize();
-#endif
         }
 
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted.
@@ -124,7 +122,6 @@ namespace ArcGISRuntimeMaui.Helpers
 
     #region IOAuthAuthorizationHandler implementation
 
-#if ANDROID || IOS || MACCATALYST
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
 #if IOS || MACCATALYST
@@ -147,15 +144,25 @@ namespace ArcGISRuntimeMaui.Helpers
             });
             return _taskCompletionSource.Task;
 		}
-#else
+#elif ANDROID
         public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
             var result = await WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
             return result.Properties;
         }
+#elif WINDOWS
+        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        {
+            var result = await WinUIEx.WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
+            return result.Properties;
+        }
+#else
+        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        {
+            throw new NotImplementedException();
+        }
 #endif
     }
-#endif
 
 #if ANDROID
 

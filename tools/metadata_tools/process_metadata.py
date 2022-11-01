@@ -174,9 +174,14 @@ def main():
             
             d.sort()
             for sample_dir in d:
+
+                if 'resources' in sample_dir:
+                    continue
+
                 # skip category directories
                 sample = sample_metadata()
                 path_to_readme = os.path.join(r, sample_dir, "readme.md")
+
                 if not os.path.exists(path_to_readme):
                     print(f"skipping path; does not exist: {path_to_readme}")
                     continue

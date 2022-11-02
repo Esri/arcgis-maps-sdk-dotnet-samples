@@ -9,22 +9,15 @@
             <local:LoadStatusToColorConverter x:Key="StatusToColor" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+    <Grid RowDefinitions="auto,auto,*" RowSpacing="5">
         <StackLayout x:Name="PublicLayerStatusPanel"
                      Grid.Row="0"
-                     Margin="10,3"
                      Orientation="Horizontal">
             <Label Margin="5,0" Text="{Binding Name}" />
             <Label Text="{Binding LoadStatus}" TextColor="{Binding LoadStatus, Converter={StaticResource StatusToColor}}" />
         </StackLayout>
         <StackLayout x:Name="SecureLayerStatusPanel"
                      Grid.Row="1"
-                     Margin="10,3"
                      Orientation="Horizontal">
             <Label Margin="5,0" Text="{Binding Name}" />
             <Label Text="{Binding LoadStatus}" TextColor="{Binding LoadStatus, Converter={StaticResource StatusToColor}}" />

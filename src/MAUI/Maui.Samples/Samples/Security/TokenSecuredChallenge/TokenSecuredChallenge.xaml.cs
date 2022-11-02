@@ -140,11 +140,10 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             finally
             {
                 // Dismiss the login controls.
-                if(Application.Current.MainPage.Navigation.NavigationStack.OfType<LoginPage>().Any())
+                if (Application.Current.MainPage.Navigation.NavigationStack.OfType<LoginPage>().Any())
                 {
                     await Application.Current.MainPage.Navigation.PopAsync();
                 }
-                
             }
         }
 

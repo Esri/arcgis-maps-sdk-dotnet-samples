@@ -9,17 +9,21 @@
             <local:LoadStatusToColorConverter x:Key="StatusToColor" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="auto,auto,*" RowSpacing="5">
+    <Grid RowDefinitions="auto,auto,*">
         <StackLayout x:Name="PublicLayerStatusPanel"
                      Grid.Row="0"
-                     Orientation="Horizontal">
-            <Label Margin="5,0" Text="{Binding Name}" />
+                     Margin="5"
+                     Orientation="Horizontal"
+                     Spacing="5">
+            <Label Text="{Binding Name}" />
             <Label Text="{Binding LoadStatus}" TextColor="{Binding LoadStatus, Converter={StaticResource StatusToColor}}" />
         </StackLayout>
         <StackLayout x:Name="SecureLayerStatusPanel"
                      Grid.Row="1"
-                     Orientation="Horizontal">
-            <Label Margin="5,0" Text="{Binding Name}" />
+                     Margin="5"
+                     Orientation="Horizontal"
+                     Spacing="5">
+            <Label Text="{Binding Name}" />
             <Label Text="{Binding LoadStatus}" TextColor="{Binding LoadStatus, Converter={StaticResource StatusToColor}}" />
         </StackLayout>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="2" />

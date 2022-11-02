@@ -95,7 +95,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             _loginTaskCompletionSrc = new TaskCompletionSource<Credential>(info);
 
             // Provide a title for the login form (show which service needs credentials).
-            _loginPage.TitleText = "Login for " + info.ServiceUri.GetLeftPart(UriPartial.Path);
+            _loginPage.TitleText = "Login for " + info.ServiceUri.GetLeftPart(UriPartial.Authority);
 
             // Show the login controls on the UI thread.
             // OnLoginInfoEntered event will return the values entered (username and password).

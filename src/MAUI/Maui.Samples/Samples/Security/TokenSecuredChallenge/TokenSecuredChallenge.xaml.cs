@@ -10,7 +10,6 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
 using System.Globalization;
-using Color = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.TokenSecuredChallenge
 {
@@ -164,31 +163,23 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            // Default to gray as the text color.
-            Color statusColor = Color.Gray;
-
             // Check the provided load status value.
             switch ((int)value)
             {
                 // Green for loaded, red for not loaded (or failure to load), gray if still loading.
                 case (int)Esri.ArcGISRuntime.LoadStatus.Loaded:
-                    statusColor = Color.Green;
-                    break;
+                    return Colors.Green;
 
                 case (int)Esri.ArcGISRuntime.LoadStatus.Loading:
-                    statusColor = Color.Gray;
-                    break;
+                    return Colors.Gray;
 
                 case (int)Esri.ArcGISRuntime.LoadStatus.FailedToLoad:
-                    statusColor = Color.Red;
-                    break;
+                    return Colors.Red;
 
                 case (int)Esri.ArcGISRuntime.LoadStatus.NotLoaded:
-                    statusColor = Color.Red;
-                    break;
+                    return Colors.Red;
             }
-
-            return statusColor;
+            throw new NotImplementedException();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

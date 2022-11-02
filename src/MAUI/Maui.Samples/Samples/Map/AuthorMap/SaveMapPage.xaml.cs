@@ -40,7 +40,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 string[] tags = MapTagsEntry.Text.Split(',');
 
                 // Make sure all required info was entered
-                if (String.IsNullOrEmpty(title) || String.IsNullOrEmpty(description) || tags.Length == 0)
+                if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(description) || tags.Length == 0)
                 {
                     throw new Exception("Please enter a title, description, and some tags to describe the map.");
                 }
@@ -52,7 +52,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
                 OnSaveClicked?.Invoke(this, mapSavedArgs);
 
                 // Close the dialog
-                Navigation.PopAsync();
+                Application.Current.MainPage.Navigation.PopAsync();
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         private void CancelButtonClicked(object sender, EventArgs e)
         {
             // If the user cancels, just navigate back to the previous page
-            Navigation.PopAsync();
+            Application.Current.MainPage.Navigation.PopAsync();
         }
     }
 

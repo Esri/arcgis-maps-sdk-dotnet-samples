@@ -43,6 +43,9 @@
 
                 // Raise the event.
                 OnLoginInfoEntered(sender, loginEventArgs);
+
+                // Disable button to prevent repeat logins.
+                LoginButton.IsEnabled = false;
             }
         }
 

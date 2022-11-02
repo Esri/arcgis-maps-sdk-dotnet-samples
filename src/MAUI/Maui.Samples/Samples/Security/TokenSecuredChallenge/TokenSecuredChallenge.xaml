@@ -9,7 +9,7 @@
             <local:LoadStatusToColorConverter x:Key="StatusToColor" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="auto,auto,*">
+    <Grid BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}" RowDefinitions="auto,auto,*">
         <StackLayout x:Name="PublicLayerStatusPanel"
                      Grid.Row="0"
                      Margin="5"

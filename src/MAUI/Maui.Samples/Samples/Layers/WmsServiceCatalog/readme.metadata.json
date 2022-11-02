@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/wmsservicecatalog.htm"
+        "/net/latest/maui/sample-code/wmsservicecatalog.htm"
     ],
     "relevant_apis": [
         "WmsLayer(List<WmsLayerInfo>)",

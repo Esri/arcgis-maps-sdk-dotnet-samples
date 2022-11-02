@@ -19,7 +19,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/showlabelsonlayer.htm"
+        "/net/latest/maui/sample-code/showlabelsonlayer.htm"
     ],
     "relevant_apis": [
         "ArcadeLabelExpression",

@@ -17,10 +17,10 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/displayfeaturelayers.htm",
-        "/net/forms/sample-code/featurelayergeopackage.htm",
-        "/net/forms/sample-code/featurelayergeodatabase.htm",
-        "/net/forms/sample-code/featurelayershapefile.htm"
+        "/net/latest/maui/sample-code/displayfeaturelayers.htm",
+        "/net/maui/sample-code/featurelayergeopackage.htm",
+        "/net/maui/sample-code/featurelayergeodatabase.htm",
+        "/net/maui/sample-code/featurelayershapefile.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

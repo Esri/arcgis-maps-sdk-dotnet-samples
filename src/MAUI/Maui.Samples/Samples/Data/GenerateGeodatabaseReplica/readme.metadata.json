@@ -15,8 +15,8 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/generategeodatabasereplica.htm",
-        "/net/forms/sample-code/generategeodatabase.htm"
+        "/net/latest/maui/sample-code/generategeodatabasereplica.htm",
+        "/net/maui/sample-code/generategeodatabase.htm"
     ],
     "relevant_apis": [
         "GenerateGeodatabaseReplicaJob",

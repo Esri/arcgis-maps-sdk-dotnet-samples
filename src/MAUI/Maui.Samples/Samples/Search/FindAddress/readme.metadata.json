@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/findaddress.htm"
+        "/net/latest/maui/sample-code/findaddress.htm"
     ],
     "relevant_apis": [
         "GeocodeParameters",

@@ -21,7 +21,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/querycqlfilters.htm"
+        "/net/latest/maui/sample-code/querycqlfilters.htm"
     ],
     "relevant_apis": [
         "OgcFeatureCollectionTable",

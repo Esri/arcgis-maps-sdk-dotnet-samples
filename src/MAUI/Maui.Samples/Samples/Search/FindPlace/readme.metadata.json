@@ -19,7 +19,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/findplace.htm"
+        "/net/latest/maui/sample-code/findplace.htm"
     ],
     "relevant_apis": [
         "GeocodeParameters",

@@ -19,7 +19,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/findroute.htm"
+        "/net/latest/maui/sample-code/findroute.htm"
     ],
     "relevant_apis": [
         "DirectionManeuver",

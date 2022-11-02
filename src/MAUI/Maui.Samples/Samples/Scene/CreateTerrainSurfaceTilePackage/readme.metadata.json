@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/createterrainsurfacetilepackage.htm"
+        "/net/latest/maui/sample-code/createterrainsurfacetilepackage.htm"
     ],
     "relevant_apis": [
         "ArcGISTiledElevationSource",

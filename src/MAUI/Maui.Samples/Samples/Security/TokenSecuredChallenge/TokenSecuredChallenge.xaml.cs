@@ -127,7 +127,7 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
                                             (requestInfo.ServiceUri,
                                              e.Username,
                                              e.Password,
-                                             null);
+                                             requestInfo.GenerateTokenOptions);
 
                 // Set the task completion source result with the ArcGIS network credential.
                 // AuthenticationManager is waiting for this result and will add it to its Credentials collection.

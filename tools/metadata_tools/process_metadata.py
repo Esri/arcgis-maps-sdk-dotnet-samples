@@ -175,6 +175,8 @@ def main():
             d.sort()
             for sample_dir in d:
 
+                # the SketchOnMap contains a resources folder which is unintentionally included in the list of sample directories as a resut of the os.walk
+                # we ignore the resources folder here to prevent an error being thrown in the output.
                 if sample_dir == 'resources':
                     continue
 
@@ -205,6 +207,10 @@ def main():
                     list_of_samples[sample.category].append(sample)
                 else:
                     list_of_samples[sample.category] = [sample]
+                
+        # write out samples TOC
+        write_samples_toc(get_platform_samples_root(platform, sample_root), get_relative_path_to_samples_from_platform_root(platform), list_of_samples)
+    
     return
 
 if __name__ == "__main__":

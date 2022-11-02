@@ -1,29 +1,21 @@
-import fileinput
 import shutil
 from datetime import datetime
 import os
 import sys
 
 # Platforms
-# iOS, Android, UWP can be added when needed
-Platforms = ["WPF", "Forms", "WinUI"]
+Platforms = ["WPF", "MAUI", "WinUI"]
 
 def get_platform_root(platform, sample_root):
     '''
     Gets the root directory for each platform
     '''
-    if (platform == "UWP"):
-        return os.path.join(sample_root, "UWP", "ArcGISRuntime.UWP.Viewer")
     if (platform == "WPF"):
         return os.path.join(sample_root, "WPF", "ArcGISRuntime.WPF.Viewer")
-    if (platform == "Android"):
-        return os.path.join(sample_root, "Android", "Xamarin.Android")
-    if (platform == "Forms"):
-        return os.path.join(sample_root, "Forms", "Shared")
-    if (platform == "iOS"):
-        return os.path.join(sample_root, "iOS", "Xamarin.iOS")
     if (platform == "WinUI"):
         return os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer")
+    if (platform == "MAUI"):
+        return os.path.join(sample_root, "MAUI", "Maui.Samples")
     return ""
 
 def get_proj_file(platform, sample_root):
@@ -31,18 +23,12 @@ def get_proj_file(platform, sample_root):
     Gets the full path to the csproj/vbproj/projitems file for the specified platform
     '''
     basepath = get_platform_root(platform, sample_root)
-    if (platform == "UWP"):
-        return os.path.join(basepath, "ArcGISRuntime.UWP.Viewer.csproj")
     if (platform == "WPF"):
         return os.path.join(basepath, "ArcGISRuntime.WPF.Viewer.NetFramework.csproj")
-    if (platform == "Android"):
-        return os.path.join(basepath, "ArcGISRuntime.Xamarin.Samples.Android.csproj")
-    if (platform == "iOS"):
-        return os.path.join(basepath, "ArcGISRuntime.Xamarin.Samples.iOS.csproj")
-    if (platform == "Forms"):
-        return os.path.join(basepath, "Forms.projitems")
     if (platform == "WinUI"):
         return os.path.join(basepath, "ArcGISRuntime.WinUI.Viewer.csproj")
+    if (platform == "MAUI"):
+        return os.path.join(basepath, "ArcGISRuntime.Samples.Maui.csproj")
     return ""
 
 def get_csproj_style_path(category_list, sample_name, file_name):
@@ -63,7 +49,7 @@ def build_csproj_line(category_list, sample_name, platform, entry_type):
     filename = ""
     if (entry_type == "screenshot"):
         filename = sample_name + ".jpg"
-    elif (entry_type == "code" and platform in ["Forms", "UWP", "WPF"]):
+    elif (entry_type == "code" and platform in ["MAUI", "WPF"]):
         filename = sample_name + ".xaml.cs"
     elif (entry_type == "code"):
         filename = sample_name + ".cs"
@@ -76,17 +62,7 @@ def build_csproj_line(category_list, sample_name, platform, entry_type):
     # Next, build the start and end tags
     start_tag = ""
     end_tag = ""
-    if (platform == "UWP"):
-        if (entry_type in ["screenshot"]):
-            start_tag = '<Content Include="'
-            end_tag = '" />'
-        elif (entry_type == "xaml"):
-            start_tag = '<Page Include="'
-            end_tag = '">\n      <Generator>MSBuild:Compile</Generator>\n      <SubType>Designer</SubType>\n    </Page>'
-        elif (entry_type == "code"):
-            start_tag = '<Compile Include="'
-            end_tag = '">\n      <DependentUpon>' + sample_name + '.xaml' + '</DependentUpon>\n    </Compile>'
-    elif (platform == "WPF"):
+    if (platform == "WPF"):
         if (entry_type in ["screenshot"]):
             start_tag = '<Content Include="'
             end_tag = '">\n      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>\n    </Content>'
@@ -96,23 +72,6 @@ def build_csproj_line(category_list, sample_name, platform, entry_type):
         elif (entry_type == "code"):
             start_tag = '<Compile Include="'
             end_tag = '">\n      <DependentUpon>' + sample_name + '.xaml' + '</DependentUpon>\n    </Compile>'
-    elif (platform in ["iOS", "Android"]):
-        if (entry_type == "screenshot"):
-            start_tag = '<None Include="'
-            end_tag = '" />'
-        elif (entry_type == "code"):
-            start_tag = '<Compile Include="'
-            end_tag = '" />'
-    elif (platform == "Forms"):
-        if (entry_type == "screenshot"):
-            start_tag = '<None Include="$(MSBuildThisFileDirectory)'
-            end_tag = '" />'
-        elif (entry_type == "code"):
-            start_tag = '<Compile Include="$(MSBuildThisFileDirectory)'
-            end_tag = '">\n      <DependentUpon>' + sample_name + '.xaml</DependentUpon>\n      <SubType>Code</SubType>\n    </Compile>'
-        elif (entry_type == 'xaml'):
-            start_tag = '<EmbeddedResource Include="$(MSBuildThisFileDirectory)'
-            end_tag = '">\n      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>\n    </EmbeddedResource>'
     # Return the full string
     return start_tag + filepath + end_tag
 
@@ -161,17 +120,12 @@ def orchestrate_file_copy(platforms, root, category_list, sample_name, replaceme
         source = ""
         dest = ""
         # copy the code files
-        if (platform in ["Android", "iOS"]):
-            source = os.path.join(template_root, platform + '.cs')
-            dest = os.path.join(dest_root, sample_name + '.cs')
-            perform_copy_rewrite(source, dest, replacements)
-        else:
-            source = os.path.join(template_root, platform + '.xaml.cs')
-            dest = os.path.join(dest_root, sample_name + '.xaml.cs')
-            perform_copy_rewrite(source, dest, replacements)
-            source = os.path.join(template_root, platform + '.xaml')
-            dest = os.path.join(dest_root, sample_name + '.xaml')
-            perform_copy_rewrite(source, dest, replacements)
+        source = os.path.join(template_root, platform + '.xaml.cs')
+        dest = os.path.join(dest_root, sample_name + '.xaml.cs')
+        perform_copy_rewrite(source, dest, replacements)
+        source = os.path.join(template_root, platform + '.xaml')
+        dest = os.path.join(dest_root, sample_name + '.xaml')
+        perform_copy_rewrite(source, dest, replacements)
         # copy the image
         source = os.path.join(template_root, "sample_name.jpg")
         dest = os.path.join(dest_root, sample_name + '.jpg')

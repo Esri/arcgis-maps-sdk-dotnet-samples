@@ -160,11 +160,6 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
     }
 
     // Value converter class to return a color for the current load status
-    // Note: to make this class accessible as a static resource in the shared form (TokenChallengePage.xaml)
-    //       the assembly name for each platform had to be changed to the same value ("TokenChallengeArcGISRuntimeMaui")
-    //       in order to provide a consistent XML namespace value. Another option would be to place such code in
-    //       a PCL project rather than a shared project (the shared project would still be needed for the ArcGIS
-    //       Runtime code).
     public class LoadStatusToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

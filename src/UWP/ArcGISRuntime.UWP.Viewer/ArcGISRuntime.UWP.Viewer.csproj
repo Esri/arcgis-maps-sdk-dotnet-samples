@@ -127,7 +127,6 @@
     <Content Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.jpg" />
     <Content Include="Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.jpg" />
     <Content Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.jpg" />
-    <Content Include="Samples\Layers\ShowPopup\ShowPopup.jpg" />
     <Content Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg" />
     <Content Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.jpg" />
     <Content Include="Samples\UtilityNetwork\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg" />
@@ -412,9 +411,6 @@
     </Compile>
     <Compile Include="ApiKeyPrompt.xaml.cs">
       <DependentUpon>ApiKeyPrompt.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Samples\Layers\ShowPopup\ShowPopup.xaml.cs">
-      <DependentUpon>ShowPopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml.cs">
       <DependentUpon>AnimateImageOverlay.xaml</DependentUpon>
@@ -1033,10 +1029,6 @@
     <Page Include="ApiKeyPrompt.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Samples\Layers\ShowPopup\ShowPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml">
       <Generator>MSBuild:Compile</Generator>

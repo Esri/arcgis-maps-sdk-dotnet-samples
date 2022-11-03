@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/geodesicoperations.htm"
+        "/net/latest/maui/sample-code/geodesicoperations.htm"
     ],
     "relevant_apis": [
         "GeometryEngine.DensifyGeodetic",

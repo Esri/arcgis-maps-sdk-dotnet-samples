@@ -13,7 +13,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/getelevationatpoint.htm"
+        "/net/latest/maui/sample-code/getelevationatpoint.htm"
     ],
     "relevant_apis": [
         "ArcGISTiledElevationSource",

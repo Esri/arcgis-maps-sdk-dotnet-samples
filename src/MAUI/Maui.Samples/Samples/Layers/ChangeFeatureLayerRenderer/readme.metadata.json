@@ -13,7 +13,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/changefeaturelayerrenderer.htm"
+        "/net/latest/maui/sample-code/changefeaturelayerrenderer.htm"
     ],
     "relevant_apis": [
         "FeatureLayer.Renderer",

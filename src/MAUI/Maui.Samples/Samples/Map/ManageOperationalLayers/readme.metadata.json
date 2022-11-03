@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/manageoperationallayers.htm"
+        "/net/latest/maui/sample-code/manageoperationallayers.htm"
     ],
     "relevant_apis": [
         "ArcGISMapImageLayer",

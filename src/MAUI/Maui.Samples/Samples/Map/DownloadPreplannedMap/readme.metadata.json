@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/downloadpreplannedmap.htm"
+        "/net/latest/maui/sample-code/downloadpreplannedmap.htm"
     ],
     "relevant_apis": [
         "DownloadPreplannedOfflineMapJob",

@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/updateattributes.htm"
+        "/net/latest/maui/sample-code/updateattributes.htm"
     ],
     "relevant_apis": [
         "ArcGISFeature",

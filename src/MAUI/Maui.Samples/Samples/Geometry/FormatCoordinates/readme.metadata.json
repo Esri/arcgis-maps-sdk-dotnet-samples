@@ -19,7 +19,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/formatcoordinates.htm"
+        "/net/latest/maui/sample-code/formatcoordinates.htm"
     ],
     "relevant_apis": [
         "CoordinateFormatter",

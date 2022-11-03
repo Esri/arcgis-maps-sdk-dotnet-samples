@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/analyzehotspots.htm"
+        "/net/latest/maui/sample-code/analyzehotspots.htm"
     ],
     "relevant_apis": [
         "GeoprocessingJob",

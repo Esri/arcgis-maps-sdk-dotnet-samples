@@ -13,7 +13,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/viewpointclouddataoffline.htm"
+        "/net/latest/maui/sample-code/viewpointclouddataoffline.htm"
     ],
     "relevant_apis": [
         "PointCloudLayer"

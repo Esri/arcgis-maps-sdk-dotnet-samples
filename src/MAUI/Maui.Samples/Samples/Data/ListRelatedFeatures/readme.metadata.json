@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/listrelatedfeatures.htm"
+        "/net/latest/maui/sample-code/listrelatedfeatures.htm"
     ],
     "relevant_apis": [
         "ArcGISFeature",

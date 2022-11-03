@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/changesublayerrenderer.htm"
+        "/net/latest/maui/sample-code/changesublayerrenderer.htm"
     ],
     "relevant_apis": [
         "ArcGISMapImageLayer",

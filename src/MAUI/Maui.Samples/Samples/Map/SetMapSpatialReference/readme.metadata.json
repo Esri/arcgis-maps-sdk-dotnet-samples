@@ -12,7 +12,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/setmapspatialreference.htm"
+        "/net/latest/maui/sample-code/setmapspatialreference.htm"
     ],
     "relevant_apis": [
         "ArcGISMapImageLayer",

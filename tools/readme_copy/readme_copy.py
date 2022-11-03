@@ -11,18 +11,12 @@ def get_platform_samples_root(platform, sample_root):
     '''
     Gets the root directory for each platform
     '''
-    if (platform == "UWP"):
-        return os.path.join(sample_root, "UWP", "ArcGISRuntime.UWP.Viewer", "Samples")
     if (platform == "WPF"):
         return os.path.join(sample_root, "WPF", "ArcGISRuntime.WPF.Viewer", "Samples")
-    if (platform == "Android"):
-        return os.path.join(sample_root, "Android", "Xamarin.Android", "Samples")
-    if (platform == "iOS"):
-        return os.path.join(sample_root, "iOS", "Xamarin.iOS", "Samples")
-    if (platform == "Forms" or platform in ["XFA", "XFI", "XFU"]):
-        return os.path.join(sample_root, "Forms", "Shared", "Samples")
     if (platform == "WinUI"):
         return os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer", "Samples")
+    if (platform == "MAUI"):
+        return os.path.join(sample_root, "MAUI", "Maui.Samples", "Samples")
     raise AssertionError(None, None)
 def replace_readmes(category, formal_name, sample_root):
     wpfcontent = None
@@ -39,7 +33,7 @@ def replace_readmes(category, formal_name, sample_root):
         return
 
     # Loop through the other platforms.
-    plats = ["Forms", "WinUI"] # "Android", "iOS", "UWP"
+    plats = ["MAUI", "WinUI"]
     for platform in plats:
         # Skip local server for non WinUI platforms.
         if not platform == "WinUI" and category == "LocalServer":
@@ -60,7 +54,7 @@ def replace_readmes(category, formal_name, sample_root):
         #platformcontent = platformcontent.replace("oldlink", "newlink")
 
         # Change `click` to `tap` for mobile platforms
-        if  not platform == "UWP" and not platform == "WinUI":
+        if  not platform == "WinUI":
             platformcontent = platformcontent.replace("click ", "tap ")
             platformcontent = platformcontent.replace("Click ", "Tap ")
             platformcontent = platformcontent.replace("clicked ", "tapped ")

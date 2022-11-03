@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/buffer.htm"
+        "/net/latest/maui/sample-code/buffer.htm"
     ],
     "relevant_apis": [
         "GeometryEngine.Buffer",

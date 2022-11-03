@@ -25,7 +25,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/indoorpositioning.htm"
+        "/net/latest/maui/sample-code/indoorpositioning.htm"
     ],
     "relevant_apis": [
         "ArcGISFeatureTable",

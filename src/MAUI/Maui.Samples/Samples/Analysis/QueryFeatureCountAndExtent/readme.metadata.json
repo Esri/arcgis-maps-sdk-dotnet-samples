@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/queryfeaturecountandextent.htm"
+        "/net/latest/maui/sample-code/queryfeaturecountandextent.htm"
     ],
     "relevant_apis": [
         "FeatureTable.QueryExtentAsync",

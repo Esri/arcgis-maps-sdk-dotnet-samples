@@ -21,7 +21,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/generateofflinemapwithoverrides.htm"
+        "/net/latest/maui/sample-code/generateofflinemapwithoverrides.htm"
     ],
     "relevant_apis": [
         "ExportTileCacheParameters",

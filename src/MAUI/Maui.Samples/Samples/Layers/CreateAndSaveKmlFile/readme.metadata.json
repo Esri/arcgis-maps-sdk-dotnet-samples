@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/createandsavekmlfile.htm"
+        "/net/latest/maui/sample-code/createandsavekmlfile.htm"
     ],
     "relevant_apis": [
         "GeometryEngine.Project",

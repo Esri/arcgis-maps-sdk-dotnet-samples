@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/listgeodatabaseversions.htm"
+        "/net/latest/maui/sample-code/listgeodatabaseversions.htm"
     ],
     "relevant_apis": [
         "GeoprocessingFeatures",

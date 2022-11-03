@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/exportvectortiles.htm"
+        "/net/latest/maui/sample-code/exportvectortiles.htm"
     ],
     "relevant_apis": [
         "ArcGISVectorTiledLayer",

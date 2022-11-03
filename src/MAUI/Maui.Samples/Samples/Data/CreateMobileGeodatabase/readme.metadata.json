@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/forms/sample-code/createmobilegeodatabase.htm"
+        "/net/latest/maui/sample-code/createmobilegeodatabase.htm"
     ],
     "relevant_apis": [
         "ArcGISFeature",

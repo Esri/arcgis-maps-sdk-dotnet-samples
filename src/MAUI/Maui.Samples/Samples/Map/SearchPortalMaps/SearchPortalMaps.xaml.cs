@@ -7,16 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntimeMaui.Helpers;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using ArcGISRuntimeMaui.Helpers;
-
-#if ANDROID
-
-using Application = Microsoft.Maui.Controls.Application;
-
-#endif
 
 namespace ArcGISRuntime.Samples.SearchPortalMaps
 {
@@ -36,16 +30,6 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             InitializeComponent();
 
             _ = Initialize();
-
-            // Change the style of the layer list view for WinUI
-            if (DeviceInfo.Platform == DevicePlatform.WinUI)
-            {
-                // Semi-transparent background on Windows with a small margin around the control
-                MapsListView.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
-                MapsListView.Margin = new Thickness(50);
-                SearchMapsUI.BackgroundColor = Color.FromRgba(255, 255, 255, 0.3);
-                SearchMapsUI.Margin = new Thickness(50);
-            }
         }
 
         private async Task Initialize()
@@ -86,18 +70,19 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
                 SearchMapsUI.IsVisible = false;
 
                 // Show the list of web maps
-                MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Xamarin.ArcGISRuntimeMaui UWP ListView bug.
-                MapsListView.IsVisible = true;
+                MapsListView.ItemsSource = mapItems.ToList();
+                MapsListBorder.IsVisible = true;
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
         private void ShowSearchUI(object sender, EventArgs e)
         {
             // Show the map search controls
+            MapsListBorder.IsVisible = false;
             SearchMapsUI.IsVisible = true;
         }
 
@@ -127,11 +112,11 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
                 // Show the list of web maps
                 MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Xamarin.ArcGISRuntimeMaui UWP ListView bug.
-                MapsListView.IsVisible = true;
+                MapsListBorder.IsVisible = true;
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -151,7 +136,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
             MyMapView.Map = webMap;
 
             // Hide the list of maps
-            MapsListView.IsVisible = false;
+            MapsListBorder.IsVisible = false;
         }
 
         private void WebMapLoadStatusChanged(object sender, Esri.ArcGISRuntime.LoadStatusEventArgs e)
@@ -178,6 +163,11 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
         {
             // Search ArcGIS Online maps with the text entered
             _ = SearchPublicMaps(SearchTextEntry.Text);
+        }
+
+        private void ListCloseClicked(object sender, EventArgs e)
+        {
+            MapsListBorder.IsVisible = false;
         }
     }
 }

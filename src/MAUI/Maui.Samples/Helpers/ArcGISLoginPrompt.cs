@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Security;
 using Microsoft.Maui.ApplicationModel;
 
-#if ANDROID || IOS
+#if ANDROID || IOS || MACCATALYST
 
 using System.Collections.Generic;
 
@@ -32,13 +32,13 @@ namespace ArcGISRuntimeMaui.Helpers
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
         // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
-        public const string AppClientId = @"6wMAmbUEX1rvsOb4";
+        public const string AppClientId = @"NDiGU6O6UiscRDPw";
 
         // - An optional client secret for the app (only needed for the OAuthClientCredentials authorization type).
         private const string ClientSecret = "";
 
         // - A URL for redirecting after a successful authorization (this must be a URL configured with the app).
-        private const string OAuthRedirectUrl = @"maui-samples-app://auth";
+        private const string OAuthRedirectUrl = @"maui-ags-app://auth";
 
         public static async Task<bool> EnsureAGOLCredentialAsync()
         {
@@ -99,9 +99,7 @@ namespace ArcGISRuntimeMaui.Helpers
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(PromptCredentialAsync);
 
             // Set the OAuthAuthorizeHandler component (this class) for Android or iOS platforms.
-#if ANDROID || IOS
             AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize();
-#endif
         }
 
         // ChallengeHandler function that will be called whenever access to a secured resource is attempted.
@@ -124,51 +122,54 @@ namespace ArcGISRuntimeMaui.Helpers
 
     #region IOAuthAuthorizationHandler implementation
 
-#if ANDROID || IOS
-
     public class OAuthAuthorize : IOAuthAuthorizeHandler
     {
-        // Use a TaskCompletionSource to track the completion of the authorization.
-        private TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
-
-        // IOAuthAuthorizeHandler.AuthorizeAsync implementation.
-        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+#if IOS || MACCATALYST
+		TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
+		
+        public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
         {
-            try
+            _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
+            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () =>
             {
-                _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
-
-#if IOS
-                Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () =>
-                {
-#endif
                 try
                 {
                     var result = await WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
-                    _taskCompletionSource.SetResult(result.Properties);
+                    _taskCompletionSource.TrySetResult(result.Properties);
                 }
                 catch (Exception ex)
                 {
                     _taskCompletionSource.TrySetException(ex);
                 }
-#if IOS
-                });
-#endif
-                return await _taskCompletionSource.Task;
-            }
-            catch (Exception) { }
-            return null;
+            });
+            return _taskCompletionSource.Task;
+		}
+#elif ANDROID
+        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        {
+            var result = await WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
+            return result.Properties;
         }
-    }
-
+#elif WINDOWS
+        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        {
+            var result = await WinUIEx.WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
+            return result.Properties;
+        }
+#else
+        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        {
+            throw new NotImplementedException();
+        }
 #endif
+    }
 
 #if ANDROID
 
     [Activity(NoHistory = true, Exported = true, LaunchMode = LaunchMode.SingleTop)]
     [IntentFilter(new[] { Intent.ActionView },
        Categories = new[] { Intent.CategoryDefault, Intent.CategoryBrowsable },
-       DataScheme = "maui-samples-app", DataHost = "auth")]
+       DataScheme = "maui-ags-app", DataHost = "auth")]
     public class WebAuthenticationCallbackActivity : WebAuthenticatorCallbackActivity
     {
     }

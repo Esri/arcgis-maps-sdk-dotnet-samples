@@ -10,7 +10,6 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
 using System.Globalization;
-using Color = System.Drawing.Color;
 
 namespace ArcGISRuntime.Samples.TokenSecuredChallenge
 {
@@ -95,15 +94,11 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             _loginTaskCompletionSrc = new TaskCompletionSource<Credential>(info);
 
             // Provide a title for the login form (show which service needs credentials).
-#if WINDOWS_UWP
-            // UWP doesn't have ServiceUri.GetLeftPart (could use ServiceUri.AbsoluteUri for all, but why not use a compilation condition?)
-            _loginPage.TitleText = "Login for " + info.ServiceUri.AbsoluteUri;
-#else
-            _loginPage.TitleText = "Login for " + info.ServiceUri.GetLeftPart(UriPartial.Path);
-#endif
+            _loginPage.TitleText = "Login for " + info.ServiceUri.GetLeftPart(UriPartial.Authority);
+
             // Show the login controls on the UI thread.
             // OnLoginInfoEntered event will return the values entered (username and password).
-            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () => await Navigation.PushAsync(_loginPage));
+            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () => await Application.Current.MainPage.Navigation.PushAsync(_loginPage));
 
             // Return the login task, the result will be ready when completed (user provides login info and clicks the "Login" button)
             return await _loginTaskCompletionSrc.Task;
@@ -145,14 +140,17 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
             finally
             {
                 // Dismiss the login controls.
-                await Navigation.PopAsync();
+                if (Application.Current.MainPage.Navigation.NavigationStack.OfType<LoginPage>().Any())
+                {
+                    await Application.Current.MainPage.Navigation.PopAsync();
+                }
             }
         }
 
         private void LoginCanceled(object sender, EventArgs e)
         {
             // Dismiss the login controls.
-            Navigation.PopAsync();
+            Application.Current.MainPage.Navigation.PopAsync();
 
             // Cancel the task completion source task.
             _loginTaskCompletionSrc.TrySetCanceled();
@@ -160,40 +158,27 @@ namespace ArcGISRuntime.Samples.TokenSecuredChallenge
     }
 
     // Value converter class to return a color for the current load status
-    // Note: to make this class accessible as a static resource in the shared form (TokenChallengePage.xaml)
-    //       the assembly name for each platform had to be changed to the same value ("TokenChallengeArcGISRuntimeMaui")
-    //       in order to provide a consistent XML namespace value. Another option would be to place such code in
-    //       a PCL project rather than a shared project (the shared project would still be needed for the ArcGIS
-    //       Runtime code).
     public class LoadStatusToColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            // Default to gray as the text color.
-            Color statusColor = Color.Gray;
-
             // Check the provided load status value.
             switch ((int)value)
             {
                 // Green for loaded, red for not loaded (or failure to load), gray if still loading.
                 case (int)Esri.ArcGISRuntime.LoadStatus.Loaded:
-                    statusColor = Color.Green;
-                    break;
+                    return Colors.Green;
 
                 case (int)Esri.ArcGISRuntime.LoadStatus.Loading:
-                    statusColor = Color.Gray;
-                    break;
+                    return Colors.Gray;
 
                 case (int)Esri.ArcGISRuntime.LoadStatus.FailedToLoad:
-                    statusColor = Color.Red;
-                    break;
+                    return Colors.Red;
 
                 case (int)Esri.ArcGISRuntime.LoadStatus.NotLoaded:
-                    statusColor = Color.Red;
-                    break;
+                    return Colors.Red;
             }
-
-            return statusColor;
+            throw new NotImplementedException();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -26,7 +26,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
     {
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
-        // String array to store names of the available basemaps
+        // String array to store names of the available basemaps.
         private Dictionary<string, BasemapStyle> _basemaps = new Dictionary<string, BasemapStyle>
         {
             {"Light Gray", BasemapStyle.ArcGISLightGray },
@@ -36,7 +36,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             {"Ocean", BasemapStyle.ArcGISOceans },
         };
 
-        // Dictionary of operational layer names and URLs
+        // Dictionary of operational layer names and URLs.
         private Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
         {
             {"World Elevations", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"},
@@ -78,7 +78,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
             // Handle the save button click event on the page.
             mapInputForm.OnSaveClicked += SaveMapAsync;
 
-            // Navigate to the SaveMapPage UI
+            // Navigate to the SaveMapPage UI.
             Application.Current.MainPage.Navigation.PushAsync(mapInputForm);
         }
 
@@ -153,7 +153,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         private void NewMapButtonClick(object sender, EventArgs e)
         {
-            // Create a new map (will not have an associated PortalItem)
+            // Create a new map (will not have an associated PortalItem).
             MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
             MyMapView.Map.Basemap.LoadAsync();
         }
@@ -185,7 +185,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
                 if (selectionName == "Cancel") return;
 
-                // Otherwise, add the layer
+                // Add the layer.
                 Uri layerUri = new Uri(_operationalLayerUrls[selectionName]);
 
                 // Create and add a new map image layer

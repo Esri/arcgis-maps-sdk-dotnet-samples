@@ -136,7 +136,6 @@
 * [Scene layer (URL)](Maui.Samples/Samples/Layers/SceneLayerUrl) - Display an ArcGIS scene layer from a URL.
 * [Scene layer selection](Maui.Samples/Samples/Layers/SceneLayerSelection) - Identify features in a scene to select.
 * [Show labels on layers](Maui.Samples/Samples/Layers/ShowLabelsOnLayer) - Display custom labels on a feature layer.
-* [Show popup](Maui.Samples/Samples/Layers/ShowPopup) - Show predefined popups from a web map.
 * [Stretch renderer](Maui.Samples/Samples/Layers/ChangeStretchRenderer) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.
 * [Style WMS layers](Maui.Samples/Samples/Layers/StyleWmsLayer) - Change the style of a Web Map Service (WMS) layer.
 * [Time-based query](Maui.Samples/Samples/Layers/TimeBasedQuery) - Query data using a time extent. 

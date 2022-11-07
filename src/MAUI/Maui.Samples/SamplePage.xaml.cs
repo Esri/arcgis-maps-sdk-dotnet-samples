@@ -33,7 +33,7 @@ namespace ArcGISRuntimeMaui
             this.NavigatedFrom += NavigatedFromEvent;
 
 #if IOS || MACCATALYST
-            //this.Disappearing += PageDisappearing;
+            // iOS / MacCatalyst lifecycle works differently, so we need to use the main page changing instead of the NavigatedFrom event for this.
             Application.Current.MainPage.PropertyChanged += NavigationChanged1;
 #endif
 
@@ -64,7 +64,6 @@ namespace ArcGISRuntimeMaui
                     Html = htmlString
                 };
                 DescriptionView.Navigating += Webview_Navigating;
-
             }
             catch (Exception ex)
             {
@@ -89,10 +88,15 @@ namespace ArcGISRuntimeMaui
 
         private void NavigationChanged1(object sender, PropertyChangedEventArgs e)
         {
-            if(e.PropertyName == "CurrentPage")
+            if (e.PropertyName == "CurrentPage")
             {
                 TryDispose();
             }
+        }
+
+        private void NavigatedFromEvent(object sender, NavigatedFromEventArgs e)
+        {
+            TryDispose();
         }
 
         private void TryDispose()
@@ -185,11 +189,6 @@ namespace ArcGISRuntimeMaui
                     }
                 }
             }
-        }
-
-        private void NavigatedFromEvent(object sender, NavigatedFromEventArgs e)
-        {
-            TryDispose();
         }
 
         private void Webview_Navigating(object sender, WebNavigatingEventArgs e)

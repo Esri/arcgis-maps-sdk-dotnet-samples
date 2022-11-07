@@ -34,7 +34,7 @@ namespace ArcGISRuntimeMaui
 
 #if IOS || MACCATALYST
             // iOS / MacCatalyst lifecycle works differently, so we need to use the main page changing instead of the NavigatedFrom event for this.
-            Application.Current.MainPage.PropertyChanged += NavigationChanged1;
+            Application.Current.MainPage.PropertyChanged += MainPagePropertyChanged;
 #endif
 
             // Set the sample variable.
@@ -86,7 +86,7 @@ namespace ArcGISRuntimeMaui
             }
         }
 
-        private void NavigationChanged1(object sender, PropertyChangedEventArgs e)
+        private void MainPagePropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName == "CurrentPage")
             {

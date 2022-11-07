@@ -9,6 +9,7 @@
 
 using ArcGISRuntime.Samples.Shared.Models;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -30,6 +31,11 @@ namespace ArcGISRuntimeMaui
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
         {
             this.NavigatedFrom += NavigatedFromEvent;
+
+#if IOS || MACCATALYST
+            //this.Disappearing += PageDisappearing;
+            Application.Current.MainPage.PropertyChanged += NavigationChanged1;
+#endif
 
             // Set the sample variable.
             _sample = sample;
@@ -78,6 +84,24 @@ namespace ArcGISRuntimeMaui
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+            }
+        }
+
+        private void NavigationChanged1(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "CurrentPage")
+            {
+                TryDispose();
+            }
+        }
+
+        private void TryDispose()
+        {
+            // Check that the navigation is backward from the sample and not forward into another page in the sample.
+            if (!Application.Current.MainPage.Navigation.NavigationStack.OfType<SamplePage>().Any())
+            {
+                if (_sample is IDisposable disposableSample) disposableSample.Dispose();
+                if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
             }
         }
 
@@ -165,12 +189,7 @@ namespace ArcGISRuntimeMaui
 
         private void NavigatedFromEvent(object sender, NavigatedFromEventArgs e)
         {
-            // Check that the navigation is backward from the sample and not forward into another page in the sample.
-            if (!Application.Current.MainPage.Navigation.NavigationStack.OfType<SamplePage>().Any())
-            {
-                if (_sample is IDisposable disposableSample) disposableSample.Dispose();
-                if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
-            }
+            TryDispose();
         }
 
         private void Webview_Navigating(object sender, WebNavigatingEventArgs e)

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntimeMaui.Helpers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -22,7 +23,7 @@ namespace ArcGISRuntime.Samples.AuthorMap
         tags: new[] { "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map" })]
     [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("SaveMapPage.xaml.cs", "Helpers\\ArcGISLoginPrompt.cs")]
     [ArcGISRuntime.Samples.Shared.Attributes.XamlFiles("SaveMapPage.xaml")]
-    public partial class AuthorMap : ContentPage
+    public partial class AuthorMap : ContentPage, IDisposable
     {
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
@@ -215,6 +216,11 @@ namespace ArcGISRuntime.Samples.AuthorMap
             catch
             {
             }
+        }
+
+        public void Dispose()
+        {
+            ApiKeyManager.EnableKey();
         }
     }
 }

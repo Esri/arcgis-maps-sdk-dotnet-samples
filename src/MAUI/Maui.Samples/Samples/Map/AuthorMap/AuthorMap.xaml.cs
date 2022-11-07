@@ -220,7 +220,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
 
         public void Dispose()
         {
-            // Re-enable the API key in the viewer when exiting this sample.
             ApiKeyManager.EnableKey();
         }
     }

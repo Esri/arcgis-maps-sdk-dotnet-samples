@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 
 
-namespace ArcGISRuntimeMaui.Samples.DisplayOverviewMap
+namespace ArcGISRuntime.Samples.DisplayOverviewMap
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Display overview map",

@@ -28,20 +28,5 @@ namespace ArcGISRuntime.Samples.ChangeBasemap
             // Assign a new map to the MapView.
             MyMapView.Map = new Map();
         }
-
-        private void OnBasemapGalleryButtonClicked(object sender, EventArgs e)
-        {
-            // Toggles the basemap gallery on and off.
-            if (MyBasemapGallery.IsVisible)
-            {
-                MyBasemapGallery.IsVisible = false;
-                basemapGalleryButton.Text = "Show Gallery";
-            }
-            else
-            {
-                MyBasemapGallery.IsVisible = true;
-                basemapGalleryButton.Text = "Hide Gallery";
-            }
-        }
     }
 }

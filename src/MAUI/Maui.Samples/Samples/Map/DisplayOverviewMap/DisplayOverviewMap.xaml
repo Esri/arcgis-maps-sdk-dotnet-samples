@@ -1,8 +1,8 @@
-﻿<ContentPage x:Class="ArcGISRuntimeMauiXamarin.Samples.DisplayOverviewMap.DisplayOverviewMap"
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.DisplayOverviewMap.DisplayOverviewMap"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:toolkit="clr-namespace:Esri.ArcGISRuntime.Toolkit.Xamarin.Forms;assembly=Esri.ArcGISRuntime.Toolkit.Xamarin.Forms">
+             xmlns:toolkit="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <toolkit:OverviewMap Margin="5,5"

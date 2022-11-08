@@ -38,7 +38,7 @@ namespace ArcGISRuntime.WPF.Samples.DisplayDimensions
         {
             try
             {
-                // Get the path to the map package. DataManager is a sample viewer tool, not part of ArcGIS Runtime.
+                // Get the path to the map package. DataManager is a sample viewer tool, not part of ArcGIS Maps SDK for .NET.
                 var dataPath = DataManager.GetDataFolder("f5ff6f5556a945bca87ca513b8729a1e", "Edinburgh_Pylon_Dimensions.mmpk");
 
                 // Load the mobile map package.

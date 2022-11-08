@@ -49,7 +49,7 @@ Animation Controls:
 
 This sample downloads the following items from ArcGIS Online automatically:
 
-* [Bristol.zip](https://www.arcgis.com/home/item.html?id=681d6f7694644709a7c830ec57a2d72b) - A 3D model for use within an ArcGIS Runtime Model Scene Symbol.
+* [Bristol.zip](https://www.arcgis.com/home/item.html?id=681d6f7694644709a7c830ec57a2d72b) - A 3D model for use within a Model Scene Symbol
 * [GrandCanyon.csv](https://www.arcgis.com/home/item.html?id=290f0c571c394461a8b58b6775d0bd63) - CSV data for a route through the Grand Canyon
 * [Hawaii.csv](https://www.arcgis.com/home/item.html?id=e87c154fb9c2487f999143df5b08e9b1) - CSV data for a route in Hawaii
 * [Pyrenees.csv](https://www.arcgis.com/home/item.html?id=5a9b60cee9ba41e79640a06bcdf8084d) - CSV data for a route through the Pyrenees

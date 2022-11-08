@@ -22,7 +22,7 @@
                     <TextBlock Grid.Row="0"
                                FontSize="18"
                                FontWeight="SemiBold">
-                        <Run Text="Built with ArcGIS Runtime SDK for .NET version" />
+                        <Run Text="Built with ArcGIS Maps SDK for .NET version" />
                         <Run x:Name="VersionTextField" />
                     </TextBlock>
                 </Grid>
@@ -42,7 +42,7 @@
                     </Grid.RowDefinitions>
                     <TextBlock Grid.Row="0"
                                Margin="5"
-                               Text="The ArcGIS Runtime SDK sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future."
+                               Text="The ArcGIS Maps SDK for .NET sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future."
                                TextWrapping="Wrap" />
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <Button Margin="5"

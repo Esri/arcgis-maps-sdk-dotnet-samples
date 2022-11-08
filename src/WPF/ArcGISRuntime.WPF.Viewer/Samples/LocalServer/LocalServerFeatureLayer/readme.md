@@ -6,7 +6,7 @@ Start a local feature service and display its features in a map.
 
 ## Use case
 
-For executing offline geoprocessing tasks in your ArcGIS Runtime apps via an offline (local) server.
+For executing offline geoprocessing tasks in your applicationss via an offline (local) server.
 
 ## How to use the sample
 
@@ -38,7 +38,7 @@ A Local Server and Local Feature Service will automatically be started. Once sta
 
 This sample downloads the following items from ArcGIS Online automatically:
 
-* [PointsofInterest.mpkx](https://www.arcgis.com/home/item.html?id=92ca5cdb3ff1461384bf80dc008e297b) - This map package is included in the ArcGIS Runtime sample data.
+* [PointsofInterest.mpkx](https://www.arcgis.com/home/item.html?id=92ca5cdb3ff1461384bf80dc008e297b) - This map package is included in the ArcGIS sample data.
 
 
 ## Additional information

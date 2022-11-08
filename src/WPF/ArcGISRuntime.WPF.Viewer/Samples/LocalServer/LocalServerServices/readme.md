@@ -6,7 +6,7 @@ Demonstrates how to start and stop the Local Server and start and stop a local m
 
 ## Use case
 
-For executing offline geoprocessing tasks in your ArcGIS Runtime apps via an offline (local) server.
+For executing offline geoprocessing tasks in your apps via an offline (local) server.
 
 ## How to use the sample
 

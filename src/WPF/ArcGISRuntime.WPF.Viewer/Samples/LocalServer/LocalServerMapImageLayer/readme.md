@@ -6,7 +6,7 @@ Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer f
 
 ## Use case
 
-For executing offline geoprocessing tasks in your ArcGIS Runtime apps via an offline (local) server.
+For executing offline geoprocessing tasks in your apps via an offline (local) server.
 
 ## How to use the sample
 
@@ -36,7 +36,7 @@ The Local Server and local map service will automatically be started and, once r
 
 This sample downloads the following items from ArcGIS Online automatically:
 
-* [RelationshipID.mpkx](https://www.arcgis.com/home/item.html?id=85c34847bbe1402fa115a1b9b87561ce) - This map package is included in the ArcGIS Runtime sample data.
+* [RelationshipID.mpkx](https://www.arcgis.com/home/item.html?id=85c34847bbe1402fa115a1b9b87561ce) - This map package is included in the ArcGIS sample data.
 
 ## Additional information
 

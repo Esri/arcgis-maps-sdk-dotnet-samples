@@ -6,7 +6,7 @@ Create contour lines from local raster data using a local geoprocessing package 
 
 ## Use case
 
-For executing offline geoprocessing tasks in your ArcGIS Runtime apps via an offline (local) server.
+For executing offline geoprocessing tasks in your apps via an offline (local) server.
 
 ## How to use the sample
 

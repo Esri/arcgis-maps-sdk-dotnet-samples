@@ -20,7 +20,7 @@ Provide a URL to a PKI-enabled server, then use the certificate selection UI to 
 2. Open the certificate store in read-only mode.
 3. Find all certificates that are currently valid.
 4. Display the Windows certificate selection UI to choose from the returned certificates.
-5. Create the ArcGIS Runtime credential with the chosen certificate.
+5. Create the credential with the chosen certificate.
 6. Create the Portal, explicitly passing in the credential that was created.
 
 ## Relevant API

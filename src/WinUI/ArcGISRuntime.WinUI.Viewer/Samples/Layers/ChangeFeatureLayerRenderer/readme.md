@@ -6,7 +6,7 @@ Change the appearance of a feature layer with a renderer.
 
 ## Use case
 
-A feature layer hosted on ArcGIS Online has a preset renderer and will display in an ArcGIS Runtime application with that renderer. However, for example, the color associated with the original renderer may be unsuitable for a company with staff or clients who are color blind, or for presentation with a different set of basemap and operational layers. In these cases, the renderer on the feature layer's data can be set to a more suitable color.
+A feature layer hosted on ArcGIS Online has a preset renderer and will display in an ArcGIS Maps SDK for .NET application with that renderer. However, for example, the color associated with the original renderer may be unsuitable for a company with staff or clients who are color blind, or for presentation with a different set of basemap and operational layers. In these cases, the renderer on the feature layer's data can be set to a more suitable color.
 
 ## How to use the sample
 

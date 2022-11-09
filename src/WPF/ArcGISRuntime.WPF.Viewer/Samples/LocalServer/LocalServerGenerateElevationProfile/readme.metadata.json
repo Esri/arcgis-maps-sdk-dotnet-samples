@@ -1,6 +1,6 @@
 {
     "category": "Local Server",
-    "description": "Create an elevation profile using a geoprocessing package executed with ArcGIS Runtime Local Server.",
+    "description": "Create an elevation profile using a geoprocessing package executed with Local Server.",
     "formal_name": "LocalServerGenerateElevationProfile",
     "ignore": false,
     "images": [

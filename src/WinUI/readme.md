@@ -146,7 +146,7 @@
 
 ## Local Server
 
-* [Generate elevation profile with Local Server](ArcGISRuntime.WinUI.Viewer/Samples/LocalServer/LocalServerGenerateElevationProfile) - Create an elevation profile using a geoprocessing package executed with ArcGIS Runtime Local Server.
+* [Generate elevation profile with Local Server](ArcGISRuntime.WinUI.Viewer/Samples/LocalServer/LocalServerGenerateElevationProfile) - Create an elevation profile using a geoprocessing package executed with Local Server.
 * [Local Server map image layer](ArcGISRuntime.WinUI.Viewer/Samples/LocalServer/LocalServerMapImageLayer) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.
 
 ## Location

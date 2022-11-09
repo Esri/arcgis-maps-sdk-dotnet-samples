@@ -13,9 +13,9 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.OpenScenePortalItem
+namespace ArcGISMapsSDK.WPF.Samples.OpenScenePortalItem
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Open scene (portal item)",
         category: "Scene",
         description: "Open a web scene from a portal item.",

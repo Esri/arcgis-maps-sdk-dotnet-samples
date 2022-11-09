@@ -15,9 +15,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.ConvexHullList
+namespace ArcGISMapsSDK.WPF.Samples.ConvexHullList
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Convex hull list",
         category: "Geometry",
         description: "Generate convex hull polygon(s) from multiple input geometries.",

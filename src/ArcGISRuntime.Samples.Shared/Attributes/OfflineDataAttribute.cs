@@ -10,7 +10,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntime.Samples.Shared.Attributes
+namespace ArcGISMapsSDK.Samples.Shared.Attributes
 {
     /// <summary>
     /// Attribute contains list of ArcGIS Online items (by GUID) used by a sample.

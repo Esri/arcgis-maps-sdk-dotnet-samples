@@ -16,9 +16,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.GetElevationAtPoint
+namespace ArcGISMapsSDK.WPF.Samples.GetElevationAtPoint
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Get elevation at a point",
         category: "Scene",
         description: "Get the elevation for a given point on a surface in a scene.",

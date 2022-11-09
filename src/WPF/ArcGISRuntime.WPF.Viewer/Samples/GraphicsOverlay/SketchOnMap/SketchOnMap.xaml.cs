@@ -21,9 +21,9 @@ using System.Windows;
 using System.Windows.Controls;
 using Point = System.Windows.Point;
 
-namespace ArcGISRuntime.WPF.Samples.SketchOnMap
+namespace ArcGISMapsSDK.WPF.Samples.SketchOnMap
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Sketch on map",
         category: "GraphicsOverlay",
         description: "Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.",

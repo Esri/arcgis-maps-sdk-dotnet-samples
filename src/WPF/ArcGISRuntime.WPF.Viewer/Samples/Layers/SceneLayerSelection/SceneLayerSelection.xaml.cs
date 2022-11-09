@@ -14,9 +14,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.SceneLayerSelection
+namespace ArcGISMapsSDK.WPF.Samples.SceneLayerSelection
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Scene layer selection",
         category: "Layers",
         description: "Identify features in a scene to select.",

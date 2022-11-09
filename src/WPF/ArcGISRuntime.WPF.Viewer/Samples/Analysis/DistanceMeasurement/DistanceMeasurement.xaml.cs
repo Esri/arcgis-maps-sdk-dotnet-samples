@@ -16,9 +16,9 @@ using System;
 using System.Windows;
 using System.Windows.Input;
 
-namespace ArcGISRuntime.WPF.Samples.DistanceMeasurement
+namespace ArcGISMapsSDK.WPF.Samples.DistanceMeasurement
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Distance measurement analysis",
         category: "Analysis",
         description: "Measure distances between two points in 3D.",

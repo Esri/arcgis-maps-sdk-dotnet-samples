@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntime.WPF.Samples.LineOfSightLocation
+namespace ArcGISMapsSDK.WPF.Samples.LineOfSightLocation
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Line of sight (location)",
         category: "Analysis",
         description: "Perform a line of sight analysis between two points in real time.",

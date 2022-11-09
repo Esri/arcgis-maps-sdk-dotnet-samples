@@ -12,9 +12,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WPF.Samples.GroupLayers
+namespace ArcGISMapsSDK.WPF.Samples.GroupLayers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Group layers",
         category: "Layers",
         description: "Group a collection of layers together and toggle their visibility as a group.",

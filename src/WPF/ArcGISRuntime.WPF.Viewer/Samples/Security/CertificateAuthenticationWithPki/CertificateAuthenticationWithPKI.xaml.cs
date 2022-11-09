@@ -15,15 +15,15 @@ using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.CertificateAuthenticationWithPKI
+namespace ArcGISMapsSDK.WPF.Samples.CertificateAuthenticationWithPKI
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Certificate authentication with PKI",
         category: "Security",
         description: "Access secured portals using a certificate.",
         instructions: "> **NOTE**: You must provide your own ArcGIS Portal with PKI authentication configured.",
         tags: new[] { "PKI", "X509", "authentication", "certificate", "login", "passwordless", "smartcard", "store" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData()]
     public partial class CertificateAuthenticationWithPKI
     {
         private string _serverUrl = "";

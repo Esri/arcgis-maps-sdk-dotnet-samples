@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.WPF.Samples.DisplayMap
+namespace ArcGISMapsSDK.WPF.Samples.DisplayMap
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display map",
         category: "Map",
         description: "Display a map with an imagery basemap.",

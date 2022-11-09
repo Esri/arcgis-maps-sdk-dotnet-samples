@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ArcGISRuntime.Samples.Shared.Models
+namespace ArcGISMapsSDK.Samples.Shared.Models
 {
     public class SearchableTreeNode
     {

@@ -1,11 +1,11 @@
-﻿using ArcGISRuntime.Helpers;
+﻿using ArcGISMapsSDK.Helpers;
 using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
-namespace ArcGISRuntime.Converters
+namespace ArcGISMapsSDK.Converters
 {
     // Code taken from Stack Overflow answer: https://stackoverflow.com/a/672123/4630559
     public class LeftMarginMultiplierConverter : IValueConverter

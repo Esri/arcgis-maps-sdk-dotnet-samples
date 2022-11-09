@@ -21,9 +21,9 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.AnalyzeViewshed
+namespace ArcGISMapsSDK.WPF.Samples.AnalyzeViewshed
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Analyze viewshed (geoprocessing)",
         category: "Geoprocessing",
         description: "Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.",

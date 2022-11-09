@@ -14,9 +14,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.StyleWmsLayer
+namespace ArcGISMapsSDK.WPF.Samples.StyleWmsLayer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Style WMS layers",
         category: "Layers",
         description: "Change the style of a Web Map Service (WMS) layer.",

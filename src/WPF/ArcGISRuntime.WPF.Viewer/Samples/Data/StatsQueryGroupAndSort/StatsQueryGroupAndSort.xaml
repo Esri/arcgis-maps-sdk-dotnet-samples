@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.StatsQueryGroupAndSort.StatsQueryGroupAndSort"
+﻿<UserControl x:Class="ArcGISMapsSDK.WPF.Samples.StatsQueryGroupAndSort.StatsQueryGroupAndSort"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:data="clr-namespace:Esri.ArcGISRuntime.Data;assembly=Esri.ArcGISRuntime"

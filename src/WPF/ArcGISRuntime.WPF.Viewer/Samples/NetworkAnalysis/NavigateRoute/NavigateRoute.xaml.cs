@@ -21,15 +21,15 @@ using System.Speech.Synthesis;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.NavigateRoute
+namespace ArcGISMapsSDK.WPF.Samples.NavigateRoute
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Navigate route",
         category: "Network analysis",
         description: "Use a routing service to navigate between points.",
         instructions: "Click 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Click 'Recenter' to refocus on the location display.",
         tags: new[] { "directions", "maneuver", "navigation", "route", "turn-by-turn", "voice" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData()]
     public partial class NavigateRoute
     {
         // Variables for tracking the navigation route.

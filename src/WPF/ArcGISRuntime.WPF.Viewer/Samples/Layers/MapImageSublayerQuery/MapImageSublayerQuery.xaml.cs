@@ -16,9 +16,9 @@ using System;
 using System.Drawing;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.MapImageSublayerQuery
+namespace ArcGISMapsSDK.WPF.Samples.MapImageSublayerQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Query map image sublayer",
         category: "Layers",
         description: "Find features in a sublayer based on attributes and location.",

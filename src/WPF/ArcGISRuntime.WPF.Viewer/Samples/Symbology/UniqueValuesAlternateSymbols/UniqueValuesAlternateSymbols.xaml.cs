@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntime.WPF.Samples.UniqueValuesAlternateSymbols
+namespace ArcGISMapsSDK.WPF.Samples.UniqueValuesAlternateSymbols
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Apply unique values with alternate symbols",
         category: "Symbology",
         description: "Apply a unique value with alternate symbols at different scales.",

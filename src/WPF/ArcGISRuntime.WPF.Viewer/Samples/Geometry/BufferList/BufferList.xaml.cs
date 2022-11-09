@@ -17,9 +17,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.BufferList
+namespace ArcGISMapsSDK.WPF.Samples.BufferList
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Buffer list",
         category: "Geometry",
         description: "Generate multiple individual buffers or a single unioned buffer around multiple points.",

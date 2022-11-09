@@ -19,9 +19,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.ExportTiles
+namespace ArcGISMapsSDK.WPF.Samples.ExportTiles
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Export tiles",
         category: "Layers",
         description: "Download tiles to a local tile cache file stored on the device.",

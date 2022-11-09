@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.LocalServices;
@@ -26,15 +26,15 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.LocalServerGenerateElevationProfile
+namespace ArcGISMapsSDK.WPF.Samples.LocalServerGenerateElevationProfile
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Generate elevation profile with Local Server",
         category: "Local Server",
         description: "Create an elevation profile using a geoprocessing package executed with Local Server.",
         instructions: "The sample loads at the full extent of the raster dataset. Click the \"Draw Polyline\" button and sketch a polyline along where you'd like the elevation profile to be calculated (the polyline can be any shape). Click the \"Save\" button to save the sketch and draw the polyline. Click \"Generate Elevation Profile\" to interpolate the sketched polyline onto the raster surface in 3D. Once ready, the view will automatically zoom onto the newly drawn elevation profile. Click \"Clear Results\" to reset the sample.",
         tags: new[] { "elevation profile", "geoprocessing", "interpolate shape", "local server", "offline", "parameters", "processing", "raster", "raster function", "scene", "service", "terrain" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("db9cd9beedce4e0987c33c198c8dfb45", "259f420250a444b4944a277eec2c4e42", "831cbdc61b1c4cd3bfedd1af91d09d36")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("db9cd9beedce4e0987c33c198c8dfb45", "259f420250a444b4944a277eec2c4e42", "831cbdc61b1c4cd3bfedd1af91d09d36")]
     public partial class LocalServerGenerateElevationProfile
     {
         // Hold references to the paths for the files used in this sample.

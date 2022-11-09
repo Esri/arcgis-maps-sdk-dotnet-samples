@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ArcGISRuntime.Properties {
+namespace ArcGISMapsSDK.Properties {
     using System;
     
     

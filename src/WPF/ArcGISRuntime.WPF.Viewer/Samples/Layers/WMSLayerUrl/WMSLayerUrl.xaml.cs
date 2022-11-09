@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntime.WPF.Samples.WMSLayerUrl
+namespace ArcGISMapsSDK.WPF.Samples.WMSLayerUrl
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "WMS layer (URL)",
         category: "Layers",
         description: "Display a WMS layer using a WMS service URL.",

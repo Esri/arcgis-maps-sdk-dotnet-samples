@@ -18,9 +18,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.WPF.Samples.QueryCQLFilters
+namespace ArcGISMapsSDK.WPF.Samples.QueryCQLFilters
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Query with CQL filters",
         category: "Layers",
         description: "Query data from an OGC API feature service using CQL filters.",

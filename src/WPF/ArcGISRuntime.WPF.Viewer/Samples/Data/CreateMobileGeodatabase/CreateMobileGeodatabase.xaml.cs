@@ -18,9 +18,9 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.CreateMobileGeodatabase
+namespace ArcGISMapsSDK.WPF.Samples.CreateMobileGeodatabase
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Create mobile geodatabase",
         category: "Data",
         description: "Create and share a mobile geodatabase.",

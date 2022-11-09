@@ -24,9 +24,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMapWithOverrides
+namespace ArcGISMapsSDK.WPF.Samples.GenerateOfflineMapWithOverrides
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Generate offline map (overrides)",
         category: "Map",
         description: "Take a web map offline with additional options for each layer.",

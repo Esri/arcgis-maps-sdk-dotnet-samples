@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.WPF.Samples.DisplayWfs
+namespace ArcGISMapsSDK.WPF.Samples.DisplayWfs
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display WFS layer",
         category: "Layers",
         description: "Display a layer from a WFS service, requesting only features for the current extent.",

@@ -12,9 +12,9 @@ using System;
 using System.Linq;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.WPF.Samples.ManageBookmarks
+namespace ArcGISMapsSDK.WPF.Samples.ManageBookmarks
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Manage bookmarks",
         category: "Map",
         description: "Access and create bookmarks on a map.",

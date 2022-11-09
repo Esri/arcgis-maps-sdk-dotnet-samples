@@ -20,9 +20,9 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.WPF.Samples.EditFeatureAttachments
+namespace ArcGISMapsSDK.WPF.Samples.EditFeatureAttachments
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Edit feature attachments",
         category: "Data",
         description: "Add, delete, and download attachments for features from a service.",

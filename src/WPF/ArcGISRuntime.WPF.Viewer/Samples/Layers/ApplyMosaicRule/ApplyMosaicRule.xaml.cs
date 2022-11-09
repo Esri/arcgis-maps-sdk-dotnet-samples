@@ -13,9 +13,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WPF.Samples.ApplyMosaicRule
+namespace ArcGISMapsSDK.WPF.Samples.ApplyMosaicRule
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Apply mosaic rule to rasters",
         category: "Layers",
         description: "Apply mosaic rule to a mosaic dataset of rasters.",

@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.Controls
+namespace ArcGISMapsSDK.Controls
 {
     /// <summary>
     /// Interaction logic for SearchTextBox.xaml

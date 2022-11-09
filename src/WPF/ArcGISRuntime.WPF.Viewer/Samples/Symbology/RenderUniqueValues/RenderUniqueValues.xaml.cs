@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntime.WPF.Samples.RenderUniqueValues
+namespace ArcGISMapsSDK.WPF.Samples.RenderUniqueValues
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Unique value renderer",
         category: "Symbology",
         description: "Render features in a layer using a distinct symbol for each unique attribute value.",

@@ -18,9 +18,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.FeatureLayerQuery
+namespace ArcGISMapsSDK.WPF.Samples.FeatureLayerQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Feature layer query",
         category: "Data",
         description: "Find features in a feature table which match an SQL query.",

@@ -4,7 +4,7 @@ using Microsoft.AppCenter.Crashes;
 using System.Collections.Generic;
 using System.Globalization;
 
-namespace ArcGISRuntime.Helpers
+namespace ArcGISMapsSDK.Helpers
 {
     internal class AnalyticsHelper
     {

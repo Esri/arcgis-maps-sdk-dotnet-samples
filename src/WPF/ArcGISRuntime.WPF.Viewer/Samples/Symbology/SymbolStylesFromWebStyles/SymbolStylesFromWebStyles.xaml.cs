@@ -19,9 +19,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.WPF.Samples.SymbolStylesFromWebStyles
+namespace ArcGISMapsSDK.WPF.Samples.SymbolStylesFromWebStyles
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Create symbol styles from web styles",
         category: "Symbology",
         description: "Create symbol styles from a style file hosted on a portal.",

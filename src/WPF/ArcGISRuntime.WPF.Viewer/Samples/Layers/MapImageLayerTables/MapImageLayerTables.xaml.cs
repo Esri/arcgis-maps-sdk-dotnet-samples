@@ -20,9 +20,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.MapImageLayerTables
+namespace ArcGISMapsSDK.WPF.Samples.MapImageLayerTables
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Map image layer tables",
         category: "Layers",
         description: "Find features in a spatial table related to features in a non-spatial table.",

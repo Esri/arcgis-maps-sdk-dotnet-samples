@@ -13,9 +13,9 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.ToggleBetweenFeatureRequestModes
+namespace ArcGISMapsSDK.WPF.Samples.ToggleBetweenFeatureRequestModes
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Toggle between feature request modes",
         category: "Data",
         description: "Use different feature request modes to populate the map from a service feature table.",

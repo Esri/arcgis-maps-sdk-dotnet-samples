@@ -11,7 +11,7 @@ using System;
 using System.IO;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Viewer
+namespace ArcGISMapsSDK.WPF.Viewer
 {
     public partial class App
     {

@@ -16,7 +16,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Windows.Threading;
 
-namespace ArcGISRuntime.Helpers
+namespace ArcGISMapsSDK.Helpers
 {
     internal static class ArcGISLoginPrompt
     {

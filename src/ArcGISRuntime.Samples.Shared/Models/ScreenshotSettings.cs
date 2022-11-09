@@ -1,4 +1,4 @@
-﻿namespace ArcGISRuntime.Samples.Shared.Models
+﻿namespace ArcGISMapsSDK.Samples.Shared.Models
 {
     public class ScreenshotSettings
     {

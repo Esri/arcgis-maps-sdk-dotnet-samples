@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.OfflineBasemapByReference.OfflineBasemapByReference"
+﻿<UserControl x:Class="ArcGISMapsSDK.WPF.Samples.OfflineBasemapByReference.OfflineBasemapByReference"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">

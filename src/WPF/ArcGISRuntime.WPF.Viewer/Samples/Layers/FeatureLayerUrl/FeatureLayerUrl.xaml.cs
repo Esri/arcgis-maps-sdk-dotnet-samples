@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISRuntime.WPF.Samples.FeatureLayerUrl
+namespace ArcGISMapsSDK.WPF.Samples.FeatureLayerUrl
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Feature layer (feature service)",
         category: "Layers",
         description: "Show features from an online feature service.",

@@ -9,7 +9,7 @@
 
 using System;
 
-namespace ArcGISRuntime.Samples.Shared.Attributes
+namespace ArcGISMapsSDK.Samples.Shared.Attributes
 {
     [AttributeUsage(AttributeTargets.Class)]
     public class SampleAttribute : System.Attribute

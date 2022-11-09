@@ -13,9 +13,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
 
-namespace ArcGISRuntime.WPF.Samples.ArcGISVectorTiledLayerUrl
+namespace ArcGISMapsSDK.WPF.Samples.ArcGISVectorTiledLayerUrl
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "ArcGIS vector tiled layer URL",
         category: "Layers",
         description: "Load an ArcGIS Vector Tiled Layer from a URL.",

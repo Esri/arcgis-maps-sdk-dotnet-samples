@@ -19,9 +19,9 @@ using System.Drawing;
 using System.Linq;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.SpatialRelationships
+namespace ArcGISMapsSDK.WPF.Samples.SpatialRelationships
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Spatial relationships",
         category: "Geometry",
         description: "Determine spatial relationships between two geometries.",

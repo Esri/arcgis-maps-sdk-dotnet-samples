@@ -45,7 +45,6 @@
     <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
     <AppInstallerCheckForUpdateFrequency>OnApplicationRun</AppInstallerCheckForUpdateFrequency>
     <AppxPackageDir>..\..\..\output\</AppxPackageDir>
-    <EntryPointProjectUniqueName>..\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.Net.csproj</EntryPointProjectUniqueName>
     <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
@@ -77,7 +76,7 @@
     <None Include="ArcGISRuntime.WPF.StorePackage_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.Net.csproj">
+    <ProjectReference Include="..\ArcGISRuntime.WPF.Viewer\ArcGISMapsSDK.WPF.Viewer.Net.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
       <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Properties\PublishProfiles\win-x64-release.pubxml</PublishProfile>
       <!--<PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|x86'">Properties\PublishProfiles\win-x86-release.pubxml</PublishProfile>-->
@@ -143,5 +142,6 @@
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
   <PropertyGroup>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <EntryPointProjectUniqueName>..\ArcGISRuntime.WPF.Viewer\ArcGISMapsSDK.WPF.Viewer.Net.csproj</EntryPointProjectUniqueName>
   </PropertyGroup>
 </Project>

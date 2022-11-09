@@ -15,9 +15,9 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.AddFeatures
+namespace ArcGISMapsSDK.WPF.Samples.AddFeatures
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Add features",
         category: "Data",
         description: "Add features to a feature layer.",

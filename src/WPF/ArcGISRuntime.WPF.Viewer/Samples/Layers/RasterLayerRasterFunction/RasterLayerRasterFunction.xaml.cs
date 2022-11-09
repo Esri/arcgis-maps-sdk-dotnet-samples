@@ -15,9 +15,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.RasterLayerRasterFunction
+namespace ArcGISMapsSDK.WPF.Samples.RasterLayerRasterFunction
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Apply raster function to raster from service",
         category: "Layers",
         description: "Load a raster from a service, then apply a function to it.",

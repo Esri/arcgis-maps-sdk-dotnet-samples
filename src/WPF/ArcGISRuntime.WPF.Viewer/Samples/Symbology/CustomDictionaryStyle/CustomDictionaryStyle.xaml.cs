@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Symbology;
@@ -15,15 +15,15 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.CustomDictionaryStyle
+namespace ArcGISMapsSDK.WPF.Samples.CustomDictionaryStyle
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Custom dictionary style",
         category: "Symbology",
         description: "Use a custom dictionary created from a web style or style file (.stylx) to symbolize features using a variety of attribute values.",
         instructions: "Use the radio buttons to toggle between the dictionary symbols from the web style and style file. Pan and zoom around the map to see the symbology from the chosen dictionary symbol style. The web style and style file are slightly different to each other to give a visual indication of the switch between the two.",
         tags: new[] { "ArcGIS Online", "dictionary", "military", "renderer", "style", "stylx", "unique value", "visualization", "web style" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("751138a2e0844e06853522d54103222a")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("751138a2e0844e06853522d54103222a")]
     public partial class CustomDictionaryStyle
     {
         // Path for the restaurants style file.

@@ -27,7 +27,7 @@ using System.Text;
 
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
-namespace ArcGISRuntime.Samples.Shared.Managers
+namespace ArcGISMapsSDK.Samples.Shared.Managers
 {
     public static class ApiKeyManager
     {

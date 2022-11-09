@@ -17,9 +17,9 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 
-namespace ArcGISRuntime.WPF.Samples.RenderMultilayerSymbols
+namespace ArcGISMapsSDK.WPF.Samples.RenderMultilayerSymbols
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Render multilayer symbols",
         category: "Symbology",
         description: "Show different kinds of multilayer symbols on a map similar to some pre-defined 2D simple symbol styles.",

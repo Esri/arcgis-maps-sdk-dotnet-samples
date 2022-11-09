@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System.Threading.Tasks;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.WPF.Samples.Project
+namespace ArcGISMapsSDK.WPF.Samples.Project
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Project",
         category: "Geometry",
         description: "Project a point from one spatial reference to another.",

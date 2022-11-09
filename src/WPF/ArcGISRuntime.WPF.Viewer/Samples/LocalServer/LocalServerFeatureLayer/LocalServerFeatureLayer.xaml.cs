@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
@@ -18,15 +18,15 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISRuntime.WPF.Samples.LocalServerFeatureLayer
+namespace ArcGISMapsSDK.WPF.Samples.LocalServerFeatureLayer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Local server feature layer",
         category: "Local Server",
         description: "Start a local feature service and display its features in a map.",
         instructions: "A Local Server and Local Feature Service will automatically be started. Once started then a `FeatureLayer` will be created and added to the map.",
         tags: new[] { "feature service", "local", "offline", "server", "service" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("92ca5cdb3ff1461384bf80dc008e297b")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("92ca5cdb3ff1461384bf80dc008e297b")]
     public partial class LocalServerFeatureLayer
     {
         // Hold a reference to the local feature service; the ServiceFeatureTable will be loaded from this service

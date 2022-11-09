@@ -1,8 +1,8 @@
-﻿<UserControl x:Class="ArcGISRuntime.WPF.Samples.ListKmlContents.ListKmlContents"
+﻿<UserControl x:Class="ArcGISMapsSDK.WPF.Samples.ListKmlContents.ListKmlContents"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:listKmlContents="clr-namespace:ArcGISRuntime.WPF.Samples.ListKmlContents">
+             xmlns:listKmlContents="clr-namespace:ArcGISMapsSDK.WPF.Samples.ListKmlContents">
     <Grid>
         <esri:SceneView x:Name="MySceneView" />
         <Border Style="{StaticResource BorderStyle}">

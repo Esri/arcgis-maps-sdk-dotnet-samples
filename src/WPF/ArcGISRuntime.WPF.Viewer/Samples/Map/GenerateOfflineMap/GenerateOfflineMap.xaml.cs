@@ -22,9 +22,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Threading;
 
-namespace ArcGISRuntime.WPF.Samples.GenerateOfflineMap
+namespace ArcGISMapsSDK.WPF.Samples.GenerateOfflineMap
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Generate offline map",
         category: "Map",
         description: "Take a web map offline.",

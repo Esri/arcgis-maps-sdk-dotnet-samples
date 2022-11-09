@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.Shared.Managers
         private static string _key;
         private static bool _keyDisabled;
 
-        // Name for file on windows systems. / Name for key in Xamarin SecureStorage.
+        // Name for file on windows systems. / Name for key in .NET MAUI SecureStorage.
         private const string _apiKeyFileName = "agolResource";
 
         public static string ArcGISDeveloperApiKey
@@ -228,8 +228,8 @@ namespace ArcGISRuntime.Samples.Shared.Managers
 
         #region iOS Data Protection
 
-        // NOTE: Because iOS entitlements complicate provisioning, we are not using the iOS keychain in our .NET sample viewers. The keychain entitlement is required for Xamarin.Essentials Secure Storage.
-        // For production applications, we recommend using the Xamarin.Essentials Secure Storage library. https://docs.microsoft.com/en-us/xamarin/essentials/secure-storage?tabs=ios
+        // NOTE: Because iOS entitlements complicate provisioning, we are not using the iOS keychain in our .NET sample viewers. The keychain entitlement is required for .NET MAUI Secure Storage.
+        // For production applications, we recommend using the Microsoft.Maui.Storage Secure Storage library. https://learn.microsoft.com/en-us/dotnet/maui/platform-integration/storage/secure-storage?view=net-maui-7.0&tabs=ios
 
         // This is a randomly generated key used to encrypt ArcGIS API keys. Please replace this with your own randomly generated key.
         private const string iOSKey = "JHaq1bGgU1I9BVySrS33N8uNZxzo3Kug";

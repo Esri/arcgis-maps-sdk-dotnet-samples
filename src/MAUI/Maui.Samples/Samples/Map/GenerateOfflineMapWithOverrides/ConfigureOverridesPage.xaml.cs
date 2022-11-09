@@ -168,7 +168,7 @@ namespace ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides
             ApplyFeatureFilter(_overrides);
 
             // The main sample page continues when OnDisappearing is called.
-            // OnDisappearing is called by Xamarin.ArcGISRuntimeMaui when navigation away from this page happens.
+            // OnDisappearing is called by Esri.ArcGISRuntime.Maui when navigation away from this page happens.
             Navigation.PopModalAsync(true);
         }
     }

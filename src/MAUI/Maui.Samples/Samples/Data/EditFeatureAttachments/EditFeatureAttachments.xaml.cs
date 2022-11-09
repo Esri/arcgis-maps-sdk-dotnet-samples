@@ -133,7 +133,7 @@ namespace ArcGISRuntime.Samples.EditFeatureAttachments
                 byte[] attachmentData;
                 string filename;
 
-                // Xamarin.Plugin.FilePicker shows the iCloud picker (not photo picker) on iOS.
+                // Microsoft.Maui.Storage.FilePicker shows the iCloud picker (not photo picker) on iOS.
                 // This iOS code shows the photo picker.
 #if IOS
                 Stream imageStream = await GetImageStreamAsync();
@@ -146,7 +146,7 @@ namespace ArcGISRuntime.Samples.EditFeatureAttachments
                 imageStream.Read(attachmentData, 0, attachmentData.Length);
                 filename = _filename ?? "file1.jpeg";
 #else
-                // Show a file picker - this uses the Xamarin.Plugin.FilePicker NuGet package.
+                // Show a file picker
                 FileResult fileData = await FilePicker.PickAsync(new PickOptions { FileTypes = FilePickerFileType.Jpeg });
                 if (fileData == null)
                 {
@@ -272,9 +272,8 @@ namespace ArcGISRuntime.Samples.EditFeatureAttachments
         }
 
         // Image picker implementation.
-        // Xamarin.Plugin.FilePicker shows an iCloud file picker; comment this out
+        // Microsoft.Maui.Storage.FilePicker shows an iCloud file picker; comment this out
         // and use the cross-platform implementation if that's what you want.
-        // Note: code adapted from https://docs.microsoft.com/en-us/xamarin/xamarin-ArcGISRuntimeMaui/app-fundamentals/dependency-service/photo-picker
 #if IOS
         private TaskCompletionSource<Stream> _taskCompletionSource;
         private UIImagePickerController _imagePicker;

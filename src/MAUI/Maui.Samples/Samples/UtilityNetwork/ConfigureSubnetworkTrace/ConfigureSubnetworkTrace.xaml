@@ -72,8 +72,7 @@
                                    Margin="3"
                                    HorizontalOptions="Start"
                                    HorizontalTextAlignment="Center"
-                                   IsVisible="False"
-                                   MinimumWidthRequest="50" />
+                                   IsVisible="False" />
                         </Grid>
                         <Button Clicked="OnAddCondition" Text="Add condition" />
                     </StackLayout>

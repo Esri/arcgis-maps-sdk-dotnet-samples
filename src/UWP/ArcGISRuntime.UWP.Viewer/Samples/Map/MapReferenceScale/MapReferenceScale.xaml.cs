@@ -21,9 +21,9 @@ using System.Linq;
 using Windows.UI.Xaml.Controls;
 using Esri.ArcGISRuntime.Portal;
 
-namespace ArcGISRuntime.UWP.Samples.MapReferenceScale
+namespace ArcGISMapsSDK.UWP.Samples.MapReferenceScale
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Map reference scale",
         category: "Map",
         description: "Set the map's reference scale and which feature layers should honor the reference scale.",

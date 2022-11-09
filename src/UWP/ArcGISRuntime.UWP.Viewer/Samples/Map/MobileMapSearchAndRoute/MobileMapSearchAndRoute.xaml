@@ -1,10 +1,10 @@
 ﻿<UserControl
-    x:Class="ArcGISRuntime.UWP.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute"
+    x:Class="ArcGISMapsSDK.UWP.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
     xmlns:mapping="using:Esri.ArcGISRuntime.Mapping"
-    xmlns:local="using:ArcGISRuntime.UWP.Samples.MobileMapSearchAndRoute">
+    xmlns:local="using:ArcGISMapsSDK.UWP.Samples.MobileMapSearchAndRoute">
     <UserControl.Resources>
         <local:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
         <local:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />

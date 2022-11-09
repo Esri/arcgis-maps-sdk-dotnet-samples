@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntime.UWP.Samples.GeoViewSync
+namespace ArcGISMapsSDK.UWP.Samples.GeoViewSync
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "GeoView viewpoint synchronization",
         category: "SceneView",
         description: "Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.",

@@ -13,9 +13,9 @@ using System;
 using System.Diagnostics;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.WfsXmlQuery
+namespace ArcGISMapsSDK.UWP.Samples.WfsXmlQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Load WFS with XML query",
         category: "Layers",
         description: "Load a WFS feature table using an XML query.",

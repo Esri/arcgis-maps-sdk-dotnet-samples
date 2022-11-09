@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.UWP.Samples.SetInitialMapArea
+namespace ArcGISMapsSDK.UWP.Samples.SetInitialMapArea
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Map initial extent",
         category: "Map",
         description: "Display the map at an initial viewpoint representing a bounding geometry.",

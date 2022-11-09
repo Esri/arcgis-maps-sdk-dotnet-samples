@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="ArcGISRuntime.UWP.Samples.ConfigureSubnetworkTrace.ConfigureSubnetworkTrace"
+    x:Class="ArcGISMapsSDK.UWP.Samples.ConfigureSubnetworkTrace.ConfigureSubnetworkTrace"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <Grid x:Name="Configuration" Background="LightGray">

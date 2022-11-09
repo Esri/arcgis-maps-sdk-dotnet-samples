@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Drawing;
 
-namespace ArcGISRuntime.UWP.Samples.Project
+namespace ArcGISMapsSDK.UWP.Samples.Project
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Project",
         category: "Geometry",
         description: "Project a point from one spatial reference to another.",

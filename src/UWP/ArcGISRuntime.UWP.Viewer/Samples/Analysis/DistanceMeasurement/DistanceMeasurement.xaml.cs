@@ -18,9 +18,9 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
-namespace ArcGISRuntime.UWP.Samples.DistanceMeasurement
+namespace ArcGISMapsSDK.UWP.Samples.DistanceMeasurement
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Distance measurement analysis",
         category: "Analysis",
         description: "Measure distances between two points in 3D.",

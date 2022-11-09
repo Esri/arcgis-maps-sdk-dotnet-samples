@@ -12,9 +12,9 @@ using System;
 using Esri.ArcGISRuntime.Geometry;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.SceneLayerUrl
+namespace ArcGISMapsSDK.UWP.Samples.SceneLayerUrl
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Scene layer (URL)",
         category: "Layers",
         description: "Display an ArcGIS scene layer from a URL.",

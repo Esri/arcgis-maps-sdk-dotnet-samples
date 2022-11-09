@@ -9,20 +9,20 @@
 
 using System;
 using Windows.UI.Popups;
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.UWP.Samples.ReadShapefileMetadata
+namespace ArcGISMapsSDK.UWP.Samples.ReadShapefileMetadata
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Read shapefile metadata",
         category: "Data",
         description: "Read a shapefile and display its metadata.",
         instructions: "The shapefile's metadata will be displayed when you open the sample.",
         tags: new[] { "credits", "description", "metadata", "package", "shape file", "shapefile", "summary", "symbology", "tags", "visualization" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
+	[ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     public partial class ReadShapefileMetadata
     {
         public ReadShapefileMetadata()

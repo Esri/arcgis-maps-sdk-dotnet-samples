@@ -8,22 +8,22 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.RasterLayerGeoPackage
+namespace ArcGISMapsSDK.UWP.Samples.RasterLayerGeoPackage
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Raster layer (GeoPackage)",
         category: "Data",
         description: "Display a raster contained in a GeoPackage.",
         instructions: "When the sample starts, a raster will be loaded from a GeoPackage and displayed in the map view.",
         tags: new[] { "OGC", "container", "data", "image", "import", "layer", "package", "raster", "visualization" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
+	[ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     public partial class RasterLayerGeoPackage
     {
         public RasterLayerGeoPackage()

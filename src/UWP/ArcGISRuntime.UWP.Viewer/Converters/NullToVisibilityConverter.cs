@@ -12,7 +12,7 @@ using System.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace ArcGISRuntime.UWP.Viewer.Converters
+namespace ArcGISMapsSDK.UWP.Viewer.Converters
 {
     public class NullToVisibilityConverter : IValueConverter
     {

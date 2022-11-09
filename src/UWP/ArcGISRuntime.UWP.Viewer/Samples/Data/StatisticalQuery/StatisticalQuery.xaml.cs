@@ -16,9 +16,9 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.StatisticalQuery
+namespace ArcGISMapsSDK.UWP.Samples.StatisticalQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Statistical query",
         category: "Data",
         description: "Query a table to get aggregated statistics back for a specific field.",

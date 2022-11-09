@@ -25,9 +25,9 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace ArcGISRuntime.UWP.Samples.LocationDrivenGeotriggers
+namespace ArcGISMapsSDK.UWP.Samples.LocationDrivenGeotriggers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Set up location-driven Geotriggers",
         category: "Location",
         description: "Create a notification every time a given location data source has entered and/or exited a set of features or graphics.",

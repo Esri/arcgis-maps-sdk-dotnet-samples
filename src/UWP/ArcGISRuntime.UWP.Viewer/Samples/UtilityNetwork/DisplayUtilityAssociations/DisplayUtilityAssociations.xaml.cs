@@ -23,9 +23,9 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml.Media;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
-namespace ArcGISRuntime.UWP.Samples.DisplayUtilityAssociations
+namespace ArcGISMapsSDK.UWP.Samples.DisplayUtilityAssociations
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display utility associations",
         category: "Utility network",
         description: "Create graphics for utility associations in a utility network.",

@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISRuntime.UWP.Samples.ServiceFeatureTableCache
+namespace ArcGISMapsSDK.UWP.Samples.ServiceFeatureTableCache
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Service feature table (on interaction cache)",
         category: "Data",
         description: "Display a feature layer from a service using the **on interaction cache** feature request mode.",

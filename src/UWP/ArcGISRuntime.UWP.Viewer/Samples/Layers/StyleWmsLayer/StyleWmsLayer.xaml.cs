@@ -15,9 +15,9 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Esri.ArcGISRuntime.Geometry;
 
-namespace ArcGISRuntime.UWP.Samples.StyleWmsLayer
+namespace ArcGISMapsSDK.UWP.Samples.StyleWmsLayer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Style WMS layers",
         category: "Layers",
         description: "Change the style of a Web Map Service (WMS) layer.",

@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Microsoft.Toolkit.Uwp.UI.Controls;
 using System;
 using Windows.System;
@@ -15,7 +15,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace ArcGISRuntime.UWP.Viewer
+namespace ArcGISMapsSDK.UWP.Viewer
 {
     public sealed partial class SamplePage
     {

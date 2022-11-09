@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
@@ -15,15 +15,15 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.ChangeBlendRenderer
+namespace ArcGISMapsSDK.UWP.Samples.ChangeBlendRenderer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Blend renderer",
         category: "Layers",
         description: "Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.",
         instructions: "Choose and adjust the altitude, azimuth, slope type, and color ramp type settings to update the image.",
         tags: new[] { "Elevation", "Hillshade", "RasterLayer", "color ramp", "elevation", "image", "visualization" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462")]
+	[ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd","caeef9aa78534760b07158bb8e068462")]
     public partial class ChangeBlendRenderer
     {
         public ChangeBlendRenderer()

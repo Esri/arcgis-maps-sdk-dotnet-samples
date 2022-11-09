@@ -15,9 +15,9 @@ using System;
 using System.Drawing;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.ChangeFeatureLayerRenderer
+namespace ArcGISMapsSDK.UWP.Samples.ChangeFeatureLayerRenderer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Change feature layer renderer",
         category: "Layers",
         description: "Change the appearance of a feature layer with a renderer.",

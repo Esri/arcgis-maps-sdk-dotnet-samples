@@ -20,9 +20,9 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.ExportTiles
+namespace ArcGISMapsSDK.UWP.Samples.ExportTiles
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Export tiles",
         category: "Layers",
         description: "Download tiles to a local tile cache file stored on the device.",

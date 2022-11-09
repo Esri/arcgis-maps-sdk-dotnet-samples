@@ -17,9 +17,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.TakeScreenshot
+namespace ArcGISMapsSDK.UWP.Samples.TakeScreenshot
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Take screenshot",
         category: "MapView",
         description: "Take a screenshot of the map.",

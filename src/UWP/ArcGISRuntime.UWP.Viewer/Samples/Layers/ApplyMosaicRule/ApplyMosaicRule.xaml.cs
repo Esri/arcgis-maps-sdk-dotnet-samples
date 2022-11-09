@@ -23,9 +23,9 @@ using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Rasters;
 using System.Collections.Generic;
 
-namespace ArcGISRuntime.UWP.Samples.ApplyMosaicRule
+namespace ArcGISMapsSDK.UWP.Samples.ApplyMosaicRule
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Apply mosaic rule to rasters",
         category: "Layers",
         description: "Apply mosaic rule to a mosaic dataset of rasters.",

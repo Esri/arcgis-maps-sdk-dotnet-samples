@@ -15,9 +15,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.WmsServiceCatalog
+namespace ArcGISMapsSDK.UWP.Samples.WmsServiceCatalog
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "WMS service catalog",
         category: "Layers",
         description: "Connect to a WMS service and show the available layers and sublayers. ",

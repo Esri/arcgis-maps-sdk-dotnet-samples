@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -18,15 +18,15 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.LineOfSightGeoElement
+namespace ArcGISMapsSDK.UWP.Samples.LineOfSightGeoElement
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Line of sight (geoelement)",
         category: "Analysis",
         description: "Show a line of sight between two moving objects.",
         instructions: "A line of sight will display between a point on the Empire State Building (observer) and a taxi (target).",
         tags: new[] { "3D", "line of sight", "visibility", "visibility analysis" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     public partial class LineOfSightGeoElement
     {
         // URL of the elevation service - provides elevation component of the scene.

@@ -13,9 +13,9 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.ManageBookmarks
+namespace ArcGISMapsSDK.UWP.Samples.ManageBookmarks
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Manage bookmarks",
         category: "Map",
         description: "Access and create bookmarks on a map.",

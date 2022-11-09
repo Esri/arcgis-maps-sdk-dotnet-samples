@@ -19,15 +19,15 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.UWP.Samples.BrowseOAFeatureService
+namespace ArcGISMapsSDK.UWP.Samples.BrowseOAFeatureService
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Browse OGC API feature service",
         category: "Layers",
         description: "Browse an OGC API feature service for layers and add them to the map.",
         instructions: "Select a layer to display from the list of layers shown in an OGC API service.",
         tags: new[] { "OGC", "OGC API", "browse", "catalog", "feature", "layers", "service", "web" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData()]
     public partial class BrowseOAFeatureService
     {
         // URL for the OGC feature service.

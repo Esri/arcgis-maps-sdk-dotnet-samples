@@ -16,9 +16,9 @@ using System;
 using System.Drawing;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.FeatureLayerSelection
+namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerSelection
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Feature layer selection",
         category: "Layers",
         description: "Select features in a feature layer.",

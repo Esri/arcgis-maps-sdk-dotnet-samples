@@ -20,9 +20,9 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.BrowseWfsLayers
+namespace ArcGISMapsSDK.UWP.Samples.BrowseWfsLayers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Browse WFS layers",
         category: "Layers",
         description: "Browse a WFS service for layers and add them to the map.",

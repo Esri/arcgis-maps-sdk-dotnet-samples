@@ -19,9 +19,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
-namespace ArcGISRuntime.UWP.Samples.TokenSecuredChallenge
+namespace ArcGISMapsSDK.UWP.Samples.TokenSecuredChallenge
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "ArcGIS token challenge",
         category: "Security",
         description: "This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.",

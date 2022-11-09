@@ -17,9 +17,9 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.IdentifyKmlFeatures
+namespace ArcGISMapsSDK.UWP.Samples.IdentifyKmlFeatures
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Identify KML features",
         category: "Layers",
         description: "Show a callout with formatted content for a KML feature.",

@@ -14,9 +14,9 @@ using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.QueryFeatureCountAndExtent
+namespace ArcGISMapsSDK.UWP.Samples.QueryFeatureCountAndExtent
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Query feature count and extent",
         category: "Analysis",
         description: "Zoom to features matching a query and count the features in the current visible extent.",

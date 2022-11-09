@@ -19,9 +19,9 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.FindServiceArea
+namespace ArcGISMapsSDK.UWP.Samples.FindServiceArea
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Find service area",
         category: "Network analysis",
         description: "Find the service area within a network from a given point.",

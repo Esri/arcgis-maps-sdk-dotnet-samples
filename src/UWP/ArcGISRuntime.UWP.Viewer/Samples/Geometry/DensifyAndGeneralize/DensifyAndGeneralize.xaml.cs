@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 using System.Drawing;
 using System.Linq;
 
-namespace ArcGISRuntime.UWP.Samples.DensifyAndGeneralize
+namespace ArcGISMapsSDK.UWP.Samples.DensifyAndGeneralize
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Densify and generalize",
         category: "Geometry",
         description: "A multipart geometry can be densified by adding interpolated points at regular intervals. Generalizing multipart geometry simplifies it while preserving its general shape. Densifying a multipart geometry adds more vertices at regular intervals.",

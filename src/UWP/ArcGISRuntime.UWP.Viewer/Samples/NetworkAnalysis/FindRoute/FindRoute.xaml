@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="ArcGISRuntime.UWP.Samples.FindRoute.FindRoute"
+    x:Class="ArcGISMapsSDK.UWP.Samples.FindRoute.FindRoute"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">

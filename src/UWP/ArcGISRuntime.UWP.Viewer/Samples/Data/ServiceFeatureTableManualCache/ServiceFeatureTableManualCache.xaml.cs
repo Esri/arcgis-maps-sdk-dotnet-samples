@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.ServiceFeatureTableManualCache
+namespace ArcGISMapsSDK.UWP.Samples.ServiceFeatureTableManualCache
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Service feature table (manual cache)",
         category: "Data",
         description: "Display a feature layer from a service using the **manual cache** feature request mode.",

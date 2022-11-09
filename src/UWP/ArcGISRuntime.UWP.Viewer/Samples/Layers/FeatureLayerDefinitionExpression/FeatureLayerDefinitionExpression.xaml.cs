@@ -16,9 +16,9 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.FeatureLayerDefinitionExpression
+namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerDefinitionExpression
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Filter by definition expression or display filter",
         category: "Layers",
         description: "Filter features displayed on a map using a definition expression or a display filter.",

@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
@@ -20,15 +20,15 @@ using Windows.Foundation;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Input;
 
-namespace ArcGISRuntime.UWP.Samples.IdentifyRasterCell
+namespace ArcGISMapsSDK.UWP.Samples.IdentifyRasterCell
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Identify raster cell",
         category: "Layers",
         description: "Get the cell value of a local raster at the tapped location and display the result in a callout.",
         instructions: "Tap or move your cursor over an area of the raster to identify a raster cell and display it's attributes in a callout.",
         tags: new[] { "NDVI", "band", "cell", "cell value", "continuous", "discrete", "identify", "pixel", "pixel value", "raster" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("b5f977c78ec74b3a8857ca86d1d9b318")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("b5f977c78ec74b3a8857ca86d1d9b318")]
     public partial class IdentifyRasterCell
     {
         // Raster layer to display raster data on the map.

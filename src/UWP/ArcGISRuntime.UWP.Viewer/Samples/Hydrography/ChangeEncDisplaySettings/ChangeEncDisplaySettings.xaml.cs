@@ -8,22 +8,22 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 using System.Collections.Generic;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.ChangeEncDisplaySettings
+namespace ArcGISMapsSDK.UWP.Samples.ChangeEncDisplaySettings
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Change ENC display settings",
         category: "Hydrography",
         description: "Configure the display of ENC content.",
         instructions: "The sample displays an electronic navigational chart when it opens. Use the options to choose variations on colors and symbology.",
         tags: new[] { "ENC", "IHO", "S-52", "S-57", "display", "hydrographic", "hydrography", "layers", "maritime", "nautical chart", "settings", "symbology" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public partial class ChangeEncDisplaySettings
     {
         public ChangeEncDisplaySettings()

@@ -10,18 +10,18 @@
 using System;
 using Windows.UI.Popups;
 using Esri.ArcGISRuntime.Mapping;
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 
-namespace ArcGISRuntime.UWP.Samples.FeatureLayerGeodatabase
+namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerGeodatabase
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Feature layer (geodatabase)",
         category: "Data",
         description: "Display features from a local geodatabase.",
         instructions: "",
         tags: new[] { "geodatabase", "mobile", "offline" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("2b0f9e17105847809dfeb04e3cad69e0")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("2b0f9e17105847809dfeb04e3cad69e0")]
     public partial class FeatureLayerGeodatabase
     {
         public FeatureLayerGeodatabase()

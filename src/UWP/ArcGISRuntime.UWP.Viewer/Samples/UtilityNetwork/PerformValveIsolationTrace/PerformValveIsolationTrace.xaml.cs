@@ -22,9 +22,9 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.PerformValveIsolationTrace
+namespace ArcGISMapsSDK.UWP.Samples.PerformValveIsolationTrace
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Perform valve isolation trace",
         category: "Utility network",
         description: "Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.",

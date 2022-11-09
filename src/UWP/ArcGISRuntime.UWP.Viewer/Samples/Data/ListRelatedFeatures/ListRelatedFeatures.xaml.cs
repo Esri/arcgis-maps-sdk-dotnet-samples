@@ -18,9 +18,9 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.ListRelatedFeatures
+namespace ArcGISMapsSDK.UWP.Samples.ListRelatedFeatures
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "List related features",
         category: "Data",
         description: "List features related to the selected feature.",

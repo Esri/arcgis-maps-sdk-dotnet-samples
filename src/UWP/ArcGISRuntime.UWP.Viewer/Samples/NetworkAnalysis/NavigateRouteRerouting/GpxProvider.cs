@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Xml;
 
-namespace ArcGISRuntime.UWP.Samples.NavigateRouteRerouting
+namespace ArcGISMapsSDK.UWP.Samples.NavigateRouteRerouting
 {
     public class GpxProvider : LocationDataSource
     {

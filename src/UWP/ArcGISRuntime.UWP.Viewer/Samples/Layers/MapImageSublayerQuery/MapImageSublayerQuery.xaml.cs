@@ -17,9 +17,9 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.MapImageSublayerQuery
+namespace ArcGISMapsSDK.UWP.Samples.MapImageSublayerQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Query map image sublayer",
         category: "Layers",
         description: "Find features in a sublayer based on attributes and location.",

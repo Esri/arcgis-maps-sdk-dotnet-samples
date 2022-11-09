@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.GeodesicOperations
+namespace ArcGISMapsSDK.UWP.Samples.GeodesicOperations
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Geodesic operations",
         category: "Geometry",
         description: "Calculate a geodesic path between two points and measure its distance.",

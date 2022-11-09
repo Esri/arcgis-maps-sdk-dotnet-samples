@@ -15,9 +15,9 @@ using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.CutGeometry
+namespace ArcGISMapsSDK.UWP.Samples.CutGeometry
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Cut geometry",
         category: "Geometry",
         description: "Cut a geometry along a polyline.",

@@ -10,7 +10,7 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.UWP.Samples.MobileMapSearchAndRoute
+namespace ArcGISMapsSDK.UWP.Samples.MobileMapSearchAndRoute
 {
     class ItemToImageSourceConverter : IValueConverter
     {

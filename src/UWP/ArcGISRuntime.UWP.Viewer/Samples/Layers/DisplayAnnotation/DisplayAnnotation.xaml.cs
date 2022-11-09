@@ -20,9 +20,9 @@ using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.DisplayAnnotation
+namespace ArcGISMapsSDK.UWP.Samples.DisplayAnnotation
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display annotation",
         category: "Layers",
         description: "Display annotation from a feature service URL.",

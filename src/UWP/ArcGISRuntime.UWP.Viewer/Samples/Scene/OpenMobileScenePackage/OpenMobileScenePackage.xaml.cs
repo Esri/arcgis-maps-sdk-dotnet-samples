@@ -7,22 +7,22 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.OpenMobileScenePackage
+namespace ArcGISMapsSDK.UWP.Samples.OpenMobileScenePackage
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Open mobile scene package",
         category: "Scene",
         description: "Opens and displays a scene from a Mobile Scene Package (.mspk).",
         instructions: "When the sample opens, it will automatically display the Scene in the Mobile Map Package.",
         tags: new[] { "offline", "scene" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7dd2f97bb007466ea939160d0de96a9d")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("7dd2f97bb007466ea939160d0de96a9d")]
     public partial class OpenMobileScenePackage
     {
         public OpenMobileScenePackage()

@@ -15,9 +15,9 @@ using System;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.UpdateGeometries
+namespace ArcGISMapsSDK.UWP.Samples.UpdateGeometries
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Update geometries (feature service)",
         category: "Data",
         description: "Update a feature's location in an online feature service.",

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Data;
 
-namespace ArcGISRuntime.UWP.Samples.MobileMapSearchAndRoute
+namespace ArcGISMapsSDK.UWP.Samples.MobileMapSearchAndRoute
 {
     public class NullOrEmptyToVisibilityConverter : IValueConverter
     {

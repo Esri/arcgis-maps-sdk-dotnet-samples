@@ -14,9 +14,9 @@ using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.FeatureCollectionLayerFromPortal
+namespace ArcGISMapsSDK.UWP.Samples.FeatureCollectionLayerFromPortal
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Create feature collection layer (Portal item)",
         category: "Layers",
         description: "Create a feature collection layer from a portal item.",

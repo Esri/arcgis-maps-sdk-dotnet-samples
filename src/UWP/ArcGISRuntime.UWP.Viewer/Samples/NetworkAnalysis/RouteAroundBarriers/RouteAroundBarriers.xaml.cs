@@ -24,9 +24,9 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Symbology = Esri.ArcGISRuntime.Symbology;
 
-namespace ArcGISRuntime.UWP.Samples.RouteAroundBarriers
+namespace ArcGISMapsSDK.UWP.Samples.RouteAroundBarriers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Route around barriers",
         category: "Network analysis",
         description: "Find a route that reaches all stops without crossing any barriers.",

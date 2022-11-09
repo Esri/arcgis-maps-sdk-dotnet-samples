@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISRuntime.UWP.Samples.ServiceFeatureTableNoCache
+namespace ArcGISMapsSDK.UWP.Samples.ServiceFeatureTableNoCache
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Service feature table (no cache)",
         category: "Data",
         description: "Display a feature layer from a service using the **no cache** feature request mode.",

@@ -1,12 +1,12 @@
 ﻿<Page
-    x:Class="ArcGISRuntime.UWP.Viewer.MainPage"
+    x:Class="ArcGISMapsSDK.UWP.Viewer.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:ArcGISRuntime.Samples.Shared.Models"
+    xmlns:models="using:ArcGISMapsSDK.Samples.Shared.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:viewer="using:ArcGISRuntime.UWP.Viewer"
+    xmlns:viewer="using:ArcGISMapsSDK.UWP.Viewer"
     mc:Ignorable="d">
     <Page.Resources>
         <DataTemplate x:Key="StandardSampleItemTemplate">

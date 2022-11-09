@@ -15,9 +15,9 @@ using System;
 using Windows.UI.Popups;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.UWP.Samples.DisplayOACollection
+namespace ArcGISMapsSDK.UWP.Samples.DisplayOACollection
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display OGC API collection",
         category: "Layers",
         description: "Display an OGC API feature collection and query features while navigating the map view.",

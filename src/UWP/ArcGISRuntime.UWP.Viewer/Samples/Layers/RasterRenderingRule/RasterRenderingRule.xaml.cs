@@ -16,9 +16,9 @@ using System.Collections.Generic;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.RasterRenderingRule
+namespace ArcGISMapsSDK.UWP.Samples.RasterRenderingRule
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Raster rendering rule",
         category: "Layers",
         description: "Display a raster on a map and apply different rendering rules to that raster.",

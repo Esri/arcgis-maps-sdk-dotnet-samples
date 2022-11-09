@@ -19,9 +19,9 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.FeatureLayerQuery
+namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Feature layer query",
         category: "Data",
         description: "Find features in a feature table which match an SQL query.",

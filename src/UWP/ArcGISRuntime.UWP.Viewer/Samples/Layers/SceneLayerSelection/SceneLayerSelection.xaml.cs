@@ -15,9 +15,9 @@ using System.Linq;
 using Windows.UI.Popups;
 using Esri.ArcGISRuntime.Geometry;
 
-namespace ArcGISRuntime.UWP.Samples.SceneLayerSelection
+namespace ArcGISMapsSDK.UWP.Samples.SceneLayerSelection
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Scene layer selection",
         category: "Layers",
         description: "Identify features in a scene to select.",

@@ -19,9 +19,9 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.QueryCQLFilters
+namespace ArcGISMapsSDK.UWP.Samples.QueryCQLFilters
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Query with CQL filters",
         category: "Layers",
         description: "Query data from an OGC API feature service using CQL filters.",

@@ -22,9 +22,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.ReverseGeocode
+namespace ArcGISMapsSDK.UWP.Samples.ReverseGeocode
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Reverse geocode",
         category: "Search",
         description: "Use an online service to find the address for a tapped point.",

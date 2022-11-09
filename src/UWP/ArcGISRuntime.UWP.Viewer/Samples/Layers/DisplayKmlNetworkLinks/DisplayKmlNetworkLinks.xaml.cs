@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Ogc;
 using System;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.DisplayKmlNetworkLinks
+namespace ArcGISMapsSDK.UWP.Samples.DisplayKmlNetworkLinks
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display KML network links",
         category: "Layers",
         description: "Display a file with a KML network link, including displaying any network link control messages at launch.",

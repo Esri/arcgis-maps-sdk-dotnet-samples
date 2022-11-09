@@ -17,9 +17,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
-namespace ArcGISRuntime.UWP.Samples.StatsQueryGroupAndSort
+namespace ArcGISMapsSDK.UWP.Samples.StatsQueryGroupAndSort
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Statistical query group and sort",
         category: "Data",
         description: "Query a feature table for statistics, grouping and sorting by different fields.",

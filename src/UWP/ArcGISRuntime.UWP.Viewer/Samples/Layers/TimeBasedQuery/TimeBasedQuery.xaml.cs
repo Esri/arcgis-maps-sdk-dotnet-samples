@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.TimeBasedQuery
+namespace ArcGISMapsSDK.UWP.Samples.TimeBasedQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Time-based query",
         category: "Layers",
         description: "Query data using a time extent. ",

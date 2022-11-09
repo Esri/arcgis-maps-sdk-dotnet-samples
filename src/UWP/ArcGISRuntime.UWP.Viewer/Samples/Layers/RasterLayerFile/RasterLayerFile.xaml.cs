@@ -8,20 +8,20 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.RasterLayerFile
+namespace ArcGISMapsSDK.UWP.Samples.RasterLayerFile
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Raster layer (file)",
         category: "Layers",
         description: "Create and use a raster layer made from a local raster file.",
         instructions: "When the sample starts, a raster will be loaded from a file and displayed in the map view.",
         tags: new[] { "data", "image", "import", "layer", "raster", "visualization" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
+	[ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     public partial class RasterLayerFile
     {
         public RasterLayerFile()

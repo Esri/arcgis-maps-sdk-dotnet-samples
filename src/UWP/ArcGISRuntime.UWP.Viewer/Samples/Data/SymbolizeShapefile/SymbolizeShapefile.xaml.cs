@@ -8,7 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -16,15 +16,15 @@ using Esri.ArcGISRuntime.Symbology;
 using System.Drawing;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.UWP.Samples.SymbolizeShapefile
+namespace ArcGISMapsSDK.UWP.Samples.SymbolizeShapefile
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Symbolize shapefile",
         category: "Data",
         description: "Display a shapefile with custom symbology.",
         instructions: "Click the button to apply a new symbology renderer to the feature layer created from the shapefile. ",
         tags: new[] { "package", "shape file", "shapefile", "symbology", "visualization" })]
-	[ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
+	[ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     public partial class SymbolizeShapefile
     {
         // Hold reference to the feature layer so that its renderer can be changed when button is pushed

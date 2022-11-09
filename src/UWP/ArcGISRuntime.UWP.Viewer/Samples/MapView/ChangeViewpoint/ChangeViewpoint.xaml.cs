@@ -16,9 +16,9 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.UWP.Samples.ChangeViewpoint
+namespace ArcGISMapsSDK.UWP.Samples.ChangeViewpoint
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Change viewpoint",
         category: "MapView",
         description: "Set the map view to a new viewpoint.",

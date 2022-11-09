@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
 
-namespace ArcGISRuntime.UWP.Samples.RasterLayerImageServiceRaster
+namespace ArcGISMapsSDK.UWP.Samples.RasterLayerImageServiceRaster
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Raster layer (service)",
         category: "Layers",
         description: "Create a raster layer from a raster image service.",

@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 
-namespace ArcGISRuntime.UWP.Samples.SpatialOperations
+namespace ArcGISMapsSDK.UWP.Samples.SpatialOperations
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Perform spatial operations",
         category: "Geometry",
         description: "Find the union, intersection, or difference of two geometries.",

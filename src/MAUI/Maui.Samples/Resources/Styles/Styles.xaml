@@ -126,17 +126,14 @@
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{OnPlatform Android={AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}}" />
         <Setter Property="BackgroundColor" Value="{OnPlatform Android={AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}}" />
-        <Setter Property="FontFamily" Value="OpenSansRegular" />
-        <Setter Property="FontSize" Value="14" />
-        <Setter Property="CornerRadius" Value="3" />
-        <Setter Property="Padding" Value="14,10" />
+        <Setter Property="CornerRadius" Value="{OnPlatform Android=3}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
+                            <Setter Property="TextColor" Value="{OnPlatform Android={AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>

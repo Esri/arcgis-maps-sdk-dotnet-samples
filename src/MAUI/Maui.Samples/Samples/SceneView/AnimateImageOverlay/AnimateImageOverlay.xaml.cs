@@ -55,7 +55,7 @@ namespace ArcGISRuntime.Samples.AnimateImageOverlay
             }
 #endif
             // Create the scene.
-            MySceneView.Scene = new Scene(new Basemap(new Uri("https://www.arcgis.com/home/item.html?id=1970c1995b8f44749f4b9b6e81b5ba45")));
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISDarkGray);
 
             // Create an envelope for the imagery.
             var pointForFrame = new MapPoint(-120.0724273439448, 35.131016955536694, SpatialReferences.Wgs84);

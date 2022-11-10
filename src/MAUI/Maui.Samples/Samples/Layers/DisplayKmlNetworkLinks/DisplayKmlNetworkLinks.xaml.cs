@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 
-namespace ArcGISRuntime.Samples.DisplayKmlNetworkLinks
+namespace ArcGISMapsSDKMaui.Samples.DisplayKmlNetworkLinks
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display KML network links",
         category: "Layers",
         description: "Display a file with a KML network link, including displaying any network link control messages at launch.",

@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.AddAnIntegratedMeshLayer
+namespace ArcGISMapsSDKMaui.Samples.AddAnIntegratedMeshLayer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Add integrated mesh layer",
         category: "Layers",
         description: "View an integrated mesh layer from a scene service.",

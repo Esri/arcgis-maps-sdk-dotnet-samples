@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.AccessLoadStatus
+namespace ArcGISMapsSDKMaui.Samples.AccessLoadStatus
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Map load status",
         category: "Map",
         description: "Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.",

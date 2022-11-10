@@ -16,9 +16,9 @@ using System.Reflection;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.RouteAroundBarriers
+namespace ArcGISMapsSDKMaui.Samples.RouteAroundBarriers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Route around barriers",
         category: "Network analysis",
         description: "Find a route that reaches all stops without crossing any barriers.",

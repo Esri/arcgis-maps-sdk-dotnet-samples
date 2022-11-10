@@ -1,7 +1,7 @@
 ﻿using ObjCRuntime;
 using UIKit;
 
-namespace ArcGISRuntime.Samples.Maui;
+namespace ArcGISMapsSDKMaui.Samples.Maui;
 
 public class Program
 {

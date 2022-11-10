@@ -17,15 +17,15 @@ using Application = Microsoft.Maui.Controls.Application;
 
 #endif
 
-namespace ArcGISRuntime.Samples.OAuth
+namespace ArcGISMapsSDKMaui.Samples.OAuth
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Authenticate with OAuth",
         category: "Security",
         description: "Authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers).",
         instructions: "When you run the sample, the app will load a web map which contains premium content. You will be challenged for an ArcGIS Online login to view the private layers. Enter a user name and password for an ArcGIS Online named user account (such as your ArcGIS for Developers account). If you authenticate successfully, the traffic layer will display, otherwise the map will contain only the public basemap layer.",
         tags: new[] { "OAuth", "OAuth2", "authentication", "cloud", "credential", "portal", "security" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
     public partial class OAuth : ContentPage
     {
         // - The URL of the portal to authenticate with

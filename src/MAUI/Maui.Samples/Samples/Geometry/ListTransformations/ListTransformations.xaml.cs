@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Collections.ObjectModel;
 
-namespace ArcGISRuntime.Samples.ListTransformations
+namespace ArcGISMapsSDKMaui.Samples.ListTransformations
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "List transformations by suitability",
         category: "Geometry",
         description: "Get a list of suitable transformations for projecting a geometry between two spatial references with different horizontal datums.",

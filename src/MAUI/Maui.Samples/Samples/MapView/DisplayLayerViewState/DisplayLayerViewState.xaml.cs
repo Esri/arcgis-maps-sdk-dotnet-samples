@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 
-namespace ArcGISRuntime.Samples.DisplayLayerViewState
+namespace ArcGISMapsSDKMaui.Samples.DisplayLayerViewState
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display layer view state",
         category: "MapView",
         description: "Determine if a layer is currently being viewed.",

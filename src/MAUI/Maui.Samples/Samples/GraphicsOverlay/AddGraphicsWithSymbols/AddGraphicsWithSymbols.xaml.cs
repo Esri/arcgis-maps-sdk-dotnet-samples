@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.UI;
 using Colors = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISRuntime.Samples.AddGraphicsWithSymbols
+namespace ArcGISMapsSDKMaui.Samples.AddGraphicsWithSymbols
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Add graphics with symbols",
         category: "GraphicsOverlay",
         description: "Use a symbol style to display a graphic on a graphics overlay.",

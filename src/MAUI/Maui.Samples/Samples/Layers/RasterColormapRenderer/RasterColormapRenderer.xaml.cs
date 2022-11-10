@@ -7,22 +7,22 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System.Diagnostics;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.RasterColormapRenderer
+namespace ArcGISMapsSDKMaui.Samples.RasterColormapRenderer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Colormap renderer",
         category: "Layers",
         description: "Apply a colormap renderer to a raster.",
         instructions: "Pan and zoom to explore the effect of the colormap applied to the raster.",
         tags: new[] { "colormap", "data", "raster", "renderer", "visualization" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     public partial class RasterColormapRenderer : ContentPage
     {
         // A single band raster file.

@@ -7,22 +7,22 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.Samples.SelectEncFeatures
+namespace ArcGISMapsSDKMaui.Samples.SelectEncFeatures
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Select ENC features",
         category: "Hydrography",
         description: "Select features in an ENC layer.",
         instructions: "Tap to select ENC features. Feature properties will be displayed in a callout.",
         tags: new[] { "IHO", "S-57", "S57", "chart", "hydrography", "identify", "maritime", "select", "selection" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public partial class SelectEncFeatures : ContentPage
     {
         public SelectEncFeatures()

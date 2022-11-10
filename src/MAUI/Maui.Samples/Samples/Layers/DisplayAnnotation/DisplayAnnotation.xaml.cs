@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.DisplayAnnotation
+namespace ArcGISMapsSDKMaui.Samples.DisplayAnnotation
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display annotation",
         category: "Layers",
         description: "Display annotation from a feature service URL.",

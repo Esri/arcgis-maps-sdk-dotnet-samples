@@ -16,9 +16,9 @@ using System.Diagnostics;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.BrowseWfsLayers
+namespace ArcGISMapsSDKMaui.Samples.BrowseWfsLayers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Browse WFS layers",
         category: "Layers",
         description: "Browse a WFS service for layers and add them to the map.",

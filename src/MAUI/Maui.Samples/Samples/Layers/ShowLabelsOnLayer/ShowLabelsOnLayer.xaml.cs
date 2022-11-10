@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Symbology;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.ShowLabelsOnLayer
+namespace ArcGISMapsSDKMaui.Samples.ShowLabelsOnLayer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Show labels on layers",
         category: "Layers",
         description: "Display custom labels on a feature layer.",

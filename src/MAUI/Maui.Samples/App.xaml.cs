@@ -1,6 +1,6 @@
 ﻿using ArcGISRuntimeMaui;
 
-namespace ArcGISRuntime.Samples.Maui;
+namespace ArcGISMapsSDKMaui.Samples.Maui;
 
 public partial class App : Application
 {

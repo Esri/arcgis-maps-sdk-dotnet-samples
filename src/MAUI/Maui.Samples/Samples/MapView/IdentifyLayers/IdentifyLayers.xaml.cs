@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Maui;
 
-namespace ArcGISRuntime.Samples.IdentifyLayers
+namespace ArcGISMapsSDKMaui.Samples.IdentifyLayers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Identify layers",
         category: "MapView",
         description: "Identify features in all layers in a map.",

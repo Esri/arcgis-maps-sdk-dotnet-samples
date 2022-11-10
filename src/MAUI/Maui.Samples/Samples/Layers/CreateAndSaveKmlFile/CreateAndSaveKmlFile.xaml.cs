@@ -20,7 +20,7 @@ using System.Linq;
 using Color = System.Drawing.Color;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 #if __IOS__
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 #endif
 #if __ANDROID__
 //using Android.Support.V4.Content;

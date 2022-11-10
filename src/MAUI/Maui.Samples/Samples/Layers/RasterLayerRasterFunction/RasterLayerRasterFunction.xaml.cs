@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISRuntime.Samples.RasterLayerRasterFunction
+namespace ArcGISMapsSDKMaui.Samples.RasterLayerRasterFunction
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Apply raster function to raster from service",
         category: "Layers",
         description: "Load a raster from a service, then apply a function to it.",

@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.ScenePropertiesExpressions
+namespace ArcGISMapsSDKMaui.Samples.ScenePropertiesExpressions
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Scene properties expressions",
         category: "GraphicsOverlay",
         description: "Update the orientation of a graphic using expressions based on its attributes.",

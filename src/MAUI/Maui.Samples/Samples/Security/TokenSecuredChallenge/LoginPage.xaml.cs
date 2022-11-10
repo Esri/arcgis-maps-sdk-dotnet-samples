@@ -1,4 +1,4 @@
-﻿namespace ArcGISRuntime.Samples.TokenSecuredChallenge
+﻿namespace ArcGISMapsSDKMaui.Samples.TokenSecuredChallenge
 {
     public partial class LoginPage : ContentPage
     {

@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Symbology;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.DisplayOACollection
+namespace ArcGISMapsSDKMaui.Samples.DisplayOACollection
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display OGC API collection",
         category: "Layers",
         description: "Display an OGC API feature collection and query features while navigating the map view.",

@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -18,15 +18,15 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace ArcGISRuntime.Samples.MobileMapSearchAndRoute
+namespace ArcGISMapsSDKMaui.Samples.MobileMapSearchAndRoute
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Mobile map (search and route)",
         category: "Map",
         description: "Display maps and use locators to enable search and routing offline using a Mobile Map Package.",
         instructions: "A list of maps from a mobile map package will be displayed. If the map contains transportation networks, the list item will have a navigation icon. Tap on a map in the list to open it. If a locator task is available, tap on the map to reverse geocode the location's address. If transportation networks are available, a route will be calculated between geocode locations.",
         tags: new[] { "disconnected", "field mobility", "geocode", "network", "network analysis", "offline", "routing", "search", "transportation" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("260eb6535c824209964cf281766ebe43")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("260eb6535c824209964cf281766ebe43")]
     public partial class MobileMapSearchAndRoute : ContentPage
     {
         // Hold references to map resources for easy access.

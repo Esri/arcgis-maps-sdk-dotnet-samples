@@ -12,16 +12,16 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.Samples.AuthorMap
+namespace ArcGISMapsSDKMaui.Samples.AuthorMap
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Create and save map",
         category: "Map",
         description: "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
         instructions: "1. Select the basemap and layers you'd like to add to your map.",
         tags: new[] { "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("SaveMapPage.xaml.cs", "Helpers\\ArcGISLoginPrompt.cs")]
-    [ArcGISRuntime.Samples.Shared.Attributes.XamlFiles("SaveMapPage.xaml")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.ClassFile("SaveMapPage.xaml.cs", "Helpers\\ArcGISLoginPrompt.cs")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.XamlFiles("SaveMapPage.xaml")]
     public partial class AuthorMap : ContentPage
     {
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";

@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -19,15 +19,15 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Colors = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.EditAndSyncFeatures
+namespace ArcGISMapsSDKMaui.Samples.EditAndSyncFeatures
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Edit and sync features",
         category: "Data",
         description: "Synchronize offline edits with a feature service.",
         instructions: "Pan and zoom to position the red rectangle around the area you want to take offline. Tap \"Generate geodatabase\" to take the area offline. When complete, the map will update to only show the offline area. To edit features, tap to select a feature, and tap again anywhere else on the map to move the selected feature to the tapped location. To sync the edits with the feature service, tap the \"Sync geodatabase\" button.",
         tags: new[] { "feature service", "geodatabase", "offline", "synchronize" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
     public partial class EditAndSyncFeatures : ContentPage
     {
         // Enumeration to track which phase of the workflow the sample is in.

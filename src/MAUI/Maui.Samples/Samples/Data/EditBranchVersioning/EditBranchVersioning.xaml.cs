@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
 using System.Diagnostics;
 
-namespace ArcGISRuntime.Samples.EditBranchVersioning
+namespace ArcGISMapsSDKMaui.Samples.EditBranchVersioning
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Edit with branch versioning",
         category: "Data",
         description: "Create, query and edit a specific server version using service geodatabase.",

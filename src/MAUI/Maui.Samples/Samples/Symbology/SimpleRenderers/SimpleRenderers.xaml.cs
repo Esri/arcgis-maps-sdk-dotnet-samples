@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.SimpleRenderers
+namespace ArcGISMapsSDKMaui.Samples.SimpleRenderers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Simple renderer",
         category: "Symbology",
         description: "Display common symbols for all graphics in a graphics overlay with a renderer.",

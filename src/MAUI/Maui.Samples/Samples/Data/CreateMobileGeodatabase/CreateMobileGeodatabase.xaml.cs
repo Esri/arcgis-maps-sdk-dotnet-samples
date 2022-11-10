@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Mapping;
 
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
-namespace ArcGISRuntime.Samples.CreateMobileGeodatabase
+namespace ArcGISMapsSDKMaui.Samples.CreateMobileGeodatabase
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Create mobile geodatabase",
         category: "Data",
         description: "Create and share a mobile geodatabase.",

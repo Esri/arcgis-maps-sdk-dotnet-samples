@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.ToggleBetweenFeatureRequestModes
+namespace ArcGISMapsSDKMaui.Samples.ToggleBetweenFeatureRequestModes
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Toggle between feature request modes",
         category: "Data",
         description: "Use different feature request modes to populate the map from a service feature table.",

@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.Samples.AnalyzeViewshed
+namespace ArcGISMapsSDKMaui.Samples.AnalyzeViewshed
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Analyze viewshed (geoprocessing)",
         category: "Geoprocessing",
         description: "Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.",

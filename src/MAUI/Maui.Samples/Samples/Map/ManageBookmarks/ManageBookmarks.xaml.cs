@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.ManageBookmarks
+namespace ArcGISMapsSDKMaui.Samples.ManageBookmarks
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Manage bookmarks",
         category: "Map",
         description: "Access and create bookmarks on a map.",

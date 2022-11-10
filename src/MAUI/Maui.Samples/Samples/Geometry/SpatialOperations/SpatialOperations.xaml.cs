@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.UI;
 using Colors = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISRuntime.Samples.SpatialOperations
+namespace ArcGISMapsSDKMaui.Samples.SpatialOperations
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Perform spatial operations",
         category: "Geometry",
         description: "Find the union, intersection, or difference of two geometries.",

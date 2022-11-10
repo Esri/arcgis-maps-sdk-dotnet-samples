@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.StatisticalQuery
+namespace ArcGISMapsSDKMaui.Samples.StatisticalQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Statistical query",
         category: "Data",
         description: "Query a table to get aggregated statistics back for a specific field.",

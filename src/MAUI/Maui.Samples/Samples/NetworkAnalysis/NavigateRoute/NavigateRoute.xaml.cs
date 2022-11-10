@@ -18,9 +18,9 @@ using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 using Location = Esri.ArcGISRuntime.Location.Location;
 
-namespace ArcGISRuntime.Samples.NavigateRoute
+namespace ArcGISMapsSDKMaui.Samples.NavigateRoute
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Navigate route",
         category: "Network analysis",
         description: "Use a routing service to navigate between points.",

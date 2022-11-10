@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -17,15 +17,15 @@ using System.Xml.Linq;
 
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISRuntime.Samples.DictionaryRendererGraphicsOverlay
+namespace ArcGISMapsSDKMaui.Samples.DictionaryRendererGraphicsOverlay
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Dictionary renderer with graphics overlay",
         category: "GraphicsOverlay",
         description: "Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.",
         instructions: "Pan and zoom to explore military symbols on the map.",
         tags: new[] { "defense", "military", "situational awareness", "tactical", "visualization" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("8776cfc26eed4485a03de6316826384c")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("8776cfc26eed4485a03de6316826384c")]
     public partial class DictionaryRendererGraphicsOverlay : ContentPage
     {
         // Hold a reference to the graphics overlay for easy access.

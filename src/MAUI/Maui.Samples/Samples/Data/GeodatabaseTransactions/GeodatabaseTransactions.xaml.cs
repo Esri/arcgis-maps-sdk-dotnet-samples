@@ -19,9 +19,9 @@ using Colors = Windows.UI.Colors;
 #else
 #endif
 
-namespace ArcGISRuntime.Samples.GeodatabaseTransactions
+namespace ArcGISMapsSDKMaui.Samples.GeodatabaseTransactions
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Geodatabase transactions",
         category: "Data",
         description: "Use transactions to manage how changes are committed to a geodatabase.",

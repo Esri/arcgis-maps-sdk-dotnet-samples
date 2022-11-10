@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Floor;
 
-namespace ArcGISRuntime.Samples.BrowseBuildingFloors
+namespace ArcGISMapsSDKMaui.Samples.BrowseBuildingFloors
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Browse building floors",
         category: "Map",
         description: "Display and browse through building floors from a floor-aware web map.",

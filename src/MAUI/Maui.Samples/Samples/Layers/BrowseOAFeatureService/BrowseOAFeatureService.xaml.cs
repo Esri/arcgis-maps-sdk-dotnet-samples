@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.Symbology;
 using System.Diagnostics;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.BrowseOAFeatureService
+namespace ArcGISMapsSDKMaui.Samples.BrowseOAFeatureService
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Browse OGC API feature service",
         category: "Layers",
         description: "Browse an OGC API feature service for layers and add them to the map.",

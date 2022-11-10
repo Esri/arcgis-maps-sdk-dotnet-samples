@@ -16,9 +16,9 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Colors = System.Drawing.Color;
 using GeoViewInputEventArgs = Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs;
 
-namespace ArcGISRuntime.Samples.ViewshedLocation
+namespace ArcGISMapsSDKMaui.Samples.ViewshedLocation
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Viewshed (location)",
         category: "Analysis",
         description: "Perform a viewshed analysis from a defined vantage point.",

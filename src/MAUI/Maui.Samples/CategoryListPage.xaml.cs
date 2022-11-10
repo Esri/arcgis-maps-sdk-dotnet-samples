@@ -7,9 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Shared.Managers;
-using ArcGISRuntime.Samples.Shared.Models;
+using ArcGISMapsSDK.Samples.Managers;
+using ArcGISMapsSDK.Samples.Shared.Managers;
+using ArcGISMapsSDK.Samples.Shared.Models;
 using ArcGISRuntimeMaui.Helpers;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;

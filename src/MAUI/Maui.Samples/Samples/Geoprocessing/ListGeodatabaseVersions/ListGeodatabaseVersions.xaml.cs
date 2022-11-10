@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System.Text;
 
-namespace ArcGISRuntime.Samples.ListGeodatabaseVersions
+namespace ArcGISMapsSDKMaui.Samples.ListGeodatabaseVersions
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "List geodatabase versions",
         category: "Geoprocessing",
         description: "Connect to a service and list versions of the geodatabase.",

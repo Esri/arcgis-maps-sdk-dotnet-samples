@@ -47,7 +47,7 @@ namespace ArcGISMapsSDK
             catch (Exception ex)
             {
                 Console.WriteLine(ex);
-                _runtimeVersion = "Couldn't find ArcGIS Runtime version.";
+                _runtimeVersion = "Couldn't find ArcGIS Maps SDK for .NET version.";
             }
 
             // Set up markdown tabs.

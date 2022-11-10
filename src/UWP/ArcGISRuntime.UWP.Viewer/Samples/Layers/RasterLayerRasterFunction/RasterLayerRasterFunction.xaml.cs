@@ -115,7 +115,7 @@ namespace ArcGISMapsSDK.UWP.Samples.RasterLayerRasterFunction
                 // Zoom the map to the extent of the image service raster (which also the extent of the raster layer)
                 await MyMapView.SetViewpointGeometryAsync(myArcGISImageServiceInfo.FullExtent);
 
-                // NOTE: The sample zooms to the extent of the ImageServiceRaster. Currently the ArcGIS Runtime does not 
+                // NOTE: The sample zooms to the extent of the ImageServiceRaster. Currently the ArcGIS Maps SDK for .NET does not 
                 // support zooming a RasterLayer out beyond 4 times it's published level of detail. The sample uses 
                 // MapView.SetViewpointCenterAsync() method to ensure the image shows when the app starts. You can see 
                 // the effect of the image service not showing when you zoom out to the full extent of the image and beyond.

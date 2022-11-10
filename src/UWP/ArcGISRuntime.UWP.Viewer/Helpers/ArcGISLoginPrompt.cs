@@ -18,7 +18,7 @@ namespace ArcGISMapsSDK.Helpers
     {
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
-        // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
+        // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Maps SDK team).
         private const string AppClientId = "lgAdHkYZYlwwfAhC";
 
         // - An optional client secret for the app (only needed for the OAuthClientCredentials authorization type).

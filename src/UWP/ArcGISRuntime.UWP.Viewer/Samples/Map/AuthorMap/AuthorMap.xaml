@@ -130,7 +130,7 @@
                     <TextBox x:Name="DescriptionTextBox"
                              Grid.Row="1"
                              Grid.Column="1"
-                             Text="Authored and saved using ArcGIS Runtime SDK."
+                             Text="Authored and saved using ArcGIS Maps SDK for .NET."
                              TextWrapping="Wrap" />
                     <TextBlock Grid.Row="2"
                                Grid.Column="0"
@@ -140,7 +140,7 @@
                     <TextBox x:Name="TagsTextBox"
                              Grid.Row="2"
                              Grid.Column="1"
-                             Text="ArcGIS Runtime, Sample" />
+                             Text="ArcGIS, Sample" />
                     <Button Grid.Row="3"
                             Grid.Column="0"
                             Grid.ColumnSpan="2"

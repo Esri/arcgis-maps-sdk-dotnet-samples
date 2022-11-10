@@ -15,9 +15,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.WmsServiceCatalog
+namespace ArcGISMapsSDK.WinUI.Samples.WmsServiceCatalog
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "WMS service catalog",
         category: "Layers",
         description: "Connect to a WMS service and show the available layers and sublayers. ",

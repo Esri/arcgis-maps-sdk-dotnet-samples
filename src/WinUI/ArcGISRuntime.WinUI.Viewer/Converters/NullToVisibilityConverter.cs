@@ -11,7 +11,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Data;
 using System;
 
-namespace ArcGISRuntime.WinUI.Viewer.Converters
+namespace ArcGISMapsSDK.WinUI.Viewer.Converters
 {
     public class NullToVisibilityConverter : IValueConverter
     {

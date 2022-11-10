@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISRuntime.WinUI.Samples.DisplayAnnotation
+namespace ArcGISMapsSDK.WinUI.Samples.DisplayAnnotation
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display annotation",
         category: "Layers",
         description: "Display annotation from a feature service URL.",

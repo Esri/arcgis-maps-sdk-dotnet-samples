@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.FeatureCollectionLayerFromQuery
+namespace ArcGISMapsSDK.WinUI.Samples.FeatureCollectionLayerFromQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Feature collection layer (query)",
         category: "Layers",
         description: "Create a feature collection layer to show a query result from a service feature table.",

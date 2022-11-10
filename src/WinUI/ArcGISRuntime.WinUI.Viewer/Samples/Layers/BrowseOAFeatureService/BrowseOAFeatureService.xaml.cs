@@ -18,15 +18,15 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.BrowseOAFeatureService
+namespace ArcGISMapsSDK.WinUI.Samples.BrowseOAFeatureService
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Browse OGC API feature service",
         category: "Layers",
         description: "Browse an OGC API feature service for layers and add them to the map.",
         instructions: "Select a layer to display from the list of layers shown in an OGC API service.",
         tags: new[] { "OGC", "OGC API", "browse", "catalog", "feature", "layers", "service", "web" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData()]
     public partial class BrowseOAFeatureService
     {
         // URL for the OGC feature service.

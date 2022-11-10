@@ -20,9 +20,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.GenerateOfflineMap
+namespace ArcGISMapsSDK.WinUI.Samples.GenerateOfflineMap
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Generate offline map",
         category: "Map",
         description: "Take a web map offline.",

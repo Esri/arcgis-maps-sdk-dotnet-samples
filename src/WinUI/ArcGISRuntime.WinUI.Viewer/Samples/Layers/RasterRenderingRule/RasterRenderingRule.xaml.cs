@@ -16,9 +16,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.RasterRenderingRule
+namespace ArcGISMapsSDK.WinUI.Samples.RasterRenderingRule
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Raster rendering rule",
         category: "Layers",
         description: "Display a raster on a map and apply different rendering rules to that raster.",

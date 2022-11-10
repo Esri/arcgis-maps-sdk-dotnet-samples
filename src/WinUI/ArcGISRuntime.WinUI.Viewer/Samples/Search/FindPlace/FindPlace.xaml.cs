@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Shared.Managers;
+using ArcGISMapsSDK.Samples.Shared.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -24,15 +24,15 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.FindPlace
+namespace ArcGISMapsSDK.WinUI.Samples.FindPlace
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Find place",
         category: "Search",
         description: "Find places of interest near a location or within a specific area.",
         instructions: "Choose a type of place in the first field and an area to search within in the second field. Click the Search button to show the results of the query on the map. Click on a result pin to show its name and address. If you pan away from the result area, a \"Redo search in this area\" button will appear. Click it to query again for the currently viewed area on the map.",
         tags: new[] { "POI", "businesses", "geocode", "locations", "locator", "places of interest", "point of interest", "search", "suggestions" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class FindPlace
     {
         // The LocatorTask provides geocoding services
@@ -230,7 +230,7 @@ namespace ArcGISRuntime.WinUI.Samples.FindPlace
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
             Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntime.WinUI.Viewer.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGISMapsSDK.WinUI.Viewer.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

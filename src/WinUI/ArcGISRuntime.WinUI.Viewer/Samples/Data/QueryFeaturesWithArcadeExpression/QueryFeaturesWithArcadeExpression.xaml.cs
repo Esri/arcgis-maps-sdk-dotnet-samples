@@ -20,9 +20,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.QueryFeaturesWithArcadeExpression
+namespace ArcGISMapsSDK.WinUI.Samples.QueryFeaturesWithArcadeExpression
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Query features with Arcade expression",
         category: "Data",
         description: "Query features on a map using an Arcade expression.",

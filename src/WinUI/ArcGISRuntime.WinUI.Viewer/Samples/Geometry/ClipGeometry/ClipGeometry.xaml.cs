@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 using Microsoft.UI.Xaml;
 using System.Linq;
 
-namespace ArcGISRuntime.WinUI.Samples.ClipGeometry
+namespace ArcGISMapsSDK.WinUI.Samples.ClipGeometry
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Clip geometry",
         category: "Geometry",
         description: "Clip a geometry with another geometry.",

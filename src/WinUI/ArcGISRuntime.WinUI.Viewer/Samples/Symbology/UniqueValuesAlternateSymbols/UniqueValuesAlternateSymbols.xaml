@@ -1,8 +1,8 @@
-<UserControl x:Class="ArcGISRuntime.WinUI.Samples.UniqueValuesAlternateSymbols.UniqueValuesAlternateSymbols"
+<UserControl x:Class="ArcGISMapsSDK.WinUI.Samples.UniqueValuesAlternateSymbols.UniqueValuesAlternateSymbols"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
-             xmlns:local="using:ArcGISRuntime.WinUI.Samples.UniqueValuesAlternateSymbols">
+             xmlns:local="using:ArcGISMapsSDK.WinUI.Samples.UniqueValuesAlternateSymbols">
     <UserControl.Resources>
         <ResourceDictionary>
             <local:ScaleToTextConverter x:Key="ScaleToText" />

@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Microsoft.UI.Xaml;
 using System;
 
-namespace ArcGISRuntime.WinUI.Samples.ChangeTimeExtent
+namespace ArcGISMapsSDK.WinUI.Samples.ChangeTimeExtent
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Change time extent",
         category: "MapView",
         description: "Filter data in layers by applying a time extent to a MapView.",

@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntime.WinUI.Samples.AddGraphicsRenderer
+namespace ArcGISMapsSDK.WinUI.Samples.AddGraphicsRenderer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Add graphics with renderer",
         category: "GraphicsOverlay",
         description: "A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style. A renderer will only affect graphics that do not specify their own symbol style.",

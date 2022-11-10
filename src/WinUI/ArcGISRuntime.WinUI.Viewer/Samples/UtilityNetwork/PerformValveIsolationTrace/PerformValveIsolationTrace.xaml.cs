@@ -21,9 +21,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.PerformValveIsolationTrace
+namespace ArcGISMapsSDK.WinUI.Samples.PerformValveIsolationTrace
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Perform valve isolation trace",
         category: "Utility network",
         description: "Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.",

@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISRuntime.WinUI.Samples.TimeBasedQuery
+namespace ArcGISMapsSDK.WinUI.Samples.TimeBasedQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Time-based query",
         category: "Layers",
         description: "Query data using a time extent. ",

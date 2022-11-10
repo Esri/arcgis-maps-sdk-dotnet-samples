@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -26,15 +26,15 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Windows.Foundation;
 
-namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
+namespace ArcGISMapsSDK.WinUI.Samples.OfflineRouting
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Offline routing",
         category: "Network analysis",
         description: "Solve a route on-the-fly using offline data.",
         instructions: "Click near a road to start adding a stop to the route, click again to place it on the map. A number graphic will show its order in the route. After adding at least 2 stops, a route will display. Choose \"Fastest\" or \"Shortest\" to control how the route is optimized. The route will update on-the-fly while moving stops. The green box marks the boundary of the routable area provided by the offline data. This sample limits routes to 5 stops for performance reasons.",
         tags: new[] { "connectivity", "disconnected", "fastest", "locator", "navigation", "network analysis", "offline", "routing", "shortest", "turn-by-turn" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("567e14f3420d40c5a206e5c0284cf8fc")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("567e14f3420d40c5a206e5c0284cf8fc")]
     public partial class OfflineRouting
     {
         // Graphics overlays for holding graphics.
@@ -240,7 +240,7 @@ namespace ArcGISRuntime.WinUI.Samples.OfflineRouting
             // Get image as a stream from the resources.
             // Picture is defined as EmbeddedResource and DoNotCopy.
             Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntime.WinUI.Viewer.Resources.PictureMarkerSymbols.pin_blue.png");
+                "ArcGISMapsSDK.WinUI.Viewer.Resources.PictureMarkerSymbols.pin_blue.png");
 
             // Create new symbol using asynchronous factory method from stream.
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

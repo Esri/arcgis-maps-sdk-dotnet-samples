@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.CertificateAuthenticationWithPKI.CertificateAuthenticationWithPKI"
+﻿<UserControl x:Class="ArcGISMapsSDK.WinUI.Samples.CertificateAuthenticationWithPKI.CertificateAuthenticationWithPKI"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:x509certificates="using:System.Security.Cryptography.X509Certificates">

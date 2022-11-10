@@ -31,7 +31,7 @@
   </ItemGroup>
   <PropertyGroup>
     <WapProjPath Condition="'$(WapProjPath)'==''">$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\</WapProjPath>
-    <PathToXAMLWinRTImplementations>ArcGISRuntime.WinUI.Viewer\</PathToXAMLWinRTImplementations>
+    <PathToXAMLWinRTImplementations>ArcGISMapsSDK.WinUI.Viewer\</PathToXAMLWinRTImplementations>
   </PropertyGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <PropertyGroup>
@@ -41,7 +41,7 @@
     <AssetTargetFallback>net6.0-windows$(TargetPlatformVersion);$(AssetTargetFallback)</AssetTargetFallback>
     <DefaultLanguage>en-US</DefaultLanguage>
     <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
-    <EntryPointProjectUniqueName>..\ArcGISRuntime.WinUI.Viewer\ArcGISRuntime.WinUI.Viewer.csproj</EntryPointProjectUniqueName>
+    <EntryPointProjectUniqueName>..\ArcGISMapsSDK.WinUI.Viewer\ArcGISMapsSDK.WinUI.Viewer.csproj</EntryPointProjectUniqueName>
   </PropertyGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -49,7 +49,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArcGISRuntime.WinUI.Viewer\ArcGISRuntime.WinUI.Viewer.csproj">
+    <ProjectReference Include="..\ArcGISMapsSDK.WinUI.Viewer\ArcGISMapsSDK.WinUI.Viewer.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
       <PublishProfile>Properties\PublishProfiles\win10-$(Platform).pubxml</PublishProfile>
     </ProjectReference>

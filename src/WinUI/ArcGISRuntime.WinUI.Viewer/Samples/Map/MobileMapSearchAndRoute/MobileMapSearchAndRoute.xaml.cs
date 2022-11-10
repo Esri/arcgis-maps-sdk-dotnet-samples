@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -24,16 +24,16 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.MobileMapSearchAndRoute
+namespace ArcGISMapsSDK.WinUI.Samples.MobileMapSearchAndRoute
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Mobile map (search and route)",
         category: "Map",
         description: "Display maps and use locators to enable search and routing offline using a Mobile Map Package.",
         instructions: "A list of maps from a mobile map package will be displayed. If the map contains transportation networks, the list item will have a navigation icon. Click on a map in the list to open it. If a locator task is available, click on the map to reverse geocode the location's address. If transportation networks are available, a route will be calculated between geocode locations.",
         tags: new[] { "disconnected", "field mobility", "geocode", "network", "network analysis", "offline", "routing", "search", "transportation" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("260eb6535c824209964cf281766ebe43")]
-    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Converters\\ItemToImageSourceConverter.cs", "Converters\\NullToVisibilityConverter.cs")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("260eb6535c824209964cf281766ebe43")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.ClassFile("Converters\\ItemToImageSourceConverter.cs", "Converters\\NullToVisibilityConverter.cs")]
     public partial class MobileMapSearchAndRoute
     {
         // Hold references to map resources for easy access.
@@ -222,7 +222,7 @@ namespace ArcGISRuntime.WinUI.Samples.MobileMapSearchAndRoute
             // Get image as a stream from the resources.
             // Picture is defined as EmbeddedResource and DoNotCopy.
             Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntime.WinUI.Viewer.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGISMapsSDK.WinUI.Viewer.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream.
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

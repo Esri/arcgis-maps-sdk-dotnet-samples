@@ -17,9 +17,9 @@ using Microsoft.UI.Xaml;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntime.WinUI.Samples.ViewshedLocation
+namespace ArcGISMapsSDK.WinUI.Samples.ViewshedLocation
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Viewshed (location)",
         category: "Analysis",
         description: "Perform a viewshed analysis from a defined vantage point.",

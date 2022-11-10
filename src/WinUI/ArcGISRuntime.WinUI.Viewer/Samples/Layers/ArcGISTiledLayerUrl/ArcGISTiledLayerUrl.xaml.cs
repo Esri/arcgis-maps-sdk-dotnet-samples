@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISRuntime.WinUI.Samples.ArcGISTiledLayerUrl
+namespace ArcGISMapsSDK.WinUI.Samples.ArcGISTiledLayerUrl
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "ArcGIS tiled layer",
         category: "Layers",
         description: "Load an ArcGIS tiled layer from a URL.",

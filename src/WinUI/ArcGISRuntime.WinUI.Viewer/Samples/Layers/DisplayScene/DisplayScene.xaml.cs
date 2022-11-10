@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISRuntime.WinUI.Samples.DisplayScene
+namespace ArcGISMapsSDK.WinUI.Samples.DisplayScene
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display a scene",
         category: "Layers",
         description: "Display a scene with a terrain surface and some imagery.",

@@ -14,9 +14,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.DisplayLayerViewState
+namespace ArcGISMapsSDK.WinUI.Samples.DisplayLayerViewState
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display layer view state",
         category: "MapView",
         description: "Determine if a layer is currently being viewed.",

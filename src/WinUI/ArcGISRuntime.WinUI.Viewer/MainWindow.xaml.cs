@@ -1,6 +1,6 @@
 ﻿using Microsoft.UI.Xaml;
 
-namespace ArcGISRuntime.WinUI.Viewer
+namespace ArcGISMapsSDK.WinUI.Viewer
 {
     public sealed partial class MainWindow : Window
     {

@@ -16,9 +16,9 @@ using Microsoft.UI.Xaml.Data;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntime.WinUI.Samples.UniqueValuesAlternateSymbols
+namespace ArcGISMapsSDK.WinUI.Samples.UniqueValuesAlternateSymbols
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Apply unique values with alternate symbols",
         category: "Symbology",
         description: "Apply a unique value with alternate symbols at different scales.",

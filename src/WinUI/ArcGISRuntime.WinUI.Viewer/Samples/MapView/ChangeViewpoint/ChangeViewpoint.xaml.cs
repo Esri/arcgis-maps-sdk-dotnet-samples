@@ -15,9 +15,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace ArcGISRuntime.WinUI.Samples.ChangeViewpoint
+namespace ArcGISMapsSDK.WinUI.Samples.ChangeViewpoint
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Change viewpoint",
         category: "MapView",
         description: "Set the map view to a new viewpoint.",

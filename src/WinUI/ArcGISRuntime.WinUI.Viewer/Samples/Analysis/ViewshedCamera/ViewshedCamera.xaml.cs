@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 
-namespace ArcGISRuntime.WinUI.Samples.ViewshedCamera
+namespace ArcGISMapsSDK.WinUI.Samples.ViewshedCamera
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Viewshed for camera",
         category: "Analysis",
         description: "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point.",

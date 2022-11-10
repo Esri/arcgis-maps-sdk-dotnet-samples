@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISRuntime.WinUI.Samples.NearestVertex
+namespace ArcGISMapsSDK.WinUI.Samples.NearestVertex
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Nearest vertex",
         category: "Geometry",
         description: "Find the closest vertex and coordinate of a geometry to a point.",

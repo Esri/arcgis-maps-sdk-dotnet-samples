@@ -17,9 +17,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
-namespace ArcGISRuntime.WinUI.Samples.FindRoute
+namespace ArcGISMapsSDK.WinUI.Samples.FindRoute
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Find route",
         category: "Network analysis",
         description: "Display directions for a route between two points.",

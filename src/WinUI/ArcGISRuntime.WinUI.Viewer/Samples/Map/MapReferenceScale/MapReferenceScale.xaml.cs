@@ -12,15 +12,15 @@ using Esri.ArcGISRuntime.Portal;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.MapReferenceScale
+namespace ArcGISMapsSDK.WinUI.Samples.MapReferenceScale
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Map reference scale",
         category: "Map",
         description: "Set the map's reference scale and which feature layers should honor the reference scale.",
         instructions: "Use the control at the top to set the map's reference scale (1:500,000 1:250,000 1:100,000 1:50,000). Use the menu checkboxes in the layer menu to set which feature layers should honor the reference scale.",
         tags: new[] { "map", "reference scale", "scene" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("Converters/DoubleToScaleStringConverter")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.ClassFile("Converters/DoubleToScaleStringConverter")]
     public partial class MapReferenceScale
     {
         // List of reference scale options.

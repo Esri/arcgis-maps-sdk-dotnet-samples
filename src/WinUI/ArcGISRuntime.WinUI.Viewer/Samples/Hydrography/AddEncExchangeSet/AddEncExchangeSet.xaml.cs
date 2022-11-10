@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
@@ -15,15 +15,15 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.AddEncExchangeSet
+namespace ArcGISMapsSDK.WinUI.Samples.AddEncExchangeSet
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Add ENC exchange set",
         category: "Hydrography",
         description: "Display nautical charts per the ENC specification.",
         instructions: "Run the sample and view the ENC data. Pan and zoom around the map. Take note of the high level of detail in the data and the smooth rendering of the layer.",
         tags: new[] { "Data", "ENC", "hydrographic", "layers", "maritime", "nautical chart" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public partial class AddEncExchangeSet
     {
         public AddEncExchangeSet()

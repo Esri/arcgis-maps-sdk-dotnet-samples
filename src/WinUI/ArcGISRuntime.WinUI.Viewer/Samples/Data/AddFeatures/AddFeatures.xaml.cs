@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.AddFeatures
+namespace ArcGISMapsSDK.WinUI.Samples.AddFeatures
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Add features",
         category: "Data",
         description: "Add features to a feature layer.",

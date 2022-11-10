@@ -20,9 +20,9 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.ClosestFacilityStatic
+namespace ArcGISMapsSDK.WinUI.Samples.ClosestFacilityStatic
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Find closest facility to multiple incidents (service)",
         category: "Network analysis",
         description: "Find routes from several locations to the respective closest facility.",

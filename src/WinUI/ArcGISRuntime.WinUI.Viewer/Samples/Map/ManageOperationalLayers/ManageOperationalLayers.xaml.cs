@@ -16,9 +16,9 @@ using System.Diagnostics;
 using System.Linq;
 using Windows.ApplicationModel.DataTransfer;
 
-namespace ArcGISRuntime.WinUI.Samples.ManageOperationalLayers
+namespace ArcGISMapsSDK.WinUI.Samples.ManageOperationalLayers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Manage operational layers",
         category: "Map",
         description: "Add, remove, and reorder operational layers in a map.",

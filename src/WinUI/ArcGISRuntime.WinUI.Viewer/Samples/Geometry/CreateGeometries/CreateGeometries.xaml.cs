@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.WinUI.Samples.CreateGeometries
+namespace ArcGISMapsSDK.WinUI.Samples.CreateGeometries
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Create geometries",
         category: "Geometry",
         description: "Create simple geometry types.",

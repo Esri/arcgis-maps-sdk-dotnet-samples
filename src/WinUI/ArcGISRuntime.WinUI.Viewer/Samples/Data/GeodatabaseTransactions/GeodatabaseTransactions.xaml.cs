@@ -19,9 +19,9 @@ using System.IO;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ArcGISRuntime.WinUI.Samples.GeodatabaseTransactions
+namespace ArcGISMapsSDK.WinUI.Samples.GeodatabaseTransactions
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Geodatabase transactions",
         category: "Data",
         description: "Use transactions to manage how changes are committed to a geodatabase.",

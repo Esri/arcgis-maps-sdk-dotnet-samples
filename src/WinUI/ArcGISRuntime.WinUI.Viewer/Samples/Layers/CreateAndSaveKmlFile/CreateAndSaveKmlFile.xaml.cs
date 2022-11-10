@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.WinUI.Viewer;
+using ArcGISMapsSDK.WinUI.Viewer;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
@@ -22,15 +22,15 @@ using System.Linq;
 using Windows.Storage.Pickers;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 
-namespace ArcGISRuntime.WinUI.Samples.CreateAndSaveKmlFile
+namespace ArcGISMapsSDK.WinUI.Samples.CreateAndSaveKmlFile
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Create and save KML file",
         category: "Layers",
         description: "Construct a KML document and save it as a KMZ file.",
         instructions: "Click on one of the buttons in the middle row to start adding a geometry. Click on the map view to place vertices. Click the \"Complete Sketch\" button to add the geometry to the KML document as a new KML placemark. Use the style interface to edit the style of the placemark. If you do not wish to set a style, click the \"Don't Apply Style\" button. When you are finished adding KML nodes, click on the \"Save KMZ file\" button to save the active KML document as a .kmz file on your system. Use the \"Reset\" button to clear the current KML document and start a new one.",
         tags: new[] { "KML", "KMZ", "Keyhole", "OGC" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData()]
     public partial class CreateAndSaveKmlFile
     {
         private KmlDocument _kmlDocument;

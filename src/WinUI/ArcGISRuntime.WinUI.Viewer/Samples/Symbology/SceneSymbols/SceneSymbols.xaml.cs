@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Drawing;
 
-namespace ArcGISRuntime.WinUI.Samples.SceneSymbols
+namespace ArcGISMapsSDK.WinUI.Samples.SceneSymbols
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Scene symbols",
         category: "Symbology",
         description: "Show various kinds of 3D symbols in a scene.",

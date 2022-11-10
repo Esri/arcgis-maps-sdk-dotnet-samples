@@ -14,15 +14,15 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.ApplyMosaicRule
+namespace ArcGISMapsSDK.WinUI.Samples.ApplyMosaicRule
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Apply mosaic rule to rasters",
         category: "Layers",
         description: "Apply mosaic rule to a mosaic dataset of rasters.",
         instructions: "When the rasters are loaded, choose from a list of preset mosaic rules to apply to the rasters.",
         tags: new[] { "image service", "mosaic method", "mosaic rule", "raster" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData()]
     public partial class ApplyMosaicRule
     {
         private ImageServiceRaster _imageServiceRaster;

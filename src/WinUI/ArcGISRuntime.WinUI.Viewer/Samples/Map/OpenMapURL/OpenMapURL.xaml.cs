@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Microsoft.UI.Xaml.Controls;
 using System;
 
-namespace ArcGISRuntime.WinUI.Samples.OpenMapURL
+namespace ArcGISMapsSDK.WinUI.Samples.OpenMapURL
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Open map URL",
         category: "Map",
         description: "Display a web map.",

@@ -16,9 +16,9 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.TakeScreenshot
+namespace ArcGISMapsSDK.WinUI.Samples.TakeScreenshot
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Take screenshot",
         category: "MapView",
         description: "Take a screenshot of the map.",

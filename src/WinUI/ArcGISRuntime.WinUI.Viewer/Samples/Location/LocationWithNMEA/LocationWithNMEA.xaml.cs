@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
@@ -21,15 +21,15 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 
-namespace ArcGISRuntime.WinUI.Samples.LocationWithNMEA
+namespace ArcGISMapsSDK.WinUI.Samples.LocationWithNMEA
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display device location with NMEA data sources",
         category: "Location",
         description: "Parse NMEA sentences and use the results to show device location on the map.",
         instructions: "Tap \"Start\" to parse the NMEA sentences into a simulated location data source, and initiate the location display. Tap \"Recenter\" to recenter the location display. Tap \"Reset\" to reset the location display.",
         tags: new[] { "GNSS", "GPS", "NMEA", "RTK", "dongle", "history", "navigation", "real-time", "trace" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("d5bad9f4fee9483791e405880fb466da")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("d5bad9f4fee9483791e405880fb466da")]
     public partial class LocationWithNMEA : IDisposable
     {
         private NmeaLocationDataSource _nmeaSource;

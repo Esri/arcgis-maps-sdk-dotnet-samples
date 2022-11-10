@@ -17,9 +17,9 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.DisplayWfs
+namespace ArcGISMapsSDK.WinUI.Samples.DisplayWfs
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display WFS layer",
         category: "Layers",
         description: "Display a layer from a WFS service, requesting only features for the current extent.",

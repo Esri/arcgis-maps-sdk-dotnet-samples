@@ -7,8 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Shared.Managers;
+using ArcGISMapsSDK.Samples.Managers;
+using ArcGISMapsSDK.Samples.Shared.Managers;
 using CommunityToolkit.WinUI.UI.Controls;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
@@ -19,7 +19,7 @@ using System.Drawing;
 using System.Text.RegularExpressions;
 using Windows.System;
 
-namespace ArcGISRuntime.WinUI.Viewer
+namespace ArcGISMapsSDK.WinUI.Viewer
 {
     public sealed partial class SamplePage
     {
@@ -128,7 +128,7 @@ namespace ArcGISRuntime.WinUI.Viewer
             // If scaling has occurred due to screen scaling we need to resize the image.
             Bitmap resizedScreenshot = new Bitmap(screenshot, new Size((int)(screenshot.Width / scale), (int)(screenshot.Height / scale)));
 
-            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\WinUI\\ArcGISRuntime.WinUI.Viewer\\Samples\\" +
+            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\WinUI\\ArcGISMapsSDK.WinUI.Viewer\\Samples\\" +
                 $"{SampleManager.Current.SelectedSample.Category}\\" +
                 $"{SampleManager.Current.SelectedSample.FormalName}\\" +
                 $"{SampleManager.Current.SelectedSample.FormalName}.jpg";

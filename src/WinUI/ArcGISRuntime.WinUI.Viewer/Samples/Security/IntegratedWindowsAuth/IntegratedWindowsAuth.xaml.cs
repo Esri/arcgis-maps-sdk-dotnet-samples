@@ -17,13 +17,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.IntegratedWindowsAuth
+namespace ArcGISMapsSDK.WinUI.Samples.IntegratedWindowsAuth
 {
     // Important:
     //    You must add the "Private Networks" capability to use Integrated Windows Authentication (IWA)
     //    in your UWP project. Add this capability by checking "Private Networks (Client and Server)"
     //    in your project's Package.appxmanifest file.
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Integrated Windows Authentication",
         category: "Security",
         description: "Connect to an IWA secured Portal and search for maps.",

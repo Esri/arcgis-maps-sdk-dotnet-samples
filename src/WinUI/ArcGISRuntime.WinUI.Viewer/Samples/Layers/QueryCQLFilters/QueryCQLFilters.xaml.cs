@@ -18,15 +18,15 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.QueryCQLFilters
+namespace ArcGISMapsSDK.WinUI.Samples.QueryCQLFilters
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Query with CQL filters",
         category: "Layers",
         description: "Query data from an OGC API feature service using CQL filters.",
         instructions: "Enter a CQL query. Press the \"Apply query\" button to see the query applied to the OGC API features shown on the map.",
         tags: new[] { "CQL", "OGC", "OGC API", "browse", "catalog", "common query language", "feature table", "filter", "query", "service", "web" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData()]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData()]
     public partial class QueryCQLFilters
     {
         private IReadOnlyList<string> DefaultWhereClause = new[]

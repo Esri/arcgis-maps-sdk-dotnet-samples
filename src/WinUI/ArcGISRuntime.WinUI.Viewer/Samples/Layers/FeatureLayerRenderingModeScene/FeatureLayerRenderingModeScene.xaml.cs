@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISRuntime.WinUI.Samples.FeatureLayerRenderingModeScene
+namespace ArcGISMapsSDK.WinUI.Samples.FeatureLayerRenderingModeScene
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Feature layer rendering mode (scene)",
         category: "Layers",
         description: "Render features in a scene statically or dynamically by setting the feature layer rendering mode.",

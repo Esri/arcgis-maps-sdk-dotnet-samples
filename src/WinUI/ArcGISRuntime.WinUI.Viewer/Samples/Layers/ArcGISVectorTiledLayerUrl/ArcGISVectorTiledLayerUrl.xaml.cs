@@ -12,9 +12,9 @@ using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISRuntime.WinUI.Samples.ArcGISVectorTiledLayerUrl
+namespace ArcGISMapsSDK.WinUI.Samples.ArcGISVectorTiledLayerUrl
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "ArcGIS vector tiled layer URL",
         category: "Layers",
         description: "Load an ArcGIS Vector Tiled Layer from a URL.",

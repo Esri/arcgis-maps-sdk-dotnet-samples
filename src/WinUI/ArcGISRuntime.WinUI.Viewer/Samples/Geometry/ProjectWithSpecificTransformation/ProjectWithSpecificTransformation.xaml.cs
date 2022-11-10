@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Geometry;
 
-namespace ArcGISRuntime.WinUI.Samples.ProjectWithSpecificTransformation
+namespace ArcGISMapsSDK.WinUI.Samples.ProjectWithSpecificTransformation
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Project with specific transformation",
         category: "Geometry",
         description: "Project a point from one coordinate system to another using a specific transformation step.",

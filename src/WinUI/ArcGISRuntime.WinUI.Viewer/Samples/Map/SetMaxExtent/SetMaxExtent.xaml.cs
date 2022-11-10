@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Microsoft.UI.Xaml;
 
-namespace ArcGISRuntime.WinUI.Samples.SetMaxExtent
+namespace ArcGISMapsSDK.WinUI.Samples.SetMaxExtent
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Set max extent",
         category: "Map",
         description: "Limit the view of a map to a particular area.",

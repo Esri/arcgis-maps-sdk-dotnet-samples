@@ -7,9 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Shared.Managers;
-using ArcGISRuntime.Samples.Shared.Models;
+using ArcGISMapsSDK.Samples.Managers;
+using ArcGISMapsSDK.Samples.Shared.Managers;
+using ArcGISMapsSDK.Samples.Shared.Models;
+using ArcGISMapsSDK.WinUI;
 using Esri.ArcGISRuntime.Security;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -23,7 +24,7 @@ using System.Threading.Tasks;
 
 using Navigation = Microsoft.UI.Xaml.Navigation;
 
-namespace ArcGISRuntime.WinUI.Viewer
+namespace ArcGISMapsSDK.WinUI.Viewer
 {
     public sealed partial class MainPage
     {

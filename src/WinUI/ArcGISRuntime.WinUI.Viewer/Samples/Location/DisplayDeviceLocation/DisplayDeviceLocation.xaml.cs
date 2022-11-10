@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
-namespace ArcGISRuntime.WinUI.Samples.DisplayDeviceLocation
+namespace ArcGISMapsSDK.WinUI.Samples.DisplayDeviceLocation
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Display device location with autopan modes",
         category: "Location",
         description: "Display your current position on the map, as well as switch between different types of auto pan Modes.",

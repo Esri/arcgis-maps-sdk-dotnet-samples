@@ -7,22 +7,22 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGISMapsSDK.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.ReadGeoPackage
+namespace ArcGISMapsSDK.WinUI.Samples.ReadGeoPackage
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Read GeoPackage",
         category: "Data",
         description: "Add rasters and feature tables from a GeoPackage to a map.",
         instructions: "When the sample loads, the feature tables and rasters from the GeoPackage will be shown on the map.",
         tags: new[] { "OGC", "container", "layer", "map", "package", "raster", "table" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     public partial class ReadGeoPackage
     {
         public ReadGeoPackage()

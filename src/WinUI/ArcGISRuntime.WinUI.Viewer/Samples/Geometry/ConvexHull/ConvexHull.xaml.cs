@@ -16,9 +16,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace ArcGISRuntime.WinUI.Samples.ConvexHull
+namespace ArcGISMapsSDK.WinUI.Samples.ConvexHull
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Convex hull",
         category: "Geometry",
         description: "Create a convex hull for a given set of points. The convex hull is a polygon with shortest perimeter that encloses a set of points. As a visual analogy, consider a set of points as nails in a board. The convex hull of the points would be like a rubber band stretched around the outermost nails.",

@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.WinUI.Samples.SceneLayerUrl
+namespace ArcGISMapsSDK.WinUI.Samples.SceneLayerUrl
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Scene layer (URL)",
         category: "Layers",
         description: "Display an ArcGIS scene layer from a URL.",

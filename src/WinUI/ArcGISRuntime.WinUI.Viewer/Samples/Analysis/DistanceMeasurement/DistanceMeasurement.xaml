@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ArcGISRuntime.WinUI.Samples.DistanceMeasurement.DistanceMeasurement"
+﻿<UserControl x:Class="ArcGISMapsSDK.WinUI.Samples.DistanceMeasurement.DistanceMeasurement"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">

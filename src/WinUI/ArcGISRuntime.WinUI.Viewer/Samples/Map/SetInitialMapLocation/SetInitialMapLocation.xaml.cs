@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.WinUI.Samples.SetInitialMapLocation
+namespace ArcGISMapsSDK.WinUI.Samples.SetInitialMapLocation
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Set initial map location",
         category: "Map",
         description: "Display a basemap centered at an initial location and scale.",

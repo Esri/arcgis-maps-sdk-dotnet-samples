@@ -368,9 +368,9 @@
     </Style>
 
     <Style TargetType="Slider">
-        <Setter Property="MinimumTrackColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
-        <Setter Property="MaximumTrackColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
-        <Setter Property="ThumbColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="MinimumTrackColor" Value="{OnPlatform Default={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}, Android={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}}" />
+        <Setter Property="MaximumTrackColor" Value="{OnPlatform Default={AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}, Android={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}}" />
+        <Setter Property="ThumbColor" Value="{OnPlatform Default={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}, Android={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">

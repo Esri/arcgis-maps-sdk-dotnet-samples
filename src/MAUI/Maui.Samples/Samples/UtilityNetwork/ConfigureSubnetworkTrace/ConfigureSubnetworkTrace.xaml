@@ -5,8 +5,6 @@
         <ScrollView>
             <StackLayout>
                 <Border Padding="10"
-                        BackgroundColor="{AppThemeBinding Light=#dedede,
-                                                          Dark=Black}"
                         StrokeThickness="0">
                     <Grid ColumnSpacing="5" RowSpacing="5">
                         <Grid.ColumnDefinitions>
@@ -42,7 +40,10 @@
                                 Toggled="IncludeContainersChanged" />
                     </Grid>
                 </Border>
-                <Border Padding="10" StrokeThickness="0">
+                <Border Padding="10" 
+                        StrokeThickness="0"
+                        BackgroundColor="{AppThemeBinding Light=#dedede,
+                                                          Dark=Black}">
                     <StackLayout Spacing="5">
                         <Label FontSize="Medium" Text="Define new condition" />
                         <Label FontAttributes="Italic" Text="(Example barrier condition for this data: 'Transformer Load' Equal '15')" />
@@ -72,21 +73,24 @@
                                    Margin="3"
                                    HorizontalOptions="Start"
                                    HorizontalTextAlignment="Center"
-                                   IsVisible="False" />
+                                   IsVisible="False" 
+                                   BackgroundColor="{AppThemeBinding Light=White,
+                                                                     Dark=#3c3c3c}"/>
                         </Grid>
                         <Button Clicked="OnAddCondition" Text="Add condition" />
                     </StackLayout>
                 </Border>
                 <ScrollView Padding="10"
-                            BackgroundColor="{AppThemeBinding Light=#dedede,
-                                                              Dark=Black}"
                             HeightRequest="150">
                     <StackLayout Spacing="10">
                         <Label FontSize="Medium" Text="Barrier conditions" />
                         <Label x:Name="ConditionBarrierExpression" Text="" />
                     </StackLayout>
                 </ScrollView>
-                <Border Padding="10" StrokeThickness="0">
+                <Border Padding="10" 
+                        StrokeThickness="0"
+                        BackgroundColor="{AppThemeBinding Light=#dedede,
+                                                          Dark=Black}">
                     <Grid RowSpacing="5">
                         <Grid.RowDefinitions>
                             <RowDefinition />

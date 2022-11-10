@@ -37,7 +37,7 @@
 
                 <TextBlock Grid.Row="0"
                            Margin="5"
-                           Text="The ArcGIS Runtime SDK sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future."
+                           Text="The ArcGIS Maps SDK sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future."
                            TextWrapping="Wrap" />
                 <StackPanel Grid.Row="1" Orientation="Horizontal">
                     <Button Margin="5"

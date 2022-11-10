@@ -8,7 +8,7 @@
 Only include these if your setup is not installing the Microsoft redistribution package.-->
       <Package id="ProCRuntime" name="Microsoft C and C++ Runtime Libraries" enabled="false" />
       <!--Provides the ability to perform geoprocessing tasks via geoprocessing packages.-->
-      <!--Geoprocessing packages must be created with ArcGIS Runtime support enabled.-->
+      <!--Geoprocessing packages must be created with Maps SDK for Native Apps support enabled.-->
       <Package id="ProGeoProcessing" name="Geoprocessing" enabled="false">
         <ChildPackages>
           <!--Adds 3D Analyst geoprocessing tools.-->

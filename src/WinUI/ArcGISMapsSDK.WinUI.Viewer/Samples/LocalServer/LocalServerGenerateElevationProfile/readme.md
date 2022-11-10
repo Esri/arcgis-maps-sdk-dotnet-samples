@@ -6,7 +6,7 @@ Create an elevation profile using a geoprocessing package executed with Local Se
 
 ## Use case
 
-Applications that include Local Server are valuable in offline workflows that require advanced spatial analysis or data manipulation. This sample uses a geoprocessing package (`.gpkx`) created in ArcGIS Pro involving a custom geoprocessing model that includes the [Interpolate Shape (3D Analyst)](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/interpolate-shape.htm) geoprocessing tool. The geoprocessing package is executed with ArcGIS Runtime Local Server.
+Applications that include Local Server are valuable in offline workflows that require advanced spatial analysis or data manipulation. This sample uses a geoprocessing package (`.gpkx`) created in ArcGIS Pro involving a custom geoprocessing model that includes the [Interpolate Shape (3D Analyst)](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/interpolate-shape.htm) geoprocessing tool. The geoprocessing package is executed with Local Server.
 
 You can generate elevation profiles to carry out topographical analysis of valley profiles, or visualize a hiking, cycling, or road trip over varied topography.
 
@@ -60,7 +60,7 @@ The geoprocessing task is started with a `gpkx`. This [Create elevation profile 
 
 Local Server can be downloaded for Windows and Linux platforms from your [ArcGIS Developers dashboard](https://developers.arcgis.com/net/local-server/install-and-set-up/). Local Server is not supported on macOS.
 
-The [Package Result](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/package-result.htm) tool in ArcGIS Pro is used to author ArcGIS Maps SDK for Native Apps compatible [geoprocessing](https://pro.arcgis.com/en/pro-app/latest/help/analysis/geoprocessing/basics/what-is-geoprocessing-.htm) packages (.gpkx files). For more information on running powerful offline geoprocessing tasks to provide advanced spatial analysis to your applications, see [ArcGIS Runtime Local Server SDK](https://developers.arcgis.com/net/local-server/).
+The [Package Result](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/package-result.htm) tool in ArcGIS Pro is used to author ArcGIS Maps SDK for Native Apps compatible [geoprocessing](https://pro.arcgis.com/en/pro-app/latest/help/analysis/geoprocessing/basics/what-is-geoprocessing-.htm) packages (.gpkx files). For more information on running powerful offline geoprocessing tasks to provide advanced spatial analysis to your applications, see [ArcGIS Local Server SDK](https://developers.arcgis.com/net/local-server/).
 
 The results of the geoprocessing tasks executed with Local Server can be accessed with code, persisted, and shared, for example as a feature collection portal item. This contrasts with the Scene visibility analyses, viewshed and line of sight, which are calculated dynamically at render-time and are displayed only in analysis overlays.
 

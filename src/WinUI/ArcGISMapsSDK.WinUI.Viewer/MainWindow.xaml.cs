@@ -7,7 +7,7 @@ namespace ArcGISMapsSDK.WinUI.Viewer
         public MainWindow()
         {
             this.InitializeComponent();
-            Title = "ArcGIS Runtime SDK for .NET (WinUI Desktop)";
+            Title = "ArcGIS Maps SDK for .NET (WinUI Desktop)";
         }
     }
 }

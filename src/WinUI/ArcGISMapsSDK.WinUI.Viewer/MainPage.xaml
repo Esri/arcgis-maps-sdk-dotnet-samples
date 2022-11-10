@@ -79,7 +79,7 @@
                        FontSize="18"
                        FontWeight="SemiBold"
                        Foreground="White"
-                       Text="ArcGIS Runtime SDK for .NET (WinUI Desktop)" />
+                       Text="ArcGIS Maps SDK for .NET (WinUI Desktop)" />
             <Border x:Name="SearchBoxBorder"
                     Grid.Column="1"
                     VerticalAlignment="Center"

@@ -1,9 +1,8 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
-<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
 
     <!--  Esri samples helper styles  -->
     <Style x:Key="EsriSampleContainer" TargetType="Grid">
@@ -368,9 +367,9 @@
     </Style>
 
     <Style TargetType="Slider">
-        <Setter Property="MinimumTrackColor" Value="{OnPlatform Default={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}, Android={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}}" />
-        <Setter Property="MaximumTrackColor" Value="{OnPlatform Default={AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}, Android={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}}" />
-        <Setter Property="ThumbColor" Value="{OnPlatform Default={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}, Android={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Primary}}}" />
+        <Setter Property="MinimumTrackColor" Value="{OnPlatform Default={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}, Android={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}}" />
+        <Setter Property="MaximumTrackColor" Value="{OnPlatform Default={AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}, Android={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}}" />
+        <Setter Property="ThumbColor" Value="{OnPlatform Default={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}, Android={AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">

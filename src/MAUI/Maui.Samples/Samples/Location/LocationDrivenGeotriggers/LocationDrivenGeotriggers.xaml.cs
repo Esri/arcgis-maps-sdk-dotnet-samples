@@ -14,12 +14,6 @@ using Esri.ArcGISRuntime.Geotriggers;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-
 
 namespace ArcGISRuntime.Samples.LocationDrivenGeotriggers
 {
@@ -96,6 +90,7 @@ namespace ArcGISRuntime.Samples.LocationDrivenGeotriggers
                 await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
+
         private GeotriggerMonitor CreateGeotriggerMonitor(ServiceFeatureTable table, double bufferSize, string triggerName)
         {
             // Create parameters for the fence.

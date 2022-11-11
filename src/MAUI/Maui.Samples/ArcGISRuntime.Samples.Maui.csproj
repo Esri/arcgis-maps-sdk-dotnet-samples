@@ -53,7 +53,6 @@
 
 	<ItemGroup>
       <!-- Excluded due to missing toolkit components -->
-
 	  <AndroidResource Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
 	  <Compile Remove="Samples\MapView\FilterByTimeExtent\**" />

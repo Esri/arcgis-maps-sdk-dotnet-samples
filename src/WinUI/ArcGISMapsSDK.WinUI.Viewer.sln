@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISMapsSDK.WinUI.Viewer"
 EndProject
 Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "ArcGISMapsSDK.WinUI.Viewer (Package)", "ArcGISMapsSDK.WinUI.Viewer (Package)\ArcGISMapsSDK.WinUI.Viewer (Package).wapproj", "{BA503BD0-660A-4EA6-AB0E-11823F9BAD96}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISMapsSDK.Samples.Shared", "..\ArcGISRuntime.Samples.Shared\ArcGISMapsSDK.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISMapsSDK.Samples.Shared", "..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -56,9 +56,5 @@ Global
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {26B5AC88-3A51-40ED-8EB7-8AE5981A6E07}
-	EndGlobalSection
-	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
-		..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{22859b00-b68b-43e8-a402-20dba622a27a}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

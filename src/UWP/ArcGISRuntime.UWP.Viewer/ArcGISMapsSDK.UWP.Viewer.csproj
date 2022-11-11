@@ -8,8 +8,8 @@
     <ProjectGuid>{BE5076AF-ECE0-4EA9-994E-37BAD4B19828}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ArcGISRuntime</RootNamespace>
-    <AssemblyName>ArcGISRuntime</AssemblyName>
+    <RootNamespace>ArcGISMapsSDK</RootNamespace>
+    <AssemblyName>ArcGISMapsSDK</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
@@ -1902,7 +1902,7 @@
   </ItemGroup>
   <ItemGroup />
   <!-- Imports -->
-  <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

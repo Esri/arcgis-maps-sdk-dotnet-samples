@@ -1,4 +1,4 @@
-﻿<ContentPage x:Class="ArcGISRuntime.Samples.DisplayDimensions.DisplayDimensions"
+﻿<ContentPage x:Class="ArcGISMapsSDKMaui.Samples.DisplayDimensions.DisplayDimensions"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"

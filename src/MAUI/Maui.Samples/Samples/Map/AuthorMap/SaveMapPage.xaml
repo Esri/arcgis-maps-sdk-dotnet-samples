@@ -32,7 +32,7 @@
         <Entry x:Name="MapTagsEntry"
                Grid.Row="2"
                Grid.Column="1"
-               Text="ArcGIS Runtime, Webmap" />
+               Text="ArcGIS, Webmap" />
         <Button Grid.Row="3"
                 Grid.Column="0"
                 Clicked="CancelButtonClicked"

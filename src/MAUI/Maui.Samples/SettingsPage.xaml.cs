@@ -28,7 +28,7 @@ namespace ArcGISRuntimeMaui
 
         private void Initialize()
         {
-            // Get the ArcGIS Runtime version number.
+            // Get the ArcGIS Maps SDK for .NET version number.
             string versionNumber = string.Empty;
             try
             {

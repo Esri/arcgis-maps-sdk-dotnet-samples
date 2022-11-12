@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 using System.Security.Cryptography;
 using System.Text;
 #elif __ANDROID__ && !NETCOREAPP
-using Xamarin.Essentials;
+using Microsoft.Maui.Storage.SecureStorage;
 #else
 
 using System.Security.Cryptography;

@@ -26,6 +26,7 @@ Or, you can browse a searchable list of samples on the ArcGIS for developers web
 [![Link: WPF](https://img.shields.io/badge/WPF-0078d6?style=flat-square&labelColor=gray&logo=windowsxp)](https://developers.arcgis.com/net/wpf/sample-code/)
 [![Link: WinUI](https://img.shields.io/badge/WinUI-0E53BD?style=flat-square&labelColor=gray&logo=windows)](https://developers.arcgis.com/net/winui/sample-code/)
 [![Link: UWP](https://img.shields.io/badge/UWP-(Legacy)-202020?style=flat-square&labelColor=gray&logo=windows)](https://developers.arcgis.com/net/uwp/sample-code/)
+[![Link: .NET MAUI](https://img.shields.io/badge/MAUI-512BD4?style=square&labelColor=gray&logo=dotnet)](https://developers.arcgis.com/net/maui/sample-code/)
 
 ### Build the samples locally
 

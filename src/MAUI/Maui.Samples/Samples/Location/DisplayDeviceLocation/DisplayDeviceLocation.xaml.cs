@@ -49,7 +49,9 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
                 // Permission request only needed on Android.
 #if ANDROID
                 // See implementation in MainActivity.cs in the Android platform project.
-                //TODO (use below function)
+                // MainActivity.Instance.AskForLocationPermission(MyMapView);
+
+                //TODO (remove above function, use below function)
                 // PermissionStatus status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
 #else
                 var status = Microsoft.Maui.ApplicationModel.PermissionStatus.Unknown;

@@ -1,14 +1,12 @@
-﻿<ContentPage x:Class="ArcGISRuntimeMauiXamarin.Samples.IndoorPositioning.IndoorPositioning"
+﻿<ContentPage x:Class="ArcGISRuntimeMaui.Samples.IndoorPositioning.IndoorPositioning"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
-    <RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Label x:Name="PositioningLabel" />
-        </resources:ResponsiveFormContainer>
-    </RelativeLayout>
+        </Border>
+    </Grid>
 </ContentPage>

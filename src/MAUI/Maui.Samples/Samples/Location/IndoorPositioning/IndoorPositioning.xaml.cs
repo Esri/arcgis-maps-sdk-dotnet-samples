@@ -7,24 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Maui;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
 using Microsoft.Maui.ApplicationModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Location = Esri.ArcGISRuntime.Location.Location;
 using Map = Esri.ArcGISRuntime.Mapping.Map;
-
-
-#if __ANDROID__
-//using ArcGISRuntime.Droid;
-#endif
 
 namespace ArcGISRuntimeMaui.Samples.IndoorPositioning
 {
@@ -60,6 +50,7 @@ namespace ArcGISRuntimeMaui.Samples.IndoorPositioning
             InitializeComponent();
             _ = Initialize();
         }
+
         private async Task Initialize()
         {
             try
@@ -72,11 +63,11 @@ namespace ArcGISRuntimeMaui.Samples.IndoorPositioning
 
 #if __ANDROID__
                 // Get bluetooth permission for Android devices. Devices running Android 12 or higher need the `BluetoothScan` permission. Android 11 and below require the `Bluetooth` and `BluetoothAdmin` permissions.
-                bool bluetoothScanGranted = await MainActivity.Instance.AskForBluetoothPermission();
-                if (!bluetoothScanGranted)
-                {
-                    throw new Exception("Bluetooth permission is required for use of indoor positioning.");
-                }
+                //bool bluetoothScanGranted = await MainActivity.Instance.AskForBluetoothPermission();
+                //if (!bluetoothScanGranted)
+                //{
+                //    throw new Exception("Bluetooth permission is required for use of indoor positioning.");
+                //}
 #endif
                 PositioningLabel.Text = "Loading map";
 

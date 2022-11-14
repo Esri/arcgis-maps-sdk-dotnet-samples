@@ -14,7 +14,7 @@ using ArcGISRuntimeMaui.Helpers;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-#if XAMARIN_ANDROID
+#if ANDROID
 using Google.AR.Core;
 using ArcGISRuntime.Droid;
 #endif

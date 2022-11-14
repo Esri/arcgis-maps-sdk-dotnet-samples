@@ -103,9 +103,10 @@ namespace ArcGISRuntime.Samples.ShowLocationHistory
 
             try
             {
-#if XAMARIN_ANDROID
+#if ANDROID
                 // See implementation in MainActivity.cs in the Android platform project.
-                ArcGISRuntime.Droid.MainActivity.Instance.AskForLocationPermission(MyMapView);
+                //TODO
+                //ArcGISRuntime.Droid.MainActivity.Instance.AskForLocationPermission(MyMapView);
 #endif
                 // Start the data source.
                 await _locationDataSource.StartAsync();

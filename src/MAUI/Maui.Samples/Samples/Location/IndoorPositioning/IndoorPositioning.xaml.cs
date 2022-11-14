@@ -23,6 +23,7 @@ using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 
 #if __ANDROID__
+//TODO
 //using ArcGISRuntime.Droid;
 #endif
 
@@ -72,11 +73,12 @@ namespace ArcGISRuntimeMaui.Samples.IndoorPositioning
 
 #if __ANDROID__
                 // Get bluetooth permission for Android devices. Devices running Android 12 or higher need the `BluetoothScan` permission. Android 11 and below require the `Bluetooth` and `BluetoothAdmin` permissions.
-                bool bluetoothScanGranted = await MainActivity.Instance.AskForBluetoothPermission();
-                if (!bluetoothScanGranted)
-                {
-                    throw new Exception("Bluetooth permission is required for use of indoor positioning.");
-                }
+                //TODO
+                //bool bluetoothScanGranted = await MainActivity.Instance.AskForBluetoothPermission();
+                //if (!bluetoothScanGranted)
+                //{
+                //    throw new Exception("Bluetooth permission is required for use of indoor positioning.");
+                //}
 #endif
                 PositioningLabel.Text = "Loading map";
 

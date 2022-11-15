@@ -21,28 +21,28 @@
             Grid.RowSpan="4"
             Grid.ColumnSpan="4"
             Padding="0"
-            BackgroundColor="White"
+            BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                              Dark=#303030}"
             CornerRadius="0"
             IsVisible="False">
-            <StackLayout>
-                <Label
-                    x:Name="FeatureName"
-                    Margin="5"
-                    HeightRequest="15" />
-                <Image
-                    x:Name="FeatureImage"
-                    Margin="5"
-                    HeightRequest="150" />
-                <ScrollView Margin="5" HeightRequest="100">
-                    <Label x:Name="FeatureDescription" LineBreakMode="WordWrap" />
-                </ScrollView>
-                <Button
-                    x:Name="PopupCloseButton"
-                    Margin="5"
-                    Clicked="PopupCloseButton_Clicked"
-                    HeightRequest="30"
-                    Text="Close" />
-            </StackLayout>
+            <ScrollView>
+                <StackLayout>
+                    <Label x:Name="FeatureName" Margin="5" />
+                    <Image
+                        x:Name="FeatureImage"
+                        Margin="5"
+                        HeightRequest="150" />
+                    <Label
+                        x:Name="FeatureDescription"
+                        Margin="5"
+                        LineBreakMode="WordWrap" />
+                    <Button
+                        x:Name="PopupCloseButton"
+                        Margin="5"
+                        Clicked="PopupCloseButton_Clicked"
+                        Text="Close" />
+                </StackLayout>
+            </ScrollView>
         </Frame>
     </Grid>
 </ContentPage>

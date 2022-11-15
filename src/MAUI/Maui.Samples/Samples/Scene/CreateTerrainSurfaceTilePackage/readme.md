@@ -23,9 +23,13 @@ When loaded, the sample will show a scene with a terrain surface applied. Pan an
 * ArcGISTiledElevationSource
 * Surface
 
+## About the data
+
+This sample uses the [Monterey Elevation](https://arcgisruntime.maps.arcgis.com/home/item.html?id=52ca74b4ba8042b78b3c653696f34a9c) tile package, using CompactV2 storage format (.tpkx).
+
 ## Additional information
 
-The tile package must be a LERC (limited error raster compression) encoded TPK. Details on can be found in the topic [Share a tile package](https://pro.arcgis.com/en/pro-app/help/sharing/overview/tile-package.htm) in the *ArcGIS Pro* documentation.
+The tile package must be a LERC (limited error raster compression) encoded TPK/TPKX. Details can be found in the topic [Share a tile package](https://pro.arcgis.com/en/pro-app/help/sharing/overview/tile-package.htm) in the *ArcGIS Pro* documentation.
 
 ## Tags
 

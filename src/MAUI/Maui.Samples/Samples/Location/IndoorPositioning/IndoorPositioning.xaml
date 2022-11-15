@@ -6,7 +6,7 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Label x:Name="PositioningLabel" />
+            <Label x:Name="PositioningLabel" Padding="5" />
         </Border>
     </Grid>
 </ContentPage>

@@ -61,13 +61,13 @@ namespace ArcGISRuntimeMaui.Samples.IndoorPositioning
                     throw new Exception("Location permission required for use of indoor positioning.");
                 }
 
-#if __ANDROID__
-                // Get bluetooth permission for Android devices. Devices running Android 12 or higher need the `BluetoothScan` permission. Android 11 and below require the `Bluetooth` and `BluetoothAdmin` permissions.
-                //bool bluetoothScanGranted = await MainActivity.Instance.AskForBluetoothPermission();
-                //if (!bluetoothScanGranted)
-                //{
-                //    throw new Exception("Bluetooth permission is required for use of indoor positioning.");
-                //}
+#if ANDROID
+                // Get bluetooth permission for Android devices. // AndroidBluetoothPerms is a custom PermissionStatus in this namespace.
+                PermissionStatus bluetoothStatus = await Permissions.RequestAsync<AndroidBluetoothPerms>();
+                if (bluetoothStatus != PermissionStatus.Granted)
+                {
+                    throw new Exception("Bluetooth permission is required for use of indoor positioning.");
+                }
 #endif
                 PositioningLabel.Text = "Loading map";
 
@@ -172,4 +172,34 @@ namespace ArcGISRuntimeMaui.Samples.IndoorPositioning
             _ = MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
+
+#if ANDROID
+
+    public class AndroidBluetoothPerms : Permissions.BasePlatformPermission
+    {
+        public override (string androidPermission, bool isRuntime)[] RequiredPermissions
+        {
+            get
+            {
+                // Devices running Android 12 or higher need the `BluetoothScan` permission. Android 11 and below require the `Bluetooth` and `BluetoothAdmin` permissions.
+                if (Android.OS.Build.VERSION.SdkInt > Android.OS.BuildVersionCodes.S)
+                {
+                    return new List<(string androidPermission, bool isRuntime)>
+                    {
+                        (global::Android.Manifest.Permission.BluetoothScan, true),
+                    }.ToArray();
+                }
+                else
+                {
+                    return new List<(string androidPermission, bool isRuntime)>
+                    {
+                        (global::Android.Manifest.Permission.Bluetooth, true),
+                        (global::Android.Manifest.Permission.BluetoothAdmin, true)
+                    }.ToArray();
+                }
+            }
+        }
+    }
+
+#endif
 }

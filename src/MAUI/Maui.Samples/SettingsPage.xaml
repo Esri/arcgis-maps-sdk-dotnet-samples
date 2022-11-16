@@ -35,12 +35,8 @@
                                 Text="Download all" />
                         <Button Grid.Column="1"
                                 Clicked="DeleteAllClicked"
-                                IsEnabled="{x:OnPlatform Android=True,
-                                                         iOS=True,
-                                                         WinUI=True}"
-                                IsVisible="{x:OnPlatform Android=True,
-                                                         iOS=True,
-                                                         WinUI=True}"
+                                IsEnabled="True"
+                                IsVisible="True"
                                 Text="Delete all" />
                         <Button x:Name="CancelButton"
                                 Grid.Column="2"
@@ -113,12 +109,11 @@
                                Margin="10"
                                VerticalOptions="Center" />
                         <Grid Grid.Column="1"
-                              HeightRequest="{x:OnPlatform Android=40,
-                                                           iOS=40,
-                                                           WinUI=40}"
+                              HeightRequest="40"
                               WidthRequest="{x:OnPlatform Android=120,
                                                           iOS=120,
-                                                          WinUI=240}">
+                                                          WinUI=240,
+                                                          MacCatalyst=240}">
                             <ProgressBar x:Name="StatusBar"
                                          Margin="5"
                                          IsVisible="False"

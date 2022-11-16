@@ -30,20 +30,20 @@ namespace ArcGISRuntimeMaui.Samples.IndoorPositioning
 
         private int? _currentFloor = null;
 
-        // This data is specific to a building on the Esri campus. Substitute your own data in order to use this sample. Code in the sample may need to be modified to work with other maps.
+        // Provide your own data in order to use this sample. Code in the sample may need to be modified to work with other maps.
 
-        #region EsriBuildingData
+        #region BuildingData
 
         private Uri _portalUri = new Uri("https://www.arcgis.com/");
 
-        private const string ItemId = "8fa941613b4b4b2b8a34ad4cdc3e4bba";
+        private const string ItemId = "YOUR_ITEM_ID_HERE";
 
-        private const string PositioningTableName = "ips_positioning";
-        private const string PathwaysLayerName = "pathways";
+        private const string PositioningTableName = "IPS_Positioning";
+        private const string PathwaysLayerName = "Pathways";
 
         private string[] _layerNames = new string[] { "Details", "Units", "Levels" };
 
-        #endregion EsriBuildingData
+        #endregion BuildingData
 
         public IndoorPositioning()
         {

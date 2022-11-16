@@ -123,7 +123,7 @@
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource DarkGray}, Dark={StaticResource LightGray}}" />
     </Style>
 
-    <!--<Style TargetType="Button">
+    <Style TargetType="Button">
         <Setter Property="TextColor" Value="{OnPlatform Android={AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}}" />
         <Setter Property="BackgroundColor" Value="{OnPlatform Android={AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}}" />
         <Setter Property="CornerRadius" Value="{OnPlatform Android=3}" />
@@ -139,7 +139,7 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
-    </Style>-->
+    </Style>
 
     <Style TargetType="CheckBox">
         <Setter Property="Color" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />

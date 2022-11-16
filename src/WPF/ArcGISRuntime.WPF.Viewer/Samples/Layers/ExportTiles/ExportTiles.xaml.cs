@@ -157,7 +157,7 @@ namespace ArcGISRuntime.WPF.Samples.ExportTiles
             ExportTileCacheTask exportTask = await ExportTileCacheTask.CreateAsync(_serviceUri);
 
             // Get the tile cache path.
-            string tilePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + ".tpk");
+            string tilePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + ".tpkx");
 
             // Create the export job.
             _job = exportTask.ExportTileCache(parameters, tilePath);

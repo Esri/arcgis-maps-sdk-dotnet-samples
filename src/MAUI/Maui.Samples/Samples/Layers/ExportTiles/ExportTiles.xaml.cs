@@ -164,7 +164,7 @@ namespace ArcGISRuntime.Samples.ExportTiles
             try
             {
                 // Update the tile cache path.
-                _tilePath = $"{Path.GetTempFileName()}.tpk";
+                _tilePath = $"{Path.GetTempFileName()}.tpkx";
 
                 // Get the parameters for the job.
                 ExportTileCacheParameters parameters = GetExportParameters();

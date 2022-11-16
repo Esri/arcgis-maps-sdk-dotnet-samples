@@ -45,7 +45,6 @@ namespace ArcGISRuntime.Samples.TakeScreenshot
                 RuntimeImage exportedImage = await MyMapView.ExportImageAsync();
 
                 // Create image bitmap by getting stream from the exported image.
-                // NOTE: currently broken on UWP due to Xamarin.ArcGISRuntimeMaui bug https://github.com/xamarin/Xamarin.ArcGISRuntimeMaui/issues/5188.
                 var buffer = await exportedImage.GetEncodedBufferAsync();
                 byte[] data = new byte[buffer.Length];
                 buffer.Read(data, 0, data.Length);

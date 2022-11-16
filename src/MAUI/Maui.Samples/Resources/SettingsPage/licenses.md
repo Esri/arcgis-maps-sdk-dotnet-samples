@@ -1,6 +1,6 @@
 ﻿# Licenses for 3rd-party software packages
 
-The ArcGIS Runtime SDK for .NET sample viewer (Xamarin Forms version) was built using several free and open source software libraries and resources. 
+The ArcGIS Runtime SDK for .NET sample viewer (MAUI version) was built using several free and open source software libraries and resources. 
 
 ----
 
@@ -45,14 +45,6 @@ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
 CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
 OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-----
-
-## FilePicker Plugin for Xamarin.Forms
-
-This app uses the FilePicker Plugin for Xamarin.Forms under the MIT license. It is used to show file pickers in different platforms.
-
-[Project on GitHub](https://github.com/jfversluis/FilePicker-Plugin-for-Xamarin-and-Windows) | [Project on NuGet](https://www.nuget.org/packages/Xamarin.Plugin.FilePicker/2.1.34) |[License](https://github.com/jfversluis/FilePicker-Plugin-for-Xamarin-and-Windows/blob/master/LICENSE)
 
 ----
 

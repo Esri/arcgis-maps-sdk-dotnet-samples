@@ -52,31 +52,15 @@
   </ItemGroup>
 
 	<ItemGroup>
-      <!-- Excluded due to missing toolkit components -->
-	  <AndroidResource Remove="Samples\Location\LocationDrivenGeotriggers\**" />
+    <!-- Excluded due to missing toolkit components -->
 	  <AndroidResource Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <AndroidResource Remove="Samples\Map\ChangeBasemap\**" />
-	  <AndroidResource Remove="Samples\Map\DisplayOverviewMap\**" />
-	  <Compile Remove="Samples\Location\LocationDrivenGeotriggers\**" />
 	  <Compile Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <Compile Remove="Samples\Map\ChangeBasemap\**" />
-	  <Compile Remove="Samples\Map\DisplayOverviewMap\**" />
-	  <EmbeddedResource Remove="Samples\Location\LocationDrivenGeotriggers\**" />
+	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
 	  <EmbeddedResource Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <EmbeddedResource Remove="Samples\Map\ChangeBasemap\**" />
-	  <EmbeddedResource Remove="Samples\Map\DisplayOverviewMap\**" />
-	  <MauiCss Remove="Samples\Location\LocationDrivenGeotriggers\**" />
 	  <MauiCss Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <MauiCss Remove="Samples\Map\ChangeBasemap\**" />
-	  <MauiCss Remove="Samples\Map\DisplayOverviewMap\**" />
-	  <MauiXaml Remove="Samples\Location\LocationDrivenGeotriggers\**" />
 	  <MauiXaml Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <MauiXaml Remove="Samples\Map\ChangeBasemap\**" />
-	  <MauiXaml Remove="Samples\Map\DisplayOverviewMap\**" />
-	  <None Remove="Samples\Location\LocationDrivenGeotriggers\**" />
 	  <None Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <None Remove="Samples\Map\ChangeBasemap\**" />
-	  <None Remove="Samples\Map\DisplayOverviewMap\**" />
+    <!-- Excluded due to file picker issue -->
 	  <AndroidResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	  <Compile Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	  <EmbeddedResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
@@ -193,6 +177,7 @@
       <PackageReference Include="Esri.ArcGISRuntime" Version="200.0.0-beta" />
       <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0-beta" />
       <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="200.0.0-beta" />
+      <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" Version="200.0.0-beta" />
       <PackageReference Include="Markdig" Version="0.30.3" />
       <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
   </ItemGroup>

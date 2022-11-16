@@ -60,7 +60,6 @@ namespace ArcGISRuntimeMaui.Samples.IndoorPositioning
                 {
                     throw new Exception("Location permission required for use of indoor positioning.");
                 }
-
 #if ANDROID
                 // Get bluetooth permission for Android devices. AndroidBluetoothPerms is a custom PermissionStatus in this namespace.
                 PermissionStatus bluetoothStatus = await Permissions.RequestAsync<AndroidBluetoothPerms>();

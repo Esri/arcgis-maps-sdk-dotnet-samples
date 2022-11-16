@@ -11,8 +11,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System.Diagnostics;
 
-#if XAMARIN_ANDROID
-using ArcGISRuntime.Droid;
+#if ANDROID
+//TODO (use below reference)
+// using Microsoft.Maui.ApplicationModel;
 
 #endif
 
@@ -46,9 +47,12 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
             try
             {
                 // Permission request only needed on Android.
-#if XAMARIN_ANDROID
+#if ANDROID
                 // See implementation in MainActivity.cs in the Android platform project.
-                MainActivity.Instance.AskForLocationPermission(MyMapView);
+                // MainActivity.Instance.AskForLocationPermission(MyMapView);
+
+                //TODO (remove above function, use below function)
+                // PermissionStatus status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
 #else
                 var status = Microsoft.Maui.ApplicationModel.PermissionStatus.Unknown;
 

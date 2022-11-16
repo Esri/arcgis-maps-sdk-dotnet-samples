@@ -1,4 +1,4 @@
-﻿# ArcGIS Runtime SDK Samples (Xamarin Forms)
+﻿# ArcGIS Runtime SDK Samples (.NET MAUI)
 
 This sample viewer shows how different features of the ArcGIS runtime can be implemented on the .NET framework. 
 

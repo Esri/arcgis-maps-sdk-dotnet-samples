@@ -16,8 +16,9 @@ using Esri.ArcGISRuntime.UI;
 using System.Diagnostics;
 using System.Reflection;
 
-#if XAMARIN_ANDROID
-using ArcGISRuntime.Droid;
+#if ANDROID
+//TODO
+//using ArcGISRuntime.Droid;
 #endif
 
 namespace ArcGISRuntime.Samples.FindPlace
@@ -65,9 +66,10 @@ namespace ArcGISRuntime.Samples.FindPlace
                     try
                     {
                         // Permission request only needed on Android.
-#if XAMARIN_ANDROID
+#if ANDROID
                         // See implementation in MainActivity.cs in the Android platform project.
-                        MainActivity.Instance.AskForLocationPermission(MyMapView);
+                        //TODO
+                        //MainActivity.Instance.AskForLocationPermission(MyMapView);
 #else
                         var status = Microsoft.Maui.ApplicationModel.PermissionStatus.Unknown;
 

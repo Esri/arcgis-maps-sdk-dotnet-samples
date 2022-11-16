@@ -32,7 +32,7 @@ namespace ArcGISRuntimeMaui
             string versionNumber = string.Empty;
             try
             {
-#if XAMARIN_ANDROID
+#if ANDROID
                 versionNumber = typeof(ArcGISRuntimeEnvironment).GetTypeInfo().Assembly.GetName().Version.ToString(2);
 #else
                 var runtimeTypeInfo = typeof(ArcGISRuntimeEnvironment).GetTypeInfo();

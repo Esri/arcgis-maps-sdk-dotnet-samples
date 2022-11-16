@@ -37,10 +37,10 @@
                                 Clicked="DeleteAllClicked"
                                 IsEnabled="{x:OnPlatform Android=True,
                                                          iOS=True,
-                                                         UWP=True}"
+                                                         WinUI=True}"
                                 IsVisible="{x:OnPlatform Android=True,
                                                          iOS=True,
-                                                         UWP=True}"
+                                                         WinUI=True}"
                                 Text="Delete all" />
                         <Button x:Name="CancelButton"
                                 Grid.Column="2"
@@ -90,10 +90,10 @@
                                                      HeightRequest="25"
                                                      IsEnabled="{x:OnPlatform Android=True,
                                                                               iOS=True,
-                                                                              UWP=True}"
+                                                                              WinUI=True}"
                                                      IsVisible="{x:OnPlatform Android=True,
                                                                               iOS=True,
-                                                                              UWP=True}"
+                                                                              WinUI=True}"
                                                      Source="{AppThemeBinding Light=trash.png,
                                                                               Dark=trashdark.png}"
                                                      VerticalOptions="CenterAndExpand"
@@ -115,10 +115,10 @@
                         <Grid Grid.Column="1"
                               HeightRequest="{x:OnPlatform Android=40,
                                                            iOS=40,
-                                                           UWP=40}"
+                                                           WinUI=40}"
                               WidthRequest="{x:OnPlatform Android=120,
                                                           iOS=120,
-                                                          UWP=240}">
+                                                          WinUI=240}">
                             <ProgressBar x:Name="StatusBar"
                                          Margin="5"
                                          IsVisible="False"

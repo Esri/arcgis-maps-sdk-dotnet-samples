@@ -8,21 +8,17 @@
         <ActivityIndicator x:Name="SaveMapProgressBar"
                            Grid.RowSpan="2"
                            Grid.ColumnSpan="2"
+                           HeightRequest="40"
                            IsRunning="True"
                            IsVisible="False" />
-        <Border MinimumWidthRequest="300" Style="{DynamicResource EsriSampleControlPanel}">
-            <VerticalStackLayout Padding="5" Spacing="5">
-                <ListView x:Name="LayersList"
-                          HeightRequest="150"
-                          IsVisible="False"
-                          ItemTapped="LayerSelected" />
-                <HorizontalStackLayout Spacing="5">
-                    <Button Clicked="ShowLayerList" Text="Basemap" />
-                    <Button Clicked="ShowLayerList" Text="Layers" />
-                    <Button Clicked="NewMapButtonClick" Text="New" />
-                    <Button Clicked="ShowSaveMapUI" Text="Save" />
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
+        <Border MinimumWidthRequest="360" Style="{DynamicResource EsriSampleControlPanel}">
+            <HorizontalStackLayout Padding="5" Spacing="5">
+                <Button Clicked="Basemap_Clicked" Text="Basemap" />
+                <Button Clicked="Add_Clicked" Text="Add" />
+                <Button Clicked="Remove_Clicked" Text="Remove" />
+                <Button Clicked="NewMapButtonClick" Text="New" />
+                <Button Clicked="ShowSaveMapUI" Text="Save" />
+            </HorizontalStackLayout>
         </Border>
     </Grid>
 </ContentPage>

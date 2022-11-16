@@ -17,10 +17,10 @@
                      Text="Source" />
     </ContentPage.ToolbarItems>
     <Grid>
-        <Border x:Name="SampleDetailPage" >
+        <Border x:Name="SampleDetailPage">
             <WebView x:Name="DescriptionView" />
         </Border>
-        <Border x:Name="SourceCodePage" >
+        <Border x:Name="SourceCodePage">
             <StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Button Margin="5"
@@ -34,6 +34,9 @@
                 <WebView x:Name="SourceCodeView" VerticalOptions="FillAndExpand" />
             </StackLayout>
         </Border>
-        <Border x:Name="SampleContentPage" Padding="0" />
+        <Border x:Name="SampleContentPage"
+                Padding="0"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                                  Dark=#303030}" />
     </Grid>
 </ContentPage>

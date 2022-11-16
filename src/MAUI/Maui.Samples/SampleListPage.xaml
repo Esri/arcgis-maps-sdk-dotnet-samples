@@ -5,7 +5,7 @@
         <ListView x:Name="SampleList" ItemsSource="{Binding .}" ItemTapped="OnItemTapped" SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding SampleName}" />
+                    <TextCell Text="{Binding SampleName}" TextColor="{AppThemeBinding Light=Black, Dark=LightGray}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

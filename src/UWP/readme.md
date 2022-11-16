@@ -135,7 +135,6 @@
 * [Scene layer (URL)](ArcGISRuntime.UWP.Viewer/Samples/Layers/SceneLayerUrl) - Display an ArcGIS scene layer from a URL.
 * [Scene layer selection](ArcGISRuntime.UWP.Viewer/Samples/Layers/SceneLayerSelection) - Identify features in a scene to select.
 * [Show labels on layers](ArcGISRuntime.UWP.Viewer/Samples/Layers/ShowLabelsOnLayer) - Display custom labels on a feature layer.
-* [Show popup](ArcGISRuntime.UWP.Viewer/Samples/Layers/ShowPopup) - Show predefined popups from a web map.
 * [Stretch renderer](ArcGISRuntime.UWP.Viewer/Samples/Layers/ChangeStretchRenderer) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.
 * [Style WMS layers](ArcGISRuntime.UWP.Viewer/Samples/Layers/StyleWmsLayer) - Change the style of a Web Map Service (WMS) layer.
 * [Time-based query](ArcGISRuntime.UWP.Viewer/Samples/Layers/TimeBasedQuery) - Query data using a time extent. 

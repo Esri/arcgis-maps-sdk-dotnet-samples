@@ -2,36 +2,26 @@
 <ContentPage x:Class="ArcGISRuntime.Samples.TokenSecuredChallenge.LoginPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-
-    <Grid Margin="20,50,20,0">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="65" />
-            <RowDefinition Height="70" />
-            <RowDefinition Height="70" />
-            <RowDefinition Height="70" />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
+    <Grid ColumnDefinitions="auto,auto"
+          ColumnSpacing="10"
+          HorizontalOptions="Center"
+          RowDefinitions="auto,auto,auto,auto"
+          RowSpacing="10"
+          VerticalOptions="Center">
         <Label x:Name="LoginLabel"
                Grid.Row="0"
                Grid.Column="0"
                Grid.ColumnSpan="2"
-               FontSize="14"
                Text="Login to access token-secured service" />
         <Entry x:Name="UsernameEntry"
                Grid.Row="1"
                Grid.Column="0"
                Grid.ColumnSpan="2"
-               Margin="10,3"
                Placeholder="Username = user1" />
         <Entry x:Name="PasswordEntry"
                Grid.Row="2"
                Grid.Column="0"
                Grid.ColumnSpan="2"
-               Margin="10,3"
                IsPassword="True"
                Placeholder="Password = user1" />
         <Button x:Name="LoginButton"

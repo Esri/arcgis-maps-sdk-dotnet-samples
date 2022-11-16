@@ -2,33 +2,45 @@
 <ContentPage x:Class="ArcGISRuntime.Samples.AuthorMap.SaveMapPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <ContentPage.Content>
-        <TableView x:Name="SaveMapUI"
-                   Grid.Row="0"
-                   Intent="Form">
-            <TableRoot>
-                <TableSection Title="Map Information">
-                    <EntryCell x:Name="MapTitleEntry"
-                               Label="Title:"
-                               Placeholder="Required" />
-                    <EntryCell x:Name="MapDescriptionEntry"
-                               Label="Description:"
-                               Placeholder="Required" />
-                    <EntryCell x:Name="MapTagsEntry"
-                               Label="Tags:"
-                               Text="ArcGIS Runtime, Webmap" />
-                    <ViewCell>
-                        <StackLayout HorizontalOptions="CenterAndExpand" Orientation="Horizontal">
-                            <Button Margin="20,0"
-                                    Clicked="CancelButtonClicked"
-                                    Text="Cancel" />
-                            <Button x:Name="SaveMapButton"
-                                    Clicked="SaveButtonClicked"
-                                    Text="Save" />
-                        </StackLayout>
-                    </ViewCell>
-                </TableSection>
-            </TableRoot>
-        </TableView>
-    </ContentPage.Content>
+    <Grid x:Name="SaveMapUI"
+          ColumnDefinitions="auto,auto"
+          ColumnSpacing="10"
+          HorizontalOptions="Center"
+          RowDefinitions="auto,auto,auto,auto"
+          RowSpacing="10"
+          VerticalOptions="Center">
+        <Label Grid.Row="0"
+               Grid.Column="0"
+               Text="Title:"
+               VerticalTextAlignment="Center" />
+        <Entry x:Name="MapTitleEntry"
+               Grid.Row="0"
+               Grid.Column="1"
+               Placeholder="Required" />
+        <Label Grid.Row="1"
+               Grid.Column="0"
+               Text="Description:"
+               VerticalTextAlignment="Center" />
+        <Entry x:Name="MapDescriptionEntry"
+               Grid.Row="1"
+               Grid.Column="1"
+               Placeholder="Required" />
+        <Label Grid.Row="2"
+               Grid.Column="0"
+               Text="Tags:"
+               VerticalTextAlignment="Center" />
+        <Entry x:Name="MapTagsEntry"
+               Grid.Row="2"
+               Grid.Column="1"
+               Text="ArcGIS Runtime, Webmap" />
+        <Button Grid.Row="3"
+                Grid.Column="0"
+                Clicked="CancelButtonClicked"
+                Text="Cancel" />
+        <Button x:Name="SaveMapButton"
+                Grid.Row="3"
+                Grid.Column="1"
+                Clicked="SaveButtonClicked"
+                Text="Save" />
+    </Grid>
 </ContentPage>

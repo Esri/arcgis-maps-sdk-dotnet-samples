@@ -53,41 +53,17 @@
 
 	<ItemGroup>
       <!-- Excluded due to missing toolkit components -->
-	  <AndroidResource Remove="Samples\Layers\ShowPopup\**" />
-	  <AndroidResource Remove="Samples\Location\LocationDrivenGeotriggers\**" />
 	  <AndroidResource Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <AndroidResource Remove="Samples\Map\ChangeBasemap\**" />
-	  <AndroidResource Remove="Samples\Map\DisplayOverviewMap\**" />
 	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
-	  <Compile Remove="Samples\Layers\ShowPopup\**" />
-	  <Compile Remove="Samples\Location\LocationDrivenGeotriggers\**" />
 	  <Compile Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <Compile Remove="Samples\Map\ChangeBasemap\**" />
-	  <Compile Remove="Samples\Map\DisplayOverviewMap\**" />
 	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
-	  <EmbeddedResource Remove="Samples\Layers\ShowPopup\**" />
-	  <EmbeddedResource Remove="Samples\Location\LocationDrivenGeotriggers\**" />
 	  <EmbeddedResource Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <EmbeddedResource Remove="Samples\Map\ChangeBasemap\**" />
-	  <EmbeddedResource Remove="Samples\Map\DisplayOverviewMap\**" />
 	  <EmbeddedResource Remove="Samples\Location\IndoorPositioning\**" />
-	  <MauiCss Remove="Samples\Layers\ShowPopup\**" />
-	  <MauiCss Remove="Samples\Location\LocationDrivenGeotriggers\**" />
 	  <MauiCss Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <MauiCss Remove="Samples\Map\ChangeBasemap\**" />
-	  <MauiCss Remove="Samples\Map\DisplayOverviewMap\**" />
 	  <MauiCss Remove="Samples\Location\IndoorPositioning\**" />
-	  <MauiXaml Remove="Samples\Layers\ShowPopup\**" />
-	  <MauiXaml Remove="Samples\Location\LocationDrivenGeotriggers\**" />
 	  <MauiXaml Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <MauiXaml Remove="Samples\Map\ChangeBasemap\**" />
-	  <MauiXaml Remove="Samples\Map\DisplayOverviewMap\**" />
 	  <MauiXaml Remove="Samples\Location\IndoorPositioning\**" />
-	  <None Remove="Samples\Layers\ShowPopup\**" />
-	  <None Remove="Samples\Location\LocationDrivenGeotriggers\**" />
 	  <None Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <None Remove="Samples\Map\ChangeBasemap\**" />
-	  <None Remove="Samples\Map\DisplayOverviewMap\**" />
 	  <None Remove="Samples\Location\IndoorPositioning\**" />
 	  <AndroidResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	  <Compile Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
@@ -199,8 +175,16 @@
       <PackageReference Include="Esri.ArcGISRuntime" Version="200.0.0-beta" />
       <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0-beta" />
       <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="200.0.0-beta" />
+      <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" Version="200.0.0-beta" />
       <PackageReference Include="Markdig" Version="0.30.3" />
       <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="6.0.0" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
+  </ItemGroup>
+
+  <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows10.0.19041.0'">
+    <PackageReference Include="WinUIEx">
+      <Version>1.8.0</Version>
+    </PackageReference>
   </ItemGroup>
 
   <Import Project="..\..\ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems" Label="Shared" />

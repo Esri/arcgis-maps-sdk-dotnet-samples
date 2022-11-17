@@ -36,6 +36,7 @@
                     Grid.Row="0"
                     Grid.Column="1"
                     Command="{Binding CancelCommand}"
+                    Click="UnselectEmphasizedTool"
                     ToolTip="Cancel">
                 <Image Source="resources/clear.png" />
             </Button>
@@ -149,6 +150,7 @@
                     Grid.Row="9"
                     Grid.Column="0"
                     Command="{Binding CompleteCommand}"
+                    Click="UnselectEmphasizedTool"
                     ToolTip="Save">
                 <Image Source="resources/save.png" />
             </Button>

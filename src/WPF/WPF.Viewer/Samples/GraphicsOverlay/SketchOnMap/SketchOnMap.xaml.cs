@@ -20,6 +20,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using Point = System.Windows.Point;
+using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
+using SolidColorBrush = System.Windows.Media.SolidColorBrush;
+using ButtonColor = System.Windows.Media;
 
 namespace ArcGIS.WPF.Samples.SketchOnMap
 {
@@ -33,6 +36,13 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
     {
         // Graphics overlay to host sketch graphics.
         private GraphicsOverlay _sketchOverlay;
+
+        // Background colors for tool icons.
+        private static SolidColorBrush LightGray;
+        private static SolidColorBrush Red;
+
+        // Declare a button for keeping track of the currently enabled tool.
+        private static Button _button;
 
         public SketchOnMap()
         {
@@ -59,12 +69,22 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
 
             // Set the sketch editor as the page's data context.
             DataContext = MyMapView.SketchEditor;
+
+            // Instantiate the colors with ARGB values.
+            LightGray = ButtonColor.Brushes.LightGray;
+            Red = ButtonColor.Brushes.Red;
+
+            // No tool currently selected, so simply instantiate the button.
+            _button = new Button();
         }
 
         #region Graphic and symbol helpers
 
         private Graphic SaveGraphic(Geometry geometry)
         {
+            // Gray out the currrently enabled tool.
+            _button.Background = LightGray;
+
             // Create a graphic to display the specified geometry.
             Symbol symbol = null;
             if (geometry != null)
@@ -141,6 +161,8 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
 
         private void ShapeClick(object sender, RoutedEventArgs e)
         {
+            EmphasizeSelectedTool(sender as Button);
+
             // Get the command parameter from the button press.
             string mode = (sender as Button).CommandParameter.ToString();
 
@@ -191,13 +213,16 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
         {
             try
             {
-                // Allow the user to select a graphic.
-                Graphic editGraphic = await GetGraphicAsync();
+                // Emphasize the edit tool icon.
+                EmphasizeSelectedTool(sender as Button);
 
-                if (editGraphic == null)
+                // Await until the user selects a graphic or switches tool.
+                Graphic editGraphic;
+                do
                 {
-                    return;
+                    editGraphic = await GetGraphicAsync();
                 }
+                while (editGraphic == null);
 
                 // Let the user make changes to the graphic's geometry, await the result (updated geometry).
                 Geometry newGeometry = await MyMapView.SketchEditor.StartAsync(editGraphic.Geometry);
@@ -214,6 +239,27 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
                 // Report exceptions.
                 MessageBox.Show("Error editing shape: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void EmphasizeSelectedTool(Button emphasizeMe)
+        {
+            // Gray out the background of the currently enabled tool.
+            _button.Background = LightGray;
+
+            // Set the static variable to whichever button that was just clicked.
+            _button = emphasizeMe;
+
+            // Set the background of the button to red.
+            _button.Background = Red;
+        }
+
+        private void UnselectEmphasizedTool(object sender, RoutedEventArgs e)
+        {
+            // Gray out the background of the currently enabled tool.
+            _button.Background = LightGray;
+
+            // Dereference the unselected tool's button.
+            _button = new Button();
         }
     }
 }

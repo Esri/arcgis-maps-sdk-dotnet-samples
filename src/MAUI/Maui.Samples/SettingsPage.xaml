@@ -84,12 +84,8 @@
                                                      Clicked="DeleteClicked"
                                                      CommandParameter="{Binding .}"
                                                      HeightRequest="25"
-                                                     IsEnabled="{x:OnPlatform Android=True,
-                                                                              iOS=True,
-                                                                              WinUI=True}"
-                                                     IsVisible="{x:OnPlatform Android=True,
-                                                                              iOS=True,
-                                                                              WinUI=True}"
+                                                     IsEnabled="True"
+                                                     IsVisible="True"
                                                      Source="{AppThemeBinding Light=trash.png,
                                                                               Dark=trashdark.png}"
                                                      VerticalOptions="CenterAndExpand"

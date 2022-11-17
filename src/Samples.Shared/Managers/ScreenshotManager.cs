@@ -11,7 +11,7 @@ namespace ArcGISMapsSDK.Samples.Shared.Managers
         // Name for file on windows systems.
         private const string _screenshotSettingsFileName = "screenshotSettings";
 
-#if !(__IOS__ || XAMARIN || __ANDROID__ || WINDOWS_UWP)
+#if !(WINDOWS_UWP || MAUI)
         private static ScreenshotSettings _screenshotSettings = GetScreenshotSettings();
 
         public static ScreenshotSettings ScreenshotSettings

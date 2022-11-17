@@ -9,6 +9,7 @@
 
 using ArcGISMapsSDK.Samples.Shared.Models;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 
@@ -30,6 +31,11 @@ namespace ArcGISRuntimeMaui
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
         {
             this.NavigatedFrom += NavigatedFromEvent;
+
+#if IOS || MACCATALYST
+            // iOS / MacCatalyst lifecycle works differently, so we need to use the main page changing instead of the NavigatedFrom event for this.
+            Application.Current.MainPage.PropertyChanged += MainPagePropertyChanged;
+#endif
 
             // Set the sample variable.
             _sample = sample;
@@ -58,7 +64,6 @@ namespace ArcGISRuntimeMaui
                     Html = htmlString
                 };
                 DescriptionView.Navigating += Webview_Navigating;
-
             }
             catch (Exception ex)
             {
@@ -78,6 +83,29 @@ namespace ArcGISRuntimeMaui
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
+            }
+        }
+
+        private void MainPagePropertyChanged(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "CurrentPage")
+            {
+                TryDispose();
+            }
+        }
+
+        private void NavigatedFromEvent(object sender, NavigatedFromEventArgs e)
+        {
+            TryDispose();
+        }
+
+        private void TryDispose()
+        {
+            // Check that the navigation is backward from the sample and not forward into another page in the sample.
+            if (!Application.Current.MainPage.Navigation.NavigationStack.OfType<SamplePage>().Any())
+            {
+                if (_sample is IDisposable disposableSample) disposableSample.Dispose();
+                if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
             }
         }
 
@@ -160,16 +188,6 @@ namespace ArcGISRuntimeMaui
                         SourceFiles.Insert(0, new SourceCodeFile(embeddedName));
                     }
                 }
-            }
-        }
-
-        private void NavigatedFromEvent(object sender, NavigatedFromEventArgs e)
-        {
-            // Check that the navigation is backward from the sample and not forward into another page in the sample.
-            if (!Application.Current.MainPage.Navigation.NavigationStack.OfType<SamplePage>().Any())
-            {
-                if (_sample is IDisposable disposableSample) disposableSample.Dispose();
-                if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
             }
         }
 

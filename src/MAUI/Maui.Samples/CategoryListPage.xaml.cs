@@ -14,9 +14,10 @@ using ArcGISRuntimeMaui.Helpers;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-#if XAMARIN_ANDROID
-using Google.AR.Core;
-using ArcGISRuntime.Droid;
+#if ANDROID
+//TODO
+//using Google.AR.Core;
+//using ArcGISRuntime.Droid;
 #endif
 
 namespace ArcGISRuntimeMaui
@@ -69,22 +70,23 @@ namespace ArcGISRuntimeMaui
             var sample = e.Item as SampleInfo;
             if (category != null)
             {
-#if XAMARIN_ANDROID
+#if ANDROID
+                //TODO
                 // Check if Android device is AR compatible.
-                if (category.Name == "Augmented reality")
-                {
-                    bool arCompatible = await ViewModel.CheckARAndroid();
-                    if (!arCompatible)
-                    {
-                        // Inform user AR is not supported.
-                        await Application.Current.MainPage.DisplayAlert("Augmented reality not supported", "Camera permissions are required for use of augmented reality.", "OK");
+                //if (category.Name == "Augmented reality")
+                //{
+                //    bool arCompatible = await ViewModel.CheckARAndroid();
+                //    if (!arCompatible)
+                //    {
+                //        // Inform user AR is not supported.
+                //        await Application.Current.MainPage.DisplayAlert("Augmented reality not supported", "Camera permissions are required for use of augmented reality.", "OK");
 
-                        // Remove AR from categories view.
-                        SampleCategoriesList.ItemsSource = null;
-                        SampleCategoriesList.ItemsSource = ViewModel.SampleCategories;
-                        return;
-                    }
-                }
+                //        // Remove AR from categories view.
+                //        SampleCategoriesList.ItemsSource = null;
+                //        SampleCategoriesList.ItemsSource = ViewModel.SampleCategories;
+                //        return;
+                //    }
+                //}
 #endif
 
                 // Navigate to the listing page for the category.
@@ -118,32 +120,33 @@ namespace ArcGISRuntimeMaui
             _allSamples = SampleManager.Current.AllSamples.ToList();
         }
 
-#if XAMARIN_ANDROID
-        public async Task<bool> CheckARAndroid()
-        {
-            // Remove AR category if device does not support AR.
-            bool arCompatible;
-            try
-            {
-                await MainActivity.Instance.AskForCameraPermission();
+#if ANDROID
+        //TODO
+        //public async Task<bool> CheckARAndroid()
+        //{
+        //    // Remove AR category if device does not support AR.
+        //    bool arCompatible;
+        //    try
+        //    {
+        //        await MainActivity.Instance.AskForCameraPermission();
 
-                var arSession = new Session(Android.App.Application.Context);
-                arCompatible = true;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"{ex.GetType().Name} {ex.Message}");
-                arCompatible = false;
-            }
+        //        var arSession = new Session(Android.App.Application.Context);
+        //        arCompatible = true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"{ex.GetType().Name} {ex.Message}");
+        //        arCompatible = false;
+        //    }
 
-            if (!arCompatible)
-            {
-                SampleCategories.RemoveAll(category => category.Name == "Augmented reality");
-                _allSamples.RemoveAll(sample => sample.Category == "Augmented reality");
-                OnPropertyChanged(nameof(SampleCategories));
-            }
-            return arCompatible;
-        }
+        //    if (!arCompatible)
+        //    {
+        //        SampleCategories.RemoveAll(category => category.Name == "Augmented reality");
+        //        _allSamples.RemoveAll(sample => sample.Category == "Augmented reality");
+        //        OnPropertyChanged(nameof(SampleCategories));
+        //    }
+        //    return arCompatible;
+        //}
 #endif
 
         public string SearchQuery

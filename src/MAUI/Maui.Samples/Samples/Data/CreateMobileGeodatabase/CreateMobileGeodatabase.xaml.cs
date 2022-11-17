@@ -186,7 +186,7 @@ namespace ArcGISMapsSDKMaui.Samples.CreateMobileGeodatabase
         {
             try
             {
-                // Share the file using the Xamarin.Essentials share feature.
+                // Share the file using the Microsoft.Maui share feature.
                 await Share.RequestAsync(new ShareFileRequest
                 {
                     Title = "Share geodatabase",

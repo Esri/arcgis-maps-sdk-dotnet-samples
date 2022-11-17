@@ -1,4 +1,4 @@
-﻿# ArcGIS Maps SDK Samples (MAUI)
+# ArcGIS Maps SDK Samples (MAUI)
 
 This sample viewer shows how different features of the ArcGIS Maps SDK can be implemented on the Microsoft MAUI. 
 

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGISRuntime.Samples.Shared.Managers;
 using ArcGISRuntimeMaui.Helpers;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
@@ -70,8 +71,8 @@ namespace ArcGISMapsSDKMaui.Samples.SearchPortalMaps
                 SearchMapsUI.IsVisible = false;
 
                 // Show the list of web maps
-                MapsListView.ItemsSource = mapItems.ToList();
-                MapsListBorder.IsVisible = true;
+                MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Maui UWP ListView bug.
+                MapsListView.IsVisible = true;
             }
             catch (Exception ex)
             {
@@ -111,8 +112,8 @@ namespace ArcGISMapsSDKMaui.Samples.SearchPortalMaps
                 }
 
                 // Show the list of web maps
-                MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Xamarin.ArcGISRuntimeMaui UWP ListView bug.
-                MapsListBorder.IsVisible = true;
+                MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Maui UWP ListView bug.
+                MapsListView.IsVisible = true;
             }
             catch (Exception ex)
             {
@@ -168,6 +169,12 @@ namespace ArcGISMapsSDKMaui.Samples.SearchPortalMaps
         private void ListCloseClicked(object sender, EventArgs e)
         {
             MapsListBorder.IsVisible = false;
+        }
+
+        public void Dispose()
+        {
+            // Re-enable the API key in the viewer when exiting this sample.
+            ApiKeyManager.EnableKey();
         }
     }
 }

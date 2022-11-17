@@ -8,8 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using System;
-
 
 namespace ArcGISMapsSDKMaui.Samples.ChangeBasemap
 {
@@ -27,21 +25,6 @@ namespace ArcGISMapsSDKMaui.Samples.ChangeBasemap
 
             // Assign a new map to the MapView.
             MyMapView.Map = new Map();
-        }
-
-        private void OnBasemapGalleryButtonClicked(object sender, EventArgs e)
-        {
-            // Toggles the basemap gallery on and off.
-            if (MyBasemapGallery.IsVisible)
-            {
-                MyBasemapGallery.IsVisible = false;
-                basemapGalleryButton.Text = "Show Gallery";
-            }
-            else
-            {
-                MyBasemapGallery.IsVisible = true;
-                basemapGalleryButton.Text = "Hide Gallery";
-            }
         }
     }
 }

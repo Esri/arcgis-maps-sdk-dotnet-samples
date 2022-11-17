@@ -1,55 +1,48 @@
-﻿<ContentPage x:Class="ArcGISRuntimeMauiXamarin.Samples.LocationDrivenGeotriggers.LocationDrivenGeotriggers"
-             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources;assembly=ArcGISRuntime">
-    <RelativeLayout>
-        <esriUI:MapView x:Name="MyMapView"
-                        BindingContext="{x:Reference Name=ResponsiveFormContainer}"
-                        Style="{StaticResource MapWithFormStyle}" />
-        <resources:ResponsiveFormContainer x:Name="ResponsiveFormContainer">
+﻿<ContentPage
+    x:Class="ArcGISRuntime.Samples.LocationDrivenGeotriggers.LocationDrivenGeotriggers"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout>
                 <Label x:Name="EventLabel" />
                 <Button x:Name="SectionButton" Clicked="SectionButton_Clicked" />
                 <Label x:Name="POILabel" />
-                <Button x:Name="PlayPauseButton"
-                        Pressed="PlayPauseButton_Pressed"
-                        Text="Pause" />
+                <Button
+                    x:Name="PlayPauseButton"
+                    Pressed="PlayPauseButton_Pressed"
+                    Text="Pause" />
             </StackLayout>
-        </resources:ResponsiveFormContainer>
-        <Frame x:Name="PopupPage"
-               Padding="0"
-               BackgroundColor="White"
-               CornerRadius="0"
-               IsVisible="False"
-               RelativeLayout.HeightConstraint="{ConstraintExpression Type=Constant,
-                                                                      Constant=335,
-                                                                      Property=Height}"
-               RelativeLayout.WidthConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                     Factor=.9,
-                                                                     Property=Width}"
-               RelativeLayout.XConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                 Factor=.05,
-                                                                 Property=Width}"
-               RelativeLayout.YConstraint="{ConstraintExpression Type=RelativeToParent,
-                                                                 Factor=.05,
-                                                                 Property=Height}">
-            <StackLayout>
-                <Label x:Name="FeatureName"
-                       Margin="5"
-                       HeightRequest="15" />
-                <Image x:Name="FeatureImage"
-                       Margin="5"
-                       HeightRequest="150" />
-                <ScrollView Margin="5" HeightRequest="100">
-                    <Label x:Name="FeatureDescription" LineBreakMode="WordWrap" />
-                </ScrollView>
-                <Button x:Name="PopupCloseButton"
+        </Border>
+        <Frame
+            x:Name="PopupPage"
+            Grid.RowSpan="4"
+            Grid.ColumnSpan="4"
+            Padding="0"
+            BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                              Dark=#303030}"
+            CornerRadius="0"
+            IsVisible="False">
+            <ScrollView>
+                <StackLayout>
+                    <Label x:Name="FeatureName" Margin="5" />
+                    <Image
+                        x:Name="FeatureImage"
+                        Margin="5"
+                        HeightRequest="150" />
+                    <Label
+                        x:Name="FeatureDescription"
+                        Margin="5"
+                        LineBreakMode="WordWrap" />
+                    <Button
+                        x:Name="PopupCloseButton"
                         Margin="5"
                         Clicked="PopupCloseButton_Clicked"
-                        HeightRequest="30"
                         Text="Close" />
-            </StackLayout>
+                </StackLayout>
+            </ScrollView>
         </Frame>
-    </RelativeLayout>
+    </Grid>
 </ContentPage>

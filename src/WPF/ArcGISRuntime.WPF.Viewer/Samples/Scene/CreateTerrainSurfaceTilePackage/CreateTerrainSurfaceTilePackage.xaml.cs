@@ -18,7 +18,7 @@ namespace ArcGISMapsSDK.WPF.Samples.CreateTerrainSurfaceTilePackage
         description: "Set the terrain surface with elevation described by a local tile package.",
         instructions: "When loaded, the sample will show a scene with a terrain surface applied. Pan and zoom to explore the scene and observe how the terrain surface allows visualizing elevation differences.",
         tags: new[] { "3D", "LERC", "elevation", "surface", "terrain", "tile cache" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("cce37043eb0440c7a5c109cf8aad5500")]
+    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("52ca74b4ba8042b78b3c653696f34a9c")]
     public partial class CreateTerrainSurfaceTilePackage
     {
         public CreateTerrainSurfaceTilePackage()
@@ -33,7 +33,7 @@ namespace ArcGISMapsSDK.WPF.Samples.CreateTerrainSurfaceTilePackage
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
 
             // Get the path to the elevation tile package.
-            string packagePath = DataManager.GetDataFolder("cce37043eb0440c7a5c109cf8aad5500", "MontereyElevation.tpk");
+            string packagePath = DataManager.GetDataFolder("52ca74b4ba8042b78b3c653696f34a9c", "MontereyElevation.tpkx");
 
             // Create the elevation source from the tile cache.
             TileCache elevationCache = new TileCache(packagePath);

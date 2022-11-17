@@ -257,7 +257,7 @@ namespace ArcGISMapsSDKMaui.Samples.RouteAroundBarriers
 
         private void PrepareDirectionsList(IReadOnlyList<DirectionManeuver> directions)
         {
-            // Create the Xamarin.ArcGISRuntimeMaui page for showing the directions.
+            // Create the Esri.ArcGISRuntime.Maui page for showing the directions.
             _directionsPage = new ContentPage();
 
             // Create the list view for showing directions.

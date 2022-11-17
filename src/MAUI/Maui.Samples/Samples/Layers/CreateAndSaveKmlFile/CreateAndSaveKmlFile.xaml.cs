@@ -262,7 +262,8 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
                 // Check if permission has not been granted.
                 if (ContextCompat.CheckSelfPermission(Android.App.Application.Context, Manifest.Permission.WriteExternalStorage) != Permission.Granted)
                 {
-                    ArcGISRuntime.Droid.MainActivity.Instance.RequestPermissions(new[] { Manifest.Permission.WriteExternalStorage }, 1);
+                    //TODO
+                    //ArcGISRuntime.Droid.MainActivity.Instance.RequestPermissions(new[] { Manifest.Permission.WriteExternalStorage }, 1);
                 }
                 else
                 {

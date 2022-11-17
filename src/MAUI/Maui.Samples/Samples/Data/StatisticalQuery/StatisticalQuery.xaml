@@ -53,7 +53,7 @@
                 HorizontalOptions="Center"
                 IsVisible="False"
                 MaximumWidthRequest="300"
-                StrokeShape="roundrectangle 10"
+                StrokeShape="RoundRectangle 10, 10, 10, 10"
                 VerticalOptions="Center">
             <Grid Padding="5">
                 <Grid.RowDefinitions>

@@ -124,16 +124,16 @@
     </Style>
 
     <Style TargetType="Button">
-        <Setter Property="TextColor" Value="{OnPlatform Android={AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}}" />
-        <Setter Property="BackgroundColor" Value="{OnPlatform Android={AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}}" />
-        <Setter Property="CornerRadius" Value="{OnPlatform Android=3}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}" />
+        <Setter Property="CornerRadius" Value="{OnPlatform Android=3, WinUI=3, Default=0}" />
         <Setter Property="VisualStateManager.VisualStateGroups">
             <VisualStateGroupList>
                 <VisualStateGroup x:Name="CommonStates">
                     <VisualState x:Name="Normal" />
                     <VisualState x:Name="Disabled">
                         <VisualState.Setters>
-                            <Setter Property="TextColor" Value="{OnPlatform Android={AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}}" />
+                            <Setter Property="TextColor" Value="{OnPlatform Default={AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}}" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>

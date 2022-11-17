@@ -13,11 +13,15 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
+using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
+using SolidColorBrush = Microsoft.UI.Xaml.Media.SolidColorBrush;
+using ButtonColor = Windows.UI.Color;
 
 namespace ArcGIS.WinUI.Samples.SketchOnMap
 {
@@ -31,6 +35,13 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
     {
         // Graphics overlay to host sketch graphics.
         private GraphicsOverlay _sketchOverlay;
+
+        // Background colors for tool icons.
+        private static SolidColorBrush LightGray;
+        private static SolidColorBrush Red;
+
+        // Declare a button for keeping track of the currently enabled tool.
+        private static Button _button;
 
         public SketchOnMap()
         {
@@ -57,12 +68,22 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
 
             // Set the sketch editor as the page's data context.
             DataContext = MyMapView.SketchEditor;
+
+            // Instantiate the colors with ARGB values.
+            LightGray = new SolidColorBrush(ButtonColor.FromArgb(255, 211, 211, 211));
+            Red = new SolidColorBrush(ButtonColor.FromArgb(255, 255, 0, 0));
+
+            // No tool currently selected, so simply instantiate the button.
+            _button = new Button();
         }
 
         #region Graphic and symbol helpers
 
         private Graphic SaveGraphic(Geometry geometry)
         {
+            // Gray out the currrently enabled tool.
+            _button.Background = LightGray;
+
             // Create a graphic to display the specified geometry.
             Symbol symbol = null;
             if (geometry != null)
@@ -139,6 +160,8 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
 
         private void ShapeClick(object sender, RoutedEventArgs e)
         {
+            EmphasizeSelectedTool(sender as Button);
+
             // Get the command parameter from the button press.
             string mode = (sender as Microsoft.UI.Xaml.Controls.Button).CommandParameter.ToString();
 
@@ -189,13 +212,16 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
         {
             try
             {
-                // Allow the user to select a graphic.
-                Graphic editGraphic = await GetGraphicAsync();
+                // Emphasize the edit tool icon.
+                EmphasizeSelectedTool(sender as Button);
 
-                if (editGraphic == null)
+                // Await until the user selects a graphic or switches tool.
+                Graphic editGraphic;
+                do
                 {
-                    return;
+                    editGraphic = await GetGraphicAsync();
                 }
+                while (editGraphic == null);
 
                 // Let the user make changes to the graphic's geometry, await the result (updated geometry).
                 Geometry newGeometry = await MyMapView.SketchEditor.StartAsync(editGraphic.Geometry);
@@ -212,6 +238,27 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
                 // Report exceptions.
                 await new MessageDialog2("Error editing shape: " + ex.Message, ex.GetType().Name).ShowAsync();
             }
+        }
+
+        private void EmphasizeSelectedTool(Button emphasizeMe)
+        {
+            // Gray out the background of the currently enabled tool.
+            _button.Background = LightGray;
+
+            // Set the static variable to whichever button that was just clicked.
+            _button = emphasizeMe;
+
+            // Set the background of the button to red.
+            _button.Background = Red;
+        }
+
+        private void UnselectEmphasizedTool(object sender, RoutedEventArgs e)
+        {
+            // Gray out the background of the currently enabled tool.
+            _button.Background = LightGray;
+
+            // Dereference the unselected tool's button.
+            _button = new Button();
         }
     }
 }

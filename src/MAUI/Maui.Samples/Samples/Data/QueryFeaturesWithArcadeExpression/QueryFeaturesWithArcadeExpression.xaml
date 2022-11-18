@@ -15,7 +15,6 @@
             </Grid.RowDefinitions>
             <Label Grid.Row="0"
                    Padding="0,3"
-                   Background="0.1"
                    BackgroundColor="Black"
                    HorizontalOptions="FillAndExpand"
                    HorizontalTextAlignment="Center"

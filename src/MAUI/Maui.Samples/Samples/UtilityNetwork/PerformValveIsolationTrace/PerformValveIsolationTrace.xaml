@@ -1,87 +1,75 @@
-﻿<ContentPage
+<ContentPage
     x:Class="ArcGISMapsSDKMaui.Samples.PerformValveIsolationTrace.PerformValveIsolationTrace"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
     xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:MapView
-            x:Name="MyMapView"
-            GeoViewTapped="OnGeoViewTapped"
-            Style="{DynamicResource EsriSampleGeoView}" />
+        <esriUI:MapView x:Name="MyMapView"
+                        GeoViewTapped="OnGeoViewTapped"
+                        Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout x:Name="FilterOptions" Orientation="Vertical">
-                <Label
-                    Margin="5"
-                    FontAttributes="Bold"
-                    Text="Choose Category for Filter Barrier:" />
+                <Label Margin="5"
+                       FontAttributes="Bold"
+                       Text="Choose Category for Filter Barrier:" />
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="auto" />
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
-                    <Picker
-                        x:Name="CategoryPicker"
-                        Grid.Column="0"
-                        Margin="5"
-                        ItemDisplayBinding="{Binding Name}" />
-                    <Button
-                        Grid.Column="1"
-                        Margin="5"
-                        Clicked="OnTrace"
-                        Text="Trace" />
-                    <Button
-                        Grid.Column="2"
-                        Margin="5"
-                        Clicked="OnReset"
-                        Text="Reset" />
+                    <Picker x:Name="CategoryPicker"
+                            Grid.Column="0"
+                            Margin="5"
+                            ItemDisplayBinding="{Binding Name}" />
+                    <Button Grid.Column="1"
+                            Margin="5"
+                            Clicked="OnTrace"
+                            Text="Trace" />
+                    <Button Grid.Column="2"
+                            Margin="5"
+                            Clicked="OnReset"
+                            Text="Reset" />
                 </Grid>
                 <StackLayout Orientation="Horizontal">
                     <Label Text="Include Isolated Features" VerticalOptions="Center" />
-                    <Switch
-                        x:Name="IncludeIsolatedFeatures"
-                        Margin="5"
-                        IsToggled="False" />
+                    <Switch x:Name="IncludeIsolatedFeatures"
+                            Margin="5"
+                            IsToggled="False" />
                 </StackLayout>
             </StackLayout>
         </Border>
-        <ActivityIndicator
-            x:Name="LoadingIndicator"
-            Grid.RowSpan="2"
-            Grid.ColumnSpan="2"
-            HorizontalOptions="CenterAndExpand"
-            IsRunning="True"
-            IsVisible="True"
-            VerticalOptions="CenterAndExpand" />
-        <Border
-            Grid.RowSpan="2"
-            Grid.ColumnSpan="2"
-            BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                              Dark=#303030}"
-            IsVisible="False"
-            StrokeShape="RoundRectangle 10">
-            <Grid
-                x:Name="PickerUI"
-                Grid.RowSpan="2"
+        <ActivityIndicator x:Name="LoadingIndicator"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="2"
+                           HorizontalOptions="CenterAndExpand"
+                           IsRunning="True"
+                           IsVisible="True"
+                           VerticalOptions="CenterAndExpand" />
+        <Border Grid.RowSpan="2"
                 Grid.ColumnSpan="2"
-                HorizontalOptions="CenterAndExpand"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                                  Dark=#303030}"
                 IsVisible="False"
-                VerticalOptions="CenterAndExpand">
+                StrokeShape="RoundRectangle 10">
+            <Grid x:Name="PickerUI"
+                  Grid.RowSpan="2"
+                  Grid.ColumnSpan="2"
+                  HorizontalOptions="CenterAndExpand"
+                  IsVisible="False"
+                  VerticalOptions="CenterAndExpand">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <Label
-                    Grid.Row="0"
-                    Margin="5"
-                    HorizontalTextAlignment="Center"
-                    Text="Choose a terminal for this junction." />
-                <ListView
-                    x:Name="TerminalPicker"
-                    Grid.Row="1"
-                    ItemSelected="Terminal_Selected" />
+                <Label Grid.Row="0"
+                       Margin="5"
+                       HorizontalTextAlignment="Center"
+                       Text="Choose a terminal for this junction." />
+                <ListView x:Name="TerminalPicker"
+                          Grid.Row="1"
+                          ItemSelected="Terminal_Selected" />
             </Grid>
         </Border>
     </Grid>

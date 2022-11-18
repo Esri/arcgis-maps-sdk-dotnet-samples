@@ -1,15 +1,13 @@
-﻿<ContentPage
+<ContentPage
     x:Class="ArcGISMapsSDKMaui.Samples.DisplayUtilityNetworkContainer.DisplayUtilityNetworkContainer"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:cmp="clr-namespace:Microsoft.Maui.Controls.Compatibility;assembly=Microsoft.Maui.Controls"
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
     xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
     <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:MapView
-            x:Name="MyMapView"
-            GeoViewTapped="MyMapView_GeoViewTapped"
-            Style="{DynamicResource EsriSampleGeoView}" />
+        <esriUI:MapView x:Name="MyMapView"
+                        GeoViewTapped="MyMapView_GeoViewTapped"
+                        Style="{DynamicResource EsriSampleGeoView}" />
         <Border MinimumHeightRequest="200" Style="{DynamicResource EsriSampleControlPanel}">
             <Grid>
                 <StackLayout Spacing="10">
@@ -25,45 +23,37 @@
                             <ColumnDefinition Width="25" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <Label
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Text="Attachment" />
-                        <Label
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Text="Connectivity" />
-                        <Label
-                            Grid.Row="2"
-                            Grid.Column="1"
-                            Text="Containment" />
-                        <Image
-                            x:Name="AttachmentImage"
-                            Grid.Row="0"
-                            Grid.Column="0" />
-                        <Image
-                            x:Name="ConnectivityImage"
-                            Grid.Row="1"
-                            Grid.Column="0" />
-                        <Image
-                            x:Name="ContainmentImage"
-                            Grid.Row="2"
-                            Grid.Column="0" />
+                        <Label Grid.Row="0"
+                               Grid.Column="1"
+                               Text="Attachment" />
+                        <Label Grid.Row="1"
+                               Grid.Column="1"
+                               Text="Connectivity" />
+                        <Label Grid.Row="2"
+                               Grid.Column="1"
+                               Text="Containment" />
+                        <Image x:Name="AttachmentImage"
+                               Grid.Row="0"
+                               Grid.Column="0" />
+                        <Image x:Name="ConnectivityImage"
+                               Grid.Row="1"
+                               Grid.Column="0" />
+                        <Image x:Name="ContainmentImage"
+                               Grid.Row="2"
+                               Grid.Column="0" />
                     </Grid>
-                    <Button
-                        x:Name="CloseButton"
-                        Margin="5"
-                        Clicked="CloseButton_Clicked"
-                        IsEnabled="False"
-                        Text="Close container view" />
+                    <Button x:Name="CloseButton"
+                            Margin="5"
+                            Clicked="CloseButton_Clicked"
+                            IsEnabled="False"
+                            Text="Close container view" />
                 </StackLayout>
             </Grid>
         </Border>
-        <ActivityIndicator
-            x:Name="LoadingIndicator"
-            HorizontalOptions="CenterAndExpand"
-            IsRunning="True"
-            IsVisible="True"
-            VerticalOptions="CenterAndExpand" />
+        <ActivityIndicator x:Name="LoadingIndicator"
+                           HorizontalOptions="CenterAndExpand"
+                           IsRunning="True"
+                           IsVisible="True"
+                           VerticalOptions="CenterAndExpand" />
     </Grid>
 </ContentPage>

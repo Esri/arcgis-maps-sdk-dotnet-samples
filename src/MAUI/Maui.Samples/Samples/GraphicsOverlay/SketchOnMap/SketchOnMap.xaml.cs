@@ -64,6 +64,7 @@ namespace ArcGIS.Samples.SketchOnMap
             UndoButton.Command = MyMapView.SketchEditor.UndoCommand;
             RedoButton.Command = MyMapView.SketchEditor.RedoCommand;
             CompleteButton.Command = MyMapView.SketchEditor.CompleteCommand;
+            CancelButton.Command = MyMapView.SketchEditor.CancelCommand;
         }
 
         #region Graphic and symbol helpers

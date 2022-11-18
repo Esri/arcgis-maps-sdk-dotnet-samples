@@ -29,6 +29,7 @@
                     Grid.Row="0"
                     Grid.Column="0"
                     Background="LightGray"
+                    IsEnabled="False"
                     Click="EditButtonClick"
                     ToolTipService.ToolTip="Edit">
                 <Image Source="resources/edit.png" />
@@ -38,7 +39,7 @@
                     Grid.Column="1"
                     Background="LightGray"
                     Command="{Binding CancelCommand}"
-                    Click="UnselectEmphasizedTool"
+                    Click="UnselectTool"
                     ToolTipService.ToolTip="Cancel">
                 <Image Source="resources/clear.png" />
             </Button>
@@ -166,7 +167,7 @@
                     Grid.Column="0"
                     Background="LightGray"
                     Command="{Binding CompleteCommand}"
-                    Click="UnselectEmphasizedTool"
+                    Click="UnselectTool"
                     ToolTipService.ToolTip="Save">
                 <Image Source="resources/save.png" />
             </Button>

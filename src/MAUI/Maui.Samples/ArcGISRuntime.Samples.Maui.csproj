@@ -52,19 +52,15 @@
   </ItemGroup>
 
 	<ItemGroup>
-      <!-- Excluded due to missing toolkit components -->
+    <!-- Excluded due to missing toolkit components -->
 	  <AndroidResource Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
 	  <Compile Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
 	  <EmbeddedResource Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <EmbeddedResource Remove="Samples\Location\IndoorPositioning\**" />
 	  <MauiCss Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <MauiCss Remove="Samples\Location\IndoorPositioning\**" />
 	  <MauiXaml Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <MauiXaml Remove="Samples\Location\IndoorPositioning\**" />
 	  <None Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <None Remove="Samples\Location\IndoorPositioning\**" />
+    <!-- Excluded due to file picker issue -->
 	  <AndroidResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	  <Compile Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
 	  <EmbeddedResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
@@ -81,6 +77,12 @@
 	  <MauiCss Remove="Samples\Geometry\ListTransformations\**" />
 	  <MauiXaml Remove="Samples\Geometry\ListTransformations\**" />
 	  <None Remove="Samples\Geometry\ListTransformations\**" />
+	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
+	  <Compile Remove="Samples\Location\IndoorPositioning**" />
+	  <EmbeddedResource Remove="Samples\Location\IndoorPositioning**" />
+	  <MauiCss Remove="Samples\Location\IndoorPositioning**" />
+	  <MauiXaml Remove="Samples\Location\IndoorPositioning**" />
+	  <None Remove="Samples\Location\IndoorPositioning**" />
 	</ItemGroup>
 
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">

@@ -41,8 +41,8 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
         private static SolidColorBrush LightGray;
         private static SolidColorBrush Red;
 
-        // Declare a button for keeping track of the currently enabled tool.
-        private static Button _button;
+        // Button for keeping track of the currently enabled tool.
+        private static Button Button;
 
         public SketchOnMap()
         {
@@ -70,20 +70,20 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
             // Set the sketch editor as the page's data context.
             DataContext = MyMapView.SketchEditor;
 
-            // Instantiate the colors with ARGB values.
+            // Ensure colors are consistent with XAML colors.
             LightGray = ButtonColor.Brushes.LightGray;
             Red = ButtonColor.Brushes.Red;
 
             // No tool currently selected, so simply instantiate the button.
-            _button = new Button();
+            Button = new Button();
         }
 
         #region Graphic and symbol helpers
 
         private Graphic SaveGraphic(Geometry geometry)
         {
-            // Gray out the currrently enabled tool.
-            _button.Background = LightGray;
+            // Gray out the currrently selected tool.
+            Button.Background = LightGray;
 
             // Create a graphic to display the specified geometry.
             Symbol symbol = null;
@@ -161,7 +161,8 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
 
         private void ShapeClick(object sender, RoutedEventArgs e)
         {
-            EmphasizeSelectedTool(sender as Button);
+            // Change the background of the currently selected tool from gray to red.
+            SelectTool(sender as Button);
 
             // Get the command parameter from the button press.
             string mode = (sender as Button).CommandParameter.ToString();
@@ -213,8 +214,8 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
         {
             try
             {
-                // Emphasize the edit tool icon.
-                EmphasizeSelectedTool(sender as Button);
+                // Change the background of the currently selected tool from gray to red.
+                SelectTool(sender as Button);
 
                 // Await until the user selects a graphic or switches tool.
                 Graphic editGraphic;
@@ -241,25 +242,27 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
             }
         }
 
-        private void EmphasizeSelectedTool(Button emphasizeMe)
+        #region Tool selection UI helpers
+        private void SelectTool(Button emphasizeMe)
         {
             // Gray out the background of the currently enabled tool.
-            _button.Background = LightGray;
+            Button.Background = LightGray;
 
             // Set the static variable to whichever button that was just clicked.
-            _button = emphasizeMe;
+            Button = emphasizeMe;
 
             // Set the background of the button to red.
-            _button.Background = Red;
+            Button.Background = Red;
         }
 
-        private void UnselectEmphasizedTool(object sender, RoutedEventArgs e)
+        private void UnselectTool(object sender, RoutedEventArgs e)
         {
             // Gray out the background of the currently enabled tool.
-            _button.Background = LightGray;
+            Button.Background = LightGray;
 
             // Dereference the unselected tool's button.
-            _button = new Button();
+            Button = new Button();
         }
+        #endregion
     }
 }

@@ -8,7 +8,7 @@
         <CommandBar OverflowButtonVisibility="Collapsed">
             <AppBarButton AllowFocusOnInteraction="True">
                 <AppBarButton.Content>
-                    <TextBlock HorizontalAlignment="Center" Text="Draw/Edit" />
+                    <TextBlock HorizontalAlignment="Center" Text="Sketch/Edit" />
                 </AppBarButton.Content>
                 <AppBarButton.Flyout>
                     <Flyout x:Name="DrawToolsFlyout">
@@ -48,7 +48,7 @@
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Top"
                                 Click="DrawButtonClick"
-                                Content="Draw"
+                                Content="Sketch"
                                 FontSize="12" />
                             <Button
                                 x:Name="EditButton"
@@ -77,9 +77,14 @@
                     <TextBlock HorizontalAlignment="Center" Text="Redo" />
                 </AppBarButton.Content>
             </AppBarButton>
+            <AppBarButton Command="{Binding CancelCommand}">
+                <AppBarButton.Content>
+                    <TextBlock HorizontalAlignment="Center" Text="Cancel" />
+                </AppBarButton.Content>
+            </AppBarButton>
             <AppBarButton Command="{Binding CompleteCommand}">
                 <AppBarButton.Content>
-                    <TextBlock HorizontalAlignment="Center" Text="Complete" />
+                    <TextBlock HorizontalAlignment="Center" Text="Save" />
                 </AppBarButton.Content>
             </AppBarButton>
             <AppBarButton x:Name="ClearButton" Click="ClearButtonClick">

@@ -43,6 +43,7 @@ Global
 		SolutionGuid = {07D26629-0967-48A1-8811-CB45A7F9E4C9}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
 		..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{be5076af-ece0-4ea9-994e-37bad4b19828}*SharedItemsImports = 4
 	EndGlobalSection
 EndGlobal

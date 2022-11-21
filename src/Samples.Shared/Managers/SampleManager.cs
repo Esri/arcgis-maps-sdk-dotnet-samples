@@ -99,15 +99,8 @@ namespace ArcGISMapsSDK.Samples.Managers
             // Create a list to hold the names of the featured samples.
             List<string> featuredSamples = new List<string>();
 
-            string resourceStreamName;
+            string resourceStreamName = this.GetType().Assembly.GetManifestResourceNames().Single(str => str.EndsWith("FeaturedSamples.xml"));
 
-#if WinUI
-            resourceStreamName = "ArcGISMapsSDK.WinUI.Viewer.Resources.FeaturedSamples.xml";
-#elif MAUI
-            resourceStreamName = "ArcGISMapsSDKMaui.Resources.FeaturedSamples.xml";
-#else
-            resourceStreamName = "ArcGISMapsSDK.Resources.FeaturedSamples.xml";
-#endif
             // Load the FeaturedSamples resource file.
             using (Stream stream = this.GetType().Assembly.
                        GetManifestResourceStream(resourceStreamName))

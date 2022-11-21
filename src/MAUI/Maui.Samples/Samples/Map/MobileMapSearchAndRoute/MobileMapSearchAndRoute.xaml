@@ -1,10 +1,10 @@
 ﻿<ContentPage x:Class="ArcGISMapsSDKMaui.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:ArcGISRuntimeMaui.Converters"
+             xmlns:converters="clr-namespace:ArcGISMapsSDK.Converters"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+             xmlns:resources="clr-namespace:ArcGISMapsSDK.Resources">
     <ContentPage.Resources>
         <converters:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
         <converters:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />

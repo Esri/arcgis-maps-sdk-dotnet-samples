@@ -104,7 +104,7 @@ namespace ArcGISMapsSDK.Samples.Managers
 #if WinUI
             resourceStreamName = "ArcGISMapsSDK.WinUI.Viewer.Resources.FeaturedSamples.xml";
 #elif MAUI
-            resourceStreamName = "ArcGISRuntimeMaui.Resources.FeaturedSamples.xml";
+            resourceStreamName = "ArcGISMapsSDKMaui.Resources.FeaturedSamples.xml";
 #else
             resourceStreamName = "ArcGISRuntime.Resources.FeaturedSamples.xml";
 #endif

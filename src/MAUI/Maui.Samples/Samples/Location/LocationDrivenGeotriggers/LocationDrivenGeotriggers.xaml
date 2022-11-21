@@ -1,8 +1,7 @@
-﻿<ContentPage
-    x:Class="ArcGISRuntime.Samples.LocationDrivenGeotriggers.LocationDrivenGeotriggers"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+﻿<ContentPage x:Class="ArcGISMapsSDKMaui.Samples.LocationDrivenGeotriggers.LocationDrivenGeotriggers"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
@@ -10,37 +9,32 @@
                 <Label x:Name="EventLabel" />
                 <Button x:Name="SectionButton" Clicked="SectionButton_Clicked" />
                 <Label x:Name="POILabel" />
-                <Button
-                    x:Name="PlayPauseButton"
-                    Pressed="PlayPauseButton_Pressed"
-                    Text="Pause" />
+                <Button x:Name="PlayPauseButton"
+                        Pressed="PlayPauseButton_Pressed"
+                        Text="Pause" />
             </StackLayout>
         </Border>
-        <Frame
-            x:Name="PopupPage"
-            Grid.RowSpan="4"
-            Grid.ColumnSpan="4"
-            Padding="0"
-            BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                              Dark=#303030}"
-            CornerRadius="0"
-            IsVisible="False">
+        <Frame x:Name="PopupPage"
+               Grid.RowSpan="4"
+               Grid.ColumnSpan="4"
+               Padding="0"
+               BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                                 Dark=#303030}"
+               CornerRadius="0"
+               IsVisible="False">
             <ScrollView>
                 <StackLayout>
                     <Label x:Name="FeatureName" Margin="5" />
-                    <Image
-                        x:Name="FeatureImage"
-                        Margin="5"
-                        HeightRequest="150" />
-                    <Label
-                        x:Name="FeatureDescription"
-                        Margin="5"
-                        LineBreakMode="WordWrap" />
-                    <Button
-                        x:Name="PopupCloseButton"
-                        Margin="5"
-                        Clicked="PopupCloseButton_Clicked"
-                        Text="Close" />
+                    <Image x:Name="FeatureImage"
+                           Margin="5"
+                           HeightRequest="150" />
+                    <Label x:Name="FeatureDescription"
+                           Margin="5"
+                           LineBreakMode="WordWrap" />
+                    <Button x:Name="PopupCloseButton"
+                            Margin="5"
+                            Clicked="PopupCloseButton_Clicked"
+                            Text="Close" />
                 </StackLayout>
             </ScrollView>
         </Frame>

@@ -25,4 +25,8 @@ Global
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2EDBEB70-51D6-4642-9194-5D5793BF817D}
 	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
+		..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{e299ef97-ab8e-46d7-b402-7a386dafc30f}*SharedItemsImports = 5
+	EndGlobalSection
 EndGlobal

@@ -27,7 +27,7 @@ using Map = Esri.ArcGISRuntime.Mapping.Map;
 //using ArcGISRuntime.Droid;
 #endif
 
-namespace ArcGISRuntimeMaui.Samples.IndoorPositioning
+namespace ArcGISMapsSDK.Samples.IndoorPositioning
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Show device location using indoor positioning",

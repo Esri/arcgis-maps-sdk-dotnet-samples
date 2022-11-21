@@ -12,7 +12,7 @@ using ArcGISMapsSDK.Samples.Shared.Managers;
 using ArcGISMapsSDK.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 
-namespace ArcGISRuntimeMaui.Helpers
+namespace ArcGISMapsSDK.Helpers
 {
     internal static class SampleLoader
     {

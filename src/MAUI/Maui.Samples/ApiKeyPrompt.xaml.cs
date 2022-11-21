@@ -9,7 +9,7 @@
 
 using ArcGISMapsSDK.Samples.Shared.Managers;
 
-namespace ArcGISRuntimeMaui
+namespace ArcGISMapsSDK
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ApiKeyPrompt : ContentPage

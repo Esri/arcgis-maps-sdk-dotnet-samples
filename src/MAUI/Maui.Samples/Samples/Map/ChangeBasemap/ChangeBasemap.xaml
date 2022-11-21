@@ -1,17 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGISRuntime.Samples.ChangeBasemap.ChangeBasemap"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-    xmlns:toolkit="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui">
+<ContentPage x:Class="ArcGISMapsSDKMaui.Samples.ChangeBasemap.ChangeBasemap"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:toolkit="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <toolkit:BasemapGallery
-                x:Name="MyBasemapGallery"
-                GeoModel="{Binding Source={x:Reference MyMapView}, Path=Map}"
-                MaximumHeightRequest="400" />
+            <toolkit:BasemapGallery x:Name="MyBasemapGallery"
+                                    GeoModel="{Binding Source={x:Reference MyMapView}, Path=Map}"
+                                    MaximumHeightRequest="400" />
         </Border>
     </Grid>
 </ContentPage>

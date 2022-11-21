@@ -10,7 +10,7 @@
 using ArcGISMapsSDK.Samples.Managers;
 using ArcGISMapsSDK.Samples.Shared.Managers;
 using ArcGISMapsSDK.Samples.Shared.Models;
-using ArcGISRuntimeMaui.Helpers;
+using ArcGISMapsSDK.Helpers;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -20,7 +20,7 @@ using System.Runtime.CompilerServices;
 //using ArcGISRuntime.Droid;
 #endif
 
-namespace ArcGISRuntimeMaui
+namespace ArcGISMapsSDK
 {
     public partial class CategoryListPage
     {

@@ -32,7 +32,7 @@ using Android.Content.Res;
 using Windows.Storage.Pickers;
 #endif
 
-namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
+namespace ArcGISMapsSDK.Samples.CreateAndSaveKmlFile
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
         name: "Create and save KML file",

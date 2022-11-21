@@ -9,13 +9,13 @@
 
 using ArcGISMapsSDK.Samples.Managers;
 using ArcGISMapsSDK.Samples.Shared.Models;
-using ArcGISRuntimeMaui.Helpers;
+using ArcGISMapsSDK.Helpers;
 
 #if WINDOWS_UWP
 using System.Threading.Tasks;
 #endif
 
-namespace ArcGISRuntimeMaui
+namespace ArcGISMapsSDK
 {
     public partial class SampleListPage
     {

@@ -1,4 +1,4 @@
-﻿using ArcGISRuntimeMaui;
+﻿using ArcGISMapsSDK;
 
 namespace ArcGISMapsSDKMaui.Samples.Maui;
 

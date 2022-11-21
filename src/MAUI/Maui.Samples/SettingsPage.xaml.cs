@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace ArcGISRuntimeMaui
+namespace ArcGISMapsSDK
 {
     public partial class SettingsPage : TabbedPage
     {
@@ -52,8 +52,8 @@ namespace ArcGISRuntimeMaui
 
             // Get the contents of the markdown files for the "About" and "Licenses" pages.
             var assembly = Assembly.GetExecutingAssembly();
-            string aboutString = new StreamReader(assembly.GetManifestResourceStream("ArcGISRuntimeMaui.Resources.SettingsPage.about.md")).ReadToEnd();
-            string licenseString = new StreamReader(assembly.GetManifestResourceStream("ArcGISRuntimeMaui.Resources.SettingsPage.licenses.md")).ReadToEnd();
+            string aboutString = new StreamReader(assembly.GetManifestResourceStream("ArcGISMapsSDK.Resources.SettingsPage.about.md")).ReadToEnd();
+            string licenseString = new StreamReader(assembly.GetManifestResourceStream("ArcGISMapsSDK.Resources.SettingsPage.licenses.md")).ReadToEnd();
 
             // The location of the github markdown css is platform dependent.
             string baseUrl = string.Empty;

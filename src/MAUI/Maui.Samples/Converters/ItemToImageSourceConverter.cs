@@ -2,7 +2,7 @@
 using Esri.ArcGISRuntime.Portal;
 using System.Globalization;
 
-namespace ArcGISRuntimeMaui.Converters
+namespace ArcGISMapsSDK.Converters
 {
     internal class ItemToImageSourceConverter : IValueConverter
     {

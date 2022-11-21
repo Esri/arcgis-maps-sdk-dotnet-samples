@@ -7,25 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDKMaui.Samples.Maui;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
 using Microsoft.Maui.ApplicationModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Location = Esri.ArcGISRuntime.Location.Location;
 using Map = Esri.ArcGISRuntime.Mapping.Map;
-
-
-#if __ANDROID__
-//TODO
-//using ArcGISRuntime.Droid;
-#endif
 
 namespace ArcGISMapsSDK.Samples.IndoorPositioning
 {
@@ -41,26 +30,27 @@ namespace ArcGISMapsSDK.Samples.IndoorPositioning
 
         private int? _currentFloor = null;
 
-        // This data is specific to a building on the Esri campus. Substitute your own data in order to use this sample. Code in the sample may need to be modified to work with other maps.
+        // Provide your own data in order to use this sample. Code in the sample may need to be modified to work with other maps.
 
-        #region EsriBuildingData
+        #region BuildingData
 
         private Uri _portalUri = new Uri("https://www.arcgis.com/");
 
-        private const string ItemId = "8fa941613b4b4b2b8a34ad4cdc3e4bba";
+        private const string ItemId = "YOUR_ITEM_ID_HERE";
 
-        private const string PositioningTableName = "ips_positioning";
-        private const string PathwaysLayerName = "pathways";
+        private const string PositioningTableName = "IPS_Positioning";
+        private const string PathwaysLayerName = "Pathways";
 
         private string[] _layerNames = new string[] { "Details", "Units", "Levels" };
 
-        #endregion EsriBuildingData
+        #endregion BuildingData
 
         public IndoorPositioning()
         {
             InitializeComponent();
             _ = Initialize();
         }
+
         private async Task Initialize()
         {
             try
@@ -70,15 +60,13 @@ namespace ArcGISMapsSDK.Samples.IndoorPositioning
                 {
                     throw new Exception("Location permission required for use of indoor positioning.");
                 }
-
-#if __ANDROID__
-                // Get bluetooth permission for Android devices. Devices running Android 12 or higher need the `BluetoothScan` permission. Android 11 and below require the `Bluetooth` and `BluetoothAdmin` permissions.
-                //TODO
-                //bool bluetoothScanGranted = await MainActivity.Instance.AskForBluetoothPermission();
-                //if (!bluetoothScanGranted)
-                //{
-                //    throw new Exception("Bluetooth permission is required for use of indoor positioning.");
-                //}
+#if ANDROID
+                // Get bluetooth permission for Android devices. AndroidBluetoothPerms is a custom PermissionStatus in this namespace.
+                PermissionStatus bluetoothStatus = await Permissions.RequestAsync<AndroidBluetoothPerms>();
+                if (bluetoothStatus != PermissionStatus.Granted)
+                {
+                    throw new Exception("Bluetooth permission is required for use of indoor positioning.");
+                }
 #endif
                 PositioningLabel.Text = "Loading map";
 
@@ -171,7 +159,7 @@ namespace ArcGISMapsSDK.Samples.IndoorPositioning
             labelText += $"Horizontal accuracy: {string.Format("{0:0.##}", loc.HorizontalAccuracy)}m";
 
             // Update UI on the main thread.
-            Device.BeginInvokeOnMainThread(() =>
+            Dispatcher.Dispatch(() =>
             {
                 PositioningLabel.Text = labelText;
             });
@@ -183,4 +171,34 @@ namespace ArcGISMapsSDK.Samples.IndoorPositioning
             _ = MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
+
+#if ANDROID
+
+    public class AndroidBluetoothPerms : Permissions.BasePlatformPermission
+    {
+        public override (string androidPermission, bool isRuntime)[] RequiredPermissions
+        {
+            get
+            {
+                // Devices running Android 12 or higher need the `BluetoothScan` permission. Android 11 and below require the `Bluetooth` and `BluetoothAdmin` permissions.
+                if (Android.OS.Build.VERSION.SdkInt > Android.OS.BuildVersionCodes.S)
+                {
+                    return new List<(string androidPermission, bool isRuntime)>
+                    {
+                        (global::Android.Manifest.Permission.BluetoothScan, true),
+                    }.ToArray();
+                }
+                else
+                {
+                    return new List<(string androidPermission, bool isRuntime)>
+                    {
+                        (global::Android.Manifest.Permission.Bluetooth, true),
+                        (global::Android.Manifest.Permission.BluetoothAdmin, true)
+                    }.ToArray();
+                }
+            }
+        }
+    }
+
+#endif
 }

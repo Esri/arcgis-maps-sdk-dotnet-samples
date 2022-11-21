@@ -28,6 +28,18 @@
 	<string>Assets.xcassets/appicon.appiconset</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your location information is used to enable location display on maps and to find points of interest nearby.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<!--for connecting to devices (client)-->
+		<string>bluetooth-central</string>
+
+		<!--for server configurations if needed-->
+		<string>bluetooth-peripheral</string>
+	</array>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>The app needs bluetooth to scan for iBeacons</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>The app needs bluetooth to scan for iBeacons</string>
 	<key>CFBundleURLSchemes</key>
 	<array>
 		<string>maui-ags-app</string>

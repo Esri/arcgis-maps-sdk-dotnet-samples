@@ -18,7 +18,7 @@ using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 namespace ArcGISMapsSDK.Samples.IndoorPositioning
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Show device location using indoor positioning",
         category: "Location",
         description: "Show your device's real-time location while inside a building by using signals from indoor positioning beacons.",

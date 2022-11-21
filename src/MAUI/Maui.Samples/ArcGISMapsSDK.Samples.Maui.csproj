@@ -55,7 +55,6 @@
     <!-- Excluded due to missing toolkit components -->
 	  <AndroidResource Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <Compile Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
 	  <EmbeddedResource Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <MauiCss Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <MauiXaml Remove="Samples\MapView\FilterByTimeExtent\**" />

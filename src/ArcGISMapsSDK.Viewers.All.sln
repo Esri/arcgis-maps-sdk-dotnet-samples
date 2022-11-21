@@ -3,21 +3,21 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISRuntime.Samples.Shared", "ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISMapsSDK.Samples.Shared", "Samples.Shared\ArcGISMapsSDK.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinUI", "WinUI", "{14502F3B-7A88-4C48-8EA7-F44D1E4BA42B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{AFB4071E-38D8-4C36-BFED-48AE0A4A3F42}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISRuntime.WPF.Viewer.Net", "WPF\ArcGISRuntime.WPF.Viewer\ArcGISRuntime.WPF.Viewer.Net.csproj", "{FE1B81E3-59BE-4632-A1EB-12FF19F4B59A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISMapsSDK.WPF.Viewer.Net", "WPF\WPF.Viewer\ArcGISMapsSDK.WPF.Viewer.Net.csproj", "{FE1B81E3-59BE-4632-A1EB-12FF19F4B59A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISRuntime.WinUI.Viewer", "WinUI\ArcGISRuntime.WinUI.Viewer\ArcGISRuntime.WinUI.Viewer.csproj", "{F39D6B3E-4E1D-4211-B152-59F8F71C8544}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISMapsSDK.WinUI.Viewer", "WinUI\ArcGISMapsSDK.WinUI.Viewer\ArcGISMapsSDK.WinUI.Viewer.csproj", "{F39D6B3E-4E1D-4211-B152-59F8F71C8544}"
 EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "ArcGISRuntime.WinUI.Viewer (Package)", "WinUI\ArcGISRuntime.WinUI.Viewer (Package)\ArcGISRuntime.WinUI.Viewer (Package).wapproj", "{BA503BD0-660A-4EA6-AB0E-11823F9BAD96}"
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "ArcGISMapsSDK.WinUI.Viewer (Package)", "WinUI\ArcGISMapsSDK.WinUI.Viewer (Package)\ArcGISMapsSDK.WinUI.Viewer (Package).wapproj", "{BA503BD0-660A-4EA6-AB0E-11823F9BAD96}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MAUI", "MAUI", "{5EA55853-597D-4ED0-BAF9-6B737EBC5AC1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISRuntime.Samples.Maui", "MAUI\Maui.Samples\ArcGISRuntime.Samples.Maui.csproj", "{7F7B3255-9EA0-4296-B690-14BE9E2204F3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISMapsSDK.Samples.Maui", "MAUI\Maui.Samples\ArcGISMapsSDK.Samples.Maui.csproj", "{7F7B3255-9EA0-4296-B690-14BE9E2204F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -283,8 +283,9 @@ Global
 		SolutionGuid = {F7243EE6-BDF4-4C46-AEEB-057BC82B116E}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
-		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{f39d6b3e-4e1d-4211-b152-59f8f71c8544}*SharedItemsImports = 5
-		ArcGISRuntime.Samples.Shared\ArcGISRuntime.Samples.Shared.projitems*{fe1b81e3-59be-4632-a1eb-12ff19f4b59a}*SharedItemsImports = 5
+		Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
+		Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{7f7b3255-9ea0-4296-b690-14be9e2204f3}*SharedItemsImports = 5
+		Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{f39d6b3e-4e1d-4211-b152-59f8f71c8544}*SharedItemsImports = 5
+		Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{fe1b81e3-59be-4632-a1eb-12ff19f4b59a}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

@@ -106,7 +106,7 @@ namespace ArcGISMapsSDK.Samples.Managers
 #elif MAUI
             resourceStreamName = "ArcGISMapsSDKMaui.Resources.FeaturedSamples.xml";
 #else
-            resourceStreamName = "ArcGISRuntime.Resources.FeaturedSamples.xml";
+            resourceStreamName = "ArcGISMapsSDK.Resources.FeaturedSamples.xml";
 #endif
             // Load the FeaturedSamples resource file.
             using (Stream stream = this.GetType().Assembly.

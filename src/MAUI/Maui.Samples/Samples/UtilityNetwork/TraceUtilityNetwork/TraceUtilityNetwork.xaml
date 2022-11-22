@@ -49,6 +49,7 @@
                         Grid.Column="0"
                         Clicked="IsAddingStartingLocations_Clicked"
                         IsEnabled="False"
+                        MinimumHeightRequest="75"
                         Text="Origin" />
                     <Button
                         x:Name="IsAddingBarriers"

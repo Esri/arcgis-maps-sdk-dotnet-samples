@@ -11,12 +11,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System.Diagnostics;
 
-#if ANDROID
-//TODO (use below reference)
-// using Microsoft.Maui.ApplicationModel;
-
-#endif
-
 namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(

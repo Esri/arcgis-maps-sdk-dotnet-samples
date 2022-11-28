@@ -1,80 +1,67 @@
-﻿<ContentPage
-    x:Class="ArcGISRuntime.Samples.TraceUtilityNetwork.TraceUtilityNetwork"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+﻿<ContentPage x:Class="ArcGISRuntime.Samples.TraceUtilityNetwork.TraceUtilityNetwork"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:MapView
-            x:Name="MyMapView"
-            GeoViewTapped="OnGeoViewTapped"
-            Style="{DynamicResource EsriSampleGeoView}" />
-        <StackLayout
-            x:Name="BusyIndicator"
-            Grid.Row="0"
-            Grid.RowSpan="2"
-            Grid.ColumnSpan="2"
-            HeightRequest="40"
-            IsVisible="False"
-            VerticalOptions="Center">
-            <ActivityIndicator
-                HeightRequest="40"
-                HorizontalOptions="Center"
-                IsRunning="True"
-                VerticalOptions="Center" />
+        <esriUI:MapView x:Name="MyMapView"
+                        GeoViewTapped="OnGeoViewTapped"
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <StackLayout x:Name="BusyIndicator"
+                     Grid.Row="0"
+                     Grid.RowSpan="2"
+                     Grid.ColumnSpan="2"
+                     HeightRequest="40"
+                     IsVisible="False"
+                     VerticalOptions="Center">
+            <ActivityIndicator HeightRequest="40"
+                               HorizontalOptions="Center"
+                               IsRunning="True"
+                               VerticalOptions="Center" />
         </StackLayout>
-        <Border
-            x:Name="ControlPanelBorder"
-            Padding="5"
-            Style="{DynamicResource EsriSampleControlPanel}">
+        <Border x:Name="ControlPanelBorder"
+                Padding="5"
+                Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout x:Name="MainUI" Orientation="Vertical">
-                <Button
-                    x:Name="TracePickerButton"
-                    Clicked="TraceTypeButtonPressed"
-                    Text="Trace type: Connected" />
-                <Grid
-                    Margin="0,5"
-                    ColumnSpacing="5"
-                    RowSpacing="5">
+                <Button x:Name="TracePickerButton"
+                        Clicked="TraceTypeButtonPressed"
+                        Text="Trace type: Connected" />
+                <Grid Margin="0,5"
+                      ColumnSpacing="5"
+                      RowSpacing="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="0.5*" />
-                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-                    <Button
-                        x:Name="IsAddingStartingLocations"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Clicked="IsAddingStartingLocations_Clicked"
-                        IsEnabled="False"
-                        MinimumHeightRequest="75"
-                        Text="Origin" />
-                    <Button
-                        x:Name="IsAddingBarriers"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Clicked="IsAddingBarriers_Clicked"
-                        Text="Barrier" />
-                    <Button
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Clicked="OnReset"
-                        Text="Reset" />
-                    <Button
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Clicked="OnTrace"
-                        Text="Trace" />
+                    <Button x:Name="IsAddingStartingLocations"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            Clicked="IsAddingStartingLocations_Clicked"
+                            IsEnabled="False"
+                            Text="Origin" />
+                    <Button x:Name="IsAddingBarriers"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Clicked="IsAddingBarriers_Clicked"
+                            Text="Barrier" />
+                    <Button Grid.Row="1"
+                            Grid.Column="1"
+                            Clicked="OnReset"
+                            Text="Reset" />
+                    <Button Grid.Row="1"
+                            Grid.Column="0"
+                            Clicked="OnTrace"
+                            Text="Trace" />
                 </Grid>
-                <Label
-                    x:Name="Status"
-                    Grid.Row="0"
-                    Margin="5"
-                    HorizontalOptions="Center"
-                    MaximumWidthRequest="200"
-                    Text="Loading sample..." />
+                <Label x:Name="Status"
+                       Grid.Row="0"
+                       Margin="5"
+                       HorizontalOptions="Center"
+                       MaximumWidthRequest="200"
+                       Text="Loading sample..." />
             </StackLayout>
         </Border>
     </Grid>

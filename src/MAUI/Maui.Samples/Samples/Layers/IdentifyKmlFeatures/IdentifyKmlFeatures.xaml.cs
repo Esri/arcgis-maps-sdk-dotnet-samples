@@ -80,7 +80,7 @@ namespace ArcGISRuntime.Samples.IdentifyKmlFeatures
                 }
 
                 // Show a page with the HTML content
-                await Navigation.PushAsync(new KmlIdentifyResultDisplayPage(firstIdentifiedPlacemark.BalloonContent));
+                await Application.Current.MainPage.Navigation.PushModalAsync(new KmlIdentifyResultDisplayPage(firstIdentifiedPlacemark.BalloonContent));
             }
             catch (Exception ex)
             {
@@ -97,17 +97,10 @@ public class KmlIdentifyResultDisplayPage : ContentPage
         Title = "KML identify result";
 
         // Create the web browser control
-        WebView htmlView = new WebView
+        Content = new WebView
         {
             // Display the string content as an HTML document
             Source = new HtmlWebViewSource() { Html = htmlContent }
         };
-
-        // Create and add a layout to the page
-        Grid layout = new Grid();
-        Content = layout;
-
-        // Add the webview to the page
-        layout.Children.Add(htmlView);
     }
 }

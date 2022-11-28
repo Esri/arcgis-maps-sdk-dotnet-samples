@@ -97,7 +97,7 @@ namespace ArcGISRuntime.Samples.WmsIdentify
                 }
 
                 // Show a page with the HTML content
-                await Application.Current.MainPage.Navigation.PushAsync(new WmsIdentifyResultDisplayPage(htmlContent));
+                await Application.Current.MainPage.Navigation.PushModalAsync(new WmsIdentifyResultDisplayPage(htmlContent));
             }
             catch (Exception ex)
             {
@@ -113,18 +113,11 @@ namespace ArcGISRuntime.Samples.WmsIdentify
             Title = "WMS identify result";
 
             // Create the web browser control
-            WebView htmlView = new WebView
+            Content = new WebView
             {
                 // Display the string content as an HTML document
                 Source = new HtmlWebViewSource() { Html = htmlContent }
             };
-
-            // Create and add a layout to the page
-            Grid layout = new Grid();
-            Content = layout;
-
-            // Add the webview to the page
-            layout.Children.Add(htmlView);
         }
     }
 }

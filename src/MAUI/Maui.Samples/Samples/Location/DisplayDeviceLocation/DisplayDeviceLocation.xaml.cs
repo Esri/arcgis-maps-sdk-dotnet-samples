@@ -11,12 +11,6 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System.Diagnostics;
 
-#if ANDROID
-//TODO (use below reference)
-// using Microsoft.Maui.ApplicationModel;
-
-#endif
-
 namespace ArcGISRuntime.Samples.DisplayDeviceLocation
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -46,14 +40,6 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
         {
             try
             {
-                // Permission request only needed on Android.
-#if ANDROID
-                // See implementation in MainActivity.cs in the Android platform project.
-                // MainActivity.Instance.AskForLocationPermission(MyMapView);
-
-                //TODO (remove above function, use below function)
-                // PermissionStatus status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-#else
                 var status = Microsoft.Maui.ApplicationModel.PermissionStatus.Unknown;
 
                 status = await Microsoft.Maui.ApplicationModel.Permissions.CheckStatusAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
@@ -66,7 +52,6 @@ namespace ArcGISRuntime.Samples.DisplayDeviceLocation
                     // Enable the stop device location button.
                     StopButton.IsEnabled = true;
                 }
-#endif
             }
             catch (Exception ex)
             {

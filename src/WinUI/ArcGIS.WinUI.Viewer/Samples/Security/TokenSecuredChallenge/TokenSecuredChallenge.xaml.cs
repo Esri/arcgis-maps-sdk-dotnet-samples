@@ -84,7 +84,7 @@ namespace ArcGIS.WinUI.Samples.TokenSecuredChallenge
         private async Task<Credential> Challenge(CredentialRequestInfo info)
         {
             // Get user credentials (on the UI thread).
-            if (this.Dispatcher == null)
+            if (this.DispatcherQueue == null)
             {
                 // No current dispatcher, code is already running on the UI thread.
                 return await GetUserCredentialsFromUI(info);

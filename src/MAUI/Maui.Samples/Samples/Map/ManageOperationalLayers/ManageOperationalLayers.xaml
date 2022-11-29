@@ -46,7 +46,6 @@
                     -->
                     <ListView x:Name="IncludedListView"
                               Grid.Row="2"
-                              HeightRequest="150"
                               ItemTemplate="{StaticResource LayerListTemplate}"
                               VerticalOptions="Start" />
                     <Label Grid.Row="3"
@@ -59,7 +58,6 @@
                     -->
                     <ListView x:Name="ExcludedListView"
                               Grid.Row="4"
-                              HeightRequest="150"
                               ItemTemplate="{StaticResource LayerListTemplate}"
                               VerticalOptions="Start" />
                 </Grid>

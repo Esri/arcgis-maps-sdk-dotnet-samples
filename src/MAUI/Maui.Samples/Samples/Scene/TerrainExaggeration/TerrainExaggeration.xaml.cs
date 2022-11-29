@@ -31,7 +31,7 @@ namespace ArcGIS.Samples.TerrainExaggeration
         private void Initialize()
         {
             // Configure the scene with National Geographic basemap.
-            MySceneView.Scene = new Scene(BasemapStyle.ArcGISTopographic);
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
 
             // Add the base surface for elevation data.
             Surface elevationSurface = new Surface();

@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.ChangeSublayerRenderer
+namespace ArcGIS.Samples.ChangeSublayerRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change sublayer renderer",

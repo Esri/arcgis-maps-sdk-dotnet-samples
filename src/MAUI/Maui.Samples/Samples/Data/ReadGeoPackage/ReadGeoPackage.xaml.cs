@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISMapsSDKMaui.Samples.ReadGeoPackage
+namespace ArcGIS.Samples.ReadGeoPackage
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Read GeoPackage",

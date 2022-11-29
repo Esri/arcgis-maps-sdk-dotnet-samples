@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using System.Diagnostics;
 
-namespace ArcGISMapsSDKMaui.Samples.ConfigureSubnetworkTrace
+namespace ArcGIS.Samples.ConfigureSubnetworkTrace
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Configure subnetwork trace",

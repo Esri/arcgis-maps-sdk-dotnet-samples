@@ -19,7 +19,7 @@ using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 using Location = Esri.ArcGISRuntime.Location.Location;
 
-namespace ArcGISMapsSDKMaui.Samples.NavigateRouteRerouting
+namespace ArcGIS.Samples.NavigateRouteRerouting
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Navigate route with rerouting",

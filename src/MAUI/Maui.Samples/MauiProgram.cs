@@ -1,4 +1,4 @@
-﻿namespace ArcGISMapsSDKMaui.Samples.Maui;
+﻿namespace ArcGIS.Samples.Maui;
 
 using Esri.ArcGISRuntime.Maui;
 

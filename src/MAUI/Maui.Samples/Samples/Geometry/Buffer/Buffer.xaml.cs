@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.Buffer
+namespace ArcGIS.Samples.Buffer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Buffer",

@@ -111,7 +111,7 @@ namespace ArcGIS
 
         private string GetDescriptionHtml(SampleInfo sampleInfo)
         {
-            string readmeContent = new StreamReader(_assembly.GetManifestResourceStream($"ArcGISMapsSDKMaui.Samples.{sampleInfo.Category}.{sampleInfo.FormalName}.readme.md")).ReadToEnd();
+            string readmeContent = new StreamReader(_assembly.GetManifestResourceStream($"ArcGIS.Samples.{sampleInfo.Category}.{sampleInfo.FormalName}.readme.md")).ReadToEnd();
 
             readmeContent = Markdig.Markdown.ToHtml(readmeContent);
 
@@ -125,7 +125,7 @@ namespace ArcGIS
 #endif
 
             // Convert the image into a string of bytes to embed into the html.
-            var sourceStream = _assembly.GetManifestResourceStream($"ArcGISMapsSDKMaui.Samples.{sampleInfo.Category}.{sampleInfo.FormalName}.{sampleInfo.FormalName}.jpg");
+            var sourceStream = _assembly.GetManifestResourceStream($"ArcGIS.Samples.{sampleInfo.Category}.{sampleInfo.FormalName}.{sampleInfo.FormalName}.jpg");
             var memoryStream = new MemoryStream();
             sourceStream.CopyTo(memoryStream);
             byte[] image = memoryStream.ToArray();

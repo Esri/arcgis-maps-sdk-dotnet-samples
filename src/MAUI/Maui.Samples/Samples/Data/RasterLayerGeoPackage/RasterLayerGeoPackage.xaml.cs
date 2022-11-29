@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISMapsSDKMaui.Samples.RasterLayerGeoPackage
+namespace ArcGIS.Samples.RasterLayerGeoPackage
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster layer (GeoPackage)",

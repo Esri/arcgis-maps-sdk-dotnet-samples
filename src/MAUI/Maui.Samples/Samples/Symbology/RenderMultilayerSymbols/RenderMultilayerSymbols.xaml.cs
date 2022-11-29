@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using System.Reflection;
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.RenderMultilayerSymbols
+namespace ArcGIS.Samples.RenderMultilayerSymbols
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Render multilayer symbols",

@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.SceneLayerSelection
+namespace ArcGIS.Samples.SceneLayerSelection
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Scene layer selection",

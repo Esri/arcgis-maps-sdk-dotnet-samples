@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.RenderSimpleMarkers
+namespace ArcGIS.Samples.RenderSimpleMarkers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Simple marker symbol",

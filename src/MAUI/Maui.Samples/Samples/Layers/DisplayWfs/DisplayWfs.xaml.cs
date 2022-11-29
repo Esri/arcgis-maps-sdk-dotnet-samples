@@ -15,7 +15,7 @@ using System.Diagnostics;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayWfs
+namespace ArcGIS.Samples.DisplayWfs
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display WFS layer",

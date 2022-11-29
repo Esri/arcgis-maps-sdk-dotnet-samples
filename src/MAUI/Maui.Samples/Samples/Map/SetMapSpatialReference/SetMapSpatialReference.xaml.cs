@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.SetMapSpatialReference
+namespace ArcGIS.Samples.SetMapSpatialReference
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map spatial reference",

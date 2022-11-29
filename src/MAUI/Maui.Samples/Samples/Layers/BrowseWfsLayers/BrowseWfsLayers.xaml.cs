@@ -16,7 +16,7 @@ using System.Diagnostics;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.BrowseWfsLayers
+namespace ArcGIS.Samples.BrowseWfsLayers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Browse WFS layers",

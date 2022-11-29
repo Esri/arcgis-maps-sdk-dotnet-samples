@@ -17,7 +17,7 @@ using System.Xml.Linq;
 
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISMapsSDKMaui.Samples.DictionaryRendererGraphicsOverlay
+namespace ArcGIS.Samples.DictionaryRendererGraphicsOverlay
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Dictionary renderer with graphics overlay",

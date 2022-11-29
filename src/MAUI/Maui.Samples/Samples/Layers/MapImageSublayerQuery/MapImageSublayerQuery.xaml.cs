@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.MapImageSublayerQuery
+namespace ArcGIS.Samples.MapImageSublayerQuery
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Query map image sublayer",

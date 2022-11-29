@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayAnnotation
+namespace ArcGIS.Samples.DisplayAnnotation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display annotation",

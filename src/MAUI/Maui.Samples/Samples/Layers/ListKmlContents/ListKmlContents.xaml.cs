@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System.Collections.ObjectModel;
 
-namespace ArcGISMapsSDKMaui.Samples.ListKmlContents
+namespace ArcGIS.Samples.ListKmlContents
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List KML contents",

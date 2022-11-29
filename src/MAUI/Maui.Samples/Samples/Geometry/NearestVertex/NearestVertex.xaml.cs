@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using Colors = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISMapsSDKMaui.Samples.NearestVertex
+namespace ArcGIS.Samples.NearestVertex
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Nearest vertex",

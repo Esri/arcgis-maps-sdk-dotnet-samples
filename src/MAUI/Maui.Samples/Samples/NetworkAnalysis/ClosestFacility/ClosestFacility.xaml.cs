@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.ClosestFacility
+namespace ArcGIS.Samples.ClosestFacility
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find closest facility to an incident (interactive)",

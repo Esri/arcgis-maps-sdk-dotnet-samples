@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Rasters;
 using Esri.ArcGISRuntime.UI;
 using System.Text;
 
-namespace ArcGISMapsSDKMaui.Samples.IdentifyRasterCell
+namespace ArcGIS.Samples.IdentifyRasterCell
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify raster cell",

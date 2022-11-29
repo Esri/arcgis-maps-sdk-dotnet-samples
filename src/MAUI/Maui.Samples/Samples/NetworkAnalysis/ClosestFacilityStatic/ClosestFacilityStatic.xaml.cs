@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.ClosestFacilityStatic
+namespace ArcGIS.Samples.ClosestFacilityStatic
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find closest facility to multiple incidents (service)",

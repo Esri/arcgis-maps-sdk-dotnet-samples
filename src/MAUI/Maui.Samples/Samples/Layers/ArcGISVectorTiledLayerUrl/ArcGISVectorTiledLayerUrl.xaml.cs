@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ArcGISVectorTiledLayerUrl
+namespace ArcGIS.Samples.ArcGISVectorTiledLayerUrl
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS vector tiled layer URL",

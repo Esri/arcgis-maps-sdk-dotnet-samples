@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.FeatureLayerRenderingModeScene
+namespace ArcGIS.Samples.FeatureLayerRenderingModeScene
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer rendering mode (scene)",

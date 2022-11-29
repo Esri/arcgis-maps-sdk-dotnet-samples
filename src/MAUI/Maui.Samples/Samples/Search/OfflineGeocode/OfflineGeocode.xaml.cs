@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using System.Reflection;
 
-namespace ArcGISMapsSDKMaui.Samples.OfflineGeocode
+namespace ArcGIS.Samples.OfflineGeocode
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Offline geocode",

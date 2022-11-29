@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Reflection;
 
-namespace ArcGISMapsSDKMaui.Samples.RenderPictureMarkers
+namespace ArcGIS.Samples.RenderPictureMarkers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Picture marker symbol",

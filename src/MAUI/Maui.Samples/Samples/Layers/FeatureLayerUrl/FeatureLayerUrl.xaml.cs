@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.FeatureLayerUrl
+namespace ArcGIS.Samples.FeatureLayerUrl
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer (feature service)",

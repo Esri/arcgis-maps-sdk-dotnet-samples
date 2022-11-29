@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayScene
+namespace ArcGIS.Samples.DisplayScene
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display a scene",

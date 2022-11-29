@@ -17,7 +17,7 @@ using System.Diagnostics;
 
 #endif
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayDeviceLocation
+namespace ArcGIS.Samples.DisplayDeviceLocation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display device location with autopan modes",

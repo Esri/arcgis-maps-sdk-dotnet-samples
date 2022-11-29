@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Maui;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.ShowCallout
+namespace ArcGIS.Samples.ShowCallout
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show callout",

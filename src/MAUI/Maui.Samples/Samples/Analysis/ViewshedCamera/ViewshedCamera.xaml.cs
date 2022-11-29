@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 
-namespace ArcGISMapsSDKMaui.Samples.ViewshedCamera
+namespace ArcGIS.Samples.ViewshedCamera
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Viewshed for camera",

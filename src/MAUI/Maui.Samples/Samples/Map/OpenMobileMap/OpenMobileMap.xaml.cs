@@ -10,7 +10,7 @@
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.OpenMobileMap
+namespace ArcGIS.Samples.OpenMobileMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Open mobile map package",

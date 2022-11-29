@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Symbology;
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.ShowLabelsOnLayer
+namespace ArcGIS.Samples.ShowLabelsOnLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show labels on layers",

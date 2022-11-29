@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.SimpleRenderers
+namespace ArcGIS.Samples.SimpleRenderers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Simple renderer",

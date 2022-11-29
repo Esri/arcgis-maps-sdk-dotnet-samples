@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Collections.ObjectModel;
 
-namespace ArcGISMapsSDKMaui.Samples.ListTransformations
+namespace ArcGIS.Samples.ListTransformations
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List transformations by suitability",

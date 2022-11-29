@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using System.Reflection;
 
-namespace ArcGISMapsSDKMaui.Samples.FindAddress
+namespace ArcGIS.Samples.FindAddress
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find address",

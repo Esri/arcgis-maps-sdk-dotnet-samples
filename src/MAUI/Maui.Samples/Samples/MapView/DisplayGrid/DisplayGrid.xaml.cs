@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayGrid
+namespace ArcGIS.Samples.DisplayGrid
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display grid",

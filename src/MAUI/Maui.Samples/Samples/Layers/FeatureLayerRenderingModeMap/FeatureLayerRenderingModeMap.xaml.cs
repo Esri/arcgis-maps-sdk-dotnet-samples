@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.FeatureLayerRenderingModeMap
+namespace ArcGIS.Samples.FeatureLayerRenderingModeMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer rendering mode (map)",

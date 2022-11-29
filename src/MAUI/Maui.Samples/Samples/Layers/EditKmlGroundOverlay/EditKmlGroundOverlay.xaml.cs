@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 
-namespace ArcGISMapsSDKMaui.Samples.EditKmlGroundOverlay
+namespace ArcGIS.Samples.EditKmlGroundOverlay
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit KML ground overlay",

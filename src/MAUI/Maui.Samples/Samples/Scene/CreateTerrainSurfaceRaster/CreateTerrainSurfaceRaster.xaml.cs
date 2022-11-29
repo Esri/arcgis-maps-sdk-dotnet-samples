@@ -10,7 +10,7 @@
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.CreateTerrainSurfaceRaster
+namespace ArcGIS.Samples.CreateTerrainSurfaceRaster
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create terrain surface from a local raster",

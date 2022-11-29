@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Floor;
 
-namespace ArcGISMapsSDKMaui.Samples.BrowseBuildingFloors
+namespace ArcGIS.Samples.BrowseBuildingFloors
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Browse building floors",

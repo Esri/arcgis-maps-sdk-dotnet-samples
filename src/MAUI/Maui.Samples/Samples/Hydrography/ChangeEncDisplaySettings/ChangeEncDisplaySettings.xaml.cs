@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ChangeEncDisplaySettings
+namespace ArcGIS.Samples.ChangeEncDisplaySettings
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change ENC display settings",

@@ -11,7 +11,7 @@ using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ReadShapefileMetadata
+namespace ArcGIS.Samples.ReadShapefileMetadata
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Read shapefile metadata",

@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.ExportTiles
+namespace ArcGIS.Samples.ExportTiles
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Export tiles",

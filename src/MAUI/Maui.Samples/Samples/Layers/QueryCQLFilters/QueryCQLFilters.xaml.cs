@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.QueryCQLFilters
+namespace ArcGIS.Samples.QueryCQLFilters
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Query with CQL filters",

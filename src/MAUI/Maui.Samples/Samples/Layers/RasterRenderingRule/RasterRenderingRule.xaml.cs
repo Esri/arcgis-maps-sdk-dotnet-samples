@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISMapsSDKMaui.Samples.RasterRenderingRule
+namespace ArcGIS.Samples.RasterRenderingRule
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster rendering rule",

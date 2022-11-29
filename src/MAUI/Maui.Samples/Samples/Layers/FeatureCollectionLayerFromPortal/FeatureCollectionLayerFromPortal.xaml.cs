@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 
-namespace ArcGISMapsSDKMaui.Samples.FeatureCollectionLayerFromPortal
+namespace ArcGIS.Samples.FeatureCollectionLayerFromPortal
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create feature collection layer (Portal item)",

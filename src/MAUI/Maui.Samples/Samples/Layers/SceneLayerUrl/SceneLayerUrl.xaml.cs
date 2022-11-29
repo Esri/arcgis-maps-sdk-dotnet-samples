@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.SceneLayerUrl
+namespace ArcGIS.Samples.SceneLayerUrl
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Scene layer (URL)",

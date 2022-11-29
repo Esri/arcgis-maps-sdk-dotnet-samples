@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.ChooseCameraController
+namespace ArcGIS.Samples.ChooseCameraController
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Choose camera controller",

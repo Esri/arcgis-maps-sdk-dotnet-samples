@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 
-namespace ArcGISMapsSDKMaui.Samples.ViewshedGeoElement
+namespace ArcGIS.Samples.ViewshedGeoElement
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Viewshed for GeoElement",

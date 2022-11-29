@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.UtilityNetworks;
 using System.Diagnostics;
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayUtilityNetworkContainer
+namespace ArcGIS.Samples.DisplayUtilityNetworkContainer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display content of utility network container",

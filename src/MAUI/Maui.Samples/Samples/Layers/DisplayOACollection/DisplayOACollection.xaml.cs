@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayOACollection
+namespace ArcGIS.Samples.DisplayOACollection
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display OGC API collection",

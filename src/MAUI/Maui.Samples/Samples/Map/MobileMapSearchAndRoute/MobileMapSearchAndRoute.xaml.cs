@@ -18,7 +18,7 @@ using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace ArcGISMapsSDKMaui.Samples.MobileMapSearchAndRoute
+namespace ArcGIS.Samples.MobileMapSearchAndRoute
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Mobile map (search and route)",

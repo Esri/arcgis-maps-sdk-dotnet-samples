@@ -17,7 +17,7 @@ using System.Reflection;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.OfflineRouting
+namespace ArcGIS.Samples.OfflineRouting
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Offline routing",

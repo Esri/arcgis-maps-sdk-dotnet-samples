@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.TakeScreenshot
+namespace ArcGIS.Samples.TakeScreenshot
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Take screenshot",

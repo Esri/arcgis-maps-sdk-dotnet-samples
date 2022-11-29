@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 
-namespace ArcGISMapsSDKMaui.Samples.SearchPortalMaps
+namespace ArcGIS.Samples.SearchPortalMaps
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Search for webmap",

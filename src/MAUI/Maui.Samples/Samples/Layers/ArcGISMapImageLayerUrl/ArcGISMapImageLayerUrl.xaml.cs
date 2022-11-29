@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ArcGISMapImageLayerUrl
+namespace ArcGIS.Samples.ArcGISMapImageLayerUrl
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS map image layer",

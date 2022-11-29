@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISMapsSDKMaui.Samples.RasterLayerImageServiceRaster
+namespace ArcGIS.Samples.RasterLayerImageServiceRaster
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster layer (service)",

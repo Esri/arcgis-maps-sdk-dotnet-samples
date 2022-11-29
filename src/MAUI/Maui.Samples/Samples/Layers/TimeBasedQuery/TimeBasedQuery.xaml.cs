@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.TimeBasedQuery
+namespace ArcGIS.Samples.TimeBasedQuery
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Time-based query",

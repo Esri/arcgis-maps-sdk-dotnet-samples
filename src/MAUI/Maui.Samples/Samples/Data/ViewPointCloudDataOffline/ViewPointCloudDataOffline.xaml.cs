@@ -10,7 +10,7 @@
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ViewPointCloudDataOffline
+namespace ArcGIS.Samples.ViewPointCloudDataOffline
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "View point cloud data offline",

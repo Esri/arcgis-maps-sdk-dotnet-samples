@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ToggleBetweenFeatureRequestModes
+namespace ArcGIS.Samples.ToggleBetweenFeatureRequestModes
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Toggle between feature request modes",

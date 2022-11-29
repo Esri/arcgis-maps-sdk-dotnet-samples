@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.CreateFeatureCollectionLayer
+namespace ArcGIS.Samples.CreateFeatureCollectionLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature collection layer",

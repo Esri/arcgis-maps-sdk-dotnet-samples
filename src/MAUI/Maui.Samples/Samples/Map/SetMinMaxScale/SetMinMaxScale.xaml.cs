@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.SetMinMaxScale
+namespace ArcGIS.Samples.SetMinMaxScale
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Set min & max scale",

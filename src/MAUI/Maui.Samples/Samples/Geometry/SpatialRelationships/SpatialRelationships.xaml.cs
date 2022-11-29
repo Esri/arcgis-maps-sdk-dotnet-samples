@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISMapsSDKMaui.Samples.SpatialRelationships
+namespace ArcGIS.Samples.SpatialRelationships
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Spatial relationships",

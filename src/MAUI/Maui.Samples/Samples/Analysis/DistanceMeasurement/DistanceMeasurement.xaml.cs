@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Microsoft.Maui.ApplicationModel;
 using System.Diagnostics;
 
-namespace ArcGISMapsSDKMaui.Samples.DistanceMeasurement
+namespace ArcGIS.Samples.DistanceMeasurement
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Distance measurement analysis",

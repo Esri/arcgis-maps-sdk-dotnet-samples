@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using Colors = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISMapsSDKMaui.Samples.SpatialOperations
+namespace ArcGIS.Samples.SpatialOperations
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Perform spatial operations",

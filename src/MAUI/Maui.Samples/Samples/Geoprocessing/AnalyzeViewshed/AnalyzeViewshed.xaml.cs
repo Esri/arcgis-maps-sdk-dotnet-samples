@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.AnalyzeViewshed
+namespace ArcGIS.Samples.AnalyzeViewshed
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Analyze viewshed (geoprocessing)",

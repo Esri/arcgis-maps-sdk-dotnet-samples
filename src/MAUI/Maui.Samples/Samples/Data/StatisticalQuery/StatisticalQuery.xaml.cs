@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.StatisticalQuery
+namespace ArcGIS.Samples.StatisticalQuery
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Statistical query",

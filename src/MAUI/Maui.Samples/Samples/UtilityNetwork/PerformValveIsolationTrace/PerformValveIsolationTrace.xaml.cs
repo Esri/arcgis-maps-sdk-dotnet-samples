@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UtilityNetworks;
 
-namespace ArcGISMapsSDKMaui.Samples.PerformValveIsolationTrace
+namespace ArcGIS.Samples.PerformValveIsolationTrace
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Perform valve isolation trace",

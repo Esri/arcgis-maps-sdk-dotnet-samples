@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 
-namespace ArcGISMapsSDKMaui.Samples.OpenScenePortalItem
+namespace ArcGIS.Samples.OpenScenePortalItem
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Open scene (portal item)",

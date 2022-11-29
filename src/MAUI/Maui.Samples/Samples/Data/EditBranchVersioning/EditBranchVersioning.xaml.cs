@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
 using System.Diagnostics;
 
-namespace ArcGISMapsSDKMaui.Samples.EditBranchVersioning
+namespace ArcGIS.Samples.EditBranchVersioning
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit with branch versioning",

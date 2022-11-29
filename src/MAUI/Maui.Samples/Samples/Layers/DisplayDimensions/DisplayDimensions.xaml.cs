@@ -10,7 +10,7 @@
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayDimensions
+namespace ArcGIS.Samples.DisplayDimensions
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display dimensions",

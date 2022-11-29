@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ManageBookmarks
+namespace ArcGIS.Samples.ManageBookmarks
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Manage bookmarks",

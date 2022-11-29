@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.AccessLoadStatus
+namespace ArcGIS.Samples.AccessLoadStatus
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map load status",

@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayKmlNetworkLinks
+namespace ArcGIS.Samples.DisplayKmlNetworkLinks
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display KML network links",

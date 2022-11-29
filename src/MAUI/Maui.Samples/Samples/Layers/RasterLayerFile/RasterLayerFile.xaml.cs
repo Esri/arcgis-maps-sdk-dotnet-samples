@@ -11,7 +11,7 @@ using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISMapsSDKMaui.Samples.RasterLayerFile
+namespace ArcGIS.Samples.RasterLayerFile
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster layer (file)",

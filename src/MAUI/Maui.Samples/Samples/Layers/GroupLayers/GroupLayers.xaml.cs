@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.GroupLayers
+namespace ArcGIS.Samples.GroupLayers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Group layers",

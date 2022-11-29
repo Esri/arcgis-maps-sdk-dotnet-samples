@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 using System.Text;
 
-namespace ArcGISMapsSDKMaui.Samples.ListGeodatabaseVersions
+namespace ArcGIS.Samples.ListGeodatabaseVersions
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List geodatabase versions",

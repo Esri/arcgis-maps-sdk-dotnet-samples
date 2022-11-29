@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.UpdateAttributes
+namespace ArcGIS.Samples.UpdateAttributes
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Update attributes (feature service)",

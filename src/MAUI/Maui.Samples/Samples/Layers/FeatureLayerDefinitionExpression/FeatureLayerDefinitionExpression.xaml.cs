@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.FeatureLayerDefinitionExpression
+namespace ArcGIS.Samples.FeatureLayerDefinitionExpression
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Filter by definition expression or display filter",

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayDrawingStatus
+namespace ArcGIS.Samples.DisplayDrawingStatus
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display draw status",

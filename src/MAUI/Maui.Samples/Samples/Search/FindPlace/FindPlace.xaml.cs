@@ -21,7 +21,7 @@ using System.Reflection;
 //using ArcGISRuntime.Droid;
 #endif
 
-namespace ArcGISMapsSDKMaui.Samples.FindPlace
+namespace ArcGIS.Samples.FindPlace
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find place",

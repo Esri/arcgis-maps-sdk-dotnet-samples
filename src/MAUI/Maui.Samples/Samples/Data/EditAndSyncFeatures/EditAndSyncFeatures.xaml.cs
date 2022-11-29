@@ -19,7 +19,7 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.EditAndSyncFeatures
+namespace ArcGIS.Samples.EditAndSyncFeatures
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit and sync features",

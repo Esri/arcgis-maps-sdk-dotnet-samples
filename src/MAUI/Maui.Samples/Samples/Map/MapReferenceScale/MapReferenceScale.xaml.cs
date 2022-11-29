@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 
-namespace ArcGISMapsSDKMaui.Samples.MapReferenceScale
+namespace ArcGIS.Samples.MapReferenceScale
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map reference scale",

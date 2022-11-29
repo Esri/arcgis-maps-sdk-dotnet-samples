@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISMapsSDKMaui.Samples.ApplyMosaicRule
+namespace ArcGIS.Samples.ApplyMosaicRule
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Apply mosaic rule to rasters",

@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.FeatureCollectionLayerFromQuery
+namespace ArcGIS.Samples.FeatureCollectionLayerFromQuery
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature collection layer (query)",

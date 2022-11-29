@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Maui;
 using Esri.ArcGISRuntime.Portal;
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.ListRelatedFeatures
+namespace ArcGIS.Samples.ListRelatedFeatures
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List related features",

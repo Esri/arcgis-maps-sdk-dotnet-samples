@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.RenderUniqueValues
+namespace ArcGIS.Samples.RenderUniqueValues
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Unique value renderer",

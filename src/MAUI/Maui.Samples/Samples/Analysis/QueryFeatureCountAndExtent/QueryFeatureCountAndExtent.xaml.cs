@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.QueryFeatureCountAndExtent
+namespace ArcGIS.Samples.QueryFeatureCountAndExtent
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Query feature count and extent",

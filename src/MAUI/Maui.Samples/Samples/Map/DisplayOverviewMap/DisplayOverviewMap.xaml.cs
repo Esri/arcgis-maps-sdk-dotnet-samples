@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayOverviewMap
+namespace ArcGIS.Samples.DisplayOverviewMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display overview map",

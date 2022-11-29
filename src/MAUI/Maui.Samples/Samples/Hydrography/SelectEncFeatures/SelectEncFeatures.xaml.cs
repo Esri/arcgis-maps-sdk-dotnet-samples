@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.SelectEncFeatures
+namespace ArcGIS.Samples.SelectEncFeatures
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Select ENC features",

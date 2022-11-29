@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Ogc;
 using System.ComponentModel;
 using System.Diagnostics;
 
-namespace ArcGISMapsSDKMaui.Samples.PlayKmlTours
+namespace ArcGIS.Samples.PlayKmlTours
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Play KML tour",

@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.DeleteFeatures
+namespace ArcGIS.Samples.DeleteFeatures
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Delete features (feature service)",

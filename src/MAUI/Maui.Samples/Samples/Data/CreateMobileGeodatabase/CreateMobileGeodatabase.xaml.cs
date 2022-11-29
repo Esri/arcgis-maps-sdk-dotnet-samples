@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
-namespace ArcGISMapsSDKMaui.Samples.CreateMobileGeodatabase
+namespace ArcGIS.Samples.CreateMobileGeodatabase
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create mobile geodatabase",

@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.OpenMapURL
+namespace ArcGIS.Samples.OpenMapURL
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Open map URL",

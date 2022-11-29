@@ -12,7 +12,7 @@ using ArcGIS.Helpers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 
-namespace ArcGISMapsSDKMaui.Samples.OAuth
+namespace ArcGIS.Samples.OAuth
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Authenticate with OAuth",

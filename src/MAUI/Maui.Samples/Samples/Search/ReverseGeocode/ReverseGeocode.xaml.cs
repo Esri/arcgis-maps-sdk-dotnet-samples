@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace ArcGISMapsSDKMaui.Samples.ReverseGeocode
+namespace ArcGIS.Samples.ReverseGeocode
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Reverse geocode",

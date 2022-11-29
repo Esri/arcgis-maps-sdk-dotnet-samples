@@ -18,7 +18,7 @@ using System.Diagnostics;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayUtilityAssociations
+namespace ArcGIS.Samples.DisplayUtilityAssociations
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display utility associations",

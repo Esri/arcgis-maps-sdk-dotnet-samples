@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.BufferList
+namespace ArcGIS.Samples.BufferList
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Buffer list",

@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Collections.ObjectModel;
 
-namespace ArcGISMapsSDKMaui.Samples.SymbolStylesFromWebStyles
+namespace ArcGIS.Samples.SymbolStylesFromWebStyles
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create symbol styles from web styles",

@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace ArcGISMapsSDKMaui.Samples.Maui;
+namespace ArcGIS.Samples.Maui;
 
 public class Program
 {

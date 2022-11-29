@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.SymbolizeShapefile
+namespace ArcGIS.Samples.SymbolizeShapefile
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Symbolize shapefile",

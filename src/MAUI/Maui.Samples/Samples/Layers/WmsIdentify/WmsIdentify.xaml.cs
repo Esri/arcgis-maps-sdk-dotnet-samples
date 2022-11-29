@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 
-namespace ArcGISMapsSDKMaui.Samples.WmsIdentify
+namespace ArcGIS.Samples.WmsIdentify
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify WMS features",

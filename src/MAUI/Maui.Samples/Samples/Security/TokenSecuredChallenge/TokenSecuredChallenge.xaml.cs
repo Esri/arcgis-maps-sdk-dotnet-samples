@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
 using System.Globalization;
 
-namespace ArcGISMapsSDKMaui.Samples.TokenSecuredChallenge
+namespace ArcGIS.Samples.TokenSecuredChallenge
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS token challenge",

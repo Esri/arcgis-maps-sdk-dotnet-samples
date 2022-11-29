@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 
-namespace ArcGISMapsSDKMaui.Samples.AnalyzeHotspots
+namespace ArcGIS.Samples.AnalyzeHotspots
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Analyze hotspots",

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Maui;
 
-namespace ArcGISMapsSDKMaui.Samples.IdentifyLayers
+namespace ArcGIS.Samples.IdentifyLayers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify layers",

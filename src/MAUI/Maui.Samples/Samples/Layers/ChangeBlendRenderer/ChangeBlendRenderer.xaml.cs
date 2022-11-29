@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISMapsSDKMaui.Samples.ChangeBlendRenderer
+namespace ArcGIS.Samples.ChangeBlendRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Blend renderer",

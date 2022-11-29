@@ -10,7 +10,7 @@
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ControlAnnotationSublayerVisibility
+namespace ArcGIS.Samples.ControlAnnotationSublayerVisibility
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Control annotation sublayer visibility",

@@ -22,7 +22,7 @@ using Application = Microsoft.Maui.Controls.Application;
 
 #endif
 
-namespace ArcGISMapsSDKMaui.Samples.OfflineBasemapByReference
+namespace ArcGIS.Samples.OfflineBasemapByReference
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Generate offline map with local basemap",

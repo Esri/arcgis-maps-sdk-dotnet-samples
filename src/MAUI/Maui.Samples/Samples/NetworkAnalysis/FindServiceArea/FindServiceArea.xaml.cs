@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.FindServiceArea
+namespace ArcGIS.Samples.FindServiceArea
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find service area",

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 
-namespace ArcGISMapsSDKMaui.Samples.IdentifyKmlFeatures
+namespace ArcGIS.Samples.IdentifyKmlFeatures
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify KML features",

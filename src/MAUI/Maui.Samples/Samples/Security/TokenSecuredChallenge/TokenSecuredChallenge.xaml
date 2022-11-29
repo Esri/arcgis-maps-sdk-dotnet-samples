@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="ArcGISMapsSDKMaui.Samples.TokenSecuredChallenge.TokenSecuredChallenge"
+<ContentPage x:Class="ArcGIS.Samples.TokenSecuredChallenge.TokenSecuredChallenge"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:local="clr-namespace:ArcGISMapsSDKMaui.Samples.TokenSecuredChallenge">
+             xmlns:local="clr-namespace:ArcGIS.Samples.TokenSecuredChallenge">
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:LoadStatusToColorConverter x:Key="StatusToColor" />

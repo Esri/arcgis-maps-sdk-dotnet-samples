@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System.Diagnostics;
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.BrowseOAFeatureService
+namespace ArcGIS.Samples.BrowseOAFeatureService
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Browse OGC API feature service",

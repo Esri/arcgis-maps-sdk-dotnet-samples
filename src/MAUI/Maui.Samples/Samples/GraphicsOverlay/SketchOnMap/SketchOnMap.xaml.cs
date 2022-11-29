@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.SketchOnMap
+namespace ArcGIS.Samples.SketchOnMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Sketch on map",

@@ -1,9 +1,8 @@
-<ContentPage
-    x:Class="ArcGISMaui.Samples.PerformValveIsolationTrace.PerformValveIsolationTrace"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-    xmlns:resources="clr-namespace:ArcGIS.Resources">
+<ContentPage x:Class="ArcGIS.Samples.PerformValveIsolationTrace.PerformValveIsolationTrace"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGIS.Resources">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView"
                         GeoViewTapped="OnGeoViewTapped"

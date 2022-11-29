@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.MapImageLayerTables
+namespace ArcGIS.Samples.MapImageLayerTables
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map image layer tables",

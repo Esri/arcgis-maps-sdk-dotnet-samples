@@ -10,7 +10,7 @@
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.HonorMobileMapPackageExpiration
+namespace ArcGIS.Samples.HonorMobileMapPackageExpiration
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Honor mobile map package expiration date",

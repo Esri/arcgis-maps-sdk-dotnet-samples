@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System.Collections;
 
-namespace ArcGISMapsSDKMaui.Samples.RasterRgbRenderer
+namespace ArcGIS.Samples.RasterRgbRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "RGB renderer",

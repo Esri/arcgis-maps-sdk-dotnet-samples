@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 
-namespace ArcGISMapsSDKMaui.Samples.WMTSLayer
+namespace ArcGIS.Samples.WMTSLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "WMTS layer",

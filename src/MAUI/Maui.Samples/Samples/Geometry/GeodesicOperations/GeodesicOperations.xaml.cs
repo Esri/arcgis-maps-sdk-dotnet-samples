@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using Colors = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISMapsSDKMaui.Samples.GeodesicOperations
+namespace ArcGIS.Samples.GeodesicOperations
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Geodesic operations",

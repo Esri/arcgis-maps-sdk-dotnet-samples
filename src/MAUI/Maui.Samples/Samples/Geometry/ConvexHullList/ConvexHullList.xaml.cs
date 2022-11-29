@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISMapsSDKMaui.Samples.ConvexHullList
+namespace ArcGIS.Samples.ConvexHullList
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Convex hull list",

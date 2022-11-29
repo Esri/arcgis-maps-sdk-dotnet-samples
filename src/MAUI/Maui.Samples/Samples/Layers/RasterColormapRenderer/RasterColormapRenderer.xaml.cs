@@ -14,7 +14,7 @@ using System.Diagnostics;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.RasterColormapRenderer
+namespace ArcGIS.Samples.RasterColormapRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Colormap renderer",

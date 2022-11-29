@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.FeatureLayerQuery
+namespace ArcGIS.Samples.FeatureLayerQuery
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer query",

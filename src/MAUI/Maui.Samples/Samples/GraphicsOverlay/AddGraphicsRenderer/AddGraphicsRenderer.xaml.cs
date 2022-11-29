@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.AddGraphicsRenderer
+namespace ArcGIS.Samples.AddGraphicsRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add graphics with renderer",

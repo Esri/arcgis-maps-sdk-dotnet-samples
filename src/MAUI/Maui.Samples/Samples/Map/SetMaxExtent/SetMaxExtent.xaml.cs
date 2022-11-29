@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.SetMaxExtent
+namespace ArcGIS.Samples.SetMaxExtent
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Set max extent",

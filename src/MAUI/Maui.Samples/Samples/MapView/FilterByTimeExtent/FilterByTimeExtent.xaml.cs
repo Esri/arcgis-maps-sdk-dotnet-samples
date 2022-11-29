@@ -14,7 +14,7 @@ using System;
 using System.Threading.Tasks;
 
 
-namespace ArcGISMapsSDKMaui.Samples.FilterByTimeExtent
+namespace ArcGIS.Samples.FilterByTimeExtent
 {
     [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
         name: "Filter by time extent",

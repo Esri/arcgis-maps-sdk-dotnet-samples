@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.LocationDrivenGeotriggers
+namespace ArcGIS.Samples.LocationDrivenGeotriggers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Set up location-driven Geotriggers",

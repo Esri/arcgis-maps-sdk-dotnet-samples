@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.FeatureLayerTimeOffset
+namespace ArcGIS.Samples.FeatureLayerTimeOffset
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer time offset",

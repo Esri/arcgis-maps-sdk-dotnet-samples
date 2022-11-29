@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using System.Diagnostics;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayFeatureLayers
+namespace ArcGIS.Samples.DisplayFeatureLayers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display feature layers",

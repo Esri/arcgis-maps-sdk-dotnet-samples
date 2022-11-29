@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ArcGISTiledLayerUrl
+namespace ArcGIS.Samples.ArcGISTiledLayerUrl
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS tiled layer",

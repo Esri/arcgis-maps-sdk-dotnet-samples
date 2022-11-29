@@ -11,7 +11,7 @@ using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using System.Diagnostics;
 
-namespace ArcGISMapsSDKMaui.Samples.OpenMobileScenePackage
+namespace ArcGIS.Samples.OpenMobileScenePackage
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Open mobile scene package",

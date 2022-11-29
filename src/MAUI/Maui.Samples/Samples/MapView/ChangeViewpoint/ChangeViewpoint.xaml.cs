@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ChangeViewpoint
+namespace ArcGIS.Samples.ChangeViewpoint
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change viewpoint",

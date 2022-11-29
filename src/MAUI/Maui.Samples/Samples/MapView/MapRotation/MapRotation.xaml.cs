@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.MapRotation
+namespace ArcGIS.Samples.MapRotation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map rotation",

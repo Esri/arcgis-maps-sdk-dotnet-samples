@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.AuthorMap
+namespace ArcGIS.Samples.AuthorMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create and save map",

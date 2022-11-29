@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISMapsSDKMaui.Samples.CutGeometry
+namespace ArcGIS.Samples.CutGeometry
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Cut geometry",

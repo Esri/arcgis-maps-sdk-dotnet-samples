@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.FeatureLayerExtrusion
+namespace ArcGIS.Samples.FeatureLayerExtrusion
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer extrusion",

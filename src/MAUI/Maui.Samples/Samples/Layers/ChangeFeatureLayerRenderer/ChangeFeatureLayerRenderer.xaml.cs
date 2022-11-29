@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 
-namespace ArcGISMapsSDKMaui.Samples.ChangeFeatureLayerRenderer
+namespace ArcGIS.Samples.ChangeFeatureLayerRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change feature layer renderer",

@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Geometry;
 
-namespace ArcGISMapsSDKMaui.Samples.ProjectWithSpecificTransformation
+namespace ArcGIS.Samples.ProjectWithSpecificTransformation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Project with specific transformation",

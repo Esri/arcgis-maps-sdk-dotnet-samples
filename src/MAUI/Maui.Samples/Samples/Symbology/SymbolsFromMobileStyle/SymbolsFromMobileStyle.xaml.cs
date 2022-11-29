@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 using RuntimeImageExtensions = Esri.ArcGISRuntime.Maui.RuntimeImageExtensions;
 
-namespace ArcGISMapsSDKMaui.Samples.SymbolsFromMobileStyle
+namespace ArcGIS.Samples.SymbolsFromMobileStyle
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Read symbols from mobile style",

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 
-namespace ArcGISMapsSDKMaui.Samples.ApplyScheduledUpdates
+namespace ArcGIS.Samples.ApplyScheduledUpdates
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Apply scheduled updates to preplanned map area",

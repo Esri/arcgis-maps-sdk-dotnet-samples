@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.AddAnIntegratedMeshLayer
+namespace ArcGIS.Samples.AddAnIntegratedMeshLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add integrated mesh layer",

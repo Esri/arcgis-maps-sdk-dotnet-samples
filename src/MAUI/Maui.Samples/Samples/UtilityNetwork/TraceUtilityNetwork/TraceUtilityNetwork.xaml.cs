@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using System.Diagnostics;
 
-namespace ArcGISMapsSDKMaui.Samples.TraceUtilityNetwork
+namespace ArcGIS.Samples.TraceUtilityNetwork
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Trace utility network",

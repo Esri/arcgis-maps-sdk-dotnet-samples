@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.ExportVectorTiles
+namespace ArcGIS.Samples.ExportVectorTiles
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Export vector tiles",

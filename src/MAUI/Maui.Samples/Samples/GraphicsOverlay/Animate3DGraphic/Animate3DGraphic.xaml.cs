@@ -18,7 +18,7 @@ using System.Globalization;
 using Colors = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISMapsSDKMaui.Samples.Animate3DGraphic
+namespace ArcGIS.Samples.Animate3DGraphic
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Animate 3D graphic",

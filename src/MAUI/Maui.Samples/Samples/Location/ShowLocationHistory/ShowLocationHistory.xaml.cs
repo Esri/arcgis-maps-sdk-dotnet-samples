@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 using Location = Esri.ArcGISRuntime.Location.Location;
 
-namespace ArcGISMapsSDKMaui.Samples.ShowLocationHistory
+namespace ArcGIS.Samples.ShowLocationHistory
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show location history",

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.AddEncExchangeSet
+namespace ArcGIS.Samples.AddEncExchangeSet
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add ENC exchange set",

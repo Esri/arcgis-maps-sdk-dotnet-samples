@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 
-namespace ArcGISMapsSDKMaui.Samples.FeatureLayerDictionaryRenderer
+namespace ArcGIS.Samples.FeatureLayerDictionaryRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Dictionary renderer with feature layer",

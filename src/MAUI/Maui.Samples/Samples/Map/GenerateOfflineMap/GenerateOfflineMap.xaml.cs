@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.GenerateOfflineMap
+namespace ArcGIS.Samples.GenerateOfflineMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Generate offline map",

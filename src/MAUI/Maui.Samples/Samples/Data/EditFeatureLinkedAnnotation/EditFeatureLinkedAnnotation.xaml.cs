@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.EditFeatureLinkedAnnotation
+namespace ArcGIS.Samples.EditFeatureLinkedAnnotation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit features with feature-linked annotation",

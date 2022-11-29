@@ -19,7 +19,7 @@ using Colors = Windows.UI.Colors;
 #else
 #endif
 
-namespace ArcGISMapsSDKMaui.Samples.GeodatabaseTransactions
+namespace ArcGIS.Samples.GeodatabaseTransactions
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Geodatabase transactions",

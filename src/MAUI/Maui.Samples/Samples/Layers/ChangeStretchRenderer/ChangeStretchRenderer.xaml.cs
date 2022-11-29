@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System.Collections.ObjectModel;
 
-namespace ArcGISMapsSDKMaui.Samples.ChangeStretchRenderer
+namespace ArcGIS.Samples.ChangeStretchRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Stretch renderer",

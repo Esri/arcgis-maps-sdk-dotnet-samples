@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ChangeSublayerVisibility
+namespace ArcGIS.Samples.ChangeSublayerVisibility
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map image layer sublayer visibility",

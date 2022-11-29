@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.LoadWebTiledLayer
+namespace ArcGIS.Samples.LoadWebTiledLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Web tiled layer",

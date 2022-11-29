@@ -19,7 +19,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.GenerateGeodatabaseReplica
+namespace ArcGIS.Samples.GenerateGeodatabaseReplica
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Generate geodatabase replica from feature service",

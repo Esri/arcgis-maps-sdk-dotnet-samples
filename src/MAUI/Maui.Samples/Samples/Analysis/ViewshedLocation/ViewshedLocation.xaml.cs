@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Colors = System.Drawing.Color;
 using GeoViewInputEventArgs = Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs;
 
-namespace ArcGISMapsSDKMaui.Samples.ViewshedLocation
+namespace ArcGIS.Samples.ViewshedLocation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Viewshed (location)",

@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.QueryFeaturesWithArcadeExpression
+namespace ArcGIS.Samples.QueryFeaturesWithArcadeExpression
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Query features with Arcade expression",

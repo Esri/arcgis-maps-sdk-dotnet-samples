@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ManageOperationalLayers
+namespace ArcGIS.Samples.ManageOperationalLayers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Manage operational layers",

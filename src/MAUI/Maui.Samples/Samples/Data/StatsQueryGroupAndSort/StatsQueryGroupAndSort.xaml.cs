@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using System.Collections.ObjectModel;
 
-namespace ArcGISMapsSDKMaui.Samples.StatsQueryGroupAndSort
+namespace ArcGIS.Samples.StatsQueryGroupAndSort
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Statistical query group and sort",

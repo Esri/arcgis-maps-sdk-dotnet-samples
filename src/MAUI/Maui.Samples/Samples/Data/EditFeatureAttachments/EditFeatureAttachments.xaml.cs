@@ -17,7 +17,7 @@ using Foundation;
 using UIKit;
 #endif
 
-namespace ArcGISMapsSDKMaui.Samples.EditFeatureAttachments
+namespace ArcGIS.Samples.EditFeatureAttachments
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit feature attachments",

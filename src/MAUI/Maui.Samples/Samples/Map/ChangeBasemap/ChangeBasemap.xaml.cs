@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.ChangeBasemap
+namespace ArcGIS.Samples.ChangeBasemap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change basemap",

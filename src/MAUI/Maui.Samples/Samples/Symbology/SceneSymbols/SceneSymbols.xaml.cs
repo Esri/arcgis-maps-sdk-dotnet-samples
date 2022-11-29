@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.SceneSymbols
+namespace ArcGIS.Samples.SceneSymbols
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Scene symbols",

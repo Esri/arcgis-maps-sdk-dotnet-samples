@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.SurfacePlacements
+namespace ArcGIS.Samples.SurfacePlacements
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Surface placement",

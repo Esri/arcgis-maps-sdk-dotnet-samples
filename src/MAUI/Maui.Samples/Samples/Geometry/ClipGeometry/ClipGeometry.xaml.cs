@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.ClipGeometry
+namespace ArcGIS.Samples.ClipGeometry
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Clip geometry",

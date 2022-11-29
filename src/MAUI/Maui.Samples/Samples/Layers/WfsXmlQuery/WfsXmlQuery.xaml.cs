@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System.Diagnostics;
 
-namespace ArcGISMapsSDKMaui.Samples.WfsXmlQuery
+namespace ArcGIS.Samples.WfsXmlQuery
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Load WFS with XML query",

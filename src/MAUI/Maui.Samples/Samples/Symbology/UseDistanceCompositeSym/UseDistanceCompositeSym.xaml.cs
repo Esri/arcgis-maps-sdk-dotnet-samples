@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.UseDistanceCompositeSym
+namespace ArcGIS.Samples.UseDistanceCompositeSym
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Distance composite scene symbol",

@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 using Colors = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISMapsSDKMaui.Samples.DensifyAndGeneralize
+namespace ArcGIS.Samples.DensifyAndGeneralize
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Densify and generalize",

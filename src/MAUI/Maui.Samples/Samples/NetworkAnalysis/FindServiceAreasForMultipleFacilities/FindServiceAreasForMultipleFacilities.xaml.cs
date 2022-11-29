@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.FindServiceAreasForMultipleFacilities
+namespace ArcGIS.Samples.FindServiceAreasForMultipleFacilities
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find service areas for multiple facilities",

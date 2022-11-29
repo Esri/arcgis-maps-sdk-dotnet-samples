@@ -10,7 +10,7 @@
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.CreateTerrainSurfaceTilePackage
+namespace ArcGIS.Samples.CreateTerrainSurfaceTilePackage
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create terrain from local tile package",

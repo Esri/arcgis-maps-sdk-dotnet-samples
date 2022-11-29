@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using System.Diagnostics;
 
-namespace ArcGISMapsSDKMaui.Samples.DownloadPreplannedMap
+namespace ArcGIS.Samples.DownloadPreplannedMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Download preplanned map area",

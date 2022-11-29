@@ -11,7 +11,7 @@ using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISMapsSDKMaui.Samples.RasterHillshade
+namespace ArcGIS.Samples.RasterHillshade
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Hillshade renderer",

@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.FormatCoordinates
+namespace ArcGIS.Samples.FormatCoordinates
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Format coordinates",

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 
-namespace ArcGISMapsSDKMaui.Samples.DisplayKml
+namespace ArcGIS.Samples.DisplayKml
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display KML",

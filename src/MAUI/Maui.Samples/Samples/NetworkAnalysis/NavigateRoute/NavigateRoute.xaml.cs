@@ -18,7 +18,7 @@ using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 using Location = Esri.ArcGISRuntime.Location.Location;
 
-namespace ArcGISMapsSDKMaui.Samples.NavigateRoute
+namespace ArcGIS.Samples.NavigateRoute
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Navigate route",

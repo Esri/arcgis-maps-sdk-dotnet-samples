@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System.Collections.ObjectModel;
 
-namespace ArcGISMapsSDKMaui.Samples.WmsServiceCatalog
+namespace ArcGIS.Samples.WmsServiceCatalog
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "WMS service catalog",

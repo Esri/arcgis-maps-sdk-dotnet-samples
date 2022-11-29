@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.LineOfSightLocation
+namespace ArcGIS.Samples.LineOfSightLocation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Line of sight (location)",

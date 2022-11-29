@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.StyleWmsLayer
+namespace ArcGIS.Samples.StyleWmsLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Style WMS layers",

@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDKMaui.Samples.AddFeatures
+namespace ArcGIS.Samples.AddFeatures
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add features",

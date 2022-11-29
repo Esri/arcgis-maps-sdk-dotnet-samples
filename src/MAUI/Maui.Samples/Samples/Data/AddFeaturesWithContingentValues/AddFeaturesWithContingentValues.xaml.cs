@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.AddFeaturesWithContingentValues
+namespace ArcGIS.Samples.AddFeaturesWithContingentValues
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add features with contingent values",

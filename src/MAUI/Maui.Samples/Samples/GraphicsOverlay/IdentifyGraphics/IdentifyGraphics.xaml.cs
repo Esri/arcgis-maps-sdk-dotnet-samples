@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.IdentifyGraphics
+namespace ArcGIS.Samples.IdentifyGraphics
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify graphics",

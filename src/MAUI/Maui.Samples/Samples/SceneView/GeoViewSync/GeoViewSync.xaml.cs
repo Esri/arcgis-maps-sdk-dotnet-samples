@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Maui;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.GeoViewSync
+namespace ArcGIS.Samples.GeoViewSync
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "GeoView viewpoint synchronization",

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDKMaui.Samples.AnimateImageOverlay
+namespace ArcGIS.Samples.AnimateImageOverlay
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Animate images with image overlay",

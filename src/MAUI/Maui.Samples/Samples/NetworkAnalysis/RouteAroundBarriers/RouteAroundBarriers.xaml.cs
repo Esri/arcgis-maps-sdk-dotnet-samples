@@ -16,7 +16,7 @@ using System.Reflection;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDKMaui.Samples.RouteAroundBarriers
+namespace ArcGIS.Samples.RouteAroundBarriers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Route around barriers",

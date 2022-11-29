@@ -7,7 +7,7 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <HorizontalStackLayout Padding="5" Spacing="5">
                 <Label Text="Select floor:"
-                       VerticalOptions="Start"
+                       VerticalOptions="Center"
                        VerticalTextAlignment="Center" />
                 <Picker x:Name="FloorChooser"
                         MinimumWidthRequest="50"

@@ -18,7 +18,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.ListKmlContents
+namespace ArcGIS.UWP.Samples.ListKmlContents
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List KML contents",

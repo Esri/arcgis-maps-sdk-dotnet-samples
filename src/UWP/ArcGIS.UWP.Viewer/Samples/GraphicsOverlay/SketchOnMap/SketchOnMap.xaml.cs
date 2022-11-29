@@ -20,7 +20,7 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.SketchOnMap
+namespace ArcGIS.UWP.Samples.SketchOnMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Sketch on map",

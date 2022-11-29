@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 
-namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerGeodatabase
+namespace ArcGIS.UWP.Samples.FeatureLayerGeodatabase
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer (geodatabase)",

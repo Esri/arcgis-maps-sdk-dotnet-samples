@@ -17,7 +17,7 @@ using Windows.UI.Core;
 using Windows.UI.Popups;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.UWP.Samples.CreateFeatureCollectionLayer
+namespace ArcGIS.UWP.Samples.CreateFeatureCollectionLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature collection layer",

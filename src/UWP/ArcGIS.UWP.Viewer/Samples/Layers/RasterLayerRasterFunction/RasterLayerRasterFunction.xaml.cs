@@ -14,7 +14,7 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.RasterLayerRasterFunction
+namespace ArcGIS.UWP.Samples.RasterLayerRasterFunction
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Apply raster function to raster from service",

@@ -18,7 +18,7 @@ using System.Drawing;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.ClosestFacility
+namespace ArcGIS.UWP.Samples.ClosestFacility
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find closest facility to an incident (interactive)",

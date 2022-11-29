@@ -19,7 +19,7 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.ViewshedGeoElement
+namespace ArcGIS.UWP.Samples.ViewshedGeoElement
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Viewshed for GeoElement",

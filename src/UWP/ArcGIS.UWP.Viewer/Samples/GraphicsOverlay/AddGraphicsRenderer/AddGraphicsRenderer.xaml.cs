@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.UWP.Samples.AddGraphicsRenderer
+namespace ArcGIS.UWP.Samples.AddGraphicsRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add graphics with renderer",

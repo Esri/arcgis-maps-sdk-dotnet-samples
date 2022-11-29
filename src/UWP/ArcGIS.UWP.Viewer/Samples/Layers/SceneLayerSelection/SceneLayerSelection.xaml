@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="ArcGISMapsSDK.UWP.Samples.SceneLayerSelection.SceneLayerSelection"
+    x:Class="ArcGIS.UWP.Samples.SceneLayerSelection.SceneLayerSelection"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">

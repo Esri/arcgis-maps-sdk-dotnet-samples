@@ -12,7 +12,7 @@ using System;
 using Esri.ArcGISRuntime.Geometry;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.SceneLayerUrl
+namespace ArcGIS.UWP.Samples.SceneLayerUrl
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Scene layer (URL)",

@@ -17,7 +17,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.RenderPictureMarkers
+namespace ArcGIS.UWP.Samples.RenderPictureMarkers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Picture marker symbol",

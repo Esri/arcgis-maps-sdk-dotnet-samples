@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using Esri.ArcGISRuntime.Rasters;
 using System.Collections.Generic;
 
-namespace ArcGISMapsSDK.UWP.Samples.ApplyMosaicRule
+namespace ArcGIS.UWP.Samples.ApplyMosaicRule
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Apply mosaic rule to rasters",

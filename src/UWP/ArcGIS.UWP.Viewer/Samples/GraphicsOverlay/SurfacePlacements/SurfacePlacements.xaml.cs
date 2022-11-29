@@ -15,7 +15,7 @@ using System;
 using System.Drawing;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.SurfacePlacements
+namespace ArcGIS.UWP.Samples.SurfacePlacements
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Surface placement",

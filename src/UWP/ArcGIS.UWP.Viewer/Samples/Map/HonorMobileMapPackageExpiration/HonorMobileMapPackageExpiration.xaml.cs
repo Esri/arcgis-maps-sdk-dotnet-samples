@@ -13,7 +13,7 @@ using ArcGIS.Samples.Managers;
 using Windows.UI.Popups;
 using System.Linq;
 
-namespace ArcGISMapsSDK.UWP.Samples.HonorMobileMapPackageExpiration
+namespace ArcGIS.UWP.Samples.HonorMobileMapPackageExpiration
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Honor mobile map package expiration date",

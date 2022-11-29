@@ -22,7 +22,7 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.AnalyzeViewshed
+namespace ArcGIS.UWP.Samples.AnalyzeViewshed
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Analyze viewshed (geoprocessing)",

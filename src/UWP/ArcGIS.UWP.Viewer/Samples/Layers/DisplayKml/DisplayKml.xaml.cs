@@ -15,7 +15,7 @@ using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.DisplayKml
+namespace ArcGIS.UWP.Samples.DisplayKml
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display KML",

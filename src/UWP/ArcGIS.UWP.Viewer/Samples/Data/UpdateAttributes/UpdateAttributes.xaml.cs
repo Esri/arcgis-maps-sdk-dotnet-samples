@@ -16,7 +16,7 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.UpdateAttributes
+namespace ArcGIS.UWP.Samples.UpdateAttributes
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Update attributes (feature service)",

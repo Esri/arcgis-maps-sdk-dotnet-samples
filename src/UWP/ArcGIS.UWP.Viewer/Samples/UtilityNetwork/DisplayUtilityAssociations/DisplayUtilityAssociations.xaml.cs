@@ -23,7 +23,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml.Media;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
-namespace ArcGISMapsSDK.UWP.Samples.DisplayUtilityAssociations
+namespace ArcGIS.UWP.Samples.DisplayUtilityAssociations
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display utility associations",

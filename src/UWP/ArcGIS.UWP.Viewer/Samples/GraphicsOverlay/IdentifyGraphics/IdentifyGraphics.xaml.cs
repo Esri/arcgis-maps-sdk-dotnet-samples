@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System.Drawing;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.IdentifyGraphics
+namespace ArcGIS.UWP.Samples.IdentifyGraphics
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify graphics",

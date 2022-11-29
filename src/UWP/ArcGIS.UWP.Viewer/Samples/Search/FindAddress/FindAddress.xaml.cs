@@ -23,7 +23,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.FindAddress
+namespace ArcGIS.UWP.Samples.FindAddress
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find address",

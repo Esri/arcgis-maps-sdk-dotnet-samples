@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.ChangeAtmosphereEffect
+namespace ArcGIS.UWP.Samples.ChangeAtmosphereEffect
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change atmosphere effect",

@@ -24,7 +24,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.NavigateRoute
+namespace ArcGIS.UWP.Samples.NavigateRoute
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Navigate route",

@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using System.Collections.Generic;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.SpatialOperations
+namespace ArcGIS.UWP.Samples.SpatialOperations
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Perform spatial operations",

@@ -18,7 +18,7 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.LineOfSightGeoElement
+namespace ArcGIS.UWP.Samples.LineOfSightGeoElement
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Line of sight (geoelement)",

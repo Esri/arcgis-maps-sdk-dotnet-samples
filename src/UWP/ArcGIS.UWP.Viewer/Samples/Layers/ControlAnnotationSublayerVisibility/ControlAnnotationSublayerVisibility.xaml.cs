@@ -14,7 +14,7 @@ using System.Linq;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
 
-namespace ArcGISMapsSDK.UWP.Samples.ControlAnnotationSublayerVisibility
+namespace ArcGIS.UWP.Samples.ControlAnnotationSublayerVisibility
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Control annotation sublayer visibility",

@@ -19,7 +19,7 @@ using System.Drawing;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.MapImageLayerTables
+namespace ArcGIS.UWP.Samples.MapImageLayerTables
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map image layer tables",

@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerTimeOffset
+namespace ArcGIS.UWP.Samples.FeatureLayerTimeOffset
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer time offset",

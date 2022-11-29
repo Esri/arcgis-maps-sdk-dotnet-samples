@@ -25,7 +25,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.NavigateRouteRerouting
+namespace ArcGIS.UWP.Samples.NavigateRouteRerouting
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Navigate route with rerouting",

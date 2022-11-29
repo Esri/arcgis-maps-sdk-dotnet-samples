@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.ChangeStretchRenderer
+namespace ArcGIS.UWP.Samples.ChangeStretchRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Stretch renderer",

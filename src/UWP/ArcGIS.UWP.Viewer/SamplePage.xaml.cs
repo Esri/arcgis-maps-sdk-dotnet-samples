@@ -15,7 +15,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace ArcGISMapsSDK.UWP.Viewer
+namespace ArcGIS.UWP.Viewer
 {
     public sealed partial class SamplePage
     {

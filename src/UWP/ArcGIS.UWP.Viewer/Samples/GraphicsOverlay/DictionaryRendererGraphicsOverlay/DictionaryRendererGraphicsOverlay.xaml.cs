@@ -19,7 +19,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.DictionaryRendererGraphicsOverlay
+namespace ArcGIS.UWP.Samples.DictionaryRendererGraphicsOverlay
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Graphics overlay (dictionary renderer)",

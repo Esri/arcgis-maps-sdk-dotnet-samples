@@ -17,7 +17,7 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.DisplayWfs
+namespace ArcGIS.UWP.Samples.DisplayWfs
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display WFS layer",

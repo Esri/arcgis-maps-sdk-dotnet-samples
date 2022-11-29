@@ -17,7 +17,7 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.IdentifyKmlFeatures
+namespace ArcGIS.UWP.Samples.IdentifyKmlFeatures
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify KML features",

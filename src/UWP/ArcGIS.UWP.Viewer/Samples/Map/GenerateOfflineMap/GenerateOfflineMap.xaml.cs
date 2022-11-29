@@ -21,7 +21,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.GenerateOfflineMap
+namespace ArcGIS.UWP.Samples.GenerateOfflineMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Generate offline map",

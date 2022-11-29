@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using System.Drawing;
 using System.Linq;
 
-namespace ArcGISMapsSDK.UWP.Samples.DensifyAndGeneralize
+namespace ArcGIS.UWP.Samples.DensifyAndGeneralize
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Densify and generalize",

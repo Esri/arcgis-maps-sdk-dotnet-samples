@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.DisplayLayerViewState
+namespace ArcGIS.UWP.Samples.DisplayLayerViewState
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display layer view state",

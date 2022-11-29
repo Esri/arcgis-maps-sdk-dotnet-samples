@@ -12,7 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.ChangeBasemap
+namespace ArcGIS.UWP.Samples.ChangeBasemap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change basemap",

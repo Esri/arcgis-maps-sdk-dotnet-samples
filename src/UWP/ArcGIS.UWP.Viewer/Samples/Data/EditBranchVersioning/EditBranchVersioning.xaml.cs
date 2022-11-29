@@ -21,7 +21,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.EditBranchVersioning
+namespace ArcGIS.UWP.Samples.EditBranchVersioning
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit with branch versioning",

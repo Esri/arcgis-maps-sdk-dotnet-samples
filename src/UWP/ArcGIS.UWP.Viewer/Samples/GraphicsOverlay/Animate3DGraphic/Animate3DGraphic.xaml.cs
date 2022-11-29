@@ -23,7 +23,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.Animate3DGraphic
+namespace ArcGIS.UWP.Samples.Animate3DGraphic
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Animate 3D graphic",

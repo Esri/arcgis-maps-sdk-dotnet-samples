@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Rasters;
 using System;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.RasterHillshade
+namespace ArcGIS.UWP.Samples.RasterHillshade
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster hillshade renderer",

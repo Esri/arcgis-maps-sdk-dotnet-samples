@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerGeoPackage
+namespace ArcGIS.UWP.Samples.FeatureLayerGeoPackage
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer (GeoPackage)",

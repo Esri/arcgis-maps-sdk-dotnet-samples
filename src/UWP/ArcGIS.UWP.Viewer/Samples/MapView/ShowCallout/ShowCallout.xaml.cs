@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.ShowCallout
+namespace ArcGIS.UWP.Samples.ShowCallout
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show callout",

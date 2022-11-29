@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.FindServiceAreasForMultipleFacilities
+namespace ArcGIS.UWP.Samples.FindServiceAreasForMultipleFacilities
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find service areas for multiple facilities",

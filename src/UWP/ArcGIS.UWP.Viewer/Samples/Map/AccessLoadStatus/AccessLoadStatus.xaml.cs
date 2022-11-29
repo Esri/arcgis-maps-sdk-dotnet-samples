@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Windows.UI.Core;
 
-namespace ArcGISMapsSDK.UWP.Samples.AccessLoadStatus
+namespace ArcGIS.UWP.Samples.AccessLoadStatus
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Access load status",

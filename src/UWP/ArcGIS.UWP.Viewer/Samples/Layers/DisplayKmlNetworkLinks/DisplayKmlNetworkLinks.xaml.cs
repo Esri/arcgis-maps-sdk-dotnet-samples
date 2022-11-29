@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Ogc;
 using System;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.DisplayKmlNetworkLinks
+namespace ArcGIS.UWP.Samples.DisplayKmlNetworkLinks
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display KML network links",

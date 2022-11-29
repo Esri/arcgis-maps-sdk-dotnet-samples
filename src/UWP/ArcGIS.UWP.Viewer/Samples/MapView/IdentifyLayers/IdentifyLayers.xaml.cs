@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.IdentifyLayers
+namespace ArcGIS.UWP.Samples.IdentifyLayers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify layers",

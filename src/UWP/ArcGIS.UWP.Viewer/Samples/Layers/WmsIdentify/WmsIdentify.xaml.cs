@@ -16,7 +16,7 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.WmsIdentify
+namespace ArcGIS.UWP.Samples.WmsIdentify
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify WMS features",

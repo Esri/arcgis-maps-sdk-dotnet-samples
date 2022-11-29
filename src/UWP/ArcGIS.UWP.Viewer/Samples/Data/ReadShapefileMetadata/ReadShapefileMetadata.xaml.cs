@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDK.UWP.Samples.ReadShapefileMetadata
+namespace ArcGIS.UWP.Samples.ReadShapefileMetadata
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Read shapefile metadata",

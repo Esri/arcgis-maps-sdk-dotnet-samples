@@ -21,7 +21,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.DownloadPreplannedMap
+namespace ArcGIS.UWP.Samples.DownloadPreplannedMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Download preplanned map area",

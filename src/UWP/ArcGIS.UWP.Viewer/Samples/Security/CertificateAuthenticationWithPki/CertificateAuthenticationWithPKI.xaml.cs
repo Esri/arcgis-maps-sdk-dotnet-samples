@@ -17,7 +17,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.CertificateAuthenticationWithPKI
+namespace ArcGIS.UWP.Samples.CertificateAuthenticationWithPKI
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Certificate authentication with PKI",

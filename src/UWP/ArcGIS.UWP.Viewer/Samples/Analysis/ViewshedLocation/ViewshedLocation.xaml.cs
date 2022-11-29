@@ -17,7 +17,7 @@ using System;
 using System.Drawing;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.ViewshedLocation
+namespace ArcGIS.UWP.Samples.ViewshedLocation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Viewshed (location)",

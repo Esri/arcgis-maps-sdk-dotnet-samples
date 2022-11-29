@@ -20,7 +20,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.ExportTiles
+namespace ArcGIS.UWP.Samples.ExportTiles
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Export tiles",

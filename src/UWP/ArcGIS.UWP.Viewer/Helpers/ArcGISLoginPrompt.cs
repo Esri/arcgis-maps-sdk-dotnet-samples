@@ -12,7 +12,7 @@ using System;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.Helpers
+namespace ArcGIS.Helpers
 {
     internal static class ArcGISLoginPrompt
     {

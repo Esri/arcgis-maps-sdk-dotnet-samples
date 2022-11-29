@@ -26,7 +26,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
-namespace ArcGISMapsSDK.UWP.Samples.OfflineRouting
+namespace ArcGIS.UWP.Samples.OfflineRouting
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Offline routing",

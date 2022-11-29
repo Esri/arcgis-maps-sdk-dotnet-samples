@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Rasters;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.RasterLayerGeoPackage
+namespace ArcGIS.UWP.Samples.RasterLayerGeoPackage
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster layer (GeoPackage)",

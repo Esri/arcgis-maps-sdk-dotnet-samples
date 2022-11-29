@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerQuery
+namespace ArcGIS.UWP.Samples.FeatureLayerQuery
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer query",

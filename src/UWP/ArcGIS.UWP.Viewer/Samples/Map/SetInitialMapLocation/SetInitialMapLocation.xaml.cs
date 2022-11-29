@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDK.UWP.Samples.SetInitialMapLocation
+namespace ArcGIS.UWP.Samples.SetInitialMapLocation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Set initial map location",

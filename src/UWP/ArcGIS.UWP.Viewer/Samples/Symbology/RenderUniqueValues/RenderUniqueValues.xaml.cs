@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.UWP.Samples.RenderUniqueValues
+namespace ArcGIS.UWP.Samples.RenderUniqueValues
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Unique value renderer",

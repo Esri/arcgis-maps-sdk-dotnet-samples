@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System.Collections.Generic;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.AddEncExchangeSet
+namespace ArcGIS.UWP.Samples.AddEncExchangeSet
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add ENC exchange set",

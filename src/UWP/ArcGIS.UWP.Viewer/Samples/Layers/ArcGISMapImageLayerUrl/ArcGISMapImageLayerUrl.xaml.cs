@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.ArcGISMapImageLayerUrl
+namespace ArcGIS.UWP.Samples.ArcGISMapImageLayerUrl
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS map image layer",

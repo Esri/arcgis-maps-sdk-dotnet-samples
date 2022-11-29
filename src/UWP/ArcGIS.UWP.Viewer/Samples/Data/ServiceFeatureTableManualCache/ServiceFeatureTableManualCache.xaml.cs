@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.ServiceFeatureTableManualCache
+namespace ArcGIS.UWP.Samples.ServiceFeatureTableManualCache
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Service feature table (manual cache)",

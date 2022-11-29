@@ -13,7 +13,7 @@ using System;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.OpenMobileMap
+namespace ArcGIS.UWP.Samples.OpenMobileMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Open mobile map package",

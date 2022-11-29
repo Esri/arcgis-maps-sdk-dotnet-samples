@@ -18,7 +18,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.ConfigureSubnetworkTrace
+namespace ArcGIS.UWP.Samples.ConfigureSubnetworkTrace
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Configure subnetwork trace",

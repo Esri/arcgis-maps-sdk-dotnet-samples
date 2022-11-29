@@ -11,7 +11,7 @@ using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.ViewPointCloudDataOffline
+namespace ArcGIS.UWP.Samples.ViewPointCloudDataOffline
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "View point cloud data offline",

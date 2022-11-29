@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDK.UWP.Samples.DisplayMap
+namespace ArcGIS.UWP.Samples.DisplayMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display map",

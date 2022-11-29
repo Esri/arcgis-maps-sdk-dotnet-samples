@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.NearestVertex
+namespace ArcGIS.UWP.Samples.NearestVertex
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Nearest vertex",

@@ -14,7 +14,7 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.WMTSLayer
+namespace ArcGIS.UWP.Samples.WMTSLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "WMTS layer",

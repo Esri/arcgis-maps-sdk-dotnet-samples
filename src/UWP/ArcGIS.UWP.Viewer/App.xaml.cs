@@ -17,7 +17,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-namespace ArcGISMapsSDK.UWP.Viewer
+namespace ArcGIS.UWP.Viewer
 {
     sealed partial class App
     {

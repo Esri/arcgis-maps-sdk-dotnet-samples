@@ -16,7 +16,7 @@ using Windows.ApplicationModel.DataTransfer;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.ManageOperationalLayers
+namespace ArcGIS.UWP.Samples.ManageOperationalLayers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Manage operational layers",

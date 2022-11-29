@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.DisplayScene
+namespace ArcGIS.UWP.Samples.DisplayScene
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display a scene",

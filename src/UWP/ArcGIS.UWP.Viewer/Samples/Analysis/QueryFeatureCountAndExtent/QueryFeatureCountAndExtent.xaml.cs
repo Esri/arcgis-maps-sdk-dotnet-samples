@@ -14,7 +14,7 @@ using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.QueryFeatureCountAndExtent
+namespace ArcGIS.UWP.Samples.QueryFeatureCountAndExtent
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Query feature count and extent",

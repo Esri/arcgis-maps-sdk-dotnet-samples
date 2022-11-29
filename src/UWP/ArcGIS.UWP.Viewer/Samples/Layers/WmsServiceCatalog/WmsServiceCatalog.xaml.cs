@@ -15,7 +15,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.WmsServiceCatalog
+namespace ArcGIS.UWP.Samples.WmsServiceCatalog
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "WMS service catalog",

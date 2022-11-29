@@ -16,7 +16,7 @@ using System;
 using System.Drawing;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.ShowLabelsOnLayer
+namespace ArcGIS.UWP.Samples.ShowLabelsOnLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show labels on layers",

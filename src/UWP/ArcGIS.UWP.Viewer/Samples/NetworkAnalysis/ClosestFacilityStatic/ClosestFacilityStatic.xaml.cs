@@ -20,7 +20,7 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.ClosestFacilityStatic
+namespace ArcGIS.UWP.Samples.ClosestFacilityStatic
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find closest facility to multiple incidents (service)",

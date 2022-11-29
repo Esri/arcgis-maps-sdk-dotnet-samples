@@ -18,7 +18,7 @@ using System.Drawing;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.FindRoute
+namespace ArcGIS.UWP.Samples.FindRoute
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find route",

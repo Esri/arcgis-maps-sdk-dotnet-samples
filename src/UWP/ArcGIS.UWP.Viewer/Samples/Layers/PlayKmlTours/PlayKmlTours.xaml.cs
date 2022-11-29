@@ -18,7 +18,7 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.PlayKmlTours
+namespace ArcGIS.UWP.Samples.PlayKmlTours
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Play KML Tour",

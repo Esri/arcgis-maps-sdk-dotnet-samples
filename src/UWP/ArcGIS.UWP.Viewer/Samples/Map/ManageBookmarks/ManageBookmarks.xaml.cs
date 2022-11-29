@@ -13,7 +13,7 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.ManageBookmarks
+namespace ArcGIS.UWP.Samples.ManageBookmarks
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Manage bookmarks",

@@ -17,7 +17,7 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerExtrusion
+namespace ArcGIS.UWP.Samples.FeatureLayerExtrusion
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer extrusion",

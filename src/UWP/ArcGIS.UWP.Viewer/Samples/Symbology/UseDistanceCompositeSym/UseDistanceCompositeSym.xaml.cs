@@ -17,7 +17,7 @@ using System.Drawing;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.UseDistanceCompositeSym
+namespace ArcGIS.UWP.Samples.UseDistanceCompositeSym
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Distance composite scene symbol",

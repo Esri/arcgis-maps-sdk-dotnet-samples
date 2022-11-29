@@ -19,7 +19,7 @@ using System.Drawing;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.SpatialRelationships
+namespace ArcGIS.UWP.Samples.SpatialRelationships
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Spatial relationships",

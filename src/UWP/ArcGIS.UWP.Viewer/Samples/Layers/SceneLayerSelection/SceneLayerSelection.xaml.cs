@@ -15,7 +15,7 @@ using System.Linq;
 using Windows.UI.Popups;
 using Esri.ArcGISRuntime.Geometry;
 
-namespace ArcGISMapsSDK.UWP.Samples.SceneLayerSelection
+namespace ArcGIS.UWP.Samples.SceneLayerSelection
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Scene layer selection",

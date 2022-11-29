@@ -20,7 +20,7 @@ using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.DisplayAnnotation
+namespace ArcGIS.UWP.Samples.DisplayAnnotation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display annotation",

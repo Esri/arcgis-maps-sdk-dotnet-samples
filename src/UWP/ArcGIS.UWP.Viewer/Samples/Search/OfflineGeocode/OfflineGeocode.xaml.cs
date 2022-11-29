@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.OfflineGeocode
+namespace ArcGIS.UWP.Samples.OfflineGeocode
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Offline geocode",

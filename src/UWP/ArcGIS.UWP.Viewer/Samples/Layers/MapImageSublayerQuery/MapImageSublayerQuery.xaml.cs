@@ -17,7 +17,7 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.MapImageSublayerQuery
+namespace ArcGIS.UWP.Samples.MapImageSublayerQuery
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Query map image sublayer",

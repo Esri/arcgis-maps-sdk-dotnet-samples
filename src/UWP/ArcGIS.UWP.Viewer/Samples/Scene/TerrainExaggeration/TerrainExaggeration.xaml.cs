@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.TerrainExaggeration
+namespace ArcGIS.UWP.Samples.TerrainExaggeration
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Terrain exaggeration",

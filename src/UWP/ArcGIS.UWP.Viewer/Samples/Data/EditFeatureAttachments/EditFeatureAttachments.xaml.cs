@@ -22,7 +22,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.EditFeatureAttachments
+namespace ArcGIS.UWP.Samples.EditFeatureAttachments
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit feature attachments",

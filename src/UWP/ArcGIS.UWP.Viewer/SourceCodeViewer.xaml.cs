@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace ArcGISMapsSDK.UWP.Viewer
+namespace ArcGIS.UWP.Viewer
 {
     public partial class SourceCode
     {

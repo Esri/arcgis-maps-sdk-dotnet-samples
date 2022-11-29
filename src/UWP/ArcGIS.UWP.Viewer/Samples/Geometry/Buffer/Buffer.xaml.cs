@@ -16,7 +16,7 @@ using Windows.UI;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Media;
 
-namespace ArcGISMapsSDK.UWP.Samples.Buffer
+namespace ArcGIS.UWP.Samples.Buffer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Buffer",

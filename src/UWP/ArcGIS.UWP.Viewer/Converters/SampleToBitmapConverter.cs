@@ -12,7 +12,7 @@ using System.IO;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace ArcGISMapsSDK.UWP.Viewer.Converters
+namespace ArcGIS.UWP.Viewer.Converters
 {
     public class SampleToBitmapConverter : IValueConverter  
     {

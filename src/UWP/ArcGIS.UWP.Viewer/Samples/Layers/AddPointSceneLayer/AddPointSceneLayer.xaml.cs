@@ -10,7 +10,7 @@
 using System;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDK.UWP.Samples.AddPointSceneLayer
+namespace ArcGIS.UWP.Samples.AddPointSceneLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add a point scene layer",

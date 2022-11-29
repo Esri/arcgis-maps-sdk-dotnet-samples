@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="ArcGISMapsSDK.UWP.Samples.ClipGeometry.ClipGeometry"
+    x:Class="ArcGIS.UWP.Samples.ClipGeometry.ClipGeometry"
     x:Name="_this"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"

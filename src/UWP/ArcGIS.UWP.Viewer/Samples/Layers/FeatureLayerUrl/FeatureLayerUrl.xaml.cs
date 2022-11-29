@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerUrl
+namespace ArcGIS.UWP.Samples.FeatureLayerUrl
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer (feature service)",

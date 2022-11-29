@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.UWP.Samples.SimpleRenderers
+namespace ArcGIS.UWP.Samples.SimpleRenderers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Simple renderer",

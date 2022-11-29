@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.ServiceFeatureTableNoCache
+namespace ArcGIS.UWP.Samples.ServiceFeatureTableNoCache
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Service feature table (no cache)",

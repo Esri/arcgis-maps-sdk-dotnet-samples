@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
-namespace ArcGISMapsSDK.UWP.Samples.SymbolsFromMobileStyle
+namespace ArcGIS.UWP.Samples.SymbolsFromMobileStyle
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Read symbols from mobile style",

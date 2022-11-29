@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDK.UWP.Samples.CreateGeometries
+namespace ArcGIS.UWP.Samples.CreateGeometries
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create geometries",

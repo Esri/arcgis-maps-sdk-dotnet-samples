@@ -15,7 +15,7 @@ using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.ClipGeometry
+namespace ArcGIS.UWP.Samples.ClipGeometry
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Clip geometry",

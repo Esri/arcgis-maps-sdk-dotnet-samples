@@ -1,6 +1,6 @@
-﻿# ArcGIS Maps SDK Samples (UWP)
+﻿# ArcGIS Maps SDK for .NET Samples (UWP)
 
-This sample viewer shows how different features of the ArcGIS Maps SDK can be implemented on the .NET framework. 
+This sample viewer shows how different features of the ArcGIS Maps SDK can be implemented on UWP. 
 
 ----
 
@@ -10,4 +10,4 @@ This sample viewer shows how different features of the ArcGIS Maps SDK can be im
 
 ----
 
-## ArcGIS Maps SDK Version: 
+## ArcGIS Maps SDK for .NET Version: 

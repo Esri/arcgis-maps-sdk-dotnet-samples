@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerRenderingModeMap
+namespace ArcGIS.UWP.Samples.FeatureLayerRenderingModeMap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer rendering mode (map)",

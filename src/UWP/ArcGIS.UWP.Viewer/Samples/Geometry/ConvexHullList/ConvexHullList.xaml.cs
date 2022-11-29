@@ -17,7 +17,7 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.ConvexHullList
+namespace ArcGIS.UWP.Samples.ConvexHullList
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Convex hull list",

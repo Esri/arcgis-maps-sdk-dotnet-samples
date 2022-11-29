@@ -15,7 +15,7 @@ using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.CutGeometry
+namespace ArcGIS.UWP.Samples.CutGeometry
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Cut geometry",

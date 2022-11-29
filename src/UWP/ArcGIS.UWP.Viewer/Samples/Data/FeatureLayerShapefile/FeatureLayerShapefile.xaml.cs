@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 
-namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerShapefile
+namespace ArcGIS.UWP.Samples.FeatureLayerShapefile
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer (shapefile)",

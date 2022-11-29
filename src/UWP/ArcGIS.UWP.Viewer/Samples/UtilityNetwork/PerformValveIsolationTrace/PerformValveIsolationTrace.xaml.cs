@@ -22,7 +22,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.PerformValveIsolationTrace
+namespace ArcGIS.UWP.Samples.PerformValveIsolationTrace
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Perform valve isolation trace",

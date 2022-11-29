@@ -1,9 +1,9 @@
-﻿<Page x:Class="ArcGISMapsSDK.UWP.Viewer.MainPage"
+﻿<Page x:Class="ArcGIS.UWP.Viewer.MainPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:models="using:ArcGIS.Samples.Shared.Models"
       xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-      xmlns:viewer="using:ArcGISMapsSDK.UWP.Viewer">
+      xmlns:viewer="using:ArcGIS.UWP.Viewer">
     <Page.Resources>
         <DataTemplate x:Key="StandardSampleItemTemplate">
             <Border Margin="1"

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Portal;
 using System;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.OpenScenePortalItem
+namespace ArcGIS.UWP.Samples.OpenScenePortalItem
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Open scene (portal item)",

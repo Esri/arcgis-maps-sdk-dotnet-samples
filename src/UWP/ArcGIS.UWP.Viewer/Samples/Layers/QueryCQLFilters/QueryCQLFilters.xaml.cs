@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.QueryCQLFilters
+namespace ArcGIS.UWP.Samples.QueryCQLFilters
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Query with CQL filters",

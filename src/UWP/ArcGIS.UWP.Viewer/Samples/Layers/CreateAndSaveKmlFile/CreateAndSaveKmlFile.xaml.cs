@@ -22,7 +22,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 
-namespace ArcGISMapsSDK.UWP.Samples.CreateAndSaveKmlFile
+namespace ArcGIS.UWP.Samples.CreateAndSaveKmlFile
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create and save KML file",

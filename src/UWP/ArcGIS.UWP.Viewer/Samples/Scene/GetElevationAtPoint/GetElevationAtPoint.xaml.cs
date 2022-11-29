@@ -16,7 +16,7 @@ using System.Diagnostics;
 using System.Drawing;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.GetElevationAtPoint
+namespace ArcGIS.UWP.Samples.GetElevationAtPoint
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Get elevation at a point",

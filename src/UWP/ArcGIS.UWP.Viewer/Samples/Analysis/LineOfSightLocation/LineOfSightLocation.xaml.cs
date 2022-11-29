@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using System;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.UWP.Samples.LineOfSightLocation
+namespace ArcGIS.UWP.Samples.LineOfSightLocation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Line of sight (location)",

@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.UWP.Samples.SceneSymbols
+namespace ArcGIS.UWP.Samples.SceneSymbols
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Scene symbols",

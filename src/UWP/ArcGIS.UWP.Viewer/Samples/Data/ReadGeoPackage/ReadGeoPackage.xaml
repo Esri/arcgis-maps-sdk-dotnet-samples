@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="ArcGISMapsSDK.UWP.Samples.ReadGeoPackage.ReadGeoPackage"
+    x:Class="ArcGIS.UWP.Samples.ReadGeoPackage.ReadGeoPackage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">

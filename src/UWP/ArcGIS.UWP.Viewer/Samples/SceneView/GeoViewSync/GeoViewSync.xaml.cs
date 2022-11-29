@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.GeoViewSync
+namespace ArcGIS.UWP.Samples.GeoViewSync
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "GeoView viewpoint synchronization",

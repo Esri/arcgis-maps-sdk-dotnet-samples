@@ -25,7 +25,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace ArcGISMapsSDK.UWP.Samples.LocationDrivenGeotriggers
+namespace ArcGIS.UWP.Samples.LocationDrivenGeotriggers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Set up location-driven Geotriggers",

@@ -10,7 +10,7 @@
 using System.Threading;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Viewer
+namespace ArcGIS.UWP.Viewer
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.

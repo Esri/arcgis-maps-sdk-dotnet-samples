@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.ReadGeoPackage
+namespace ArcGIS.UWP.Samples.ReadGeoPackage
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Read GeoPackage",

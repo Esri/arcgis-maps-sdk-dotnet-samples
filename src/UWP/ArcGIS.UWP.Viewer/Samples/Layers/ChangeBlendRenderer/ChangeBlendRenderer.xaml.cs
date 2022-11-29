@@ -15,7 +15,7 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.ChangeBlendRenderer
+namespace ArcGIS.UWP.Samples.ChangeBlendRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Blend renderer",

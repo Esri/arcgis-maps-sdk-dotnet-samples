@@ -24,7 +24,7 @@ using Windows.UI.Xaml.Input;
 using muxc = Microsoft.UI.Xaml.Controls;
 using Navigation = Windows.UI.Xaml.Navigation;
 
-namespace ArcGISMapsSDK.UWP.Viewer
+namespace ArcGIS.UWP.Viewer
 {
     public sealed partial class MainPage
     {

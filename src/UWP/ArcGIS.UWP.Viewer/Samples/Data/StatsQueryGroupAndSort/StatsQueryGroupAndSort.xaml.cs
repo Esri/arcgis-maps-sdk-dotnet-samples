@@ -17,7 +17,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 
-namespace ArcGISMapsSDK.UWP.Samples.StatsQueryGroupAndSort
+namespace ArcGIS.UWP.Samples.StatsQueryGroupAndSort
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Statistical query group and sort",

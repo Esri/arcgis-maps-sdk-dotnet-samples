@@ -17,7 +17,7 @@ using Colors = System.Drawing.Color;
 using Grid = Esri.ArcGISRuntime.UI.Grid;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
-namespace ArcGISMapsSDK.UWP.Samples.DisplayGrid
+namespace ArcGIS.UWP.Samples.DisplayGrid
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display grid",

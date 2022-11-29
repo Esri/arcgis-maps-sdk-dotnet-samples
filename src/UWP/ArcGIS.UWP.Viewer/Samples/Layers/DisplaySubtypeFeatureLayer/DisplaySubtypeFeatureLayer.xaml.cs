@@ -19,7 +19,7 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.DisplaySubtypeFeatureLayer
+namespace ArcGIS.UWP.Samples.DisplaySubtypeFeatureLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display subtype feature layer",

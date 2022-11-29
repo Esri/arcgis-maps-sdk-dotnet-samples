@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System.Collections.Generic;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.ChangeEncDisplaySettings
+namespace ArcGIS.UWP.Samples.ChangeEncDisplaySettings
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change ENC display settings",

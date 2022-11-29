@@ -15,7 +15,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Esri.ArcGISRuntime.Geometry;
 
-namespace ArcGISMapsSDK.UWP.Samples.StyleWmsLayer
+namespace ArcGIS.UWP.Samples.StyleWmsLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Style WMS layers",

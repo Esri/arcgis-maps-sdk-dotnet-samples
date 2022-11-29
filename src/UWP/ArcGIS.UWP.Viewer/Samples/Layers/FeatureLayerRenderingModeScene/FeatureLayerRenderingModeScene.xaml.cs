@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerRenderingModeScene
+namespace ArcGIS.UWP.Samples.FeatureLayerRenderingModeScene
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer rendering mode (scene)",

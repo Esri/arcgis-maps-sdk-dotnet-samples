@@ -19,7 +19,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDK.UWP.Samples.BrowseOAFeatureService
+namespace ArcGIS.UWP.Samples.BrowseOAFeatureService
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Browse OGC API feature service",

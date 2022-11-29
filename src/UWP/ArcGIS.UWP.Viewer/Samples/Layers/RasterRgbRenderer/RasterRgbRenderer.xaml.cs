@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.RasterRgbRenderer
+namespace ArcGIS.UWP.Samples.RasterRgbRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "RGB renderer",

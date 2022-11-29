@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.GenerateOfflineMapWithOverrides
+namespace ArcGIS.UWP.Samples.GenerateOfflineMapWithOverrides
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Generate offline map (overrides)",

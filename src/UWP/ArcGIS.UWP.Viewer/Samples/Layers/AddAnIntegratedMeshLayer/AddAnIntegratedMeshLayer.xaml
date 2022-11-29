@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="ArcGISMapsSDK.UWP.Samples.AddAnIntegratedMeshLayer.AddAnIntegratedMeshLayer"
+    x:Class="ArcGIS.UWP.Samples.AddAnIntegratedMeshLayer.AddAnIntegratedMeshLayer"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">

@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.EditFeatureLinkedAnnotation
+namespace ArcGIS.UWP.Samples.EditFeatureLinkedAnnotation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit features with feature-linked annotation",

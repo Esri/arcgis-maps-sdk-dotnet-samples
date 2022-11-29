@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 
-namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerDictionaryRenderer
+namespace ArcGIS.UWP.Samples.FeatureLayerDictionaryRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Dictionary renderer with feature layer",

@@ -18,7 +18,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Input;
 
-namespace ArcGISMapsSDK.UWP.Samples.DistanceMeasurement
+namespace ArcGIS.UWP.Samples.DistanceMeasurement
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Distance measurement analysis",

@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.UWP.Samples.AddGraphicsWithSymbols
+namespace ArcGIS.UWP.Samples.AddGraphicsWithSymbols
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add graphics with symbols",

@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.RasterLayerFile
+namespace ArcGIS.UWP.Samples.RasterLayerFile
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster layer (file)",

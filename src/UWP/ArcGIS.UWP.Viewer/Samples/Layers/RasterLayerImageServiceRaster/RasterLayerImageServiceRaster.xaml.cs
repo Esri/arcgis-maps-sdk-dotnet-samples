@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.RasterLayerImageServiceRaster
+namespace ArcGIS.UWP.Samples.RasterLayerImageServiceRaster
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster layer (service)",

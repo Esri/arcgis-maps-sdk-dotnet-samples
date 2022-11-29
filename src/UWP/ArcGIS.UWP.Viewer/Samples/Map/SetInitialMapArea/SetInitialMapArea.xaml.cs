@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDK.UWP.Samples.SetInitialMapArea
+namespace ArcGIS.UWP.Samples.SetInitialMapArea
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map initial extent",

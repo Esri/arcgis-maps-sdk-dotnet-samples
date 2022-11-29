@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.TimeBasedQuery
+namespace ArcGIS.UWP.Samples.TimeBasedQuery
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Time-based query",

@@ -1,5 +1,5 @@
 ﻿<UserControl 
-    x:Class="ArcGISMapsSDK.UWP.Samples.SetMapSpatialReference.SetMapSpatialReference"
+    x:Class="ArcGIS.UWP.Samples.SetMapSpatialReference.SetMapSpatialReference"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 

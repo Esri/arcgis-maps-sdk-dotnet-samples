@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.Symbology;
 using System.Drawing;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.SymbolizeShapefile
+namespace ArcGIS.UWP.Samples.SymbolizeShapefile
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Symbolize shapefile",

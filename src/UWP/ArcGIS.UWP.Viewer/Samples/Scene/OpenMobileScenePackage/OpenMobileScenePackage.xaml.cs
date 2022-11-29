@@ -14,7 +14,7 @@ using System.Diagnostics;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.OpenMobileScenePackage
+namespace ArcGIS.UWP.Samples.OpenMobileScenePackage
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Open mobile scene package",

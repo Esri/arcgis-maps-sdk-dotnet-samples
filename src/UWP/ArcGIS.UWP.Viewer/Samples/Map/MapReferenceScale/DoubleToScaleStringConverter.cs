@@ -1,7 +1,7 @@
 ﻿using System;
 using Windows.UI.Xaml.Data;
 
-namespace ArcGISMapsSDK.UWP.Samples.MapReferenceScale
+namespace ArcGIS.UWP.Samples.MapReferenceScale
 {
     class DoubleToScaleStringConverter : IValueConverter
     {

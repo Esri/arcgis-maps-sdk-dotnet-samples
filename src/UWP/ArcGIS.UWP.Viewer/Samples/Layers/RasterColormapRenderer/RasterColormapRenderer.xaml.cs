@@ -17,7 +17,7 @@ using System.Drawing;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.RasterColormapRenderer
+namespace ArcGIS.UWP.Samples.RasterColormapRenderer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Colormap renderer",

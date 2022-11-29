@@ -13,7 +13,7 @@ using System;
 using System.Diagnostics;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.WfsXmlQuery
+namespace ArcGIS.UWP.Samples.WfsXmlQuery
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Load WFS with XML query",

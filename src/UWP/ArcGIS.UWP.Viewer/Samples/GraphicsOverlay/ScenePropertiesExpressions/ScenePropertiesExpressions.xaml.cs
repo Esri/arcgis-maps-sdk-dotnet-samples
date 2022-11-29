@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.UWP.Samples.ScenePropertiesExpressions
+namespace ArcGIS.UWP.Samples.ScenePropertiesExpressions
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Scene properties expressions",

@@ -20,7 +20,7 @@ using Windows.Foundation;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Input;
 
-namespace ArcGISMapsSDK.UWP.Samples.IdentifyRasterCell
+namespace ArcGIS.UWP.Samples.IdentifyRasterCell
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify raster cell",

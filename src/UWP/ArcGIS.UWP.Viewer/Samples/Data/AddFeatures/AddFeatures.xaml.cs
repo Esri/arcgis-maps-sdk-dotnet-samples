@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.AddFeatures
+namespace ArcGIS.UWP.Samples.AddFeatures
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add features",

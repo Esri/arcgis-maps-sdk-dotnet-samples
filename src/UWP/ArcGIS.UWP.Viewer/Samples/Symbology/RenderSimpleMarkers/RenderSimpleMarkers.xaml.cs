@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.UWP.Samples.RenderSimpleMarkers
+namespace ArcGIS.UWP.Samples.RenderSimpleMarkers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Simple marker symbol",

@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.GeodesicOperations
+namespace ArcGIS.UWP.Samples.GeodesicOperations
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Geodesic operations",

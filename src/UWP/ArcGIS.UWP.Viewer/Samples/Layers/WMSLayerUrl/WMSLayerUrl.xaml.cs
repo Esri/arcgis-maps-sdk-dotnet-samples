@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISMapsSDK.UWP.Samples.WMSLayerUrl
+namespace ArcGIS.UWP.Samples.WMSLayerUrl
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "WMS layer (URL)",

@@ -1,5 +1,5 @@
 ﻿<UserControl 
-    x:Class="ArcGISMapsSDK.UWP.Samples.RasterColormapRenderer.RasterColormapRenderer"
+    x:Class="ArcGIS.UWP.Samples.RasterColormapRenderer.RasterColormapRenderer"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esri="using:Esri.ArcGISRuntime"

@@ -12,7 +12,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.UWP.Samples.GroupLayers
+namespace ArcGIS.UWP.Samples.GroupLayers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Group layers",

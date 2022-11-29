@@ -20,7 +20,7 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.BrowseWfsLayers
+namespace ArcGIS.UWP.Samples.BrowseWfsLayers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Browse WFS layers",

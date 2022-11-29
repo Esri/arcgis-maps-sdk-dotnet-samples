@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="ArcGISMapsSDK.UWP.Samples.RouteAroundBarriers.RouteAroundBarriers"
+    x:Class="ArcGIS.UWP.Samples.RouteAroundBarriers.RouteAroundBarriers"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:networkAnalysis="using:Esri.ArcGISRuntime.Tasks.NetworkAnalysis"

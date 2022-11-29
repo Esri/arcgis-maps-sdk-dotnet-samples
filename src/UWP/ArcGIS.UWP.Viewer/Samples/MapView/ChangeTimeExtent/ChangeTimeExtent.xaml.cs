@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.ChangeTimeExtent
+namespace ArcGIS.UWP.Samples.ChangeTimeExtent
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change time extent",

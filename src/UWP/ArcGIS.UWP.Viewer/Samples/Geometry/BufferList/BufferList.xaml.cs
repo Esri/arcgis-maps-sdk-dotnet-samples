@@ -18,7 +18,7 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.BufferList
+namespace ArcGIS.UWP.Samples.BufferList
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Buffer list",

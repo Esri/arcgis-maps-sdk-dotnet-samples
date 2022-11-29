@@ -25,7 +25,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
-namespace ArcGISMapsSDK.UWP.Samples.TraceUtilityNetwork
+namespace ArcGIS.UWP.Samples.TraceUtilityNetwork
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Trace utility network",

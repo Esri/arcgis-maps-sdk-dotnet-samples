@@ -16,7 +16,7 @@ using System;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.ShowLocationHistory
+namespace ArcGIS.UWP.Samples.ShowLocationHistory
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show location history",

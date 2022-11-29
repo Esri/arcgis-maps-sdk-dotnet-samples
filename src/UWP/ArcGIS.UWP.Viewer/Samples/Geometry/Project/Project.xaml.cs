@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.UWP.Samples.Project
+namespace ArcGIS.UWP.Samples.Project
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Project",

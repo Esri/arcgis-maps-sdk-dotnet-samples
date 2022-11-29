@@ -16,7 +16,7 @@ using System.Linq;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.StatisticalQuery
+namespace ArcGIS.UWP.Samples.StatisticalQuery
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Statistical query",

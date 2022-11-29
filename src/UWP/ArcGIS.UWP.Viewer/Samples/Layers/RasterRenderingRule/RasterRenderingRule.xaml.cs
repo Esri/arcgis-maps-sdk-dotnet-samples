@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.RasterRenderingRule
+namespace ArcGIS.UWP.Samples.RasterRenderingRule
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster rendering rule",

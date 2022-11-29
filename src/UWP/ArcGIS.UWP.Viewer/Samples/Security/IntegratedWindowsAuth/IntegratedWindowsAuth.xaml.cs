@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 
-namespace ArcGISMapsSDK.UWP.Samples.IntegratedWindowsAuth
+namespace ArcGIS.UWP.Samples.IntegratedWindowsAuth
 {
     // Important:
     //    You must add the "Private Networks" capability to use Integrated Windows Authentication (IWA)

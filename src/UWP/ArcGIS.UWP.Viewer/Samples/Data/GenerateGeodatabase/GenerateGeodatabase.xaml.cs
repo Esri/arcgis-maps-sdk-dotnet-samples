@@ -24,7 +24,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Esri.ArcGISRuntime.ArcGISServices;
 
-namespace ArcGISMapsSDK.UWP.Samples.GenerateGeodatabase
+namespace ArcGIS.UWP.Samples.GenerateGeodatabase
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Generate geodatabase",

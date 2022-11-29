@@ -19,7 +19,7 @@ using System.Drawing;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.ListTransformations
+namespace ArcGIS.UWP.Samples.ListTransformations
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List transformations by suitability",

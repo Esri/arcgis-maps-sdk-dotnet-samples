@@ -20,7 +20,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.GeodatabaseTransactions
+namespace ArcGIS.UWP.Samples.GeodatabaseTransactions
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Geodatabase transactions",

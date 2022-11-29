@@ -19,7 +19,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.AnimateImageOverlay
+namespace ArcGIS.UWP.Samples.AnimateImageOverlay
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Animate images with image overlay",

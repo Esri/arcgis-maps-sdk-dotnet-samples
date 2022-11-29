@@ -17,7 +17,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.FormatCoordinates
+namespace ArcGIS.UWP.Samples.FormatCoordinates
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Format coordinates",

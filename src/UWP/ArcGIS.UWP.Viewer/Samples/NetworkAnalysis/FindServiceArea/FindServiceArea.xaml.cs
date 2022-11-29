@@ -19,7 +19,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.FindServiceArea
+namespace ArcGIS.UWP.Samples.FindServiceArea
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find service area",

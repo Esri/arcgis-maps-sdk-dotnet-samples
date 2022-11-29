@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.SelectEncFeatures
+namespace ArcGIS.UWP.Samples.SelectEncFeatures
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Select ENC features",

@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.ArcGISVectorTiledLayerUrl
+namespace ArcGIS.UWP.Samples.ArcGISVectorTiledLayerUrl
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS vector tiled layer URL",

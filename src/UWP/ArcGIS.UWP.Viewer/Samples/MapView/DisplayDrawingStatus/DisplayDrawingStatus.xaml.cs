@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.DisplayDrawingStatus
+namespace ArcGIS.UWP.Samples.DisplayDrawingStatus
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display draw status",

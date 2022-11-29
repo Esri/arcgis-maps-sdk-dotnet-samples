@@ -24,7 +24,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Symbology = Esri.ArcGISRuntime.Symbology;
 
-namespace ArcGISMapsSDK.UWP.Samples.RouteAroundBarriers
+namespace ArcGIS.UWP.Samples.RouteAroundBarriers
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Route around barriers",

@@ -22,7 +22,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.OfflineBasemapByReference
+namespace ArcGIS.UWP.Samples.OfflineBasemapByReference
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Generate offline map with local basemap",

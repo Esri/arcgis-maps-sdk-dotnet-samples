@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.EditKmlGroundOverlay
+namespace ArcGIS.UWP.Samples.EditKmlGroundOverlay
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit KML ground overlay",

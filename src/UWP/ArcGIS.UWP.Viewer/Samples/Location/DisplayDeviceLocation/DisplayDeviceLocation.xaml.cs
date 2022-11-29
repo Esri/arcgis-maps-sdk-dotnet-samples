@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.DisplayDeviceLocation
+namespace ArcGIS.UWP.Samples.DisplayDeviceLocation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display device location with autopan modes",

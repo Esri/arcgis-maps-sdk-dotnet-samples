@@ -26,7 +26,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Esri.ArcGISRuntime;
 
-namespace ArcGISMapsSDK.UWP.Samples.EditAndSyncFeatures
+namespace ArcGIS.UWP.Samples.EditAndSyncFeatures
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit and sync features",

@@ -17,7 +17,7 @@ using System.Linq;
 using System.Threading;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.ApplyScheduledUpdates
+namespace ArcGIS.UWP.Samples.ApplyScheduledUpdates
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Apply scheduled updates to preplanned map area",

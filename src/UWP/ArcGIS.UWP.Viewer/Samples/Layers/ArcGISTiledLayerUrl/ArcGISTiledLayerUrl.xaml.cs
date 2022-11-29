@@ -10,7 +10,7 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.ArcGISTiledLayerUrl
+namespace ArcGIS.UWP.Samples.ArcGISTiledLayerUrl
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS tiled layer",

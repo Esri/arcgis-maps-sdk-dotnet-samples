@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 
-namespace ArcGISMapsSDK.UWP.Samples.AnalyzeHotspots
+namespace ArcGIS.UWP.Samples.AnalyzeHotspots
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Analyze hotspots",

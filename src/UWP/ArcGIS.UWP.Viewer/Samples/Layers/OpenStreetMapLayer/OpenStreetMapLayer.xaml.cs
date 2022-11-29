@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDK.UWP.Samples.OpenStreetMapLayer
+namespace ArcGIS.UWP.Samples.OpenStreetMapLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "OpenStreetMap layer",

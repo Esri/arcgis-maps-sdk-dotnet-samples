@@ -17,7 +17,7 @@ using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace ArcGISMapsSDK.UWP.Samples.DeleteFeatures
+namespace ArcGIS.UWP.Samples.DeleteFeatures
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Delete features (feature service)",

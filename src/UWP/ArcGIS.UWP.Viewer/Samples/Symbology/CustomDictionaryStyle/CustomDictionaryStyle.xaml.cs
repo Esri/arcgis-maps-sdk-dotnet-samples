@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 
-namespace ArcGISMapsSDK.UWP.Samples.CustomDictionaryStyle
+namespace ArcGIS.UWP.Samples.CustomDictionaryStyle
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Custom dictionary style",

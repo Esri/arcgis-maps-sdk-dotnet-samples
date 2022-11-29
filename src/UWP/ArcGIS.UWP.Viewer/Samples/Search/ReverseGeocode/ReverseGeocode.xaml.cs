@@ -22,7 +22,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.UWP.Samples.ReverseGeocode
+namespace ArcGIS.UWP.Samples.ReverseGeocode
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Reverse geocode",

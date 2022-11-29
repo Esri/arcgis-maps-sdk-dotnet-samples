@@ -72,7 +72,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
                 // Show the list of web maps
                 MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Maui UWP ListView bug.
-                MapsListView.IsVisible = true;
+                MapsListBorder.IsVisible = true;
             }
             catch (Exception ex)
             {
@@ -113,7 +113,7 @@ namespace ArcGISRuntime.Samples.SearchPortalMaps
 
                 // Show the list of web maps
                 MapsListView.ItemsSource = mapItems.ToList(); // Explicit ToList() needed to avoid Maui UWP ListView bug.
-                MapsListView.IsVisible = true;
+                MapsListBorder.IsVisible = true;
             }
             catch (Exception ex)
             {

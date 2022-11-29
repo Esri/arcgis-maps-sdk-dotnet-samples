@@ -17,7 +17,7 @@ using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
 namespace ArcGISMapsSDKMaui.Samples.SpatialOperations
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Perform spatial operations",
         category: "Geometry",
         description: "Find the union, intersection, or difference of two geometries.",

@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace ArcGISMapsSDK.UWP.Samples.DeleteFeatures
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Delete features (feature service)",
         category: "Data",
         description: "Delete features from an online feature service.",

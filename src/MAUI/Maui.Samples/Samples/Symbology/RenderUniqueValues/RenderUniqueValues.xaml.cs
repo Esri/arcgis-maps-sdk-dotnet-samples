@@ -15,7 +15,7 @@ using Colors = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.RenderUniqueValues
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Unique value renderer",
         category: "Symbology",
         description: "Render features in a layer using a distinct symbol for each unique attribute value.",

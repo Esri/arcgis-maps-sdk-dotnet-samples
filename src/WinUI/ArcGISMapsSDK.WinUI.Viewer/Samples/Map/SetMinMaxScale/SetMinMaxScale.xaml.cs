@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDK.WinUI.Samples.SetMinMaxScale
+namespace ArcGIS.WinUI.Samples.SetMinMaxScale
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Set min & max scale",
         category: "Map",
         description: "Restrict zooming between specific scale ranges.",

@@ -19,7 +19,7 @@ using System.Diagnostics;
 
 namespace ArcGISMapsSDKMaui.Samples.DisplayDeviceLocation
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display device location with autopan modes",
         category: "Location",
         description: "Display your current position on the map, as well as switch between different types of auto pan Modes.",

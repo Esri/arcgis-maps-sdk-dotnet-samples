@@ -15,9 +15,9 @@ using Microsoft.UI.Xaml.Media;
 using System;
 using Windows.UI;
 
-namespace ArcGISMapsSDK.WinUI.Samples.Buffer
+namespace ArcGIS.WinUI.Samples.Buffer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Buffer",
         category: "Geometry",
         description: "Create a buffer around a map point and display the results as a `Graphic`",

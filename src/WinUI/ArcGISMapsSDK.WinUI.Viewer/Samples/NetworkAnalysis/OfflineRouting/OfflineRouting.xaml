@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ArcGISMapsSDK.WinUI.Samples.OfflineRouting.OfflineRouting"
+﻿<UserControl x:Class="ArcGIS.WinUI.Samples.OfflineRouting.OfflineRouting"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">

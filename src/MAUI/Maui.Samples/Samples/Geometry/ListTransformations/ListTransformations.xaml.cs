@@ -16,7 +16,7 @@ using System.Collections.ObjectModel;
 
 namespace ArcGISMapsSDKMaui.Samples.ListTransformations
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List transformations by suitability",
         category: "Geometry",
         description: "Get a list of suitable transformations for projecting a geometry between two spatial references with different horizontal datums.",

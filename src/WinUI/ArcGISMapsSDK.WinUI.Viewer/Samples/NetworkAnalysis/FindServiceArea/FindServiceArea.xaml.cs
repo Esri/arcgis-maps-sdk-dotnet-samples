@@ -18,9 +18,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.FindServiceArea
+namespace ArcGIS.WinUI.Samples.FindServiceArea
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find service area",
         category: "Network analysis",
         description: "Find the service area within a network from a given point.",

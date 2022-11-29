@@ -193,5 +193,5 @@
     </PackageReference>
   </ItemGroup>
 
-  <Import Project="..\..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />
 </Project>

@@ -22,7 +22,7 @@ using Windows.UI.Xaml;
 
 namespace ArcGISMapsSDK.UWP.Samples.ClosestFacilityStatic
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find closest facility to multiple incidents (service)",
         category: "Network analysis",
         description: "Find routes from several locations to the respective closest facility.",

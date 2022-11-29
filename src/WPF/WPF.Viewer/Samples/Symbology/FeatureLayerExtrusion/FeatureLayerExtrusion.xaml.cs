@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.UI;
 using System;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.FeatureLayerExtrusion
+namespace ArcGIS.WPF.Samples.FeatureLayerExtrusion
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer extrusion",
         category: "Symbology",
         description: "Extrude features based on their attributes.",

@@ -21,7 +21,7 @@ using Windows.UI.Popups;
 
 namespace ArcGISMapsSDK.UWP.Samples.SpatialRelationships
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Spatial relationships",
         category: "Geometry",
         description: "Determine spatial relationships between two geometries.",

@@ -17,9 +17,9 @@ using System.Drawing;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.ShowLabelsOnLayer
+namespace ArcGIS.WPF.Samples.ShowLabelsOnLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show labels on layers",
         category: "Layers",
         description: "Display custom labels on a feature layer.",

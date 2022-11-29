@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDKMaui.Samples.DisplayOverviewMap
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display overview map",
         category: "Map",
         description: "Include an overview or inset map as an additional map view to show the wider context of the primary view. ",

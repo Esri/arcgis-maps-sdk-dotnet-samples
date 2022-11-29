@@ -14,7 +14,7 @@ using Windows.UI.Xaml;
 
 namespace ArcGISMapsSDK.UWP.Samples.ChangeTimeExtent
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change time extent",
         category: "MapView",
         description: "Filter data in layers by applying a time extent to a MapView.",

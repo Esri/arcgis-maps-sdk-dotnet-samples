@@ -18,9 +18,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.ExportVectorTiles
+namespace ArcGIS.WinUI.Samples.ExportVectorTiles
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Export vector tiles",
         category: "Layers",
         description: "Export tiles from an online vector tile service.",

@@ -7,8 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
-using ArcGISMapsSDK.Samples.Shared.Managers;
+using ArcGIS.Samples.Managers;
+using ArcGIS.Samples.Shared.Managers;
 using CommunityToolkit.WinUI.UI.Controls;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
@@ -19,7 +19,7 @@ using System.Drawing;
 using System.Text.RegularExpressions;
 using Windows.System;
 
-namespace ArcGISMapsSDK.WinUI.Viewer
+namespace ArcGIS.WinUI.Viewer
 {
     public sealed partial class SamplePage
     {

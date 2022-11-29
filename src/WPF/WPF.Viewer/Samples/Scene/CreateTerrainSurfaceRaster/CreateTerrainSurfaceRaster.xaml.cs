@@ -7,18 +7,18 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDK.WPF.Samples.CreateTerrainSurfaceRaster
+namespace ArcGIS.WPF.Samples.CreateTerrainSurfaceRaster
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create terrain surface from a local raster",
         category: "Scene",
         description: "Set the terrain surface with elevation described by a raster file.",
         instructions: "When loaded, the sample will show a scene with a terrain surface applied. Pan and zoom to explore the scene and observe how the terrain surface allows visualizing elevation differences.",
         tags: new[] { "3D", "elevation", "raster", "surface", "terrain" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("98092369c4ae4d549bbbd45dba993ebc")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("98092369c4ae4d549bbbd45dba993ebc")]
     public partial class CreateTerrainSurfaceRaster
     {
         public CreateTerrainSurfaceRaster()

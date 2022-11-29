@@ -15,9 +15,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.StatisticalQuery
+namespace ArcGIS.WPF.Samples.StatisticalQuery
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Statistical query",
         category: "Data",
         description: "Query a table to get aggregated statistics back for a specific field.",

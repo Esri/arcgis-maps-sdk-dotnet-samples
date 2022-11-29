@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Shared.Managers;
+using ArcGIS.Samples.Shared.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -22,9 +22,9 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.ReverseGeocode
+namespace ArcGIS.WinUI.Samples.ReverseGeocode
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Reverse geocode",
         category: "Search",
         description: "Use an online service to find the address for a tapped point.",

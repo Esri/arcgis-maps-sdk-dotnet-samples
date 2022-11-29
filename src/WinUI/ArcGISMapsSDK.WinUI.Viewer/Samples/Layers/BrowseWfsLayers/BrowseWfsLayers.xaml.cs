@@ -20,9 +20,9 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.BrowseWfsLayers
+namespace ArcGIS.WinUI.Samples.BrowseWfsLayers
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Browse WFS layers",
         category: "Layers",
         description: "Browse a WFS service for layers and add them to the map.",

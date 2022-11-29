@@ -19,7 +19,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISMapsSDK.UWP.Samples.TakeScreenshot
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Take screenshot",
         category: "MapView",
         description: "Take a screenshot of the map.",

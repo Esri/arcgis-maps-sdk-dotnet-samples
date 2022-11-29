@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISMapsSDK.WPF.Samples.UpdateAttributes
+namespace ArcGIS.WPF.Samples.UpdateAttributes
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Update attributes (feature service)",
         category: "Data",
         description: "Update feature attributes in an online feature service.",

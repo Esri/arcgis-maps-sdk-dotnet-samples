@@ -148,7 +148,7 @@
     </Compile>
   </ItemGroup>
   <!-- Imports -->
-  <Import Project="..\..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="xcopy.exe $(ProjectDir)*.xaml $(OutDir) /y /c /s /q" />
   </Target>

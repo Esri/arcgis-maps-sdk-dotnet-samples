@@ -18,9 +18,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.ListRelatedFeatures
+namespace ArcGIS.WPF.Samples.ListRelatedFeatures
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List related features",
         category: "Data",
         description: "List features related to the selected feature.",

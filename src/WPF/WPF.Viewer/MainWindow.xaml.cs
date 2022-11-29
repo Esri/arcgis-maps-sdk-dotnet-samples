@@ -7,10 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Helpers;
-using ArcGISMapsSDK.Samples.Managers;
-using ArcGISMapsSDK.Samples.Shared.Managers;
-using ArcGISMapsSDK.Samples.Shared.Models;
+using ArcGIS.Helpers;
+using ArcGIS.Samples.Managers;
+using ArcGIS.Samples.Shared.Managers;
+using ArcGIS.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISMapsSDK.Samples.Desktop
+namespace ArcGIS.Samples.Desktop
 {
     public partial class MainWindow
     {

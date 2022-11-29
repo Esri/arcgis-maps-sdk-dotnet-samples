@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.LocalServices;
 using System;
 using System.Diagnostics;
@@ -17,15 +17,15 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISMapsSDK.WPF.Samples.LocalServerServices
+namespace ArcGIS.WPF.Samples.LocalServerServices
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Local server services",
         category: "Local Server",
         description: "Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.",
         instructions: "Click `Start Local Server` to start the Local Server. Click `Stop Local Server` to stop the Local Server.",
         tags: new[] { "feature", "geoprocessing", "local services", "map", "server", "service" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("85c34847bbe1402fa115a1b9b87561ce", "92ca5cdb3ff1461384bf80dc008e297b", "a680362d6a7447e8afe2b1eb85fcde30")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("85c34847bbe1402fa115a1b9b87561ce", "92ca5cdb3ff1461384bf80dc008e297b", "a680362d6a7447e8afe2b1eb85fcde30")]
     public partial class LocalServerServices
     {
         // Hold references to the individual services

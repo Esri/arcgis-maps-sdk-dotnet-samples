@@ -14,9 +14,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace ArcGISMapsSDK.WPF.Samples.ManageOperationalLayers
+namespace ArcGIS.WPF.Samples.ManageOperationalLayers
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Manage operational layers",
         category: "Map",
         description: "Add, remove, and reorder operational layers in a map.",

@@ -13,7 +13,7 @@ using System;
 
 namespace ArcGISMapsSDK.UWP.Samples.TerrainExaggeration
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Terrain exaggeration",
         category: "Scene",
         description: "Vertically exaggerate terrain in a scene.",

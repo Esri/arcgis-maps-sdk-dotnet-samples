@@ -16,9 +16,9 @@ using System.Net.Http;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.CertificateAuthenticationWithPKI
+namespace ArcGIS.WinUI.Samples.CertificateAuthenticationWithPKI
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Certificate authentication with PKI",
         category: "Security",
         description: "Access secured portals using a certificate.",

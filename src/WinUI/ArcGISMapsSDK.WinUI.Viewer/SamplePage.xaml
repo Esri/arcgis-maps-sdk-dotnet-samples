@@ -1,8 +1,8 @@
-﻿<Page x:Class="ArcGISMapsSDK.WinUI.Viewer.SamplePage"
+﻿<Page x:Class="ArcGIS.WinUI.Viewer.SamplePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-      xmlns:local="using:ArcGISMapsSDK.WinUI.Viewer">
+      xmlns:local="using:ArcGIS.WinUI.Viewer">
     <TabView x:Name="Tabs"
              HorizontalAlignment="Stretch"
              VerticalAlignment="Stretch"

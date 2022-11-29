@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDKMaui.Samples.LoadWebTiledLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Web tiled layer",
         category: "Layers",
         description: "Display a tiled web layer.",

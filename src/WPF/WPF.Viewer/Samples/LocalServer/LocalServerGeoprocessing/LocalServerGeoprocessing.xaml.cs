@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
@@ -20,15 +20,15 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISMapsSDK.WPF.Samples.LocalServerGeoprocessing
+namespace ArcGIS.WPF.Samples.LocalServerGeoprocessing
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Local server geoprocessing",
         category: "Local Server",
         description: "Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.",
         instructions: "Contour Line Controls (Top Left):",
         tags: new[] { "geoprocessing", "local", "offline", "parameters", "processing", "service" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("3f38e1ae7c5948cc95334ba3a142a4ec", "a680362d6a7447e8afe2b1eb85fcde30")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("3f38e1ae7c5948cc95334ba3a142a4ec", "a680362d6a7447e8afe2b1eb85fcde30")]
     public partial class LocalServerGeoprocessing
     {
         // Hold a reference to the local geoprocessing service

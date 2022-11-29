@@ -17,9 +17,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISMapsSDK.WPF.Samples.GeodatabaseTransactions
+namespace ArcGIS.WPF.Samples.GeodatabaseTransactions
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Geodatabase transactions",
         category: "Data",
         description: "Use transactions to manage how changes are committed to a geodatabase.",

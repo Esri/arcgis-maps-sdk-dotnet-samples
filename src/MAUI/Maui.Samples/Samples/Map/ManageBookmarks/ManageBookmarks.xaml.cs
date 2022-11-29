@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDKMaui.Samples.ManageBookmarks
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Manage bookmarks",
         category: "Map",
         description: "Access and create bookmarks on a map.",

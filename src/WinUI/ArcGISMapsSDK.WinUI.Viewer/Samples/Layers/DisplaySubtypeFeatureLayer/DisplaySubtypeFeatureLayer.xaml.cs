@@ -18,9 +18,9 @@ using System;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.DisplaySubtypeFeatureLayer
+namespace ArcGIS.WinUI.Samples.DisplaySubtypeFeatureLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display subtype feature layer",
         category: "Layers",
         description: "Displays a composite layer of all the subtype values in a feature class.",

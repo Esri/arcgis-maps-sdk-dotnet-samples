@@ -15,9 +15,9 @@ using System;
 using System.Drawing;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.ChangeFeatureLayerRenderer
+namespace ArcGIS.WPF.Samples.ChangeFeatureLayerRenderer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change feature layer renderer",
         category: "Layers",
         description: "Change the appearance of a feature layer with a renderer.",

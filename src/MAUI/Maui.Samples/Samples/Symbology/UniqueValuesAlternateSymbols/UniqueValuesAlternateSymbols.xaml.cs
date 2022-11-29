@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 
 namespace ArcGISMapsSDKMaui.Samples.UniqueValuesAlternateSymbols
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Apply unique values with alternate symbols",
         category: "Symbology",
         description: "Apply a unique value with alternate symbols at different scales.",

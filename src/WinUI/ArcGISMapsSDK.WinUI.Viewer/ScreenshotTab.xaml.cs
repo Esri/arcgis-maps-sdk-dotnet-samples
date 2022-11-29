@@ -7,15 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Shared.Managers;
-using ArcGISMapsSDK.Samples.Shared.Models;
+using ArcGIS.Samples.Shared.Managers;
+using ArcGIS.Samples.Shared.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
 
-namespace ArcGISMapsSDK
+namespace ArcGIS
 {
     public sealed partial class ScreenshotTab : UserControl
     {

@@ -15,7 +15,7 @@ using Windows.UI.Popups;
 
 namespace ArcGISMapsSDK.UWP.Samples.TimeBasedQuery
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Time-based query",
         category: "Layers",
         description: "Query data using a time extent. ",

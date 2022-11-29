@@ -15,9 +15,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.TakeScreenshot
+namespace ArcGIS.WPF.Samples.TakeScreenshot
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Take screenshot",
         category: "MapView",
         description: "Take a screenshot of the map.",

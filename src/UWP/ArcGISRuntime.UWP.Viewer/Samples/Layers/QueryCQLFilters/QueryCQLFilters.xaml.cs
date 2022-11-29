@@ -21,7 +21,7 @@ using Windows.UI.Xaml;
 
 namespace ArcGISMapsSDK.UWP.Samples.QueryCQLFilters
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Query with CQL filters",
         category: "Layers",
         description: "Query data from an OGC API feature service using CQL filters.",

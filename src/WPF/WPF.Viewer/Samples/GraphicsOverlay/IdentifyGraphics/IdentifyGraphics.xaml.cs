@@ -17,9 +17,9 @@ using System;
 using System.Drawing;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.IdentifyGraphics
+namespace ArcGIS.WPF.Samples.IdentifyGraphics
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify graphics",
         category: "GraphicsOverlay",
         description: "Display an alert message when a graphic is clicked.",

@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISMapsSDKMaui.Samples.SetMaxExtent
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Set max extent",
         category: "Map",
         description: "Limit the view of a map to a particular area.",

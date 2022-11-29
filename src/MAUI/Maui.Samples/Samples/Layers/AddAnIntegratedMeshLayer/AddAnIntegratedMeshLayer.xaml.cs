@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDKMaui.Samples.AddAnIntegratedMeshLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add integrated mesh layer",
         category: "Layers",
         description: "View an integrated mesh layer from a scene service.",

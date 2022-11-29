@@ -6,7 +6,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace ArcGISMapsSDK.Converters
+namespace ArcGIS.Converters
 {
     internal class ItemToImageSourceConverter : IValueConverter
     {

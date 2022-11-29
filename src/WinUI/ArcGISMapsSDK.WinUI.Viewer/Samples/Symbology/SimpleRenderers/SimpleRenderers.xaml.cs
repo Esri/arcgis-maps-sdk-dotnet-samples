@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.WinUI.Samples.SimpleRenderers
+namespace ArcGIS.WinUI.Samples.SimpleRenderers
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Simple renderer",
         category: "Symbology",
         description: "Display common symbols for all graphics in a graphics overlay with a renderer.",

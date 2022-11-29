@@ -15,7 +15,7 @@ using Colors = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.FeatureLayerTimeOffset
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer time offset",
         category: "MapView",
         description: "Display a time-enabled feature layer with a time offset.",

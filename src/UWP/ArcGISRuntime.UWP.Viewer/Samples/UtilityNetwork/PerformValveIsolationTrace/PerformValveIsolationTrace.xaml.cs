@@ -24,7 +24,7 @@ using Windows.UI.Xaml;
 
 namespace ArcGISMapsSDK.UWP.Samples.PerformValveIsolationTrace
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Perform valve isolation trace",
         category: "Utility network",
         description: "Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.",

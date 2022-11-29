@@ -7,20 +7,20 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 
 namespace ArcGISMapsSDKMaui.Samples.EditKmlGroundOverlay
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit KML ground overlay",
         category: "Layers",
         description: "Edit the values of a KML ground overlay.",
         instructions: "Use the slider to adjust the opacity of the ground overlay.",
         tags: new[] { "KML", "KMZ", "Keyhole", "OGC", "imagery" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("1f3677c24b2c446e96eaf1099292e83e")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("1f3677c24b2c446e96eaf1099292e83e")]
     public partial class EditKmlGroundOverlay : ContentPage
     {
         private readonly Uri _imageryUri = new Uri(DataManager.GetDataFolder("1f3677c24b2c446e96eaf1099292e83e", "1944.jpg"));

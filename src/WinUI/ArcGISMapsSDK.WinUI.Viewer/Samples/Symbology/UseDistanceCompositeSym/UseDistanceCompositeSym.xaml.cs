@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -16,15 +16,15 @@ using System;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.UseDistanceCompositeSym
+namespace ArcGIS.WinUI.Samples.UseDistanceCompositeSym
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Distance composite scene symbol",
         category: "Symbology",
         description: "Change a graphic's symbol based on the camera's proximity to it.",
         instructions: "The sample starts looking at a plane. Zoom out from the plane to see it turn into a cone. Keeping zooming out and it will turn into a point.",
         tags: new[] { "3D", "data", "graphic", "range", "symbol" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
     public sealed partial class UseDistanceCompositeSym
     {
         public UseDistanceCompositeSym()

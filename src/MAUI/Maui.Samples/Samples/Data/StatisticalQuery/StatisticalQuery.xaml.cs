@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDKMaui.Samples.StatisticalQuery
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Statistical query",
         category: "Data",
         description: "Query a table to get aggregated statistics back for a specific field.",

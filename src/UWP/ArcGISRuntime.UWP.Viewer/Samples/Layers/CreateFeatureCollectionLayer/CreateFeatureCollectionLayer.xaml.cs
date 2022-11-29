@@ -19,7 +19,7 @@ using System.Drawing;
 
 namespace ArcGISMapsSDK.UWP.Samples.CreateFeatureCollectionLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature collection layer",
         category: "Layers",
         description: "Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.",

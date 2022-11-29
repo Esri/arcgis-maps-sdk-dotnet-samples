@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDKMaui.Samples.FeatureCollectionLayerFromQuery
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature collection layer (query)",
         category: "Layers",
         description: "Create a feature collection layer to show a query result from a service feature table.",

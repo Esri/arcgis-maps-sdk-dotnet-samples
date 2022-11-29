@@ -16,15 +16,15 @@ using System;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.DisplayOACollection
+namespace ArcGIS.WinUI.Samples.DisplayOACollection
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display OGC API collection",
         category: "Layers",
         description: "Display an OGC API feature collection and query features while navigating the map view.",
         instructions: "Pan the map and observe how new features are loaded from the OGC API feature service.",
         tags: new[] { "OGC", "OGC API", "feature", "feature layer", "feature table", "service", "table", "web" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData()]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayOACollection
     {
         // Hold a reference to the OGC feature collection table.

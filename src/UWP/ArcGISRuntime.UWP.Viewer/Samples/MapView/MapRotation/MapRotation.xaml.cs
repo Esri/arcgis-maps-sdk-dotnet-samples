@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 
 namespace ArcGISMapsSDK.UWP.Samples.MapRotation
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map rotation",
         category: "MapView",
         description: "Rotate a map.",

@@ -16,7 +16,7 @@ using Color = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.FormatCoordinates
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Format coordinates",
         category: "Geometry",
         description: "Format coordinates in a variety of common notations.",

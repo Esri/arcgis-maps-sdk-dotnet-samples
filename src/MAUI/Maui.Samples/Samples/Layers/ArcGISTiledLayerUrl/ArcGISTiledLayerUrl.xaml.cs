@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDKMaui.Samples.ArcGISTiledLayerUrl
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS tiled layer",
         category: "Layers",
         description: "Load an ArcGIS tiled layer from a URL.",

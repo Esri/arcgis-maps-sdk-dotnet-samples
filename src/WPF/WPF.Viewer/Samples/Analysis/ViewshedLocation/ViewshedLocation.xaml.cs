@@ -19,9 +19,9 @@ using System.Windows;
 using System.Windows.Input;
 using Point = System.Windows.Point;
 
-namespace ArcGISMapsSDK.WPF.Samples.ViewshedLocation
+namespace ArcGIS.WPF.Samples.ViewshedLocation
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Viewshed (location)",
         category: "Analysis",
         description: "Perform a viewshed analysis from a defined vantage point.",

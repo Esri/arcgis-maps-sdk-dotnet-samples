@@ -12,9 +12,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.GroupLayers
+namespace ArcGIS.WinUI.Samples.GroupLayers
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Group layers",
         category: "Layers",
         description: "Group a collection of layers together and toggle their visibility as a group.",

@@ -17,9 +17,9 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.DeleteFeatures
+namespace ArcGIS.WinUI.Samples.DeleteFeatures
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Delete features (feature service)",
         category: "Data",
         description: "Delete features from an online feature service.",

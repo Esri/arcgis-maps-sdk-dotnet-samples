@@ -19,7 +19,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace ArcGISMapsSDK.UWP.Samples.CertificateAuthenticationWithPKI
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Certificate authentication with PKI",
         category: "Security",
         description: "Access secured portals using a certificate.",

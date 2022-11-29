@@ -21,7 +21,7 @@ using Windows.UI.Xaml;
 
 namespace ArcGISMapsSDK.UWP.Samples.FindServiceArea
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find service area",
         category: "Network analysis",
         description: "Find the service area within a network from a given point.",

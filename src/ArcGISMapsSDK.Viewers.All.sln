@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISMapsSDK.Samples.Shared", "Samples.Shared\ArcGISMapsSDK.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WinUI", "WinUI", "{14502F3B-7A88-4C48-8EA7-F44D1E4BA42B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF", "WPF", "{AFB4071E-38D8-4C36-BFED-48AE0A4A3F42}"
@@ -18,6 +16,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "MAUI", "MAUI", "{5EA55853-597D-4ED0-BAF9-6B737EBC5AC1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISMapsSDK.Samples.Maui", "MAUI\Maui.Samples\ArcGISMapsSDK.Samples.Maui.csproj", "{7F7B3255-9EA0-4296-B690-14BE9E2204F3}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGIS.Samples.Shared", "Samples.Shared\ArcGIS.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,13 +102,9 @@ Global
 		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.AppStore|x86.ActiveCfg = Debug|x86
 		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.AppStore|x86.Build.0 = Debug|x86
 		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.Debug|Any CPU.Build.0 = Debug|x64
 		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.Debug|ARM64.ActiveCfg = Debug|x64
-		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.Debug|ARM64.Build.0 = Debug|x64
 		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.Debug|iPhone.ActiveCfg = Debug|x64
-		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.Debug|iPhone.Build.0 = Debug|x64
 		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.Debug|iPhoneSimulator.ActiveCfg = Debug|x64
-		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.Debug|iPhoneSimulator.Build.0 = Debug|x64
 		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.Debug|x64.ActiveCfg = Debug|x64
 		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.Debug|x64.Build.0 = Debug|x64
 		{F39D6B3E-4E1D-4211-B152-59F8F71C8544}.Debug|x86.ActiveCfg = Debug|x86
@@ -162,8 +158,6 @@ Global
 		{BA503BD0-660A-4EA6-AB0E-11823F9BAD96}.AppStore|x86.Build.0 = Debug|x86
 		{BA503BD0-660A-4EA6-AB0E-11823F9BAD96}.AppStore|x86.Deploy.0 = Debug|x86
 		{BA503BD0-660A-4EA6-AB0E-11823F9BAD96}.Debug|Any CPU.ActiveCfg = Debug|x64
-		{BA503BD0-660A-4EA6-AB0E-11823F9BAD96}.Debug|Any CPU.Build.0 = Debug|x64
-		{BA503BD0-660A-4EA6-AB0E-11823F9BAD96}.Debug|Any CPU.Deploy.0 = Debug|x64
 		{BA503BD0-660A-4EA6-AB0E-11823F9BAD96}.Debug|ARM64.ActiveCfg = Debug|arm64
 		{BA503BD0-660A-4EA6-AB0E-11823F9BAD96}.Debug|ARM64.Build.0 = Debug|arm64
 		{BA503BD0-660A-4EA6-AB0E-11823F9BAD96}.Debug|ARM64.Deploy.0 = Debug|arm64
@@ -237,8 +231,6 @@ Global
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|ARM64.ActiveCfg = Debug|Any CPU
-		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|ARM64.Deploy.0 = Debug|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|iPhone.Build.0 = Debug|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|iPhone.Deploy.0 = Debug|Any CPU
@@ -246,11 +238,7 @@ Global
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|iPhoneSimulator.Deploy.0 = Debug|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|x64.Build.0 = Debug|Any CPU
-		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|x64.Deploy.0 = Debug|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|x86.Build.0 = Debug|Any CPU
-		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Debug|x86.Deploy.0 = Debug|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Release|Any CPU.Deploy.0 = Release|Any CPU
@@ -283,9 +271,9 @@ Global
 		SolutionGuid = {F7243EE6-BDF4-4C46-AEEB-057BC82B116E}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
-		Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{7f7b3255-9ea0-4296-b690-14be9e2204f3}*SharedItemsImports = 5
-		Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{f39d6b3e-4e1d-4211-b152-59f8f71c8544}*SharedItemsImports = 5
-		Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{fe1b81e3-59be-4632-a1eb-12ff19f4b59a}*SharedItemsImports = 5
+		Samples.Shared\ArcGIS.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
+		Samples.Shared\ArcGIS.Samples.Shared.projitems*{7f7b3255-9ea0-4296-b690-14be9e2204f3}*SharedItemsImports = 5
+		Samples.Shared\ArcGIS.Samples.Shared.projitems*{f39d6b3e-4e1d-4211-b152-59f8f71c8544}*SharedItemsImports = 5
+		Samples.Shared\ArcGIS.Samples.Shared.projitems*{fe1b81e3-59be-4632-a1eb-12ff19f4b59a}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDKMaui.Samples.FeatureLayerUrl
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer (feature service)",
         category: "Layers",
         description: "Show features from an online feature service.",

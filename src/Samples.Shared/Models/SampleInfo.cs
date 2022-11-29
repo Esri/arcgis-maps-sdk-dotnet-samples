@@ -7,14 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Shared.Attributes;
+using ArcGIS.Samples.Shared.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 
-namespace ArcGISMapsSDK.Samples.Shared.Models
+namespace ArcGIS.Samples.Shared.Models
 {
     public partial class SampleInfo
     {

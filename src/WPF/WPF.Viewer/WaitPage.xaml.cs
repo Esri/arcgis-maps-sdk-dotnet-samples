@@ -11,7 +11,7 @@ using System;
 using System.Threading;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Viewer
+namespace ArcGIS.WPF.Viewer
 {
     public partial class WaitPage
     {

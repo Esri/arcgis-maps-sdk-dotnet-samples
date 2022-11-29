@@ -14,7 +14,7 @@ using System;
 
 namespace ArcGISMapsSDK.UWP.Samples.RasterLayerImageServiceRaster
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster layer (service)",
         category: "Layers",
         description: "Create a raster layer from a raster image service.",

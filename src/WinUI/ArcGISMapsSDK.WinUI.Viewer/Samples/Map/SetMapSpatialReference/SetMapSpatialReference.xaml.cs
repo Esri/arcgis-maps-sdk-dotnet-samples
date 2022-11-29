@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISMapsSDK.WinUI.Samples.SetMapSpatialReference
+namespace ArcGIS.WinUI.Samples.SetMapSpatialReference
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map spatial reference",
         category: "Map",
         description: "Specify a map's spatial reference.",

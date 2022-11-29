@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace ArcGISMapsSDK.UWP.Samples.UpdateAttributes
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Update attributes (feature service)",
         category: "Data",
         description: "Update feature attributes in an online feature service.",

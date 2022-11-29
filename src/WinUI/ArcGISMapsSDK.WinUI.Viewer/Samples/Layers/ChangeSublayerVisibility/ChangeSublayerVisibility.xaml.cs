@@ -13,9 +13,9 @@ using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Linq;
 
-namespace ArcGISMapsSDK.WinUI.Samples.ChangeSublayerVisibility
+namespace ArcGIS.WinUI.Samples.ChangeSublayerVisibility
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map image layer sublayer visibility",
         category: "Layers",
         description: "Change the visibility of sublayers.",

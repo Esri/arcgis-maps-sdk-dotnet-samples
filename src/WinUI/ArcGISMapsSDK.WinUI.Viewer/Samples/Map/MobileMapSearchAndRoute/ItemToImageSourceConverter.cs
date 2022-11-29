@@ -5,7 +5,7 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
 
-namespace ArcGISMapsSDK.WinUI.Samples.MobileMapSearchAndRoute
+namespace ArcGIS.WinUI.Samples.MobileMapSearchAndRoute
 {
     internal class ItemToImageSourceConverter : IValueConverter
     {

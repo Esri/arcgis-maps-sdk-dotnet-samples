@@ -17,7 +17,7 @@ using Color = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.MapImageSublayerQuery
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Query map image sublayer",
         category: "Layers",
         description: "Find features in a sublayer based on attributes and location.",

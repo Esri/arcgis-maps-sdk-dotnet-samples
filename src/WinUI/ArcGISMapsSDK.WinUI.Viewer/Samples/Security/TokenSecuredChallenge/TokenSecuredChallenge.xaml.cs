@@ -20,9 +20,9 @@ using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Windows.UI;
 
-namespace ArcGISMapsSDK.WinUI.Samples.TokenSecuredChallenge
+namespace ArcGIS.WinUI.Samples.TokenSecuredChallenge
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS token challenge",
         category: "Security",
         description: "This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.",

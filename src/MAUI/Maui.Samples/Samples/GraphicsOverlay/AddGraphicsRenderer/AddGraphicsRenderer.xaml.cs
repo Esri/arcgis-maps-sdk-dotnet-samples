@@ -16,7 +16,7 @@ using Color = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.AddGraphicsRenderer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add graphics with renderer",
         category: "GraphicsOverlay",
         description: "A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style. A renderer will only affect graphics that do not specify their own symbol style.",

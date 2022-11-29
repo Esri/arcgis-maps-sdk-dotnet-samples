@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDK.WPF.Samples.ScenePropertiesExpressions
+namespace ArcGIS.WPF.Samples.ScenePropertiesExpressions
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Scene properties expressions",
         category: "GraphicsOverlay",
         description: "Update the orientation of a graphic using expressions based on its attributes.",

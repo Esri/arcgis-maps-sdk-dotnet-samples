@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.WinUI.Samples.AddGraphicsWithSymbols
+namespace ArcGIS.WinUI.Samples.AddGraphicsWithSymbols
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add graphics with symbols",
         category: "GraphicsOverlay",
         description: "Use a symbol style to display a graphic on a graphics overlay.",

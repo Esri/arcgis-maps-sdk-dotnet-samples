@@ -7,10 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Helpers;
-using ArcGISMapsSDK.Samples.Managers;
-using ArcGISMapsSDK.Samples.Shared.Models;
-using ArcGISMapsSDK.WPF.Viewer;
+using ArcGIS.Helpers;
+using ArcGIS.Samples.Managers;
+using ArcGIS.Samples.Shared.Models;
+using ArcGIS.WPF.Viewer;
 using Esri.ArcGISRuntime;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISMapsSDK
+namespace ArcGIS
 {
     public partial class SettingsWindow : Window
     {

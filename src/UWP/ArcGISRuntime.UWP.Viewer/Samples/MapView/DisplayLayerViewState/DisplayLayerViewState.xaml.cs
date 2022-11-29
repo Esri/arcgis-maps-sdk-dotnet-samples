@@ -13,7 +13,7 @@ using System;
 
 namespace ArcGISMapsSDK.UWP.Samples.DisplayLayerViewState
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display layer view state",
         category: "MapView",
         description: "Determine if a layer is currently being viewed.",

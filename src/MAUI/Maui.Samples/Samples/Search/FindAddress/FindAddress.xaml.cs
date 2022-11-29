@@ -17,13 +17,13 @@ using System.Reflection;
 
 namespace ArcGISMapsSDKMaui.Samples.FindAddress
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find address",
         category: "Search",
         description: "Find the location for an address.",
         instructions: "For simplicity, the sample comes loaded with a set of suggested addresses. Choose an address from the suggestions or submit your own address to show its location on the map in a callout.",
         tags: new[] { "address", "geocode", "locator", "search" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
+    [ArcGIS.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class FindAddress : ContentPage
     {
         // Addresses for suggestion.

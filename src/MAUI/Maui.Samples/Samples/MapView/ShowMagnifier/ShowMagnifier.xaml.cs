@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISMapsSDKMaui.Samples.ShowMagnifier
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show magnifier",
         category: "MapView",
         description: "Tap and hold on a map to show a magnifier.",

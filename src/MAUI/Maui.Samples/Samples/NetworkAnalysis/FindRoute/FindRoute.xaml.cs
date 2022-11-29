@@ -17,7 +17,7 @@ using Colors = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.FindRoute
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find route",
         category: "Network analysis",
         description: "Display directions for a route between two points.",

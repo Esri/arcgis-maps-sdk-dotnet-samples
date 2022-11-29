@@ -16,7 +16,7 @@ using Color = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.Project
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Project",
         category: "Geometry",
         description: "Project a point from one spatial reference to another.",

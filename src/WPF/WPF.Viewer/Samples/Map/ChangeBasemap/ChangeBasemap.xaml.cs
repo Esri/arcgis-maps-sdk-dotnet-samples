@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDK.WPF.Samples.ChangeBasemap
+namespace ArcGIS.WPF.Samples.ChangeBasemap
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change basemap",
         category: "Map",
         description: "Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.",

@@ -17,9 +17,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.WinUI.Samples.FormatCoordinates
+namespace ArcGIS.WinUI.Samples.FormatCoordinates
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Format coordinates",
         category: "Geometry",
         description: "Format coordinates in a variety of common notations.",

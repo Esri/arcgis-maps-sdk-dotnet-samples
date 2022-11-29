@@ -7,9 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
-using ArcGISMapsSDK.Samples.Shared.Models;
-using ArcGISMapsSDK.WinUI;
+using ArcGIS.Samples.Managers;
+using ArcGIS.Samples.Shared.Models;
+using ArcGIS.WinUI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -22,7 +22,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Windows.System;
 
-namespace ArcGISMapsSDK
+namespace ArcGIS
 {
     public sealed partial class SettingsPage : UserControl
     {

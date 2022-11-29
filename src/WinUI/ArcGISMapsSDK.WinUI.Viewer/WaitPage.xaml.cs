@@ -10,7 +10,7 @@
 using Microsoft.UI.Xaml;
 using System.Threading;
 
-namespace ArcGISMapsSDK.WinUI.Viewer
+namespace ArcGIS.WinUI.Viewer
 {
     public sealed partial class WaitPage
     {

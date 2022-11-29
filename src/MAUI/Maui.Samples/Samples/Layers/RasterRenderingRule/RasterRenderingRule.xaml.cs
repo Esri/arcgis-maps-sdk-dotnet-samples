@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Rasters;
 
 namespace ArcGISMapsSDKMaui.Samples.RasterRenderingRule
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster rendering rule",
         category: "Layers",
         description: "Display a raster on a map and apply different rendering rules to that raster.",

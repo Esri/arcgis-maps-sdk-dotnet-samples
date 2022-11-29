@@ -16,9 +16,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.UpdateGeometries
+namespace ArcGIS.WPF.Samples.UpdateGeometries
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Update geometries (feature service)",
         category: "Data",
         description: "Update a feature's location in an online feature service.",

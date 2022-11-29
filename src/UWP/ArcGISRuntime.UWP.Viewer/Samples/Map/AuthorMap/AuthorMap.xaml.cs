@@ -22,13 +22,13 @@ using Windows.UI.Xaml.Controls;
 
 namespace ArcGISMapsSDK.UWP.Samples.AuthorMap
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create and save map",
         category: "Map",
         description: "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
         instructions: "1. Select the basemap and layers you'd like to add to your map.",
         tags: new[] { "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
     public partial class AuthorMap
     {
         // String array to store names of the available basemaps

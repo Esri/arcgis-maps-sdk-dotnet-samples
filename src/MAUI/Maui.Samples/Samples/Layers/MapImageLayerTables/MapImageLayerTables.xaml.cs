@@ -18,7 +18,7 @@ using Color = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.MapImageLayerTables
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map image layer tables",
         category: "Layers",
         description: "Find features in a spatial table related to features in a non-spatial table.",

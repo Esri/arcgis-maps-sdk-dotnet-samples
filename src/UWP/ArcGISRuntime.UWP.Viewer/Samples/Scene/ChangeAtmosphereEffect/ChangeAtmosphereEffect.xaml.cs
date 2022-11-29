@@ -13,7 +13,7 @@ using System;
 
 namespace ArcGISMapsSDK.UWP.Samples.ChangeAtmosphereEffect
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change atmosphere effect",
         category: "Scene",
         description: "Changes the appearance of the atmosphere in a scene.",

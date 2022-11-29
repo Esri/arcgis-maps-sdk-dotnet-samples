@@ -14,9 +14,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.FeatureLayerRenderingModeMap
+namespace ArcGIS.WinUI.Samples.FeatureLayerRenderingModeMap
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer rendering mode (map)",
         category: "Layers",
         description: "Render features statically or dynamically by setting the feature layer rendering mode.",

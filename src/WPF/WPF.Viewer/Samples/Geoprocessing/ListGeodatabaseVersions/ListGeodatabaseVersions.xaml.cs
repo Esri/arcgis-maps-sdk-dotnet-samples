@@ -16,9 +16,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.ListGeodatabaseVersions
+namespace ArcGIS.WPF.Samples.ListGeodatabaseVersions
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List geodatabase versions",
         category: "Geoprocessing",
         description: "Connect to a service and list versions of the geodatabase.",

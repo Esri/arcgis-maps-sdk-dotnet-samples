@@ -8,7 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
@@ -21,13 +21,13 @@ using Windows.UI.Popups;
 
 namespace ArcGISMapsSDK.UWP.Samples.SelectEncFeatures
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Select ENC features",
         category: "Hydrography",
         description: "Select features in an ENC layer.",
         instructions: "Tap to select ENC features. Feature properties will be displayed in a callout.",
         tags: new[] { "IHO", "S-57", "S57", "chart", "hydrography", "identify", "maritime", "select", "selection" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public partial class SelectEncFeatures
     {
         public SelectEncFeatures()

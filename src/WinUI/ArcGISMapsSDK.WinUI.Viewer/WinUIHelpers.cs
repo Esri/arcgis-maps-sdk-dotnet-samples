@@ -1,9 +1,9 @@
-﻿using ArcGISMapsSDK.WinUI.Viewer;
+﻿using ArcGIS.WinUI.Viewer;
 using System.Collections.Generic;
 using Windows.Foundation;
 using Windows.UI.Popups;
 
-namespace ArcGISMapsSDK.WinUI
+namespace ArcGIS.WinUI
 {
     /// <summary>
     /// Wrapper around MessageDialog that simplifies hooking the window to the current view.

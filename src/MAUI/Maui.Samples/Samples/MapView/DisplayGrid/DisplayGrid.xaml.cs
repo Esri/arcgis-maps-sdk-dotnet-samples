@@ -16,7 +16,7 @@ using Colors = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.DisplayGrid
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display grid",
         category: "MapView",
         description: "Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.",

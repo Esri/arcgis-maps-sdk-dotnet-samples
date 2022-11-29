@@ -7,18 +7,18 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDKMaui.Samples.ControlAnnotationSublayerVisibility
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Control annotation sublayer visibility",
         category: "Layers",
         description: "Use annotation sublayers to gain finer control of annotation layer subtypes.",
         instructions: "Start the sample and take note of the visibility of the annotation. Zoom in and out to see the annotation turn on and off based on scale ranges set on the data.",
         tags: new[] { "annotation", "scale", "text", "utilities", "visualization" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("b87307dcfb26411eb2e92e1627cb615b")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("b87307dcfb26411eb2e92e1627cb615b")]
     public partial class ControlAnnotationSublayerVisibility : ContentPage
     {
         // Mobile map package that contains annotation layers.

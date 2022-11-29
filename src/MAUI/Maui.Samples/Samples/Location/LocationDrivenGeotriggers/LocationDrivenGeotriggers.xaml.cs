@@ -17,7 +17,7 @@ using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISMapsSDKMaui.Samples.LocationDrivenGeotriggers
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Set up location-driven Geotriggers",
         category: "Location",
         description: "Create a notification every time a given location data source has entered and/or exited a set of features or graphics.",

@@ -20,15 +20,15 @@ using System.Windows;
 using System.Windows.Controls;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 
-namespace ArcGISMapsSDK.WPF.Samples.CreateAndSaveKmlFile
+namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create and save KML file",
         category: "Layers",
         description: "Construct a KML document and save it as a KMZ file.",
         instructions: "Click on one of the buttons in the middle row to start adding a geometry. Click on the map view to place vertices. Click the \"Complete Sketch\" button to add the geometry to the KML document as a new KML placemark. Use the style interface to edit the style of the placemark. If you do not wish to set a style, click the \"Don't Apply Style\" button. When you are finished adding KML nodes, click on the \"Save KMZ file\" button to save the active KML document as a .kmz file on your system. Use the \"Reset\" button to clear the current KML document and start a new one.",
         tags: new[] { "KML", "KMZ", "Keyhole", "OGC" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData()]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class CreateAndSaveKmlFile
     {
         private KmlDocument _kmlDocument;

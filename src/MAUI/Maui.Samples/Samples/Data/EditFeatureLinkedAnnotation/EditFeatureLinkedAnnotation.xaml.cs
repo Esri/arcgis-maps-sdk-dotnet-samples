@@ -7,20 +7,20 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDKMaui.Samples.EditFeatureLinkedAnnotation
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit features with feature-linked annotation",
         category: "Data",
         description: "Edit feature attributes which are linked to annotation through an expression.",
         instructions: "Pan and zoom the map to see that the text on the map is annotation, not labels. Tap one of the address points to update the house number (AD_ADDRESS) and street name (ST_STR_NAM). Tap one of the dashed parcel polylines and tap another location to change its geometry. NOTE: Selection is only enabled for points and straight (single segment) polylines.",
         tags: new[] { "annotation", "attributes", "feature-linked annotation", "features", "fields" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("74c0c9fa80f4498c9739cc42531e9948")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("74c0c9fa80f4498c9739cc42531e9948")]
     public partial class EditFeatureLinkedAnnotation : ContentPage
     {
         private Feature _selectedFeature;

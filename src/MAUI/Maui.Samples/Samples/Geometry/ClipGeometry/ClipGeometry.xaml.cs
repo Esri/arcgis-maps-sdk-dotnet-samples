@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISMapsSDKMaui.Samples.ClipGeometry
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Clip geometry",
         category: "Geometry",
         description: "Clip a geometry with another geometry.",

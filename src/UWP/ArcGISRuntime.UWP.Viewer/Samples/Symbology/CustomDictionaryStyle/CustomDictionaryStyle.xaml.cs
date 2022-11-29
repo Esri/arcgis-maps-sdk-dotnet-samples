@@ -7,20 +7,20 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using System;
 
 namespace ArcGISMapsSDK.UWP.Samples.CustomDictionaryStyle
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Custom dictionary style",
         category: "Symbology",
         description: "Use a custom dictionary style (.stylx) to symbolize features using a variety of attribute values.",
         instructions: "Pan and zoom the map to see the symbology from the custom dictionary style.",
         tags: new[] { "dictionary", "military", "renderer", "style", "stylx", "unique value", "visualization" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("751138a2e0844e06853522d54103222a")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("751138a2e0844e06853522d54103222a")]
     public partial class CustomDictionaryStyle
     {
         // Path for the restaurants style file.

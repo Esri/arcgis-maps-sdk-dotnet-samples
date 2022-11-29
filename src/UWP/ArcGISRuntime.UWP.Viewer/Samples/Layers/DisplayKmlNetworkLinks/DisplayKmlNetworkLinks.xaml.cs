@@ -15,7 +15,7 @@ using Windows.UI.Popups;
 
 namespace ArcGISMapsSDK.UWP.Samples.DisplayKmlNetworkLinks
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display KML network links",
         category: "Layers",
         description: "Display a file with a KML network link, including displaying any network link control messages at launch.",

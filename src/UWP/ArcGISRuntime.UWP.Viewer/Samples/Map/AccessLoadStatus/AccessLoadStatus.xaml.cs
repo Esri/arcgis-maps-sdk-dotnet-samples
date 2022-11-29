@@ -14,7 +14,7 @@ using Windows.UI.Core;
 
 namespace ArcGISMapsSDK.UWP.Samples.AccessLoadStatus
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Access load status",
         category: "Map",
         description: "Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.",

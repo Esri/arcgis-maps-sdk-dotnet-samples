@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
@@ -21,13 +21,13 @@ using Colors = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.GenerateGeodatabaseReplica
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Generate geodatabase replica from feature service",
         category: "Data",
         description: "Generate a local geodatabase from an online feature service.",
         instructions: "Zoom to any extent. Then tap the generate button to generate a geodatabase of features from a feature service filtered to the current extent. A red outline will show the extent used. The job's progress is shown while the geodatabase is generated.",
         tags: new[] { "disconnected", "local geodatabase", "offline", "replica", "sync" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("e4a398afe9a945f3b0f4dca1e4faccb5")]
     public partial class GenerateGeodatabaseReplica : ContentPage
     {
         // URL for a feature service that supports geodatabase generation.

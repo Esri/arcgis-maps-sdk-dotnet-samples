@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISMapsSDKMaui.Samples.ShowCallout
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show callout",
         category: "MapView",
         description: "Show a callout with the latitude and longitude of user-tapped points.",

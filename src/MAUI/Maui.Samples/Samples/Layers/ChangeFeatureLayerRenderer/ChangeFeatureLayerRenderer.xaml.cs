@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 
 namespace ArcGISMapsSDKMaui.Samples.ChangeFeatureLayerRenderer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change feature layer renderer",
         category: "Layers",
         description: "Change the appearance of a feature layer with a renderer.",

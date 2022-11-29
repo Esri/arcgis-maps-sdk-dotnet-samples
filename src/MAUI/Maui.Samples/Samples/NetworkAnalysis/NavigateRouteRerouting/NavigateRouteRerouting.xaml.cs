@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
@@ -21,13 +21,13 @@ using Location = Esri.ArcGISRuntime.Location.Location;
 
 namespace ArcGISMapsSDKMaui.Samples.NavigateRouteRerouting
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Navigate route with rerouting",
         category: "Network analysis",
         description: "Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.",
         instructions: "Tap 'Navigate' to simulate traveling and to receive directions from a preset starting point to a preset destination. Observe how the route is recalculated when the simulation does not follow the suggested route. Tap 'Recenter' to refocus on the location display.",
         tags: new[] { "directions", "maneuver", "navigation", "route", "turn-by-turn", "voice" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("567e14f3420d40c5a206e5c0284cf8fc")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("567e14f3420d40c5a206e5c0284cf8fc")]
     public partial class NavigateRouteRerouting : ContentPage, IDisposable
     {
         // Variables for tracking the navigation route.

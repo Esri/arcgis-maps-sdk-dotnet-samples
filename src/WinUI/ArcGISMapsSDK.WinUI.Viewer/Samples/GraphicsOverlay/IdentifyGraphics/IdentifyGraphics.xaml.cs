@@ -16,9 +16,9 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.WinUI.Samples.IdentifyGraphics
+namespace ArcGIS.WinUI.Samples.IdentifyGraphics
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify graphics",
         category: "GraphicsOverlay",
         description: "Display an alert message when a graphic is clicked.",

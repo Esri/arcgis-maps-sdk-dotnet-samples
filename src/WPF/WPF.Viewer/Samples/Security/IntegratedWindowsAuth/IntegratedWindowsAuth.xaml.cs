@@ -19,9 +19,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISMapsSDK.WPF.Samples.IntegratedWindowsAuth
+namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Integrated Windows Authentication",
         category: "Security",
         description: "Connect to an IWA secured Portal and search for maps.",

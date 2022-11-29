@@ -16,7 +16,7 @@ using Windows.UI.Xaml;
 
 namespace ArcGISMapsSDK.UWP.Samples.WMTSLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "WMTS layer",
         category: "Layers",
         description: "Display a layer from a Web Map Tile Service.",

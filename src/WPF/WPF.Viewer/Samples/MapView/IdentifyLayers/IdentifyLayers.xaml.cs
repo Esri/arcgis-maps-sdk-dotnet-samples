@@ -16,9 +16,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.IdentifyLayers
+namespace ArcGIS.WPF.Samples.IdentifyLayers
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify layers",
         category: "MapView",
         description: "Identify features in all layers in a map.",

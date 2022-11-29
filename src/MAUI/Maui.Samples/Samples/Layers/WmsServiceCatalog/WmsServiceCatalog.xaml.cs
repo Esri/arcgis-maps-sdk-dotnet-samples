@@ -13,7 +13,7 @@ using System.Collections.ObjectModel;
 
 namespace ArcGISMapsSDKMaui.Samples.WmsServiceCatalog
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "WMS service catalog",
         category: "Layers",
         description: "Connect to a WMS service and show the available layers and sublayers. ",

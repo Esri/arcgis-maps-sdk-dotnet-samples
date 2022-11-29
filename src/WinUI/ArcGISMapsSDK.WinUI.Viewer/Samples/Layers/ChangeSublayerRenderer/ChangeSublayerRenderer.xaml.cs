@@ -14,9 +14,9 @@ using Microsoft.UI.Xaml;
 using System.Collections.Generic;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.WinUI.Samples.ChangeSublayerRenderer
+namespace ArcGIS.WinUI.Samples.ChangeSublayerRenderer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change sublayer renderer",
         category: "Layers",
         description: "Apply a renderer to a sublayer.",

@@ -1,9 +1,9 @@
 <ContentPage
-    x:Class="ArcGISMapsSDKMaui.Samples.DisplayUtilityAssociations.DisplayUtilityAssociations"
+    x:Class="ArcGISMaui.Samples.DisplayUtilityAssociations.DisplayUtilityAssociations"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-    xmlns:resources="clr-namespace:ArcGISMapsSDK.Resources">
+    xmlns:resources="clr-namespace:ArcGIS.Resources">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView"
                         NavigationCompleted="OnNavigationCompleted"

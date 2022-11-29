@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ArcGISMapsSDK.WinUI.Samples.ChooseCameraController.ChooseCameraController"
+﻿<UserControl x:Class="ArcGIS.WinUI.Samples.ChooseCameraController.ChooseCameraController"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">

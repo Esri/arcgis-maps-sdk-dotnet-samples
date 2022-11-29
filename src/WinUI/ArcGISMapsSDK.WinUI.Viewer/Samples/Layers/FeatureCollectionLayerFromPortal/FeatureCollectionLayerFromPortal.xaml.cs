@@ -14,9 +14,9 @@ using Microsoft.UI.Xaml;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.FeatureCollectionLayerFromPortal
+namespace ArcGIS.WinUI.Samples.FeatureCollectionLayerFromPortal
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create feature collection layer (Portal item)",
         category: "Layers",
         description: "Create a feature collection layer from a portal item.",

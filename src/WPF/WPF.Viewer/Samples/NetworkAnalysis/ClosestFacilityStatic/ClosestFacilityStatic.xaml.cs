@@ -19,9 +19,9 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WPF.Samples.ClosestFacilityStatic
+namespace ArcGIS.WPF.Samples.ClosestFacilityStatic
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find closest facility to multiple incidents (service)",
         category: "Network analysis",
         description: "Find routes from several locations to the respective closest facility.",

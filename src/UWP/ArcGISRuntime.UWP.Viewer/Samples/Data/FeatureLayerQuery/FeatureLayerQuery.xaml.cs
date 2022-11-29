@@ -21,7 +21,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerQuery
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer query",
         category: "Data",
         description: "Find features in a feature table which match an SQL query.",

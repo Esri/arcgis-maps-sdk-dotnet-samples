@@ -16,7 +16,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.Samples.Managers
+namespace ArcGIS.Samples.Managers
 {
     // Helper classes for managing and resuming downloads
 

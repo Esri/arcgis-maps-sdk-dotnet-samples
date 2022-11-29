@@ -22,9 +22,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
-namespace ArcGISMapsSDK.WinUI.Samples.DisplayUtilityAssociations
+namespace ArcGIS.WinUI.Samples.DisplayUtilityAssociations
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display utility associations",
         category: "Utility network",
         description: "Create graphics for utility associations in a utility network.",

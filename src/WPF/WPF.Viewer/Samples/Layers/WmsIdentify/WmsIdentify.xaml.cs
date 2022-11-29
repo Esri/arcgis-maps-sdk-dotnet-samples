@@ -16,9 +16,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.WmsIdentify
+namespace ArcGIS.WPF.Samples.WmsIdentify
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify WMS features",
         category: "Layers",
         description: "Identify features in a WMS layer and display the associated popup content.",

@@ -1902,7 +1902,7 @@
   </ItemGroup>
   <ItemGroup />
   <!-- Imports -->
-  <Import Project="..\..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

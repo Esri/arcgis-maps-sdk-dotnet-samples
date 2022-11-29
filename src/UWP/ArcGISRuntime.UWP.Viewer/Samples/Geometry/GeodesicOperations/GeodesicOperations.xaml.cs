@@ -15,7 +15,7 @@ using Esri.ArcGISRuntime.UI.Controls;
 
 namespace ArcGISMapsSDK.UWP.Samples.GeodesicOperations
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Geodesic operations",
         category: "Geometry",
         description: "Calculate a geodesic path between two points and measure its distance.",

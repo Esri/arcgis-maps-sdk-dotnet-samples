@@ -14,9 +14,9 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.FeatureLayerTimeOffset
+namespace ArcGIS.WPF.Samples.FeatureLayerTimeOffset
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer time offset",
         category: "MapView",
         description: "Display a time-enabled feature layer with a time offset.",

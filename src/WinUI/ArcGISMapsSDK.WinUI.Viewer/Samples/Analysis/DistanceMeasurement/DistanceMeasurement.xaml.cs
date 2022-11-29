@@ -18,9 +18,9 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 
-namespace ArcGISMapsSDK.WinUI.Samples.DistanceMeasurement
+namespace ArcGIS.WinUI.Samples.DistanceMeasurement
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Distance measurement analysis",
         category: "Analysis",
         description: "Measure distances between two points in 3D.",

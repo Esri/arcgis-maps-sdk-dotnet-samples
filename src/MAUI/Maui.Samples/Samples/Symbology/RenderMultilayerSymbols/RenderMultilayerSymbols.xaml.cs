@@ -16,7 +16,7 @@ using Color = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.RenderMultilayerSymbols
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Render multilayer symbols",
         category: "Symbology",
         description: "Show different kinds of multilayer symbols on a map similar to some pre-defined 2D simple symbol styles.",

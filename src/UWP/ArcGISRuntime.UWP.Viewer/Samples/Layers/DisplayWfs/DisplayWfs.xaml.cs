@@ -19,7 +19,7 @@ using Windows.UI.Xaml;
 
 namespace ArcGISMapsSDK.UWP.Samples.DisplayWfs
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display WFS layer",
         category: "Layers",
         description: "Display a layer from a WFS service, requesting only features for the current extent.",

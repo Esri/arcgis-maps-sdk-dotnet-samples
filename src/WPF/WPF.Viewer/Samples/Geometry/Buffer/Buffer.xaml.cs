@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 using System.Drawing;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.Buffer
+namespace ArcGIS.WPF.Samples.Buffer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Buffer",
         category: "Geometry",
         description: "Create a buffer around a map point and display the results as a `Graphic`",

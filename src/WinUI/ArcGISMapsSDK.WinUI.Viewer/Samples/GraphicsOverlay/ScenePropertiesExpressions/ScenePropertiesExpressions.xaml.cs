@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.WinUI.Samples.ScenePropertiesExpressions
+namespace ArcGIS.WinUI.Samples.ScenePropertiesExpressions
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Scene properties expressions",
         category: "GraphicsOverlay",
         description: "Update the orientation of a graphic using expressions based on its attributes.",

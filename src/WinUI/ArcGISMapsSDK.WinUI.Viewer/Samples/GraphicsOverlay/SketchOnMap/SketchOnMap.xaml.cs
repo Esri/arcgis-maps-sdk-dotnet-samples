@@ -19,9 +19,9 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.SketchOnMap
+namespace ArcGIS.WinUI.Samples.SketchOnMap
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Sketch on map",
         category: "GraphicsOverlay",
         description: "Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.",

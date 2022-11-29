@@ -14,9 +14,9 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.AnalyzeHotspots
+namespace ArcGIS.WPF.Samples.AnalyzeHotspots
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Analyze hotspots",
         category: "Geoprocessing",
         description: "Use a geoprocessing service and a set of features to identify statistically significant hot spots and cold spots.",

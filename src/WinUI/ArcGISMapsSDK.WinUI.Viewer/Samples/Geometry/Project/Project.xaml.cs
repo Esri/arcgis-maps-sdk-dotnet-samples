@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.UI.Controls;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.Project
+namespace ArcGIS.WinUI.Samples.Project
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Project",
         category: "Geometry",
         description: "Project a point from one spatial reference to another.",

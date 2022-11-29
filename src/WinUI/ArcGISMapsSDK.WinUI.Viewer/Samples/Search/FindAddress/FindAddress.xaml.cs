@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Shared.Managers;
+using ArcGIS.Samples.Shared.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -23,15 +23,15 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.FindAddress
+namespace ArcGIS.WinUI.Samples.FindAddress
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find address",
         category: "Search",
         description: "Find the location for an address.",
         instructions: "For simplicity, the sample comes loaded with a set of suggested addresses. Choose an address from the suggestions or submit your own address to show its location on the map in a callout.",
         tags: new[] { "address", "geocode", "locator", "search" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
+    [ArcGIS.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class FindAddress
     {
         // Addresses for suggestion.

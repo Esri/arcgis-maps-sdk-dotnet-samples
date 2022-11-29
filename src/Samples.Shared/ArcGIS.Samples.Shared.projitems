@@ -6,7 +6,7 @@
     <SharedGUID>0ad85845-0ba1-4dc9-8c32-e6fd7632e32d</SharedGUID>
   </PropertyGroup>
   <PropertyGroup Label="Configuration">
-    <Import_RootNamespace>ArcGISRuntime.Samples.Shared</Import_RootNamespace>
+    <Import_RootNamespace>ArcGIS.Samples.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Attributes\AdditionalFilesAttribute.cs" />

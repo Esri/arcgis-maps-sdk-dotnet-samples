@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.WinUI.Viewer;
+using ArcGIS.WinUI.Viewer;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -23,9 +23,9 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.Storage.Pickers;
 
-namespace ArcGISMapsSDK.WinUI.Samples.EditFeatureAttachments
+namespace ArcGIS.WinUI.Samples.EditFeatureAttachments
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit feature attachments",
         category: "Data",
         description: "Add, delete, and download attachments for features from a service.",

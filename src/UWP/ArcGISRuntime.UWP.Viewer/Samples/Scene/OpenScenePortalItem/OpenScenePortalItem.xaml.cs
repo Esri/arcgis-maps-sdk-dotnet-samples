@@ -14,7 +14,7 @@ using Windows.UI.Popups;
 
 namespace ArcGISMapsSDK.UWP.Samples.OpenScenePortalItem
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Open scene (portal item)",
         category: "Scene",
         description: "Open a web scene from a portal item.",

@@ -16,7 +16,7 @@ using Windows.UI.Xaml;
 
 namespace ArcGISMapsSDK.UWP.Samples.DisplayDrawingStatus
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display draw status",
         category: "MapView",
         description: "Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.",

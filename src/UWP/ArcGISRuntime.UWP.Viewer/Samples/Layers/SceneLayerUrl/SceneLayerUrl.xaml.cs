@@ -14,7 +14,7 @@ using Windows.UI.Popups;
 
 namespace ArcGISMapsSDK.UWP.Samples.SceneLayerUrl
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Scene layer (URL)",
         category: "Layers",
         description: "Display an ArcGIS scene layer from a URL.",

@@ -13,9 +13,9 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.SceneLayerUrl
+namespace ArcGIS.WPF.Samples.SceneLayerUrl
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Scene layer (URL)",
         category: "Layers",
         description: "Display an ArcGIS scene layer from a URL.",

@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISMapsSDK.WPF.Samples.RenderSimpleMarkers
+namespace ArcGIS.WPF.Samples.RenderSimpleMarkers
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Simple marker symbol",
         category: "Symbology",
         description: "Show a simple marker symbol on a map.",

@@ -13,7 +13,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
 
-namespace ArcGISMapsSDK.WPF.Viewer.Converters
+namespace ArcGIS.WPF.Viewer.Converters
 {
     public class NullToVisibilityConverter : IValueConverter
     {

@@ -16,9 +16,9 @@ using System;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.FeatureLayerSelection
+namespace ArcGIS.WinUI.Samples.FeatureLayerSelection
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer selection",
         category: "Layers",
         description: "Select features in a feature layer.",

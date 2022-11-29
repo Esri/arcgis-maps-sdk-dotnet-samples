@@ -14,7 +14,7 @@ using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISMapsSDK.UWP.Samples.CreateGeometries
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create geometries",
         category: "Geometry",
         description: "Create simple geometry types.",

@@ -17,7 +17,7 @@ using Colors = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.FeatureLayerExtrusion
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer extrusion",
         category: "Symbology",
         description: "Extrude features based on their attributes.",

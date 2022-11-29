@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISMapsSDK.WPF.Samples.ArcGISMapImageLayerUrl
+namespace ArcGIS.WPF.Samples.ArcGISMapImageLayerUrl
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS map image layer",
         category: "Layers",
         description: "Add an ArcGIS Map Image Layer from a URL to a map.",

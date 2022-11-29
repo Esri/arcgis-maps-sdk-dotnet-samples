@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Helpers;
+using ArcGIS.Helpers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -19,15 +19,15 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISMapsSDK.WPF.Samples.AuthorMap
+namespace ArcGIS.WPF.Samples.AuthorMap
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create and save map",
         category: "Map",
         description: "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
         instructions: "1. Select the basemap and layers you'd like to add to your map.",
         tags: new[] { "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
     public partial class AuthorMap
     {
         // String array to store names of the available basemaps

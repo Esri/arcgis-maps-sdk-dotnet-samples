@@ -14,7 +14,7 @@ using System;
 
 namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerRenderingModeScene
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer rendering mode (scene)",
         category: "Layers",
         description: "Render features in a scene statically or dynamically by setting the feature layer rendering mode.",

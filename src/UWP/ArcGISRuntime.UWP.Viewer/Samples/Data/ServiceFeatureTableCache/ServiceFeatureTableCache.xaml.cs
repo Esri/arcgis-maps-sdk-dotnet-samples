@@ -14,7 +14,7 @@ using System;
 
 namespace ArcGISMapsSDK.UWP.Samples.ServiceFeatureTableCache
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Service feature table (on interaction cache)",
         category: "Data",
         description: "Display a feature layer from a service using the **on interaction cache** feature request mode.",

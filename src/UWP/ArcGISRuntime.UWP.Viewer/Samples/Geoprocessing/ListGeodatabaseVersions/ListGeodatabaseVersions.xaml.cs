@@ -19,7 +19,7 @@ using Windows.UI.Xaml;
 
 namespace ArcGISMapsSDK.UWP.Samples.ListGeodatabaseVersions
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List geodatabase versions",
         category: "Geoprocessing",
         description: "Connect to a service and list versions of the geodatabase.",

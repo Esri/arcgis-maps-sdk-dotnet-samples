@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WPF.Samples.ViewContentBeneathSurface
+namespace ArcGIS.WPF.Samples.ViewContentBeneathSurface
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "View content beneath terrain surface",
         category: "Scene",
         description: "See through terrain in a scene and move the camera underground.",

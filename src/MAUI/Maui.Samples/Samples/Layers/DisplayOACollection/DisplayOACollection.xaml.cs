@@ -16,7 +16,7 @@ using Color = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.DisplayOACollection
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display OGC API collection",
         category: "Layers",
         description: "Display an OGC API feature collection and query features while navigating the map view.",

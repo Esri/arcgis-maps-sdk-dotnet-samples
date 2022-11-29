@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
@@ -15,15 +15,15 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.ChangeStretchRenderer
+namespace ArcGIS.WPF.Samples.ChangeStretchRenderer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Stretch renderer",
         category: "Layers",
         description: "Use a stretch renderer to enhance the visual contrast of raster data for analysis.",
         instructions: "Choose one of the stretch parameter types:",
         tags: new[] { "analysis", "deviation", "histogram", "imagery", "interpretation", "min-max", "percent clip", "pixel", "raster", "stretch", "symbology", "visualization" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("95392f99970d4a71bd25951beb34a508")]
     public partial class ChangeStretchRenderer
     {
         public ChangeStretchRenderer()

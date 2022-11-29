@@ -14,9 +14,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.RasterLayerRasterFunction
+namespace ArcGIS.WinUI.Samples.RasterLayerRasterFunction
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Apply raster function to raster from service",
         category: "Layers",
         description: "Load a raster from a service, then apply a function to it.",

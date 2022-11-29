@@ -1,9 +1,9 @@
-﻿using ArcGISMapsSDK.Samples.Shared.Managers;
-using ArcGISMapsSDK.Samples.Shared.Models;
+﻿using ArcGIS.Samples.Shared.Managers;
+using ArcGIS.Samples.Shared.Models;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISMapsSDK
+namespace ArcGIS
 {
     public partial class ScreenshotTab : UserControl
     {

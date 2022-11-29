@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 
-namespace ArcGISMapsSDK.WPF.Samples.DisplayOverviewMap
+namespace ArcGIS.WPF.Samples.DisplayOverviewMap
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display overview map",
         category: "Map",
         description: "Include an overview or inset map as an additional map view to show the wider context of the primary view. ",

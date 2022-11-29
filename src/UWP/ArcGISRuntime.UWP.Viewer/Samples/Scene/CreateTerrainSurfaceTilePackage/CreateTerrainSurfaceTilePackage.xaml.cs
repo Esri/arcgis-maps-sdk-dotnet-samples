@@ -7,18 +7,18 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDK.UWP.Samples.CreateTerrainSurfaceTilePackage
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create terrain from local tile package",
         category: "Scene",
         description: "Set the terrain surface with elevation described by a local tile package.",
         instructions: "When loaded, the sample will show a scene with a terrain surface applied. Pan and zoom to explore the scene and observe how the terrain surface allows visualizing elevation differences.",
         tags: new[] { "3D", "LERC", "elevation", "surface", "terrain", "tile cache" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("cce37043eb0440c7a5c109cf8aad5500")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("cce37043eb0440c7a5c109cf8aad5500")]
     public partial class CreateTerrainSurfaceTilePackage
     {
         public CreateTerrainSurfaceTilePackage()

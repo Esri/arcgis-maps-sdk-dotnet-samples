@@ -15,7 +15,7 @@ using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
 namespace ArcGISMapsSDKMaui.Samples.CreateGeometries
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create geometries",
         category: "Geometry",
         description: "Create simple geometry types.",

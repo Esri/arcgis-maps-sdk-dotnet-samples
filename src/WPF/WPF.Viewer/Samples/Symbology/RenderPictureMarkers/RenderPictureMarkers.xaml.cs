@@ -17,15 +17,15 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.RenderPictureMarkers
+namespace ArcGIS.WPF.Samples.RenderPictureMarkers
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Picture marker symbol",
         category: "Symbology",
         description: "Use pictures for markers.",
         instructions: "When launched, this sample displays a map with picture marker symbols. Pan and zoom to explore the map.",
         tags: new[] { "graphics", "marker", "picture", "symbol", "visualization" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
+    [ArcGIS.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class RenderPictureMarkers
     {
         public RenderPictureMarkers()

@@ -7,22 +7,22 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.OpenMobileMap
+namespace ArcGIS.WPF.Samples.OpenMobileMap
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Open mobile map package",
         category: "Map",
         description: "Display a map from a mobile map package.",
         instructions: "When the sample opens, it will automatically display the map in the mobile map package. Pan and zoom to observe the data from the mobile map package.",
         tags: new[] { "mmpk", "mobile map package", "offline" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("e1f3a7254cb845b09450f54937c16061")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("e1f3a7254cb845b09450f54937c16061")]
     public partial class OpenMobileMap
     {
         public OpenMobileMap()

@@ -13,9 +13,9 @@ using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.BrowseBuildingFloors
+namespace ArcGIS.WinUI.Samples.BrowseBuildingFloors
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Browse building floors",
         category: "Map",
         description: "Display and browse through building floors from a floor-aware web map.",

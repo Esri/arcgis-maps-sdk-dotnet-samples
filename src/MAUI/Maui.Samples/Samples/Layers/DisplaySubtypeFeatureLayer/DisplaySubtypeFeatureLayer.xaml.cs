@@ -19,7 +19,7 @@ using Color = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.DisplaySubtypeFeatureLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display subtype feature layer",
         category: "Layers",
         description: "Displays a composite layer of all the subtype values in a feature class.",

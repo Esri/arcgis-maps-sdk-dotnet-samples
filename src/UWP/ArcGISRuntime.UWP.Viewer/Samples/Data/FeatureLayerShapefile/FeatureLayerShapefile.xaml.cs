@@ -10,18 +10,18 @@
 using System;
 using Windows.UI.Popups;
 using Esri.ArcGISRuntime.Mapping;
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 
 namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerShapefile
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer (shapefile)",
         category: "Data",
         description: "Open a shapefile stored on the device and display it as a feature layer with default symbology.",
         instructions: "Pan and zoom around the map to observe the data from the shapefile.",
         tags: new[] { "layers", "shapefile", "shp", "vector" })]
-	[ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
+	[ArcGIS.Samples.Shared.Attributes.OfflineData("d98b3e5293834c5f852f13c569930caa")]
     public partial class FeatureLayerShapefile
     {
         public FeatureLayerShapefile()

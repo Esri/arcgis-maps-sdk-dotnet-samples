@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISMapsSDK.WPF.Samples.BrowseBuildingFloors
+namespace ArcGIS.WPF.Samples.BrowseBuildingFloors
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Browse building floors",
         category: "Map",
         description: "Display and browse through building floors from a floor-aware web map.",

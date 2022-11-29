@@ -7,12 +7,12 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
-using ArcGISMapsSDK.Samples.Shared.Managers;
-using ArcGISMapsSDK.Samples.Shared.Models;
+using ArcGIS.Samples.Managers;
+using ArcGIS.Samples.Shared.Managers;
+using ArcGIS.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
 
-namespace ArcGISMapsSDK.Helpers
+namespace ArcGIS.Helpers
 {
     internal static class SampleLoader
     {

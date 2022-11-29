@@ -7,22 +7,22 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.RasterLayerFile
+namespace ArcGIS.WPF.Samples.RasterLayerFile
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster layer (file)",
         category: "Layers",
         description: "Create and use a raster layer made from a local raster file.",
         instructions: "When the sample starts, a raster will be loaded from a file and displayed in the map view.",
         tags: new[] { "data", "image", "import", "layer", "raster", "visualization" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("7c4c679ab06a4df19dc497f577f111bd")]
     public partial class RasterLayerFile
     {
         public RasterLayerFile()

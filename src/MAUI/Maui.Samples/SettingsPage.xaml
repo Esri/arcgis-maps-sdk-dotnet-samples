@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage x:Class="ArcGISMapsSDK.SettingsPage"
+<TabbedPage x:Class="ArcGIS.SettingsPage"
             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:arcgisruntime="clr-namespace:ArcGISMapsSDK"
-            xmlns:resources="clr-namespace:ArcGISMapsSDK.Resources"
+            xmlns:arcgisruntime="clr-namespace:ArcGIS"
+            xmlns:resources="clr-namespace:ArcGIS.Resources"
             Title="Settings">
     <TabbedPage.Children>
         <ContentPage Title="About" IconImageSource="{AppThemeBinding Light=description.png, Dark=descriptiondark.png}">

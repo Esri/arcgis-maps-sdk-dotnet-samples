@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -21,13 +21,13 @@ using Windows.UI.Popups;
 
 namespace ArcGISMapsSDK.UWP.Samples.DictionaryRendererGraphicsOverlay
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Graphics overlay (dictionary renderer)",
         category: "GraphicsOverlay",
         description: "This sample demonstrates applying a dictionary renderer to graphics, in order to display military symbology without the need for a feature table.",
         instructions: "Pan and zoom to explore military symbols on the map.",
         tags: new[] { "defense", "military", "situational awareness", "tactical", "visualization" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "1e4ea99af4b440c092e7959cf3957bfa")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "1e4ea99af4b440c092e7959cf3957bfa")]
     public partial class DictionaryRendererGraphicsOverlay
     {
         // Hold a reference to the graphics overlay for easy access.

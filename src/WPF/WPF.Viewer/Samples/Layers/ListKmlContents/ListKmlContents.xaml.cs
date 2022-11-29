@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
@@ -17,15 +17,15 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.ListKmlContents
+namespace ArcGIS.WPF.Samples.ListKmlContents
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List KML contents",
         category: "Layers",
         description: "List the contents of a KML file.",
         instructions: "The contents of the KML file are shown in a tree. Select a node to zoom to that node. Not all nodes can be zoomed to (e.g. screen overlays).",
         tags: new[] { "KML", "KMZ", "Keyhole", "OGC", "layers" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("da301cb122874d5497f8a8f6c81eb36e")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("da301cb122874d5497f8a8f6c81eb36e")]
     public partial class ListKmlContents
     {
         // Hold a list of LayerDisplayVM; this is the ViewModel.

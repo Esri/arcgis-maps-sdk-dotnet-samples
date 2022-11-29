@@ -16,7 +16,7 @@ using Esri.ArcGISRuntime.UI;
 
 namespace ArcGISMapsSDKMaui.Samples.FindServiceAreasForMultipleFacilities
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find service areas for multiple facilities",
         category: "Network analysis",
         description: "Find the service areas of several facilities from a feature service.",

@@ -1,8 +1,8 @@
-﻿<UserControl x:Class="ArcGISMapsSDK.WPF.Samples.CreateAndSaveKmlFile.CreateAndSaveKmlFile"
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.CreateAndSaveKmlFile.CreateAndSaveKmlFile"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:local="clr-namespace:ArcGISMapsSDK.WPF.Samples.CreateAndSaveKmlFile">
+             xmlns:local="clr-namespace:ArcGIS.WPF.Samples.CreateAndSaveKmlFile">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Name="MainUI" Style="{StaticResource BorderStyle}">

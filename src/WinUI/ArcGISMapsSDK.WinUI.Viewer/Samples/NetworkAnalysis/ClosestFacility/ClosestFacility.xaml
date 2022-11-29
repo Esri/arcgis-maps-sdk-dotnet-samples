@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ArcGISMapsSDK.WinUI.Samples.ClosestFacility.ClosestFacility"
+﻿<UserControl x:Class="ArcGIS.WinUI.Samples.ClosestFacility.ClosestFacility"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="using:Esri.ArcGISRuntime.UI.Controls">

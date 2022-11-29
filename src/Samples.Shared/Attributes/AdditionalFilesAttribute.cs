@@ -10,7 +10,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace ArcGISMapsSDK.Samples.Shared.Attributes
+namespace ArcGIS.Samples.Shared.Attributes
 {
     public abstract class AdditionalFilesAttribute : Attribute
     {

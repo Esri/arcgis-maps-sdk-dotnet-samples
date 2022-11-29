@@ -14,7 +14,7 @@ using System;
 
 namespace ArcGISMapsSDK.UWP.Samples.GeoViewSync
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "GeoView viewpoint synchronization",
         category: "SceneView",
         description: "Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.",

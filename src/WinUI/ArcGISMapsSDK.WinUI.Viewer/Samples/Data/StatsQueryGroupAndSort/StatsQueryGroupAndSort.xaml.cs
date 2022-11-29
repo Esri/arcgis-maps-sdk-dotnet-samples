@@ -17,9 +17,9 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.StatsQueryGroupAndSort
+namespace ArcGIS.WinUI.Samples.StatsQueryGroupAndSort
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Statistical query group and sort",
         category: "Data",
         description: "Query a feature table for statistics, grouping and sorting by different fields.",

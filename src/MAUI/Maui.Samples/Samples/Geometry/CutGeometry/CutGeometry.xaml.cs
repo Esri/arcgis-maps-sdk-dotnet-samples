@@ -16,7 +16,7 @@ using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
 namespace ArcGISMapsSDKMaui.Samples.CutGeometry
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Cut geometry",
         category: "Geometry",
         description: "Cut a geometry along a polyline.",

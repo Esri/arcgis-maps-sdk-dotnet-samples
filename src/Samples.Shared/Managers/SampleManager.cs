@@ -7,8 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Shared.Attributes;
-using ArcGISMapsSDK.Samples.Shared.Models;
+using ArcGIS.Samples.Shared.Attributes;
+using ArcGIS.Samples.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,7 +17,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 
-namespace ArcGISMapsSDK.Samples.Managers
+namespace ArcGIS.Samples.Managers
 {
     /// <summary>
     /// Single instance class to manage samples.

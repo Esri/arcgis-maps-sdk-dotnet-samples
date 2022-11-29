@@ -16,9 +16,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.CreateFeatureCollectionLayer
+namespace ArcGIS.WinUI.Samples.CreateFeatureCollectionLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature collection layer",
         category: "Layers",
         description: "Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.",

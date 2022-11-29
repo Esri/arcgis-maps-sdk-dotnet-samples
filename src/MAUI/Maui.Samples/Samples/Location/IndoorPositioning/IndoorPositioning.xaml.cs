@@ -16,9 +16,9 @@ using Microsoft.Maui.ApplicationModel;
 using Location = Esri.ArcGISRuntime.Location.Location;
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
-namespace ArcGISMapsSDK.Samples.IndoorPositioning
+namespace ArcGIS.Samples.IndoorPositioning
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show device location using indoor positioning",
         category: "Location",
         description: "Show your device's real-time location while inside a building by using signals from indoor positioning beacons.",

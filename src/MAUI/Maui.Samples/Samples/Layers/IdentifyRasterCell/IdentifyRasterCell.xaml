@@ -1,8 +1,8 @@
-﻿<ContentPage x:Class="ArcGISMapsSDKMaui.Samples.IdentifyRasterCell.IdentifyRasterCell"
+﻿<ContentPage x:Class="ArcGISMaui.Samples.IdentifyRasterCell.IdentifyRasterCell"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:resources="clr-namespace:ArcGISMapsSDK.Resources">
+             xmlns:resources="clr-namespace:ArcGIS.Resources">
     <Grid RowDefinitions="auto,*">
         <Label HorizontalTextAlignment="Center" Text="Tap to identify raster cell." />
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />

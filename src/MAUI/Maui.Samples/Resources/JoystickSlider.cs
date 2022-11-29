@@ -1,6 +1,6 @@
 ﻿using Timer = System.Timers.Timer;
 
-namespace ArcGISMapsSDK.Resources
+namespace ArcGIS.Resources
 {
     internal class JoystickSlider : Slider
     {

@@ -9,7 +9,7 @@
 
 using System;
 
-namespace ArcGISMapsSDK.WPF.Viewer
+namespace ArcGIS.WPF.Viewer
 {
     /// <summary>
     /// Interaction logic for ErrorPage.xaml

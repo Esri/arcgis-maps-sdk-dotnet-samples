@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.WinUI.Samples.RenderSimpleMarkers
+namespace ArcGIS.WinUI.Samples.RenderSimpleMarkers
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Simple marker symbol",
         category: "Symbology",
         description: "Show a simple marker symbol on a map.",

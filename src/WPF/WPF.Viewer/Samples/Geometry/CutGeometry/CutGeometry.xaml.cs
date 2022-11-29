@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.CutGeometry
+namespace ArcGIS.WPF.Samples.CutGeometry
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Cut geometry",
         category: "Geometry",
         description: "Cut a geometry along a polyline.",

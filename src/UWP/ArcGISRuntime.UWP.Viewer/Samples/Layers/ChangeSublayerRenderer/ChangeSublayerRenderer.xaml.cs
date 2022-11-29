@@ -16,7 +16,7 @@ using System.Drawing;
 
 namespace ArcGISMapsSDK.UWP.Samples.ChangeSublayerRenderer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change sublayer renderer",
         category: "Layers",
         description: "Apply a renderer to a sublayer.",

@@ -21,7 +21,7 @@ using Windows.UI.Popups;
 
 namespace ArcGISMapsSDK.UWP.Samples.MapImageLayerTables
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map image layer tables",
         category: "Layers",
         description: "Find features in a spatial table related to features in a non-spatial table.",

@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Portal;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.OpenScenePortalItem
+namespace ArcGIS.WinUI.Samples.OpenScenePortalItem
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Open scene (portal item)",
         category: "Scene",
         description: "Open a web scene from a portal item.",

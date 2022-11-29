@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
@@ -17,15 +17,15 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.ApplyScheduledUpdates
+namespace ArcGIS.WinUI.Samples.ApplyScheduledUpdates
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Apply scheduled updates to preplanned map area",
         category: "Map",
         description: "Apply scheduled updates to a downloaded preplanned map area.",
         instructions: "Start the app. It will display an offline map, check for available updates, and show update availability and size. Select 'Apply Updates' to apply the updates to the local offline map and show the results.",
         tags: new[] { "offline", "pre-planned", "preplanned", "synchronize", "update" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData()]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class ApplyScheduledUpdates
     {
         // Mobile map package.

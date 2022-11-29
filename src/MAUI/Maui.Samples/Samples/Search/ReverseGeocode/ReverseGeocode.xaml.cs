@@ -17,7 +17,7 @@ using System.Reflection;
 
 namespace ArcGISMapsSDKMaui.Samples.ReverseGeocode
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Reverse geocode",
         category: "Search",
         description: "Use an online service to find the address for a tapped point.",

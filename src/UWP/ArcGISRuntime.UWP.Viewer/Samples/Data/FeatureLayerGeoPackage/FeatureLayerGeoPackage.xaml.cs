@@ -8,7 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using System;
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System.Linq;
@@ -16,13 +16,13 @@ using Windows.UI.Popups;
 
 namespace ArcGISMapsSDK.UWP.Samples.FeatureLayerGeoPackage
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer (GeoPackage)",
         category: "Data",
         description: "Display features from a local GeoPackage.",
         instructions: "Pan and zoom around the map. View the data loaded from the geopackage.",
         tags: new[] { "OGC", "feature table", "geopackage", "gpkg", "package", "standards" })]
-	[ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
+	[ArcGIS.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
     public partial class FeatureLayerGeoPackage
     {
         public FeatureLayerGeoPackage()

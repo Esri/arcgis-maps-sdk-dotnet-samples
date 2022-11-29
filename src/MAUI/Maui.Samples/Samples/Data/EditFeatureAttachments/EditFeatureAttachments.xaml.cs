@@ -19,7 +19,7 @@ using UIKit;
 
 namespace ArcGISMapsSDKMaui.Samples.EditFeatureAttachments
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit feature attachments",
         category: "Data",
         description: "Add, delete, and download attachments for features from a service.",

@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -25,16 +25,16 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISMapsSDK.WPF.Samples.MobileMapSearchAndRoute
+namespace ArcGIS.WPF.Samples.MobileMapSearchAndRoute
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Mobile map (search and route)",
         category: "Map",
         description: "Display maps and use locators to enable search and routing offline using a Mobile Map Package.",
         instructions: "A list of maps from a mobile map package will be displayed. If the map contains transportation networks, the list item will have a navigation icon. Click on a map in the list to open it. If a locator task is available, click on the map to reverse geocode the location's address. If transportation networks are available, a route will be calculated between geocode locations.",
         tags: new[] { "disconnected", "field mobility", "geocode", "network", "network analysis", "offline", "routing", "search", "transportation" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("260eb6535c824209964cf281766ebe43")]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.ClassFile("Converters\\ItemToImageSourceConverter.cs", "Converters\\NullToVisibilityConverter.cs")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("260eb6535c824209964cf281766ebe43")]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("Converters\\ItemToImageSourceConverter.cs", "Converters\\NullToVisibilityConverter.cs")]
     public partial class MobileMapSearchAndRoute
     {
         // Hold references to map resources for easy access.

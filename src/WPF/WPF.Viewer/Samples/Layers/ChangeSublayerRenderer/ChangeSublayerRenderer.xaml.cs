@@ -14,9 +14,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.ChangeSublayerRenderer
+namespace ArcGIS.WPF.Samples.ChangeSublayerRenderer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change sublayer renderer",
         category: "Layers",
         description: "Apply a renderer to a sublayer.",

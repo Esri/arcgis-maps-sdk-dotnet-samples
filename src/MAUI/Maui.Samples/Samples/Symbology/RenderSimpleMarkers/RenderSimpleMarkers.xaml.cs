@@ -16,7 +16,7 @@ using Colors = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.RenderSimpleMarkers
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Simple marker symbol",
         category: "Symbology",
         description: "Show a simple marker symbol on a map.",

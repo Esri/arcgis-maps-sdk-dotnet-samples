@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDKMaui.Samples.ArcGISVectorTiledLayerUrl
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS vector tiled layer URL",
         category: "Layers",
         description: "Load an ArcGIS Vector Tiled Layer from a URL.",

@@ -18,7 +18,7 @@ using Windows.UI.Popups;
 
 namespace ArcGISMapsSDK.UWP.Samples.ShowLabelsOnLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show labels on layers",
         category: "Layers",
         description: "Display custom labels on a feature layer.",

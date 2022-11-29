@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace ArcGISMapsSDK.Helpers
+namespace ArcGIS.Helpers
 {
     // Code taken from Stack Overflow answer: https://stackoverflow.com/a/672123/4630559.
     public static class TreeViewItemExtensions

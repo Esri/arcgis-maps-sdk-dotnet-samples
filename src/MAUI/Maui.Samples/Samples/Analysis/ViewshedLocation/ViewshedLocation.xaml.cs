@@ -18,7 +18,7 @@ using GeoViewInputEventArgs = Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs;
 
 namespace ArcGISMapsSDKMaui.Samples.ViewshedLocation
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Viewshed (location)",
         category: "Analysis",
         description: "Perform a viewshed analysis from a defined vantage point.",

@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.FeatureLayerTimeOffset
+namespace ArcGIS.WinUI.Samples.FeatureLayerTimeOffset
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer time offset",
         category: "MapView",
         description: "Display a time-enabled feature layer with a time offset.",

@@ -20,15 +20,15 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.FindServiceAreasForMultipleFacilities
+namespace ArcGIS.WinUI.Samples.FindServiceAreasForMultipleFacilities
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find service areas for multiple facilities",
         category: "Network analysis",
         description: "Find the service areas of several facilities from a feature service.",
         instructions: "Click 'find service area' to calculate and display the service area of each facility on the map. The polygons displayed around each facility represents the service area; in red is the area that is within 3 minutes away from the hospital by car. Light orange is the area that is within 5 minutes away from the hospital by car.",
         tags: new[] { "facilities", "feature service", "impedance", "network analysis", "service area", "travel time" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData()]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class FindServiceAreasForMultipleFacilities
     {
         // URLs to resources used by the sample.

@@ -19,9 +19,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using Color = System.Drawing.Color;
 
-namespace ArcGISMapsSDK.WPF.Samples.BrowseOAFeatureService
+namespace ArcGIS.WPF.Samples.BrowseOAFeatureService
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Browse OGC API feature service",
         category: "Layers",
         description: "Browse an OGC API feature service for layers and add them to the map.",

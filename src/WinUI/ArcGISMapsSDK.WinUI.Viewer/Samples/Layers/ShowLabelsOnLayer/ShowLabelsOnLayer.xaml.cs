@@ -16,9 +16,9 @@ using System;
 using System.Drawing;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.ShowLabelsOnLayer
+namespace ArcGIS.WinUI.Samples.ShowLabelsOnLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show labels on layers",
         category: "Layers",
         description: "Display custom labels on a feature layer.",

@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISMapsSDK.WPF.Samples.OpenStreetMapLayer
+namespace ArcGIS.WPF.Samples.OpenStreetMapLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "OpenStreetMap layer",
         category: "Layers",
         description: "Add OpenStreetMap as a basemap layer.",

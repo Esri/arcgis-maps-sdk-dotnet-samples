@@ -15,7 +15,7 @@ using System.Diagnostics;
 
 namespace ArcGISMapsSDKMaui.Samples.EditBranchVersioning
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit with branch versioning",
         category: "Data",
         description: "Create, query and edit a specific server version using service geodatabase.",

@@ -20,7 +20,7 @@ using Location = Esri.ArcGISRuntime.Location.Location;
 
 namespace ArcGISMapsSDKMaui.Samples.NavigateRoute
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Navigate route",
         category: "Network analysis",
         description: "Use a routing service to navigate between points.",

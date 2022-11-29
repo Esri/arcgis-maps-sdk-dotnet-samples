@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -20,15 +20,15 @@ using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.ViewshedGeoElement
+namespace ArcGIS.WPF.Samples.ViewshedGeoElement
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Viewshed for GeoElement",
         category: "Analysis",
         description: "Analyze the viewshed for an object (GeoElement) in a scene.",
         instructions: "Tap to set a destination for the vehicle (a GeoElement). The vehicle will 'drive' towards the tapped location. The viewshed analysis will update as the vehicle moves.",
         tags: new[] { "3D", "analysis", "buildings", "model", "scene", "viewshed", "visibility analysis" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
     public partial class ViewshedGeoElement
     {
         // URLs to the scene layer with buildings and the elevation source

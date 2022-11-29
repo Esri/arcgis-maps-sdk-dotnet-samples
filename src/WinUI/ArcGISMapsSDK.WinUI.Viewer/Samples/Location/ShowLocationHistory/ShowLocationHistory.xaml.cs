@@ -16,9 +16,9 @@ using Microsoft.UI.Xaml;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.ShowLocationHistory
+namespace ArcGIS.WinUI.Samples.ShowLocationHistory
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show location history",
         category: "Location",
         description: "Display your location history on the map.",

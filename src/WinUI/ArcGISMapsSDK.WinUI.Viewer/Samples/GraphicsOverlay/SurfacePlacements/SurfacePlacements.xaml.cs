@@ -15,9 +15,9 @@ using Microsoft.UI.Xaml;
 using System;
 using System.Drawing;
 
-namespace ArcGISMapsSDK.WinUI.Samples.SurfacePlacements
+namespace ArcGIS.WinUI.Samples.SurfacePlacements
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Surface placement",
         category: "GraphicsOverlay",
         description: "Position graphics relative to a surface using different surface placement modes.",

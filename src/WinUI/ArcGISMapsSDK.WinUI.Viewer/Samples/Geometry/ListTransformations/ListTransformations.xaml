@@ -1,9 +1,9 @@
 ﻿<UserControl x:Name="_this"
-             x:Class="ArcGISMapsSDK.WinUI.Samples.ListTransformations.ListTransformations"
+             x:Class="ArcGIS.WinUI.Samples.ListTransformations.ListTransformations"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
-             xmlns:local="using:ArcGISMapsSDK.WinUI.Samples.ListTransformations">
+             xmlns:local="using:ArcGIS.WinUI.Samples.ListTransformations">
     <Grid DataContext="{Binding ElementName=_this}">
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">

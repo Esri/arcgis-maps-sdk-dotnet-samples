@@ -13,7 +13,7 @@ using System.IO;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace ArcGISMapsSDK.WPF.Viewer.Converters
+namespace ArcGIS.WPF.Viewer.Converters
 {
     public class SampleToBitmapConverter : IValueConverter
     {

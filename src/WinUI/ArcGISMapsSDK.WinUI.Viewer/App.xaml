@@ -1,4 +1,4 @@
-﻿<Application x:Class="ArcGISMapsSDK.WinUI.Viewer.App"
+﻿<Application x:Class="ArcGIS.WinUI.Viewer.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              RequestedTheme="Light">

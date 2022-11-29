@@ -21,13 +21,13 @@ using Windows.UI.Xaml;
 
 namespace ArcGISMapsSDK.UWP.Samples.ListTransformations
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List transformations by suitability",
         category: "Geometry",
         description: "Get a list of suitable transformations for projecting a geometry between two spatial references with different horizontal datums.",
         instructions: "Select a transformation from the list to see the result of projecting the point from EPSG:27700 to EPSG:3857 using that transformation. The result is shown as a red cross; you can visually compare the original blue point with the projected red cross.",
         tags: new[] { "datum", "geodesy", "projection", "spatial reference", "transformation" })]
-	[ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData()]
+	[ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class ListTransformations : INotifyPropertyChanged
     {
         // Point whose coordinates will be projected using a selected transform.

@@ -14,9 +14,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.WMTSLayer
+namespace ArcGIS.WPF.Samples.WMTSLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "WMTS layer",
         category: "Layers",
         description: "Display a layer from a Web Map Tile Service.",

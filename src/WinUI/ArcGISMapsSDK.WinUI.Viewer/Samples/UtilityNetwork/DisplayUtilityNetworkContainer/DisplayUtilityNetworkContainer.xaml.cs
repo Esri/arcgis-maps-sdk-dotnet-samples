@@ -23,9 +23,9 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.DisplayUtilityNetworkContainer
+namespace ArcGIS.WinUI.Samples.DisplayUtilityNetworkContainer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display content of utility network container",
         category: "Utility network",
         description: "A utility network container allows a dense collection of features to be represented by a single feature, which can be used to reduce map clutter.",

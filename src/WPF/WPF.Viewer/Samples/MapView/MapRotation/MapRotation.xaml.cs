@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Mapping;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.MapRotation
+namespace ArcGIS.WPF.Samples.MapRotation
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map rotation",
         category: "MapView",
         description: "Rotate a map.",

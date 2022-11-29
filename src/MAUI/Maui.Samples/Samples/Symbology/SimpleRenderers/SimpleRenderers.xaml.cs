@@ -16,7 +16,7 @@ using Colors = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.SimpleRenderers
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Simple renderer",
         category: "Symbology",
         description: "Display common symbols for all graphics in a graphics overlay with a renderer.",

@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ArcGISMapsSDK.WinUI.Samples.AddGraphicsRenderer.AddGraphicsRenderer"
+﻿<UserControl x:Class="ArcGIS.WinUI.Samples.AddGraphicsRenderer.AddGraphicsRenderer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">

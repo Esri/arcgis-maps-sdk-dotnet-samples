@@ -26,7 +26,7 @@ using Symbology = Esri.ArcGISRuntime.Symbology;
 
 namespace ArcGISMapsSDK.UWP.Samples.RouteAroundBarriers
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Route around barriers",
         category: "Network analysis",
         description: "Find a route that reaches all stops without crossing any barriers.",

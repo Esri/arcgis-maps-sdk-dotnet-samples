@@ -12,9 +12,9 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.ChangeSublayerVisibility
+namespace ArcGIS.WPF.Samples.ChangeSublayerVisibility
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map image layer sublayer visibility",
         category: "Layers",
         description: "Change the visibility of sublayers.",

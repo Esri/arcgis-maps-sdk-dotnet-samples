@@ -25,7 +25,7 @@ namespace ArcGISMapsSDK.UWP.Samples.IntegratedWindowsAuth
     //    You must add the "Private Networks" capability to use Integrated Windows Authentication (IWA)
     //    in your UWP project. Add this capability by checking "Private Networks (Client and Server)"
     //    in your project's Package.appxmanifest file.
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Integrated Windows Authentication",
         category: "Security",
         description: "Connect to an IWA secured Portal and search for maps.",

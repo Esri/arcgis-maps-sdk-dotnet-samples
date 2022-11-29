@@ -22,9 +22,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.GenerateOfflineMapWithOverrides
+namespace ArcGIS.WinUI.Samples.GenerateOfflineMapWithOverrides
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Generate offline map (overrides)",
         category: "Map",
         description: "Take a web map offline with additional options for each layer.",

@@ -14,7 +14,7 @@ using System.Collections.Generic;
 
 namespace ArcGISMapsSDK.UWP.Samples.WMSLayerUrl
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "WMS layer (URL)",
         category: "Layers",
         description: "Display a WMS layer using a WMS service URL.",

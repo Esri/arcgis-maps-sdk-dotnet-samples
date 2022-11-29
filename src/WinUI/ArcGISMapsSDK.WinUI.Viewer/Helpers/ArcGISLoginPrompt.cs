@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.WinUI;
+using ArcGIS.WinUI;
 using Esri.ArcGISRuntime.Security;
 using Microsoft.UI.Dispatching;
 using Microsoft.UI.Xaml.Controls;
@@ -17,7 +17,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.Helpers
+namespace ArcGIS.Helpers
 {
     internal static class ArcGISLoginPrompt
     {

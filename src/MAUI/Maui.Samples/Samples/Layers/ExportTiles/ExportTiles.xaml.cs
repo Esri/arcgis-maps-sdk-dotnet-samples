@@ -17,7 +17,7 @@ using Colors = System.Drawing.Color;
 
 namespace ArcGISMapsSDKMaui.Samples.ExportTiles
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Export tiles",
         category: "Layers",
         description: "Download tiles to a local tile cache file stored on the device.",

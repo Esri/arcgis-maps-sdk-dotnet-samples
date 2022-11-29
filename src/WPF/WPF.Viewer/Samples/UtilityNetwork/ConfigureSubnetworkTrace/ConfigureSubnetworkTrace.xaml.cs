@@ -18,9 +18,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGISMapsSDK.WPF.Samples.ConfigureSubnetworkTrace
+namespace ArcGIS.WPF.Samples.ConfigureSubnetworkTrace
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Configure subnetwork trace",
         category: "Utility network",
         description: "Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.",

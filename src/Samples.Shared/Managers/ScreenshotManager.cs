@@ -1,10 +1,10 @@
-﻿using ArcGISMapsSDK.Samples.Shared.Models;
+﻿using ArcGIS.Samples.Shared.Models;
 using System;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
 
-namespace ArcGISMapsSDK.Samples.Shared.Managers
+namespace ArcGIS.Samples.Shared.Managers
 {
     public static class ScreenshotManager
     {

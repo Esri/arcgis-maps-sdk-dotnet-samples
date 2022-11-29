@@ -25,7 +25,7 @@ using Android.Content.PM;
 
 #endif
 
-namespace ArcGISMapsSDK.Helpers
+namespace ArcGIS.Helpers
 {
     internal static class ArcGISLoginPrompt
     {

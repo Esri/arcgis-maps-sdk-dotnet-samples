@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -17,15 +17,15 @@ using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.ChooseCameraController
+namespace ArcGIS.WinUI.Samples.ChooseCameraController
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Choose camera controller",
         category: "SceneView",
         description: "Control the behavior of the camera in a scene.",
         instructions: "The application loads with the \"Orbit camera around plane\" option (i.e. camera will now be fixed to the plane). Choose the \"Orbit camera around location\" option to rotate and center the scene around the location of the Upheaval Dome crater structure, or choose the \"Free pan round the globe\" option to go to default free navigation.",
         tags: new[] { "3D", "camera", "camera controller" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("681d6f7694644709a7c830ec57a2d72b")]
     public partial class ChooseCameraController
     {
         // Path for elevation data.

@@ -14,7 +14,7 @@ using System;
 
 namespace ArcGISMapsSDK.UWP.Samples.ViewshedCamera
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Viewshed for camera",
         category: "Analysis",
         description: "Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point. ",

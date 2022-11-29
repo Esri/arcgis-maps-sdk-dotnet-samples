@@ -18,9 +18,9 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.ClosestFacility
+namespace ArcGIS.WinUI.Samples.ClosestFacility
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find closest facility to an incident (interactive)",
         category: "Network analysis",
         description: "Find a route to the closest facility from a location.",

@@ -15,7 +15,7 @@ using System.Drawing;
 
 namespace ArcGISMapsSDK.UWP.Samples.LineOfSightLocation
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Line of sight (location)",
         category: "Analysis",
         description: "Perform a line of sight analysis between two points in real time.",

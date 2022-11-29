@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 
 namespace ArcGISMapsSDKMaui.Samples.ToggleBetweenFeatureRequestModes
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Toggle between feature request modes",
         category: "Data",
         description: "Use different feature request modes to populate the map from a service feature table.",

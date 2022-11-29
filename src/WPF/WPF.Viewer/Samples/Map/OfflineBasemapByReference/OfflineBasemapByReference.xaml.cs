@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -24,15 +24,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 
-namespace ArcGISMapsSDK.WPF.Samples.OfflineBasemapByReference
+namespace ArcGIS.WPF.Samples.OfflineBasemapByReference
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Generate offline map with local basemap",
         category: "Map",
         description: "Use the `OfflineMapTask` to take a web map offline, but instead of downloading an online basemap, use one which is already on the device.",
         instructions: "1. Use the button to start taking the map offline.",
         tags: new[] { "basemap", "download", "local", "offline", "save", "web map" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("85282f2aaa2844d8935cdb8722e22a93")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("85282f2aaa2844d8935cdb8722e22a93")]
     public partial class OfflineBasemapByReference
     {
         // The job to generate an offline map.

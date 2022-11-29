@@ -19,7 +19,7 @@ using Windows.UI.Popups;
 
 namespace ArcGISMapsSDK.UWP.Samples.IdentifyGraphics
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify graphics",
         category: "GraphicsOverlay",
         description: "Display an alert message when a graphic is clicked.",

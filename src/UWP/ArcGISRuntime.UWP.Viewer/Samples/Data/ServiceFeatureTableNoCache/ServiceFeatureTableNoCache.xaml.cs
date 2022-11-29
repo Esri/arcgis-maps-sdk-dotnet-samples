@@ -14,7 +14,7 @@ using System;
 
 namespace ArcGISMapsSDK.UWP.Samples.ServiceFeatureTableNoCache
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Service feature table (no cache)",
         category: "Data",
         description: "Display a feature layer from a service using the **no cache** feature request mode.",

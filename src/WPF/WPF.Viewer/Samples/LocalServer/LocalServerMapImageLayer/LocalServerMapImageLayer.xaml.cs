@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.LocalServices;
 using Esri.ArcGISRuntime.Mapping;
 using System;
@@ -17,15 +17,15 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGISMapsSDK.WPF.Samples.LocalServerMapImageLayer
+namespace ArcGIS.WPF.Samples.LocalServerMapImageLayer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Local Server map image layer",
         category: "Local Server",
         description: "Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.",
         instructions: "The Local Server and local map service will automatically be started and, once running, a map image layer will be created and added to the map.",
         tags: new[] { "image", "layer", "local", "offline", "server" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("85c34847bbe1402fa115a1b9b87561ce")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("85c34847bbe1402fa115a1b9b87561ce")]
     public partial class LocalServerMapImageLayer
     {
         // Hold a reference to the local map service

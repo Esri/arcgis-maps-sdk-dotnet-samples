@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISMapsSDK.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -15,15 +15,15 @@ using Esri.ArcGISRuntime.Symbology;
 using System;
 using System.Threading.Tasks;
 
-namespace ArcGISMapsSDK.WinUI.Samples.FeatureLayerDictionaryRenderer
+namespace ArcGIS.WinUI.Samples.FeatureLayerDictionaryRenderer
 {
-    [ArcGISMapsSDK.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Dictionary renderer with feature layer",
         category: "Layers",
         description: "Convert features into graphics to show them with mil2525d symbols.",
         instructions: "Pan and zoom around the map. Observe the displayed military symbology on the map.",
         tags: new[] { "military", "symbol" })]
-    [ArcGISMapsSDK.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "e0d41b4b409a49a5a7ba11939d8535dc")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("c78b149a1d52414682c86a5feeb13d30", "e0d41b4b409a49a5a7ba11939d8535dc")]
     public partial class FeatureLayerDictionaryRenderer
     {
         public FeatureLayerDictionaryRenderer()

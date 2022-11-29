@@ -128,7 +128,7 @@ namespace ArcGIS.WinUI.Viewer
             // If scaling has occurred due to screen scaling we need to resize the image.
             Bitmap resizedScreenshot = new Bitmap(screenshot, new Size((int)(screenshot.Width / scale), (int)(screenshot.Height / scale)));
 
-            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\WinUI\\ArcGISMapsSDK.WinUI.Viewer\\Samples\\" +
+            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\WinUI\\ArcGIS.WinUI.Viewer\\Samples\\" +
                 $"{SampleManager.Current.SelectedSample.Category}\\" +
                 $"{SampleManager.Current.SelectedSample.FormalName}\\" +
                 $"{SampleManager.Current.SelectedSample.FormalName}.jpg";

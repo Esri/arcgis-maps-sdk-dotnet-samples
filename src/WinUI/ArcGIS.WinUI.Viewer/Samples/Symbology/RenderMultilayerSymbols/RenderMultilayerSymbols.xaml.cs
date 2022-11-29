@@ -199,7 +199,7 @@ namespace ArcGIS.WinUI.Samples.RenderMultilayerSymbols
 
             // Get image as a stream from the resources.
             // Picture is defined as EmbeddedResource.
-            using (var stream = currentAssembly.GetManifestResourceStream("ArcGISMapsSDK.WinUI.Viewer.Resources.PictureMarkerSymbols.pin_star_blue.png"))
+            using (var stream = currentAssembly.GetManifestResourceStream("ArcGIS.WinUI.Viewer.Resources.PictureMarkerSymbols.pin_star_blue.png"))
             {
                 using (var mem = new MemoryStream())
                 {

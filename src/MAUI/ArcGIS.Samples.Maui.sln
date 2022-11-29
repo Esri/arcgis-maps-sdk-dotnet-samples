@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32505.426
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGISMapsSDK.Samples.Maui", "Maui.Samples\ArcGISMapsSDK.Samples.Maui.csproj", "{E299EF97-AB8E-46D7-B402-7A386DAFC30F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGIS.Samples.Maui", "Maui.Samples\ArcGIS.Samples.Maui.csproj", "{E299EF97-AB8E-46D7-B402-7A386DAFC30F}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGISMapsSDK.Samples.Shared", "..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGIS.Samples.Shared", "..\Samples.Shared\ArcGIS.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,7 +26,7 @@ Global
 		SolutionGuid = {2EDBEB70-51D6-4642-9194-5D5793BF817D}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
-		..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems*{e299ef97-ab8e-46d7-b402-7a386dafc30f}*SharedItemsImports = 5
+		..\Samples.Shared\ArcGIS.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
+		..\Samples.Shared\ArcGIS.Samples.Shared.projitems*{e299ef97-ab8e-46d7-b402-7a386dafc30f}*SharedItemsImports = 5
 	EndGlobalSection
 EndGlobal

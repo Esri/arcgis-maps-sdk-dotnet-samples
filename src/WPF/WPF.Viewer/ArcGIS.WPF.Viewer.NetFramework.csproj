@@ -269,7 +269,7 @@
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.5.3" />
   </ItemGroup>
   <!-- Imports -->
-  <Import Project="..\..\Samples.Shared\ArcGISMapsSDK.Samples.Shared.projitems" Label="Shared" />
+  <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="SourceViewer.targets" />
   <Import Project="readme.targets" />

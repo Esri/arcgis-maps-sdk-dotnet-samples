@@ -111,13 +111,14 @@ namespace ArcGIS
 
         private string GetDescriptionHtml(SampleInfo sampleInfo)
         {
-            string readmeContent = new StreamReader(_assembly.GetManifestResourceStream($"ArcGIS.Samples.{sampleInfo.Category}.{sampleInfo.FormalName}.readme.md")).ReadToEnd();
-
+            string readmeResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.Category}.{sampleInfo.FormalName}.readme.md"));
+            string readmeContent = new StreamReader(_assembly.GetManifestResourceStream(readmeResource)).ReadToEnd();
             readmeContent = Markdig.Markdown.ToHtml(readmeContent);
 
             // Set CSS for dark mode or light mode.
             string markdownCssType = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "github-markdown-dark.css" : "github-markdown.css";
-            string cssContent = new StreamReader(_assembly.GetManifestResourceStream($"ArcGISMapsSDKMaui.SyntaxHighlighting.{markdownCssType}")).ReadToEnd();
+            string cssResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"SyntaxHighlighting.{markdownCssType}"));
+            string cssContent = new StreamReader(_assembly.GetManifestResourceStream(cssResource)).ReadToEnd();
 
 #if WINDOWS
             // Remove the readme header on Windows so it doesn't repeat the title.
@@ -125,7 +126,8 @@ namespace ArcGIS
 #endif
 
             // Convert the image into a string of bytes to embed into the html.
-            var sourceStream = _assembly.GetManifestResourceStream($"ArcGIS.Samples.{sampleInfo.Category}.{sampleInfo.FormalName}.{sampleInfo.FormalName}.jpg");
+            string imageResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.FormalName}.jpg"));
+            var sourceStream = _assembly.GetManifestResourceStream(imageResource);
             var memoryStream = new MemoryStream();
             sourceStream.CopyTo(memoryStream);
             byte[] image = memoryStream.ToArray();
@@ -311,14 +313,16 @@ namespace ArcGIS
 
                 // Set CSS for dark mode or light mode.
                 string markdownCssType = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "highlight-dark.css" : "highlight.css";
-                string cssContent = new StreamReader(assembly.GetManifestResourceStream($"ArcGISMapsSDKMaui.SyntaxHighlighting.{markdownCssType}")).ReadToEnd();
+                string cssResource = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"SyntaxHighlighting.{markdownCssType}"));
+                string cssContent = new StreamReader(assembly.GetManifestResourceStream(cssResource)).ReadToEnd();
 
                 // Set the background color. Color values are taken from corresponding css files.
                 string backgroundColor = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "#1e1e1e" : "#fff";
                 cssContent = $"{cssContent} body {{ background: {backgroundColor};}}";
 
                 // Read javascript content.
-                string jsContent = new StreamReader(assembly.GetManifestResourceStream($"ArcGISMapsSDKMaui.SyntaxHighlighting.highlight.js")).ReadToEnd();
+                string jsResource = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"SyntaxHighlighting.highlight.js"));
+                string jsContent = new StreamReader(assembly.GetManifestResourceStream(jsResource)).ReadToEnd();
 
                 // Build the html.
                 _fullContent =

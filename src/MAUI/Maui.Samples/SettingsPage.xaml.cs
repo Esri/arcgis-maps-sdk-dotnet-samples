@@ -52,25 +52,23 @@ namespace ArcGIS
 
             // Get the contents of the markdown files for the "About" and "Licenses" pages.
             var assembly = Assembly.GetExecutingAssembly();
-            string aboutString = new StreamReader(assembly.GetManifestResourceStream("ArcGISMapsSDK.Resources.SettingsPage.about.md")).ReadToEnd();
-            string licenseString = new StreamReader(assembly.GetManifestResourceStream("ArcGISMapsSDK.Resources.SettingsPage.licenses.md")).ReadToEnd();
+            string aboutResource = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"SettingsPage.about.md"));
+            string licenseResource = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"SettingsPage.licenses.md"));
 
-            // The location of the github markdown css is platform dependent.
-            string baseUrl = string.Empty;
-#if WINUI
-            baseUrl = "ms-appx-web:///";
-#elif ANDROID
-            baseUrl = "file:///android_asset";
-#elif IOS
-            baseUrl = Foundation.NSBundle.MainBundle.BundlePath;
+            string aboutString = new StreamReader(assembly.GetManifestResourceStream(aboutResource)).ReadToEnd();
+            string licenseString = new StreamReader(assembly.GetManifestResourceStream(licenseResource)).ReadToEnd();
 
+            // Set CSS for dark mode or light mode.
+            string markdownCssType = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "github-markdown-dark.css" : "github-markdown.css";
+            string cssResource = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"SyntaxHighlighting.{markdownCssType}"));
+            string cssContent = new StreamReader(assembly.GetManifestResourceStream(cssResource)).ReadToEnd();
+#if IOS
             // Need to set the viewport on iOS to scale page correctly.
             string viewportHTML = "<meta name=\"viewport\" content=\"width=" +
                 Application.Current.MainPage.Width +
                 ", shrink-to-fit=YES\">";
 #endif
-            string cssPath = $"{baseUrl}/github-markdown.css";
-            string htmlStart = $"<!doctype html><head><link rel=\"stylesheet\" href=\"{cssPath}\" />";
+            string htmlStart = $"<!doctype html><head><style>{cssContent}body {{padding: 10px; }}</style>";
 
             // Load the HTML for the about and license pages.
             string licenseHTML = htmlStart +

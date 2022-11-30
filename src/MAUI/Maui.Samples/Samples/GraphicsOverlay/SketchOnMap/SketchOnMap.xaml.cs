@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-
+using ButtonColor = Microsoft.Maui.Graphics.Color;
 using Colors = System.Drawing.Color;
 
 namespace ArcGIS.Samples.SketchOnMap
@@ -27,6 +27,13 @@ namespace ArcGIS.Samples.SketchOnMap
     {
         // Graphics overlay to host sketch graphics.
         private GraphicsOverlay _sketchOverlay;
+
+        // Background colors for tool icons.
+        private static SolidColorBrush ThemedColor;
+        private static SolidColorBrush Red;
+
+        // Button for keeping track of the currently enabled tool.
+        private static Button Button;
 
         public SketchOnMap()
         {
@@ -65,12 +72,24 @@ namespace ArcGIS.Samples.SketchOnMap
             RedoButton.Command = MyMapView.SketchEditor.RedoCommand;
             CompleteButton.Command = MyMapView.SketchEditor.CompleteCommand;
             CancelButton.Command = MyMapView.SketchEditor.CancelCommand;
+
+            // Ensure colors are consistent with XAML colors.
+            ThemedColor = (SolidColorBrush)Sketch.Background;
+            Red = new SolidColorBrush(ButtonColor.FromRgb(255, 0, 0));
+
+            // No tool currently selected, so simply instantiate the button.
+            Button = new Button();
+
+            // Workaround to prevent buttons on Windows from being transparent.
         }
 
         #region Graphic and symbol helpers
 
         private Graphic CreateGraphic(Esri.ArcGISRuntime.Geometry.Geometry geometry)
         {
+            // Gray out any selected tool.
+            Button.Background = ThemedColor;
+
             // Create a graphic to display the specified geometry.
             Symbol symbol = null;
             switch (geometry.GeometryType)
@@ -172,6 +191,8 @@ namespace ArcGIS.Samples.SketchOnMap
 
         private void ClearButtonClick(object sender, EventArgs e)
         {
+            UnselectTool(sender, e);
+
             // Remove all graphics from the graphics overlay.
             _sketchOverlay.Graphics.Clear();
 
@@ -190,6 +211,9 @@ namespace ArcGIS.Samples.SketchOnMap
         {
             try
             {
+                // Change the background of the currently selected tool from gray to red.
+                SelectTool(sender as Button);
+
                 // Hide the draw/edit tools.
                 DrawToolsGrid.IsVisible = false;
 
@@ -216,8 +240,36 @@ namespace ArcGIS.Samples.SketchOnMap
 
         private void ShowDrawTools(object sender, EventArgs e)
         {
+            // Change the background of the currently selected tool from gray to red.
+            SelectTool(sender as Button);
+
             // Show the grid that contains the sketch mode, draw, and edit controls.
             DrawToolsGrid.IsVisible = true;
         }
+
+        #region Tool selection UI helpers
+
+        private void SelectTool(Button selectedButton)
+        {
+            // Gray out the background of the currently selected tool.
+            Button.Background = ThemedColor;
+
+            // Set the static variable to whichever button that was just clicked.
+            Button = selectedButton;
+
+            // Set the background of the currently selected tool to red.
+            Button.Background = Red;
+        }
+
+        private void UnselectTool(object sender, EventArgs e)
+        {
+            // Gray out the background of the currently selected tool.
+            Button.Background = ThemedColor;
+
+            // Dereference the unselected tool's button.
+            Button = new Button();
+        }
+
+        #endregion Tool selection UI helpers
     }
 }

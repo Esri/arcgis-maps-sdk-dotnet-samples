@@ -159,6 +159,7 @@
                     Grid.Row="9"
                     Grid.Column="1"
                     Click="ClearButtonClick"
+                    IsEnabled="False"
                     ToolTip="Clear">
                 <Image Source="resources/trash-can-outline.png" />
             </Button>

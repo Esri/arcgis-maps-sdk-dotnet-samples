@@ -19,9 +19,9 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
-using SolidColorBrush = Microsoft.UI.Xaml.Media.SolidColorBrush;
 using ButtonColor = Windows.UI.Color;
+using SolidColorBrush = Microsoft.UI.Xaml.Media.SolidColorBrush;
+using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
 namespace ArcGIS.WinUI.Samples.SketchOnMap
 {
@@ -81,7 +81,7 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
 
         private Graphic SaveGraphic(Geometry geometry)
         {
-            // Gray out the currrently selected tool.
+            // Gray out any selected tool.
             Button.Background = LightGray;
 
             // Create a graphic to display the specified geometry.
@@ -242,6 +242,7 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
         }
 
         #region Tool selection UI helpers
+
         private void SelectTool(Button selectedButton)
         {
             // Gray out the background of the currently selected tool.
@@ -262,6 +263,7 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
             // Dereference the unselected tool's button.
             Button = new Button();
         }
-        #endregion
+
+        #endregion Tool selection UI helpers
     }
 }

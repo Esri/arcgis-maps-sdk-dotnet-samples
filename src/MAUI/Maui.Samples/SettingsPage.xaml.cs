@@ -42,7 +42,7 @@ namespace ArcGIS
             // Precise version number cant be used while running in release mode.
             catch (Exception)
             {
-                versionNumber = "100.15.0";
+                versionNumber = "200.0.0";
             }
 
             // Set up offline data.

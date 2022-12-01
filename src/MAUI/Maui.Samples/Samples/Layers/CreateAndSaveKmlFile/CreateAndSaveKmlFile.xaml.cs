@@ -265,9 +265,9 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
                 await Application.Current.MainPage.DisplayAlert("Success", "KMZ file saved locally to ArcGISRuntimeSamples folder.", "OK");
 #elif ANDROID
                 // Determine the path for the file.
-                string filePath = Path.Combine(Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath, Android.OS.Environment.DirectoryDownloads, "sampledata.kmz");
+                string filePath = Path.Combine(Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments).AbsolutePath, "sampledata.kmz");
 
-                using (Stream stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
+                using (Stream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     // Write the KML document to the stream of the file.
                     await _kmlDocument.WriteToAsync(stream);

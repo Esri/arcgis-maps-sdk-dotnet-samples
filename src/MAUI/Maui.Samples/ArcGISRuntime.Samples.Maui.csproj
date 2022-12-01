@@ -55,18 +55,10 @@
     <!-- Excluded due to missing toolkit components -->
 	  <AndroidResource Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <Compile Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
 	  <EmbeddedResource Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <MauiCss Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <MauiXaml Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <None Remove="Samples\MapView\FilterByTimeExtent\**" />
-    <!-- Excluded due to file picker issue -->
-	  <!-- <AndroidResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
-	  <Compile Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
-	  <EmbeddedResource Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
-	  <MauiCss Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
-	  <MauiXaml Remove="Samples\Layers\CreateAndSaveKmlFile\**" />
-	  <None Remove="Samples\Layers\CreateAndSaveKmlFile\**" /> -->
 	</ItemGroup>
 
 	<!-- Exclude some samples on mac catalyst -->

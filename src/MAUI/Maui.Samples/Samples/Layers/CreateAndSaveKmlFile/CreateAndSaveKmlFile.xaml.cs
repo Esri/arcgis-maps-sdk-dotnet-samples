@@ -248,7 +248,7 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
 
 #if IOS || MACCATALYST
                 // Determine the path for the file.
-                string offlineDataFolder = Path.Combine(DataManager.GetDataFolder(), "CreateAndSaveKmlFile");
+                string offlineDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CreateAndSaveKmlFile");
 
                 // If temporary data folder doesn't exists, create it.
                 if (!Directory.Exists(offlineDataFolder))
@@ -262,7 +262,8 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
                     // Write the KML document to the stream of the file.
                     await _kmlDocument.WriteToAsync(stream);
                 }
-                await Application.Current.MainPage.DisplayAlert("Success", "KMZ file saved locally to ArcGISRuntimeSamples folder.", "OK");
+
+                await ShareFile(path);
 #elif ANDROID
                 // Determine the path for the file.
                 string filePath = Path.Combine(Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments).AbsolutePath, "sampledata.kmz");
@@ -272,7 +273,8 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
                     // Write the KML document to the stream of the file.
                     await _kmlDocument.WriteToAsync(stream);
                 }
-                await Application.Current.MainPage.DisplayAlert("Success", "File saved to " + filePath, "OK");
+
+                await ShareFile(path);
 #elif WINDOWS
                 // Open a save dialog for the user.
                 FileSavePicker savePicker = new FileSavePicker();
@@ -301,7 +303,24 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
             catch (Exception ex)
             {
                 Debug.Write(ex.Message);
-                await Application.Current.MainPage.DisplayAlert("Error", "File not saved.", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+
+        private async Task ShareFile(string path)
+        {
+            try
+            {
+                // Share the file using the Maui share feature.
+                await Share.RequestAsync(new ShareFileRequest
+                {
+                    Title = "Share geodatabase",
+                    File = new ShareFile(path)
+                });
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 

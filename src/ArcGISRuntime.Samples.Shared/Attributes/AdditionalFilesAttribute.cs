@@ -27,7 +27,7 @@ namespace ArcGISRuntime.Samples.Shared.Attributes
 
     /// <summary>
     /// Attribute for annotating a sample with XAML layout files it uses.
-    /// This should not be used for the primary layout on WPF, UWP, Forms.
+    /// This should not be used for the primary layout on WPF, UWP, WinUI, MAUI.
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
     public class XamlFilesAttribute : AdditionalFilesAttribute

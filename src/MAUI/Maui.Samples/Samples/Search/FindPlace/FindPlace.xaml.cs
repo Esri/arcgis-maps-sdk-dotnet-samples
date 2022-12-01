@@ -16,11 +16,6 @@ using Esri.ArcGISRuntime.UI;
 using System.Diagnostics;
 using System.Reflection;
 
-#if ANDROID
-//TODO
-//using ArcGISRuntime.Droid;
-#endif
-
 namespace ArcGISRuntime.Samples.FindPlace
 {
     [ArcGISRuntime.Samples.Shared.Attributes.Sample(
@@ -65,27 +60,22 @@ namespace ArcGISRuntime.Samples.FindPlace
 
                     try
                     {
-                        // Permission request only needed on Android.
-#if ANDROID
-                        // See implementation in MainActivity.cs in the Android platform project.
-                        //TODO
-                        //MainActivity.Instance.AskForLocationPermission(MyMapView);
-#else
+                        // Check if location permission granted.
                         var status = Microsoft.Maui.ApplicationModel.PermissionStatus.Unknown;
-
                         status = await Microsoft.Maui.ApplicationModel.Permissions.CheckStatusAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
 
+                        // Request location permission if not granted.
                         if(status != Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
                         {
                             status = await Microsoft.Maui.ApplicationModel.Permissions.RequestAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
                         }
 
+                        // Start the locationdisplay once permission is granted.
                         if (status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
                         {
                             await MyMapView.LocationDisplay.DataSource.StartAsync();
                             MyMapView.LocationDisplay.IsEnabled = true;
                         }
-#endif
                     }
                     catch (Exception ex)
                     {

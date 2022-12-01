@@ -11,10 +11,6 @@ using ArcGISRuntime.Samples.Managers;
 using ArcGISRuntime.Samples.Shared.Models;
 using ArcGISRuntimeMaui.Helpers;
 
-#if WINDOWS_UWP
-using System.Threading.Tasks;
-#endif
-
 namespace ArcGISRuntimeMaui
 {
     public partial class SampleListPage

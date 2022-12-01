@@ -139,13 +139,8 @@ namespace ArcGISRuntime.Samples.OfflineGeocode
 
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
-#if WINDOWS_UWP
-            // Get current assembly that contains the image
-            Assembly currentAssembly = GetType().GetTypeInfo().Assembly;
-#else
             // Get current assembly that contains the image
             Assembly currentAssembly = Assembly.GetExecutingAssembly();
-#endif
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy

@@ -49,24 +49,18 @@
             VerticalOptions="Start">
             <Button
                 x:Name="Sketch"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}"
                 Clicked="ShowDrawTools"
                 IsEnabled="True"
                 Text="Sketch" />
             <Button
                 x:Name="EditButton"
                 Grid.Row="1"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}"
                 Clicked="EditButtonClick"
                 IsEnabled="False"
                 Text="Edit" />
             <Button
                 x:Name="CancelButton"
                 Grid.Row="2"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}"
                 Clicked="UnselectTool"
                 Command="{Binding CancelCommand}"
                 IsEnabled="False"
@@ -74,27 +68,19 @@
             <Button
                 x:Name="UndoButton"
                 Grid.Row="3"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}"
                 Text="Undo" />
             <Button
                 x:Name="RedoButton"
                 Grid.Row="4"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}"
                 Text="Redo" />
             <Button
                 x:Name="CompleteButton"
                 Grid.Row="5"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}"
                 Clicked="UnselectTool"
                 Text="Save" />
             <Button
                 x:Name="ClearButton"
                 Grid.Row="6"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}"
                 Clicked="ClearButtonClick"
                 IsEnabled="False"
                 Text="Clear" />

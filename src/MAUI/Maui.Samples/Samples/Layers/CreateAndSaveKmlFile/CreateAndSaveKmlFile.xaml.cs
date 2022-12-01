@@ -11,12 +11,11 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.Maui.ApplicationModel;
 using System.Diagnostics;
 using System.Globalization;
-
 using Color = System.Drawing.Color;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
-using Microsoft.Maui.ApplicationModel;
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 #if IOS || MACCATALYST
@@ -176,7 +175,7 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
             if (((string)e.SelectedItem).StartsWith('#'))
             {
                 Color platColor = Color.FromArgb(Int32.Parse(((string)e.SelectedItem).Replace("#", ""), NumberStyles.HexNumber));
-                systemColor = Color.FromArgb((int)(platColor.A * 255), (int)(platColor.R * 255), (int)(platColor.G * 255), (int)(platColor.B * 255));
+                systemColor = Color.FromArgb(255, (int)(platColor.R), (int)(platColor.G), (int)(platColor.B));
             }
 
             // Create a new style for the placemark.
@@ -342,7 +341,7 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null || value.GetType() != typeof(string)) { return null; }
-            return System.Drawing.Color.FromArgb(Int32.Parse(((string)value).Replace("#", ""), NumberStyles.HexNumber));
+            return Microsoft.Maui.Graphics.Color.FromArgb((string)value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

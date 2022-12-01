@@ -68,7 +68,6 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0"
                    Margin="5"
@@ -90,12 +89,15 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <BoxView Color="{Binding Path=., Converter={StaticResource colorConverter}}" />
+                            <Grid Margin="2"
+                                  BackgroundColor="{Binding Converter={StaticResource colorConverter}}"
+                                  HeightRequest="25"
+                                  WidthRequest="-1" />
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Grid.Row="3"
+            <Button Grid.Row="2"
                     Clicked="No_Style_Click"
                     Text="Dont Apply Style" />
         </Grid>

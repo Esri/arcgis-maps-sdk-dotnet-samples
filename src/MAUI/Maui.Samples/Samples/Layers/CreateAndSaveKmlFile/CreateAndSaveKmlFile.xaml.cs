@@ -11,23 +11,16 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI;
+using System.Diagnostics;
 using System.Globalization;
 
 using Color = System.Drawing.Color;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 using Microsoft.Maui.ApplicationModel;
 using Map = Esri.ArcGISRuntime.Mapping.Map;
-using System.Diagnostics;
 
-#if IOS
+#if IOS || MACCATALYST
 using ArcGISRuntime.Samples.Managers;
-#elif MACCATALYST
-using ArcGISRuntime.Samples.Managers;
-#elif ANDROID
-
-using Android.Content.PM;
-using Android;
-using Android.Content.Res;
 
 #elif WINDOWS
 using Windows.Storage.Pickers;
@@ -266,9 +259,9 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
                 await ShareFile(path);
 #elif ANDROID
                 // Determine the path for the file.
-                string filePath = Path.Combine(Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments).AbsolutePath, "sampledata.kmz");
+                string path = Path.Combine(Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments).AbsolutePath, "sampledata.kmz");
 
-                using (Stream stream = new FileStream(filePath, FileMode.Create, FileAccess.Write, FileShare.None))
+                using (Stream stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     // Write the KML document to the stream of the file.
                     await _kmlDocument.WriteToAsync(stream);

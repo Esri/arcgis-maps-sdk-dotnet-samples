@@ -44,6 +44,8 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
         // Button for keeping track of the currently enabled tool.
         private static Button Button;
 
+        private TaskCompletionSource<Graphic> _graphicCompletionSource;
+
         public SketchOnMap()
         {
             InitializeComponent();
@@ -217,13 +219,11 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
                 // Change the background of the currently selected tool from gray to red.
                 SelectTool(sender as Button);
 
-                // Await until the user selects a graphic or switches tool.
-                Graphic editGraphic;
-                do
-                {
-                    editGraphic = await GetGraphicAsync();
-                }
-                while (editGraphic == null);
+                // Create a TaskCompletionSource object to wait for a graphic.
+                _graphicCompletionSource = new TaskCompletionSource<Graphic>();
+
+                // Wait for the user to select a graphic.
+                Graphic editGraphic = await _graphicCompletionSource.Task;
 
                 // Let the user make changes to the graphic's geometry, await the result (updated geometry).
                 Geometry newGeometry = await MyMapView.SketchEditor.StartAsync(editGraphic.Geometry);
@@ -264,5 +264,34 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
             Button = new Button();
         }
         #endregion
+
+        private async void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        {
+            try
+            {
+                if (_graphicCompletionSource is not null && !_graphicCompletionSource.Task.IsCompleted)
+                {
+                    // Identify graphics in the graphics overlay using the point.
+                    IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 2, false);
+
+                    // If results were found, get the first graphic.
+                    IdentifyGraphicsOverlayResult idResult = results.FirstOrDefault();
+                    if (idResult != null && idResult.Graphics.Count > 0)
+                    {
+                        Graphic graphic = idResult.Graphics.FirstOrDefault();
+                        _graphicCompletionSource.TrySetResult(graphic);
+                    }
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                // Ignore ... let the user cancel drawing.
+            }
+            catch (Exception ex)
+            {
+                // Report exceptions.
+                MessageBox.Show("Error editing shape: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }

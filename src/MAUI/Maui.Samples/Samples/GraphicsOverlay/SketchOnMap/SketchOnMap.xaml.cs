@@ -35,6 +35,8 @@ namespace ArcGIS.Samples.SketchOnMap
         // Button for keeping track of the currently enabled tool.
         private static Button Button;
 
+        private TaskCompletionSource<Graphic> _graphicCompletionSource;
+
         public SketchOnMap()
         {
             InitializeComponent();
@@ -79,8 +81,6 @@ namespace ArcGIS.Samples.SketchOnMap
 
             // No tool currently selected, so simply instantiate the button.
             Button = new Button();
-
-            // Workaround to prevent buttons on Windows from being transparent.
         }
 
         #region Graphic and symbol helpers
@@ -132,29 +132,6 @@ namespace ArcGIS.Samples.SketchOnMap
 
             // Pass back a new graphic with the appropriate symbol.
             return new Graphic(geometry, symbol);
-        }
-
-        private async Task<Graphic> GetGraphicAsync()
-        {
-            // Wait for the user to click a location on the map.
-            MapPoint mapPoint = (MapPoint)await MyMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
-
-            // Convert the map point to a screen point.
-            var screenCoordinate = MyMapView.LocationToScreen(mapPoint);
-
-            // Identify graphics in the graphics overlay using the point.
-            IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
-
-            // If results were found, get the first graphic.
-            Graphic graphic = null;
-            IdentifyGraphicsOverlayResult idResult = results.FirstOrDefault();
-            if (idResult != null && idResult.Graphics.Count > 0)
-            {
-                graphic = idResult.Graphics.FirstOrDefault();
-            }
-
-            // Return the graphic (or null if none were found).
-            return graphic;
         }
 
         #endregion Graphic and symbol helpers
@@ -217,9 +194,11 @@ namespace ArcGIS.Samples.SketchOnMap
                 // Hide the draw/edit tools.
                 DrawToolsGrid.IsVisible = false;
 
-                // Allow the user to select a graphic.
-                Graphic editGraphic = await GetGraphicAsync();
-                if (editGraphic == null) { return; }
+                // Create a TaskCompletionSource object to wait for a graphic.
+                _graphicCompletionSource = new TaskCompletionSource<Graphic>();
+
+                // Wait for the user to select a graphic.
+                Graphic editGraphic = await _graphicCompletionSource.Task;
 
                 // Let the user make changes to the graphic's geometry, await the result (updated geometry).
                 Geometry newGeometry = await MyMapView.SketchEditor.StartAsync(editGraphic.Geometry);
@@ -271,5 +250,34 @@ namespace ArcGIS.Samples.SketchOnMap
         }
 
         #endregion Tool selection UI helpers
+
+        private async void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
+        {
+            try
+            {
+                if(_graphicCompletionSource is not null && !_graphicCompletionSource.Task.IsCompleted)
+                {
+                    // Identify graphics in the graphics overlay using the point.
+                    IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 2, false);
+
+                    // If results were found, get the first graphic.
+                    IdentifyGraphicsOverlayResult idResult = results.FirstOrDefault();
+                    if (idResult != null && idResult.Graphics.Count > 0)
+                    {
+                        Graphic graphic = idResult.Graphics.FirstOrDefault();
+                        _graphicCompletionSource.TrySetResult(graphic);
+                    }
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                // Ignore ... let the user cancel drawing.
+            }
+            catch (Exception ex)
+            {
+                // Report exceptions.
+                await Application.Current.MainPage.DisplayAlert("Error", "Error editing shape: " + ex.Message, "OK");
+            }
+        }
     }
 }

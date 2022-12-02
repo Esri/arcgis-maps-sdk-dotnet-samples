@@ -24,9 +24,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 
-namespace ArcGISRuntime.WPF.Samples.sample_name
+namespace ArcGIS.WPF.Samples.sample_name
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         "friendly_name",
         "sample_category",
         "sample_description",

@@ -22,9 +22,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGISRuntime.Samples.sample_name
+namespace ArcGIS.Samples.sample_name
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         "friendly_name",
         "sample_category",
         "sample_description",

@@ -12,9 +12,9 @@ def get_platform_samples_root(platform, sample_root):
     Gets the root directory for each platform
     '''
     if (platform == "WPF"):
-        return os.path.join(sample_root, "WPF", "ArcGISRuntime.WPF.Viewer", "Samples")
+        return os.path.join(sample_root, "WPF", "WPF.Viewer", "Samples")
     if (platform == "WinUI"):
-        return os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer", "Samples")
+        return os.path.join(sample_root, "WinUI", "ArcGIS.WinUI.Viewer", "Samples")
     if (platform == "MAUI"):
         return os.path.join(sample_root, "MAUI", "Maui.Samples", "Samples")
     raise AssertionError(None, None)

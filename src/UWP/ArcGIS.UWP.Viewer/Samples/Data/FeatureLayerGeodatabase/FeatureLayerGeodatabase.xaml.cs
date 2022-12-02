@@ -21,7 +21,7 @@ namespace ArcGIS.UWP.Samples.FeatureLayerGeodatabase
         description: "Display features from a local geodatabase.",
         instructions: "",
         tags: new[] { "geodatabase", "mobile", "offline" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData("2b0f9e17105847809dfeb04e3cad69e0")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("cb1b20748a9f4d128dad8a87244e3e37")]
     public partial class FeatureLayerGeodatabase
     {
         public FeatureLayerGeodatabase()
@@ -38,7 +38,7 @@ namespace ArcGIS.UWP.Samples.FeatureLayerGeodatabase
             MyMapView.Map = new Map(BasemapStyle.ArcGISStreets);
 
             // Get the path to the downloaded mobile geodatabase (.geodatabase file).
-            string mobileGeodatabaseFilePath = GetMobileGeodatabasePath();
+            string mobileGeodatabaseFilePath = DataManager.GetDataFolder("cb1b20748a9f4d128dad8a87244e3e37", "LA_Trails.geodatabase");
 
             try
             {
@@ -64,13 +64,6 @@ namespace ArcGIS.UWP.Samples.FeatureLayerGeodatabase
             {
                 await new MessageDialog(e.ToString(), "Error").ShowAsync();
             }
-        }
-
-        private static string GetMobileGeodatabasePath()
-        {
-            // Use samples viewer's DataManager helper class to get the path of the downloaded dataset on disk.
-            // NOTE: The url for the actual data is: https://www.arcgis.com/home/item.html?id=2b0f9e17105847809dfeb04e3cad69e0.
-            return DataManager.GetDataFolder("2b0f9e17105847809dfeb04e3cad69e0", "LA_Trails.geodatabase");
         }
     }
 }

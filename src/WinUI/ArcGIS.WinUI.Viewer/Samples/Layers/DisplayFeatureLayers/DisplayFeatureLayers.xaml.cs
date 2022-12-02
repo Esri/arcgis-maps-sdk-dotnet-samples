@@ -26,7 +26,7 @@ namespace ArcGIS.WinUI.Samples.DisplayFeatureLayers
         description: "Display feature layers from various data sources.",
         instructions: "Click the button on the toolbar to add feature layers, from different sources, to the map. Pan and zoom the map to view the feature layers.",
         tags: new[] { "feature", "geodatabase", "geopackage", "layers", "service", "shapefile", "table" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData("1759fd3e8a324358a0c58d9a687a8578", "2b0f9e17105847809dfeb04e3cad69e0", "68ec42517cdd439e81b036210483e8e7", "15a7cbd3af1e47cfa5d2c6b93dc44fc2")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("1759fd3e8a324358a0c58d9a687a8578", "cb1b20748a9f4d128dad8a87244e3e37", "68ec42517cdd439e81b036210483e8e7", "15a7cbd3af1e47cfa5d2c6b93dc44fc2")]
     public partial class DisplayFeatureLayers
     {
         public enum FeatureLayerSource
@@ -143,7 +143,7 @@ namespace ArcGIS.WinUI.Samples.DisplayFeatureLayers
         private async Task SetGeodatabaseFeatureLayerSource()
         {
             // Get the path to the downloaded mobile geodatabase (.geodatabase file).
-            string mobileGeodatabaseFilePath = DataManager.GetDataFolder("2b0f9e17105847809dfeb04e3cad69e0", "LA_Trails.geodatabase");
+            string mobileGeodatabaseFilePath = DataManager.GetDataFolder("cb1b20748a9f4d128dad8a87244e3e37", "LA_Trails.geodatabase");
 
             // Open the mobile geodatabase.
             Geodatabase mobileGeodatabase = await Geodatabase.OpenAsync(mobileGeodatabaseFilePath);

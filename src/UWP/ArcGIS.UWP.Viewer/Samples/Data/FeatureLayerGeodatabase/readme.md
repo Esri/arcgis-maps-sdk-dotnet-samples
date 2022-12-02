@@ -25,7 +25,7 @@ Accessing data from a local geodatabase is useful when working in an environment
 ## Offline data
 
 * [Los Angeles Vector Tile Package](https://www.arcgis.com/home/item.html?id=d9f8ce6f6ac84b90a665a861d71a5d0a) - Streets Vector Tile Package (vtpk) for the City of Los Angeles.
-* [Los Angeles Trailheads](https://www.arcgis.com/home/item.html?id=2b0f9e17105847809dfeb04e3cad69e0) - Mobile geodatabase containing LA trailhead locations
+* [Los Angeles Trailheads](https://www.arcgis.com/home/item.html?id=cb1b20748a9f4d128dad8a87244e3e37) - Mobile geodatabase containing LA trailhead locations
 
 ## Additional information
 

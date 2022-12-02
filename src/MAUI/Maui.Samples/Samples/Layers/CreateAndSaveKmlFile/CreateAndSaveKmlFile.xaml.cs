@@ -34,7 +34,7 @@ using Windows.Storage.Pickers;
 
 namespace ArcGISMapsSDK.Samples.CreateAndSaveKmlFile
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create and save KML file",
         category: "Layers",
         description: "Construct a KML document and save it as a KMZ file.",

@@ -6,7 +6,7 @@ Create an elevation profile using a geoprocessing package executed with Local Se
 
 ## Use case
 
-Applications that include Local Server are valuable in offline workflows that require advanced spatial analysis or data manipulation. This sample uses a geoprocessing package (`.gpkx`) created in ArcGIS Pro involving a custom geoprocessing model that includes the [Interpolate Shape (3D Analyst)](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/interpolate-shape.htm) geoprocessing tool. The geoprocessing package is executed with Local Server.
+Applications that include Local Server are valuable in offline workflows that require advanced spatial analysis or data manipulation. This sample uses a geoprocessing package (`.gpkx`) created in ArcGIS Pro involving a custom geoprocessing model that includes the [Interpolate Shape (3D Analyst)](https://pro.arcgis.com/en/pro-app/latest/tool-reference/3d-analyst/interpolate-shape.htm) geoprocessing tool. The geoprocessing package is executed with ArcGIS Local Server.
 
 You can generate elevation profiles to carry out topographical analysis of valley profiles, or visualize a hiking, cycling, or road trip over varied topography.
 

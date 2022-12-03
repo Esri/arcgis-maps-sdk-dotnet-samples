@@ -40,7 +40,6 @@
                 x:Name="StopButton"
                 Grid.Row="0"
                 Grid.Column="1"
-                Background="LightGray"
                 Click="UnselectTool"
                 Command="{Binding CancelCommand}"
                 ToolTipService.ToolTip="Cancel">
@@ -51,7 +50,6 @@
                 Grid.Row="2"
                 Grid.Column="0"
                 Margin="0,5,0,0"
-                Background="LightGray"
                 Click="ShapeClick"
                 CommandParameter="Point"
                 ToolTipService.ToolTip="Point">
@@ -62,7 +60,6 @@
                 Grid.Row="2"
                 Grid.Column="1"
                 Margin="0,5,0,0"
-                Background="LightGray"
                 Click="ShapeClick"
                 CommandParameter="Multipoint"
                 ToolTipService.ToolTip="Multipoint">
@@ -72,7 +69,6 @@
                 x:Name="PolylineButton"
                 Grid.Row="3"
                 Grid.Column="0"
-                Background="LightGray"
                 Click="ShapeClick"
                 CommandParameter="Polyline"
                 ToolTipService.ToolTip="Polyline">
@@ -82,7 +78,6 @@
                 x:Name="PolygonButton"
                 Grid.Row="3"
                 Grid.Column="1"
-                Background="LightGray"
                 Click="ShapeClick"
                 CommandParameter="Polygon"
                 ToolTipService.ToolTip="Polygon">
@@ -92,7 +87,6 @@
                 x:Name="FreehandPolylineButton"
                 Grid.Row="4"
                 Grid.Column="0"
-                Background="LightGray"
                 Click="ShapeClick"
                 CommandParameter="FreehandLine"
                 ToolTipService.ToolTip="Freehand Polyline">
@@ -102,7 +96,6 @@
                 x:Name="FreehandPolygonButton"
                 Grid.Row="4"
                 Grid.Column="1"
-                Background="LightGray"
                 Click="ShapeClick"
                 CommandParameter="FreehandPolygon"
                 ToolTipService.ToolTip="Freehand Polygon">
@@ -112,7 +105,6 @@
                 x:Name="CircleButton"
                 Grid.Row="5"
                 Grid.Column="0"
-                Background="LightGray"
                 Click="ShapeClick"
                 CommandParameter="Circle"
                 ToolTipService.ToolTip="Circle">
@@ -122,7 +114,6 @@
                 x:Name="EllipseButton"
                 Grid.Row="5"
                 Grid.Column="1"
-                Background="LightGray"
                 Click="ShapeClick"
                 CommandParameter="Ellipse"
                 ToolTipService.ToolTip="Ellipse">
@@ -132,7 +123,6 @@
                 x:Name="TriangleButton"
                 Grid.Row="6"
                 Grid.Column="0"
-                Background="LightGray"
                 Click="ShapeClick"
                 CommandParameter="Triangle"
                 ToolTipService.ToolTip="Triangle">
@@ -142,7 +132,6 @@
                 x:Name="ArrowButton"
                 Grid.Row="6"
                 Grid.Column="1"
-                Background="LightGray"
                 Click="ShapeClick"
                 CommandParameter="Arrow"
                 ToolTipService.ToolTip="Arrow">
@@ -152,7 +141,6 @@
                 x:Name="RectangleButton"
                 Grid.Row="7"
                 Grid.Column="0"
-                Background="LightGray"
                 Click="ShapeClick"
                 CommandParameter="Rectangle"
                 ToolTipService.ToolTip="Rectangle">
@@ -163,7 +151,6 @@
                 Grid.Row="8"
                 Grid.Column="0"
                 Margin="0,5,0,0"
-                Background="LightGray"
                 Command="{Binding UndoCommand}"
                 ToolTipService.ToolTip="Undo">
                 <Image Source="resources/undo.png" />
@@ -173,7 +160,6 @@
                 Grid.Row="8"
                 Grid.Column="1"
                 Margin="0,5,0,0"
-                Background="LightGray"
                 Command="{Binding RedoCommand}"
                 ToolTipService.ToolTip="Redo">
                 <Image Source="resources/redo.png" />
@@ -182,7 +168,6 @@
                 x:Name="SaveButton"
                 Grid.Row="9"
                 Grid.Column="0"
-                Background="LightGray"
                 Click="UnselectTool"
                 Command="{Binding CompleteCommand}"
                 ToolTipService.ToolTip="Save">
@@ -192,7 +177,6 @@
                 x:Name="ClearButton"
                 Grid.Row="9"
                 Grid.Column="1"
-                Background="LightGray"
                 Click="ClearButtonClick"
                 IsEnabled="False"
                 ToolTipService.ToolTip="Clear">

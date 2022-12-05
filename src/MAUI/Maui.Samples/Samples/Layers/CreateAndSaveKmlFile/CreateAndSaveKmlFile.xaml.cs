@@ -11,24 +11,17 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Collections.Generic;
+using Microsoft.Maui.ApplicationModel;
+using System.Diagnostics;
 using System.Globalization;
-using System.IO;
-using System.Linq;
-
 using Color = System.Drawing.Color;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
-#if __IOS__
+using Map = Esri.ArcGISRuntime.Mapping.Map;
+
+#if IOS || MACCATALYST
 using ArcGISRuntime.Samples.Managers;
-#endif
-#if __ANDROID__
-//using Android.Support.V4.Content;
-using Android.Content.PM;
-using Android;
-using Android.Content.Res;
-#endif
-#if WINDOWS_UWP
+
+#elif WINDOWS
 using Windows.Storage.Pickers;
 #endif
 
@@ -58,7 +51,7 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
             // Create the map.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
-            List<String> colorHexes = new List<string>()
+            List<string> colorHexes = new List<string>()
             {
                 "#000000","#FFFFFF","#FF0000","#00FF00","#0000FF","#FFFF00", "#00FFFF","#FF00FF", "#C0C0C0", "#808080","#800000", "#808000","#008000", "#800080","#008080","#000080"
             };
@@ -80,6 +73,7 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
             // Set up a new kml document and kml layer.
             ResetKml();
         }
+
         private void ResetKml()
         {
             // Clear any existing layers from the map.
@@ -180,8 +174,8 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
             Color systemColor = Color.Transparent;
             if (((string)e.SelectedItem).StartsWith('#'))
             {
-                Color platColor = Color.FromArgb(Int32.Parse(((string)e.SelectedItem).Replace("#", ""), NumberStyles.HexNumber)); 
-                systemColor = Color.FromArgb((int)(platColor.A * 255), (int)(platColor.R * 255), (int)(platColor.G * 255), (int)(platColor.B * 255));
+                Color platColor = Color.FromArgb(Int32.Parse(((string)e.SelectedItem).Replace("#", ""), NumberStyles.HexNumber));
+                systemColor = Color.FromArgb(255, (int)(platColor.R), (int)(platColor.G), (int)(platColor.B));
             }
 
             // Create a new style for the placemark.
@@ -237,9 +231,16 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
         {
             try
             {
-#if __IOS__
+                // Get permission to write to storage.
+                PermissionStatus writeStatus = await Permissions.RequestAsync<Permissions.StorageWrite>();
+                if (writeStatus != PermissionStatus.Granted)
+                {
+                    throw new Exception("Storage writing permission is required to save file.");
+                }
+
+#if IOS || MACCATALYST
                 // Determine the path for the file.
-                string offlineDataFolder = Path.Combine(DataManager.GetDataFolder(), "CreateAndSaveKmlFile");
+                string offlineDataFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "CreateAndSaveKmlFile");
 
                 // If temporary data folder doesn't exists, create it.
                 if (!Directory.Exists(offlineDataFolder))
@@ -253,33 +254,32 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
                     // Write the KML document to the stream of the file.
                     await _kmlDocument.WriteToAsync(stream);
                 }
-                await Application.Current.MainPage.DisplayAlert("Success", "KMZ file saved locally to ArcGISRuntimeSamples folder.", "OK");
-#endif
-#if __ANDROID__
-                // Determine the path for the file.
-                string filePath = Path.Combine(Android.App.Application.Context.GetExternalFilesDir(null).AbsolutePath, Android.OS.Environment.DirectoryDownloads, "sampledata.kmz");
 
-                // Check if permission has not been granted.
-                if (ContextCompat.CheckSelfPermission(Android.App.Application.Context, Manifest.Permission.WriteExternalStorage) != Permission.Granted)
+                await ShareFile(path);
+#elif ANDROID
+                // Determine the path for the file.
+                string path = Path.Combine(Android.App.Application.Context.GetExternalFilesDir(Android.OS.Environment.DirectoryDocuments).AbsolutePath, "sampledata.kmz");
+
+                using (Stream stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
-                    //TODO
-                    //ArcGISRuntime.Droid.MainActivity.Instance.RequestPermissions(new[] { Manifest.Permission.WriteExternalStorage }, 1);
+                    // Write the KML document to the stream of the file.
+                    await _kmlDocument.WriteToAsync(stream);
                 }
-                else
-                {
-                    using (Stream stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None))
-                    {
-                        // Write the KML document to the stream of the file.
-                        await _kmlDocument.WriteToAsync(stream);
-                    }
-                    await Application.Current.MainPage.DisplayAlert("Success", "File saved to " + filePath, "OK");
-                }
-#endif
-#if WINDOWS_UWP
+
+                await ShareFile(path);
+#elif WINDOWS
                 // Open a save dialog for the user.
                 FileSavePicker savePicker = new FileSavePicker();
                 savePicker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
                 savePicker.FileTypeChoices.Add("KMZ file", new List<string>() { ".kmz" });
+
+                // Get the handle for the main window.
+                var windowHandle = ((MauiWinUIWindow)Application.Current.Windows[0].Handler.PlatformView).WindowHandle;
+
+                // Initialize the file picker with the window.
+                WinRT.Interop.InitializeWithWindow.Initialize(savePicker, windowHandle);
+
+                // Show the picker to the user.
                 Windows.Storage.StorageFile file = await savePicker.PickSaveFileAsync();
 
                 if (file != null)
@@ -292,9 +292,27 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
                 }
 #endif
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "File not saved.", "OK");
+                Debug.Write(ex.Message);
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+
+        private async Task ShareFile(string path)
+        {
+            try
+            {
+                // Share the file using the Maui share feature.
+                await Share.RequestAsync(new ShareFileRequest
+                {
+                    Title = "Share geodatabase",
+                    File = new ShareFile(path)
+                });
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 
@@ -303,6 +321,7 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
             ResetKml();
         }
     }
+
     internal class ImageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -316,12 +335,13 @@ namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
             throw new NotImplementedException();
         }
     }
+
     internal class ColorConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null || value.GetType() != typeof(string)) { return null; }
-            return System.Drawing.Color.FromArgb(Int32.Parse(((string)value).Replace("#", ""), NumberStyles.HexNumber));
+            return Microsoft.Maui.Graphics.Color.FromArgb((string)value);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

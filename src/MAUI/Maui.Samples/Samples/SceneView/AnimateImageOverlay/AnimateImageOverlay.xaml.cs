@@ -46,14 +46,6 @@ namespace ArcGISRuntime.Samples.AnimateImageOverlay
 
         private void Initialize()
         {
-#if WINDOWS_UWP
-            // This sample is only supported in x64 on UWP.
-            if (!Environment.Is64BitProcess)
-            {
-                Application.Current.MainPage.DisplayAlert("Error", "This sample is only supported for UWP in x64. Run the sample viewer in x64 to use this sample.", "OK");
-                return;
-            }
-#endif
             // Create the scene.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISDarkGray);
 

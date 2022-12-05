@@ -1,8 +1,8 @@
-﻿<ContentPage x:Class="ArcGISRuntimeMauiXamarin.Samples.CreateAndSaveKmlFile.CreateAndSaveKmlFile"
+﻿<ContentPage x:Class="ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile.CreateAndSaveKmlFile"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:local="clr-namespace:ArcGISRuntimeXamarin.Samples.CreateAndSaveKmlFile">
+             xmlns:local="clr-namespace:ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile">
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:ImageConverter x:Key="imageConverter" />
@@ -68,7 +68,6 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0"
                    Margin="5"
@@ -90,12 +89,15 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <BoxView Color="{Binding Path=., Converter={StaticResource colorConverter}}" />
+                            <Grid Margin="2"
+                                  BackgroundColor="{Binding Converter={StaticResource colorConverter}}"
+                                  HeightRequest="25"
+                                  WidthRequest="-1" />
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Grid.Row="3"
+            <Button Grid.Row="2"
                     Clicked="No_Style_Click"
                     Text="Dont Apply Style" />
         </Grid>

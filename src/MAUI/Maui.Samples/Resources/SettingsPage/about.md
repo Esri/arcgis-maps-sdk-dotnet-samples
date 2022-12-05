@@ -1,6 +1,6 @@
 # ArcGIS Maps SDK for Native Apps samples (.NET MAUI)
 
-This sample viewer shows how different features of the ArcGIS Maps SDK for Native Apps can be implemented on the Microsoft .NET MAUI. 
+This sample viewer shows how different features of the ArcGIS Maps SDK for Native Apps can be implemented on Microsoft .NET MAUI. 
 
 ----
 

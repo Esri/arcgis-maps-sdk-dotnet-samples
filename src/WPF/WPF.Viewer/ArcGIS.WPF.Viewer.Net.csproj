@@ -6,8 +6,8 @@
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
-    <RootNamespace>ArcGISRuntime</RootNamespace>
-    <AssemblyName>ArcGISRuntime</AssemblyName>
+    <RootNamespace>ArcGIS</RootNamespace>
+    <AssemblyName>ArcGIS</AssemblyName>
     <OutputPath>..\..\..\output\WPFCore\$(Configuration)\</OutputPath>
     <ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>

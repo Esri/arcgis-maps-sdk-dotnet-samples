@@ -6,7 +6,7 @@ Create and share a mobile geodatabase.
 
 ## Use case
 
-A mobile geodatabase is a collection of various types of GIS datasets contained in a single file (`.geodatabase`) on disk that can store, query, and manage spatial and nonspatial data. Mobile geodatabases are stored in a SQLite database and can contain up to 2 TB of portable data. Users can create, edit and share mobile geodatabases across ArcGIS Pro, ArcGIS Maps SDK, or any SQL software. These mobile geodatabases support both viewing and editing and enable new offline editing workflows that don't require a feature service.
+A mobile geodatabase is a collection of various types of GIS datasets contained in a single file (`.geodatabase`) on disk that can store, query, and manage spatial and nonspatial data. Mobile geodatabases are stored in a SQLite database and can contain up to 2 TB of portable data. Users can create, edit and share mobile geodatabases across ArcGIS Pro, ArcGIS Maps SDK for Native Apps, or any SQL software. These mobile geodatabases support both viewing and editing and enable new offline editing workflows that don't require a feature service.
 
 For example, a user would like to track the location of their device at various intervals to generate a heat map of the most visited locations. The user can add each location as a feature to a table and generate a mobile geodatabase. The user can then instantly share the mobile geodatabase to ArcGIS Pro to generate a heat map using the recorded locations stored as a geodatabase feature table.
 

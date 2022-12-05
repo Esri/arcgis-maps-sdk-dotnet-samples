@@ -40,7 +40,7 @@ Pan and zoom around the map. Observe the displayed military symbology on the map
 This sample downloads the following items from ArcGIS Online automatically:
 
 * [mil2525d.stylx](https://www.arcgis.com/home/item.html?id=e34835bf5ec5430da7cf16bb8c0b075c) - A stylx file for building custom applications that incorporate the MIL-STD-2525D symbol dictionary. 
-* [militaryoverlay.geodatabase.zip](https://www.arcgis.com/home/item.html?id=e0d41b4b409a49a5a7ba11939d8535dc) - This is a mobile geodatabase created from the Military Overlay template for use in ArcGIS Maps SDK samples
+* [militaryoverlay.geodatabase.zip](https://www.arcgis.com/home/item.html?id=e0d41b4b409a49a5a7ba11939d8535dc) - This is a mobile geodatabase created from the Military Overlay template for use in ArcGIS Maps SDK for Native Apps samples
 
 ## Tags
 

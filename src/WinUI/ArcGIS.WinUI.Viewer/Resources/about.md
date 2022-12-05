@@ -1,4 +1,4 @@
-﻿# ArcGIS Maps SDK Samples (WinUI)
+﻿# ArcGIS Maps SDK for Native Apps samples (WinUI)
 
 This sample viewer shows how different features of the ArcGIS Maps SDK can be implemented with WinUI on .NET. 
 

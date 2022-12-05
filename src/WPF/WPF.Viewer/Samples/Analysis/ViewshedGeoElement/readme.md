@@ -34,7 +34,7 @@ Tap to set a destination for the vehicle (a GeoElement). The vehicle will 'drive
 
 This sample downloads the following items from ArcGIS Online automatically:
 
-* [bradley_low_3ds.zip](https://www.arcgis.com/home/item.html?id=07d62a792ab6496d9b772a24efea45d0) - Model Scene Symbol for use in ArcGIS Maps SDK Samples
+* [bradley_low_3ds.zip](https://www.arcgis.com/home/item.html?id=07d62a792ab6496d9b772a24efea45d0) - Model Scene Symbol for use in ArcGIS Maps SDK for Native Apps samples
 
 ## About the data
 

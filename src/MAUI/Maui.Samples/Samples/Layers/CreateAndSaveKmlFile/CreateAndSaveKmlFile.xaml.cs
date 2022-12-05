@@ -25,7 +25,7 @@ using ArcGISRuntime.Samples.Managers;
 using Windows.Storage.Pickers;
 #endif
 
-namespace ArcGISMapsSDK.Samples.CreateAndSaveKmlFile
+namespace ArcGIS.Samples.CreateAndSaveKmlFile
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create and save KML file",

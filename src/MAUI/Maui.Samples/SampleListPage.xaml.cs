@@ -11,10 +11,6 @@ using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
 using ArcGIS.Helpers;
 
-#if WINDOWS_UWP
-using System.Threading.Tasks;
-#endif
-
 namespace ArcGIS
 {
     public partial class SampleListPage

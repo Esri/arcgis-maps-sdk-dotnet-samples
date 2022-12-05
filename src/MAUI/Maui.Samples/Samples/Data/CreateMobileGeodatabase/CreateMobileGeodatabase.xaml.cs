@@ -169,7 +169,7 @@ namespace ArcGIS.Samples.CreateMobileGeodatabase
                 // Close the geodatabase.
                 _geodatabase.Close();
 
-#if WINDOWS_UWP
+#if WINDOWS
                 // Instead of using the Windows share feature, this call opens the folder containing the geodatabase file with the file explorer.
                 _ = Windows.System.Launcher.LaunchFolderPathAsync(_directoryPath);
 #else

@@ -14,12 +14,6 @@ using ArcGIS.Helpers;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-#if ANDROID
-//TODO
-//using Google.AR.Core;
-//using ArcGISRuntime.Droid;
-#endif
-
 namespace ArcGIS
 {
     public partial class CategoryListPage
@@ -70,25 +64,6 @@ namespace ArcGIS
             var sample = e.Item as SampleInfo;
             if (category != null)
             {
-#if ANDROID
-                //TODO
-                // Check if Android device is AR compatible.
-                //if (category.Name == "Augmented reality")
-                //{
-                //    bool arCompatible = await ViewModel.CheckARAndroid();
-                //    if (!arCompatible)
-                //    {
-                //        // Inform user AR is not supported.
-                //        await Application.Current.MainPage.DisplayAlert("Augmented reality not supported", "Camera permissions are required for use of augmented reality.", "OK");
-
-                //        // Remove AR from categories view.
-                //        SampleCategoriesList.ItemsSource = null;
-                //        SampleCategoriesList.ItemsSource = ViewModel.SampleCategories;
-                //        return;
-                //    }
-                //}
-#endif
-
                 // Navigate to the listing page for the category.
                 await Navigation.PushAsync(new SampleListPage(category.Name));
             }
@@ -119,35 +94,6 @@ namespace ArcGIS
             SampleCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
             _allSamples = SampleManager.Current.AllSamples.ToList();
         }
-
-#if ANDROID
-        //TODO
-        //public async Task<bool> CheckARAndroid()
-        //{
-        //    // Remove AR category if device does not support AR.
-        //    bool arCompatible;
-        //    try
-        //    {
-        //        await MainActivity.Instance.AskForCameraPermission();
-
-        //        var arSession = new Session(Android.App.Application.Context);
-        //        arCompatible = true;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Console.WriteLine($"{ex.GetType().Name} {ex.Message}");
-        //        arCompatible = false;
-        //    }
-
-        //    if (!arCompatible)
-        //    {
-        //        SampleCategories.RemoveAll(category => category.Name == "Augmented reality");
-        //        _allSamples.RemoveAll(sample => sample.Category == "Augmented reality");
-        //        OnPropertyChanged(nameof(SampleCategories));
-        //    }
-        //    return arCompatible;
-        //}
-#endif
 
         public string SearchQuery
         {

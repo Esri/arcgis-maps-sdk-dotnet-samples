@@ -14,11 +14,6 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 
-#if WINDOWS_UWP
-using Colors = Windows.UI.Colors;
-#else
-#endif
-
 namespace ArcGIS.Samples.GeodatabaseTransactions
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(

@@ -103,11 +103,6 @@ namespace ArcGIS.Samples.ShowLocationHistory
 
             try
             {
-#if ANDROID
-                // See implementation in MainActivity.cs in the Android platform project.
-                //TODO
-                //ArcGISRuntime.Droid.MainActivity.Instance.AskForLocationPermission(MyMapView);
-#endif
                 // Start the data source.
                 await _locationDataSource.StartAsync();
 

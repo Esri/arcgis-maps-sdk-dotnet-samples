@@ -18,10 +18,7 @@ using Color = System.Drawing.Color;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
-#if IOS || MACCATALYST
-using ArcGISRuntime.Samples.Managers;
-
-#elif WINDOWS
+#if WINDOWS
 using Windows.Storage.Pickers;
 #endif
 

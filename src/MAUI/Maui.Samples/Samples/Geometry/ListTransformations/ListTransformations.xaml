@@ -30,13 +30,13 @@
                             Toggled="UseExtentSwitch_Toggled"
                             VerticalOptions="Center" />
                 </StackLayout>
-                <ListView x:Name="TransformationsListBox"
-                          Grid.Row="2"
-                          HasUnevenRows="True"
-                          HeightRequest="140"
-                          ItemSelected="TransformationsListBox_ItemSelected"
-                          ItemTemplate="{StaticResource TransformTemplateSelector}"
-                          WidthRequest="340" />
+                <CollectionView x:Name="TransformationsListBox"
+                                BackgroundColor="{AppThemeBinding Light='#FFFFFF', Dark='#2B2B2B'}"
+                                Grid.Row="2"
+                                SelectionMode="Single"
+                                HeightRequest="140"
+                                SelectionChanged="TransformationsListBox_SelectionChanged"
+                                ItemTemplate="{StaticResource TransformTemplateSelector}" />
                 <Label x:Name="MessagesTextBox"
                        Grid.Row="3"
                        HeightRequest="60" />

@@ -63,12 +63,6 @@
 
 	<!-- Exclude some samples on mac catalyst -->
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-maccatalyst')) == true">
-  	<AndroidResource Remove="Samples\Geometry\ListTransformations\**" />
-	  <Compile Remove="Samples\Geometry\ListTransformations\**" />
-	  <EmbeddedResource Remove="Samples\Geometry\ListTransformations\**" />
-	  <MauiCss Remove="Samples\Geometry\ListTransformations\**" />
-	  <MauiXaml Remove="Samples\Geometry\ListTransformations\**" />
-	  <None Remove="Samples\Geometry\ListTransformations\**" />
 	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
 	  <Compile Remove="Samples\Location\IndoorPositioning**" />
 	  <EmbeddedResource Remove="Samples\Location\IndoorPositioning**" />

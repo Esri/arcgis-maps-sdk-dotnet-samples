@@ -35,6 +35,20 @@ namespace ArcGIS
 
             // Update the binding.
             BindingContext = ViewModel;
+
+#if MACCATALYST
+            // Workaround visibility binding bug on Mac Catalyst.
+            ViewModel.PropertyChanged += MacVisibilityHandler;
+#endif
+
+        }
+
+        private void MacVisibilityHandler(object sender, PropertyChangedEventArgs e)
+        {
+            if(e.PropertyName == "IsSearchOpen" )
+            {
+                SampleSearchResultList.IsVisible = ((SamplesSearchViewModel)sender).IsSearchOpen;
+            }
         }
 
         private void FirstLoaded(object sender, EventArgs e)

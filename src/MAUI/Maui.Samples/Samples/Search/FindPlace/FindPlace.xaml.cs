@@ -65,7 +65,7 @@ namespace ArcGIS.Samples.FindPlace
                         status = await Microsoft.Maui.ApplicationModel.Permissions.CheckStatusAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
 
                         // Request location permission if not granted.
-                        if(status != Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
+                        if (status != Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
                         {
                             status = await Microsoft.Maui.ApplicationModel.Permissions.RequestAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
                         }
@@ -126,8 +126,8 @@ namespace ArcGIS.Samples.FindPlace
             }
             else
             {
-                // Get the current device location.
-                return MyMapView.LocationDisplay.Location.Position;
+                // Get the current device location (if available).
+                return MyMapView.LocationDisplay.Location?.Position;
             }
         }
 

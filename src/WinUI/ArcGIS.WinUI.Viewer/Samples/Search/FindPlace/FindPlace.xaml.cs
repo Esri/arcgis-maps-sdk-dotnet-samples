@@ -122,7 +122,7 @@ namespace ArcGIS.WinUI.Samples.FindPlace
             }
             else
             {
-                // Get the current device location
+                // Get the current device location (if available).
                 return MyMapView.LocationDisplay.Location?.Position;
             }
         }

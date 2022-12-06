@@ -1,4 +1,4 @@
-namespace ArcGISRuntime.Samples.AuthorMap
+namespace ArcGIS.Samples.AuthorMap
 {
     public partial class SaveMapPage : ContentPage
     {

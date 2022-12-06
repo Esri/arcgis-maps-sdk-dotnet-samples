@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.LocationDrivenGeotriggers.LocationDrivenGeotriggers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Label x:Name="NameLabel" FontWeight="ExtraBold" />
+                <Image x:Name="LocationImage"
+                       Height="150"
+                       Margin="5" />
+                <ScrollViewer Height="150" Margin="5">
+                    <TextBlock x:Name="Description" TextWrapping="Wrap" />
+                </ScrollViewer>
+                <Label Content="Click on features in list to see information." />
+                <ListView x:Name="LocationList"
+                          Height="125"
+                          Margin="5"
+                          DisplayMemberPath="Name"
+                          SelectionChanged="LocationList_SelectionChanged"
+                          SelectionMode="Single">
+                    <ListView.GroupStyle>
+                        <GroupStyle>
+                            <GroupStyle.HeaderTemplate>
+                                <DataTemplate>
+                                    <TextBlock FontSize="12"
+                                               FontWeight="Bold"
+                                               Text="{Binding Name}" />
+                                </DataTemplate>
+                            </GroupStyle.HeaderTemplate>
+                        </GroupStyle>
+                    </ListView.GroupStyle>
+                </ListView>
+                <Button x:Name="PlayPauseButton"
+                        Margin="5"
+                        Click="PlayPauseClicked"
+                        Content="Pause" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.StyleWmsLayer.StyleWmsLayer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Margin="0,0,0,2"
+                           FontWeight="SemiBold"
+                           Text="Choose a style."
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+                <Button x:Name="FirstStyleButton"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="0,5,2.5,0"
+                        Click="FirstStyleButton_Clicked"
+                        Content="Default"
+                        IsEnabled="False" />
+                <Button x:Name="SecondStyleButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="2.5,5,0,0"
+                        Click="SecondStyleButton_Clicked"
+                        Content="Contrast stretch"
+                        IsEnabled="False" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

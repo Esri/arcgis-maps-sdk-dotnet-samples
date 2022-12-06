@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.ArcGISMapImageLayerUrl
+namespace ArcGIS.Samples.ArcGISMapImageLayerUrl
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS map image layer",
         category: "Layers",
         description: "Add an ArcGIS Map Image Layer from a URL to a map.",

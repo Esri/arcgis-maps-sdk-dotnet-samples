@@ -1,6 +1,6 @@
 ﻿using Foundation;
 
-namespace ArcGISRuntime.Samples.Maui;
+namespace ArcGIS.Samples.Maui;
 
 [Register("AppDelegate")]
 public class AppDelegate : MauiUIApplicationDelegate

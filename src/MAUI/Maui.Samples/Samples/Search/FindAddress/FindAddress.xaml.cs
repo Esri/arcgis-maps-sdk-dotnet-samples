@@ -15,15 +15,15 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using System.Reflection;
 
-namespace ArcGISRuntime.Samples.FindAddress
+namespace ArcGIS.Samples.FindAddress
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find address",
         category: "Search",
         description: "Find the location for an address.",
         instructions: "For simplicity, the sample comes loaded with a set of suggested addresses. Choose an address from the suggestions or submit your own address to show its location on the map in a callout.",
         tags: new[] { "address", "geocode", "locator", "search" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
+    [ArcGIS.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class FindAddress : ContentPage
     {
         // Addresses for suggestion.
@@ -134,7 +134,7 @@ namespace ArcGISRuntime.Samples.FindAddress
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
             Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntimeMaui.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGISMapsSDK.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

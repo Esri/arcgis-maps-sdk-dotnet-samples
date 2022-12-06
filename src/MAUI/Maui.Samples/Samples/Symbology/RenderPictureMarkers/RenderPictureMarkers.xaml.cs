@@ -13,15 +13,15 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Reflection;
 
-namespace ArcGISRuntime.Samples.RenderPictureMarkers
+namespace ArcGIS.Samples.RenderPictureMarkers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Picture marker symbol",
         category: "Symbology",
         description: "Use pictures for markers.",
         instructions: "When launched, this sample displays a map with picture marker symbols. Pan and zoom to explore the map.",
         tags: new[] { "graphics", "marker", "picture", "symbol", "visualization" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
+    [ArcGIS.Samples.Shared.Attributes.EmbeddedResource(@"PictureMarkerSymbols\pin_star_blue.png")]
     public partial class RenderPictureMarkers : ContentPage
     {
         public RenderPictureMarkers()
@@ -95,7 +95,7 @@ namespace ArcGISRuntime.Samples.RenderPictureMarkers
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
             Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntimeMaui.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGISMapsSDK.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

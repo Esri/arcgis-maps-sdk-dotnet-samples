@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.AddFeatures
+namespace ArcGIS.Samples.AddFeatures
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add features",
         category: "Data",
         description: "Add features to a feature layer.",

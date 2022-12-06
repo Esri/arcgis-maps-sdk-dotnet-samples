@@ -8,9 +8,9 @@ def get_platform_samples_root(platform, sample_root):
     Gets the root directory for each platform
     '''
     if (platform == "WPF"):
-        return os.path.join(sample_root, "WPF", "ArcGISRuntime.WPF.Viewer", "Samples")
+        return os.path.join(sample_root, "WPF", "WPF.Viewer", "Samples")
     if (platform == "WinUI"):
-        return os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer", "Samples")
+        return os.path.join(sample_root, "WinUI", "ArcGIS.WinUI.Viewer", "Samples")
     if (platform == "MAUI"):
         return os.path.join(sample_root, "MAUI", "Maui.Samples", "Samples")
     raise AssertionError(None, None)
@@ -21,9 +21,9 @@ def get_relative_path_to_samples_from_platform_root(platform):
     For use in sample TOC generation
     '''
     if (platform == "WPF"):
-        return "ArcGISRuntime.WPF.Viewer/Samples"
+        return "WPF.Viewer/Samples"
     if (platform == "WinUI"):
-        return "ArcGISRuntime.WinUI.Viewer/Samples"
+        return "ArcGIS.WinUI.Viewer/Samples"
     if (platform == "MAUI"):
         return "Maui.Samples/Samples"
     raise AssertionError(None, None)
@@ -96,7 +96,7 @@ def update_attribute(sample, sample_dir):
                     del lines[start:end+1]
 
                     # Create the new attributes
-                    new_attributes = "    [ArcGISRuntime.Samples.Shared.Attributes.Sample(\n"
+                    new_attributes = "    [ArcGIS.Samples.Shared.Attributes.Sample(\n"
                     new_attributes += "        name: \"" + sample.friendly_name + "\",\n"
                     new_attributes += "        category: \"" + sample.category + "\",\n"
                     new_attributes += "        description: \"" + sample.description.replace("\"", "\\\"") + "\",\n"

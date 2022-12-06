@@ -7,13 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Shared.Models;
+using ArcGIS.Samples.Shared.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 
-namespace ArcGISRuntimeMaui
+namespace ArcGIS
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SamplePage
@@ -111,20 +111,14 @@ namespace ArcGISRuntimeMaui
 
         private string GetDescriptionHtml(SampleInfo sampleInfo)
         {
-            string folderPath = sampleInfo.Path;
-            string readmePath = Path.Combine(folderPath, "readme.md");
-            string screenshotPath = Path.Combine(sampleInfo.Path, $"{sampleInfo.FormalName}.jpg");
-
-            // Handle AR edge cases
-            folderPath = folderPath.Replace("RoutePlanner", "NavigateAR").Replace("PipePlacer", "ViewHiddenInfrastructureAR");
-
-            string readmeContent = new StreamReader(_assembly.GetManifestResourceStream($"ArcGISRuntimeMaui.Samples.{sampleInfo.Category}.{sampleInfo.FormalName}.readme.md")).ReadToEnd();
-
+            string readmeResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.Category}.{sampleInfo.FormalName}.readme.md"));
+            string readmeContent = new StreamReader(_assembly.GetManifestResourceStream(readmeResource)).ReadToEnd();
             readmeContent = Markdig.Markdown.ToHtml(readmeContent);
 
             // Set CSS for dark mode or light mode.
             string markdownCssType = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "github-markdown-dark.css" : "github-markdown.css";
-            string cssContent = new StreamReader(_assembly.GetManifestResourceStream($"ArcGISRuntimeMaui.SyntaxHighlighting.{markdownCssType}")).ReadToEnd();
+            string cssResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"SyntaxHighlighting.{markdownCssType}"));
+            string cssContent = new StreamReader(_assembly.GetManifestResourceStream(cssResource)).ReadToEnd();
 
 #if WINDOWS
             // Remove the readme header on Windows so it doesn't repeat the title.
@@ -132,7 +126,8 @@ namespace ArcGISRuntimeMaui
 #endif
 
             // Convert the image into a string of bytes to embed into the html.
-            var sourceStream = _assembly.GetManifestResourceStream($"ArcGISRuntimeMaui.Samples.{sampleInfo.Category}.{sampleInfo.FormalName}.{sampleInfo.FormalName}.jpg");
+            string imageResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.FormalName}.jpg"));
+            var sourceStream = _assembly.GetManifestResourceStream(imageResource);
             var memoryStream = new MemoryStream();
             sourceStream.CopyTo(memoryStream);
             byte[] image = memoryStream.ToArray();
@@ -318,14 +313,16 @@ namespace ArcGISRuntimeMaui
 
                 // Set CSS for dark mode or light mode.
                 string markdownCssType = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "highlight-dark.css" : "highlight.css";
-                string cssContent = new StreamReader(assembly.GetManifestResourceStream($"ArcGISRuntimeMaui.SyntaxHighlighting.{markdownCssType}")).ReadToEnd();
+                string cssResource = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"SyntaxHighlighting.{markdownCssType}"));
+                string cssContent = new StreamReader(assembly.GetManifestResourceStream(cssResource)).ReadToEnd();
 
                 // Set the background color. Color values are taken from corresponding css files.
                 string backgroundColor = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "#1e1e1e" : "#fff";
                 cssContent = $"{cssContent} body {{ background: {backgroundColor};}}";
 
                 // Read javascript content.
-                string jsContent = new StreamReader(assembly.GetManifestResourceStream($"ArcGISRuntimeMaui.SyntaxHighlighting.highlight.js")).ReadToEnd();
+                string jsResource = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"SyntaxHighlighting.highlight.js"));
+                string jsContent = new StreamReader(assembly.GetManifestResourceStream(jsResource)).ReadToEnd();
 
                 // Build the html.
                 _fullContent =

@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.GenerateOfflineMap.GenerateOfflineMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+
+        <Border x:Name="takeOfflineArea"
+                Width="375"
+                Margin="30"
+                Padding="20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1">
+            <StackPanel>
+                <Button x:Name="TakeMapOfflineButton"
+                        Click="TakeMapOfflineButton_Click"
+                        Content="Take map offline"
+                        IsEnabled="True" />
+            </StackPanel>
+        </Border>
+
+        <Border x:Name="messageArea"
+                Width="450"
+                Margin="30"
+                Padding="5"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1"
+                Visibility="Collapsed">
+            <StackPanel>
+                <TextBlock Margin="10"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="Map is offline!" />
+            </StackPanel>
+        </Border>
+
+        <Grid x:Name="busyIndicator"
+              Background="#807f7f7f"
+              Visibility="Collapsed">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Margin="10"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           FontSize="18"
+                           Foreground="White">
+                    <Run Text="Generating offline map... " />
+                    <Run x:Name="Percentage" Text="" />
+                </TextBlock>
+                <ProgressBar x:Name="progressBar"
+                             Grid.Row="1"
+                             Width="100"
+                             Height="10"
+                             Margin="0,0,0,10"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             IsEnabled="True"
+                             Maximum="100"
+                             Minimum="0" />
+                <Button x:Name="CancelJobButton"
+                        Grid.Row="3"
+                        Width="100"
+                        HorizontalAlignment="Center"
+                        Click="CancelJobButton_Click"
+                        Content="Cancel" />
+            </Grid>
+        </Grid>
+        <Grid x:Name="loadingIndicator"
+              Background="#807f7f7f"
+              Visibility="Visible">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Margin="10"
+                           FontSize="18"
+                           Foreground="White"
+                           Text="Loading online map..." />
+                <ProgressBar Grid.Row="1"
+                             Width="100"
+                             Height="10"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             IsEnabled="True"
+                             IsIndeterminate="True" />
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

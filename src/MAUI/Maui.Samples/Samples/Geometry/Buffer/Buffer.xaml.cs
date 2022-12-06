@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.Buffer
+namespace ArcGIS.Samples.Buffer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Buffer",
         category: "Geometry",
         description: "Create a buffer around a map point and display the results as a `Graphic`",

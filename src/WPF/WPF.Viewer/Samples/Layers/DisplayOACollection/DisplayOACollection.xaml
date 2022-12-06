@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.DisplayOACollection.DisplayOACollection"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Label Content="Pan and zoom to see features." />
+                <ProgressBar x:Name="LoadingProgressBar"
+                             Margin="5"
+                             IsIndeterminate="True" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

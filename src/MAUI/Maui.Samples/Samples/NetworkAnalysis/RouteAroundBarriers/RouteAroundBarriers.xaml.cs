@@ -16,9 +16,9 @@ using System.Reflection;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.RouteAroundBarriers
+namespace ArcGIS.Samples.RouteAroundBarriers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Route around barriers",
         category: "Network analysis",
         description: "Find a route that reaches all stops without crossing any barriers.",
@@ -317,7 +317,7 @@ namespace ArcGISRuntime.Samples.RouteAroundBarriers
 
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
-            Stream resourceStream = currentAssembly.GetManifestResourceStream("ArcGISRuntimeMaui.Resources.PictureMarkerSymbols.pin_blue.png");
+            Stream resourceStream = currentAssembly.GetManifestResourceStream("ArcGISMapsSDK.Resources.PictureMarkerSymbols.pin_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

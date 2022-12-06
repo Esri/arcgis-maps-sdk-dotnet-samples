@@ -7,22 +7,22 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using System.Diagnostics;
 
-namespace ArcGISRuntime.Samples.DisplayFeatureLayers
+namespace ArcGIS.Samples.DisplayFeatureLayers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display feature layers",
         category: "Layers",
         description: "Display feature layers from various data sources.",
         instructions: "Tap the button on the toolbar to add feature layers, from different sources, to the map. Pan and zoom the map to view the feature layers.",
         tags: new[] { "feature", "geodatabase", "geopackage", "layers", "service", "shapefile", "table" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("1759fd3e8a324358a0c58d9a687a8578", "cb1b20748a9f4d128dad8a87244e3e37", "68ec42517cdd439e81b036210483e8e7", "15a7cbd3af1e47cfa5d2c6b93dc44fc2")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("1759fd3e8a324358a0c58d9a687a8578", "cb1b20748a9f4d128dad8a87244e3e37", "68ec42517cdd439e81b036210483e8e7", "15a7cbd3af1e47cfa5d2c6b93dc44fc2")]
     public partial class DisplayFeatureLayers : ContentPage
     {
         public enum FeatureLayerSource

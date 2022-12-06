@@ -1,0 +1,164 @@
+﻿<UserControl x:Class="ArcGIS.WinUI.Samples.AuthorMap.AuthorMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,2.5,0,2.5" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,2.5,0,2.5" />
+            <Setter Property="Padding" Value="2.5" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="Margin" Value="0,2.5,0,2.5" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Grid.Column="1" Padding="5">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Select a basemap" />
+                <ComboBox x:Name="BasemapListBox"
+                          Grid.Row="1"
+                          HorizontalAlignment="Stretch" />
+                <TextBlock Grid.Row="2" Text="Choose layers" />
+                <ListBox x:Name="OperationalLayerListBox"
+                         Grid.Row="3"
+                         SelectionChanged="LayerSelectionChanged"
+                         SelectionMode="Multiple">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Key}" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           Text="Pan and zoom to set initial extent" />
+                <Grid Grid.Row="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Margin="0,0,5,0"
+                               Text="X Min:" />
+                    <TextBox x:Name="XMinTextBox"
+                             Grid.Row="0"
+                             Grid.Column="1"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Margin="0,0,5,0"
+                               Text="Y Min:" />
+                    <TextBox x:Name="YMinTextBox"
+                             Grid.Row="1"
+                             Grid.Column="1"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Margin="0,0,5,0"
+                               Text="X Max:" />
+                    <TextBox x:Name="XMaxTextBox"
+                             Grid.Row="2"
+                             Grid.Column="1"
+                             IsReadOnly="True" />
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Margin="0,0,5,0"
+                               Text="Y Max:" />
+                    <TextBox x:Name="YMaxTextBox"
+                             Grid.Row="3"
+                             Grid.Column="1"
+                             IsReadOnly="True" />
+                </Grid>
+                <Button Grid.Row="6"
+                        Click="NewMapClicked"
+                        Content="New map" />
+                <Grid x:Name="SaveMapGrid"
+                      Grid.Row="7"
+                      Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="0,0,5,0"
+                               HorizontalAlignment="Right"
+                               Text="Title:" />
+                    <TextBox x:Name="TitleTextBox"
+                             Grid.Row="0"
+                             Grid.Column="1"
+                             Text="My Map" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Margin="0,0,5,0"
+                               HorizontalAlignment="Right"
+                               Text="Description:" />
+                    <TextBox x:Name="DescriptionTextBox"
+                             Grid.Row="1"
+                             Grid.Column="1"
+                             Text="Authored and saved using ArcGIS Maps SDK for .NET."
+                             TextWrapping="Wrap" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Margin="0,0,5,0"
+                               HorizontalAlignment="Right"
+                               Text="Tags:" />
+                    <TextBox x:Name="TagsTextBox"
+                             Grid.Row="2"
+                             Grid.Column="1"
+                             Text="ArcGIS, Sample" />
+                    <Button Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Click="SaveMapClicked"
+                            Content="Save map to portal"
+                            IsEnabled="{Binding ElementName=MyMapView}" />
+                    <ProgressBar x:Name="SaveProgressBar"
+                                 Grid.Row="4"
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="2"
+                                 Height="15"
+                                 Margin="10,0,10,0"
+                                 HorizontalAlignment="Stretch"
+                                 IsIndeterminate="True"
+                                 Visibility="Collapsed" />
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+        <esriUI:MapView x:Name="MyMapView" Grid.Column="0" />
+    </Grid>
+</UserControl>

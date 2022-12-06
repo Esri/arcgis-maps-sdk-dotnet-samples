@@ -3,7 +3,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks.Offline;
 
-namespace ArcGISRuntime.Samples.GenerateOfflineMapWithOverrides
+namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConfigureOverridesPage : ContentPage

@@ -1,4 +1,4 @@
-<ContentPage x:Class="ArcGISRuntime.Samples.ChangeStretchRenderer.ChangeStretchRenderer"
+<ContentPage x:Class="ArcGIS.Samples.ChangeStretchRenderer.ChangeStretchRenderer"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">

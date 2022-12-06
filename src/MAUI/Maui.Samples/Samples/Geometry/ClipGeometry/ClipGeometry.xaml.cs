@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.Samples.ClipGeometry
+namespace ArcGIS.Samples.ClipGeometry
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Clip geometry",
         category: "Geometry",
         description: "Clip a geometry with another geometry.",

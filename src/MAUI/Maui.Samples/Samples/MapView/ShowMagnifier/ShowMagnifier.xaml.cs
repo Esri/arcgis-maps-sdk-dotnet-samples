@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.Samples.ShowMagnifier
+namespace ArcGIS.Samples.ShowMagnifier
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show magnifier",
         category: "MapView",
         description: "Tap and hold on a map to show a magnifier.",

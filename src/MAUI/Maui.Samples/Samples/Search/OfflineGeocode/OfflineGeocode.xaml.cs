@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -15,15 +15,15 @@ using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.UI;
 using System.Reflection;
 
-namespace ArcGISRuntime.Samples.OfflineGeocode
+namespace ArcGIS.Samples.OfflineGeocode
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Offline geocode",
         category: "Search",
         description: "Geocode addresses to locations and reverse geocode locations to addresses offline.",
         instructions: "Type the address in the Search menu option or select from the list to `Geocode` the address and view the result on the map. Tap the location you want to reverse geocode. Tap the pin to see the full address.",
         tags: new[] { "geocode", "geocoder", "locator", "offline", "package", "query", "search" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("22c3083d4fa74e3e9b25adfc9f8c0496", "3424d442ebe54f3cbf34462382d3aebe")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("22c3083d4fa74e3e9b25adfc9f8c0496", "3424d442ebe54f3cbf34462382d3aebe")]
     public partial class OfflineGeocode : ContentPage
     {
         // Addresses for suggestion.
@@ -145,7 +145,7 @@ namespace ArcGISRuntime.Samples.OfflineGeocode
             // Get image as a stream from the resources
             // Picture is defined as EmbeddedResource and DoNotCopy
             Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntimeMaui.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGISMapsSDK.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

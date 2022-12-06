@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
@@ -18,15 +18,15 @@ using System.Globalization;
 using Colors = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISRuntime.Samples.Animate3DGraphic
+namespace ArcGIS.Samples.Animate3DGraphic
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Animate 3D graphic",
         category: "GraphicsOverlay",
         description: "An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.",
         instructions: "Animation Controls:",
         tags: new[] { "animation", "camera", "heading", "pitch", "roll", "rotation", "visualize" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63", "e87c154fb9c2487f999143df5b08e9b1", "5a9b60cee9ba41e79640a06bcdf8084d", "12509ffdc684437f8f2656b0129d2c13", "681d6f7694644709a7c830ec57a2d72b")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63", "e87c154fb9c2487f999143df5b08e9b1", "5a9b60cee9ba41e79640a06bcdf8084d", "12509ffdc684437f8f2656b0129d2c13", "681d6f7694644709a7c830ec57a2d72b")]
     public partial class Animate3DGraphic : ContentPage
     {
         // URL to the elevation service - provides terrain elevation

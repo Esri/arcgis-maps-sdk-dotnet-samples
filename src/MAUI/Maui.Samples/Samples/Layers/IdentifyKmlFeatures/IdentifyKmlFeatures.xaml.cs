@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 
-namespace ArcGISRuntime.Samples.IdentifyKmlFeatures
+namespace ArcGIS.Samples.IdentifyKmlFeatures
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify KML features",
         category: "Layers",
         description: "Show a callout with formatted content for a KML feature.",

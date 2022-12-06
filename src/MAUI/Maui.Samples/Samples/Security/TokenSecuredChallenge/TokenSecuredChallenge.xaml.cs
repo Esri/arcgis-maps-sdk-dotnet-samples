@@ -11,16 +11,16 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
 using System.Globalization;
 
-namespace ArcGISRuntime.Samples.TokenSecuredChallenge
+namespace ArcGIS.Samples.TokenSecuredChallenge
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "ArcGIS token challenge",
         category: "Security",
         description: "This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.",
         instructions: "When you run the sample, the app will load a map that contains a layer from a secured service. Then, you will be challenged for a user name and password to view that layer. Enter the correct user name (user1) and password (user1). If you authenticate successfully, the secured layer will display, otherwise the map will contain only the public layers.",
         tags: new[] { "authentication", "cloud", "portal", "remember", "security" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("LoginPage.xaml.cs")]
-    [ArcGISRuntime.Samples.Shared.Attributes.XamlFiles("LoginPage.xaml")]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("LoginPage.xaml.cs")]
+    [ArcGIS.Samples.Shared.Attributes.XamlFiles("LoginPage.xaml")]
     public partial class TokenSecuredChallenge : ContentPage
     {
         // Public and secured map service URLs.

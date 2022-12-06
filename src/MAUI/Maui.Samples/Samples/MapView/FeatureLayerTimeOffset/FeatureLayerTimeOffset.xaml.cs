@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.FeatureLayerTimeOffset
+namespace ArcGIS.Samples.FeatureLayerTimeOffset
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer time offset",
         category: "MapView",
         description: "Display a time-enabled feature layer with a time offset.",

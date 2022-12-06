@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="ArcGISRuntimeMaui.CategoryListPage"
+<ContentPage x:Class="ArcGIS.CategoryListPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:resources="clr-namespace:ArcGISRuntimeMaui.Resources">
+             xmlns:resources="clr-namespace:ArcGIS.Resources">
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="SettingsClicked"
                      IconImageSource="{AppThemeBinding Light=settings.png,

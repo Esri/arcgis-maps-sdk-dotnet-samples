@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Collections.ObjectModel;
 
-namespace ArcGISRuntime.Samples.SymbolStylesFromWebStyles
+namespace ArcGIS.Samples.SymbolStylesFromWebStyles
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create symbol styles from web styles",
         category: "Symbology",
         description: "Create symbol styles from a style file hosted on a portal.",

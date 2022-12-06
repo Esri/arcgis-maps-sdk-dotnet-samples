@@ -1,6 +1,6 @@
-﻿# ArcGIS Runtime SDK Samples (.NET MAUI)
+# ArcGIS Maps SDK for Native Apps samples (.NET MAUI)
 
-This sample viewer shows how different features of the ArcGIS runtime can be implemented on the .NET framework. 
+This sample viewer shows how different features of the ArcGIS Maps SDK for Native Apps can be implemented on Microsoft .NET MAUI. 
 
 ----
 
@@ -10,4 +10,4 @@ This sample viewer shows how different features of the ArcGIS runtime can be imp
 
 ----
 
-## ArcGIS Runtime SDK Version: 
+## ArcGIS Maps SDK for .NET Version: 

@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Data;
 using System.Collections.ObjectModel;
 
-namespace ArcGISRuntime.Samples.StatsQueryGroupAndSort
+namespace ArcGIS.Samples.StatsQueryGroupAndSort
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Statistical query group and sort",
         category: "Data",
         description: "Query a feature table for statistics, grouping and sorting by different fields.",

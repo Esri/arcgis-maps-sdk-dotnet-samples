@@ -1,0 +1,110 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.Animate3DGraphic.Animate3DGraphic"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <UserControl.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="5,0,5,0" />
+            <Setter Property="Height" Value="25" />
+            <Setter Property="Padding" Value="5,0,5,0" />
+        </Style>
+        <Style TargetType="Slider">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontWeight" Value="Bold" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="5,0,5,0" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="225" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="225" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="150" />
+        </Grid.ColumnDefinitions>
+        <esri:SceneView x:Name="MySceneView"
+                        Grid.Row="0"
+                        Grid.RowSpan="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        AtmosphereEffect="Realistic" />
+        <StackPanel Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="5"
+                    Orientation="Horizontal">
+            <ComboBox x:Name="MissionSelectionBox"
+                      Width="100"
+                      Height="25"
+                      VerticalAlignment="Top" />
+            <Button x:Name="MissionPlayPause"
+                    Width="50"
+                    Height="25"
+                    VerticalAlignment="Top"
+                    Click="MissionPlayPlauseClick"
+                    Content="Pause" />
+            <TextBlock Margin="5" Text="Progress" />
+            <Slider x:Name="MissionProgressBar"
+                    Width="100"
+                    Height="25"
+                    Margin="5"
+                    VerticalAlignment="Top"
+                    IsMoveToPointEnabled="True"
+                    Maximum="1"
+                    Minimum="0"
+                    ValueChanged="MissionProgressOnSeek" />
+            <Button Width="100"
+                    Height="25"
+                    VerticalAlignment="Top"
+                    Click="ToggleFollowPlane"
+                    Content="Don't follow" />
+        </StackPanel>
+        <Border Grid.Row="0"
+                Grid.Column="2"
+                Margin="5"
+                CornerRadius="5">
+            <Border.Background>
+                <SolidColorBrush Opacity="0.7" Color="White" />
+            </Border.Background>
+            <StackPanel Margin="5">
+                <Label Content="Play speed" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="40" />
+                    </Grid.ColumnDefinitions>
+                    <Slider x:Name="MissionPlaySpeedSlider"
+                            Grid.Column="0"
+                            IsMoveToPointEnabled="True"
+                            Maximum="8"
+                            Minimum="0.5"
+                            ValueChanged="MissionPlaySpeedChanged"
+                            Value="1" />
+                    <TextBlock Grid.Column="1" Text="{Binding ElementName=MissionPlaySpeedSlider, Path=Value, StringFormat=N2}" />
+                </Grid>
+                <Separator />
+                <Label Content="Stats" FontSize="16" />
+                <Label Content="Altitude:" />
+                <TextBlock x:Name="AltitudeLabel" />
+                <Label Content="Heading:" />
+                <TextBlock x:Name="HeadingLabel" />
+                <Label Content="Pitch:" />
+                <TextBlock x:Name="PitchLabel" />
+                <Label Content="Roll:" />
+                <TextBlock x:Name="RollLabel" />
+            </StackPanel>
+        </Border>
+        <esri:MapView x:Name="InsetMapView"
+                      Grid.Row="2"
+                      Grid.Column="0"
+                      Margin="5,0,0,25"
+                      IsAttributionTextVisible="False" />
+    </Grid>
+</UserControl>

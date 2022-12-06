@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using System.Diagnostics;
 
-namespace ArcGISRuntime.Samples.WfsXmlQuery
+namespace ArcGIS.Samples.WfsXmlQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Load WFS with XML query",
         category: "Layers",
         description: "Load a WFS feature table using an XML query.",

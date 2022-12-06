@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Symbology;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.FeatureLayerQuery
+namespace ArcGIS.Samples.FeatureLayerQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer query",
         category: "Data",
         description: "Find features in a feature table which match an SQL query.",

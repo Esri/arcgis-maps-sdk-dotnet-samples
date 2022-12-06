@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Collections.ObjectModel;
 
-namespace ArcGISRuntime.Samples.ListTransformations
+namespace ArcGIS.Samples.ListTransformations
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List transformations by suitability",
         category: "Geometry",
         description: "Get a list of suitable transformations for projecting a geometry between two spatial references with different horizontal datums.",
@@ -131,7 +131,7 @@ namespace ArcGISRuntime.Samples.ListTransformations
             }
         }
 
-        private void TransformationsListBox_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        void TransformationsListBox_SelectionChanged(System.Object sender, Microsoft.Maui.Controls.SelectionChangedEventArgs e)
         {
             // Get the selected transform from the list box. Return if there isn't a selected item.
             DatumTransformationListBoxItem selectedListBoxItem = TransformationsListBox.SelectedItem as DatumTransformationListBoxItem;
@@ -224,29 +224,21 @@ namespace ArcGISRuntime.Samples.ListTransformations
             // Create the data template for unavailable transformations.
             _unavailableTransformTemplate = new DataTemplate(() =>
             {
-                Label transformNameLabel = new Label
-                {
-                    // Show these with gray text.
-                    TextColor = Colors.Gray,
-                    BackgroundColor = Colors.White
-                };
+                Label transformNameLabel = new Label { Padding = new Thickness(4,4,4,0) };
+                transformNameLabel.SetAppThemeColor(Label.TextColorProperty, Color.FromArgb("#6A6A6A"), Color.FromArgb("#9F9F9F"));
                 transformNameLabel.SetBinding(Label.TextProperty, "TransformationObject.Name");
 
-                return new ViewCell { View = transformNameLabel };
+                return transformNameLabel;
             });
 
             // Create the data template for available (but non-default) transformations.
             _availableTransformTemplate = new DataTemplate(() =>
             {
-                Label transformNameLabel = new Label
-                {
-                    // Show these with black text.
-                    TextColor = Colors.Black,
-                    BackgroundColor = Colors.White
-                };
+                Label transformNameLabel = new Label { Padding = new Thickness(4,4,4,0) };
+                transformNameLabel.SetAppThemeColor(Label.TextColorProperty, Color.FromArgb("#151515"), Colors.White);
                 transformNameLabel.SetBinding(Label.TextProperty, "TransformationObject.Name");
 
-                return new ViewCell { View = transformNameLabel };
+                return transformNameLabel;
             });
 
             // Create the data template for the default transformation.
@@ -256,12 +248,12 @@ namespace ArcGISRuntime.Samples.ListTransformations
                 {
                     // Show these with bold blue text.
                     FontAttributes = FontAttributes.Bold,
-                    TextColor = Colors.Blue,
-                    BackgroundColor = Colors.White
+                    Padding = new Thickness(4,4,4,0)
                 };
+                transformNameLabel.SetAppThemeColor(Label.TextColorProperty, Color.FromArgb("#00619B"), Color.FromArgb("#00A0FF"));
                 transformNameLabel.SetBinding(Label.TextProperty, "TransformationObject.Name");
 
-                return new ViewCell { View = transformNameLabel };
+                return transformNameLabel;
             });
         }
 

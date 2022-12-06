@@ -11,9 +11,9 @@ def get_platform_root(platform, sample_root):
     Gets the root directory for each platform
     '''
     if (platform == "WPF"):
-        return os.path.join(sample_root, "WPF", "ArcGISRuntime.WPF.Viewer")
+        return os.path.join(sample_root, "WPF", "WPF.Viewer")
     if (platform == "WinUI"):
-        return os.path.join(sample_root, "WinUI", "ArcGISRuntime.WinUI.Viewer")
+        return os.path.join(sample_root, "WinUI", "ArcGIS.WinUI.Viewer")
     if (platform == "MAUI"):
         return os.path.join(sample_root, "MAUI", "Maui.Samples")
     return ""
@@ -24,11 +24,11 @@ def get_proj_file(platform, sample_root):
     '''
     basepath = get_platform_root(platform, sample_root)
     if (platform == "WPF"):
-        return os.path.join(basepath, "ArcGISRuntime.WPF.Viewer.NetFramework.csproj")
+        return os.path.join(basepath, "ArcGIS.WPF.Viewer.NetFramework.csproj")
     if (platform == "WinUI"):
-        return os.path.join(basepath, "ArcGISRuntime.WinUI.Viewer.csproj")
+        return os.path.join(basepath, "ArcGIS.WinUI.Viewer.csproj")
     if (platform == "MAUI"):
-        return os.path.join(basepath, "ArcGISRuntime.Samples.Maui.csproj")
+        return os.path.join(basepath, "ArcGIS.Samples.Maui.csproj")
     return ""
 
 def get_csproj_style_path(category_list, sample_name, file_name):
@@ -179,7 +179,7 @@ def get_offline_data_attribute(list_of_item_ids) -> str:
     '''
     Take a list of item IDs, create the offline data attribute
     '''
-    base_string = '[ArcGISRuntime.Samples.Shared.Attributes.OfflineData($marker)]'
+    base_string = '[ArcGIS.Samples.Shared.Attributes.OfflineData($marker)]'
     inner_replacement = ""
     for itemId in list_of_item_ids:
         if inner_replacement != "":

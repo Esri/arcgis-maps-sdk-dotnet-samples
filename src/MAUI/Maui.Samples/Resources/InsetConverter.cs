@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 
-namespace ArcGISRuntimeMaui.Resources
+namespace ArcGIS.Resources
 {
     /// <summary>
     /// Converts a double to a Thickness, where the <c>Top</c> is the value, all other properties set to 0.

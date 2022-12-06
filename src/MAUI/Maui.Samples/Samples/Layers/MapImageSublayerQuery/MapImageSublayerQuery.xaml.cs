@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.UI;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.MapImageSublayerQuery
+namespace ArcGIS.Samples.MapImageSublayerQuery
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Query map image sublayer",
         category: "Layers",
         description: "Find features in a sublayer based on attributes and location.",

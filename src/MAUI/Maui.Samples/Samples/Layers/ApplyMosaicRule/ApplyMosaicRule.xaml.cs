@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISRuntime.Samples.ApplyMosaicRule
+namespace ArcGIS.Samples.ApplyMosaicRule
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Apply mosaic rule to rasters",
         category: "Layers",
         description: "Apply mosaic rule to a mosaic dataset of rasters.",

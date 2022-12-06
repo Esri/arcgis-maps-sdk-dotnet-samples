@@ -7,23 +7,22 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Shared.Managers;
-using ArcGISRuntimeMaui.Helpers;
+using ArcGIS.Helpers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.Samples.AuthorMap
+namespace ArcGIS.Samples.AuthorMap
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create and save map",
         category: "Map",
         description: "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
         instructions: "1. Select the basemap and layers you'd like to add to your map.",
         tags: new[] { "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.ClassFile("SaveMapPage.xaml.cs", "Helpers\\ArcGISLoginPrompt.cs")]
-    [ArcGISRuntime.Samples.Shared.Attributes.XamlFiles("SaveMapPage.xaml")]
-    public partial class AuthorMap : ContentPage, IDisposable
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("SaveMapPage.xaml.cs", "Helpers\\ArcGISLoginPrompt.cs")]
+    [ArcGIS.Samples.Shared.Attributes.XamlFiles("SaveMapPage.xaml")]
+    public partial class AuthorMap : ContentPage
     {
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
@@ -216,12 +215,6 @@ namespace ArcGISRuntime.Samples.AuthorMap
             catch
             {
             }
-        }
-
-        public void Dispose()
-        {
-            // Re-enable the API key in the viewer when exiting this sample.
-            ApiKeyManager.EnableKey();
         }
     }
 }

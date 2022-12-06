@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.UI;
 
 using Colors = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.FindRoute
+namespace ArcGIS.Samples.FindRoute
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find route",
         category: "Network analysis",
         description: "Display directions for a route between two points.",

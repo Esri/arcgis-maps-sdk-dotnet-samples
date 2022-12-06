@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.OpenMapURL
+namespace ArcGIS.Samples.OpenMapURL
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Open map URL",
         category: "Map",
         description: "Display a web map.",

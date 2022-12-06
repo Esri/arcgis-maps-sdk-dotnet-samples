@@ -18,16 +18,13 @@ using Color = System.Drawing.Color;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
-#if IOS || MACCATALYST
-using ArcGISRuntime.Samples.Managers;
-
-#elif WINDOWS
+#if WINDOWS
 using Windows.Storage.Pickers;
 #endif
 
-namespace ArcGISRuntimeMaui.Samples.CreateAndSaveKmlFile
+namespace ArcGIS.Samples.CreateAndSaveKmlFile
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create and save KML file",
         category: "Layers",
         description: "Construct a KML document and save it as a KMZ file.",

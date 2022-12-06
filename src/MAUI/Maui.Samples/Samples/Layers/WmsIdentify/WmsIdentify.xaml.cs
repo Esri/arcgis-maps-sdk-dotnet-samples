@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 
-namespace ArcGISRuntime.Samples.WmsIdentify
+namespace ArcGIS.Samples.WmsIdentify
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Identify WMS features",
         category: "Layers",
         description: "Identify features in a WMS layer and display the associated popup content.",

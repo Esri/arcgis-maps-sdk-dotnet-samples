@@ -10,7 +10,7 @@
 using System.Collections;
 using System.Globalization;
 
-namespace ArcGISRuntimeMaui.Converters
+namespace ArcGIS.Converters
 {
     public class NullToVisibilityConverter : IValueConverter
     {

@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.ChangeViewpoint
+namespace ArcGIS.Samples.ChangeViewpoint
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change viewpoint",
         category: "MapView",
         description: "Set the map view to a new viewpoint.",

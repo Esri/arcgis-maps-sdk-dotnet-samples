@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.GroupLayers
+namespace ArcGIS.Samples.GroupLayers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Group layers",
         category: "Layers",
         description: "Group a collection of layers together and toggle their visibility as a group.",

@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.TerrainExaggeration
+namespace ArcGIS.Samples.TerrainExaggeration
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Terrain exaggeration",
         category: "Scene",
         description: "Vertically exaggerate terrain in a scene.",

@@ -1,0 +1,71 @@
+﻿<UserControl x:Name="This"
+             x:Class="ArcGIS.WPF.Samples.ListTransformations.ListTransformations"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:local="clr-namespace:ArcGIS.WPF.Samples.ListTransformations">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+    </UserControl.Resources>
+    <Grid DataContext="{Binding ElementName=This}">
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="240" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="InSpatialRefTextBox"
+                           Grid.Row="0"
+                           Margin="0,5,0,5" />
+                <TextBlock x:Name="OutSpatialRefTextBox" Grid.Row="1" />
+                <CheckBox x:Name="UseExtentCheckBox"
+                          Grid.Row="2"
+                          Margin="0,5,0,5"
+                          Checked="UseExtentCheckBox_CheckChanged"
+                          Content="Consider current extent"
+                          FontWeight="SemiBold"
+                          IsChecked="False"
+                          Unchecked="UseExtentCheckBox_CheckChanged" />
+                <ListBox x:Name="TransformationsListBox"
+                         Grid.Row="3"
+                         ItemsSource="{Binding Path=SuitableTransformationsList}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         SelectionChanged="TransformationsListBox_Selected">
+                    <ListBox.Resources>
+                        <!--  Define triggers that will style the item differently if PE files are missing.  -->
+                        <Style TargetType="ListBoxItem">
+                            <Style.Triggers>
+                                <!--  Gray text if files are missing.  -->
+                                <DataTrigger Binding="{Binding Path=TransformationObject.IsMissingProjectionEngineFiles}" Value="True">
+                                    <Setter Property="Foreground" Value="Gray" />
+                                </DataTrigger>
+                                <!--  Blue text otherwise  -->
+                                <DataTrigger Binding="{Binding Path=TransformationObject.IsMissingProjectionEngineFiles}" Value="False">
+                                    <Setter Property="Foreground" Value="Blue" />
+                                </DataTrigger>
+                                <!--  Bold text for the default  -->
+                                <DataTrigger Binding="{Binding Path=IsDefault}" Value="True">
+                                    <Setter Property="FontWeight" Value="ExtraBold" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                        <!--  Bind to the Name property of each datum transformation.  -->
+                        <DataTemplate DataType="{x:Type local:DatumTransformationListBoxItem}">
+                            <TextBlock Text="{Binding Path=TransformationObject.Name}" TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </ListBox.Resources>
+                </ListBox>
+                <TextBlock x:Name="MessagesTextBox"
+                           Grid.Row="4"
+                           Margin="0,5,0,0"
+                           TextWrapping="Wrap" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

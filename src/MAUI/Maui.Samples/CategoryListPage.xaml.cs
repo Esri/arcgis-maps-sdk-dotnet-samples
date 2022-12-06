@@ -7,14 +7,14 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
-using ArcGISRuntime.Samples.Shared.Managers;
-using ArcGISRuntime.Samples.Shared.Models;
-using ArcGISRuntimeMaui.Helpers;
+using ArcGIS.Samples.Managers;
+using ArcGIS.Samples.Shared.Managers;
+using ArcGIS.Samples.Shared.Models;
+using ArcGIS.Helpers;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace ArcGISRuntimeMaui
+namespace ArcGIS
 {
     public partial class CategoryListPage
     {

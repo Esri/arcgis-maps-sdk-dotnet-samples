@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 
-namespace ArcGISRuntime.Samples.UniqueValuesAlternateSymbols
+namespace ArcGIS.Samples.UniqueValuesAlternateSymbols
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Apply unique values with alternate symbols",
         category: "Symbology",
         description: "Apply a unique value with alternate symbols at different scales.",

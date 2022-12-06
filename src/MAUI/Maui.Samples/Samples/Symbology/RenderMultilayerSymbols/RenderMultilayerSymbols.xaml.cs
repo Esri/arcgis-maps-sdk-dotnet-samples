@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 using System.Reflection;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.RenderMultilayerSymbols
+namespace ArcGIS.Samples.RenderMultilayerSymbols
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Render multilayer symbols",
         category: "Symbology",
         description: "Show different kinds of multilayer symbols on a map similar to some pre-defined 2D simple symbol styles.",
@@ -196,7 +196,7 @@ namespace ArcGISRuntime.Samples.RenderMultilayerSymbols
 
             // Get image as a stream from the resources.
             // Picture is defined as EmbeddedResource.
-            using (var stream = currentAssembly.GetManifestResourceStream("ArcGISRuntimeMaui.Resources.PictureMarkerSymbols.pin_star_blue.png"))
+            using (var stream = currentAssembly.GetManifestResourceStream("ArcGISMapsSDK.Resources.PictureMarkerSymbols.pin_star_blue.png"))
             {
                 using (var mem = new MemoryStream())
                 {

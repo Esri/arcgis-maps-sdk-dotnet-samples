@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISRuntime.Samples.ConvexHullList
+namespace ArcGIS.Samples.ConvexHullList
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Convex hull list",
         category: "Geometry",
         description: "Generate convex hull polygon(s) from multiple input geometries.",

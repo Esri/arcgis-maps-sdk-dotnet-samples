@@ -7,18 +7,18 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.DisplayDimensions
+namespace ArcGIS.Samples.DisplayDimensions
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display dimensions",
         category: "Layers",
         description: "Display dimension features from a mobile map package.",
         instructions: "When the sample loads, it will automatically display the map containing dimension features from the mobile map package. The name of the dimension layer containing the dimension features is displayed in the controls box. Control the visibility of the dimension layer with the \"Dimension Layer visibility\" check box, and apply a definition expression to show dimensions of greater than or equal to 450m in length using the \"Definition Expression\" checkbox.",
         tags: new[] { "dimension", "layer", "mmpk", "mobile map package", "utility" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("f5ff6f5556a945bca87ca513b8729a1e")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("f5ff6f5556a945bca87ca513b8729a1e")]
     public partial class DisplayDimensions : ContentPage
     {
         // Hold a reference to the Dimension layer for use in event handlers
@@ -34,7 +34,7 @@ namespace ArcGISRuntime.Samples.DisplayDimensions
         {
             try
             {
-                // Get the path to the map package. DataManager is a sample viewer tool, not part of ArcGIS Runtime.
+                // Get the path to the map package. DataManager is a sample viewer tool, not part of ArcGIS Maps SDK for .NET.
                 var dataPath = DataManager.GetDataFolder("f5ff6f5556a945bca87ca513b8729a1e", "Edinburgh_Pylon_Dimensions.mmpk");
 
                 // Load the mobile map package.

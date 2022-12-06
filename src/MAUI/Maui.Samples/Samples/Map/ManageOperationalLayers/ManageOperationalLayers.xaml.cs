@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.ManageOperationalLayers
+namespace ArcGIS.Samples.ManageOperationalLayers
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Manage operational layers",
         category: "Map",
         description: "Add, remove, and reorder operational layers in a map.",

@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.BufferList.BufferList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock x:Name="BufferInstructionsLabel"
+                           Margin="0,0,0,10"
+                           TextWrapping="Wrap">
+                    Tap on the map to add points. Each point will use the buffer distance entered when it was created. The envelope shows the area where you can expect reasonable results for planar buffer operations with the North Central Texas State Plane spatial reference.
+                </TextBlock>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="0,0,5,0"
+                               VerticalAlignment="Center"
+                               FontWeight="SemiBold"
+                               Text="Distance (miles):" />
+                    <TextBox x:Name="BufferDistanceMilesTextBox"
+                             Width="30"
+                             VerticalAlignment="Center"
+                             Text="10" />
+                    <CheckBox x:Name="UnionCheckBox"
+                              Margin="10,0,0,0"
+                              VerticalAlignment="Center"
+                              Content="Union the buffer(s)"
+                              FontWeight="SemiBold"
+                              IsChecked="True" />
+                </StackPanel>
+                <Button x:Name="BufferButton"
+                        Margin="0,10,0,0"
+                        Click="BufferButton_Click"
+                        Content="Create buffer(s)" />
+                <Button x:Name="ClearButton"
+                        Margin="0,10,0,0"
+                        Click="ClearButton_Click"
+                        Content="Clear" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

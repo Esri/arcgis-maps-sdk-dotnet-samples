@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
 
-namespace ArcGISRuntime.Samples.RasterRenderingRule
+namespace ArcGIS.Samples.RasterRenderingRule
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Raster rendering rule",
         category: "Layers",
         description: "Display a raster on a map and apply different rendering rules to that raster.",

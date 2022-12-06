@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ConvexHull.ConvexHull"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock x:Name="ConvexHullInstructionsLabel"
+                           FontWeight="SemiBold"
+                           Text="Tap to place points, then click 'Create convex hull'."
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
+                <Button x:Name="ConvexHullButton"
+                        Margin="0,10,0,0"
+                        Click="ConvexHullButton_Click"
+                        Content="Create convex hull" />
+                <Button x:Name="ResetButton"
+                        Margin="0,10,0,0"
+                        Click="ResetButton_Click"
+                        Content="Reset" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

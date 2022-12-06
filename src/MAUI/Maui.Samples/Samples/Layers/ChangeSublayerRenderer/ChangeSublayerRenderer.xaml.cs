@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.ChangeSublayerRenderer
+namespace ArcGIS.Samples.ChangeSublayerRenderer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change sublayer renderer",
         category: "Layers",
         description: "Apply a renderer to a sublayer.",

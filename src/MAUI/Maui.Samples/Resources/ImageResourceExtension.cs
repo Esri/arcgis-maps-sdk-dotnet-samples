@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace ArcGISRuntimeMaui.Resources
+namespace ArcGIS.Resources
 {
     [ContentProperty(nameof(Source))]
     public class ImageResourceExtension : IMarkupExtension

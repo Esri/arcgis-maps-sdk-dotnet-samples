@@ -1,0 +1,41 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.OfflineGeocode.OfflineGeocode"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           FontWeight="SemiBold"
+                           Text="Enter an address to search or select from a preset option."
+                           TextAlignment="Center" />
+                <ComboBox x:Name="SearchBox"
+                          Grid.Row="1"
+                          Grid.Column="0"
+                          Margin="0,5,5,0"
+                          IsEditable="True"
+                          IsEnabled="False"
+                          ItemsSource="{Binding Suggestions}"
+                          SelectionChanged="OnSuggestionChosen" />
+                <Button x:Name="SearchButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="0,5,0,0"
+                        Click="Search_Clicked"
+                        Content="Search"
+                        IsEnabled="False" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

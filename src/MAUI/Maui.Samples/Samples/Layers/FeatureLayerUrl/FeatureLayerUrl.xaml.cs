@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.FeatureLayerUrl
+namespace ArcGIS.Samples.FeatureLayerUrl
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer (feature service)",
         category: "Layers",
         description: "Show features from an online feature service.",

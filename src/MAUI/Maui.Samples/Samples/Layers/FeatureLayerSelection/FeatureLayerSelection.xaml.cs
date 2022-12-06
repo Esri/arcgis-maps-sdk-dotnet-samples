@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.Maui;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.FeatureLayerSelection
+namespace ArcGIS.Samples.FeatureLayerSelection
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Feature layer selection",
         category: "Layers",
         description: "Select features in a feature layer.",

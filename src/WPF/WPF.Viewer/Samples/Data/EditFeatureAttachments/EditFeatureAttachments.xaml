@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.EditFeatureAttachments.EditFeatureAttachments"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <StackPanel Orientation="Vertical">
+                    <Label HorizontalContentAlignment="Center"
+                           Content="Tap features to select."
+                           FontWeight="SemiBold" />
+                    <ListBox x:Name="AttachmentsListBox"
+                             MinHeight="100"
+                             MaxHeight="300"
+                             HorizontalContentAlignment="Stretch"
+                             Background="LightGray"
+                             IsEnabled="False">
+                        <!--  ItemTemplate defines how each item (Attachment) is rendered.  -->
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="{Binding Name}" />
+                                    <!--  DataTemplate sets the item as the button's DataContext automatically.  -->
+                                    <Button Grid.Column="1"
+                                            Margin="0,0,5,0"
+                                            Padding="5"
+                                            HorizontalAlignment="Right"
+                                            Click="DownloadAttachment_Click"
+                                            Content="Download" />
+                                    <Button Grid.Column="2"
+                                            Padding="5"
+                                            HorizontalAlignment="Right"
+                                            Click="DeleteAttachment_Click"
+                                            Content="Delete" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button x:Name="AddAttachmentButton"
+                            Margin="0,5,0,5"
+                            Click="AddAttachment_Click"
+                            Content="Add attachment"
+                            IsEnabled="False" />
+                    <ProgressBar x:Name="ActivityIndicator"
+                                 Height="15"
+                                 IsIndeterminate="True"
+                                 Visibility="Collapsed" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

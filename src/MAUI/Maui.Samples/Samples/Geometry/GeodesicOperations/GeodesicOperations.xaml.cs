@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.UI;
 using Colors = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISRuntime.Samples.GeodesicOperations
+namespace ArcGIS.Samples.GeodesicOperations
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Geodesic operations",
         category: "Geometry",
         description: "Calculate a geodesic path between two points and measure its distance.",

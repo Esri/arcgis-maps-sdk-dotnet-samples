@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.SceneLayerSelection
+namespace ArcGIS.Samples.SceneLayerSelection
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Scene layer selection",
         category: "Layers",
         description: "Identify features in a scene to select.",

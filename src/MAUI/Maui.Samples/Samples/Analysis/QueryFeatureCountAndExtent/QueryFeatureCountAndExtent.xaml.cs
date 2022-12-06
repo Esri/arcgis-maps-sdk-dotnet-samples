@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.QueryFeatureCountAndExtent
+namespace ArcGIS.Samples.QueryFeatureCountAndExtent
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Query feature count and extent",
         category: "Analysis",
         description: "Zoom to features matching a query and count the features in the current visible extent.",

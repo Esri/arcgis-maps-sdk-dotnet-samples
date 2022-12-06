@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.Samples.ExportVectorTiles
+namespace ArcGIS.Samples.ExportVectorTiles
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Export vector tiles",
         category: "Layers",
         description: "Export tiles from an online vector tile service.",

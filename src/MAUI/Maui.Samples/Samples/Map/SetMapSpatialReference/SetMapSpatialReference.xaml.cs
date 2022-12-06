@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.SetMapSpatialReference
+namespace ArcGIS.Samples.SetMapSpatialReference
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map spatial reference",
         category: "Map",
         description: "Specify a map's spatial reference.",

@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.SurfacePlacements
+namespace ArcGIS.Samples.SurfacePlacements
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Surface placement",
         category: "GraphicsOverlay",
         description: "Position graphics relative to a surface using different surface placement modes.",

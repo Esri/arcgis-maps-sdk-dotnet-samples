@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.StyleWmsLayer
+namespace ArcGIS.Samples.StyleWmsLayer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Style WMS layers",
         category: "Layers",
         description: "Change the style of a Web Map Service (WMS) layer.",

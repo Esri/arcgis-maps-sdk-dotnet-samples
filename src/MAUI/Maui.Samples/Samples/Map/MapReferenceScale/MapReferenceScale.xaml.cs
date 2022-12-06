@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 
-namespace ArcGISRuntime.Samples.MapReferenceScale
+namespace ArcGIS.Samples.MapReferenceScale
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Map reference scale",
         category: "Map",
         description: "Set the map's reference scale and which feature layers should honor the reference scale.",

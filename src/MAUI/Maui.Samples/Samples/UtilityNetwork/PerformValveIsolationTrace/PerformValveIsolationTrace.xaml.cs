@@ -15,9 +15,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UtilityNetworks;
 
-namespace ArcGISRuntime.Samples.PerformValveIsolationTrace
+namespace ArcGIS.Samples.PerformValveIsolationTrace
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Perform valve isolation trace",
         category: "Utility network",
         description: "Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.",

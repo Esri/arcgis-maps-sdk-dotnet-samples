@@ -1,0 +1,11 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ArcGISMapImageLayerUrl.ArcGISMapImageLayerUrl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
+    <Grid>
+        <esri:MapView x:Name="MyMapView">
+            <mapping:Map />
+        </esri:MapView>
+    </Grid>
+</UserControl>

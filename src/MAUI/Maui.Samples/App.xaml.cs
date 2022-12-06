@@ -1,6 +1,6 @@
-﻿using ArcGISRuntimeMaui;
+﻿using ArcGIS;
 
-namespace ArcGISRuntime.Samples.Maui;
+namespace ArcGIS.Samples.Maui;
 
 public partial class App : Application
 {

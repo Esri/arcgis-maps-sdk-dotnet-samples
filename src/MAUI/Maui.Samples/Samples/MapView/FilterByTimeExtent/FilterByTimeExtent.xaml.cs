@@ -14,9 +14,9 @@ using System;
 using System.Threading.Tasks;
 
 
-namespace ArcGISRuntimeMaui.Samples.FilterByTimeExtent
+namespace ArcGIS.Samples.FilterByTimeExtent
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Filter by time extent",
         category: "MapView",
         description: "The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.",

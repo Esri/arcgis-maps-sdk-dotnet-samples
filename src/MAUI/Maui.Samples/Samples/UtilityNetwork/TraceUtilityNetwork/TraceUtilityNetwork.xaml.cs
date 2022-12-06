@@ -17,9 +17,9 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using System.Diagnostics;
 
-namespace ArcGISRuntime.Samples.TraceUtilityNetwork
+namespace ArcGIS.Samples.TraceUtilityNetwork
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Trace utility network",
         category: "Utility network",
         description: "Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.",

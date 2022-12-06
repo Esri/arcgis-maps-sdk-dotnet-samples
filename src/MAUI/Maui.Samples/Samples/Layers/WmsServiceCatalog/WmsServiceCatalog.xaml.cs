@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System.Collections.ObjectModel;
 
-namespace ArcGISRuntime.Samples.WmsServiceCatalog
+namespace ArcGIS.Samples.WmsServiceCatalog
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "WMS service catalog",
         category: "Layers",
         description: "Connect to a WMS service and show the available layers and sublayers. ",

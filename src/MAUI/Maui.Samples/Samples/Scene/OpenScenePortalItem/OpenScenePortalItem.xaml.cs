@@ -10,9 +10,9 @@
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 
-namespace ArcGISRuntime.Samples.OpenScenePortalItem
+namespace ArcGIS.Samples.OpenScenePortalItem
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Open scene (portal item)",
         category: "Scene",
         description: "Open a web scene from a portal item.",

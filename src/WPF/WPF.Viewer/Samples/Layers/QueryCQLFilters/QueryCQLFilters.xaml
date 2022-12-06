@@ -1,0 +1,79 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.QueryCQLFilters.QueryCQLFilters"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.ColumnSpan="2"
+                       Content="Populate query parameters"
+                       FontWeight="Bold"
+                       Foreground="Black" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Content="Where clause:" />
+                <ComboBox x:Name="WhereClauseBox"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          IsEditable="True" />
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       Content="Max features:" />
+                <TextBox x:Name="MaxFeaturesBox"
+                         Grid.Row="3"
+                         Grid.Column="1"
+                         Margin="5" />
+                <CheckBox x:Name="DateBox"
+                          Grid.Row="4"
+                          Grid.ColumnSpan="2"
+                          Margin="5"
+                          Checked="DateBox_Checked"
+                          Content="Time extent:"
+                          IsChecked="True"
+                          Unchecked="DateBox_Checked" />
+                <DatePicker x:Name="StartDatePicker"
+                            Grid.Row="5"
+                            Grid.Column="0"
+                            Margin="5" />
+                <DatePicker x:Name="EndDatePicker"
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            Margin="5" />
+                <Button x:Name="ApplyQuery"
+                        Grid.Row="6"
+                        Grid.ColumnSpan="2"
+                        Margin="5"
+                        Click="ApplyQuery_Click"
+                        Content="Apply query" />
+                <Label x:Name="NumberOfReturnedFeatures"
+                       Grid.Row="7"
+                       Grid.ColumnSpan="2" />
+                <ProgressBar x:Name="LoadingProgressBar"
+                             Grid.Row="8"
+                             Grid.ColumnSpan="2"
+                             Height="10"
+                             Margin="5"
+                             IsEnabled="True"
+                             IsIndeterminate="True"
+                             Visibility="Visible" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.FeatureLayerTimeOffset.FeatureLayerTimeOffset"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock Margin="0"
+                           HorizontalAlignment="Center"
+                           FontWeight="Bold"
+                           Foreground="Red"
+                           Text="Red hurricanes offset 10 days" />
+                <TextBlock Margin="0,5,0,0"
+                           HorizontalAlignment="Center"
+                           FontWeight="Bold"
+                           Foreground="Blue"
+                           Text="Blue hurricanes not offset" />
+                <Slider x:Name="MyTimeSlider"
+                        Margin="0,5,0,0"
+                        IsMoveToPointEnabled="True"
+                        Maximum="1"
+                        Minimum="0"
+                        ValueChanged="MyTimeSlider_ValueChanged" />
+                <TextBlock x:Name="CurrentDateLabel"
+                           Margin="0,5,0,0"
+                           FontWeight="SemiBold"
+                           TextAlignment="Center" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

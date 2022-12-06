@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.LoadWebTiledLayer
+namespace ArcGIS.Samples.LoadWebTiledLayer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Web tiled layer",
         category: "Layers",
         description: "Display a tiled web layer.",

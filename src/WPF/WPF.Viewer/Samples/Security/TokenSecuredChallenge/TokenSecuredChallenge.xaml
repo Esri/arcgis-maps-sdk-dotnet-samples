@@ -1,0 +1,146 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.TokenSecuredChallenge.TokenSecuredChallenge"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
+    <Grid x:Name="layoutGrid">
+        <esri:MapView x:Name="MyMapView">
+            <mapping:Map>
+                <mapping:Map.OperationalLayers>
+                    <!--  This layer is public and does not require credentials  -->
+                    <mapping:ArcGISTiledLayer Name="World Street Map - Public" Source="https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
+                    <!--  This layer is secured with ArcGIS tokens and requires a login  -->
+                    <!--  username: user1 | password: user1  -->
+                    <mapping:ArcGISMapImageLayer Name="USA - Secure" Source="https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer" />
+                </mapping:Map.OperationalLayers>
+            </mapping:Map>
+        </esri:MapView>
+
+        <!--  Layer listing with status  -->
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock Margin="4"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Text="Map layers (with status)" />
+                <ListView x:Name="listLayerStatus"
+                          Padding="6"
+                          ItemsSource="{Binding ElementName=MyMapView, Path=Map.AllLayers}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Left" Text="{Binding Name}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Margin="20,0,0,5" FontWeight="Bold">
+                                        <TextBlock.Style>
+                                            <Style TargetType="{x:Type TextBlock}">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding LoadStatus}" Value="2">
+                                                        <Setter Property="Foreground" Value="Red" />
+                                                        <Setter Property="Text" Value="Access Denied" />
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding LoadStatus}" Value="0">
+                                                        <Setter Property="Foreground" Value="Green" />
+                                                        <Setter Property="Text" Value="Access Granted" />
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+
+                                                <Style.Setters>
+                                                    <Setter Property="Foreground" Value="Black" />
+                                                    <Setter Property="Text" Value="Initializing" />
+                                                </Style.Setters>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackPanel>
+        </Border>
+
+        <!--  Login UI  -->
+        <Border x:Name="loginPanel"
+                HorizontalAlignment="Left"
+                Style="{StaticResource BorderStyle}"
+                Visibility="Collapsed">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Margin="0,0,0,8"
+                           Text="{Binding ServiceUrl, StringFormat='Login to: {0}'}"
+                           TextWrapping="Wrap" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Margin="0,0,0,8"
+                           FontWeight="SemiBold"
+                           Text="Username and password are user1/user1"
+                           TextWrapping="Wrap" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Margin="2"
+                           VerticalAlignment="Center"
+                           Text="Username" />
+                <TextBox Grid.Row="2"
+                         Grid.Column="1"
+                         Margin="2"
+                         Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Margin="2"
+                           VerticalAlignment="Center"
+                           Text="Password" />
+                <!--
+                    For simplicity, the password is visible in this example. You can use a PasswordBox to mask the password text,
+                    but it complicates data binding. See this discussion for details: http://stackoverflow.com/questions/1483892/how-to-bind-to-a-passwordbox-in-mvvm
+                -->
+                <TextBox Grid.Row="3"
+                         Grid.Column="1"
+                         Margin="2"
+                         Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Row="4"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,12,0,0"
+                        Padding="5,2.5,5,2.5"
+                        HorizontalAlignment="Center"
+                        Click="LoginButtonClick"
+                        Content="Login and load layer"
+                        IsDefault="True" />
+                <TextBlock Grid.Row="5"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Margin="8,12,8,0"
+                           Foreground="Red"
+                           Text="{Binding ErrorMessage}"
+                           TextWrapping="Wrap">
+                    <TextBlock.Style>
+                        <Style TargetType="{x:Type TextBlock}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ErrorMessage}" Value="">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

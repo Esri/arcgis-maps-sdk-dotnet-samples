@@ -7,21 +7,21 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGISRuntime.Samples.Managers;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
 using System.Collections.ObjectModel;
 
-namespace ArcGISRuntime.Samples.ListKmlContents
+namespace ArcGIS.Samples.ListKmlContents
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "List KML contents",
         category: "Layers",
         description: "List the contents of a KML file.",
         instructions: "The contents of the KML file are shown in a tree. Select a node to zoom to that node. Not all nodes can be zoomed to (e.g. screen overlays).",
         tags: new[] { "KML", "KMZ", "Keyhole", "OGC", "layers" })]
-    [ArcGISRuntime.Samples.Shared.Attributes.OfflineData("da301cb122874d5497f8a8f6c81eb36e")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("da301cb122874d5497f8a8f6c81eb36e")]
     public partial class ListKmlContents : ContentPage
     {
         // Hold a list of LayerDisplayVM; this is the ViewModel.
@@ -56,7 +56,7 @@ namespace ArcGISRuntime.Samples.ListKmlContents
                 // Build the ViewModel from the expanded list of layer infos.
                 foreach (KmlNode node in dataset.RootNodes)
                 {
-                    // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of ArcGIS Runtime.
+                    // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of ArcGIS Maps SDK for .NET.
                     LayerDisplayVM nodeVm = new LayerDisplayVM(node, null);
                     _viewModelList.Add(nodeVm);
                     LayerDisplayVM.BuildLayerInfoList(nodeVm, _viewModelList);

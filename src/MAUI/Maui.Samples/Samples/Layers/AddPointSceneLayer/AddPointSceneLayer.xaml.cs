@@ -9,9 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGISRuntime.Samples.AddPointSceneLayer
+namespace ArcGIS.Samples.AddPointSceneLayer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add a point scene layer",
         category: "Layers",
         description: "View a point scene layer from a scene service.",

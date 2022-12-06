@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Geoprocessing;
 
-namespace ArcGISRuntime.Samples.AnalyzeHotspots
+namespace ArcGIS.Samples.AnalyzeHotspots
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Analyze hotspots",
         category: "Geoprocessing",
         description: "Use a geoprocessing service and a set of features to identify statistically significant hot spots and cold spots.",

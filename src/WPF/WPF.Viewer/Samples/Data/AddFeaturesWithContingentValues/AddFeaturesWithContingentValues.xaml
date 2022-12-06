@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.AddFeaturesWithContingentValues.AddFeaturesWithContingentValues"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Border x:Name="FeatureAttributesPanel"
+                MaxWidth="200"
+                IsVisibleChanged="FeatureAttributesPanel_IsVisibleChanged"
+                Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Label Content="Status" />
+                <ComboBox x:Name="StatusCombo" />
+                <Label Content="Protection" />
+                <ComboBox x:Name="ProtectionCombo" />
+                <Label Content="Buffer Size" />
+                <StackPanel Orientation="Horizontal">
+                    <Slider x:Name="BufferSizeSlider"
+                            Width="115"
+                            IsSnapToTickEnabled="True"
+                            TickFrequency="1"
+                            TickPlacement="BottomRight" />
+                    <TextBlock Width="40"
+                               Height="20"
+                               Margin="5,0"
+                               Text="{Binding ElementName=BufferSizeSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}"
+                               TextAlignment="left" />
+                </StackPanel>
+
+                <Button x:Name="SaveButton"
+                        Width="80"
+                        Margin="0,5"
+                        HorizontalAlignment="Left"
+                        Click="SaveButton_Click"
+                        Content="Save" />
+                <Button x:Name="DiscardButton"
+                        Width="80"
+                        HorizontalAlignment="Left"
+                        Click="DiscardButton_Click"
+                        Content="Discard" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

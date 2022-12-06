@@ -38,7 +38,7 @@ The map starts out zoomed into the grounds of the Royal Observatory, Greenwich. 
 
 Some transformations aren't available until transformation data is provided.
 
-This sample uses a `GeographicTransformation`, which extends the `DatumTransformation` class. As of 100.9, ArcGIS Runtime also includes a `HorizontalVerticalTransformation`, which also extends `DatumTransformation`. The `HorizontalVerticalTransformation` class is used to transform coordinates of z-aware geometries between spatial references that have different geographic and/or vertical coordinate systems.
+This sample uses a `GeographicTransformation`, which extends the `DatumTransformation` class. The ArcGIS Maps SDK for .NET also includes a `HorizontalVerticalTransformation`, which also extends `DatumTransformation`. The `HorizontalVerticalTransformation` class is used to transform coordinates of z-aware geometries between spatial references that have different geographic and/or vertical coordinate systems.
 
 This sample can be used with or without provisioning projection engine data to your device. If you do not provision data, a limited number of transformations will be available.
 

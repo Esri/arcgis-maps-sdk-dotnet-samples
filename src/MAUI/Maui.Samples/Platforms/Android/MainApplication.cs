@@ -1,7 +1,7 @@
 ﻿using Android.App;
 using Android.Runtime;
 
-namespace ArcGISRuntime.Samples.Maui;
+namespace ArcGIS.Samples.Maui;
 
 [Application]
 public class MainApplication : MauiApplication

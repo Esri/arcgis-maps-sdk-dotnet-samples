@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="ArcGISRuntime.Samples.AuthorMap.SaveMapPage"
+<ContentPage x:Class="ArcGIS.Samples.AuthorMap.SaveMapPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <Grid x:Name="SaveMapUI"
@@ -32,7 +32,7 @@
         <Entry x:Name="MapTagsEntry"
                Grid.Row="2"
                Grid.Column="1"
-               Text="ArcGIS Runtime, Webmap" />
+               Text="ArcGIS, Webmap" />
         <Button Grid.Row="3"
                 Grid.Column="0"
                 Clicked="CancelButtonClicked"

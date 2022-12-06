@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.Samples.FindServiceAreasForMultipleFacilities
+namespace ArcGIS.Samples.FindServiceAreasForMultipleFacilities
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find service areas for multiple facilities",
         category: "Network analysis",
         description: "Find the service areas of several facilities from a feature service.",

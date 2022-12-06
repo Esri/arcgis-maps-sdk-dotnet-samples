@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.BufferList
+namespace ArcGIS.Samples.BufferList
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Buffer list",
         category: "Geometry",
         description: "Generate multiple individual buffers or a single unioned buffer around multiple points.",

@@ -17,9 +17,9 @@ using System.ComponentModel;
 using System.Diagnostics;
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.DisplaySubtypeFeatureLayer
+namespace ArcGIS.Samples.DisplaySubtypeFeatureLayer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display subtype feature layer",
         category: "Layers",
         description: "Displays a composite layer of all the subtype values in a feature class.",

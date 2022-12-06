@@ -25,13 +25,13 @@ using Android.Content.PM;
 
 #endif
 
-namespace ArcGISRuntimeMaui.Helpers
+namespace ArcGIS.Helpers
 {
     internal static class ArcGISLoginPrompt
     {
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
 
-        // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Runtime team).
+        // - The Client ID for an app registered with the server (the ID below is for a public app created by the ArcGIS Maps SDK for Native Apps team).
         public const string AppClientId = @"NDiGU6O6UiscRDPw";
 
         // - An optional client secret for the app (only needed for the OAuthClientCredentials authorization type).

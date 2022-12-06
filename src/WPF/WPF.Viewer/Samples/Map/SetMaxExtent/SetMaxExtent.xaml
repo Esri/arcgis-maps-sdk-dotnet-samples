@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.SetMaxExtent.SetMaxExtent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border MaxWidth="180" Style="{StaticResource BorderStyle}">
+            <CheckBox x:Name="MaxExtentCheckBox"
+                      VerticalAlignment="Center"
+                      VerticalContentAlignment="Center"
+                      Checked="MaxExtentCheckBoxChanged"
+                      Unchecked="MaxExtentCheckBoxChanged">
+                <Label Content="Max Extent Enabled" />
+            </CheckBox>
+        </Border>
+    </Grid>
+</UserControl>

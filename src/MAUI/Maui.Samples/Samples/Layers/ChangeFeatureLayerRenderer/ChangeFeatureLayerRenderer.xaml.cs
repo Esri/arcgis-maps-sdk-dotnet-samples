@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 
-namespace ArcGISRuntime.Samples.ChangeFeatureLayerRenderer
+namespace ArcGIS.Samples.ChangeFeatureLayerRenderer
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Change feature layer renderer",
         category: "Layers",
         description: "Change the appearance of a feature layer with a renderer.",

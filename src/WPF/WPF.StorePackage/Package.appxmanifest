@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:rescap="http://schemas.microsoft.com/appx/manifest/foundation/windows10/restrictedcapabilities" IgnorableNamespaces="uap mp rescap">
+  <Identity Name="Esri.ArcGISMapsSDKfor.NETSamplesWPF" Publisher="CN=Environmental Systems Research Institute Inc" Version="200.0.0.0" />
+  <Properties>
+    <DisplayName>ArcGIS Runtime SDK for .NET Samples (WPF)</DisplayName>
+    <PublisherDisplayName>Esri, Inc.</PublisherDisplayName>
+    <Logo>Images\StoreLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.19041.0" MaxVersionTested="10.0.19041.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.19041.0" />
+    <PackageDependency Name="Microsoft.VCLibs.140.00.UWPDesktop" MinVersion="14.0.24217.0" Publisher="CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
+      <uap:VisualElements DisplayName="ArcGIS Maps SDK for .NET Samples (WPF)" Description="Sample viewer for the ArcGIS Runtime SDK for .NET, implemented with WPF." BackgroundColor="transparent" Square44x44Logo="Images\Square44x44Logo.png" Square150x150Logo="Images\Square150x150Logo.png">
+        <uap:DefaultTile ShortName="ArcGIS Runtime Samples"  Square71x71Logo="Images\SmallTile.png" Wide310x150Logo="Images\Wide310x150Logo.png" Square310x310Logo="Images\LargeTile.png"/>
+        <uap:LockScreen BadgeLogo="Images\BadgeLogo.png"  Notification="badgeAndTileText"/>
+        <uap:SplashScreen Image="Images\SplashScreen.png"/>
+      </uap:VisualElements>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+    <rescap:Capability Name="runFullTrust" />
+    <DeviceCapability Name="location" />
+  </Capabilities>
+</Package>

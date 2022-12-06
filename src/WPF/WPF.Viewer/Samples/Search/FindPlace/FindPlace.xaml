@@ -1,0 +1,80 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.FindPlace.FindPlace"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           FontWeight="SemiBold"
+                           Text="Enter a search term and a search location. Tap 'Search all' to find all results near that location. Tap 'Search in view' to restrict the search to results within the current visible extent."
+                           TextAlignment="Left"
+                           TextWrapping="Wrap" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Margin="0,5,5,0"
+                           Text="Search" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Margin="0,5,5,0"
+                           Text="Location" />
+                <ComboBox x:Name="MySearchBox"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="2"
+                          Margin="0,5,0,0"
+                          IsEditable="True"
+                          IsEnabled="False"
+                          Text="Coffee"
+                          TextBoxBase.TextChanged="MySearchBox_TextChanged" />
+                <ComboBox x:Name="MyLocationBox"
+                          Grid.Row="2"
+                          Grid.Column="1"
+                          Grid.ColumnSpan="2"
+                          Margin="0,5,0,0"
+                          IsEditable="True"
+                          IsEnabled="False"
+                          Text="Current Location"
+                          TextBoxBase.TextChanged="MyLocationBox_TextChanged" />
+                <Button x:Name="MySearchButton"
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,5,5,0"
+                        Click="MySearchButton_Click"
+                        Content="Search all"
+                        IsEnabled="False" />
+                <Button x:Name="MySearchRestrictedButton"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        Margin="5,5,0,0"
+                        Click="MySearchRestrictedButton_Click"
+                        Content="Search in view"
+                        IsEnabled="False" />
+                <ProgressBar x:Name="MyProgressBar"
+                             Grid.Row="4"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             Height="20"
+                             Margin="0,5,0,0"
+                             IsIndeterminate="True"
+                             Visibility="Collapsed" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

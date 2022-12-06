@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.FindRoute.FindRoute"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:networkAnalysis="clr-namespace:Esri.ArcGISRuntime.Tasks.NetworkAnalysis;assembly=Esri.ArcGISRuntime">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock Margin="0,0,0,2"
+                           FontWeight="SemiBold"
+                           Text="Route directions:" />
+                <ListBox x:Name="DirectionsListBox"
+                         Height="300"
+                         HorizontalAlignment="Stretch"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="networkAnalysis:DirectionManeuver">
+                            <TextBlock Text="{Binding DirectionText}" TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Button x:Name="SolveRouteButton"
+                        Height="30"
+                        Margin="0,5"
+                        HorizontalAlignment="Stretch"
+                        Click="SolveRouteClick"
+                        Content="Solve Route" />
+                <Button x:Name="ResetButton"
+                        Height="30"
+                        HorizontalAlignment="Stretch"
+                        Click="ResetClick"
+                        Content="Reset" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

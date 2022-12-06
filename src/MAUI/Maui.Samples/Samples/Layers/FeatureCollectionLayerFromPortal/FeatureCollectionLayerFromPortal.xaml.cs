@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 
-namespace ArcGISRuntime.Samples.FeatureCollectionLayerFromPortal
+namespace ArcGIS.Samples.FeatureCollectionLayerFromPortal
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create feature collection layer (Portal item)",
         category: "Layers",
         description: "Create a feature collection layer from a portal item.",

@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.UI;
 using Color = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
 
-namespace ArcGISRuntime.Samples.CutGeometry
+namespace ArcGIS.Samples.CutGeometry
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Cut geometry",
         category: "Geometry",
         description: "Cut a geometry along a polyline.",

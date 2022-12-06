@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.FeatureLayerDefinitionExpression.FeatureLayerDefinitionExpression"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" DrawStatusChanged="MapDrawStatusChanged" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel Orientation="Vertical">
+                <TextBlock x:Name="IncidentReportSummary" />
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="5"
+                            Click="Expression_Click"
+                            Content="Apply expression" />
+                    <Button Margin="5"
+                            Click="Filter_Click"
+                            Content="Apply filter" />
+                    <Button Margin="5"
+                            Click="Reset_Click"
+                            Content="Reset" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

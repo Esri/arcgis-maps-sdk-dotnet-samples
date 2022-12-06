@@ -13,9 +13,9 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.Samples.FindServiceArea
+namespace ArcGIS.Samples.FindServiceArea
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Find service area",
         category: "Network analysis",
         description: "Find the service area within a network from a given point.",

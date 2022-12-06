@@ -12,9 +12,9 @@ using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using System.Diagnostics;
 
-namespace ArcGISRuntime.Samples.ConfigureSubnetworkTrace
+namespace ArcGIS.Samples.ConfigureSubnetworkTrace
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Configure subnetwork trace",
         category: "Utility network",
         description: "Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.",

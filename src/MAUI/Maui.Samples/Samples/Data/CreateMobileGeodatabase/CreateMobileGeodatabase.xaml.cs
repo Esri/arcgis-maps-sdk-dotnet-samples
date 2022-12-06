@@ -13,13 +13,13 @@ using Esri.ArcGISRuntime.Mapping;
 
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
-namespace ArcGISRuntime.Samples.CreateMobileGeodatabase
+namespace ArcGIS.Samples.CreateMobileGeodatabase
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create mobile geodatabase",
         category: "Data",
         description: "Create and share a mobile geodatabase.",
-        instructions: "Tap on the map to add a feature symbolizing the user's location. Tap \"View table\" to view the contents of the geodatabase feature table. Once you have added the location points to the map, tap the \"Close\" button to retrieve the `.geodatabase` file which can then be imported into ArcGIS Pro or opened in an ArcGIS Runtime application. Tap the \"Create\" button to make another geodatabase.",
+        instructions: "Tap on the map to add a feature symbolizing the user's location. Tap \"View table\" to view the contents of the geodatabase feature table. Once you have added the location points to the map, tap the \"Close\" button to retrieve the `.geodatabase` file which can then be imported into ArcGIS Pro or opened in an ArcGIS application. Tap the \"Create\" button to make another geodatabase.",
         tags: new[] { "arcgis pro", "database", "feature", "feature table", "geodatabase", "mobile geodatabase", "sqlite" })]
     public partial class CreateMobileGeodatabase : ContentPage, IDisposable
     {

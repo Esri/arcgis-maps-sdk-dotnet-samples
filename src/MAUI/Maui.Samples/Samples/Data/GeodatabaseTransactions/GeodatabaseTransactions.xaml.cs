@@ -14,9 +14,9 @@ using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
 
-namespace ArcGISRuntime.Samples.GeodatabaseTransactions
+namespace ArcGIS.Samples.GeodatabaseTransactions
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Geodatabase transactions",
         category: "Data",
         description: "Use transactions to manage how changes are committed to a geodatabase.",

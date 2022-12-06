@@ -18,9 +18,9 @@ using System.Diagnostics;
 
 using Color = System.Drawing.Color;
 
-namespace ArcGISRuntime.Samples.DisplayUtilityAssociations
+namespace ArcGIS.Samples.DisplayUtilityAssociations
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display utility associations",
         category: "Utility network",
         description: "Create graphics for utility associations in a utility network.",

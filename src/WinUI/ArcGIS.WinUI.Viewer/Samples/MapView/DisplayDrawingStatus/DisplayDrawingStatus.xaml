@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ArcGIS.WinUI.Samples.DisplayDrawingStatus.DisplayDrawingStatus"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Width="300"
+                Margin="30"
+                Padding="20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <TextBlock x:Name="StatusDisplay" FontWeight="SemiBold" />
+                <ProgressRing x:Name="ActivityIndicator"
+                              Margin="10,0,0,0"
+                              HorizontalAlignment="Center"
+                              IsActive="True" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

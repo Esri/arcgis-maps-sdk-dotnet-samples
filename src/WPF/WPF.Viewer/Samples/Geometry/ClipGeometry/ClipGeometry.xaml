@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ClipGeometry.ClipGeometry"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Button x:Name="ClipButton"
+                    Click="Button_Click"
+                    Content="Clip" />
+        </Border>
+    </Grid>
+</UserControl>

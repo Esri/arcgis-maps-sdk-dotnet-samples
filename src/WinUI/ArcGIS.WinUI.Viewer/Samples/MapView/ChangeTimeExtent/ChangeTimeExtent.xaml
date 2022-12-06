@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="ArcGIS.WinUI.Samples.ChangeTimeExtent.ChangeTimeExtent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Width="350"
+                Margin="30"
+                Padding="20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           HorizontalAlignment="Center"
+                           FontWeight="SemiBold"
+                           Text="Tap a year to filter the data." />
+                <Button Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="0,5,2.5,0"
+                        HorizontalAlignment="Stretch"
+                        Click="TwoThousand_Click"
+                        Content="2000" />
+                <Button Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="2.5,5,0,0"
+                        HorizontalAlignment="Stretch"
+                        Click="TwoThousandFive_Click"
+                        Content="2005" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

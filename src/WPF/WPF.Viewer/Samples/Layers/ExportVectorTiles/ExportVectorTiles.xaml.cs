@@ -94,8 +94,8 @@ namespace ArcGIS.WPF.Samples.ExportVectorTiles
             parameters.EsriVectorTilesDownloadOption = EsriVectorTilesDownloadOption.UseReducedFontsService;
 
             // Get the tile cache path and item resource path for the base layer styling.
-            string tilePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + ".vtpk");
-            string itemResourcePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + "_styleItemResources");
+            string tilePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetRandomFileName() + ".vtpk");
+            string itemResourcePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetRandomFileName() + "_styleItemResources");
 
             // Create the export job.
             _job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);

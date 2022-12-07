@@ -88,7 +88,7 @@ namespace ArcGIS.Samples.GenerateOfflineMap
         private async void TakeMapOfflineButton_Click(object sender, EventArgs e)
         {
             // Clean up any previous outputs in the temp directory.
-            string tempPath = $"{Path.GetTempPath()}";
+            string tempPath = Path.GetTempPath();
             string[] outputFolders = Directory.GetDirectories(tempPath, "NapervilleWaterNetwork*");
 
             // Loop through the folder names and delete them.

@@ -485,7 +485,7 @@ namespace ArcGIS.WPF.Samples.EditAndSyncFeatures
             // Update the Geodatabase path for the new run.
             try
             {
-                _gdbPath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + ".geodatabase");
+                _gdbPath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetRandomFileName() + ".geodatabase");
 
                 // Prevent duplicate clicks.
                 MyGenerateButton.IsEnabled = false;

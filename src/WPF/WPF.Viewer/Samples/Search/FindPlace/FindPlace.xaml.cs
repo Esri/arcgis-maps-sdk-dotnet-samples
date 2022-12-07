@@ -120,8 +120,8 @@ namespace ArcGIS.WPF.Samples.FindPlace
             }
             else
             {
-                // Get the current device location.
-                return MyMapView.LocationDisplay.Location.Position;
+                // Get the current device location (if available).
+                return MyMapView.LocationDisplay.Location?.Position;
             }
         }
 

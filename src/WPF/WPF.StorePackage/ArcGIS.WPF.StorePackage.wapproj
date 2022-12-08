@@ -39,7 +39,7 @@
     <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
-    <PackageCertificateKeyFile>ArcGISRuntime.WPF.StorePackage_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>ArcGIS.WPF.StorePackage_TemporaryKey.pfx</PackageCertificateKeyFile>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppInstallerUpdateFrequency>0</AppInstallerUpdateFrequency>
@@ -73,10 +73,10 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <None Include="ArcGISRuntime.WPF.StorePackage_TemporaryKey.pfx" />
+    <None Include="ArcGIS.WPF.StorePackage_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ArcGISRuntime.WPF.Viewer\ArcGISMapsSDK.WPF.Viewer.Net.csproj">
+    <ProjectReference Include="..\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
       <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Properties\PublishProfiles\win-x64-release.pubxml</PublishProfile>
       <!--<PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|x86'">Properties\PublishProfiles\win-x86-release.pubxml</PublishProfile>-->
@@ -142,6 +142,6 @@
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
   <PropertyGroup>
     <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <EntryPointProjectUniqueName>..\ArcGISRuntime.WPF.Viewer\ArcGISMapsSDK.WPF.Viewer.Net.csproj</EntryPointProjectUniqueName>
+    <EntryPointProjectUniqueName>..\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj</EntryPointProjectUniqueName>
   </PropertyGroup>
 </Project>

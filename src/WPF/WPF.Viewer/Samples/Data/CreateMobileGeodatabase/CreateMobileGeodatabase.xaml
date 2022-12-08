@@ -28,7 +28,9 @@
                 Visibility="Hidden">
             <StackPanel>
                 <ScrollViewer Height="400" Margin="5">
-                    <DataGrid x:Name="TableDataGrid" AutoGenerateColumns="False">
+                    <DataGrid x:Name="TableDataGrid"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Binding="{Binding Path=Attributes[oid]}" Header="OID" />
                             <DataGridTextColumn Binding="{Binding Path=Attributes[collection_timestamp]}" Header="Collection Timestamp" />

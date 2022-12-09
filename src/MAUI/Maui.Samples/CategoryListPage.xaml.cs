@@ -7,10 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGIS.Helpers;
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.Samples.Shared.Models;
-using ArcGIS.Helpers;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
@@ -35,6 +35,19 @@ namespace ArcGIS
 
             // Update the binding.
             BindingContext = ViewModel;
+
+#if MACCATALYST
+            // Workaround visibility binding bug on Mac Catalyst.
+            ViewModel.PropertyChanged += MacVisibilityHandler;
+#endif
+        }
+
+        private void MacVisibilityHandler(object sender, PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == "IsSearchOpen")
+            {
+                SampleSearchResultList.IsVisible = ((SamplesSearchViewModel)sender).IsSearchOpen;
+            }
         }
 
         private void FirstLoaded(object sender, EventArgs e)

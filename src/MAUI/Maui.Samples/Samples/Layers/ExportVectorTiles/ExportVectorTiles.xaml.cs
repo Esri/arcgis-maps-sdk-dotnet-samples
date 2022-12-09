@@ -101,8 +101,16 @@ namespace ArcGIS.Samples.ExportVectorTiles
             parameters.EsriVectorTilesDownloadOption = EsriVectorTilesDownloadOption.UseReducedFontsService;
 
             // Get the tile cache path and item resource path for the base layer styling.
-            string tilePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + ".vtpk");
-            string itemResourcePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + "_styleItemResources");
+            string tilePath;
+            string itemResourcePath;
+
+#if ANDROID
+            tilePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + ".vtpk");
+            itemResourcePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + "_styleItemResources");
+#else
+            tilePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetRandomFileName() + ".vtpk");
+            itemResourcePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetRandomFileName() + "_styleItemResources");      
+#endif
 
             // Create the export job.
             _job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
@@ -171,9 +179,9 @@ namespace ArcGIS.Samples.ExportVectorTiles
             _job.StatusChanged -= Job_StatusChanged;
         }
 
-        #endregion Export Vector Tiles
+#endregion Export Vector Tiles
 
-        #region Update Preview Map/Extent Graphic
+#region Update Preview Map/Extent Graphic
 
         private void UpdateMapExtentGraphic()
         {
@@ -276,9 +284,9 @@ namespace ArcGIS.Samples.ExportVectorTiles
             }
         }
 
-        #endregion Update Preview Map/Extent Graphic
+#endregion Update Preview Map/Extent Graphic
 
-        #region EventHandlers
+#region EventHandlers
 
         private void MyMapView_ViewpointChanged(object sender, EventArgs e)
         {
@@ -329,6 +337,6 @@ namespace ArcGIS.Samples.ExportVectorTiles
             });
         }
 
-        #endregion EventHandlers
+#endregion EventHandlers
     }
 }

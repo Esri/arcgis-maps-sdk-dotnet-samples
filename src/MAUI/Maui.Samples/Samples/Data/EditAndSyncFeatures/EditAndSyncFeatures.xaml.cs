@@ -277,7 +277,11 @@ namespace ArcGIS.Samples.EditAndSyncFeatures
         private async Task StartGeodatabaseGeneration()
         {
             // Update the geodatabase path.
+#if ANDROID
             _gdbPath = $"{Path.GetTempFileName()}.geodatabase";
+#else
+            _gdbPath = $"{Path.GetRandomFileName()}.geodatabase";
+#endif
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask).
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);

@@ -13,37 +13,9 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PublishTrimmed>false</PublishTrimmed>
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
-    <RuntimeIdentifiers>win-x64;win-x86</RuntimeIdentifiers>
-    <Platforms>AnyCPU;x64;x86</Platforms>
+    <RuntimeIdentifiers>win10-x64;win10-x86;win10-arm64</RuntimeIdentifiers>
+    <Platforms>AnyCPU;x64;x86;ARM64</Platforms>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
-   </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
-    <NoWarn>1701;1702;CA1416</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
-    <NoWarn>1701;1702;CA1416</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
-    <NoWarn>1701;1702;CA1416</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
-    <NoWarn>1701;1702;CA1416</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
-    <NoWarn>1701;1702;CA1416</NoWarn>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
     <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
@@ -102,10 +74,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0"/>
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0"/>
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0" />
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="200.0.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.0.0"/>
+    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.0.0" />
     <PackageReference Include="Markdig" Version="0.30.2" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.5.3" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.5.3" />

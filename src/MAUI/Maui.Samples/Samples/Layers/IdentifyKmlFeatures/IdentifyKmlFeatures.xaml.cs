@@ -80,7 +80,7 @@ namespace ArcGIS.Samples.IdentifyKmlFeatures
                 }
 
                 // Show a page with the HTML content
-                await Application.Current.MainPage.Navigation.PushModalAsync(new KmlIdentifyResultDisplayPage(firstIdentifiedPlacemark.BalloonContent));
+                await Application.Current.MainPage.Navigation.PushAsync(new KmlIdentifyResultDisplayPage(firstIdentifiedPlacemark.BalloonContent));
             }
             catch (Exception ex)
             {
@@ -102,5 +102,6 @@ public class KmlIdentifyResultDisplayPage : ContentPage
             // Display the string content as an HTML document
             Source = new HtmlWebViewSource() { Html = htmlContent }
         };
+        
     }
 }

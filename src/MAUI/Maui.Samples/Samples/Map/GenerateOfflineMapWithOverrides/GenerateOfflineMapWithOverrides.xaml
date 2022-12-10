@@ -6,13 +6,11 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <StackLayout HorizontalOptions="Center" VerticalOptions="Center">
-                <Button x:Name="TakeMapOfflineButton"
-                        Clicked="TakeMapOfflineButton_Click"
-                        IsEnabled="True"
-                        Text="Take map offline"
-                        WidthRequest="250" />
-            </StackLayout>
+            <Button x:Name="TakeMapOfflineButton"
+                    Padding="10"
+                    Clicked="TakeMapOfflineButton_Click"
+                    IsEnabled="True"
+                    Text="Take map offline" />
         </Border>
         <Grid x:Name="busyIndicator"
               Grid.RowSpan="2"

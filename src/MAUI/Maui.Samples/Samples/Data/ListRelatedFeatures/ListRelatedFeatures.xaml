@@ -5,7 +5,7 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border MaximumHeightRequest="{OnPlatform Android=150, iOS=150, WinUI=-1}" Style="{DynamicResource EsriSampleControlPanel}">
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -14,9 +14,8 @@
                 <Label x:Name="Status"
                        Grid.Row="0"
                        Margin="5"
-                       HorizontalOptions="FillAndExpand"
                        Text="Tap a park (green) to see related features." />
-                <ListView x:Name="MyResultsView" Grid.Row="1" />
+                <ListView x:Name="MyResultsView" HeightRequest="300" MaximumWidthRequest="200"  Grid.Row="1" />
             </Grid>
         </Border>
     </Grid>

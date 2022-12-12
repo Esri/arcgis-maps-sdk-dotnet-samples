@@ -1,45 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
-    x:Class="ArcGISRuntime.Samples.SketchOnMap.SketchOnMap"
+    x:Class="ArcGIS.Samples.SketchOnMap.SketchOnMap"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" GeoViewTapped="OnGeoViewTapped" />
-        <Border
-            x:Name="DrawToolsGrid"
-            Grid.Row="1"
-            Margin="5"
-            BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                              Dark=#303030}"
-            HorizontalOptions="Center"
-            IsVisible="false"
-            StrokeShape="RoundRectangle 5"
-            VerticalOptions="Center">
-            <Grid
-                Padding="5"
-                ColumnDefinitions="auto,auto"
-                ColumnSpacing="5"
-                RowDefinitions="auto,auto"
-                RowSpacing="5">
-                <Label
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    HorizontalOptions="End"
-                    Text="Sketch shape:"
-                    VerticalOptions="Center" />
-                <Picker
-                    x:Name="SketchModePicker"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    WidthRequest="175" />
-                <Button
-                    Grid.Row="1"
-                    Grid.ColumnSpan="2"
-                    Clicked="StartSketch"
-                    Text="Ready" />
-            </Grid>
-        </Border>
         <Grid
             Margin="5,5,5,5"
             ColumnSpacing="5"

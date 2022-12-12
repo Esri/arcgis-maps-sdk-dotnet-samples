@@ -139,7 +139,7 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
 
         private void ShapeClick(object sender, RoutedEventArgs e)
         {
-            // Change the background of the currently selected tool from gray to red.
+            // Update UI.
             SelectTool(sender as Button);
 
             // Get the command parameter from the button press.
@@ -192,7 +192,7 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
         {
             try
             {
-                // Change the background of the currently selected tool from gray to red.
+                // Update UI.
                 SelectTool(sender as Button);
 
                 // Create a TaskCompletionSource object to wait for a graphic.

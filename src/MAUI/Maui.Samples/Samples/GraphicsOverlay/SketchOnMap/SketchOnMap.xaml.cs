@@ -34,8 +34,12 @@ namespace ArcGIS.Samples.SketchOnMap
 
         // Button for keeping track of the currently enabled tool.
         private static Button Button;
-
+        
         private TaskCompletionSource<Graphic> _graphicCompletionSource;
+
+        private string[] _sketchModes;
+
+        private static int _drawModeIndex;
 
         public SketchOnMap()
         {
@@ -60,14 +64,15 @@ namespace ArcGIS.Samples.SketchOnMap
             // Set a viewpoint on the map view.
             MyMapView.SetViewpoint(new Viewpoint(64.3286, -15.5314, 72223));
 
-            // Fill the combo box with choices for the sketch modes (shapes).
+            // Fill the array with choices for the sketch modes (shapes).
             Array sketchModes = System.Enum.GetValues(typeof(SketchCreationMode));
+            _sketchModes = new string[sketchModes.Length];
+            int i = 0;
             foreach (object mode in sketchModes)
             {
-                SketchModePicker.Items.Add(mode.ToString());
+                _sketchModes[i] = mode.ToString();
+                i++;
             }
-
-            SketchModePicker.SelectedIndex = 0;
 
             // Hack to get around linker being too aggressive - this should be done with binding.
             UndoButton.Command = MyMapView.SketchEditor.UndoCommand;
@@ -140,11 +145,8 @@ namespace ArcGIS.Samples.SketchOnMap
         {
             try
             {
-                // Hide the draw/edit tools.
-                DrawToolsGrid.IsVisible = false;
-
                 // Let the user draw on the map view using the chosen sketch mode.
-                SketchCreationMode creationMode = (SketchCreationMode)SketchModePicker.SelectedIndex;
+                SketchCreationMode creationMode = (SketchCreationMode)_drawModeIndex;
                 Esri.ArcGISRuntime.Geometry.Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, true);
 
                 // Create and add a graphic from the geometry the user drew.
@@ -188,11 +190,8 @@ namespace ArcGIS.Samples.SketchOnMap
         {
             try
             {
-                // Change the background of the currently selected tool from gray to red.
+                // Update UI.
                 SelectTool(sender as Button);
-
-                // Hide the draw/edit tools.
-                DrawToolsGrid.IsVisible = false;
 
                 // Create a TaskCompletionSource object to wait for a graphic.
                 _graphicCompletionSource = new TaskCompletionSource<Graphic>();
@@ -217,13 +216,32 @@ namespace ArcGIS.Samples.SketchOnMap
             }
         }
 
-        private void ShowDrawTools(object sender, EventArgs e)
+        private async void ShowDrawTools(object sender, EventArgs e)
         {
-            // Change the background of the currently selected tool from gray to red.
-            SelectTool(sender as Button);
+            try
+            {
+                // Update UI.
+                SelectTool(sender as Button);
 
-            // Show the grid that contains the sketch mode, draw, and edit controls.
-            DrawToolsGrid.IsVisible = true;
+                // Show draw tools and wait for the user to select a mode.
+                string choice = await Application.Current.MainPage.DisplayActionSheet("Set draw mode:", "Cancel", null, _sketchModes);
+
+                // Set the selected index for the draw mode.
+                if (_sketchModes.Contains(choice))
+                {
+                    _drawModeIndex = Array.IndexOf(_sketchModes, choice);
+                    StartSketch(sender, e);
+                }
+                else
+                {
+                    throw new OperationCanceledException();
+                }
+            }
+            catch (OperationCanceledException)
+            {
+                UnselectTool(sender, e);
+            }
+            
         }
 
         #region Tool selection UI helpers

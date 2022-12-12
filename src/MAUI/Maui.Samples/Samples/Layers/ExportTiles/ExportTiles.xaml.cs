@@ -164,11 +164,7 @@ namespace ArcGIS.Samples.ExportTiles
             try
             {
                 // Update the tile cache path.
-#if ANDROID
                 _tilePath = $"{Path.GetTempFileName()}.tpkx";
-#else
-                _tilePath = $"{Path.GetRandomFileName()}.tpkx";
-#endif
 
                 // Get the parameters for the job.
                 ExportTileCacheParameters parameters = GetExportParameters();

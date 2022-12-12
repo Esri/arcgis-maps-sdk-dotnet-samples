@@ -160,7 +160,7 @@ namespace ArcGIS.WinUI.Samples.ExportTiles
             ExportTileCacheTask exportTask = await ExportTileCacheTask.CreateAsync(_serviceUri);
 
             // Get the tile cache path.
-            _tilePath = $"{Path.GetRandomFileName()}.tpkx";
+            _tilePath = $"{Path.GetTempFileName()}.tpkx";
 
             // Create the export job.
             _job = exportTask.ExportTileCache(parameters, _tilePath);

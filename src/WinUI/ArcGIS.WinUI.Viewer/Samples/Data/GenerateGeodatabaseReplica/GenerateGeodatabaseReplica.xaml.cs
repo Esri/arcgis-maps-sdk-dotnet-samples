@@ -165,7 +165,7 @@ namespace ArcGIS.WinUI.Samples.GenerateGeodatabaseReplica
         private async Task StartGeodatabaseGeneration()
         {
             // Update the geodatabase path.
-            _gdbPath = $"{Path.GetRandomFileName()}.geodatabase";
+            _gdbPath = $"{Path.GetTempFileName()}.geodatabase";
 
             // Create a task for generating a geodatabase (GeodatabaseSyncTask).
             _gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(_featureServiceUri);

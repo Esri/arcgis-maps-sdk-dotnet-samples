@@ -249,7 +249,7 @@ namespace ArcGIS.WPF.Samples.GenerateGeodatabaseReplica
             // Update the geodatabase path for the new run.
             try
             {
-                _gdbPath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetRandomFileName() + ".geodatabase");
+                _gdbPath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + ".geodatabase");
 
                 // Prevent the user from clicking twice - errors happen.
                 MyGenerateButton.IsEnabled = false;

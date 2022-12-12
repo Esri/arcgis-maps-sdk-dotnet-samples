@@ -70,7 +70,7 @@ namespace ArcGIS.Samples.FindPlace
                             status = await Microsoft.Maui.ApplicationModel.Permissions.RequestAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
                         }
 
-                        // Start the locationdisplay once permission is granted.
+                        // Start the location display once permission is granted.
                         if (status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
                         {
                             await MyMapView.LocationDisplay.DataSource.StartAsync();
@@ -224,7 +224,7 @@ namespace ArcGIS.Samples.FindPlace
             // Get image as a stream from the resources.
             // Picture is defined as EmbeddedResource and DoNotCopy.
             Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISMapsSDK.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGIS.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream.
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);

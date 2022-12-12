@@ -34,7 +34,7 @@ namespace ArcGIS.Samples.SketchOnMap
 
         // Button for keeping track of the currently enabled tool.
         private static Button Button;
-        
+
         private TaskCompletionSource<Graphic> _graphicCompletionSource;
 
         private string[] _sketchModes;
@@ -241,7 +241,6 @@ namespace ArcGIS.Samples.SketchOnMap
             {
                 UnselectTool(sender, e);
             }
-            
         }
 
         #region Tool selection UI helpers
@@ -273,7 +272,7 @@ namespace ArcGIS.Samples.SketchOnMap
         {
             try
             {
-                if(_graphicCompletionSource is not null && !_graphicCompletionSource.Task.IsCompleted)
+                if (_graphicCompletionSource is not null && !_graphicCompletionSource.Task.IsCompleted)
                 {
                     // Identify graphics in the graphics overlay using the point.
                     IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 2, false);

@@ -19,10 +19,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Point = System.Windows.Point;
-using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
-using SolidColorBrush = System.Windows.Media.SolidColorBrush;
 using ButtonColor = System.Windows.Media;
+using Point = System.Windows.Point;
+using SolidColorBrush = System.Windows.Media.SolidColorBrush;
+using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
 namespace ArcGIS.WPF.Samples.SketchOnMap
 {
@@ -243,6 +243,7 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
         }
 
         #region Tool selection UI helpers
+
         private void SelectTool(Button emphasizeMe)
         {
             // Gray out the background of the currently enabled tool.
@@ -263,7 +264,8 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
             // Dereference the unselected tool's button.
             Button = new Button();
         }
-        #endregion
+
+        #endregion Tool selection UI helpers
 
         private async void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {

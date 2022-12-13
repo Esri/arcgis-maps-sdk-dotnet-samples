@@ -21,7 +21,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using ButtonColor = Windows.UI.Color;
 using SolidColorBrush = Microsoft.UI.Xaml.Media.SolidColorBrush;
-using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
 namespace ArcGIS.WinUI.Samples.SketchOnMap
 {
@@ -41,7 +40,7 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
         private static SolidColorBrush Red;
 
         // Button for keeping track of the currently enabled tool.
-        private static Button Button;
+        private static Button EnabledTool;
 
         private TaskCompletionSource<Graphic> _graphicCompletionSource;
 
@@ -76,7 +75,7 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
             Red = new SolidColorBrush(ButtonColor.FromArgb(255, 255, 0, 0));
 
             // No tool currently selected, so simply instantiate the button.
-            Button = new Button();
+            EnabledTool = new Button();
         }
 
         #region Graphic and symbol helpers
@@ -84,10 +83,10 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
         private Graphic SaveGraphic(Geometry geometry)
         {
             // Gray out any selected tool.
-            Button.Background = LightGray;
+            EnabledTool.Background = LightGray;
 
             // Create a graphic to display the specified geometry.
-            Symbol symbol = null;
+            Esri.ArcGISRuntime.Symbology.Symbol symbol = null;
             if (geometry != null)
             {
                 switch (geometry.GeometryType)
@@ -223,22 +222,24 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
         private void SelectTool(Button selectedButton)
         {
             // Gray out the background of the currently selected tool.
-            Button.Background = LightGray;
+            if (EnabledTool is not null)
+                EnabledTool.Background = LightGray;
 
             // Set the static variable to whichever button that was just clicked.
-            Button = selectedButton;
+            EnabledTool = selectedButton;
 
             // Set the background of the currently selected tool to red.
-            Button.Background = Red;
+            EnabledTool.Background = Red;
         }
 
         private void UnselectTool(object sender, RoutedEventArgs e)
         {
             // Gray out the background of the currently selected tool.
-            Button.Background = LightGray;
+            if (EnabledTool is not null)
+                EnabledTool.Background = LightGray;
 
             // Dereference the unselected tool's button.
-            Button = new Button();
+            EnabledTool = null;
         }
 
         #endregion Tool selection UI helpers

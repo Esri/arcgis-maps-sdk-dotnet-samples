@@ -20,7 +20,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using ButtonColor = System.Windows.Media;
-using Point = System.Windows.Point;
 using SolidColorBrush = System.Windows.Media.SolidColorBrush;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
@@ -42,7 +41,7 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
         private static SolidColorBrush Red;
 
         // Button for keeping track of the currently enabled tool.
-        private static Button Button;
+        private static Button EnabledTool;
 
         private TaskCompletionSource<Graphic> _graphicCompletionSource;
 
@@ -77,16 +76,13 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
             Red = ButtonColor.Brushes.Red;
 
             // No tool currently selected, so simply instantiate the button.
-            Button = new Button();
+            EnabledTool = new Button();
         }
 
         #region Graphic and symbol helpers
 
         private Graphic SaveGraphic(Geometry geometry)
         {
-            // Gray out the currrently selected tool.
-            Button.Background = LightGray;
-
             // Create a graphic to display the specified geometry.
             Symbol symbol = null;
             if (geometry != null)
@@ -142,7 +138,7 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
             Geometry mapPoint = await MyMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
 
             // Convert the map point to a screen point.
-            Point screenCoordinate = MyMapView.LocationToScreen((MapPoint)mapPoint);
+            System.Windows.Point screenCoordinate = MyMapView.LocationToScreen((MapPoint)mapPoint);
 
             // Identify graphics in the graphics overlay using the point.
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
@@ -244,25 +240,27 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
 
         #region Tool selection UI helpers
 
-        private void SelectTool(Button emphasizeMe)
+        private void SelectTool(Button selectedButton)
         {
             // Gray out the background of the currently enabled tool.
-            Button.Background = LightGray;
+            if (EnabledTool is not null)
+                EnabledTool.Background = LightGray;
 
             // Set the static variable to whichever button that was just clicked.
-            Button = emphasizeMe;
+            EnabledTool = selectedButton;
 
             // Set the background of the button to red.
-            Button.Background = Red;
+            EnabledTool.Background = Red;
         }
 
         private void UnselectTool(object sender, RoutedEventArgs e)
         {
             // Gray out the background of the currently enabled tool.
-            Button.Background = LightGray;
+            if (EnabledTool is not null)
+                EnabledTool.Background = LightGray;
 
             // Dereference the unselected tool's button.
-            Button = new Button();
+            EnabledTool = null;
         }
 
         #endregion Tool selection UI helpers

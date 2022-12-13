@@ -12,7 +12,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using ButtonColor = Microsoft.Maui.Graphics.Color;
 using Colors = System.Drawing.Color;
 
 namespace ArcGIS.Samples.SketchOnMap
@@ -33,7 +32,7 @@ namespace ArcGIS.Samples.SketchOnMap
         private static SolidColorBrush Red;
 
         // Button for keeping track of the currently enabled tool.
-        private static Button Button;
+        private static Button EnabledTool;
 
         private TaskCompletionSource<Graphic> _graphicCompletionSource;
 
@@ -64,15 +63,8 @@ namespace ArcGIS.Samples.SketchOnMap
             // Set a viewpoint on the map view.
             MyMapView.SetViewpoint(new Viewpoint(64.3286, -15.5314, 72223));
 
-            // Fill the array with choices for the sketch modes (shapes).
-            Array sketchModes = System.Enum.GetValues(typeof(SketchCreationMode));
-            _sketchModes = new string[sketchModes.Length];
-            int i = 0;
-            foreach (object mode in sketchModes)
-            {
-                _sketchModes[i] = mode.ToString();
-                i++;
-            }
+            // Create a list of draw modes.
+            _sketchModes = Enum.GetNames(typeof(SketchCreationMode));
 
             // Hack to get around linker being too aggressive - this should be done with binding.
             UndoButton.Command = MyMapView.SketchEditor.UndoCommand;
@@ -82,19 +74,16 @@ namespace ArcGIS.Samples.SketchOnMap
 
             // Ensure colors are consistent with XAML colors.
             ThemedColor = (SolidColorBrush)Sketch.Background;
-            Red = new SolidColorBrush(ButtonColor.FromRgb(255, 0, 0));
+            Red = new SolidColorBrush(Microsoft.Maui.Graphics.Color.FromRgb(255, 0, 0));
 
             // No tool currently selected, so simply instantiate the button.
-            Button = new Button();
+            EnabledTool = new Button();
         }
 
         #region Graphic and symbol helpers
 
         private Graphic CreateGraphic(Esri.ArcGISRuntime.Geometry.Geometry geometry)
         {
-            // Gray out any selected tool.
-            Button.Background = ThemedColor;
-
             // Create a graphic to display the specified geometry.
             Symbol symbol = null;
             switch (geometry.GeometryType)
@@ -170,6 +159,7 @@ namespace ArcGIS.Samples.SketchOnMap
 
         private void ClearButtonClick(object sender, EventArgs e)
         {
+            // Update UI
             UnselectTool(sender, e);
 
             // Remove all graphics from the graphics overlay.
@@ -234,12 +224,14 @@ namespace ArcGIS.Samples.SketchOnMap
                 }
                 else
                 {
-                    throw new OperationCanceledException();
+                    // Update UI
+                    UnselectTool(sender, e);
                 }
             }
-            catch (OperationCanceledException)
+            catch (Exception ex)
             {
-                UnselectTool(sender, e);
+                // Report exceptions.
+                await Application.Current.MainPage.DisplayAlert("Error", "Error editing shape: " + ex.Message, "OK");
             }
         }
 
@@ -248,22 +240,24 @@ namespace ArcGIS.Samples.SketchOnMap
         private void SelectTool(Button selectedButton)
         {
             // Gray out the background of the currently selected tool.
-            Button.Background = ThemedColor;
+            if (EnabledTool is not null)
+                EnabledTool.Background = ThemedColor;
 
             // Set the static variable to whichever button that was just clicked.
-            Button = selectedButton;
+            EnabledTool = selectedButton;
 
             // Set the background of the currently selected tool to red.
-            Button.Background = Red;
+            EnabledTool.Background = Red;
         }
 
         private void UnselectTool(object sender, EventArgs e)
         {
             // Gray out the background of the currently selected tool.
-            Button.Background = ThemedColor;
+            if (EnabledTool is not null)
+                EnabledTool.Background = ThemedColor;
 
             // Dereference the unselected tool's button.
-            Button = new Button();
+            EnabledTool = null;
         }
 
         #endregion Tool selection UI helpers

@@ -12,7 +12,7 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid MinimumWidthRequest="400" RowDefinitions="auto,auto,140,auto">
+            <Grid WidthRequest="400" RowDefinitions="auto,auto,140,auto">
                 <StackLayout Grid.Row="0"
                              Orientation="Horizontal"
                              Spacing="10">

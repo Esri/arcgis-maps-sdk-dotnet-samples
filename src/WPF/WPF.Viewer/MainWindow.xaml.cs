@@ -525,7 +525,7 @@ namespace ArcGIS.Samples.Desktop
             // If scaling has occurred due to screen scaling we need to resize the image.
             Bitmap resizedScreenshot = new Bitmap(screenshot, new System.Drawing.Size((int)(screenshot.Width / scaleX), (int)(screenshot.Height / scaleY)));
 
-            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\WPF\\ArcGISRuntime.WPF.Viewer\\Samples\\" +
+            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\WPF\\WPF.Viewer\\Samples\\" +
                 $"{SampleManager.Current.SelectedSample.Category}\\" +
                 $"{SampleManager.Current.SelectedSample.FormalName}\\" +
                 $"{SampleManager.Current.SelectedSample.FormalName}.jpg";

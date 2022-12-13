@@ -133,7 +133,14 @@ namespace ArcGIS
 
         private string GetDescriptionHtml(SampleInfo sampleInfo)
         {
-            string readmeResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.Category}.{sampleInfo.FormalName}.readme.md"));
+            string category = sampleInfo.Category;
+            if (category.Contains(" "))
+            {
+                // Make categories with spaces into titlecase folder name.
+                category = $"{category.Split(" ")[0]}{category.Split(" ")[1][0].ToString().ToUpper()}{category.Split(" ")[1].Substring(1)}";
+            }
+
+            string readmeResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{category}.{sampleInfo.FormalName}.readme.md"));
             string readmeContent = new StreamReader(_assembly.GetManifestResourceStream(readmeResource)).ReadToEnd();
             readmeContent = Markdig.Markdown.ToHtml(readmeContent);
 

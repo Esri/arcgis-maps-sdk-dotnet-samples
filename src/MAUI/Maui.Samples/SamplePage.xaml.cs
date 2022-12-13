@@ -104,8 +104,30 @@ namespace ArcGIS
             // Check that the navigation is backward from the sample and not forward into another page in the sample.
             if (!Application.Current.MainPage.Navigation.NavigationStack.OfType<SamplePage>().Any())
             {
+                // Explicit cleanup of the Map and SceneView instead of waiting for garbage collector can help when
+                // lots of geoviews are being opened and closed
+                foreach (var geoview in TreeWalker<Esri.ArcGISRuntime.Maui.GeoView>(_sample))
+                {
+                    geoview.Handler?.DisconnectHandler();
+                }
+
                 if (_sample is IDisposable disposableSample) disposableSample.Dispose();
                 if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
+            }
+        }
+
+        private static IEnumerable<T> TreeWalker<T>(VisualElement root)
+        {
+            if (root is not null)
+            {
+                if (root is T t)
+                    yield return t;
+                else if (root is IVisualTreeElement it)
+                {
+                    foreach (var e in it.GetVisualChildren())
+                        foreach (var obj in TreeWalker<T>(e as VisualElement))
+                            yield return obj;
+                }
             }
         }
 

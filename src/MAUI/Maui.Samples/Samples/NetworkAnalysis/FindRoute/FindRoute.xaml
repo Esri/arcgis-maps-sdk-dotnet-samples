@@ -8,32 +8,32 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid Padding="5"
                   MaximumWidthRequest="300"
-                  RowDefinitions="auto,auto"
+                  RowDefinitions="auto,auto,auto,auto"
                   RowSpacing="5">
+                <Button x:Name="SolveRouteButton"
+                            Grid.Row="0"
+                            Clicked="SolveRouteClick"
+                            HorizontalOptions="FillAndExpand"
+                            Text="Solve Route" />
+                <Button x:Name="ResetButton"
+                        Grid.Row="1"
+                        Clicked="ResetClick"
+                        HorizontalOptions="FillAndExpand"
+                        Text="Reset" />
                 <Button x:Name="ShowHideDirectionsButton"
-                        Grid.Row="0"
+                        Grid.Row="2"
                         Clicked="ShowHideDirectionsClicked"
                         Text="Show/Hide Directions" />
                 <Grid x:Name="DirectionsGrid"
-                      Grid.Row="1"
+                      Grid.Row="3"
                       IsVisible="false"
-                      RowDefinitions="auto,auto,auto,auto"
+                      RowDefinitions="auto,auto"
                       RowSpacing="5">
                     <Label Grid.Row="0" Text="Route directions:" />
                     <ListView x:Name="DirectionsListBox"
                               Grid.Row="1"
                               HeightRequest="300"
                               HorizontalOptions="CenterAndExpand" />
-                    <Button x:Name="SolveRouteButton"
-                            Grid.Row="2"
-                            Clicked="SolveRouteClick"
-                            HorizontalOptions="FillAndExpand"
-                            Text="Solve Route" />
-                    <Button x:Name="ResetButton"
-                            Grid.Row="3"
-                            Clicked="ResetClick"
-                            HorizontalOptions="FillAndExpand"
-                            Text="Reset" />
                 </Grid>
             </Grid>
         </Border>

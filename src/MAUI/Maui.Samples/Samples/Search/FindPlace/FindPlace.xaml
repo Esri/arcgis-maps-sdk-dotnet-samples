@@ -69,6 +69,5 @@
                                    IsVisible="False" />
             </Grid>
         </Border>
-        <Grid Grid.Row="4" Grid.ColumnSpan="3" />
     </Grid>
 </ContentPage>

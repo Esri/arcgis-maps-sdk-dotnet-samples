@@ -50,40 +50,36 @@ namespace ArcGIS.Samples.FindPlace
             // Assign the map to the MapView.
             MyMapView.Map = myMap;
 
-            // Wait for the MapView to load.
-            MyMapView.PropertyChanged += async (o, e) =>
+            await MyMapView.Map.LoadAsync();
+
+            // Subscribe to location changed event so that map can zoom to location
+            MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
+
+            try
             {
-                if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
+                // Check if location permission granted.
+                var status = Microsoft.Maui.ApplicationModel.PermissionStatus.Unknown;
+                status = await Microsoft.Maui.ApplicationModel.Permissions.CheckStatusAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
+
+                // Request location permission if not granted.
+                if (status != Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
                 {
-                    // Subscribe to location changed event so that map can zoom to location
-                    MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
-
-                    try
-                    {
-                        // Check if location permission granted.
-                        var status = Microsoft.Maui.ApplicationModel.PermissionStatus.Unknown;
-                        status = await Microsoft.Maui.ApplicationModel.Permissions.CheckStatusAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
-
-                        // Request location permission if not granted.
-                        if (status != Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
-                        {
-                            status = await Microsoft.Maui.ApplicationModel.Permissions.RequestAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
-                        }
-
-                        // Start the location display once permission is granted.
-                        if (status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
-                        {
-                            await MyMapView.LocationDisplay.DataSource.StartAsync();
-                            MyMapView.LocationDisplay.IsEnabled = true;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex);
-                        await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
-                    }
+                    status = await Microsoft.Maui.ApplicationModel.Permissions.RequestAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
                 }
-            };
+
+                // Start the location display once permission is granted.
+                if (status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
+                {
+                    await MyMapView.LocationDisplay.DataSource.StartAsync();
+                    MyMapView.LocationDisplay.IsEnabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
+            }
+                
 
             // Initialize the LocatorTask with the provided service Uri.
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);

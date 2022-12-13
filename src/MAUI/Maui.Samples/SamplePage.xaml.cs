@@ -160,10 +160,10 @@ namespace ArcGIS
         private void LoadSourceCode(SampleInfo sampleInfo)
         {
             // Get all files in the samples folder.
-            var fileNames = _assembly.GetManifestResourceNames().Where(name => name.Contains(sampleInfo.FormalName));
+            var fileNames = _assembly.GetManifestResourceNames().Where(name => name.Contains($"{sampleInfo.FormalName}.cs") || name.Contains($"{sampleInfo.FormalName}.xaml"));
 
             // Add every .cs and .xaml file in the directory of the sample.
-            foreach (string filepath in fileNames.Where(file => file.EndsWith(".cs") || file.EndsWith(".xaml")).OrderByDescending(x => x))
+            foreach (string filepath in fileNames.OrderByDescending(x => x))
             {
                 SourceFiles.Add(new SourceCodeFile(filepath));
             }

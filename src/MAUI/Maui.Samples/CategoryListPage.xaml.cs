@@ -36,8 +36,8 @@ namespace ArcGIS
             // Update the binding.
             BindingContext = ViewModel;
 
-#if MACCATALYST
-            // Workaround visibility binding bug on Mac Catalyst.
+#if MACCATALYST || IOS
+            // Workaround visibility binding bug on Mac Catalyst. Binding for visibility that starts as false does not behave correctly on iOS and Mac. 
             ViewModel.PropertyChanged += MacVisibilityHandler;
 #endif
         }

@@ -17,6 +17,7 @@
                 <Picker x:Name="SlopeTypePicker"
                         Grid.Row="0"
                         Grid.Column="1"
+                        MinimumWidthRequest="100"
                         HorizontalOptions="StartAndExpand"
                         VerticalOptions="CenterAndExpand" />
                 <Label Grid.Row="1"

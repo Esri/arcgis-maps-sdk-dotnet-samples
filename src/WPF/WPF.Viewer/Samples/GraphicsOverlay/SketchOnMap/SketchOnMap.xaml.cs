@@ -19,7 +19,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using Point = System.Windows.Point;
+using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
 namespace ArcGIS.WPF.Samples.SketchOnMap
 {
@@ -33,6 +33,15 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
     {
         // Graphics overlay to host sketch graphics.
         private GraphicsOverlay _sketchOverlay;
+
+        // Background colors for tool icons.
+        private static System.Windows.Media.SolidColorBrush LightGray;
+        private static System.Windows.Media.SolidColorBrush Red;
+
+        // Button for keeping track of the currently enabled tool.
+        private static Button EnabledTool;
+
+        private TaskCompletionSource<Graphic> _graphicCompletionSource;
 
         public SketchOnMap()
         {
@@ -59,6 +68,13 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
 
             // Set the sketch editor as the page's data context.
             DataContext = MyMapView.SketchEditor;
+
+            // Ensure colors are consistent with XAML colors.
+            LightGray = System.Windows.Media.Brushes.LightGray;
+            Red = System.Windows.Media.Brushes.Red;
+
+            // No tool currently selected, so simply instantiate the button.
+            EnabledTool = new Button();
         }
 
         #region Graphic and symbol helpers
@@ -120,7 +136,7 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
             Geometry mapPoint = await MyMapView.SketchEditor.StartAsync(SketchCreationMode.Point, false);
 
             // Convert the map point to a screen point.
-            Point screenCoordinate = MyMapView.LocationToScreen((MapPoint)mapPoint);
+            System.Windows.Point screenCoordinate = MyMapView.LocationToScreen((MapPoint)mapPoint);
 
             // Identify graphics in the graphics overlay using the point.
             IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(screenCoordinate, 2, false);
@@ -141,6 +157,9 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
 
         private void ShapeClick(object sender, RoutedEventArgs e)
         {
+            // Update UI.
+            SelectTool(sender as Button);
+
             // Get the command parameter from the button press.
             string mode = (sender as Button).CommandParameter.ToString();
 
@@ -191,13 +210,14 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
         {
             try
             {
-                // Allow the user to select a graphic.
-                Graphic editGraphic = await GetGraphicAsync();
+                // Update UI.
+                SelectTool(sender as Button);
 
-                if (editGraphic == null)
-                {
-                    return;
-                }
+                // Create a TaskCompletionSource object to wait for a graphic.
+                _graphicCompletionSource = new TaskCompletionSource<Graphic>();
+
+                // Wait for the user to select a graphic.
+                Graphic editGraphic = await _graphicCompletionSource.Task;
 
                 // Let the user make changes to the graphic's geometry, await the result (updated geometry).
                 Geometry newGeometry = await MyMapView.SketchEditor.StartAsync(editGraphic.Geometry);
@@ -208,6 +228,62 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
             catch (TaskCanceledException)
             {
                 // Ignore ... let the user cancel editing.
+            }
+            catch (Exception ex)
+            {
+                // Report exceptions.
+                MessageBox.Show("Error editing shape: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        #region Tool selection UI helpers
+
+        private void SelectTool(Button selectedButton)
+        {
+            // Gray out the background of the currently enabled tool.
+            if (EnabledTool is not null)
+                EnabledTool.Background = LightGray;
+
+            // Set the static variable to whichever button that was just clicked.
+            EnabledTool = selectedButton;
+
+            // Set the background of the button to red.
+            EnabledTool.Background = Red;
+        }
+
+        private void UnselectTool(object sender, RoutedEventArgs e)
+        {
+            // Gray out the background of the currently enabled tool.
+            if (EnabledTool is not null)
+                EnabledTool.Background = LightGray;
+
+            // Dereference the unselected tool's button.
+            EnabledTool = null;
+        }
+
+        #endregion Tool selection UI helpers
+
+        private async void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        {
+            try
+            {
+                if (_graphicCompletionSource is not null && !_graphicCompletionSource.Task.IsCompleted)
+                {
+                    // Identify graphics in the graphics overlay using the point.
+                    IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 2, false);
+
+                    // If results were found, get the first graphic.
+                    IdentifyGraphicsOverlayResult idResult = results.FirstOrDefault();
+                    if (idResult != null && idResult.Graphics.Count > 0)
+                    {
+                        Graphic graphic = idResult.Graphics.FirstOrDefault();
+                        _graphicCompletionSource.TrySetResult(graphic);
+                    }
+                }
+            }
+            catch (TaskCanceledException)
+            {
+                // Ignore ... let the user cancel drawing.
             }
             catch (Exception ex)
             {

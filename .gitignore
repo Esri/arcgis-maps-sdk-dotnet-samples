@@ -219,6 +219,6 @@ output
 
 # Xamarin
 Components
-*.[Dd]esigner.cs
+
 *.bak
 .vscode

@@ -19,8 +19,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
-using ButtonColor = Windows.UI.Color;
-using SolidColorBrush = Microsoft.UI.Xaml.Media.SolidColorBrush;
 
 namespace ArcGIS.WinUI.Samples.SketchOnMap
 {
@@ -36,8 +34,8 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
         private GraphicsOverlay _sketchOverlay;
 
         // Background colors for tool icons.
-        private static SolidColorBrush LightGray;
-        private static SolidColorBrush Red;
+        private static Microsoft.UI.Xaml.Media.SolidColorBrush LightGray;
+        private static Microsoft.UI.Xaml.Media.SolidColorBrush Red;
 
         // Button for keeping track of the currently enabled tool.
         private static Button EnabledTool;
@@ -71,8 +69,8 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
             DataContext = MyMapView.SketchEditor;
 
             // Ensure colors are consistent with XAML colors.
-            LightGray = new SolidColorBrush(ButtonColor.FromArgb(255, 211, 211, 211));
-            Red = new SolidColorBrush(ButtonColor.FromArgb(255, 255, 0, 0));
+            LightGray = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(255, 211, 211, 211));
+            Red = new Microsoft.UI.Xaml.Media.SolidColorBrush(Windows.UI.Color.FromArgb(255, 255, 0, 0));
 
             // No tool currently selected, so simply instantiate the button.
             EnabledTool = new Button();

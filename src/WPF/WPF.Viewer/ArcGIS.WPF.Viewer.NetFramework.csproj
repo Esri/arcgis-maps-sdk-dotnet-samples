@@ -83,6 +83,27 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFRAMEWORK</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <LangVersion>7.2</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFRAMEWORK</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <LangVersion>7.2</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <!-- References -->
   <ItemGroup>
     <Reference Include="System" />
@@ -260,10 +281,10 @@
   </ItemGroup>
   <!-- Packages -->
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0"/>
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0"/>
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0" />
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="200.0.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.0.0"/>
+    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.0.0" />
     <PackageReference Include="Markdig" Version="0.30.2" />
     <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.5.3" />
     <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.5.3" />

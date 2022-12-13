@@ -153,6 +153,12 @@ namespace ArcGIS.Samples.FindAddress
             {
                 // Display the list of suggestions; returns the selected option
                 string action = await Application.Current.MainPage.DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
+
+                if (action == "Cancel")
+                {
+                    return;
+                }
+
                 // Update the search
                 MySearchBar.Text = action;
                 updateSearch();

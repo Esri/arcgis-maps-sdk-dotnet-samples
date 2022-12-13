@@ -64,11 +64,11 @@
 	<!-- Exclude some samples on mac catalyst -->
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-maccatalyst')) == true">
 	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
-	  <Compile Remove="Samples\Location\IndoorPositioning**" />
-	  <EmbeddedResource Remove="Samples\Location\IndoorPositioning**" />
-	  <MauiCss Remove="Samples\Location\IndoorPositioning**" />
-	  <MauiXaml Remove="Samples\Location\IndoorPositioning**" />
-	  <None Remove="Samples\Location\IndoorPositioning**" />
+	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
+	  <EmbeddedResource Remove="Samples\Location\IndoorPositioning\**" />
+	  <MauiCss Remove="Samples\Location\IndoorPositioning\**" />
+	  <MauiXaml Remove="Samples\Location\IndoorPositioning\**" />
+	  <None Remove="Samples\Location\IndoorPositioning\**" />
 	</ItemGroup>
 
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">

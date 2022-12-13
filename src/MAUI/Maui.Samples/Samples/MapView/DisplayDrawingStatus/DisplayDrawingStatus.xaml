@@ -8,7 +8,7 @@
                         Style="{DynamicResource EsriSampleGeoView}"
                         ViewInsets="0" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid RowDefinitions="auto,auto">
+            <Grid RowDefinitions="auto,25">
                 <Label Text="Pan and zoom to see drawing status changes." />
                 <ActivityIndicator x:Name="MyActivityIndicator"
                                    Grid.Row="1"

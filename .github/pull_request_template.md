@@ -19,6 +19,7 @@ Summary of the change and any relevant info.
 - [ ] MAUI Windows
 - [ ] MAUI Android
 - [ ] MAUI iOS
+- [ ] MAUI Mac Catalyst
 
 ## Checklist
 

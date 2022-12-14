@@ -25,8 +25,8 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
-		<RootNamespace>ArcGISMapsSDKMaui</RootNamespace>
-		<AssemblyName>ArcGISMapsSDKMaui</AssemblyName>
+		<RootNamespace>ArcGIS</RootNamespace>
+		<AssemblyName>ArcGIS</AssemblyName>
         <DefineConstants>$(DefineConstants);MAUI</DefineConstants>
 	</PropertyGroup>
 
@@ -64,11 +64,11 @@
 	<!-- Exclude some samples on mac catalyst -->
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-maccatalyst')) == true">
 	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
-	  <Compile Remove="Samples\Location\IndoorPositioning**" />
-	  <EmbeddedResource Remove="Samples\Location\IndoorPositioning**" />
-	  <MauiCss Remove="Samples\Location\IndoorPositioning**" />
-	  <MauiXaml Remove="Samples\Location\IndoorPositioning**" />
-	  <None Remove="Samples\Location\IndoorPositioning**" />
+	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
+	  <EmbeddedResource Remove="Samples\Location\IndoorPositioning\**" />
+	  <MauiCss Remove="Samples\Location\IndoorPositioning\**" />
+	  <MauiXaml Remove="Samples\Location\IndoorPositioning\**" />
+	  <None Remove="Samples\Location\IndoorPositioning\**" />
 	</ItemGroup>
 
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">

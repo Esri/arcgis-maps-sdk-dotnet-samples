@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
 // Custom code is needed for presenting the image picker on iOS.
-#if IOS
+#if IOS || MACCATALYST
 using Foundation;
 using UIKit;
 #endif
@@ -135,7 +135,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
 
                 // Microsoft.Maui.Storage.FilePicker shows the iCloud picker (not photo picker) on iOS.
                 // This iOS code shows the photo picker.
-#if IOS
+#if IOS || MACCATALYST
                 Stream imageStream = await GetImageStreamAsync();
                 if (imageStream == null)
                 {
@@ -274,7 +274,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
         // Image picker implementation.
         // Microsoft.Maui.Storage.FilePicker shows an iCloud file picker; comment this out
         // and use the cross-platform implementation if that's what you want.
-#if IOS
+#if IOS || MACCATALYST
         private TaskCompletionSource<Stream> _taskCompletionSource;
         private UIImagePickerController _imagePicker;
         private string _filename;

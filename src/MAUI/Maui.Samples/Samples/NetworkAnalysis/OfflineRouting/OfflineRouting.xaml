@@ -10,7 +10,7 @@
                   MaximumWidthRequest="300"
                   RowDefinitions="auto,auto,auto"
                   RowSpacing="3">
-                <Label Grid.Row="0" Text="Click the map to add up to 5 stops. Route lines will be displayed automatically." />
+                <Label Grid.Row="0" Text="Click the map to add up to 5 stops. Route lines will be displayed automatically." HeightRequest="{OnPlatform iOS=50}" />
                 <Picker x:Name="TravelModesCombo"
                         Grid.Row="1"
                         HorizontalOptions="FillAndExpand"

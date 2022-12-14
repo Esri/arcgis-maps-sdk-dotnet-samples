@@ -162,7 +162,7 @@ namespace ArcGIS.Samples.Shared.Managers
 #else
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 #endif
-            string sampleDataFolder = Path.Combine(appDataFolder, "ArcGISRuntimeSampleData");
+            string sampleDataFolder = Path.Combine(appDataFolder, "ArcGISSampleData");
 
             if (!Directory.Exists(sampleDataFolder)) { Directory.CreateDirectory(sampleDataFolder); }
 

@@ -133,7 +133,14 @@ namespace ArcGIS
 
         private string GetDescriptionHtml(SampleInfo sampleInfo)
         {
-            string readmeResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.Category}.{sampleInfo.FormalName}.readme.md"));
+            string category = sampleInfo.Category;
+            if (category.Contains(" "))
+            {
+                // Make categories with spaces into titlecase folder name.
+                category = $"{category.Split(" ")[0]}{category.Split(" ")[1][0].ToString().ToUpper()}{category.Split(" ")[1].Substring(1)}";
+            }
+
+            string readmeResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{category}.{sampleInfo.FormalName}.readme.md"));
             string readmeContent = new StreamReader(_assembly.GetManifestResourceStream(readmeResource)).ReadToEnd();
             readmeContent = Markdig.Markdown.ToHtml(readmeContent);
 
@@ -182,10 +189,10 @@ namespace ArcGIS
         private void LoadSourceCode(SampleInfo sampleInfo)
         {
             // Get all files in the samples folder.
-            var fileNames = _assembly.GetManifestResourceNames().Where(name => name.Contains(sampleInfo.FormalName));
+            var fileNames = _assembly.GetManifestResourceNames().Where(name => name.Contains($"{sampleInfo.FormalName}.cs") || name.Contains($"{sampleInfo.FormalName}.xaml"));
 
             // Add every .cs and .xaml file in the directory of the sample.
-            foreach (string filepath in fileNames.Where(file => file.EndsWith(".cs") || file.EndsWith(".xaml")).OrderByDescending(x => x))
+            foreach (string filepath in fileNames.OrderByDescending(x => x))
             {
                 SourceFiles.Add(new SourceCodeFile(filepath));
             }

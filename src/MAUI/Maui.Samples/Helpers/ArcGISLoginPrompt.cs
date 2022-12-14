@@ -8,13 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Security;
-using Microsoft.Maui.ApplicationModel;
-
-#if ANDROID || IOS || MACCATALYST
-
-using System.Collections.Generic;
-
-#endif
 
 #if ANDROID
 

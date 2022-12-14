@@ -50,40 +50,36 @@ namespace ArcGIS.Samples.FindPlace
             // Assign the map to the MapView.
             MyMapView.Map = myMap;
 
-            // Wait for the MapView to load.
-            MyMapView.PropertyChanged += async (o, e) =>
+            await MyMapView.Map.LoadAsync();
+
+            // Subscribe to location changed event so that map can zoom to location
+            MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
+
+            try
             {
-                if (e.PropertyName == nameof(MyMapView.LocationDisplay) && MyMapView.LocationDisplay != null)
+                // Check if location permission granted.
+                var status = Microsoft.Maui.ApplicationModel.PermissionStatus.Unknown;
+                status = await Microsoft.Maui.ApplicationModel.Permissions.CheckStatusAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
+
+                // Request location permission if not granted.
+                if (status != Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
                 {
-                    // Subscribe to location changed event so that map can zoom to location
-                    MyMapView.LocationDisplay.LocationChanged += LocationDisplay_LocationChanged;
-
-                    try
-                    {
-                        // Check if location permission granted.
-                        var status = Microsoft.Maui.ApplicationModel.PermissionStatus.Unknown;
-                        status = await Microsoft.Maui.ApplicationModel.Permissions.CheckStatusAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
-
-                        // Request location permission if not granted.
-                        if (status != Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
-                        {
-                            status = await Microsoft.Maui.ApplicationModel.Permissions.RequestAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
-                        }
-
-                        // Start the locationdisplay once permission is granted.
-                        if (status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
-                        {
-                            await MyMapView.LocationDisplay.DataSource.StartAsync();
-                            MyMapView.LocationDisplay.IsEnabled = true;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.WriteLine(ex);
-                        await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
-                    }
+                    status = await Microsoft.Maui.ApplicationModel.Permissions.RequestAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
                 }
-            };
+
+                // Start the location display once permission is granted.
+                if (status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
+                {
+                    await MyMapView.LocationDisplay.DataSource.StartAsync();
+                    MyMapView.LocationDisplay.IsEnabled = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex);
+                await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
+            }
+                
 
             // Initialize the LocatorTask with the provided service Uri.
             _geocoder = await LocatorTask.CreateAsync(_serviceUri);
@@ -224,7 +220,7 @@ namespace ArcGIS.Samples.FindPlace
             // Get image as a stream from the resources.
             // Picture is defined as EmbeddedResource and DoNotCopy.
             Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISMapsSDK.Resources.PictureMarkerSymbols.pin_star_blue.png");
+                "ArcGIS.Resources.PictureMarkerSymbols.pin_star_blue.png");
 
             // Create new symbol using asynchronous factory method from stream.
             PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
@@ -274,13 +270,13 @@ namespace ArcGIS.Samples.FindPlace
             Application.Current.MainPage.DisplayAlert("Alert", message, "OK");
         }
 
-        private async void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Dismiss callout, if any.
             UserInteracted();
         }
 
-        private async void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Dismiss callout, if any.
             UserInteracted();

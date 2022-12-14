@@ -201,7 +201,7 @@ namespace ArcGIS.Samples.TraceUtilityNetwork
                 Graphic traceLocationGraphic = new Graphic(feature.Geometry as MapPoint ?? e.Location, symbol);
                 MyMapView.GraphicsOverlays.FirstOrDefault()?.Graphics.Add(traceLocationGraphic);
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
                 Status.Text = "Identify canceled.";
                 return;

@@ -97,7 +97,7 @@ namespace ArcGIS.Samples.WmsIdentify
                 }
 
                 // Show a page with the HTML content
-                await Application.Current.MainPage.Navigation.PushModalAsync(new WmsIdentifyResultDisplayPage(htmlContent));
+                await Application.Current.MainPage.Navigation.PushAsync(new WmsIdentifyResultDisplayPage(htmlContent));
             }
             catch (Exception ex)
             {

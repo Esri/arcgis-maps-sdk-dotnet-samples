@@ -12,7 +12,12 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid MinimumWidthRequest="400" RowDefinitions="auto,auto,140,auto">
+            <Grid Padding="5"
+                  RowDefinitions="auto,auto,auto,auto"
+                  WidthRequest="{OnPlatform WinUI=400,
+                                            iOS=400,
+                                            Android=-1,
+                                            MacCatalyst=400}">
                 <StackLayout Grid.Row="0"
                              Orientation="Horizontal"
                              Spacing="10">
@@ -31,15 +36,20 @@
                             VerticalOptions="Center" />
                 </StackLayout>
                 <CollectionView x:Name="TransformationsListBox"
-                                BackgroundColor="{AppThemeBinding Light='#FFFFFF', Dark='#2B2B2B'}"
                                 Grid.Row="2"
-                                SelectionMode="Single"
+                                BackgroundColor="{AppThemeBinding Light='#FFFFFF',
+                                                                  Dark='#2B2B2B'}"
                                 HeightRequest="140"
+                                HorizontalOptions="Start"
+                                ItemTemplate="{StaticResource TransformTemplateSelector}"
+                                MaximumWidthRequest="{OnPlatform Android=250,
+                                                                 WinUI=250}"
                                 SelectionChanged="TransformationsListBox_SelectionChanged"
-                                ItemTemplate="{StaticResource TransformTemplateSelector}" />
+                                SelectionMode="Single" />
                 <Label x:Name="MessagesTextBox"
                        Grid.Row="3"
-                       HeightRequest="60" />
+                       HeightRequest="60"
+                       MaximumWidthRequest="{OnPlatform Android=250}" />
             </Grid>
         </Border>
     </Grid>

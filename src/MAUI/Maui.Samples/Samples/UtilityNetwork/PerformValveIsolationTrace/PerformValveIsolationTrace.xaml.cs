@@ -273,7 +273,7 @@ namespace ArcGIS.Samples.PerformValveIsolationTrace
                 Graphic traceLocationGraphic = new Graphic(feature.Geometry as MapPoint ?? e.Location, symbol);
                 _barrierOverlay.Graphics.Add(traceLocationGraphic);
             }
-            catch (OperationCanceledException ex)
+            catch (OperationCanceledException)
             {
                 return;
             }

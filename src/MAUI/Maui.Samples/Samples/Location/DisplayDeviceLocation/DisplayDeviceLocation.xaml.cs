@@ -40,17 +40,21 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
         {
             try
             {
+                // Check if location permission granted.
                 var status = Microsoft.Maui.ApplicationModel.PermissionStatus.Unknown;
-
                 status = await Microsoft.Maui.ApplicationModel.Permissions.CheckStatusAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
 
+                // Request location permission if not granted.
+                if (status != Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
+                {
+                    status = await Microsoft.Maui.ApplicationModel.Permissions.RequestAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
+                }
+
+                // Start the location display once permission is granted.
                 if (status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
                 {
                     await MyMapView.LocationDisplay.DataSource.StartAsync();
                     MyMapView.LocationDisplay.IsEnabled = true;
-
-                    // Enable the stop device location button.
-                    StopButton.IsEnabled = true;
                 }
             }
             catch (Exception ex)

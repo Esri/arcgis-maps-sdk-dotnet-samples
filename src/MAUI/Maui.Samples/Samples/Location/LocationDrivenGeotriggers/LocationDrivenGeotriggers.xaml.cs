@@ -145,7 +145,7 @@ namespace ArcGIS.Samples.LocationDrivenGeotriggers
                             }
                             catch (Exception ex)
                             {
-                                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                                System.Diagnostics.Debug.WriteLine(ex.Message);
                             }
                         }
 

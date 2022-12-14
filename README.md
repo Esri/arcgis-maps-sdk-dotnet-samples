@@ -8,12 +8,12 @@
 [![Link: NuGet](https://img.shields.io/badge/NuGet-633b9b?style=flat-square&logo=nuget&labelColor=gray)](https://www.nuget.org/profiles/Esri_Inc)
 [![Link: Esri Community](https://img.shields.io/badge/🙋-Get%20help%20in%20Esri%20Community-633b9b?style=flat-square)](https://community.esri.com/t5/arcgis-runtime-sdk-for-net/bd-p/arcgis-runtime-sdk-dotnet-questions)
 
-# ArcGIS Runtime SDK for .NET - Samples
+# ArcGIS Maps SDK for .NET - Samples
 
 <a href="//www.microsoft.com/store/apps/9mtp5013343h?cid=storebadge&ocid=badge"><img src="./samples_screenshot.png" title="Get the viewer from Microsoft" alt="Screenshot of the sample viewer for WPF" width="500px" /></a>
 <hr />
 
-**Interactive samples demonstrate the ArcGIS Runtime API**
+**Interactive samples demonstrate the ArcGIS Maps SDK for .NET API**
 
 ## Get started
 
@@ -32,26 +32,25 @@ Or, you can browse a searchable list of samples on the ArcGIS for developers web
 
 If you want to modify or debug sample code, you can clone this repo and load one of the following solutions:
 
-- All: `src\ArcGISRuntime.Viewers.All.sln`
-- Windows ( WPF / UWP ): `src\ArcGISRuntime.Viewers.Windows.sln`
-- .NET MAUI (iOS, Android): `src\MAUI\ArcGISRuntime.Samples.Maui.sln`
+- All: `src\ArcGIS.Viewers.All.sln`
+- .NET MAUI (iOS, Android): `src\MAUI\ArcGIS.Samples.Maui.sln`
 
 If you are only interested in one platform, you can open a platform-specific solutions:
 
-- [WPF (.NET Framework)](src/WPF/readme.md): `src\WPF\ArcGISRuntime.WPF.Viewer.NetFramework.sln`
-- [WPF (.NET 6)](src/WPF/readme.md): `src\WPF\ArcGISRuntime.WPF.Viewer.Net.sln`
-- [.NET MAUI](src/MAUI/readme.md): 'src\MAUI\ArcGISRuntime.Samples.Maui.sln'
-- [WinUI](src/WinUI/readme.md): `\src\WinUI\ArcGISRuntime.WinUI.Viewer.sln (Preview)`
+- [WPF (.NET Framework)](src/WPF/readme.md): `src\WPF\WPF.Viewer.NetFramework.sln`
+- [WPF (.NET 6)](src/WPF/readme.md): `src\WPF\WPF.Viewer.Net.sln`
+- [.NET MAUI](src/MAUI/readme.md): 'src\MAUI\ArcGIS.Samples.Maui.sln'
+- [WinUI](src/WinUI/readme.md): `\src\WinUI\ArcGIS.WinUI.Viewer.sln (Preview)`
 
 The following platforms are being kept for reference, but no new sample implementations are being added:
 
-- [UWP](src/UWP/readme.md): `src\Windows\ArcGISRuntime.UWP.Viewer.sln`
+- [UWP](src/UWP/readme.md): `src\Windows\ArcGIS.UWP.Viewer.sln`
 
 ## Notes
 
 > **IMPORTANT** When you run the samples, you will need to provide an API key. You can get a free developer account and key on the [ArcGIS Developers website](developers.arcgis.com). For more information see https://links.esri.com/arcgis-runtime-security-auth.
 
-- The .NET sample viewers have a prompt for setting an API key. You can also hardcode your API key in the [`GetLocalKey() method`](https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/main/src/ArcGISRuntime.Samples.Shared/Managers/ApiKeyManager.cs#L89) of the [`ApiKeyManager class`](https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/main/src/ArcGISRuntime.Samples.Shared/Managers/ApiKeyManager.cs).
+- The .NET sample viewers have a prompt for setting an API key. You can also hardcode your API key in the [`GetLocalKey() method`](https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/main/src/ArcGIS.Samples.Shared/Managers/ApiKeyManager.cs#L89) of the [`ApiKeyManager class`](https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/main/src/ArcGIS.Samples.Shared/Managers/ApiKeyManager.cs).
 - Before using WinUI, install the [latest Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and the [vsix plugin](https://aka.ms/windowsappsdk/stable-vsix-2022-cs).
 - When compiling Universal Windows Platform samples, make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
 
@@ -69,7 +68,7 @@ See the [contribution guidelines](https://github.com/Esri/arcgis-runtime-samples
 
 ### Requirements
 
-[Supported system configurations for ArcGIS Runtime API for .NET](https://developers.arcgis.com/net/reference/system-requirements/)
+[Supported system configurations for ArcGIS Maps SDK for .NET](https://developers.arcgis.com/net/reference/system-requirements/)
 
 ### Tools
 

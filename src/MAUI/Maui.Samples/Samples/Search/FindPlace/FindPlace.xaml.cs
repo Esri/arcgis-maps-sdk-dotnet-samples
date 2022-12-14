@@ -270,13 +270,13 @@ namespace ArcGIS.Samples.FindPlace
             Application.Current.MainPage.DisplayAlert("Alert", message, "OK");
         }
 
-        private async void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Dismiss callout, if any.
             UserInteracted();
         }
 
-        private async void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void MySearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
             // Dismiss callout, if any.
             UserInteracted();

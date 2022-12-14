@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="ArcGIS.WinUI.Viewer.SourceCode"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{StaticResource PrimaryBackgroundColor}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <TabView x:Name="Tabs"
+                 Grid.Row="0"
+                 IsAddTabButtonVisible="False" />
+        <WebView2 x:Name="WebView" Grid.Row="1" />
+    </Grid>
+</UserControl>

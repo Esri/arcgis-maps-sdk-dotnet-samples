@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ClosestFacility.ClosestFacility"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <TextBlock FontWeight="SemiBold"
+                       Text="Tap to find the route to the closest facility."
+                       TextAlignment="Center" />
+        </Border>
+    </Grid>
+</UserControl>

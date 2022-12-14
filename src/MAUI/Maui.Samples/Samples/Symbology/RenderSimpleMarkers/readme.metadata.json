@@ -1,0 +1,27 @@
+{
+    "category": "Symbology",
+    "description": "Show a simple marker symbol on a map.",
+    "formal_name": "RenderSimpleMarkers",
+    "ignore": false,
+    "images": [
+        "RenderSimpleMarkers.jpg"
+    ],
+    "keywords": [
+        "symbol"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/rendersimplemarkers.htm"
+    ],
+    "relevant_apis": [
+        "Graphic",
+        "GraphicsOverlay",
+        "Point",
+        "SimpleMarkerSymbol"
+    ],
+    "snippets": [
+        "RenderSimpleMarkers.xaml",
+        "RenderSimpleMarkers.xaml.cs"
+    ],
+    "title": "Simple marker symbol"
+}

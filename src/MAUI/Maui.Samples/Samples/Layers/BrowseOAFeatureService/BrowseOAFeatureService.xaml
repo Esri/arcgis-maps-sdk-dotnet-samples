@@ -1,0 +1,49 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.BrowseOAFeatureService.BrowseOAFeatureService"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGIS.Resources">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="*,auto"
+                  RowDefinitions="auto,auto,auto,auto,auto"
+                  RowSpacing="5">
+                <Entry x:Name="ServiceTextBox"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Margin="5" />
+                <Button x:Name="LoadServiceButton"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Clicked="LoadServiceButton_Click"
+                        Text="Load service"
+                        VerticalOptions="Center" />
+                <ListView x:Name="OgcFeatureCollectionList"
+                          Grid.Row="1"
+                          Grid.ColumnSpan="2"
+                          HeightRequest="150"
+                          SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding Title}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button x:Name="LoadLayersButton"
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        Clicked="LoadLayers_Clicked"
+                        IsEnabled="False"
+                        Text="Load selected layer" />
+                <ActivityIndicator x:Name="LoadingProgressBar"
+                                   Grid.Row="4"
+                                   Grid.ColumnSpan="2"
+                                   IsEnabled="True"
+                                   IsRunning="True"
+                                   IsVisible="True" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,27 @@
+{
+    "category": "Layers",
+    "description": "Add an ArcGIS Map Image Layer from a URL to a map.",
+    "formal_name": "ArcGISMapImageLayerUrl",
+    "ignore": false,
+    "images": [
+        "ArcGISMapImageLayerUrl.jpg"
+    ],
+    "keywords": [
+        "display",
+        "image",
+        "layer",
+        "map"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/arcgismapimagelayerurl.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer"
+    ],
+    "snippets": [
+        "ArcGISMapImageLayerUrl.xaml",
+        "ArcGISMapImageLayerUrl.xaml.cs"
+    ],
+    "title": "ArcGIS map image layer"
+}

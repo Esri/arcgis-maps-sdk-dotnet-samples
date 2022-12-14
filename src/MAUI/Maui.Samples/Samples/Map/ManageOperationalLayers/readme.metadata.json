@@ -1,0 +1,31 @@
+{
+    "category": "Map",
+    "description": "Add, remove, and reorder operational layers in a map.",
+    "formal_name": "ManageOperationalLayers",
+    "ignore": false,
+    "images": [
+        "ManageOperationalLayers.jpg"
+    ],
+    "keywords": [
+        "add",
+        "delete",
+        "layer",
+        "map",
+        "remove"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/manageoperationallayers.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "Map",
+        "MapView",
+        "MapView.OperationalLayers"
+    ],
+    "snippets": [
+        "ManageOperationalLayers.xaml",
+        "ManageOperationalLayers.xaml.cs"
+    ],
+    "title": "Manage operational layers"
+}

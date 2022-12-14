@@ -1,0 +1,32 @@
+{
+    "category": "Geoprocessing",
+    "description": "Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.",
+    "formal_name": "AnalyzeViewshed",
+    "ignore": false,
+    "images": [
+        "AnalyzeViewshed.jpg"
+    ],
+    "keywords": [
+        "geoprocessing",
+        "heat map",
+        "heatmap",
+        "viewshed"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/analyzeviewshed.htm"
+    ],
+    "relevant_apis": [
+        "FeatureCollectionTable",
+        "GeoprocessingFeatures",
+        "GeoprocessingJob",
+        "GeoprocessingParameters",
+        "GeoprocessingResult",
+        "GeoprocessingTask"
+    ],
+    "snippets": [
+        "AnalyzeViewshed.xaml",
+        "AnalyzeViewshed.xaml.cs"
+    ],
+    "title": "Analyze viewshed (geoprocessing)"
+}

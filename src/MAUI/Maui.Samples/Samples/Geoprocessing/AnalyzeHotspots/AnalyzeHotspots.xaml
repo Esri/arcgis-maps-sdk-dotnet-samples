@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.AnalyzeHotspots.AnalyzeHotspots"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <ActivityIndicator x:Name="MyActivityIndicator"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="2"
+                           HeightRequest="40"
+                           IsVisible="False"
+                           WidthRequest="40" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="auto,*"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto,auto,auto"
+                  RowSpacing="5">
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="Start"
+                       Text="Start date:"
+                       VerticalTextAlignment="Center" />
+                <DatePicker x:Name="StartDate"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Date="1/01/98" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="Start"
+                       Text="End date:"
+                       VerticalTextAlignment="Center" />
+                <DatePicker x:Name="EndDate"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Date="1/31/98" />
+                <Button Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Clicked="OnRunAnalysisClicked"
+                        Text="Run Analysis" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,26 @@
+{
+    "category": "Layers",
+    "description": "View a point scene layer from a scene service.",
+    "formal_name": "AddPointSceneLayer",
+    "ignore": false,
+    "images": [
+        "AddPointSceneLayer.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "layers",
+        "point scene layer"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/addpointscenelayer.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISSceneLayer"
+    ],
+    "snippets": [
+        "AddPointSceneLayer.xaml",
+        "AddPointSceneLayer.xaml.cs"
+    ],
+    "title": "Add a point scene layer"
+}

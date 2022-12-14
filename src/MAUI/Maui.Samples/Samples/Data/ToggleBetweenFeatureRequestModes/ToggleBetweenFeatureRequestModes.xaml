@@ -1,0 +1,27 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.ToggleBetweenFeatureRequestModes.ToggleBetweenFeatureRequestModes"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Picker x:Name="CacheModes"
+                        Grid.Row="0"
+                        Margin="10"
+                        SelectedIndexChanged="CacheSelectionChanged"
+                        VerticalOptions="Center" />
+                <Button x:Name="PopulateMap"
+                        Grid.Row="1"
+                        Margin="10"
+                        Clicked="PopulateButtonClick"
+                        IsEnabled="False"
+                        Text="Populate" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

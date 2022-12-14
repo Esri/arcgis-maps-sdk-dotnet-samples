@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ExportVectorTiles.ExportVectorTiles"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" ViewpointChanged="MyMapView_ViewpointChanged" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Button x:Name="MyExportButton"
+                        Click="MyExportButton_Click"
+                        Content="Export vector tiles"
+                        IsEnabled="False" />
+                <Grid>
+                    <ProgressBar x:Name="MyProgressBar"
+                                 MinHeight="10"
+                                 Margin="0,10,0,0"
+                                 Maximum="100"
+                                 Minimum="0"
+                                 Visibility="Collapsed" />
+                    <TextBlock x:Name="MyProgressBarLabel"
+                               Margin="0,10,0,0"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               Text="{Binding ElementName=MyProgressBar, Path=Value, StringFormat={}{0:0}%}"
+                               Visibility="Collapsed" />
+                </Grid>
+
+                <esri:MapView x:Name="MyPreviewMapView"
+                              Width="375"
+                              Height="280"
+                              Visibility="Collapsed" />
+                <Button x:Name="MyCancelJobButton"
+                        Margin="0,10,0,0"
+                        Click="MyCancelJobButton_Click"
+                        Content="Cancel"
+                        Visibility="Collapsed" />
+                <Button x:Name="MyClosePreviewButton"
+                        Margin="0,10,0,0"
+                        Click="MyClosePreviewButton_Click"
+                        Content="Close Preview"
+                        Visibility="Collapsed" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,65 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.EditFeatureLinkedAnnotation.EditFeatureLinkedAnnotation"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                        GeoViewTapped="MyMapView_GeoViewTapped"
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label x:Name="InstructionsText"
+                       Grid.Row="0"
+                       Text="1. Tap to select a feature.&#x0a;2. For MapPoint features, edit the feature attributes.&#x0a;3. Tap again to move the feature." />
+                <Grid x:Name="AttributesGrid"
+                      Grid.Row="1"
+                      IsVisible="false">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Text="Edit feature attribute:" />
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Text="AD_ADDRESS"
+                           VerticalTextAlignment="Center" />
+                    <Entry x:Name="AdressBox"
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           Margin="5" />
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Text="ST_STR_NAM"
+                           VerticalTextAlignment="Center" />
+                    <Entry x:Name="StreetNameBox"
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           Margin="5" />
+                    <Button Grid.Row="3"
+                            Grid.Column="0"
+                            Margin="5"
+                            Clicked="CancelClick"
+                            Text="Cancel" />
+                    <Button Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="5"
+                            Clicked="OkClick"
+                            Text="OK" />
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

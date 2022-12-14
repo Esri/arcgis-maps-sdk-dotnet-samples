@@ -1,0 +1,98 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.RouteAroundBarriers.RouteAroundBarriers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:networkAnalysis="clr-namespace:Esri.ArcGISRuntime.Tasks.NetworkAnalysis;assembly=Esri.ArcGISRuntime">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_OnGeoViewTapped" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="150" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="StatusLabel"
+                           Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           Margin="0,0,0,5"
+                           FontWeight="SemiBold"
+                           TextWrapping="Wrap" />
+                <Button x:Name="AddStopButton"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Click="AddStop_Clicked"
+                        Content="Add stop" />
+                <Button x:Name="AddBarrierButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="5,0,5,0"
+                        Click="AddBarrier_Clicked"
+                        Content="Add barrier" />
+                <Button x:Name="ResetRoutingButton"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Click="ResetRoute_Clicked"
+                        Content="Reset" />
+                <CheckBox x:Name="AllowReorderStopsCheckbox"
+                          Grid.Row="2"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
+                          Margin="0,5,0,0"
+                          Content="Allow stops to be re-ordered" />
+                <CheckBox x:Name="PreserveFirstStopCheckbox"
+                          Grid.Row="3"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
+                          Margin="20,5,5,0"
+                          Content="Preserve first stop" />
+                <CheckBox x:Name="PreserveLastStopCheckbox"
+                          Grid.Row="4"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
+                          Margin="20,5,5,0"
+                          Content="Preserve last stop" />
+                <Button x:Name="CalculateRouteButton"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Margin="0,5,0,5"
+                        Click="RouteButton_Clicked"
+                        Content="Route" />
+                <ListBox x:Name="DirectionsListBox"
+                         Grid.Row="6"
+                         Grid.Column="0"
+                         Grid.ColumnSpan="3">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="networkAnalysis:DirectionManeuver">
+                            <TextBlock Text="{Binding DirectionText}" TextWrapping="Wrap" />
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <Grid x:Name="BusyOverlay"
+                      Grid.Row="0"
+                      Grid.RowSpan="7"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
+                      Margin="-20"
+                      Background="#aa000000"
+                      Visibility="Collapsed">
+                    <Label HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Content="Calculating route"
+                           Foreground="White" />
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

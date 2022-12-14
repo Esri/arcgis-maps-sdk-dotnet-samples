@@ -22,9 +22,9 @@ using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
 
-namespace ArcGISRuntime.WinUI.Samples.sample_name
+namespace ArcGIS.WinUI.Samples.sample_name
 {
-    [ArcGISRuntime.Samples.Shared.Attributes.Sample(
+    [ArcGIS.Samples.Shared.Attributes.Sample(
         "friendly_name",
         "sample_category",
         "sample_description",

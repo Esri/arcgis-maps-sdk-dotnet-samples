@@ -1,0 +1,31 @@
+{
+    "category": "Analysis",
+    "description": "Show a line of sight between two moving objects.",
+    "formal_name": "LineOfSightGeoElement",
+    "ignore": false,
+    "images": [
+        "LineOfSightGeoElement.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "line of sight",
+        "visibility",
+        "visibility analysis"
+    ],
+    "offline_data": [
+        "3af5cfec0fd24dac8d88aea679027cb9"
+    ],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/lineofsightgeoelement.htm"
+    ],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "GeoElementLineOfSight",
+        "LineOfSight.TargetVisibility"
+    ],
+    "snippets": [
+        "LineOfSightGeoElement.xaml",
+        "LineOfSightGeoElement.xaml.cs"
+    ],
+    "title": "Line of sight (geoelement)"
+}

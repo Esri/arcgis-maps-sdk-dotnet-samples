@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.ManageBookmarks.ManageBookmarks"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <HorizontalStackLayout Padding="5" Spacing="5">
+            <Label HorizontalTextAlignment="Center"
+                   Text="Bookmark:"
+                   VerticalTextAlignment="Center" />
+            <Picker x:Name="bookmarkPicker"
+                    SelectedIndexChanged="BookmarkPicker_SelectedIndexChanged"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="200" />
+            <Button x:Name="ButtonAddBookmark"
+                    Margin="5"
+                    Clicked="ButtonAddBookmark_Clicked"
+                    Text="New" />
+        </HorizontalStackLayout>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+    </Grid>
+</ContentPage>

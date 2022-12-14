@@ -1,0 +1,73 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.DownloadPreplannedMap.DownloadPreplannedMap"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGIS.Resources">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <StackLayout Padding="5">
+                <Label x:Name="MessageLabel"
+                       Margin="5"
+                       HorizontalTextAlignment="Center"
+                       Text="Select an area, then download it." />
+                <ListView x:Name="AreasList"
+                          HeightRequest="150"
+                          ItemSelected="AreaSelected">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Grid.RowSpan="2"
+                                           HeightRequest="40"
+                                           Source="{Binding PortalItem.ThumbnailUri}"
+                                           WidthRequest="60" />
+                                    <Label Grid.Column="1"
+                                           Margin="5,0"
+                                           Text="{Binding PortalItem.Title}"
+                                           VerticalTextAlignment="Center" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                    <Button x:Name="DownloadButton"
+                            Clicked="OnDownloadMapAreaClicked"
+                            Text="Download" />
+                    <Button Clicked="OnDeleteAllMapAreasClicked" Text="Delete all" />
+                    <Button x:Name="ShowOnlineButton"
+                            Clicked="ShowOnlineButton_Clicked"
+                            IsEnabled="False"
+                            Text="Show online" />
+                </HorizontalStackLayout>
+            </StackLayout>
+        </Border>
+        <Grid x:Name="BusyIndicator"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2">
+            <Border BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                                      Dark=#303030}"
+                    HorizontalOptions="Center"
+                    StrokeShape="RoundRectangle 10"
+                    VerticalOptions="Center">
+                <VerticalStackLayout Padding="10">
+                    <Label x:Name="BusyText"
+                           Margin="10"
+                           FontSize="18"
+                           Text="Loading webmap" />
+                    <ProgressBar x:Name="ProgressView"
+                                 HeightRequest="10"
+                                 HorizontalOptions="Center"
+                                 IsEnabled="True"
+                                 VerticalOptions="Center"
+                                 WidthRequest="100" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

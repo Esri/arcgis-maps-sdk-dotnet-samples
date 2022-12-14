@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="ArcGIS.UWP.Samples.FindServiceArea.FindServiceArea"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri1="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esri1:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Button Name="PlaceFacilityButton"
+                        Grid.Row="0" Grid.Column="0"
+                        Margin="5,5,5,5"
+                        Content="Place facility"
+                        Click="PlaceFacilityButton_Click"
+                        HorizontalAlignment="Stretch"
+                        Width="Auto"/>
+                <Button Name="DrawBarrierButton"
+                        Grid.Row="0" Grid.Column="1"
+                        Margin="5,5,5,5"
+                        Content="Draw barrier"
+                        Click="DrawBarrierButton_Click"
+                        HorizontalAlignment="Stretch"/>
+                <Button Name="ShowServiceAreasButton"
+                        Grid.Row="3"
+                        Grid.ColumnSpan="2"
+                        Margin="5,5,5,5"
+                        Content="Show service areas"
+                        Click="ShowServiceAreasButton_Click"
+                        HorizontalAlignment="Stretch"/>
+                <Button Name="ResetButton"
+                        Grid.Row="4"
+                        Grid.ColumnSpan="2"
+                        Margin="5,5,5,5"
+                        Content="Reset"
+                        Click="Reset_Click"
+                        HorizontalAlignment="Stretch"/>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

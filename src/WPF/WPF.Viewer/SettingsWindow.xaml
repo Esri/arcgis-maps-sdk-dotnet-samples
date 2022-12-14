@@ -1,0 +1,127 @@
+﻿<Window x:Class="ArcGIS.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:ArcGIS"
+        xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+        Title="Settings"
+        Width="800"
+        Height="450"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="5" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap" />
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <TabControl>
+            <TabItem Header="About">
+                <Grid Margin="5">
+                    <TextBlock Grid.Row="0"
+                               FontSize="18"
+                               FontWeight="SemiBold">
+                        <Run Text="Built with ArcGIS Maps SDK for .NET version" />
+                        <Run x:Name="VersionTextField" />
+                    </TextBlock>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Third-party software">
+                <WindowsFormsHost>
+                    <wf:WebBrowser x:Name="LicenseBrowser" />
+                </WindowsFormsHost>
+            </TabItem>
+            <TabItem Header="Offline data">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Margin="5"
+                               Text="The ArcGIS Maps SDK for .NET sample viewer downloads offline data on-demand. You can optionally pre-download data if you expect to go offline in the future."
+                               TextWrapping="Wrap" />
+                    <StackPanel Grid.Row="1" Orientation="Horizontal">
+                        <Button Margin="5"
+                                Click="DownloadAll_Clicked"
+                                Content="Download all" />
+                        <Button Margin="5"
+                                Click="DeleteAll_Click"
+                                Content="Delete all" />
+                        <Button x:Name="CancelButton"
+                                Margin="5"
+                                Click="Cancel_Click"
+                                Content="Cancel"
+                                Visibility="Collapsed" />
+                    </StackPanel>
+                    <ListView x:Name="SampleDataListView"
+                              Grid.Row="2"
+                              HorizontalContentAlignment="Stretch">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <TextBlock Grid.Column="0"
+                                               VerticalAlignment="Center"
+                                               Text="{Binding SampleName}" />
+                                    <Button Grid.Column="2"
+                                            Click="OpenInAgol_Clicked"
+                                            Content="Open in ArcGIS Online"
+                                            Tag="{Binding}" />
+                                    <Button Grid.Column="3"
+                                            Margin="5,0,5,0"
+                                            Click="DownloadNow_Clicked"
+                                            Content="Download now"
+                                            Tag="{Binding}" />
+                                    <Button Grid.Column="4"
+                                            Click="DeleteData_Click"
+                                            Content="Delete"
+                                            Tag="{Binding}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <StatusBar Grid.Row="3">
+                        <StatusBarItem>
+                            <TextBlock x:Name="StatusLabel" Text="Ready" />
+                        </StatusBarItem>
+                        <StatusBarItem HorizontalAlignment="Right">
+                            <ProgressBar x:Name="StatusSpinner"
+                                         Width="200"
+                                         Height="14"
+                                         Maximum="100"
+                                         Minimum="0"
+                                         Visibility="Collapsed" />
+                        </StatusBarItem>
+                    </StatusBar>
+                </Grid>
+            </TabItem>
+            <TabItem Header="API Key">
+                <local:ApiKeyPrompt HorizontalAlignment="Left" VerticalAlignment="Top" />
+            </TabItem>
+            <TabItem Header="Screenshot">
+                <local:ScreenshotTab HorizontalAlignment="Left" VerticalAlignment="Top" />
+            </TabItem>
+            <TabItem Name="TelemetryTab" Header="Telemetry">
+                <StackPanel>
+                    <TextBlock Margin="5"
+                               Text="This app uses telemetry to determine which samples are being used and what searches are done in app. No location or GPS data is reported using telemetry."
+                               TextWrapping="Wrap" />
+                    <CheckBox x:Name="TelemetryCheckbox"
+                              Margin="5"
+                              Content="Telemetry enabled." />
+                </StackPanel>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>

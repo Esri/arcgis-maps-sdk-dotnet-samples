@@ -1,0 +1,26 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.ConvexHull.ConvexHull"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  MinimumHeightRequest="125"
+                  RowDefinitions="auto,auto,auto"
+                  RowSpacing="5">
+                <Label x:Name="ConvexHullInstructionsLabel"
+                       Grid.Row="0"
+                       Text="Tap on the map in several places, then click the 'Convex Hull' button." />
+                <Button x:Name="ConvexHullButton"
+                        Grid.Row="1"
+                        Clicked="ConvexHullButton_Clicked"
+                        Text="Convex Hull" />
+                <Button x:Name="ResetButton"
+                        Grid.Row="2"
+                        Clicked="ResetButton_Clicked"
+                        Text="Reset" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

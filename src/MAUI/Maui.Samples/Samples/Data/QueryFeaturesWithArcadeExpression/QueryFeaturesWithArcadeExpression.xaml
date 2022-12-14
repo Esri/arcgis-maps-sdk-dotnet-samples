@@ -1,0 +1,27 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.QueryFeaturesWithArcadeExpression.QueryFeaturesWithArcadeExpression"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Grid x:Name="MyLoadingGrid"
+              HorizontalOptions="FillAndExpand"
+              IsVisible="False"
+              Opacity="0.5"
+              VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0"
+                   Padding="0,3"
+                   BackgroundColor="Black"
+                   HorizontalOptions="FillAndExpand"
+                   HorizontalTextAlignment="Center"
+                   Text="Loading..."
+                   TextColor="White"
+                   VerticalOptions="Start"
+                   VerticalTextAlignment="Center" />
+        </Grid>
+    </Grid>
+</ContentPage>

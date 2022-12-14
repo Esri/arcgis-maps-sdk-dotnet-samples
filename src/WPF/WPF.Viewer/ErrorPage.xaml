@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Viewer.ErrorPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" FontSize="16">There was an unhandled exception, so the sample can't be shown. See below for more information:</Label>
+        <TextBox x:Name="ErrorField"
+                 Grid.Row="1"
+                 FontFamily="Consolas"
+                 IsReadOnly="True" />
+    </Grid>
+</UserControl>

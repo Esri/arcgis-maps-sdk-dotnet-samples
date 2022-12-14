@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.SymbolsFromMobileStyle.SymbolsFromMobileStyle"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <ScrollView>
+                <Grid x:Name="SelectSymbolGrid"
+                      Grid.Row="0"
+                      Padding="5"
+                      ColumnDefinitions="*,*,*"
+                      ColumnSpacing="5"
+                      RowDefinitions="auto,80,80,auto,auto"
+                      RowSpacing="5">
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           HorizontalOptions="Center"
+                           Text="Eyes"
+                           VerticalOptions="Center" />
+                    <ListView x:Name="EyesListView"
+                              Grid.Row="1"
+                              Grid.Column="0"
+                              HorizontalOptions="Center"
+                              HorizontalScrollBarVisibility="Never"
+                              ItemSelected="SymbolLayerSelected"
+                              VerticalOptions="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell Height="15">
+                                    <Image Source="{Binding Path=ImageSrc}" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Label Grid.Row="0"
+                           Grid.Column="1"
+                           HorizontalOptions="Center"
+                           Text="Mouth"
+                           VerticalOptions="Center" />
+                    <ListView x:Name="MouthListView"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              HorizontalOptions="Center"
+                              HorizontalScrollBarVisibility="Never"
+                              ItemSelected="SymbolLayerSelected"
+                              VerticalOptions="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell Height="15">
+                                    <Image Source="{Binding Path=ImageSrc}" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Label Grid.Row="0"
+                           Grid.Column="2"
+                           HorizontalOptions="Center"
+                           Text="Hat"
+                           VerticalOptions="Center" />
+                    <ListView x:Name="HatListView"
+                              Grid.Row="1"
+                              Grid.Column="2"
+                              HorizontalOptions="Center"
+                              HorizontalScrollBarVisibility="Never"
+                              ItemSelected="SymbolLayerSelected"
+                              VerticalOptions="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell Height="15">
+                                    <Image Source="{Binding Path=ImageSrc}" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <ListView x:Name="ColorListView"
+                              Grid.Row="2"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="3"
+                              HorizontalOptions="Center"
+                              ItemSelected="SymbolLayerSelected"
+                              VerticalOptions="Center">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell Height="20">
+                                    <Label Text="{Binding Name}" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <Grid Grid.Row="3"
+                          Grid.Column="0"
+                          Grid.ColumnSpan="3"
+                          ColumnDefinitions="auto,*"
+                          ColumnSpacing="5">
+                        <Slider x:Name="SizeSlider"
+                                Grid.Column="1"
+                                HorizontalOptions="Center"
+                                Maximum="60"
+                                Minimum="8"
+                                WidthRequest="150" />
+                        <Label Grid.Column="0"
+                               Text="{Binding Source={x:Reference SizeSlider}, Path=Value, StringFormat='Size: {0:0#}'}"
+                               VerticalOptions="Center" />
+                    </Grid>
+                    <Image x:Name="SymbolPreviewImage"
+                           Grid.Row="4"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           HeightRequest="40"
+                           WidthRequest="40" />
+                    <Button Grid.Row="4"
+                            Grid.Column="2"
+                            Clicked="ClearGraphicsButtonClicked"
+                            Text="Clear" />
+                </Grid>
+            </ScrollView>
+        </Border>
+    </Grid>
+</ContentPage>

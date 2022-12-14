@@ -1,0 +1,71 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.QueryCQLFilters.QueryCQLFilters"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGIS.Resources">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto,auto,auto,auto,auto,auto,auto"
+                  RowSpacing="5">
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Text="Where clause:" />
+                <Picker x:Name="WhereClausePicker"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        HorizontalOptions="FillAndExpand" />
+                <Label Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Max features:" />
+                <Entry x:Name="MaxFeaturesBox"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Keyboard="Numeric" />
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       Text="Time extent"
+                       VerticalOptions="Center" />
+                <Switch x:Name="DateSwitch"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        IsToggled="True"
+                        Toggled="DateSwitch_Toggled" />
+                <DatePicker x:Name="StartDatePicker"
+                            Grid.Row="4"
+                            Grid.Column="0"
+                            HorizontalOptions="Center" />
+                <DatePicker x:Name="EndDatePicker"
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            HorizontalOptions="Center" />
+                <Button x:Name="ApplyQuery"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Pressed="ApplyQuery_Pressed"
+                        Text="Apply query" />
+                <Button x:Name="ResetQuery"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Pressed="ResetQuery_Pressed"
+                        Text="Reset" />
+                <Label x:Name="NumberOfReturnedFeatures"
+                       Grid.Row="6"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2" />
+            </Grid>
+        </Border>
+        <ActivityIndicator x:Name="LoadingProgressBar"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="2"
+                           HorizontalOptions="Center"
+                           IsRunning="True"
+                           VerticalOptions="Center" />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.CertificateAuthenticationWithPKI.CertificateAuthenticationWithPKI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="150" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Text="Enter the URL to a Portal that you have a certificate for:" />
+            <TextBlock Grid.Row="3"
+                       Grid.Column="0"
+                       Margin="5"
+                       Text="User: " />
+            <TextBlock x:Name="LoggedInUserName"
+                       Grid.Row="3"
+                       Grid.Column="1"
+                       Margin="5"
+                       Text="Not logged in" />
+            <TextBox x:Name="PortalUrlTextbox"
+                     Grid.Row="1"
+                     Grid.Column="0"
+                     Grid.ColumnSpan="2"
+                     Margin="5"
+                     Text="https://portal.yourcompany.com/gis/" />
+            <Button Grid.Row="2"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="5"
+                    Click="Button_Click"
+                    Content="Choose certificate" />
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,23 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.FindServiceAreasForMultipleFacilities.FindServiceAreasForMultipleFacilities"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  RowDefinitions="auto,auto"
+                  RowSpacing="5">
+                <Button x:Name="ServiceAreaButton"
+                        Grid.Row="0"
+                        Clicked="FindServiceArea_Clicked"
+                        IsEnabled="False"
+                        Text="Find service area" />
+                <ActivityIndicator x:Name="ProgressView"
+                                   Grid.Row="1"
+                                   IsRunning="True"
+                                   IsVisible="False" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

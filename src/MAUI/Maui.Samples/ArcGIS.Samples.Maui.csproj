@@ -1,0 +1,181 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<OutputType>Exe</OutputType>
+		<RootNamespace>ArcGIS.Samples</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>ArcGIS.Samples.Maui</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.esri.arcgisruntime.samples.maui</ApplicationId>
+		<ApplicationIdGuid>dfaa7aed-d4c6-448f-8c5b-61b58c75ea36</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<RootNamespace>ArcGIS</RootNamespace>
+		<AssemblyName>ArcGIS</AssemblyName>
+        <DefineConstants>$(DefineConstants);MAUI</DefineConstants>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\appiconfg.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Images\*" />
+		<MauiImage Update="Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+  <ItemGroup>
+      <Using Remove="Microsoft.Maui.ApplicationModel" />
+  </ItemGroup>
+
+	<ItemGroup>
+    <!-- Excluded due to missing toolkit components -->
+	  <AndroidResource Remove="Samples\MapView\FilterByTimeExtent\**" />
+	  <Compile Remove="Samples\MapView\FilterByTimeExtent\**" />
+	  <EmbeddedResource Remove="Samples\MapView\FilterByTimeExtent\**" />
+	  <MauiCss Remove="Samples\MapView\FilterByTimeExtent\**" />
+	  <MauiXaml Remove="Samples\MapView\FilterByTimeExtent\**" />
+	  <None Remove="Samples\MapView\FilterByTimeExtent\**" />
+	</ItemGroup>
+
+	<!-- Exclude some samples on mac catalyst -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-maccatalyst')) == true">
+	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
+	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
+	  <EmbeddedResource Remove="Samples\Location\IndoorPositioning\**" />
+	  <MauiCss Remove="Samples\Location\IndoorPositioning\**" />
+	  <MauiXaml Remove="Samples\Location\IndoorPositioning\**" />
+	  <None Remove="Samples\Location\IndoorPositioning\**" />
+	</ItemGroup>
+
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+      <Content Include="Resources\*.md">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+      <Content Include="Resources\*.css">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="Resources\SettingsPage\*.md" />
+    <EmbeddedResource Include="Resources\SettingsPage\*.md" />
+    <Content Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
+    <Content Include="Samples\**\*.jpg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
+    <BundleResource Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'iOS'" />
+    <AndroidAsset Include="Samples\**\*.jpg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
+    <AndroidAsset Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
+  </ItemGroup>
+
+  <!-- Resource outputs for description and source code viewing -->
+  <ItemGroup>
+    <EmbeddedResource Include="Samples\**\*.md" />
+    <EmbeddedResource Include="Samples\**\*.jpg" />
+    <EmbeddedResource Include="Samples\**\*.cs" />
+    <EmbeddedResource Include="Helpers\**\*.cs" />
+    <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Icons\applications.svg" />
+    <None Remove="Resources\Icons\applicationsDark.svg" />
+    <None Remove="Resources\Icons\description.svg" />
+    <None Remove="Resources\Icons\descriptiondark.svg" />
+    <None Remove="Resources\Icons\documentation.svg" />
+    <None Remove="Resources\Icons\documentationdark.svg" />
+    <None Remove="Resources\Icons\download.svg" />
+    <None Remove="Resources\Icons\downloaddark.svg" />
+    <None Remove="Resources\Icons\key.svg" />
+    <None Remove="Resources\Icons\keydark.svg" />
+    <None Remove="Resources\Icons\maps.svg" />
+    <None Remove="Resources\Icons\mapsdark.svg" />
+    <None Remove="Resources\Icons\settings.svg" />
+    <None Remove="Resources\Icons\settingsdark.svg" />
+    <None Remove="Resources\Icons\trash.svg" />
+    <None Remove="Resources\Icons\trashdark.svg" />
+    <None Remove="Resources\PictureMarkerSymbols\pin_blue.png" />
+    <None Remove="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <None Remove="Resources\routingSymbol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <MauiImage Include="Resources\Icons\applicationsdark.svg" />
+    <MauiImage Include="Resources\Icons\descriptiondark.svg" />
+    <MauiImage Include="Resources\Icons\documentationdark.svg" />
+    <MauiImage Include="Resources\Icons\downloaddark.svg" />
+    <MauiImage Include="Resources\Icons\keydark.svg" />
+    <MauiImage Include="Resources\Icons\maps.svg" />
+    <MauiImage Include="Resources\Icons\applications.svg" />
+    <MauiImage Include="Resources\Icons\documentation.svg" />
+    <MauiImage Include="Resources\Icons\description.svg" />
+    <MauiImage Include="Resources\Icons\download.svg" />
+    <MauiImage Include="Resources\Icons\key.svg" />
+    <MauiImage Include="Resources\Icons\mapsdark.svg" />
+    <MauiImage Include="Resources\Icons\settings.svg" />
+    <MauiImage Include="Resources\Icons\settingsdark.svg" />
+    <MauiImage Include="Resources\Icons\trash.svg" />
+    <MauiImage Include="Resources\Icons\trashdark.svg" />
+    <MauiImage Include="Resources\routingsymbol.png" />
+  </ItemGroup>
+	<ItemGroup>
+    <MauiAsset Include="SyntaxHighlighting\github-markdown.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
+    <MauiAsset Include="SyntaxHighlighting\github-markdown-dark.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
+    <MauiAsset Include="SyntaxHighlighting\highlight-dark.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
+    <MauiAsset Include="SyntaxHighlighting\highlight.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
+    <MauiAsset Include="SyntaxHighlighting\highlight.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
+  </ItemGroup>
+  <ItemGroup>
+      <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0" />
+      <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="200.0.0" />
+      <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" Version="200.0.0" />
+      <PackageReference Include="Markdig" Version="0.30.4" />
+  </ItemGroup>
+
+  <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows10.0.19041.0'">
+    <PackageReference Include="WinUIEx" Version="1.8.0" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
+    <PackageReference Include="Xamarin.AndroidX.AppCompat">
+      <Version>1.5.1.1</Version>
+    </PackageReference>
+  </ItemGroup>
+
+  <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />
+</Project>

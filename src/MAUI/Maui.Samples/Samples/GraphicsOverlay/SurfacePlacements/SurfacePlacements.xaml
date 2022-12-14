@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.SurfacePlacements.SurfacePlacements"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  RowDefinitions="auto,auto,auto,auto"
+                  RowSpacing="5">
+                <Button x:Name="BillboardedButton"
+                        Grid.Row="0"
+                        Clicked="BillboardedClicked"
+                        IsEnabled="False"
+                        Text="Draped Billboarded" />
+                <Button x:Name="FlatButton"
+                        Grid.Row="1"
+                        Clicked="FlatClicked"
+                        Text="Draped Flat" />
+                <Slider x:Name="ZSlider"
+                        Grid.Row="2"
+                        Maximum="140"
+                        Minimum="0"
+                        ValueChanged="ZSlider_ValueChanged"
+                        Value="70" />
+                <Label x:Name="ValueLabel"
+                       Grid.Row="3"
+                       Text="Z Value: 70 meters" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

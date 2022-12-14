@@ -1,0 +1,33 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.SymbolStylesFromWebStyles.SymbolStylesFromWebStyles"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                        Style="{DynamicResource EsriSampleGeoView}"
+                        ViewpointChanged="MapViewExtentChanged" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5" RowDefinitions="150">
+                <CollectionView x:Name="LegendCollectionView" IsVisible="False">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0,5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.Column="0"
+                                       Margin="5,0,5,0"
+                                       Source="{Binding ImageSource}"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="1"
+                                       Text="{Binding Name}"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

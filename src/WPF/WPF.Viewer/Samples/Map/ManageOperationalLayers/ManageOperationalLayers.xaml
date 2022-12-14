@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ManageOperationalLayers.ManageOperationalLayers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <UserControl.Resources>
+        <DataTemplate x:Key="LayerListTemplate" DataType="esri:Layer">
+            <Label Content="{Binding Name}" />
+        </DataTemplate>
+        <Style x:Key="LayerListBoxItemStyle" TargetType="ListBoxItem">
+            <!--  PreviewMouseLeftButtonDown is the event that is raised when the user clicks and holds the click.  -->
+            <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListBox_DragPreviewMove" />
+            <!--  Drop is raised when user lets go while doing a drag-and-drop operation.  -->
+            <EventSetter Event="Drop" Handler="ListBoxItem_OnDrop" />
+            <!--  AllowDrop specifies that dragged items can be dropped on this item.  -->
+            <!--  ListBox items need to be supported for dragging to enable re-ordering.  -->
+            <Setter Property="AllowDrop" Value="True" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <esri:MapView Map="{Binding Map}" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel Orientation="Vertical">
+                <Label Content="Drag and drop to reorder and move layers." />
+                <Label HorizontalContentAlignment="Center"
+                       Content="Layers in map"
+                       FontWeight="SemiBold" />
+                <!--
+                    Item template defined in UserControl.Resources above specifies that each listbox
+                    item's content consists of a label with the layer's Name property displayed.
+                -->
+                <!--  The item container style is used to define events and properties on listbox items.  -->
+                <ListBox x:Name="IncludedListBox"
+                         MinHeight="100"
+                         AllowDrop="True"
+                         Drop="ListBoxItem_OnDrop"
+                         ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                         ItemTemplate="{StaticResource LayerListTemplate}"
+                         ItemsSource="{Binding IncludedLayers}" />
+                <Label HorizontalContentAlignment="Center"
+                       Content="Layers not in map"
+                       FontWeight="SemiBold" />
+                <!--
+                    Item template defined in UserControl.Resources above specifies that each listbox
+                    item's content consists of a label with the layer's Name property displayed.
+                -->
+                <!--  The item container style is used to define events and properties on listbox items.  -->
+                <ListBox x:Name="ExcludedListBox"
+                         MinHeight="100"
+                         AllowDrop="True"
+                         Drop="ListBoxItem_OnDrop"
+                         ItemContainerStyle="{StaticResource LayerListBoxItemStyle}"
+                         ItemTemplate="{StaticResource LayerListTemplate}"
+                         ItemsSource="{Binding ExcludedLayers, Mode=TwoWay}" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

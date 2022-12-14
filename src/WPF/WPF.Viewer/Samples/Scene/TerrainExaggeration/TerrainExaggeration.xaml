@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.TerrainExaggeration.TerrainExaggeration"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:SceneView x:Name="MySceneView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Label Content="Terrain exaggeration:" />
+                <Slider x:Name="TerrainSlider"
+                        AutoToolTipPlacement="TopLeft"
+                        AutoToolTipPrecision="2"
+                        Maximum="3"
+                        Minimum="1"
+                        Value="1" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

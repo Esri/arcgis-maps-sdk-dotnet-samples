@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.FormatCoordinates.FormatCoordinates"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border MinimumWidthRequest="400" Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid ColumnDefinitions="*,*"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto,auto,auto,auto,auto"
+                  RowSpacing="5">
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center">
+                    Decimal Degrees
+                </Label>
+                <Entry x:Name="DecimalDegreesTextField"
+                       Grid.Row="0"
+                       Grid.Column="1"
+                       Placeholder="Decimal Degrees" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center">
+                    Degrees, Minutes, Seconds
+                </Label>
+                <Entry x:Name="DmsTextField"
+                       Grid.Row="1"
+                       Grid.Column="1"
+                       Placeholder="Degrees, Minutes, Seconds" />
+                <Label Grid.Row="2"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center">
+                    UTM
+                </Label>
+                <Entry x:Name="UtmTextField"
+                       Grid.Row="2"
+                       Grid.Column="1"
+                       Placeholder="UTM" />
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center">
+                    USNG
+                </Label>
+                <Entry x:Name="UsngTextField"
+                       Grid.Row="3"
+                       Grid.Column="1"
+                       Placeholder="USNG" />
+                <Button Grid.Row="4"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Clicked="RecalculateFields"
+                        Text="Recalculate" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

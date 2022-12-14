@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="ArcGIS.WinUI.Samples.EditFeatureAttachments.EditFeatureAttachments"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Margin="0,0,0,5"
+                               FontWeight="SemiBold"
+                               Text="Tap features to select."
+                               TextAlignment="Center" />
+                    <ListBox x:Name="AttachmentsListBox"
+                             MinHeight="100"
+                             MaxHeight="300"
+                             HorizontalAlignment="Stretch"
+                             HorizontalContentAlignment="Stretch"
+                             Background="LightGray"
+                             IsEnabled="False">
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="ListBoxItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+                        <!--  ItemTemplate defines how each item (Attachment) is rendered.  -->
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" />
+                                    <!--  DataTemplate sets the item as the button's DataContext automatically.  -->
+                                    <Button Grid.Column="1"
+                                            Margin="0,0,5,0"
+                                            HorizontalAlignment="Right"
+                                            Click="DownloadAttachment_Click"
+                                            Content="💾" />
+                                    <!--  These symbols are emojis. Use Win+. to open the emoji picker.  -->
+                                    <Button Grid.Column="2"
+                                            HorizontalAlignment="Right"
+                                            Click="DeleteAttachment_Click"
+                                            Content="🗑" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                    <Button x:Name="AddAttachmentButton"
+                            Margin="0,5,0,5"
+                            HorizontalAlignment="Stretch"
+                            Click="AddAttachment_Click"
+                            Content="Add attachment"
+                            IsEnabled="False" />
+                    <ProgressBar x:Name="ActivityIndicator"
+                                 Height="15"
+                                 HorizontalAlignment="Stretch"
+                                 IsIndeterminate="True"
+                                 Visibility="Collapsed" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

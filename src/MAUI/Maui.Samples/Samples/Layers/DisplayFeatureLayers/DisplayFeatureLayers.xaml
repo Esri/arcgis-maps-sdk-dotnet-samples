@@ -1,0 +1,19 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.DisplayFeatureLayers.DisplayFeatureLayers"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border MinimumWidthRequest="350" Style="{DynamicResource EsriSampleControlPanel}">
+            <StackLayout Padding="5"
+                         Orientation="Horizontal"
+                         Spacing="5"
+                         VerticalOptions="Start">
+                <Label Text="Feature layer source:" VerticalOptions="Center" />
+                <Picker x:Name="FeatureLayerPicker"
+                        SelectedIndexChanged="FeatureLayerPicker_SelectionChanged"
+                        WidthRequest="175" />
+            </StackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

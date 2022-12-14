@@ -1,0 +1,30 @@
+{
+    "category": "Geometry",
+    "description": "Clip a geometry with another geometry.",
+    "formal_name": "ClipGeometry",
+    "ignore": false,
+    "images": [
+        "ClipGeometry.jpg"
+    ],
+    "keywords": [
+        "analysis",
+        "clip",
+        "geometry"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/clipgeometry.htm"
+    ],
+    "relevant_apis": [
+        "Envelope",
+        "Geometry",
+        "GeometryEngine.Clip",
+        "Graphic",
+        "GraphicsOverlay"
+    ],
+    "snippets": [
+        "ClipGeometry.xaml",
+        "ClipGeometry.xaml.cs"
+    ],
+    "title": "Clip geometry"
+}

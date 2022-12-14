@@ -1,0 +1,121 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.RouteAroundBarriers.RouteAroundBarriers"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGIS.Resources">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                        GeoViewTapped="MyMapView_OnGeoViewTapped"
+                        Style="{DynamicResource EsriSampleGeoView}"
+                        ViewInsets="0,250,0,0" />
+        <Border Padding="5" Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnSpacing="5"
+                  MaximumWidthRequest="300"
+                  RowSpacing="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label x:Name="StatusLabel"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="3"
+                       Margin="0,0,0,5"
+                       FontSize="12" />
+                <Button x:Name="AddStopButton"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Clicked="AddStop_Clicked"
+                        FontSize="12"
+                        Text="Add stop" />
+                <Button x:Name="AddBarrierButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Clicked="AddBarrier_Clicked"
+                        FontSize="12"
+                        Text="Add barrier" />
+                <Button x:Name="ResetRoutingButton"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Clicked="ResetRoute_Clicked"
+                        FontSize="12"
+                        Text="Reset" />
+                <Grid Grid.Row="2"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
+                      ColumnDefinitions="0.3*,0.7*">
+                    <Switch x:Name="AllowReorderStopsCheckbox"
+                            Grid.Column="0"
+                            VerticalOptions="Center" />
+                    <Label Grid.Column="1"
+                           FontSize="12"
+                           HorizontalOptions="Start"
+                           Text="Allow stops to be re-ordered"
+                           VerticalOptions="Center"
+                           VerticalTextAlignment="Center" />
+                </Grid>
+                <Grid Grid.Row="3"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
+                      ColumnDefinitions="0.3*,0.7*">
+                    <Switch x:Name="PreserveFirstStopCheckbox"
+                            Grid.Column="0"
+                            VerticalOptions="Center" />
+                    <Label Grid.Column="1"
+                           FontSize="12"
+                           Text="Preserve first stop"
+                           VerticalOptions="Center"
+                           VerticalTextAlignment="Center" />
+                </Grid>
+                <Grid Grid.Row="4"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="3"
+                      ColumnDefinitions="0.3*,0.7*">
+                    <Switch x:Name="PreserveLastStopCheckbox"
+                            Grid.Column="0"
+                            VerticalOptions="Center" />
+                    <Label Grid.Column="1"
+                           FontSize="12"
+                           Text="Preserve last stop"
+                           VerticalOptions="Center"
+                           VerticalTextAlignment="Center" />
+                </Grid>
+                <Button x:Name="CalculateRouteButton"
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Clicked="RouteButton_Clicked"
+                        FontSize="12"
+                        Text="Route" />
+                <Button x:Name="ShowDirectionsButton"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Clicked="ShowDirections_Clicked"
+                        FontSize="12"
+                        Text="Show directions" />
+            </Grid>
+        </Border>
+        <Grid x:Name="BusyOverlay"
+              Grid.Row="0"
+              Grid.RowSpan="2"
+              Grid.Column="0"
+              Grid.ColumnSpan="2"
+              HorizontalOptions="FillAndExpand"
+              IsVisible="False"
+              VerticalOptions="FillAndExpand">
+            <Label HorizontalOptions="Center"
+                   Text="Calculating route"
+                   VerticalOptions="Center" />
+        </Grid>
+    </Grid>
+</ContentPage>

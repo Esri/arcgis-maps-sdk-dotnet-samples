@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.FindPlace.FindPlace"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnSpacing="5"
+                  MaximumWidthRequest="320"
+                  RowSpacing="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.3*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Search"
+                       VerticalTextAlignment="Center" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Location"
+                       VerticalTextAlignment="Center" />
+                <SearchBar x:Name="MySearchBox"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Focused="MySearchBox_Focused"
+                           IsEnabled="False"
+                           Text="Coffee"
+                           TextChanged="MySearchBox_TextChanged"
+                           Unfocused="MyLocationBox_Unfocused" />
+                <SearchBar x:Name="MyLocationBox"
+                           Grid.Row="1"
+                           Grid.Column="1"
+                           Focused="MySearchBox_Focused"
+                           IsEnabled="False"
+                           Text="Current Location"
+                           TextChanged="MyLocationBox_TextChanged"
+                           Unfocused="MyLocationBox_Unfocused" />
+                <Grid Grid.Row="2"
+                      Grid.Column="0"
+                      Grid.ColumnSpan="2"
+                      ColumnDefinitions="0.5*,0.5*"
+                      ColumnSpacing="5"
+                      RowDefinitions="auto">
+                    <Button x:Name="MySearchButton"
+                            Grid.Column="0"
+                            Clicked="MySearchButton_Clicked"
+                            IsEnabled="False"
+                            Text="Search All" />
+                    <Button x:Name="MySearchRestrictedButton"
+                            Grid.Column="1"
+                            Clicked="MySearchRestrictedButton_Clicked"
+                            IsEnabled="False"
+                            Text="Search in View" />
+                </Grid>
+                <ActivityIndicator x:Name="MyProgressBar"
+                                   Grid.Row="3"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="3"
+                                   IsRunning="True"
+                                   IsVisible="False" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

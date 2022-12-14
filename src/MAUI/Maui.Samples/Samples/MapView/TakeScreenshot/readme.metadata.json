@@ -1,0 +1,35 @@
+{
+    "category": "MapView",
+    "description": "Take a screenshot of the map.",
+    "formal_name": "TakeScreenshot",
+    "ignore": false,
+    "images": [
+        "TakeScreenshot.jpg"
+    ],
+    "keywords": [
+        "capture",
+        "export",
+        "image",
+        "print",
+        "screen capture",
+        "screenshot",
+        "share",
+        "shot"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/takescreenshot.htm"
+    ],
+    "relevant_apis": [
+        "GeoView.DrawStatus",
+        "GeoView.DrawStatusChanged",
+        "GeoView.ExportImageAsync",
+        "RuntimeImage",
+        "RuntimeImage.ToImageSourceAsync"
+    ],
+    "snippets": [
+        "TakeScreenshot.xaml",
+        "TakeScreenshot.xaml.cs"
+    ],
+    "title": "Take screenshot"
+}

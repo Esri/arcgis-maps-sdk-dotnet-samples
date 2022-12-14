@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="ArcGIS.UWP.Samples.TokenSecuredChallenge.TokenSecuredChallenge"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="using:ArcGIS.UWP.Samples.TokenSecuredChallenge"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <UserControl.Resources>
+        <local:LoadStatusToColorConverter x:Key="StatusToColor" />
+    </UserControl.Resources>
+    <Grid x:Name="layoutGrid">
+        <esriUI:MapView x:Name="MyMapView" />
+
+        <!-- Layer listing with status -->
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock FontSize="14" FontWeight="Bold"
+                           Margin="4"
+                           TextAlignment="Center"
+                           Text="Map Layers (with status)" />
+                <StackPanel x:Name="PublicLayerPanel" Orientation="Horizontal" Margin="10,5">
+                    <TextBlock Text="{Binding Name}" />
+                    <TextBlock Text="{Binding LoadStatus}"
+                               Foreground="{Binding LoadStatus, Converter={StaticResource StatusToColor}}"
+                               Margin="10,0" />
+                </StackPanel>
+                <StackPanel x:Name="SecureLayerPanel" Orientation="Horizontal" Margin="10,5">
+                    <TextBlock Text="{Binding Name}" />
+                    <TextBlock Text="{Binding LoadStatus}"
+                               Foreground="{Binding LoadStatus, Converter={StaticResource StatusToColor}}"
+                               Margin="10,0" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Login UI -->
+        <Border x:Name="loginPanel"
+                Style="{StaticResource BorderStyle}"
+                HorizontalAlignment="Left"
+                Visibility="Collapsed">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                           Margin="0,0,0,8"
+                           TextWrapping="Wrap"
+                           Text="{Binding ServiceUrl}" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                           Margin="0,0,0,8"
+                           TextWrapping="Wrap"
+                           FontWeight="SemiBold"
+                           Text="Username and Password are user1/user1" />
+                <TextBlock Grid.Row="2" Grid.Column="0"
+                           Margin="2"
+                           VerticalAlignment="Center"
+                           Text="Username" />
+                <TextBox Grid.Row="2" Grid.Column="1"
+                         Margin="2"
+                         Text="{Binding UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Grid.Row="3" Grid.Column="0"
+                           Margin="2"
+                           VerticalAlignment="Center"
+                           Text="Password" />
+                <!-- For simplicity, the password is visible in this example. You can use a PasswordBox to mask the password text,
+                     but it complicates data binding. See this discussion for details: http://stackoverflow.com/questions/1483892/how-to-bind-to-a-passwordbox-in-mvvm -->
+                <TextBox Grid.Row="3" Grid.Column="1"
+                         Margin="2"
+                         Text="{Binding Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                        Margin="0,12,0,0"
+                        HorizontalAlignment="Stretch"
+                        Content="Login and load layer"
+                        Click="LoginButtonClick" />
+                <TextBlock x:Name="ErrorMessageTextBlock"
+                           Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                           Margin="8,12,8,0"
+                           Foreground="Red"
+                           TextWrapping="Wrap"
+                           Text="{Binding ErrorMessage}" />
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>

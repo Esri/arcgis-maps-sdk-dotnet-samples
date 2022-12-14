@@ -1,0 +1,92 @@
+﻿<UserControl
+    x:Class="ArcGIS.UWP.Samples.SketchOnMap.SketchOnMap"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <CommandBar OverflowButtonVisibility="Collapsed">
+            <AppBarButton AllowFocusOnInteraction="True">
+                <AppBarButton.Content>
+                    <TextBlock HorizontalAlignment="Center" Text="Draw/Edit" />
+                </AppBarButton.Content>
+                <AppBarButton.Flyout>
+                    <Flyout x:Name="DrawToolsFlyout">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="5" />
+                                <RowDefinition Height="35" />
+                                <RowDefinition Height="35" />
+                                <RowDefinition Height="35" />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                FontSize="12"
+                                Text="Sketch shape:" />
+                            <ComboBox
+                                x:Name="SketchModeComboBox"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="2"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Center"
+                                FontSize="12" />
+                            <Button
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Width="100"
+                                Height="30"
+                                Margin="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Click="DrawButtonClick"
+                                Content="Draw"
+                                FontSize="12" />
+                            <Button
+                                x:Name="EditButton"
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                Width="100"
+                                Height="30"
+                                Margin="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Top"
+                                Click="EditButtonClick"
+                                Content="Edit"
+                                FontSize="12"
+                                IsEnabled="False" />
+                        </Grid>
+                    </Flyout>
+                </AppBarButton.Flyout>
+            </AppBarButton>
+            <AppBarButton Command="{Binding UndoCommand}">
+                <AppBarButton.Content>
+                    <TextBlock HorizontalAlignment="Center" Text="Undo" />
+                </AppBarButton.Content>
+            </AppBarButton>
+            <AppBarButton Command="{Binding RedoCommand}">
+                <AppBarButton.Content>
+                    <TextBlock HorizontalAlignment="Center" Text="Redo" />
+                </AppBarButton.Content>
+            </AppBarButton>
+            <AppBarButton Command="{Binding CompleteCommand}">
+                <AppBarButton.Content>
+                    <TextBlock HorizontalAlignment="Center" Text="Complete" />
+                </AppBarButton.Content>
+            </AppBarButton>
+            <AppBarButton x:Name="ClearButton" Click="ClearButtonClick">
+                <AppBarButton.Content>
+                    <TextBlock HorizontalAlignment="Center" Text="Clear" />
+                </AppBarButton.Content>
+            </AppBarButton>
+        </CommandBar>
+    </Grid>
+</UserControl>

@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.ListTransformations.ListTransformations"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:local="clr-namespace:ArcGIS.Samples.ListTransformations">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:TransformRowTemplateSelector x:Key="TransformTemplateSelector" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  RowDefinitions="auto,auto,auto,auto"
+                  WidthRequest="{OnPlatform WinUI=400,
+                                            iOS=400,
+                                            Android=-1,
+                                            MacCatalyst=400}">
+                <StackLayout Grid.Row="0"
+                             Orientation="Horizontal"
+                             Spacing="10">
+                    <Label x:Name="InSpatialRefTextBox" />
+                    <Label x:Name="OutSpatialRefTextBox" />
+                </StackLayout>
+                <StackLayout Grid.Row="1"
+                             Orientation="Horizontal"
+                             Spacing="10">
+                    <Label Text="Use extent"
+                           VerticalOptions="Center"
+                           VerticalTextAlignment="Center" />
+                    <Switch x:Name="UseExtentSwitch"
+                            IsToggled="False"
+                            Toggled="UseExtentSwitch_Toggled"
+                            VerticalOptions="Center" />
+                </StackLayout>
+                <CollectionView x:Name="TransformationsListBox"
+                                Grid.Row="2"
+                                BackgroundColor="{AppThemeBinding Light='#FFFFFF',
+                                                                  Dark='#2B2B2B'}"
+                                HeightRequest="140"
+                                HorizontalOptions="Start"
+                                ItemTemplate="{StaticResource TransformTemplateSelector}"
+                                MaximumWidthRequest="{OnPlatform Android=250,
+                                                                 WinUI=250}"
+                                SelectionChanged="TransformationsListBox_SelectionChanged"
+                                SelectionMode="Single" />
+                <Label x:Name="MessagesTextBox"
+                       Grid.Row="3"
+                       HeightRequest="60"
+                       MaximumWidthRequest="{OnPlatform Android=250}" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

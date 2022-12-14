@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.DownloadPreplannedMap.DownloadPreplannedMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Button x:Name="ShowOnlineButton"
+                        Margin="0,5,0,5"
+                        HorizontalAlignment="Stretch"
+                        Click="ShowOnlineButton_Click"
+                        Content="Show Online Map"
+                        IsEnabled="False" />
+                <TextBlock x:Name="MessageLabel"
+                           Margin="5"
+                           HorizontalAlignment="Center"
+                           FontWeight="SemiBold"
+                           Text="Select an area, then download it." />
+                <ListView x:Name="AreasList" SelectionChanged="AreasList_SelectionChanged">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.RowSpan="2"
+                                       Height="70"
+                                       Margin="-10,2,2,2"
+                                       Source="{Binding PortalItem.ThumbnailUri}"
+                                       Stretch="UniformToFill" />
+                                <TextBlock Grid.Column="1"
+                                           Margin="10,0"
+                                           VerticalAlignment="Center"
+                                           Text="{Binding PortalItem.Title}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button x:Name="DownloadButton"
+                        Margin="0,5,0,5"
+                        HorizontalAlignment="Stretch"
+                        Click="OnDownloadMapAreaClicked"
+                        Content="Download preplanned area" />
+                <Button HorizontalAlignment="Stretch"
+                        Click="OnDeleteAllMapAreasClicked"
+                        Content="Delete offline areas" />
+            </StackPanel>
+        </Border>
+        <!--  Busy indication  -->
+        <Grid x:Name="BusyIndicator" Background="#807f7f7f">
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Margin="10"
+                           FontSize="18"
+                           Foreground="White">
+                    <Run x:Name="BusyText" Text="Querying map areas..." />
+                    <Run x:Name="BusyPercentage" Text="" />
+                </TextBlock>
+                <ProgressBar x:Name="ProgressBar"
+                             Grid.Row="1"
+                             Width="100"
+                             Height="10"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Center"
+                             IsEnabled="True"
+                             IsIndeterminate="True" />
+            </Grid>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,36 @@
+{
+    "category": "Search",
+    "description": "Geocode addresses to locations and reverse geocode locations to addresses offline.",
+    "formal_name": "OfflineGeocode",
+    "ignore": false,
+    "images": [
+        "OfflineGeocode.jpg"
+    ],
+    "keywords": [
+        "geocode",
+        "geocoder",
+        "locator",
+        "offline",
+        "package",
+        "query",
+        "search"
+    ],
+    "offline_data": [
+        "22c3083d4fa74e3e9b25adfc9f8c0496",
+        "344e3b12368543ef84045ef9aa3c32ba"
+    ],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/offlinegeocode.htm"
+    ],
+    "relevant_apis": [
+        "GeocodeParameters",
+        "GeocodeResult",
+        "LocatorTask",
+        "ReverseGeocodeParameters"
+    ],
+    "snippets": [
+        "OfflineGeocode.xaml",
+        "OfflineGeocode.xaml.cs"
+    ],
+    "title": "Offline geocode"
+}

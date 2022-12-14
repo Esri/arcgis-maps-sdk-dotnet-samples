@@ -1,0 +1,101 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.TraceUtilityNetwork.TraceUtilityNetwork"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="OnGeoViewTapped" />
+        <Border x:Name="MainUI"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                IsEnabled="False"
+                Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <RadioButton x:Name="IsAddingStartingLocations"
+                             Content="Add starting locations"
+                             GroupName="AddState"
+                             IsChecked="True" />
+                <RadioButton Grid.Column="1"
+                             Content="Add barriers"
+                             GroupName="AddState" />
+                <Grid Grid.Row="1"
+                      Grid.ColumnSpan="2"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               Margin="5"
+                               VerticalAlignment="Center"
+                               Text="Trace Type:" />
+                    <ComboBox x:Name="TraceTypes"
+                              Grid.Column="1"
+                              Margin="5"
+                              HorizontalContentAlignment="Stretch" />
+                </Grid>
+                <Button Grid.Row="2"
+                        Margin="5"
+                        Click="OnReset"
+                        Content="Reset" />
+                <Button Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="5"
+                        Click="OnTrace"
+                        Content="Trace" />
+                <TextBlock x:Name="Status"
+                           Grid.Row="3"
+                           Grid.ColumnSpan="2"
+                           Margin="0,5,0,5"
+                           Text="Loading sample..." />
+                <ProgressBar x:Name="IsBusy"
+                             Grid.Row="4"
+                             Grid.ColumnSpan="2"
+                             Height="15"
+                             IsIndeterminate="True"
+                             Visibility="Collapsed" />
+            </Grid>
+        </Border>
+
+        <Border Name="TerminalPicker"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{StaticResource BorderStyle}"
+                Visibility="Collapsed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           Margin="5"
+                           Text="Select the terminal for this junction." />
+                <ComboBox x:Name="Picker"
+                          Grid.Row="1"
+                          Margin="5">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Grid.Row="2"
+                        Margin="5"
+                        Click="OnTerminalSelected"
+                        Content="Select" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

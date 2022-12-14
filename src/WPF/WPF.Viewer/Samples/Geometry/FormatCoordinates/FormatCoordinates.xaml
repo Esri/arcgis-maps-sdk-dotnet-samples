@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.FormatCoordinates.FormatCoordinates"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Margin" Value="0,5,5,0" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0,5,0,0" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Margin="0,0,0,0"
+                           FontWeight="SemiBold"
+                           Text="Tap on the map to see the coordinates in each format. Update any value and select 'Recalculate' to see the updated coordinates."
+                           TextWrapping="Wrap" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           Text="Decimal Degrees" />
+                <TextBox x:Name="DecimalDegreesTextField"
+                         Grid.Row="1"
+                         Grid.Column="1"
+                         Tag="Decimal Degrees" />
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           Text="Degrees, Minutes, Seconds" />
+                <TextBox x:Name="DmsTextField"
+                         Grid.Row="2"
+                         Grid.Column="1"
+                         Tag="Degrees, Minutes, Seconds" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           Text="UTM" />
+                <TextBox x:Name="UtmTextField"
+                         Grid.Row="3"
+                         Grid.Column="1"
+                         Tag="UTM" />
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           HorizontalAlignment="Right"
+                           Text="USNG" />
+                <TextBox x:Name="UsngTextField"
+                         Grid.Row="4"
+                         Grid.Column="1"
+                         Tag="USNG" />
+                <Button Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,5,0,0"
+                        Click="RecalculateFields"
+                        Content="Recalculate" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

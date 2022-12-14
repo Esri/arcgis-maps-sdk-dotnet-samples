@@ -1,0 +1,30 @@
+{
+    "category": "Symbology",
+    "description": "Change a graphic's symbol based on the camera's proximity to it.",
+    "formal_name": "UseDistanceCompositeSym",
+    "ignore": false,
+    "images": [
+        "UseDistanceCompositeSym.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "data",
+        "graphic",
+        "range",
+        "symbol"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/usedistancecompositesym.htm"
+    ],
+    "relevant_apis": [
+        "DistanceCompositeSceneSymbol",
+        "Range",
+        "RangeCollection"
+    ],
+    "snippets": [
+        "UseDistanceCompositeSym.xaml",
+        "UseDistanceCompositeSym.xaml.cs"
+    ],
+    "title": "Distance composite scene symbol"
+}

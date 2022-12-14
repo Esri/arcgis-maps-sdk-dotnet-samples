@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ChangeAtmosphereEffect.ChangeAtmosphereEffect"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:SceneView x:Name="MySceneView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <ComboBox IsEditable="False">
+                <ComboBoxItem x:Name="RealisticOption">Realistic</ComboBoxItem>
+                <ComboBoxItem x:Name="HorizonOnlyOption" IsSelected="True">Horizon only</ComboBoxItem>
+                <ComboBoxItem x:Name="NoneOption">None</ComboBoxItem>
+            </ComboBox>
+        </Border>
+    </Grid>
+</UserControl>

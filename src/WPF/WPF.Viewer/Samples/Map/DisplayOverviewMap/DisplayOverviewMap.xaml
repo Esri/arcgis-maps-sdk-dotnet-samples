@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.DisplayOverviewMap.DisplayOverviewMap"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <esri:OverviewMap Width="220"
+                          Height="220"
+                          Margin="5,5"
+                          GeoView="{Binding Source={x:Reference MyMapView}}"
+                          ScaleFactor="10" />
+    </Grid>
+</UserControl>

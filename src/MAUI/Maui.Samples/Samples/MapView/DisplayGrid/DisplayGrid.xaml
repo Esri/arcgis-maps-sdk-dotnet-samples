@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage x:Class="ArcGIS.Samples.DisplayGrid.DisplayGrid"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  RowDefinitions="auto,auto"
+                  RowSpacing="5">
+                <Button x:Name="ShowHideSettingsButton"
+                        Grid.Row="0"
+                        Text="Show/Hide settings" />
+                <ScrollView x:Name="SettingsScrollView"
+                            Grid.Row="1"
+                            IsVisible="False">
+                    <Grid RowSpacing="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="2*" />
+                        </Grid.ColumnDefinitions>
+                        <!--  Labels  -->
+                        <Label Grid.Row="0"
+                               Text="Grid type"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center" />
+                        <Label Grid.Row="1"
+                               Text="Show labels"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center" />
+                        <Label Grid.Row="2"
+                               Text="Show grid"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center" />
+                        <Label Grid.Row="3"
+                               Text="Grid color"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center" />
+                        <Label Grid.Row="4"
+                               Text="Label color"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center" />
+                        <Label Grid.Row="5"
+                               Text="Halo color"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center" />
+                        <Label Grid.Row="6"
+                               Text="Label position"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center" />
+                        <Label Grid.Row="7"
+                               Text="Label format"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center" />
+                        <!--  Inputs  -->
+                        <Picker x:Name="GridTypePicker"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                VerticalOptions="CenterAndExpand" />
+                        <Switch x:Name="LabelVisibilitySwitch"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                IsToggled="True" />
+                        <Switch x:Name="GridVisibilitySwitch"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                HorizontalOptions="Start"
+                                IsToggled="True" />
+                        <Picker x:Name="GridColorPicker"
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                VerticalOptions="CenterAndExpand" />
+                        <Picker x:Name="LabelColorPicker"
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                VerticalOptions="CenterAndExpand" />
+                        <Picker x:Name="HaloColorPicker"
+                                Grid.Row="5"
+                                Grid.Column="1"
+                                VerticalOptions="CenterAndExpand" />
+                        <Picker x:Name="LabelPositionPicker"
+                                Grid.Row="6"
+                                Grid.Column="1"
+                                VerticalOptions="CenterAndExpand" />
+                        <Picker x:Name="LabelFormatPicker"
+                                Grid.Row="7"
+                                Grid.Column="1"
+                                VerticalOptions="CenterAndExpand" />
+                        <Button x:Name="ApplySettingsButton"
+                                Grid.Row="8"
+                                Grid.ColumnSpan="2"
+                                IsEnabled="False"
+                                Text="Apply settings" />
+                    </Grid>
+                </ScrollView>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

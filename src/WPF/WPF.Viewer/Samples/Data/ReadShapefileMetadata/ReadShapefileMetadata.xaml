@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ReadShapefileMetadata.ReadShapefileMetadata"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Width="300" Style="{StaticResource BorderStyle}">
+            <Grid x:Name="InfoPanel">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="160" />
+                    <RowDefinition Height="100" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           HorizontalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="{Binding Credits}" />
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="2"
+                           Margin="5"
+                           Text="{Binding Summary}"
+                           TextWrapping="Wrap" />
+                <Image x:Name="ShapefileThumbnailImage"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Margin="5" />
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Margin="5"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="Tags:" />
+                <ListBox Grid.Row="3"
+                         Grid.Column="1"
+                         Height="80"
+                         Margin="0,5,5,0"
+                         HorizontalAlignment="Stretch"
+                         ItemsSource="{Binding Tags}" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.DensifyAndGeneralize.DensifyAndGeneralize"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:sampleViewer="clr-namespace:ArcGIS.Resources">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="auto,*"
+                  RowDefinitions="auto,auto,auto">
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Generalize"
+                       VerticalTextAlignment="Center" />
+                <Slider x:Name="DeviationSlider"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Margin="5"
+                        Maximum="250"
+                        Minimum="1"
+                        Value="1" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Densify"
+                       VerticalTextAlignment="Center" />
+                <Slider x:Name="SegmentLengthSlider"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="5"
+                        Maximum="500"
+                        Minimum="100"
+                        Value="100" />
+                <Label x:Name="ResultLabel"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Text="Adjust a slider to start." />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

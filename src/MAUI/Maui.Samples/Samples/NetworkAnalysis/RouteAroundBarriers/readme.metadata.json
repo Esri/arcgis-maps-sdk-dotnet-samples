@@ -1,0 +1,48 @@
+{
+    "category": "Network analysis",
+    "description": "Find a route that reaches all stops without crossing any barriers.",
+    "formal_name": "RouteAroundBarriers",
+    "ignore": false,
+    "images": [
+        "RouteAroundBarriers.jpg"
+    ],
+    "keywords": [
+        "barriers",
+        "best sequence",
+        "directions",
+        "maneuver",
+        "network analysis",
+        "routing",
+        "sequence",
+        "stop order",
+        "stops"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/routearoundbarriers.htm"
+    ],
+    "relevant_apis": [
+        "DirectionManeuver",
+        "PolygonBarrier",
+        "Route",
+        "Route.DirectionManeuver",
+        "Route.RouteGeometry",
+        "RouteParameters.ClearPolygonBarriers",
+        "RouteParameters.FindBestSequence",
+        "RouteParameters.PreserveFirstStop",
+        "RouteParameters.PreserveLastStop",
+        "RouteParameters.ReturnDirections",
+        "RouteParameters.ReturnStops",
+        "RouteParameters.SetPolygonBarriers",
+        "RouteResult",
+        "RouteResult.Routes",
+        "RouteTask",
+        "Stop",
+        "Stop.Name"
+    ],
+    "snippets": [
+        "RouteAroundBarriers.xaml",
+        "RouteAroundBarriers.xaml.cs"
+    ],
+    "title": "Route around barriers"
+}

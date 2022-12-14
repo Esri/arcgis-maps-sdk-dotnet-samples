@@ -1,8 +1,0 @@
-﻿<UserControl 
-    x:Class="ArcGISRuntime.UWP.Samples.OpenMobileMap.OpenMobileMap"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls" >
-    <esriUI:MapView x:Name="MyMapView" />
-</UserControl>
-

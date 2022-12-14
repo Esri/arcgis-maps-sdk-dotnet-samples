@@ -1,0 +1,51 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.AddFeaturesWithContingentValues.AddFeaturesWithContingentValues"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Frame x:Name="FeatureAttributesPopup"
+               Margin="30"
+               Padding="0"
+               CornerRadius="0"
+               HorizontalOptions="Center"
+               IsVisible="False"
+               VerticalOptions="Start"
+               WidthRequest="300">
+            <StackLayout Margin="5"
+                         Padding="15"
+                         Spacing="5">
+                <Picker x:Name="StatusPicker"
+                        Title="Select Status"
+                        WidthRequest="240" />
+                <Picker x:Name="ProtectionPicker"
+                        Title="Select Protection"
+                        WidthRequest="240" />
+                <Label Margin="15,0" Text="Buffer Size" />
+                <StackLayout Orientation="Horizontal">
+                    <Slider x:Name="BufferSizeSlider"
+                            MaximumTrackColor="Gray"
+                            MinimumTrackColor="Gray"
+                            ValueChanged="BufferSizeSlider_ValueChanged"
+                            WidthRequest="240" />
+                    <Label x:Name="BufferSizeLabel"
+                           Margin="3,0"
+                           HeightRequest="20"
+                           WidthRequest="40" />
+                </StackLayout>
+
+                <Button x:Name="SaveButton"
+                        Margin="0,5"
+                        Clicked="SaveButton_Clicked"
+                        HorizontalOptions="Center"
+                        Text="Save"
+                        WidthRequest="240" />
+                <Button x:Name="DiscardButton"
+                        Clicked="DiscardButton_Clicked"
+                        HorizontalOptions="Center"
+                        Text="Discard"
+                        WidthRequest="240" />
+            </StackLayout>
+        </Frame>
+    </Grid>
+</ContentPage>

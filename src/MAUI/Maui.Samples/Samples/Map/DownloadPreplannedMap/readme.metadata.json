@@ -1,0 +1,31 @@
+{
+    "category": "Map",
+    "description": "Take a map offline using a preplanned map area.",
+    "formal_name": "DownloadPreplannedMap",
+    "ignore": false,
+    "images": [
+        "DownloadPreplannedMap.jpg"
+    ],
+    "keywords": [
+        "map area",
+        "offline",
+        "pre-planned",
+        "preplanned"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/downloadpreplannedmap.htm"
+    ],
+    "relevant_apis": [
+        "DownloadPreplannedOfflineMapJob",
+        "DownloadPreplannedOfflineMapParameters",
+        "DownloadPreplannedOfflineMapResult",
+        "OfflineMapTask",
+        "PreplannedMapArea"
+    ],
+    "snippets": [
+        "DownloadPreplannedMap.xaml",
+        "DownloadPreplannedMap.xaml.cs"
+    ],
+    "title": "Download preplanned map area"
+}

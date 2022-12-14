@@ -1,0 +1,38 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.ExportVectorTiles.ExportVectorTiles"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                        Style="{DynamicResource EsriSampleGeoView}"
+                        ViewpointChanged="MyMapView_ViewpointChanged" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5" RowDefinitions="auto,auto">
+                <Grid Grid.Row="0" ColumnDefinitions="auto,auto">
+                    <ProgressBar x:Name="MyProgressBar"
+                                 Grid.Column="0"
+                                 HeightRequest="30"
+                                 HorizontalOptions="Start"
+                                 IsVisible="False"
+                                 WidthRequest="200" />
+                    <Label x:Name="MyProgressBarLabel"
+                           Grid.Column="1"
+                           Margin="5"
+                           HorizontalOptions="Center"
+                           IsVisible="False"
+                           VerticalOptions="Center" />
+                </Grid>
+                <Button x:Name="MyCancelJobButton"
+                        Grid.Row="1"
+                        Clicked="MyCancelJobButton_Clicked"
+                        IsVisible="False"
+                        Text="Cancel" />
+                <Button x:Name="MyExportPreviewButton"
+                        Grid.Row="1"
+                        Clicked="MyExportPreviewButton_Clicked"
+                        IsEnabled="False"
+                        Text="Export" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

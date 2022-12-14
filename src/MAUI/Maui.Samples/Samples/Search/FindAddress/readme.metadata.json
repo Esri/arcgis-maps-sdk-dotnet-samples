@@ -1,0 +1,29 @@
+{
+    "category": "Search",
+    "description": "Find the location for an address.",
+    "formal_name": "FindAddress",
+    "ignore": false,
+    "images": [
+        "FindAddress.jpg"
+    ],
+    "keywords": [
+        "address",
+        "geocode",
+        "locator",
+        "search"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/findaddress.htm"
+    ],
+    "relevant_apis": [
+        "GeocodeParameters",
+        "GeocodeResult",
+        "LocatorTask"
+    ],
+    "snippets": [
+        "FindAddress.xaml",
+        "FindAddress.xaml.cs"
+    ],
+    "title": "Find address"
+}

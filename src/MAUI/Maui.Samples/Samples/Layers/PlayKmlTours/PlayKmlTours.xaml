@@ -1,0 +1,45 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.PlayKmlTours.PlayKmlTours"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGIS.Resources">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="*,*,*"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto,auto,auto"
+                  RowSpacing="5">
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="3"
+                       Text="Use buttons to control the tour. Contains audio. 🎧" />
+                <Button x:Name="PlayButton"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Clicked="Play_Clicked"
+                        IsEnabled="False"
+                        Text="Play" />
+                <Button x:Name="PauseButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Clicked="Pause_Clicked"
+                        IsEnabled="False"
+                        Text="Pause" />
+                <Button x:Name="ResetButton"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Clicked="Reset_Clicked"
+                        IsEnabled="False"
+                        Text="Reset" />
+                <ActivityIndicator x:Name="LoadingStatusBar"
+                                   Grid.Row="2"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="3"
+                                   IsEnabled="True"
+                                   IsRunning="True" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

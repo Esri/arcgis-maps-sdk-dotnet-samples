@@ -1,0 +1,33 @@
+{
+    "category": "Map",
+    "description": "Include an overview or inset map as an additional map view to show the wider context of the primary view. ",
+    "formal_name": "DisplayOverviewMap",
+    "ignore": false,
+    "images": [
+        "DisplayOverviewMap.jpg"
+    ],
+    "keywords": [
+        "context",
+        "inset",
+        "map",
+        "minimap",
+        "overview",
+        "preview",
+        "small scale",
+        "toolkit",
+        "view"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/displayoverviewmap.htm"
+    ],
+    "relevant_apis": [
+        "MapView",
+        "OverviewMap"
+    ],
+    "snippets": [
+        "DisplayOverviewMap.xaml",
+        "DisplayOverviewMap.xaml.cs"
+    ],
+    "title": "Display overview map"
+}

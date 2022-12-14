@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ChangeSublayerRenderer.ChangeSublayerRenderer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock x:Name="ChangeSublayerRendererInstructionsLabel"
+                           Margin="0,0,0,5"
+                           FontWeight="SemiBold"
+                           Text="Click 'Change sublayer renderer' to apply a unique value renderer to the counties sub-layer."
+                           TextWrapping="Wrap" />
+                <Button x:Name="ChangeSublayerRendererButton"
+                        Click="ChangeSublayerRendererButton_Click"
+                        Content="Change sublayer renderer" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

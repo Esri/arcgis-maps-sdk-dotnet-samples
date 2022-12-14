@@ -1,21 +1,9 @@
 import json
 import os
-from distutils.dir_util import copy_tree
-from shutil import copyfile, rmtree
 import re
-from datetime import datetime
-from csproj_utils import *
-from file_utils import *
 
 class sample_metadata:
-    '''
-    This class represents a sample.
-    Use populate_from_* to populate from content.
-    Use try_replace_from_common_readme to read external readme content and replace the sample's content if the common content is 'better'.
-    Use flush_to_* to write out the sample to disk.
-    Use emit_standalone_solution to write out the sample as a standalone Visual Studio solution.
-    '''
-
+    
     def reset_props(self):
         self.formal_name = ""
         self.friendly_name = ""
@@ -66,8 +54,6 @@ class sample_metadata:
 
         # populate redirect_from; it is based on a pattern
         real_platform = platform
-        if real_platform in ["XFI", "XFA", "XFU"]:
-            real_platform = "Forms"
         redirect_string = f"/net/latest/{real_platform.lower()}/sample-code/{self.formal_name.lower()}.htm"
         self.redirect_from.append(redirect_string)
 
@@ -169,174 +155,22 @@ class sample_metadata:
             json.dump(data, json_file, indent=4, sort_keys=True)
 
         return
-    
-    def emit_standalone_solution(self, platform, sample_dir, output_root):
-        '''
-        Produces a standalone sample solution for the given sample
-        platform: one of: Android, iOS, UWP, WPF, XFA, XFI, XFU
-        output_root: output folder; should not be specific to the platform
-        sample_dir: path to the folder containing the sample's code
-        '''
-        # create output dir
-        output_dir = os.path.join(output_root, platform, self.formal_name)
 
-        if os.path.exists(output_dir):
-            rmtree(output_dir)
-        
-        os.makedirs(output_dir)
-
-        # copy template files over - find files in template
-        script_dir = os.path.split(os.path.realpath(__file__))[0]
-        template_dir = os.path.join(script_dir, "templates", "solutions", platform)
-        copy_tree(template_dir, output_dir)
-
-        # copy sample files over
-        copy_tree(sample_dir, output_dir)
-
-        # copy any out-of-dir files over (e.g. Android layouts, download manager)
-        if len(self.source_files) > 0:
-            for file in self.source_files:
-                if ".." in file:
-                    source_path = os.path.join(sample_dir, file)
-                    dest_path = os.path.join(output_dir, "Resources", "layout", os.path.split(file)[1])
-                    if 'Attrs.xml' in file: # todo: improve this
-                        dest_path = os.path.join(output_dir, "Resources", "values", os.path.split(file)[1])
-                    elif file.endswith('.cs'):
-                        dest_path = os.path.join(output_dir, "Controls", os.path.split(file)[1])
-                    copyfile(source_path, dest_path)
-
-        # accumulate list of source, xaml, axml, and resource files
-        all_source_files = self.source_files
-
-        # generate list of replacements
-        replacements = {}
-        replacements["$$project$$"] = self.formal_name
-        replacements[".slntemplate"] = ".sln" # replacement needed to prevent template solutions from appearing in Visual Studio git browser
-        replacements["$$embedded_resources$$"] = "" # TODO
-        replacements["$$code_and_xaml$$"] = get_csproj_xml_for_code_files(all_source_files, platform)
-        replacements["$$axml_files$$"] = get_csproj_xml_for_android_layout(all_source_files)
-        replacements["$$current_year$$"] = str(datetime.now().year)
-        replacements["$$friendly_name$$"] = self.friendly_name
-
-        # rewrite files in output - replace template fields
-        sample_metadata.rewrite_files_in_place(output_dir, replacements)
-
-        # write out the sample file
-        self.emit_dot_sample_file(platform, output_dir)
-
-        return
-    
-    def emit_dot_sample_file(self, platform, output_dir):
-        output_xml = "<ArcGISRuntimeSDKdotNetSample>\n"
-        # basic metadata
-        output_xml += f"\t<SampleName>{self.formal_name}</SampleName>\n"
-        output_xml += f"\t<SampleDescription>{self.description}</SampleDescription>\n"
-        output_xml += f"\t<ScreenShot>{self.images[0]}</ScreenShot>\n"
-        # code files, including XAML
-        output_xml += "\t<CodeFiles>\n"
-        for source_file in self.source_files:
-            output_xml += f"\t\t<CodeFile>{source_file}</CodeFile>\n"
-        output_xml += "\t</CodeFiles>\n"
-        
-        # xaml files
-        output_xml += "\t<XAMLParseFiles>\n"
-        for source_file in self.source_files:
-            if source_file.endswith(".xaml"):
-                output_xml += f"\t\t<XAMLParseFile>{source_file}</XAMLParseFile>\n"
-        output_xml += "\t</XAMLParseFiles>\n"
-
-        # exe
-        if platform == "WPF":
-            output_xml += "\t<DllExeFile>bin\debug\ArcGISRuntime.exe</DllExeFile>\n"
-        elif platform == "UWP" or platform == "XFU":
-            output_xml += "\t<DllExeFile>obj\\x86\Debug\intermediatexaml\ArcGISRuntime.exe</DllExeFile>\n"
-        elif platform == "Android" or platform == "XFA":
-            output_xml += "\t<DllExeFile>bin\debug\ArcGISRuntime.dll</DllExeFile>\n"
-        elif platform == "iOS" or platform == "XFI":
-            output_xml += "\t<DllExeFile>bin\iPhone\debug\ArcGISRuntime.exe</DllExeFile>\n"
-        
-        output_xml += "</ArcGISRuntimeSDKdotNetSample>\n"
-
-        filename = os.path.join(output_dir, f"{self.formal_name}.sample")
-
-        safe_write_contents(filename, output_xml)
-    
     def populate_snippets_from_folder(self, platform, path_to_readme):
         '''
         Take a path to a readme file
         Populate the snippets from: any .xaml, .cs files in the directory; 
-        any .axml files referenced from .cs files on android
         '''
         # populate files in the directory
         sample_dir = os.path.split(path_to_readme)[0]
         for file in os.listdir(sample_dir):
-            if os.path.splitext(file)[1] in [".axml", ".xaml", ".cs", ".xml"]:
+            if os.path.splitext(file)[1] in [".xaml", ".cs"]:
                 self.source_files.append(file)        
-            # populate AXML layouts for Android
-            if platform == "Android" and os.path.splitext(file)[1] == ".cs":
-                # search for line matching SetContentView(Resource.Layout.
-                referencing_file_path = os.path.join(sample_dir, file)
-                referencing_file_contents = safe_read_contents(referencing_file_path)
-                for line in referencing_file_contents.split("\n"):
-                    layout_name = None
-                    if "SetContentView(Resource.Layout." in line:
-                        # extract name of layout
-                        layout_name = line.split("Layout.")[1].strip().strip(";").strip(")")
-                    elif "SetContentView(ArcGISRuntime.Resource.Layout." in line:
-                        # extract name of layout
-                        layout_name = line.split("Layout.")[1].strip().strip(";").strip(")")
-                    elif ".Inflate(Resource.Layout." in line:
-                        # extract name of layout
-                        layout_name = line.split("Layout.")[1].strip().strip(";").strip(", null)")
-                    if layout_name is not None:
-                        # determine if the file ending is .xml
-                        if (os.path.exists(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "src", "Android", "Xamarin.Android", "Resources", "layout", f"{layout_name}.xml"))):
-                            ending = ".xml"
-                        elif (os.path.exists(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..", "src", "Android", "Xamarin.Android", "Resources", "layout", f"{layout_name}.axml"))):
-                            ending = ".axml"
-                        else:
-                            print(f"Couldnt find layout file for sample {layout_name}")
-                            continue
-                        # add the file path to the snippets list
-                        self.source_files.append(f"../../../Resources/layout/{layout_name}{ending}")
-        # Manually add JoystickSeekBar control on Android for AR only
-        if platform == "Android" and self.formal_name in ["NavigateAR", "CollectDataAR", "ViewHiddenInfrastructureAR"]:
-            self.source_files.append("../../../Resources/values/Attrs.xml")
-            self.source_files.append("../../../Controls/JoystickSeekBar.cs")
+        
         if self.formal_name in ["OAuth", "AuthorMap", "NavigateAR", "SearchPortalMaps"]:
             self.source_files.append("../../../Helpers/ArcGISLoginPrompt.cs")
         self.source_files.sort()
 
-    def rewrite_files_in_place(source_dir, replacements_dict):
-        '''
-        Takes a dictionary of strings and replacements, applies the replacements to all the files in a directory.
-        Used when generating sample solutions.
-        '''
-        for r, d, f in os.walk(source_dir):
-            for sample_dir in d:
-                sample_metadata.rewrite_files_in_place(os.path.join(r, sample_dir), replacements_dict)
-            for sample_file_name in f:
-                sample_file_fullpath = os.path.join(r, sample_file_name)
-                extension = os.path.splitext(sample_file_fullpath)[1]
-                if extension in [".cs", ".xaml", ".sln", ".slntemplate", ".md", ".csproj", ".shproj", ".axml", ".xml"]:
-                    # open file, read into string
-                    original_contents = safe_read_contents(sample_file_fullpath)
-                    # make replacements
-                    new_content = original_contents
-                    for tag in replacements_dict.keys():
-                        new_content = new_content.replace(tag, replacements_dict[tag])
-                    # write out new file
-                    if new_content != original_contents:
-                        os.remove(sample_file_fullpath)
-                        safe_write_contents(sample_file_fullpath, new_content)
-                # rename any files (e.g. $$project$$.sln becomes AccessLoadStatus.sln)
-                new_name = sample_file_fullpath
-                for tag in replacements_dict.keys():
-                    if tag in sample_file_fullpath:
-                        new_name = new_name.replace(tag, replacements_dict[tag])
-                if new_name != sample_file_fullpath:
-                    os.rename(sample_file_fullpath, new_name)
-    
     def splitall(path):
         ## Credits: taken verbatim from https://www.oreilly.com/library/view/python-cookbook/0596001673/ch04s16.html
         allparts = []

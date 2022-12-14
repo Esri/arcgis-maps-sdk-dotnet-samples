@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.AuthorMap.AuthorMap"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <ActivityIndicator x:Name="SaveMapProgressBar"
+                           Grid.RowSpan="2"
+                           Grid.ColumnSpan="2"
+                           HeightRequest="40"
+                           IsRunning="True"
+                           IsVisible="False" />
+        <Border MinimumWidthRequest="360" Style="{DynamicResource EsriSampleControlPanel}">
+            <HorizontalStackLayout Padding="5" Spacing="5">
+                <Button Clicked="Basemap_Clicked" Text="Basemap" />
+                <Button Clicked="Add_Clicked" Text="Add" />
+                <Button Clicked="Remove_Clicked" Text="Remove" />
+                <Button Clicked="NewMapButtonClick" Text="New" />
+                <Button Clicked="ShowSaveMapUI" Text="Save" />
+            </HorizontalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,68 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.EditFeatureAttachments.EditFeatureAttachments"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                        GeoViewTapped="MapView_Tapped"
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
+                       Margin="0,0,0,5"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       Text="Tap features to select." />
+                <ListView x:Name="AttachmentsListBox"
+                          Grid.Row="1"
+                          HeightRequest="100"
+                          IsEnabled="False">
+                    <!--  ItemTemplate defines how each item (Attachment) is rendered.  -->
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Margin="5,0,5,0"
+                                           Text="{Binding Name}"
+                                           VerticalTextAlignment="Center" />
+                                    <!--  DataTemplate sets the item as the button's DataContext automatically.  -->
+                                    <Button Grid.Column="1"
+                                            Margin="0,0,5,0"
+                                            Clicked="DownloadAttachment_Click"
+                                            Text="🔎"
+                                            VerticalOptions="End" />
+                                    <!--  These symbols are emojis. Use Win+. on Windows to open the emoji picker.  -->
+                                    <Button Grid.Column="2"
+                                            Clicked="DeleteAttachment_Click"
+                                            Text="🗑"
+                                            VerticalOptions="End" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button x:Name="AddAttachmentButton"
+                        Grid.Row="3"
+                        Margin="0,5,0,5"
+                        Clicked="AddAttachment_Click"
+                        IsEnabled="False"
+                        Text="Add attachment" />
+                <ActivityIndicator x:Name="AttachmentActivityIndicator"
+                                   Grid.Row="4"
+                                   IsRunning="True"
+                                   IsVisible="False" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

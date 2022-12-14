@@ -1,0 +1,32 @@
+{
+    "category": "MapView",
+    "description": "Determine if a layer is currently being viewed.",
+    "formal_name": "DisplayLayerViewState",
+    "ignore": false,
+    "images": [
+        "DisplayLayerViewState.jpg"
+    ],
+    "keywords": [
+        "layer",
+        "load",
+        "map",
+        "status",
+        "view",
+        "visibility"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/displaylayerviewstate.htm"
+    ],
+    "relevant_apis": [
+        "LayerViewStateChanged",
+        "LayerViewStateChangedEventArgs",
+        "Map",
+        "MapView"
+    ],
+    "snippets": [
+        "DisplayLayerViewState.xaml",
+        "DisplayLayerViewState.xaml.cs"
+    ],
+    "title": "Display layer view state"
+}

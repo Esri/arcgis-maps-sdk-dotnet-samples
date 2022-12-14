@@ -1,0 +1,30 @@
+{
+    "category": "Scene",
+    "description": "Set the terrain surface with elevation described by a local tile package.",
+    "formal_name": "CreateTerrainSurfaceTilePackage",
+    "ignore": false,
+    "images": [
+        "CreateTerrainSurfaceTilePackage.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "LERC",
+        "elevation",
+        "surface",
+        "terrain",
+        "tile cache"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/createterrainsurfacetilepackage.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISTiledElevationSource",
+        "Surface"
+    ],
+    "snippets": [
+        "CreateTerrainSurfaceTilePackage.xaml",
+        "CreateTerrainSurfaceTilePackage.xaml.cs"
+    ],
+    "title": "Create terrain from local tile package"
+}

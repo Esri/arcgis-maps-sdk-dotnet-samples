@@ -1,0 +1,28 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.EditKmlGroundOverlay.EditKmlGroundOverlay"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid RowDefinitions="auto,*">
+        <Grid Grid.Row="0" ColumnDefinitions="auto,*,auto">
+            <Label Grid.Column="0"
+                   Margin="5"
+                   HorizontalTextAlignment="Center"
+                   Text="Opacity"
+                   VerticalTextAlignment="Center" />
+            <Slider x:Name="OpacitySlider"
+                    Grid.Column="1"
+                    Margin="5"
+                    Maximum="255"
+                    Minimum="0"
+                    Value="255" />
+            <Label x:Name="ValueLabel"
+                   Grid.Column="2"
+                   Margin="5"
+                   HorizontalTextAlignment="Center"
+                   Text="255"
+                   VerticalTextAlignment="Center"
+                   WidthRequest="50" />
+        </Grid>
+        <esriUI:SceneView x:Name="MySceneView" Grid.Row="1" />
+    </Grid>
+</ContentPage>

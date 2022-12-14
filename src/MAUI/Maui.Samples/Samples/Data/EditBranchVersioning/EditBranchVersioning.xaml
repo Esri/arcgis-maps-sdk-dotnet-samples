@@ -1,0 +1,112 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.EditBranchVersioning.EditBranchVersioning"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid x:Name="DefaultView"
+                      Grid.Row="0"
+                      RowSpacing="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Text="Tap to select a feature." />
+                    <Label x:Name="CurrentVersionLabel"
+                           Grid.Row="1"
+                           Text="Current version:" />
+                    <Button x:Name="CreateVersionButton"
+                            Grid.Row="2"
+                            Clicked="VersionButtonClicked"
+                            IsEnabled="False"
+                            Text="Create version" />
+                </Grid>
+                <Grid x:Name="VersionView"
+                      Grid.Row="1"
+                      IsVisible="false">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           Text="Name:" />
+                    <Entry x:Name="NameEntryBox"
+                           Grid.Row="0"
+                           Grid.Column="1"
+                           Margin="5" />
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           Text="Access:" />
+                    <Picker x:Name="AccessBox"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Margin="5" />
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           Text="Description:" />
+                    <Entry x:Name="DescriptionBox"
+                           Grid.Row="2"
+                           Grid.Column="1"
+                           Margin="5" />
+                    <Button Grid.Row="3"
+                            Grid.Column="0"
+                            Margin="5"
+                            Clicked="ConfirmVersionClick"
+                            Text="Create" />
+                    <Button Grid.Row="3"
+                            Grid.Column="1"
+                            Margin="5"
+                            Clicked="CancelVersionClick"
+                            Text="Cancel" />
+                </Grid>
+                <Grid x:Name="AttributeView"
+                      Grid.Row="2"
+                      IsVisible="false">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Label x:Name="MoveText"
+                           Grid.Row="0"
+                           Margin="5"
+                           Text="Tap to move feature." />
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0"
+                               Margin="5"
+                               Text="Damage:"
+                               VerticalOptions="Center" />
+                        <Picker x:Name="DamageBox"
+                                Grid.Column="1"
+                                Margin="5"
+                                VerticalOptions="Center" />
+                    </Grid>
+                    <Button x:Name="CloseButton"
+                            Grid.Row="2"
+                            Margin="5"
+                            Clicked="CloseAttributeClick"
+                            Text="Close" />
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,40 @@
+<ContentPage
+    x:Class="ArcGIS.Samples.DisplayUtilityAssociations.DisplayUtilityAssociations"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+    xmlns:resources="clr-namespace:ArcGIS.Resources">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                        NavigationCompleted="OnNavigationCompleted"
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid ColumnSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="1"
+                       Padding="5"
+                       Text="Attachment" />
+                <Label Grid.Row="1"
+                       Grid.Column="1"
+                       Padding="5"
+                       Text="Connectivity" />
+                <Image x:Name="AttachmentImage"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       WidthRequest="25" />
+                <Image x:Name="ConnectivityImage"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       WidthRequest="25" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

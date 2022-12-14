@@ -1,0 +1,33 @@
+{
+    "category": "Symbology",
+    "description": "Render features in a layer using a distinct symbol for each unique attribute value.",
+    "formal_name": "RenderUniqueValues",
+    "ignore": false,
+    "images": [
+        "RenderUniqueValues.jpg"
+    ],
+    "keywords": [
+        "draw",
+        "renderer",
+        "symbol",
+        "symbology",
+        "values"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/renderuniquevalues.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "ServiceFeatureTable",
+        "SimpleFillSymbol",
+        "SimpleLineSymbol",
+        "UniqueValue",
+        "UniqueValueRenderer"
+    ],
+    "snippets": [
+        "RenderUniqueValues.xaml",
+        "RenderUniqueValues.xaml.cs"
+    ],
+    "title": "Unique value renderer"
+}

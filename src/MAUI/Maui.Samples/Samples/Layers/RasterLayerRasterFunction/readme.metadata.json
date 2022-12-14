@@ -1,0 +1,32 @@
+{
+    "category": "Layers",
+    "description": "Load a raster from a service, then apply a function to it.",
+    "formal_name": "RasterLayerRasterFunction",
+    "ignore": false,
+    "images": [
+        "RasterLayerRasterFunction.jpg"
+    ],
+    "keywords": [
+        "function",
+        "layer",
+        "raster",
+        "raster function",
+        "service"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/rasterlayerrasterfunction.htm"
+    ],
+    "relevant_apis": [
+        "ImageServiceRaster",
+        "Raster",
+        "RasterFunction",
+        "RasterFunctionArguments",
+        "RasterLayer"
+    ],
+    "snippets": [
+        "RasterLayerRasterFunction.xaml",
+        "RasterLayerRasterFunction.xaml.cs"
+    ],
+    "title": "Apply raster function to raster from service"
+}

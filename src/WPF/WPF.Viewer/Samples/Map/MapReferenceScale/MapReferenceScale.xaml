@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.MapReferenceScale.MapReferenceScale"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock FontWeight="SemiBold" Text="Choose a map reference scale:" />
+                <!--  When the user's selection changes, the SelectedItem binding will apply the value to the Map's ReferenceScale property.  -->
+                <ComboBox x:Name="ReferenceScaleBox"
+                          Margin="0,5,0,5"
+                          SelectedItem="{Binding ElementName=MyMapView, Path=Map.ReferenceScale}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <!--  Runs are used to format a plain double to match the convention for writing map scales.  -->
+                                <Run Text="1:" />
+                                <Run Text="{Binding Path=., StringFormat=n0}" />
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <TextBlock FontWeight="SemiBold" Text="Choose layers to apply scale to:" />
+                <!--  Binding is used to display the operational layers for the map view's map, no code behind needed.  -->
+                <ListView Margin="0,5,0,5" ItemsSource="{Binding ElementName=MyMapView, Path=Map.OperationalLayers}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate DataType="esri:FeatureLayer">
+                            <!--
+                                When the user interacts with the checkbox,
+                                the two-way binding will update the ScaleSymbols (bool) property automatically.
+                            -->
+                            <CheckBox Content="{Binding Name}" IsChecked="{Binding ScaleSymbols}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <TextBlock>
+                    <!--  A run is used to format the label.  -->
+                    <Run Text="Current map scale: " />
+                    <Run Text="1:" />
+                    <Run Text="{Binding ElementName=MyMapView, Path=MapScale, Mode=OneWay, StringFormat=n0}" />
+                </TextBlock>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,32 @@
+{
+    "category": "Network analysis",
+    "description": "Find the service areas of several facilities from a feature service.",
+    "formal_name": "FindServiceAreasForMultipleFacilities",
+    "ignore": false,
+    "images": [
+        "FindServiceAreasForMultipleFacilities.jpg"
+    ],
+    "keywords": [
+        "facilities",
+        "feature service",
+        "impedance",
+        "network analysis",
+        "service area",
+        "travel time"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/findserviceareasformultiplefacilities.htm"
+    ],
+    "relevant_apis": [
+        "ServiceAreaParameters",
+        "ServiceAreaPolygon",
+        "ServiceAreaResult",
+        "ServiceAreaTask"
+    ],
+    "snippets": [
+        "FindServiceAreasForMultipleFacilities.xaml",
+        "FindServiceAreasForMultipleFacilities.xaml.cs"
+    ],
+    "title": "Find service areas for multiple facilities"
+}

@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.TakeScreenshot.TakeScreenshot"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid RowDefinitions="auto">
+                <Button x:Name="ScreenshotButton"
+                        Clicked="OnTakeScreenshotClicked"
+                        Text="Capture" />
+            </Grid>
+        </Border>
+        <Border x:Name="ScreenshotView"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                Padding="5"
+                IsVisible="False"
+                VerticalOptions="Center"
+                WidthRequest="400"
+                BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}">
+            <Grid Grid.Row="0" RowDefinitions="300,auto">
+                <Image x:Name="ScreenshotImage" Grid.Row="0" Margin="5" />
+                <Button x:Name="CloseScreenshotButton"
+                        Grid.Row="1"
+                        Clicked="CloseButton_Clicked"
+                        Text="Close" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

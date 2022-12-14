@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.LocationWithNMEA.LocationWithNMEA"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Label x:Name="AccuracyLabel" Content="Press start to begin." />
+                <Label x:Name="CountLabel" />
+                <Label x:Name="SatellitesLabel" />
+                <Label x:Name="SystemLabel" />
+                <Label x:Name="NmeaMessageLabel" />
+                <StackPanel Orientation="Horizontal">
+                    <Button Margin="5"
+                            Click="StartClick"
+                            Content="Start" />
+                    <Button Margin="5"
+                            Click="ResetClick"
+                            Content="Reset" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

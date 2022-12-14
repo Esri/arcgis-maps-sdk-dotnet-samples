@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.CreateMobileGeodatabase.CreateMobileGeodatabase"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Label x:Name="FeaturesLabel" Content="Number of features added: " />
+                <Button Margin="5"
+                        Click="ViewTable"
+                        Content="View table" />
+                <Button x:Name="CreateGdbButton"
+                        Margin="5"
+                        Click="CreateGdbButton_Click"
+                        Content="Create new geodatabase"
+                        IsEnabled="False" />
+                <Button x:Name="CloseGdbButton"
+                        Margin="5"
+                        Click="CloseGeodatabaseClick"
+                        Content="Close geodatabase and view file" />
+            </StackPanel>
+        </Border>
+        <Border x:Name="TableBorder"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{StaticResource BorderStyle}"
+                Visibility="Hidden">
+            <StackPanel>
+                <ScrollViewer Height="400" Margin="5">
+                    <DataGrid x:Name="TableDataGrid"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=Attributes[oid]}" Header="OID" />
+                            <DataGridTextColumn Binding="{Binding Path=Attributes[collection_timestamp]}" Header="Collection Timestamp" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </ScrollViewer>
+                <Button Margin="5"
+                        Click="CloseTable"
+                        Content="Close" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

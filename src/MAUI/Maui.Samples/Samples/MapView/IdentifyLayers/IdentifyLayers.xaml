@@ -1,0 +1,16 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.IdentifyLayers.IdentifyLayers"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid RowDefinitions="auto">
+                <Label FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       Text="Tap to identify features in all layers."
+                       VerticalOptions="Start" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

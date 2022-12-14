@@ -1,0 +1,47 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style. A renderer will only affect graphics that do not specify their own symbol style.",
+    "formal_name": "AddGraphicsRenderer",
+    "ignore": false,
+    "images": [
+        "AddGraphicsRenderer.jpg"
+    ],
+    "keywords": [
+        "arc",
+        "bezier",
+        "curve",
+        "display",
+        "ellipse",
+        "graphics",
+        "marker",
+        "overlay",
+        "renderer",
+        "segment",
+        "symbol",
+        "true curve"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/addgraphicsrenderer.htm"
+    ],
+    "relevant_apis": [
+        "CubicBezierSegment",
+        "EllipticArcSegment",
+        "GeodesicEllipseParameters",
+        "Geometry",
+        "Graphic",
+        "GraphicsOverlay",
+        "Part",
+        "PolygonBuilder",
+        "PolylineBuilder",
+        "SimpleFillSymbol",
+        "SimpleLineSymbol",
+        "SimpleMarkerSymbol",
+        "SimpleRenderer"
+    ],
+    "snippets": [
+        "AddGraphicsRenderer.xaml",
+        "AddGraphicsRenderer.xaml.cs"
+    ],
+    "title": "Add graphics with renderer"
+}

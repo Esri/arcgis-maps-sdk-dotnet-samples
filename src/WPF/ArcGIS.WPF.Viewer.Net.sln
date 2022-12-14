@@ -1,0 +1,67 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGIS.WPF.Viewer.Net", "WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj", "{5278F66E-D41F-45D2-8327-25EA13A11618}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGIS.Samples.Shared", "..\Samples.Shared\ArcGIS.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
+EndProject
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "ArcGIS.WPF.StorePackage", "WPF.StorePackage\ArcGIS.WPF.StorePackage.wapproj", "{13A60801-7B9A-4573-923F-9F2373E8BF84}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|ARM64 = Debug|ARM64
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|ARM64 = Release|ARM64
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|ARM64.Build.0 = Debug|ARM64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x64.ActiveCfg = Debug|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x64.Build.0 = Debug|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x86.ActiveCfg = Debug|x86
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Debug|x86.Build.0 = Debug|x86
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|ARM64.ActiveCfg = Release|ARM64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|ARM64.Build.0 = Release|ARM64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x64.ActiveCfg = Release|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x64.Build.0 = Release|x64
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x86.ActiveCfg = Release|x86
+		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x86.Build.0 = Release|x86
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Debug|ARM64.ActiveCfg = Debug|ARM64
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Debug|ARM64.Deploy.0 = Debug|ARM64
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Debug|x64.ActiveCfg = Debug|x64
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Debug|x86.ActiveCfg = Debug|x86
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Release|ARM64.ActiveCfg = Release|ARM64
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Release|ARM64.Deploy.0 = Release|ARM64
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Release|x64.ActiveCfg = Release|x64
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Release|x64.Build.0 = Release|x64
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Release|x64.Deploy.0 = Release|x64
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Release|x86.ActiveCfg = Release|x86
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Release|x86.Build.0 = Release|x86
+		{13A60801-7B9A-4573-923F-9F2373E8BF84}.Release|x86.Deploy.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9693CEF3-75BE-4780-9E94-29B970298B28}
+	EndGlobalSection
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\Samples.Shared\ArcGIS.Samples.Shared.projitems*{0ad85845-0ba1-4dc9-8c32-e6fd7632e32d}*SharedItemsImports = 13
+		..\Samples.Shared\ArcGIS.Samples.Shared.projitems*{5278f66e-d41f-45d2-8327-25ea13a11618}*SharedItemsImports = 5
+	EndGlobalSection
+EndGlobal

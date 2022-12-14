@@ -1,0 +1,28 @@
+{
+    "category": "Symbology",
+    "description": "Use pictures for markers.",
+    "formal_name": "RenderPictureMarkers",
+    "ignore": false,
+    "images": [
+        "RenderPictureMarkers.jpg"
+    ],
+    "keywords": [
+        "graphics",
+        "marker",
+        "picture",
+        "symbol",
+        "visualization"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/renderpicturemarkers.htm"
+    ],
+    "relevant_apis": [
+        "PictureMarkerSymbol"
+    ],
+    "snippets": [
+        "RenderPictureMarkers.xaml",
+        "RenderPictureMarkers.xaml.cs"
+    ],
+    "title": "Picture marker symbol"
+}

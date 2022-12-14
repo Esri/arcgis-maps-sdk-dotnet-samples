@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.MapRotation.MapRotation"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid ColumnDefinitions="50,*" RowDefinitions="auto">
+                <Label x:Name="MyLabel"
+                       Grid.Column="0"
+                       HorizontalOptions="Center"
+                       Text="0°"
+                       VerticalTextAlignment="Center" />
+                <Grid Grid.Column="1" MinimumWidthRequest="200">
+                    <Slider x:Name="MySlider"
+                            Grid.Column="1"
+                            HorizontalOptions="FillAndExpand"
+                            Maximum="180"
+                            MaximumTrackColor="CadetBlue"
+                            Minimum="0"
+                            MinimumTrackColor="CadetBlue"
+                            ValueChanged="MySlider_ValueChanged"
+                            VerticalOptions="CenterAndExpand"
+                            Value="0" />
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

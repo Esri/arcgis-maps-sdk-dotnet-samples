@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.ChangeBlendRenderer.ChangeBlendRenderer"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  ColumnDefinitions="auto,*"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto,auto,auto,auto,auto"
+                  RowSpacing="5">
+                <Label x:Name="Label_Altitude"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Text="Altitude"
+                       VerticalTextAlignment="Center" />
+                <Slider x:Name="Altitude_Slider"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        WidthRequest="150" />
+                <Label x:Name="Label_Azimuth"
+                       Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Azimuth"
+                       VerticalTextAlignment="Center" />
+                <Slider x:Name="Azimuth_Slider"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        WidthRequest="150" />
+                <Label x:Name="Label_SlopeTypes"
+                       Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Slope Type" />
+                <ListView x:Name="SlopeTypes"
+                          Grid.Row="2"
+                          Grid.Column="1"
+                          HeightRequest="90" />
+                <Label x:Name="Label_ColorRamps"
+                       Grid.Row="3"
+                       Grid.Column="0"
+                       Text="Color Ramp" />
+                <ListView x:Name="ColorRamps"
+                          Grid.Row="3"
+                          Grid.Column="1"
+                          HeightRequest="90" />
+                <Button x:Name="UpdateRenderer"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Clicked="OnUpdateRendererClicked"
+                        HorizontalOptions="FillAndExpand"
+                        IsEnabled="True"
+                        Text="Update Renderer" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

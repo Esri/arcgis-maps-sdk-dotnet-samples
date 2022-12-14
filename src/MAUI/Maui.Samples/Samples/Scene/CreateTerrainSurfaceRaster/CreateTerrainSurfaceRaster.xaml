@@ -1,0 +1,8 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.CreateTerrainSurfaceRaster.CreateTerrainSurfaceRaster"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <esriUI:SceneView x:Name="MySceneView" />
+    </Grid>
+</ContentPage>

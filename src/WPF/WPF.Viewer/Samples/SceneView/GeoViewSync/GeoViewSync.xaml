@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.GeoViewSync.GeoViewSync"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <esri:MapView x:Name="MyMapView" Grid.Column="0" />
+        <esri:SceneView x:Name="MySceneView" Grid.Column="1" />
+    </Grid>
+</UserControl>

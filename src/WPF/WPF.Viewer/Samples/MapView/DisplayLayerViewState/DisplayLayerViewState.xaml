@@ -1,0 +1,29 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.DisplayLayerViewState.DisplayLayerViewState"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <Label Margin="5" Content="Zoom in and out to observe changes in layer status." />
+                <Button x:Name="LoadButton"
+                        Margin="5"
+                        Click="LoadButton_Click"
+                        Content="Load layer" />
+                <CheckBox Name="VisibilityCheckBox"
+                          Margin="5"
+                          Checked="CheckBox_Checked"
+                          Content="Visible"
+                          IsChecked="True"
+                          Unchecked="CheckBox_Checked" />
+                <StackPanel Margin="5" Orientation="Horizontal">
+                    <TextBlock FontWeight="Bold"
+                               Text="Layer display status: "
+                               TextAlignment="Center" />
+                    <TextBlock x:Name="LayerStatusLabel" FontWeight="SemiBold" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

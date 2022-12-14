@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.DistanceMeasurement.DistanceMeasurement"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <!--  Labels  -->
+                <Label x:Name="HelpLabel"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       Text="Tap to update the measurement." />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Text="Direct" />
+                <Label Grid.Row="2"
+                       Grid.Column="0"
+                       Text="Horizontal" />
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       Text="Vertical" />
+                <!--  Controls  -->
+                <Label x:Name="DirectMeasureLabel"
+                       Grid.Row="1"
+                       Grid.Column="1" />
+                <Label x:Name="HorizontalMeasureLabel"
+                       Grid.Row="2"
+                       Grid.Column="1" />
+                <Label x:Name="VerticalMeasureLabel"
+                       Grid.Row="3"
+                       Grid.Column="1" />
+                <Picker x:Name="UnitSystemCombo"
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        Margin="0,5,0,5" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

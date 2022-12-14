@@ -1,0 +1,45 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.AnimateImageOverlay.AnimateImageOverlay"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid Padding="5"
+                  MinimumWidthRequest="250"
+                  RowDefinitions="auto,auto"
+                  RowSpacing="5">
+                <Grid Grid.Row="0" ColumnDefinitions="auto,*">
+                    <Label Grid.Column="0"
+                           Margin="5"
+                           Text="Opacity:" />
+                    <Slider Grid.Column="1"
+                            Margin="5,0"
+                            Maximum="1"
+                            MaximumTrackColor="CadetBlue"
+                            Minimum="0"
+                            MinimumTrackColor="CadetBlue"
+                            ValueChanged="ChangeOpacity"
+                            Value="1" />
+                </Grid>
+                <Grid Grid.Row="1"
+                      Margin="5"
+                      ColumnDefinitions="*,auto,*"
+                      ColumnSpacing="5">
+                    <Button Grid.Column="0"
+                            Clicked="StartStopAnimation"
+                            Text="Stop"
+                            VerticalOptions="Center" />
+                    <Label Grid.Column="1"
+                           Margin="5"
+                           Text="Speed:"
+                           VerticalOptions="Center" />
+                    <Picker x:Name="SpeedComboBox"
+                            Grid.Column="2"
+                            SelectedIndexChanged="SpeedSelected"
+                            VerticalOptions="Center" />
+                </Grid>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

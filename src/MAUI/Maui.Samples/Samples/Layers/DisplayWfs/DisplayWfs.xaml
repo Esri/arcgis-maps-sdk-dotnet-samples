@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.DisplayWfs.DisplayWfs"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:resources="clr-namespace:ArcGIS.Resources">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <StackLayout Padding="5"
+                         Orientation="Horizontal"
+                         Spacing="5">
+                <Label Text="Pan and zoom to see features." />
+                <Grid HeightRequest="30"
+                      VerticalOptions="Start"
+                      WidthRequest="30">
+                    <ActivityIndicator x:Name="LoadingProgressBar" IsRunning="True" />
+                </Grid>
+            </StackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

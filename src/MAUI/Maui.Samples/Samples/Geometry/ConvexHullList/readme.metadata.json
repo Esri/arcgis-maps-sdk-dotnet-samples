@@ -1,0 +1,30 @@
+{
+    "category": "Geometry",
+    "description": "Generate convex hull polygon(s) from multiple input geometries.",
+    "formal_name": "ConvexHullList",
+    "ignore": false,
+    "images": [
+        "ConvexHullList.jpg"
+    ],
+    "keywords": [
+        "analysis",
+        "geometry",
+        "outline",
+        "perimeter",
+        "union"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/convexhulllist.htm"
+    ],
+    "relevant_apis": [
+        "GeometryEngine.ConvexHull",
+        "Graphic.ZIndex",
+        "GraphicsOverlay"
+    ],
+    "snippets": [
+        "ConvexHullList.xaml",
+        "ConvexHullList.xaml.cs"
+    ],
+    "title": "Convex hull list"
+}

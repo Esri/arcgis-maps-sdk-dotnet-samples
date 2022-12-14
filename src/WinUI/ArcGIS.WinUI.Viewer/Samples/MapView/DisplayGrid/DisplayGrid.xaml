@@ -1,0 +1,92 @@
+﻿<UserControl x:Class="ArcGIS.WinUI.Samples.DisplayGrid.DisplayGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <UserControl.Resources>
+        <Style TargetType="ComboBox">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Margin" Value="0,5,5,0" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Width="450"
+                Margin="30"
+                Padding="20"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="White"
+                BorderBrush="Black"
+                BorderThickness="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <!--  TextBlocks  -->
+                <TextBlock Grid.Row="0" Text="Grid type" />
+                <TextBlock Grid.Row="1" Text="Show labels" />
+                <TextBlock Grid.Row="2" Text="Show grid" />
+                <TextBlock Grid.Row="3" Text="Grid color" />
+                <TextBlock Grid.Row="4" Text="Label color" />
+                <TextBlock Grid.Row="5" Text="Halo color" />
+                <TextBlock Grid.Row="6" Text="Label position" />
+                <TextBlock Grid.Row="7" Text="Label format" />
+                <!--  Inputs  -->
+                <ComboBox x:Name="gridTypeCombo"
+                          Grid.Row="0"
+                          Grid.Column="1" />
+                <CheckBox x:Name="labelVisibilityCheckbox"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Margin="5,0,0,0"
+                          IsChecked="True" />
+                <CheckBox x:Name="gridVisibilityCheckbox"
+                          Grid.Row="2"
+                          Grid.Column="1"
+                          Margin="5,0,0,0"
+                          IsChecked="True" />
+                <ComboBox x:Name="gridColorCombo"
+                          Grid.Row="3"
+                          Grid.Column="1" />
+                <ComboBox x:Name="labelColorCombo"
+                          Grid.Row="4"
+                          Grid.Column="1" />
+                <ComboBox x:Name="haloColorCombo"
+                          Grid.Row="5"
+                          Grid.Column="1" />
+                <ComboBox x:Name="labelPositionCombo"
+                          Grid.Row="6"
+                          Grid.Column="1" />
+                <ComboBox x:Name="labelFormatCombo"
+                          Grid.Row="7"
+                          Grid.Column="1" />
+                <!--  Apply  -->
+                <Button x:Name="applySettingsButton"
+                        Grid.Row="8"
+                        Grid.ColumnSpan="2"
+                        Content="Apply settings"
+                        IsEnabled="False" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

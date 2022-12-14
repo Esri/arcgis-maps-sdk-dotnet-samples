@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.TokenSecuredChallenge.TokenSecuredChallenge"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:local="clr-namespace:ArcGIS.Samples.TokenSecuredChallenge">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:LoadStatusToColorConverter x:Key="StatusToColor" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid BackgroundColor="{AppThemeBinding Light=#dfdfdf, Dark=#303030}" RowDefinitions="auto,auto,*">
+        <StackLayout x:Name="PublicLayerStatusPanel"
+                     Grid.Row="0"
+                     Margin="5"
+                     Orientation="Horizontal"
+                     Spacing="5">
+            <Label Text="{Binding Name}" />
+            <Label Text="{Binding LoadStatus}" TextColor="{Binding LoadStatus, Converter={StaticResource StatusToColor}}" />
+        </StackLayout>
+        <StackLayout x:Name="SecureLayerStatusPanel"
+                     Grid.Row="1"
+                     Margin="5"
+                     Orientation="Horizontal"
+                     Spacing="5">
+            <Label Text="{Binding Name}" />
+            <Label Text="{Binding LoadStatus}" TextColor="{Binding LoadStatus, Converter={StaticResource StatusToColor}}" />
+        </StackLayout>
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="2" />
+    </Grid>
+</ContentPage>

@@ -1,0 +1,35 @@
+{
+    "category": "Location",
+    "description": "Parse NMEA sentences and use the results to show device location on the map.",
+    "formal_name": "LocationWithNMEA",
+    "ignore": false,
+    "images": [
+        "LocationWithNMEA.jpg"
+    ],
+    "keywords": [
+        "GNSS",
+        "GPS",
+        "NMEA",
+        "RTK",
+        "dongle",
+        "history",
+        "navigation",
+        "real-time",
+        "trace"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/locationwithnmea.htm"
+    ],
+    "relevant_apis": [
+        "Location",
+        "LocationDisplay",
+        "NmeaLocationDataSource",
+        "NmeaSatelliteInfo"
+    ],
+    "snippets": [
+        "LocationWithNMEA.xaml",
+        "LocationWithNMEA.xaml.cs"
+    ],
+    "title": "Display device location with NMEA data sources"
+}

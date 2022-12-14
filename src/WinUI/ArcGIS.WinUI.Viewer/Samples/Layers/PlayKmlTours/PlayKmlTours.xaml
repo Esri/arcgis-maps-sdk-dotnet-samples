@@ -1,0 +1,59 @@
+﻿<UserControl x:Class="ArcGIS.WinUI.Samples.PlayKmlTours.PlayKmlTours"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:SceneView x:Name="MySceneView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           Margin="0,0,0,5"
+                           FontWeight="SemiBold"
+                           Text="Use the buttons to control the tour. Contains audio. 🎧"
+                           TextWrapping="WrapWholeWords" />
+                <Button x:Name="PlayButton"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        HorizontalAlignment="Stretch"
+                        Click="Play_Clicked"
+                        Content="Play"
+                        IsEnabled="False" />
+                <Button x:Name="PauseButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="5,0,5,0"
+                        HorizontalAlignment="Stretch"
+                        Click="Pause_Clicked"
+                        Content="Pause"
+                        IsEnabled="False" />
+                <Button x:Name="ResetButton"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        HorizontalAlignment="Stretch"
+                        Click="Reset_Clicked"
+                        Content="Reset"
+                        IsEnabled="False" />
+                <ProgressBar x:Name="LoadingStatusBar"
+                             Grid.Row="2"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="3"
+                             Height="10"
+                             Margin="0,5,0,0"
+                             IsEnabled="True"
+                             IsIndeterminate="True" />
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ShowCallout.ShowCallout"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <TextBlock FontWeight="SemiBold"
+                       Text="Tap to show a callout."
+                       TextAlignment="Center" />
+        </Border>
+    </Grid>
+</UserControl>

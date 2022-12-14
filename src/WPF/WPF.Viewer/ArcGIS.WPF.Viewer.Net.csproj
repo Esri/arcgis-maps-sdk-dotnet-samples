@@ -78,10 +78,10 @@
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0" />
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="200.0.0" />
     <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.0.0" />
-    <PackageReference Include="Markdig" Version="0.30.2" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.5.3" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.5.3" />
-    <PackageReference Include="System.Speech" Version="6.0.0" />
+    <PackageReference Include="Markdig" Version="0.30.4" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.1" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.1" />
+    <PackageReference Include="System.Speech" Version="7.0.0" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\arrow.png" />

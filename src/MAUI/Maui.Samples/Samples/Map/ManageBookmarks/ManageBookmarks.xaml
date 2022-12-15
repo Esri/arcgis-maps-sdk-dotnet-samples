@@ -12,7 +12,8 @@
             <Label HorizontalTextAlignment="Center"
                    Text="Bookmark:"
                    VerticalTextAlignment="Center" />
-            <Picker x:Name="bookmarkPicker"
+            <Picker x:Name="BookmarkPicker"
+                    ItemDisplayBinding="{Binding Path=Name}"
                     SelectedIndexChanged="BookmarkPicker_SelectedIndexChanged"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="200" />

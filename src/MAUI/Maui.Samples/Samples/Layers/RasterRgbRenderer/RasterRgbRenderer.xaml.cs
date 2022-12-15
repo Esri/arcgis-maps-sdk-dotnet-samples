@@ -69,7 +69,6 @@ namespace ArcGIS.Samples.RasterRgbRenderer
                 // Add the map to the map view.
                 MyMapView.Map = map;
 
-                
                 // Select "Min Max" as the stretch type.
                 StretchTypeComboBox.SelectedIndex = 0;
 

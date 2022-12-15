@@ -84,7 +84,6 @@ namespace ArcGIS.Samples.RasterHillshade
                 foreach (object slope in Enum.GetValues(typeof(SlopeType)))
                 {
                     _slopeTypeValues.Add(Enum.GetName((SlopeType)slope), (SlopeType)slope);
-                    
                 }
                 SlopeTypePicker.ItemsSource = Enum.GetNames(typeof(SlopeType));
 

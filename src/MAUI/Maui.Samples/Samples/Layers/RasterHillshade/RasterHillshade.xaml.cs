@@ -83,9 +83,9 @@ namespace ArcGIS.Samples.RasterHillshade
                 // Add slope type values to the dictionary and picker
                 foreach (object slope in Enum.GetValues(typeof(SlopeType)))
                 {
-                    _slopeTypeValues.Add(slope.ToString(), (SlopeType)slope);
-                    SlopeTypePicker.Items.Add(slope.ToString());
+                    _slopeTypeValues.Add(Enum.GetName((SlopeType)slope), (SlopeType)slope);
                 }
+                SlopeTypePicker.ItemsSource = Enum.GetNames(typeof(SlopeType));
 
                 // Select the "Scaled" slope type enum
                 SlopeTypePicker.SelectedIndex = 2;

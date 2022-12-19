@@ -86,7 +86,7 @@ namespace ArcGIS.WinUI.Samples.ClosestFacility
                 };
 
                 // Center the map on the San Diego facilities.
-                Envelope fullExtent = GeometryEngine.CombineExtents(_facilities.Select(facility => facility.Geometry));
+                Envelope fullExtent = _facilities.Select(facility => facility.Geometry).CombineExtents();
                 await MyMapView.SetViewpointGeometryAsync(fullExtent, 50);
 
                 // Create a symbol for displaying facilities.

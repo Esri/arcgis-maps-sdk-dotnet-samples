@@ -95,7 +95,7 @@ namespace ArcGIS.Samples.DensifyAndGeneralize
                 // Reset the other slider.
                 SegmentLengthSlider.Value = 100;
 
-                polyline = (Polyline)GeometryEngine.Generalize(polyline, deviation, true);
+                polyline = (Polyline)polyline.Generalize(deviation, true);
 
                 // Update the result label.
                 ResultLabel.Text = $"Generalize- deviation: {deviation:f}";
@@ -105,7 +105,7 @@ namespace ArcGIS.Samples.DensifyAndGeneralize
                 // Reset the other slider.
                 DeviationSlider.Value = 1;
 
-                polyline = (Polyline)GeometryEngine.Densify(polyline, segmentLength);
+                polyline = (Polyline)polyline.Densify(segmentLength);
 
                 // Update the result label.
                 ResultLabel.Text = $"Densify- segment length: {segmentLength:f}";

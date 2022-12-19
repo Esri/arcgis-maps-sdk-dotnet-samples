@@ -245,7 +245,7 @@ namespace ArcGIS.WinUI.Samples.GenerateOfflineMapWithOverrides
 
             // Expand the area of interest based on the specified buffer distance.
             int bufferDistance = (int)ExtentBufferEntry.Value;
-            basemapParams.AreaOfInterest = GeometryEngine.BufferGeodetic(_areaOfInterest, bufferDistance, LinearUnits.Meters);
+            basemapParams.AreaOfInterest = _areaOfInterest.BufferGeodetic(bufferDistance, LinearUnits.Meters);
         }
 
         private void ConfigureLayerExclusion(GenerateOfflineMapParameterOverrides overrides)

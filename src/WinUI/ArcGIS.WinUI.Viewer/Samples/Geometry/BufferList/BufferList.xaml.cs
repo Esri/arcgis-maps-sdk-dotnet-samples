@@ -56,7 +56,7 @@ namespace ArcGIS.WinUI.Samples.BufferList
                 new MapPoint(-94.00, 31.720, SpatialReferences.Wgs84)
             };
             _spatialReferenceArea = new Polygon(spatialReferenceExtentCoords);
-            _spatialReferenceArea = GeometryEngine.Project(_spatialReferenceArea, statePlaneNorthCentralTexas) as Polygon;
+            _spatialReferenceArea = _spatialReferenceArea.Project(statePlaneNorthCentralTexas) as Polygon;
 
             // Create a map that uses the North Central Texas state plane spatial reference.
             Map bufferMap = new Map(statePlaneNorthCentralTexas);
@@ -108,7 +108,7 @@ namespace ArcGIS.WinUI.Samples.BufferList
                 MapPoint tapMapPoint = e.Location;
 
                 // Check if the point coordinates are within the spatial reference envelope.
-                bool withinValidExent = GeometryEngine.Contains(_spatialReferenceArea, tapMapPoint);
+                bool withinValidExent = _spatialReferenceArea.Contains(tapMapPoint);
 
                 // If the input point is not within the valid extent for the spatial reference, warn the user and return.
                 if (!withinValidExent)

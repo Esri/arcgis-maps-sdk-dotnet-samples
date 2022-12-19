@@ -178,7 +178,7 @@ namespace ArcGIS.WinUI.Samples.LineOfSightGeoElement
             _taxiGraphic.Geometry = intermediatePoint;
 
             // Update the taxi rotation.
-            GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(starting, ending, LinearUnits.Meters, AngularUnits.Degrees, GeodeticCurveType.Geodesic);
+            GeodeticDistanceResult distance = starting.DistanceGeodetic(ending, LinearUnits.Meters, AngularUnits.Degrees, GeodeticCurveType.Geodesic);
             ((ModelSceneSymbol)_taxiGraphic.Symbol).Heading = distance.Azimuth1;
         }
 

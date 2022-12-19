@@ -55,7 +55,7 @@ namespace ArcGIS.Samples.SceneLayerUrl
                 await sceneLayer.LoadAsync();
 
                 // Get the center of the scene layer.
-                MapPoint center = (MapPoint)GeometryEngine.Project(sceneLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
+                MapPoint center = (MapPoint)sceneLayer.FullExtent.GetCenter().Project(SpatialReferences.Wgs84);
 
                 // Create a camera with coordinates showing layer data.
                 Camera camera = new Camera(center.Y, center.X, 225, 220, 80, 0);

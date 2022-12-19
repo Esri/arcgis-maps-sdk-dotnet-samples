@@ -42,7 +42,7 @@ for path in cs_files:
             i = 0
             while i < len(lines):
                 line = lines[i]
-                if "GeometryEngine" in line and not "//" in line and not "instructions: " in line: 
+                if "GeometryEngine" in line and not "//" in line and not "instructions: " in line and not "IEnumerable" in line:
                     method_found = False
                     for m in methods:
                         if m in line:
@@ -64,15 +64,15 @@ for path in cs_files:
                 i += 1
         except:
             error_count += 1
-    with open(path, "w") as f:
-        try:
-            i = 0
-            while i < len(lines):
-                if lines[i] != f.readline(i):
-                    f.seek(i)
-                    f.write(lines[i])
-            f.close()
-        except:
-            error_count += 1
+    # with open(path, "w") as f:
+    #     try:
+    #         i = 0
+    #         while i < len(lines):
+    #             if lines[i] != f.readline(i):
+    #                 f.seek(i)
+    #                 f.write(lines[i])
+    #         f.close()
+    #     except:
+    #         error_count += 1
 
 print(error_count)

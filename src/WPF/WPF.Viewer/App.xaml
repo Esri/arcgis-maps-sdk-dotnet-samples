@@ -1,0 +1,26 @@
+﻿<Application
+    x:Class="ArcGIS.WPF.Viewer.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Startup="Application_Startup"
+    StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <!--  General Style files  -->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources\ControlStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="HeaderTextBlock" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource PrimaryColor}" />
+            </Style>
+            <Style x:Key="PrimaryTextBlock" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}" />
+            </Style>
+            <Style x:Key="SecondaryTextBlock" TargetType="TextBlock">
+                <Setter Property="Foreground" Value="{StaticResource PrimaryTextColor}" />
+            </Style>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>

@@ -73,7 +73,7 @@ namespace ArcGIS.WPF.Samples.GeodesicOperations
         private void MyMapViewOnGeoViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
         {
             // Get the tapped point, projected to WGS84.
-            MapPoint destination = (MapPoint)GeometryEngine.Project(geoViewInputEventArgs.Location, SpatialReferences.Wgs84);
+            MapPoint destination = (MapPoint)geoViewInputEventArgs.Location.Project(SpatialReferences.Wgs84);
 
             // Update the destination graphic.
             _endLocationGraphic.Geometry = destination;
@@ -89,13 +89,13 @@ namespace ArcGIS.WPF.Samples.GeodesicOperations
             Polyline routeLine = new Polyline(polylinePoints);
 
             // Densify the polyline to show the geodesic curve.
-            Geometry pathGeometry = GeometryEngine.DensifyGeodetic(routeLine, 1, LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
+            Geometry pathGeometry = routeLine.DensifyGeodetic(1, LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
 
             // Apply the curved line to the path graphic.
             _pathGraphic.Geometry = pathGeometry;
 
             // Calculate and show the distance.
-            double distance = GeometryEngine.LengthGeodetic(pathGeometry, LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
+            double distance = pathGeometry.LengthGeodetic(LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
             ResultsLabel.Text = string.Format("{0} kilometers", (int)distance);
         }
     }

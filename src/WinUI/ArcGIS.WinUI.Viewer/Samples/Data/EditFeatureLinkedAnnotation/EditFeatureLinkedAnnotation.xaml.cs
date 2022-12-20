@@ -78,7 +78,7 @@ namespace ArcGIS.WinUI.Samples.EditFeatureLinkedAnnotation
             else
             {
                 // Project the user selected point.
-                MapPoint projPoint = GeometryEngine.Project(e.Location, _selectedFeature.Geometry.SpatialReference) as MapPoint;
+                MapPoint projPoint = e.Location.Project(_selectedFeature.Geometry.SpatialReference) as MapPoint;
 
                 // Update the geometry of the selected feature.
                 _ = UpdateGeometry(projPoint);
@@ -128,7 +128,7 @@ namespace ArcGIS.WinUI.Samples.EditFeatureLinkedAnnotation
             if (_selectedFeature.Geometry is Polyline line)
             {
                 // Get the nearest point on the selected line.
-                ProximityResult nearestVertex = GeometryEngine.NearestVertex(line, point);
+                ProximityResult nearestVertex = line.NearestVertex(point);
 
                 // Create a new polyline.
                 PolylineBuilder polylineBuilder = new PolylineBuilder(line);
@@ -138,7 +138,7 @@ namespace ArcGIS.WinUI.Samples.EditFeatureLinkedAnnotation
                 part.SetPoint(nearestVertex.PointIndex, point);
 
                 // Update the geometry of the feature.
-                _selectedFeature.Geometry = GeometryEngine.Project(polylineBuilder.ToGeometry(), _selectedFeature.Geometry.SpatialReference);
+                _selectedFeature.Geometry = polylineBuilder.ToGeometry().Project(_selectedFeature.Geometry.SpatialReference);
                 await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
             }
             else if (_selectedFeature.Geometry is MapPoint)

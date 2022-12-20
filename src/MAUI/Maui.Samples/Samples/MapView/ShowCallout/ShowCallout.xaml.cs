@@ -50,7 +50,7 @@ namespace ArcGIS.Samples.ShowCallout
             MapPoint mapLocation = e.Location;
 
             // Project the user-tapped map point location to a geometry
-            Geometry myGeometry = GeometryEngine.Project(mapLocation, SpatialReferences.Wgs84);
+            Geometry myGeometry = mapLocation.Project(SpatialReferences.Wgs84);
 
             // Convert to geometry to a traditional Lat/Long map point
             MapPoint projectedLocation = (MapPoint)myGeometry;

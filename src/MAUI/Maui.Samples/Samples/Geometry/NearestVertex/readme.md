@@ -15,9 +15,9 @@ Tap anywhere on the map. An orange cross will show at that location. A blue circ
 ## How it works
 
 1. Get a `Geometry` and a `Point` to check the nearest vertex against.
-2. Call `GeometryEngine.NearestVertex(inputGeometry, point)`.
+2. Call `inputGeometry.NearestVertex(point)`.
 3. Use the returned `ProximityResult` to get the `Point` representing the polygon vertex, and to determine the distance between that vertex and the tapped point.
-4. Call `GeometryEngine.NearestCoordinate(inputGeometry, point)`.
+4. Call `inputGeometry.NearestCoordinate(point)`.
 5. Use the returned `ProximityResult` to get the `Point` representing the coordinate on the polygon, and to determine the distance between that coordinate and the tapped point.
 
 ## Relevant API

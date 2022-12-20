@@ -16,7 +16,7 @@ Tap the 'Create Convex Hull' button to create convex hull(s) from the polygon gr
 
 1. Create an `Map` and display it in a `MapView`.
 2. Create two input polygon graphics and add them to a `GraphicsOverlay`.
-3. Call `GeometryEngine.ConvexHull(inputGeometries, boolean)`, specifying a list of geometries for which to generate the convex hull. Set the boolean parameter to `true` to generate a convex hull for the union of the geometries. Set it to `false` to create a convex hull for each individual geometry.
+3. Call `inputGeometries.ConvexHull(boolean)`, specifying a list of geometries for which to generate the convex hull. Set the boolean parameter to `true` to generate a convex hull for the union of the geometries. Set it to `false` to create a convex hull for each individual geometry.
 4. Loop through the returned geometries and add them as graphics for display on the map.
 
 ## Relevant API

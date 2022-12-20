@@ -15,7 +15,7 @@ Tap on the map to add points. Tap the "Create Convex Hull" button to generate th
 ## How it works
 
 1. Create an input geometry such as a `Multipoint` object.
-2. Use `GeometryEngine.ConvexHull(inputGeometry)` to create a new `Geometry` object representing the convex hull of the input points. The returned geometry will either be a `Point`, `Polyline`, or `Polygon` based on the number of input points.
+2. Use `inputGeometry.ConvexHull()` to create a new `Geometry` object representing the convex hull of the input points. The returned geometry will either be a `Point`, `Polyline`, or `Polygon` based on the number of input points.
 
 ## Relevant API
 

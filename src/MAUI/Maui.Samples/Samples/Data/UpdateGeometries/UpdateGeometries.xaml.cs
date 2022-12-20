@@ -92,7 +92,7 @@ namespace ArcGIS.Samples.UpdateGeometries
                 MapPoint destinationPoint = tapEventDetails.Location;
 
                 // Normalize the point - needed when the tapped location is over the international date line.
-                destinationPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(destinationPoint);
+                destinationPoint = (MapPoint)destinationPoint.NormalizeCentralMeridian();
 
                 // Load the feature.
                 await _selectedFeature.LoadAsync();

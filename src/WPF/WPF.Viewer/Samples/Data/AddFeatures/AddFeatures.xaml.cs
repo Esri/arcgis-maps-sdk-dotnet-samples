@@ -78,7 +78,7 @@ namespace ArcGIS.WPF.Samples.AddFeatures
                 ArcGISFeature feature = (ArcGISFeature)_damageFeatureTable.CreateFeature();
 
                 // Get the normalized geometry for the tapped location and use it as the feature's geometry.
-                MapPoint tappedPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(e.Location);
+                MapPoint tappedPoint = (MapPoint)e.Location.NormalizeCentralMeridian();
                 feature.Geometry = tappedPoint;
 
                 // Set feature attributes.

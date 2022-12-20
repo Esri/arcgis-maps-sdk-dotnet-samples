@@ -97,7 +97,7 @@ namespace ArcGIS.WPF.Samples.CutGeometry
         private void Cut()
         {
             // Cut the polygon geometry with the polyline, expect two geometries.
-            Geometry[] cutGeometries = GeometryEngine.Cut(_lakeSuperiorPolygonGraphic.Geometry, (Polyline)_countryBorderPolylineGraphic.Geometry);
+            Geometry[] cutGeometries = _lakeSuperiorPolygonGraphic.Geometry.Cut((Polyline)_countryBorderPolylineGraphic.Geometry);
 
             // Create a simple line symbol for the outline of the Canada side of Lake Superior.
             SimpleLineSymbol canadaSideSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Null, System.Drawing.Color.Blue, 0);

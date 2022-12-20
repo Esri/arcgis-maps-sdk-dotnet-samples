@@ -107,17 +107,17 @@ namespace ArcGIS.WinUI.Samples.NearestVertex
         private void MapViewTapped(object sender, GeoViewInputEventArgs geoViewInputEventArgs)
         {
             // Get the tapped location.
-            MapPoint tappedLocation = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geoViewInputEventArgs.Location);
+            MapPoint tappedLocation = (MapPoint)geoViewInputEventArgs.Location.NormalizeCentralMeridian();
 
             // Show the tapped location.
             _tappedLocationGraphic.Geometry = tappedLocation;
 
             // Get the nearest vertex in the polygon.
-            ProximityResult nearestVertexResult = GeometryEngine.NearestVertex(_polygonGraphic.Geometry, tappedLocation);
+            ProximityResult nearestVertexResult = _polygonGraphic.Geometry.NearestVertex(tappedLocation);
 
             // Get the nearest coordinate in the polygon.
             ProximityResult nearestCoordinateResult =
-                GeometryEngine.NearestCoordinate(_polygonGraphic.Geometry, tappedLocation);
+                _polygonGraphic.Geometry.NearestCoordinate(tappedLocation);
 
             // Get the distance to the nearest vertex in the polygon.
             int distanceVertex = (int)(nearestVertexResult.Distance / 1000);

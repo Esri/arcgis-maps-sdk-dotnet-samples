@@ -14,7 +14,7 @@ Click the "Cut" button to cut the polygon with the polyline and see the resultin
 
 ## How it works
 
-1. Pass the geometry and polyline to `GeometryEngine.Cut` to cut the geometry along the polyline.
+1. Pass the polyline to the static extension method `GeometryEngine.Cut()` to cut the geometry along the polyline.
 2. Loop through the returned list of part geometries. Some of these geometries may be multi-part.
 
 ## Relevant API

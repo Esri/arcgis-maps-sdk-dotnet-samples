@@ -122,7 +122,7 @@ namespace ArcGIS.Samples.ClosestFacilityStatic
                 await _incidentLayer.LoadAsync();
 
                 // Zoom to the combined extent of both layers.
-                Envelope fullExtent = GeometryEngine.CombineExtents(_facilityLayer.FullExtent, _incidentLayer.FullExtent);
+                Envelope fullExtent = _facilityLayer.FullExtent.CombineExtents(_incidentLayer.FullExtent);
                 await MyMapView.SetViewpointGeometryAsync(fullExtent, 50);
 
                 // Enable the solve button.

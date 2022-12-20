@@ -95,11 +95,11 @@ namespace ArcGIS.WPF.Samples.Buffer
                 double bufferInMeters = LinearUnits.Miles.ToMeters(bufferInMiles);
 
                 // Create a planar buffer graphic around the input location at the specified distance.
-                Geometry bufferGeometryPlanar = GeometryEngine.Buffer(userTapPoint, bufferInMeters);
+                Geometry bufferGeometryPlanar = userTapPoint.Buffer(bufferInMeters);
                 Graphic planarBufferGraphic = new Graphic(bufferGeometryPlanar);
 
                 // Create a geodesic buffer graphic using the same location and distance.
-                Geometry bufferGeometryGeodesic = GeometryEngine.BufferGeodetic(userTapPoint, bufferInMeters, LinearUnits.Meters, double.NaN, GeodeticCurveType.Geodesic);
+                Geometry bufferGeometryGeodesic = userTapPoint.BufferGeodetic(bufferInMeters, LinearUnits.Meters, double.NaN, GeodeticCurveType.Geodesic);
                 Graphic geodesicBufferGraphic = new Graphic(bufferGeometryGeodesic);
 
                 // Create a graphic for the user tap location.

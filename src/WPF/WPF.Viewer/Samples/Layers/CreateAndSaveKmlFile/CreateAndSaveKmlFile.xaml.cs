@@ -136,7 +136,7 @@ namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
                 Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, true);
 
                 // Project the geometry to WGS84 (WGS84 is required by the KML standard).
-                Geometry projectedGeometry = GeometryEngine.Project(geometry, SpatialReferences.Wgs84);
+                Geometry projectedGeometry = geometry.Project(SpatialReferences.Wgs84);
 
                 // Create a KmlGeometry using the new geometry.
                 KmlGeometry kmlGeometry = new KmlGeometry(projectedGeometry, KmlAltitudeMode.ClampToGround);

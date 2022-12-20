@@ -14,7 +14,7 @@ Click/tap on the map to add points. Tap the "Create Buffer(s)" button to draw bu
 
 ## How it works
 
-1. Use `GeometryEngine.Buffer(points, distances, union)` to create a `Polygon`. The parameter `points` are the points to buffer around, `distances` are the buffer distances for each point (in meters) and `union` is a boolean for whether the results should be unioned.
+1. Use `points.Buffer(distances, union)` to create a `Polygon`. The parameter `points` are the points to buffer around, `distances` are the buffer distances for each point (in meters) and `union` is a boolean for whether the results should be unioned.
 2. Add the resulting polygons (if not unioned) or single polygon (if unioned) to the map's `GraphicsOverlay` as a `Graphic`.
 
 ## Relevant API

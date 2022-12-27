@@ -9,11 +9,13 @@
     "keywords": [
     ],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/ShowLabelsOnLayer3D.htm"
+        "/net/latest/maui/sample-code/ShowLabelsOnLayer3D.htm"
     ],
     "relevant_apis": [
     ],
-    "snippets": [
-    ],
+  "snippets": [
+    "ShowLabelsOnLayer3D.xaml",
+    "ShowLabelsOnLayer3D.xaml.cs"
+  ],
     "title": "Show labels on layer in 3D"
 }

@@ -80,9 +80,6 @@ namespace ArcGIS.WinUI.Samples.SketchOnMap
 
         private Graphic SaveGraphic(Geometry geometry)
         {
-            // Gray out any selected tool.
-            EnabledTool.Background = LightGray;
-
             // Create a graphic to display the specified geometry.
             Esri.ArcGISRuntime.Symbology.Symbol symbol = null;
             if (geometry != null)

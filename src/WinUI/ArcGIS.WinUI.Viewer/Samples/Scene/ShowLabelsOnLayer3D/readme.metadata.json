@@ -1,0 +1,19 @@
+{
+    "category": "Scene",
+    "description": "add later",
+    "formal_name": "ShowLabelsOnLayer3D",
+    "ignore": false,
+    "images": [
+        "ShowLabelsOnLayer3D.jpg"
+    ],
+    "keywords": [
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/ShowLabelsOnLayer3D.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Show labels on layer in 3D"
+}

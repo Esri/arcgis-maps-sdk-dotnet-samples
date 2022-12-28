@@ -35,4 +35,4 @@ This sample shows a [New York City infrastructure](https://www.arcgis.com/home/i
 
 ## Tags
 
-scene, web scene, labelling, 3D
+3D, labelling, scene, web scene

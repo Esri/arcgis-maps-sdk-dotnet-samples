@@ -31,7 +31,7 @@ namespace ArcGIS.Samples.ShowLabelsOnLayer3D
         category: "Scene",
         description: "Display custom labels in a 3D scene.",
         instructions: "Pan and zoom to explore the scene. Notice the labels showing installation dates of features in the 3D gas network.",
-        tags: new[] { "portal", "scene", "web scene" })]
+        tags: new[] { "3D", "labelling", "scene", "web scene" })]
     public partial class ShowLabelsOnLayer3D
     {
         // Store the link to the web scene.

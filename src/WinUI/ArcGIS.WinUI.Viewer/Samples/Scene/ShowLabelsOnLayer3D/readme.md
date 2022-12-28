@@ -16,7 +16,7 @@ Pan and zoom to explore the scene. Notice the labels showing installation dates 
 
 To open a web scene from a portal item:
 
-1. Create an `ArcGISScene` from a portal, then load.
+1. Create a `Scene` from a URL, then load.
 2. After loading is complete, obtain the gas layer from the scene's operational layers.
 3. From the gas layer, find the main gas sublayer.
 4. Create a `TextSymbol` to use for displaying the label text.
@@ -35,4 +35,4 @@ This sample shows a [New York City infrastructure](https://www.arcgis.com/home/i
 
 ## Tags
 
-portal, scene, web scene
+scene, web scene, labelling, 3D

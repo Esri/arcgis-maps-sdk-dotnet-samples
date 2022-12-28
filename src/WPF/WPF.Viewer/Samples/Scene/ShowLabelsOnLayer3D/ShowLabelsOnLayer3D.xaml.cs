@@ -55,7 +55,7 @@ namespace ArcGIS.WPF.Samples.ShowLabelsOnLayer3D
                 // Create the portal item.
                 PortalItem websceneItem = await PortalItem.CreateAsync(portal, ItemId);
 
-                // Create and show the scene.
+                // Create the scene.
                 MySceneView.Scene = new Scene(websceneItem);
 
                 // Load scene to access properties.

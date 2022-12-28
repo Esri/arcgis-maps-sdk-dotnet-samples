@@ -1,27 +1,28 @@
 {
-  "category": "Scene",
-  "description": "Display custom labels in a 3D scene.",
-  "formal_name": "ShowLabelsOnLayer3D",
-  "ignore": false,
-  "images": [
-    "ShowLabelsOnLayer3D.jpg"
-  ],
-  "keywords": [
-    "portal",
-    "scene",
-    "web scene"
-  ],
-  "redirect_from": [
-    "/net/latest/maui/sample-code/ShowLabelsOnLayer3D.htm"
-  ],
-  "relevant_apis": [
-    "PortalItem",
-    "Scene",
-    "SceneView"
-  ],
-  "snippets": [
-    "ShowLabelsOnLayer3D.xaml",
-    "ShowLabelsOnLayer3D.xaml.cs"
-  ],
-  "title": "Show labels on layer in 3D"
+    "category": "Scene",
+    "description": "Display custom labels in a 3D scene.",
+    "formal_name": "ShowLabelsOnLayer3D",
+    "ignore": false,
+    "images": [
+        "ShowLabelsOnLayer3D.jpg"
+    ],
+    "keywords": [
+        "portal",
+        "scene",
+        "web scene"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/showlabelsonlayer3d.htm"
+    ],
+    "relevant_apis": [
+        "PortalItem",
+        "Scene",
+        "SceneView"
+    ],
+    "snippets": [
+        "ShowLabelsOnLayer3D.xaml",
+        "ShowLabelsOnLayer3D.xaml.cs"
+    ],
+    "title": "Show labels on layer 3D"
 }

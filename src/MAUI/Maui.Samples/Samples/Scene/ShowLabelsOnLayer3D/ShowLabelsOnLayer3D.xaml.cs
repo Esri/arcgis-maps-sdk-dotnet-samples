@@ -27,10 +27,11 @@ using Esri.ArcGISRuntime.Portal;
 namespace ArcGIS.Samples.ShowLabelsOnLayer3D
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Show labels on layer in 3D",
-        "Scene",
-        "add later",
-        "")]
+        name: "Show labels on layer 3D",
+        category: "Scene",
+        description: "Display custom labels in a 3D scene.",
+        instructions: "Pan and zoom to explore the scene. Notice the labels showing installation dates of features in the 3D gas network.",
+        tags: new[] { "portal", "scene", "web scene" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class ShowLabelsOnLayer3D
     {

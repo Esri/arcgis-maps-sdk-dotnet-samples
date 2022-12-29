@@ -25,10 +25,10 @@ using System.Threading.Tasks;
 namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Add vector tiled layer from custom style",
-        "Layers",
-        "Load ArcGIS vector tiled layers using custom styles.",
-        "")]
+        name: "Basic readme template",
+        category: "Layers",
+        description: "",
+        instructions: "")]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class AddVectorTiledLayerFromCustomStyle
     {

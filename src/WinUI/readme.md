@@ -87,6 +87,7 @@
 * [ArcGIS map image layer](ArcGIS.WinUI.Viewer/Samples/Layers/ArcGISMapImageLayerUrl) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](ArcGIS.WinUI.Viewer/Samples/Layers/ArcGISTiledLayerUrl) - Load an ArcGIS tiled layer from a URL.
 * [ArcGIS vector tiled layer URL](ArcGIS.WinUI.Viewer/Samples/Layers/ArcGISVectorTiledLayerUrl) - Load an ArcGIS Vector Tiled Layer from a URL.
+* [Basic readme template](ArcGIS.WinUI.Viewer/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - 
 * [Blend renderer](ArcGIS.WinUI.Viewer/Samples/Layers/ChangeBlendRenderer) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
 * [Browse OGC API feature service](ArcGIS.WinUI.Viewer/Samples/Layers/BrowseOAFeatureService) - Browse an OGC API feature service for layers and add them to the map.
 * [Browse WFS layers](ArcGIS.WinUI.Viewer/Samples/Layers/BrowseWfsLayers) - Browse a WFS service for layers and add them to the map.

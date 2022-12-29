@@ -1,0 +1,19 @@
+{
+    "category": "Layers",
+    "description": "Load ArcGIS vector tiled layers using custom styles.",
+    "formal_name": "AddVectorTiledLayerFromCustomStyle",
+    "ignore": false,
+    "images": [
+        "AddVectorTiledLayerFromCustomStyle.jpg"
+    ],
+    "keywords": [
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/AddVectorTiledLayerFromCustomStyle.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Add vector tiled layer from custom style"
+}

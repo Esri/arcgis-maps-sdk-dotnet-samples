@@ -7,24 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
-using Esri.ArcGISRuntime.Mapping.Labeling;
-using Esri.ArcGISRuntime.Portal;
 
 namespace ArcGIS.WPF.Samples.ShowLabelsOnLayer3D
 {
@@ -33,7 +22,7 @@ namespace ArcGIS.WPF.Samples.ShowLabelsOnLayer3D
         category: "Scene",
         description: "Display custom labels in a 3D scene.",
         instructions: "Pan and zoom to explore the scene. Notice the labels showing installation dates of features in the 3D gas network.",
-        tags: new[] { "3D", "labelling", "scene", "web scene" })]
+        tags: new[] { "3D", "labeling", "scene", "web scene" })]
     public partial class ShowLabelsOnLayer3D
     {
         // Store the link to the web scene.
@@ -77,7 +66,6 @@ namespace ArcGIS.WPF.Samples.ShowLabelsOnLayer3D
                     textSymbol);
 
                 gasMainLayer.LabelDefinitions.Add(labelDefinition);
-
             }
             catch (Exception ex)
             {

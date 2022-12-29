@@ -25,7 +25,8 @@ To open a web scene from a portal item:
 
 ## Relevant API
 
-* PortalItem
+* ArcadeLabelExpression
+* LabelDefinition
 * Scene
 * SceneView
 
@@ -35,4 +36,4 @@ This sample shows a [New York City infrastructure](https://www.arcgis.com/home/i
 
 ## Tags
 
-3D, labelling, scene, web scene
+3D, labeling, scene, web scene

@@ -214,6 +214,7 @@
 * [Get elevation at a point](Maui.Samples/Samples/Scene/GetElevationAtPoint) - Get the elevation for a given point on a surface in a scene.
 * [Open mobile scene package](Maui.Samples/Samples/Scene/OpenMobileScenePackage) - Opens and displays a scene from a Mobile Scene Package (.mspk).
 * [Open scene (portal item)](Maui.Samples/Samples/Scene/OpenScenePortalItem) - Open a web scene from a portal item.
+* [Show labels on layer 3D](Maui.Samples/Samples/Scene/ShowLabelsOnLayer3D) - Display custom labels in a 3D scene.
 * [Terrain exaggeration](Maui.Samples/Samples/Scene/TerrainExaggeration) - Vertically exaggerate terrain in a scene.
 * [View content beneath terrain surface](Maui.Samples/Samples/Scene/ViewContentBeneathSurface) - See through terrain in a scene and move the camera underground.
 

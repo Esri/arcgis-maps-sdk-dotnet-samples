@@ -221,6 +221,7 @@
 * [Get elevation at a point](WPF.Viewer/Samples/Scene/GetElevationAtPoint) - Get the elevation for a given point on a surface in a scene.
 * [Open mobile scene package](WPF.Viewer/Samples/Scene/OpenMobileScenePackage) - Opens and displays a scene from a Mobile Scene Package (.mspk).
 * [Open scene (portal item)](WPF.Viewer/Samples/Scene/OpenScenePortalItem) - Open a web scene from a portal item.
+* [Show labels on layer 3D](WPF.Viewer/Samples/Scene/ShowLabelsOnLayer3D) - Display custom labels in a 3D scene.
 * [Terrain exaggeration](WPF.Viewer/Samples/Scene/TerrainExaggeration) - Vertically exaggerate terrain in a scene.
 * [View content beneath terrain surface](WPF.Viewer/Samples/Scene/ViewContentBeneathSurface) - See through terrain in a scene and move the camera underground.
 

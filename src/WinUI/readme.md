@@ -216,6 +216,7 @@
 * [Get elevation at a point](ArcGIS.WinUI.Viewer/Samples/Scene/GetElevationAtPoint) - Get the elevation for a given point on a surface in a scene.
 * [Open mobile scene package](ArcGIS.WinUI.Viewer/Samples/Scene/OpenMobileScenePackage) - Opens and displays a scene from a Mobile Scene Package (.mspk).
 * [Open scene (portal item)](ArcGIS.WinUI.Viewer/Samples/Scene/OpenScenePortalItem) - Open a web scene from a portal item.
+* [Show labels on layer 3D](ArcGIS.WinUI.Viewer/Samples/Scene/ShowLabelsOnLayer3D) - Display custom labels in a 3D scene.
 * [Terrain exaggeration](ArcGIS.WinUI.Viewer/Samples/Scene/TerrainExaggeration) - Vertically exaggerate terrain in a scene.
 * [View content beneath terrain surface](ArcGIS.WinUI.Viewer/Samples/Scene/ViewContentBeneathSurface) - See through terrain in a scene and move the camera underground.
 

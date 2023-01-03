@@ -10,12 +10,9 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -36,11 +33,8 @@ namespace ArcGIS.WPF.Samples.AddVectorTiledLayerFromCustomStyle
         // These layers can be selected from the ComboBox.
         private List<ArcGISVectorTiledLayer> _vectorTiledLayers;
 
-        // Hold a reference to the export job for use in event handler.
-        private ExportVectorTilesJob _job;
-
-        private Viewpoint _defaultViewpoint = new Viewpoint(1990591.559979, 794036.007991, 1e8);
-        private Viewpoint _dodgeCityViewpoint = new Viewpoint(-100.01766, 37.76528, 4e4);
+        private Viewpoint _defaultViewpoint = new Viewpoint(10, 5.5, 1e8);
+        private Viewpoint _dodgeCityViewpoint = new Viewpoint(37.76528, -100.01766, 4e4);
 
         public AddVectorTiledLayerFromCustomStyle()
         {
@@ -71,24 +65,25 @@ namespace ArcGIS.WPF.Samples.AddVectorTiledLayerFromCustomStyle
             // Create vector tiled layers for each portal item.
             _vectorTiledLayers = new List<ArcGISVectorTiledLayer>();
 
+            // Store a list of tiled layers in the different styles.
             foreach (string item in _itemIDs)
             {
                 PortalItem websceneItem = await PortalItem.CreateAsync(portal, item);
                 ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(websceneItem);
                 _vectorTiledLayers.Add(vectorTiledLayer);
             }
-            
-            var myMap = new Map(SpatialReferences.Wgs84);
-            myMap.Basemap.BaseLayers.Add(_vectorTiledLayers[0]);
 
-            MyMapView.Map = myMap;
+            // Create a map with the default style.
+            MyMapView.Map = new Map(SpatialReferences.WebMercator);
+            MyMapView.Map.Basemap.BaseLayers.Add(_vectorTiledLayers[0]);
+
             await MyMapView.SetViewpointAsync(_defaultViewpoint);
         }
 
         private async void StyleChooserSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            // Determine the style from the combobox.
             ComboBox styleChooser = sender as ComboBox;
-
             ArcGISVectorTiledLayer vectorTiledLayer = _vectorTiledLayers[styleChooser.SelectedIndex];
 
             // Clear the map of the currently loaded layer.
@@ -98,13 +93,14 @@ namespace ArcGIS.WPF.Samples.AddVectorTiledLayerFromCustomStyle
             {
                 // No need to export - change the basemap style.
                 await MyMapView.SetViewpointAsync(_defaultViewpoint);
-                MyMapView.Map.Basemap.BaseLayers.Add(vectorTiledLayer);
             }
             else
             {
-                Export(vectorTiledLayer);
+                // Export a custom style.
                 await MyMapView.SetViewpointAsync(_dodgeCityViewpoint);
+                Export(vectorTiledLayer);
             }
+            MyMapView.Map.Basemap.BaseLayers.Add(vectorTiledLayer);
         }
 
         private async void Export(ArcGISVectorTiledLayer vectorTiledLayer)
@@ -112,7 +108,7 @@ namespace ArcGIS.WPF.Samples.AddVectorTiledLayerFromCustomStyle
             // Create the task.
             ExportVectorTilesTask exportTask = await ExportVectorTilesTask.CreateAsync(vectorTiledLayer.Source);
 
-            ExportVectorTilesParameters parameters = await exportTask.CreateDefaultExportVectorTilesParametersAsync(_dodgeCityViewpoint.TargetGeometry.Extent, MyMapView.MapScale * 0.1);
+            ExportVectorTilesParameters parameters = await exportTask.CreateDefaultExportVectorTilesParametersAsync(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry, MyMapView.MapScale * 0.1);
 
             // By using the UseReducedFontService download option the file download speed is reduced.
             // This limits vector tiled layers character sets and may not be suitable in every use case.
@@ -123,7 +119,7 @@ namespace ArcGIS.WPF.Samples.AddVectorTiledLayerFromCustomStyle
             string itemResourcePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + "_styleItemResources");
 
             // Create the export job and start it.
-            _job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
+            ExportVectorTilesJob _job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
             _job.Start();
 
             // Wait for the job to complete.
@@ -135,9 +131,6 @@ namespace ArcGIS.WPF.Samples.AddVectorTiledLayerFromCustomStyle
 
             // Create a tile layer from the tile cache.
             ArcGISVectorTiledLayer myLayer = new ArcGISVectorTiledLayer(vectorTileCache, vectorTilesResult.ItemResourceCache);
-
-            // Show the layer in a new map.
-            MyMapView.Map = new Map(new Basemap(myLayer));
         }
     }
 }

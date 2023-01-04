@@ -82,11 +82,11 @@
 
 * [Add a point scene layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
 * [Add integrated mesh layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
+* [Add vector tiled layer from custom style](ArcGIS.WinUI.Viewer/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - Load ArcGIS vector tiled layers using custom styles.
 * [Apply mosaic rule to rasters](ArcGIS.WinUI.Viewer/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](ArcGIS.WinUI.Viewer/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.
 * [ArcGIS map image layer](ArcGIS.WinUI.Viewer/Samples/Layers/ArcGISMapImageLayerUrl) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](ArcGIS.WinUI.Viewer/Samples/Layers/ArcGISTiledLayerUrl) - Load an ArcGIS tiled layer from a URL.
-* [ArcGIS vector tiled layer (custom style)](ArcGIS.WinUI.Viewer/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - Load ArcGIS vector tiled layers using custom styles.
 * [ArcGIS vector tiled layer URL](ArcGIS.WinUI.Viewer/Samples/Layers/ArcGISVectorTiledLayerUrl) - Load an ArcGIS Vector Tiled Layer from a URL.
 * [Blend renderer](ArcGIS.WinUI.Viewer/Samples/Layers/ChangeBlendRenderer) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
 * [Browse OGC API feature service](ArcGIS.WinUI.Viewer/Samples/Layers/BrowseOAFeatureService) - Browse an OGC API feature service for layers and add them to the map.

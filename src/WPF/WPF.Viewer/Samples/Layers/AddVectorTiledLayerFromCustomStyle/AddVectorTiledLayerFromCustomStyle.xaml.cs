@@ -20,7 +20,7 @@ using System.Windows.Controls;
 namespace ArcGIS.WPF.Samples.AddVectorTiledLayerFromCustomStyle
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "ArcGIS vector tiled layer (custom style)",
+        name: "Add vector tiled layer from custom style",
         category: "Layers",
         description: "Load ArcGIS vector tiled layers using custom styles.",
         instructions: "Pan and zoom to explore the vector tile basemap.",

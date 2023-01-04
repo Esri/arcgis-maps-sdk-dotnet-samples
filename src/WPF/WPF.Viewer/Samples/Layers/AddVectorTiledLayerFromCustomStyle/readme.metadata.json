@@ -26,5 +26,5 @@
         "AddVectorTiledLayerFromCustomStyle.xaml",
         "AddVectorTiledLayerFromCustomStyle.xaml.cs"
     ],
-    "title": "ArcGIS vector tiled layer (custom style)"
+    "title": "Add vector tiled layer from custom style"
 }

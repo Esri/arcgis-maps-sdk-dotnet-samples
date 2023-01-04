@@ -1,19 +1,30 @@
 {
-  "category": "Layers",
-  "description": "",
-  "formal_name": "AddVectorTiledLayerFromCustomStyle",
-  "ignore": false,
-  "images": [],
-  "keywords": [
-  ],
-  "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/addvectortiledlayerfromcustomstyle.htm"
-  ],
-  "relevant_apis": [],
-  "snippets": [
-    "AddVectorTiledLayerFromCustomStyle.xaml",
-    "AddVectorTiledLayerFromCustomStyle.xaml.cs"
-  ],
-  "title": "Basic readme template"
+    "category": "Layers",
+    "description": "Load ArcGIS vector tiled layers using custom styles.",
+    "formal_name": "AddVectorTiledLayerFromCustomStyle",
+    "ignore": false,
+    "images": [
+        "AddVectorTiledLayerFromCustomStyle.jpg"
+    ],
+    "keywords": [
+        "tiles",
+        "vector",
+        "vector basemap",
+        "vector tiled layer",
+        "vector tiles"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/addvectortiledlayerfromcustomstyle.htm"
+    ],
+    "relevant_apis": [
+        "VectorTileCache",
+        "VectorTiledLayer",
+        "VectorTilesTask"
+    ],
+    "snippets": [
+        "AddVectorTiledLayerFromCustomStyle.xaml",
+        "AddVectorTiledLayerFromCustomStyle.xaml.cs"
+    ],
+    "title": "ArcGIS vector tiled layer (custom style)"
 }

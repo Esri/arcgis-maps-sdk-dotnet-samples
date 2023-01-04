@@ -15,10 +15,11 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Basic readme template",
+        name: "ArcGIS vector tiled layer (custom style)",
         category: "Layers",
-        description: "",
-        instructions: "")]
+        description: "Load ArcGIS vector tiled layers using custom styles.",
+        instructions: "Pan and zoom to explore the vector tile basemap.",
+        tags: new[] { "tiles", "vector", "vector basemap", "vector tiled layer", "vector tiles" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class AddVectorTiledLayerFromCustomStyle
     {

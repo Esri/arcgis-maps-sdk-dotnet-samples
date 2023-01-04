@@ -28,9 +28,9 @@ Pan and zoom to explore the vector tile basemap.
 
 ## Relevant API
 
+* VectorTileCache
 * VectorTiledLayer
 * VectorTilesTask
-* VectorTileCache
 
 ## Tags
 

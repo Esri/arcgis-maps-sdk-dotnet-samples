@@ -102,9 +102,6 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
             // Load the vector tile cache.
             VectorTileCache vectorTileCache = vectorTilesResult.VectorTileCache;
             await vectorTileCache.LoadAsync();
-
-            // Create a tile layer from the tile cache.
-            ArcGISVectorTiledLayer myLayer = new ArcGISVectorTiledLayer(vectorTileCache, vectorTilesResult.ItemResourceCache);
         }
 
         private async void StyleChooserClick(object sender, EventArgs e)

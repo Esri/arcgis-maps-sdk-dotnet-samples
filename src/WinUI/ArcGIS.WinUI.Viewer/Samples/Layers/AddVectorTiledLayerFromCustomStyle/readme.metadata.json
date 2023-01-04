@@ -1,18 +1,19 @@
 {
-    "category": "Layers",
-    "description": "",
-    "formal_name": "AddVectorTiledLayerFromCustomStyle",
-    "ignore": false,
-    "images": [],
-    "keywords": [],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/addvectortiledlayerfromcustomstyle.htm"
-    ],
-    "relevant_apis": [],
-    "snippets": [
-        "AddVectorTiledLayerFromCustomStyle.xaml",
-        "AddVectorTiledLayerFromCustomStyle.xaml.cs"
-    ],
-    "title": "Basic readme template"
+  "category": "Layers",
+  "description": "",
+  "formal_name": "AddVectorTiledLayerFromCustomStyle",
+  "ignore": false,
+  "images": [],
+  "keywords": [
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/addvectortiledlayerfromcustomstyle.htm"
+  ],
+  "relevant_apis": [],
+  "snippets": [
+    "AddVectorTiledLayerFromCustomStyle.xaml",
+    "AddVectorTiledLayerFromCustomStyle.xaml.cs"
+  ],
+  "title": "Basic readme template"
 }

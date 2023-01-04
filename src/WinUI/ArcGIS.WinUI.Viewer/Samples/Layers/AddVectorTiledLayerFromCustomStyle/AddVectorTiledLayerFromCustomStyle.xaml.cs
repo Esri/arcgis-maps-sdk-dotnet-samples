@@ -83,7 +83,7 @@ namespace ArcGIS.WinUI.Samples.AddVectorTiledLayerFromCustomStyle
 
         private async void StyleChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Determine the style from the combobox.
+            // Determine the chosen style from the ComboBox.
             ComboBox styleChooser = sender as ComboBox;
             ArcGISVectorTiledLayer vectorTiledLayer = _vectorTiledLayers[styleChooser.SelectedIndex];
 

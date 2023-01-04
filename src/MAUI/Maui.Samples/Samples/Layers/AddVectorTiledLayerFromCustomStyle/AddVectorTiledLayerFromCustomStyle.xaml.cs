@@ -109,10 +109,10 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
         {
             try
             {
+                // Get the chosen style and determine that style's index.
                 string style = await Application.Current.MainPage.DisplayActionSheet("Select:", "Cancel", null, styles);
                 int styleIndex = Array.IndexOf(styles, style);
 
-                // Determine the style from the
                 ArcGISVectorTiledLayer vectorTiledLayer = _vectorTiledLayers[styleIndex];
 
                 // Clear the map of the currently loaded layer.

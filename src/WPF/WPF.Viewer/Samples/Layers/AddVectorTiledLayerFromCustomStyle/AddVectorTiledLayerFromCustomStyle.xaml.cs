@@ -25,7 +25,6 @@ namespace ArcGIS.WPF.Samples.AddVectorTiledLayerFromCustomStyle
         description: "Load ArcGIS vector tiled layers using custom styles.",
         instructions: "Pan and zoom to explore the vector tile basemap.",
         tags: new[] { "tiles", "vector", "vector basemap", "vector tiled layer", "vector tiles" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class AddVectorTiledLayerFromCustomStyle
     {
         // List all portal item IDs of vector tiled layers.

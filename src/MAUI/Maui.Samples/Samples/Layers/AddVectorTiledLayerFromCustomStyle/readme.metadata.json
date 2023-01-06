@@ -18,6 +18,9 @@
         "/net/latest/maui/sample-code/addvectortiledlayerfromcustomstyle.htm"
     ],
     "relevant_apis": [
+        "ExportVectorTilesJob",
+        "ExportVectorTilesResult",
+        "ExportVectorTilesTask",
         "VectorTileCache",
         "VectorTiledLayer",
         "VectorTilesTask"

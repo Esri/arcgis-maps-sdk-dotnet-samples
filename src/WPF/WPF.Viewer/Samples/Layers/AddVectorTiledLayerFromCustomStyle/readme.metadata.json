@@ -18,6 +18,9 @@
         "/net/latest/wpf/sample-code/addvectortiledlayerfromcustomstyle.htm"
     ],
     "relevant_apis": [
+        "ExportVectorTilesJob",
+        "ExportVectorTilesResult",
+        "ExportVectorTilesTask",
         "VectorTileCache",
         "VectorTiledLayer",
         "VectorTilesTask"

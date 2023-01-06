@@ -10,6 +10,7 @@
       <Sample>SketchOnMap</Sample>
     </Category>
     <Category name="Layers">
+	  <Sample>AddVectorTiledLayerFromCustomStyle</Sample>
       <Sample>DisplayDimensions</Sample>
       <Sample>ExportVectorTiles</Sample>
     </Category>

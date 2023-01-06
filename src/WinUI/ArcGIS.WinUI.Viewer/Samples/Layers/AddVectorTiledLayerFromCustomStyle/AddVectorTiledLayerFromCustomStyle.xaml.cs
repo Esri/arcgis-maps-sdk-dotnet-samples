@@ -44,9 +44,6 @@ namespace ArcGIS.WinUI.Samples.AddVectorTiledLayerFromCustomStyle
             "ce8a34e5d4ca4fa193a097511daa8855"
         };
 
-        // Items to fill the ActionDisplaySheet for switching custom styles.
-        private readonly string[] styles = { "Default", "Style 1", "Style 2", "Style 3", "Offline custom style: Light", "Offline custom style: Dark" };
-
         // Path to Dodge City vector tile package.
         private readonly string _localVectorPackagePath = DataManager.GetDataFolder("f4b742a57af344988b02227e2824ca5f", "dodge_city.vtpk");
 
@@ -85,6 +82,8 @@ namespace ArcGIS.WinUI.Samples.AddVectorTiledLayerFromCustomStyle
 
                 // Create a map using defaults.
                 MyMapView.Map = new Map(new Basemap(new ArcGISVectorTiledLayer(_vectorTiledLayers[0]))) { InitialViewpoint = _defaultViewpoint };
+                // - Ensure ComboBox in UI reflects this.
+                StyleChooser.SelectedIndex = 0;
               
                 // Export offline custom styles.
                 _lightStyleResourceCache = await ExportStyle(_vectorTiledLayers[4]);

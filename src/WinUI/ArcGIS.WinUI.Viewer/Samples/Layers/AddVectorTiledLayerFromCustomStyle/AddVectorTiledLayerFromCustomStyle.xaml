@@ -13,7 +13,10 @@
                     FontWeight="SemiBold"
                     Text="Select style:"
                     TextWrapping="Wrap" />
-                <ComboBox x:Name="StyleChooser" SelectionChanged="StyleChooserSelectionChanged">
+                <ComboBox
+                    x:Name="StyleChooser"
+                    MinWidth="200"
+                    SelectionChanged="StyleChooserSelectionChanged">
                     <ComboBoxItem Content="Default" />
                     <ComboBoxItem Content="Style 1" />
                     <ComboBoxItem Content="Style 2" />

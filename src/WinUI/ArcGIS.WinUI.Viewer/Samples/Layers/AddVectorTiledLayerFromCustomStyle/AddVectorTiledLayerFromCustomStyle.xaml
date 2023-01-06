@@ -15,7 +15,7 @@
                     TextWrapping="Wrap" />
                 <ComboBox
                     x:Name="StyleChooser"
-                    MinWidth="200"
+                    MinWidth="230"
                     SelectionChanged="StyleChooserSelectionChanged">
                     <ComboBoxItem Content="Default" />
                     <ComboBoxItem Content="Style 1" />

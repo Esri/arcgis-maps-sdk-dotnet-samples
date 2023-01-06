@@ -38,6 +38,7 @@ namespace ArcGIS.WinUI.Samples.AddVectorTiledLayerFromCustomStyle
             "02f85ec376084c508b9c8e5a311724fa",
             "1bf0cc4a4380468fbbff107e100f65a5",
         };
+
         private readonly string[] _offlineItemIDs =
         {
             "e01262ef2a4f4d91897d9bbd3a9b1075",
@@ -52,8 +53,8 @@ namespace ArcGIS.WinUI.Samples.AddVectorTiledLayerFromCustomStyle
         private readonly Viewpoint _defaultViewpoint = new Viewpoint(10, 5.5, 1e8);
         private readonly Viewpoint _dodgeCityViewpoint = new Viewpoint(37.76528, -100.01766, 4e4);
 
-        ItemResourceCache _lightStyleResourceCache;
-        ItemResourceCache _darkStyleResourceCache;
+        private ItemResourceCache _lightStyleResourceCache;
+        private ItemResourceCache _darkStyleResourceCache;
 
         public AddVectorTiledLayerFromCustomStyle()
         {
@@ -81,10 +82,10 @@ namespace ArcGIS.WinUI.Samples.AddVectorTiledLayerFromCustomStyle
                 }
 
                 // Create a map using defaults.
-                MyMapView.Map = new Map(new Basemap(new ArcGISVectorTiledLayer(_vectorTiledLayers[0]))) { InitialViewpoint = _defaultViewpoint };
+                MyMapView.Map = new Map() { InitialViewpoint = _defaultViewpoint };
                 // - Ensure ComboBox in UI reflects this.
                 StyleChooser.SelectedIndex = 0;
-              
+
                 // Export offline custom styles.
                 _lightStyleResourceCache = await ExportStyle(_vectorTiledLayers[4]);
                 _darkStyleResourceCache = await ExportStyle(_vectorTiledLayers[5]);
@@ -121,7 +122,6 @@ namespace ArcGIS.WinUI.Samples.AddVectorTiledLayerFromCustomStyle
                     MyMapView.Map.Basemap = new Basemap(new ArcGISVectorTiledLayer(new VectorTileCache(_localVectorPackagePath), cache));
                     await MyMapView.SetViewpointAsync(_dodgeCityViewpoint);
                 }
-
             }
             catch (Exception ex)
             {

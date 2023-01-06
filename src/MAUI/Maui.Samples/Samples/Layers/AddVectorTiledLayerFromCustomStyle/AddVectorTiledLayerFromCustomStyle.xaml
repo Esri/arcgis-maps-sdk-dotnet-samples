@@ -4,14 +4,13 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-
-    <Grid>
-        <esri:MapView x:Name="MyMapView" />
-        <Button
-            Margin="5,5,5,5"
-            Clicked="StyleChooserClick"
-            HorizontalOptions="End"
-            Text="Change style"
-            VerticalOptions="Start" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esri:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <HorizontalStackLayout Padding="5" Spacing="5">
+                <Button Clicked="ButtonClick" Text="Change style" />
+                <Label x:Name="ChosenStyle" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </Border>
     </Grid>
 </ContentPage>

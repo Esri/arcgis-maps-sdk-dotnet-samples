@@ -1,4 +1,4 @@
-﻿// Copyright 2022 Esri.
+﻿// Copyright 2023 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -7,7 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Geometry;
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Tasks.Offline;
@@ -20,18 +20,37 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
         description: "Load ArcGIS vector tiled layers using custom styles.",
         instructions: "Pan and zoom to explore the vector tile basemap.",
         tags: new[] { "tiles", "vector", "vector basemap", "vector tiled layer", "vector tiles" })]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("f4b742a57af344988b02227e2824ca5f")]
     public partial class AddVectorTiledLayerFromCustomStyle
     {
-        // List all portal item IDs of vector tiled layers.
-        private List<string> _itemIDs;
+        // ArcGIS Online portal item strings.
+        private readonly string[] _onlineItemIDs =
+        {
+            "1349bfa0ed08485d8a92c442a3850b06",
+            "bd8ac41667014d98b933e97713ba8377",
+            "02f85ec376084c508b9c8e5a311724fa",
+            "1bf0cc4a4380468fbbff107e100f65a5",
+        };
 
-        // These layers can be selected from the ComboBox.
-        private List<ArcGISVectorTiledLayer> _vectorTiledLayers;
+        private readonly string[] _offlineItemIDs =
+        {
+            "e01262ef2a4f4d91897d9bbd3a9b1075",
+            "ce8a34e5d4ca4fa193a097511daa8855"
+        };
 
-        private Viewpoint _defaultViewpoint = new Viewpoint(10, 5.5, 1e8);
-        private Viewpoint _dodgeCityViewpoint = new Viewpoint(37.76528, -100.01766, 4e4);
+        // Items to fill the ActionDisplaySheet for switching custom styles.
+        private readonly string[] styles = { "Default", "Style 1", "Style 2", "Style 3", "Offline custom style: Light", "Offline custom style: Dark" };
 
-        private string[] styles = { "Default", "Style 1", "Style 2", "Style 3", "Offline custom style: Light", "Offline custom style: Dark" };
+        // Path to Dodge City vector tile package.
+        private readonly string _localVectorPackagePath = DataManager.GetDataFolder("f4b742a57af344988b02227e2824ca5f", "dodge_city.vtpk");
+
+        private List<PortalItem> _vectorTiledLayers = new List<PortalItem>();
+
+        private readonly Viewpoint _defaultViewpoint = new Viewpoint(10, 5.5, 1e8);
+        private readonly Viewpoint _dodgeCityViewpoint = new Viewpoint(37.76528, -100.01766, 4e4);
+
+        private ItemResourceCache _lightStyleResourceCache;
+        private ItemResourceCache _darkStyleResourceCache;
 
         public AddVectorTiledLayerFromCustomStyle()
         {
@@ -41,98 +60,104 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
 
         private async Task Initialize()
         {
-            _itemIDs = new List<string>
+            try
             {
-                // Vector tiled layers from ArcGISOnline.
-                "1349bfa0ed08485d8a92c442a3850b06",
-                "bd8ac41667014d98b933e97713ba8377",
-                "02f85ec376084c508b9c8e5a311724fa",
-                "1bf0cc4a4380468fbbff107e100f65a5",
+                // Load the default portal.
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
-                // A vector tiled layer created by the local VTPK and light custom style.
-                "e01262ef2a4f4d91897d9bbd3a9b1075",
+                // Store a list of all portal items.
+                foreach (string item in _onlineItemIDs)
+                {
+                    PortalItem portalItem = await PortalItem.CreateAsync(portal, item);
+                    _vectorTiledLayers.Add(portalItem);
+                }
+                foreach (string item in _offlineItemIDs)
+                {
+                    PortalItem portalItem = await PortalItem.CreateAsync(portal, item);
+                    _vectorTiledLayers.Add(portalItem);
+                }
 
-                // A vector tiled layer created by the local VTPK and dark custom style.
-                "ce8a34e5d4ca4fa193a097511daa8855"
-            };
+                // Create a map using defaults.
+                MyMapView.Map = new Map(new Basemap(new ArcGISVectorTiledLayer(_vectorTiledLayers[0]))) { InitialViewpoint = _defaultViewpoint };
+                // - Ensure label in UI reflects this.
+                ChosenStyle.Text = "Default";
 
-            // Load the default portal.
-            ArcGISPortal portal = await ArcGISPortal.CreateAsync();
-
-            // Create vector tiled layers for each portal item.
-            _vectorTiledLayers = new List<ArcGISVectorTiledLayer>();
-
-            // Store a list of tiled layers in the different styles.
-            foreach (string item in _itemIDs)
-            {
-                PortalItem websceneItem = await PortalItem.CreateAsync(portal, item);
-                ArcGISVectorTiledLayer vectorTiledLayer = new ArcGISVectorTiledLayer(websceneItem);
-                _vectorTiledLayers.Add(vectorTiledLayer);
+                // Export offline custom styles.
+                _lightStyleResourceCache = await ExportStyle(_vectorTiledLayers[4]);
+                _darkStyleResourceCache = await ExportStyle(_vectorTiledLayers[5]);
             }
-
-            // Create a map with the default style.
-            MyMapView.Map = new Map(SpatialReferences.WebMercator);
-            MyMapView.Map.Basemap.BaseLayers.Add(_vectorTiledLayers[0]);
-
-            await MyMapView.SetViewpointAsync(_defaultViewpoint);
+            catch (Exception ex)
+            {
+                // Report exceptions.
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
         }
 
-        private async void Export(ArcGISVectorTiledLayer vectorTiledLayer)
+        private void ButtonClick(object sender, EventArgs e)
         {
-            // Create the task.
-            ExportVectorTilesTask exportTask = await ExportVectorTilesTask.CreateAsync(vectorTiledLayer.Source);
-
-            ExportVectorTilesParameters parameters = await exportTask.CreateDefaultExportVectorTilesParametersAsync(MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry, MyMapView.MapScale * 0.1);
-
-            // By using the UseReducedFontService download option the file download speed is reduced.
-            // This limits vector tiled layers character sets and may not be suitable in every use case.
-            parameters.EsriVectorTilesDownloadOption = EsriVectorTilesDownloadOption.UseReducedFontsService;
-
-            // Get the tile cache path and item resource path for the base layer styling.
-            string tilePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + ".vtpk");
-            string itemResourcePath = Path.Combine(Environment.ExpandEnvironmentVariables("%TEMP%"), Path.GetTempFileName() + "_styleItemResources");
-
-            // Create the export job and start it.
-            ExportVectorTilesJob _job = exportTask.ExportVectorTiles(parameters, tilePath, itemResourcePath);
-            _job.Start();
-
-            // Wait for the job to complete.
-            ExportVectorTilesResult vectorTilesResult = await _job.GetResultAsync();
-
-            // Load the vector tile cache.
-            VectorTileCache vectorTileCache = vectorTilesResult.VectorTileCache;
-            await vectorTileCache.LoadAsync();
+            _ = StyleChooser();
         }
 
-        private async void StyleChooserClick(object sender, EventArgs e)
+        private async Task StyleChooser()
         {
             try
             {
-                // Get the chosen style and determine that style's index.
+                // Get the chosen style, determine that style's index, and update UI label.
                 string style = await Application.Current.MainPage.DisplayActionSheet("Select:", "Cancel", null, styles);
+                // - Don't attempt to change the style if the user cancels or misclicks.
+                if (style is null || style.Equals("Cancel")) { return; }
                 int styleIndex = Array.IndexOf(styles, style);
+                ChosenStyle.Text = style;
 
-                ArcGISVectorTiledLayer vectorTiledLayer = _vectorTiledLayers[styleIndex];
-
-                // Clear the map of the currently loaded layer.
-                MyMapView.Map.Basemap.BaseLayers.RemoveAt(0);
-
-                if (styleIndex <= 3)
+                // Check if the user selected an online or offline custom style.
+                // Create a new basemap with the appropriate style.
+                if (_onlineItemIDs.Contains(_vectorTiledLayers[styleIndex].ItemId))
                 {
-                    // No need to export - change the basemap style.
+                    MyMapView.Map.Basemap = new Basemap(new ArcGISVectorTiledLayer(_vectorTiledLayers[styleIndex]));
                     await MyMapView.SetViewpointAsync(_defaultViewpoint);
                 }
                 else
                 {
-                    // Export a custom style.
+                    // - Determine which cache to use based on if the style selected is light (index 4) or dark.
+                    ItemResourceCache cache = styleIndex == 4 ? _lightStyleResourceCache : _darkStyleResourceCache;
+                    MyMapView.Map.Basemap = new Basemap(new ArcGISVectorTiledLayer(new VectorTileCache(_localVectorPackagePath), cache));
                     await MyMapView.SetViewpointAsync(_dodgeCityViewpoint);
-                    Export(vectorTiledLayer);
                 }
-                MyMapView.Map.Basemap.BaseLayers.Add(vectorTiledLayer);
             }
-            catch (ArgumentOutOfRangeException)
+            catch (Exception ex)
             {
-                // This exception will be thrown if the user cancels the DisplayActionSheet, so ignore.
+                // Report exceptions.
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+
+        private async Task<ItemResourceCache> ExportStyle(PortalItem vectorTiledLayer)
+        {
+            try
+            {
+                // Create the task.
+                ExportVectorTilesTask exportTask = await ExportVectorTilesTask.CreateAsync(vectorTiledLayer.Url);
+
+                // Get the item resource path for the basemap styling.
+                string itemResourcePath = Path.Combine(Path.GetTempPath(), vectorTiledLayer.ItemId + "_styleItemResources");
+
+                // If cache has been created previously, return.
+                if (Directory.Exists(itemResourcePath)) { return new ItemResourceCache(itemResourcePath); }
+
+                // Create the export job and start it.
+                ExportVectorTilesJob job = exportTask.ExportStyleResourceCache(itemResourcePath);
+                job.Start();
+
+                // Wait for the job to complete.
+                ExportVectorTilesResult vectorTilesResult = await job.GetResultAsync();
+
+                return vectorTilesResult.ItemResourceCache;
+            }
+            catch (Exception ex)
+            {
+                // Report exceptions.
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                return null;
             }
         }
     }

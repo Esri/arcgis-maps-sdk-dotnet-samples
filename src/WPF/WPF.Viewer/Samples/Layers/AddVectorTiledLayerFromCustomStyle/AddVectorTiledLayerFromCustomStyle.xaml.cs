@@ -94,7 +94,7 @@ namespace ArcGIS.WPF.Samples.AddVectorTiledLayerFromCustomStyle
             catch (Exception ex)
             {
                 // Report exceptions.
-                MessageBox.Show("Error editing shape: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Error: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

@@ -1,40 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <FeaturedSamples>
-  <Categories>
-    <Category name="Data">
-      <Sample>AddFeaturesWithContingentValues</Sample>
-      <Sample>CreateMobileGeodatabase</Sample>
-      <Sample>QueryFeaturesWithArcadeExpression</Sample>
-    </Category>
-    <Category name="GraphicsOverlay">
-      <Sample>SketchOnMap</Sample>
-    </Category>
-    <Category name="Layers">
-	  <Sample>AddVectorTiledLayerFromCustomStyle</Sample>
-      <Sample>DisplayDimensions</Sample>
-      <Sample>ExportVectorTiles</Sample>
-    </Category>
-    <Category name="LocalServer">
-      <Sample>LocalServerGenerateElevationProfile</Sample>
-    </Category>
-    <Category name="Location">
-      <Sample>IndoorPositioning</Sample>
-      <Sample>LocationDrivenGeotriggers</Sample>
-    </Category>
-    <Category name="Map">
-      <Sample>BrowseBuildingFloors</Sample>
-      <Sample>DisplayOverviewMap</Sample>
-    </Category>
-    <Category name="MapView">
-      <Sample>FilterByTimeExtent</Sample>
-    </Category>
-    <Category name="Symbology">
-      <Sample>RenderMultilayerSymbols</Sample>
-      <Sample>SymbolStylesFromWebStyles</Sample>
-      <Sample>UniqueValuesAlternateSymbols</Sample>
-    </Category>
-    <Category name="UtilityNetwork">
-      <Sample>DisplayUtilityNetworkContainer</Sample>
-    </Category>
-  </Categories>
+	<Categories>
+		<Category name="Data">
+			<Sample>AddFeaturesWithContingentValues</Sample>
+			<Sample>CreateMobileGeodatabase</Sample>
+			<Sample>QueryFeaturesWithArcadeExpression</Sample>
+		</Category>
+		<Category name="GraphicsOverlay">
+			<Sample>SketchOnMap</Sample>
+		</Category>
+		<Category name="Layers">
+			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>
+			<Sample>DisplayDimensions</Sample>
+			<Sample>ExportVectorTiles</Sample>
+		</Category>
+		<Category name="LocalServer">
+			<Sample>LocalServerGenerateElevationProfile</Sample>
+		</Category>
+		<Category name="Location">
+			<Sample>IndoorPositioning</Sample>
+			<Sample>LocationDrivenGeotriggers</Sample>
+		</Category>
+		<Category name="Map">
+			<Sample>BrowseBuildingFloors</Sample>
+			<Sample>DisplayOverviewMap</Sample>
+		</Category>
+		<Category name="MapView">
+			<Sample>FilterByTimeExtent</Sample>
+		</Category>
+		<Category name="Symbology">
+			<Sample>RenderMultilayerSymbols</Sample>
+			<Sample>SymbolStylesFromWebStyles</Sample>
+			<Sample>UniqueValuesAlternateSymbols</Sample>
+		</Category>
+		<Category name="Scene">
+		    <Sample>ShowLabelsOnLayer3D</Sample>
+		</Category>
+		<Category name="UtilityNetwork">
+			<Sample>DisplayUtilityNetworkContainer</Sample>
+		</Category>
+	</Categories>
 </FeaturedSamples>

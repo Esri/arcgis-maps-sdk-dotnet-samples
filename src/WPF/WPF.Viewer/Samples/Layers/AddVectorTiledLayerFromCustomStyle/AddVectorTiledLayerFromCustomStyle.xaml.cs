@@ -84,7 +84,8 @@ namespace ArcGIS.WPF.Samples.AddVectorTiledLayerFromCustomStyle
 
                 // Create a map using defaults.
                 MyMapView.Map = new Map() { InitialViewpoint = _defaultViewpoint };
-                // Ensure ComboBox in UI reflects this.
+
+                // By default, the ComboBox will not reflect the default style.
                 StyleChooser.SelectedIndex = 0;
 
                 // Export offline custom styles.

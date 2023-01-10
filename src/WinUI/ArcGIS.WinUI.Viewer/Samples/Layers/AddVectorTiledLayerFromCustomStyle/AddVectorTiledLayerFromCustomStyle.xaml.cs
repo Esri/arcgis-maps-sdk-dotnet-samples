@@ -83,7 +83,8 @@ namespace ArcGIS.WinUI.Samples.AddVectorTiledLayerFromCustomStyle
 
                 // Create a map using defaults.
                 MyMapView.Map = new Map() { InitialViewpoint = _defaultViewpoint };
-                // - Ensure ComboBox in UI reflects this.
+
+                // By default, the UI label will not reflect the default style.
                 StyleChooser.SelectedIndex = 0;
 
                 // Export offline custom styles.
@@ -117,7 +118,7 @@ namespace ArcGIS.WinUI.Samples.AddVectorTiledLayerFromCustomStyle
                 }
                 else
                 {
-                    // - Determine which cache to use based on if the style selected is light (index 4) or dark.
+                    // Determine which cache to use based on if the style selected is light (index 4) or dark.
                     ItemResourceCache cache = styleIndex == 4 ? _lightStyleResourceCache : _darkStyleResourceCache;
                     MyMapView.Map.Basemap = new Basemap(new ArcGISVectorTiledLayer(new VectorTileCache(_localVectorPackagePath), cache));
                     await MyMapView.SetViewpointAsync(_dodgeCityViewpoint);

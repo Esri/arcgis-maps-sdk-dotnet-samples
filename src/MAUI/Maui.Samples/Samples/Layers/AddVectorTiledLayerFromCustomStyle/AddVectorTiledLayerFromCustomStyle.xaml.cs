@@ -78,7 +78,7 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
                 }
 
                 // Create a map using defaults.
-                MyMapView.Map = new Map() { InitialViewpoint = _defaultViewpoint };
+                MyMapView.Map = new Map(new Basemap(new ArcGISVectorTiledLayer(_vectorTiledLayers[0]))) { InitialViewpoint = _defaultViewpoint };
 
                 // By default, the UI label will not reflect the default style.
                 ChosenStyle.Text = "Default";

@@ -330,7 +330,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             _taskCompletionSource.SetResult(null);
         }
 
-        void UnregisterEventHandlers()
+        private void UnregisterEventHandlers()
         {
             _imagePicker.FinishedPickingMedia -= OnImagePickerFinishedPickingMedia;
             _imagePicker.Canceled -= OnImagePickerCancelled;
@@ -405,7 +405,8 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                 UnregisterEventHandlers();
             }
         }
-        void UnregisterEventHandlers()
+
+        private void UnregisterEventHandlers()
         {
             _imagePicker.DidPickDocument -= DocumentPicked;
             _imagePicker.DidPickDocumentAtUrls -= DocumentAtUrlsPicked;

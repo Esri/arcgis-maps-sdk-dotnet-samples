@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Mapping;
 // Custom code is needed for presenting the image picker on iOS.
 #if IOS || MACCATALYST
 using Foundation;
+using Microsoft.Maui.Controls;
 using UIKit;
 #endif
 
@@ -142,9 +143,17 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                     return;
                 }
 
+                if (!_filename.EndsWith(".jpg") && !_filename.EndsWith(".jpeg"))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Try again!", "This sample only allows uploading jpg files.", "OK");
+                    return;
+                }
+                filename = _filename;
+
                 attachmentData = new byte[imageStream.Length];
                 imageStream.Read(attachmentData, 0, attachmentData.Length);
-                filename = _filename ?? "file1.jpeg";
+                imageStream.Close();
+                
 #else
                 // Show a file picker
                 FileResult fileData = await FilePicker.PickAsync(new PickOptions { FileTypes = FilePickerFileType.Jpeg });
@@ -274,7 +283,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
         // Image picker implementation.
         // Microsoft.Maui.Storage.FilePicker shows an iCloud file picker; comment this out
         // and use the cross-platform implementation if that's what you want.
-#if IOS || MACCATALYST
+#if IOS
         private TaskCompletionSource<Stream> _taskCompletionSource;
         private UIImagePickerController _imagePicker;
         private string _filename;
@@ -337,6 +346,72 @@ namespace ArcGIS.Samples.EditFeatureAttachments
         {
             _imagePicker.FinishedPickingMedia -= OnImagePickerFinishedPickingMedia;
             _imagePicker.Canceled -= OnImagePickerCancelled;
+        }
+#endif
+
+#if MACCATALYST
+        private TaskCompletionSource<Stream> _taskCompletionSource;
+        private UIDocumentPickerViewController _imagePicker;
+        private string _filename;
+
+        public async Task<Stream> GetImageStreamAsync()
+        {
+			var allowedTypes = new string[]
+			{
+			  "public.image"
+			};
+
+			_imagePicker = new UIDocumentPickerViewController(allowedTypes, UIDocumentPickerMode.Open);
+			_taskCompletionSource = new TaskCompletionSource<Stream>();
+
+            _imagePicker.DidPickDocument += DocumentPicked;
+            _imagePicker.DidPickDocumentAtUrls += DocumentAtUrlsPicked;
+            _imagePicker.WasCancelled += DocumentCancelled;
+
+            // Present UIImagePickerController.
+            UIWindow window = UIApplication.SharedApplication.KeyWindow;
+            var viewController = window.RootViewController;
+            viewController.PresentModalViewController(_imagePicker, true);
+
+            return await _taskCompletionSource.Task;
+		}
+
+        private void DocumentAtUrlsPicked(object sender, UIDocumentPickedAtUrlsEventArgs e)
+        {
+            PickDocumentAsync(e.Urls[0]);
+        }
+
+        private void DocumentCancelled(object sender, EventArgs e)
+        {
+            _taskCompletionSource.TrySetCanceled();
+            _imagePicker.DidPickDocument -= DocumentPicked;
+            _imagePicker.WasCancelled -= DocumentCancelled;
+            _imagePicker.DismissModalViewController(true);
+        }
+
+        private void DocumentPicked(object sender, UIDocumentPickedEventArgs e)
+        {
+            PickDocumentAsync(e.Url);
+        }
+
+        private void PickDocumentAsync(NSUrl url)
+        {
+            try
+            {
+                _filename = url.LastPathComponent;
+                Stream fileStream = File.Open(url.ToString(), FileMode.Open);
+                _taskCompletionSource.TrySetResult(fileStream);
+            }
+            catch (Exception ex)
+            {
+                _taskCompletionSource.TrySetResult(null);
+            }
+            finally
+            {
+                _imagePicker.DidPickDocument -= DocumentPicked;
+                _imagePicker.WasCancelled -= DocumentCancelled;
+                _imagePicker.DismissModalViewController(true);
+            }
         }
 #endif
     }

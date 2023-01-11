@@ -81,7 +81,7 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
                 MyMapView.Map = new Map(new Basemap(new ArcGISVectorTiledLayer(_vectorTiledLayers[0]))) { InitialViewpoint = _defaultViewpoint };
 
                 // By default, the UI label will not reflect the default style.
-                ChosenStyle.Text = "Default";
+                ChosenStyle.Text = "Current style: Default";
 
                 // Export offline custom styles.
                 _lightStyleResourceCache = await ExportStyle(_vectorTiledLayers[4]);

@@ -105,8 +105,10 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
             {
                 // Get the chosen style, determine that style's index, and update UI label.
                 string style = await Application.Current.MainPage.DisplayActionSheet("Select:", "Cancel", null, styles);
-                // - Don't attempt to change the style if the user cancels or misclicks.
+
+                // Don't attempt to change the style if the user cancels or misclicks.
                 if (style is null || style.Equals("Cancel")) { return; }
+
                 int styleIndex = Array.IndexOf(styles, style);
                 ChosenStyle.Text = $"Current style: {style}";
 

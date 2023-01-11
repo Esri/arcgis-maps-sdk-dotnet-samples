@@ -18,8 +18,8 @@
                     <ComboBoxItem Content="Style 1" />
                     <ComboBoxItem Content="Style 2" />
                     <ComboBoxItem Content="Style 3" />
-                    <ComboBoxItem Content="Offline custom style: Light" />
-                    <ComboBoxItem Content="Offline custom style: Dark" />
+                    <ComboBoxItem Content="Offline custom style - Light" />
+                    <ComboBoxItem Content="Offline custom style - Dark" />
                 </ComboBox>
             </StackPanel>
         </Border>

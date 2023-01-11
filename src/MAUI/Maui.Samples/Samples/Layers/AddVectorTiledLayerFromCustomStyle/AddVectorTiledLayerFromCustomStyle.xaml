@@ -5,11 +5,11 @@
              xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esri:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <HorizontalStackLayout Padding="5" Spacing="5">
-                <Button Clicked="ButtonClick" Text="Change style" />
+        <Border MaximumWidthRequest="300" Style="{DynamicResource EsriSampleControlPanel}">
+            <VerticalStackLayout Padding="5" Spacing="5">
                 <Label x:Name="ChosenStyle" VerticalOptions="Center" />
-            </HorizontalStackLayout>
+                <Button Clicked="ButtonClick" Text="Change style" />
+            </VerticalStackLayout>
         </Border>
     </Grid>
 </ContentPage>

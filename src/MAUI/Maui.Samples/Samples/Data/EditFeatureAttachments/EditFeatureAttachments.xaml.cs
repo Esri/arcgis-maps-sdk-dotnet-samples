@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.Mapping;
 // Custom code is needed for presenting the image picker on iOS.
 #if IOS || MACCATALYST
 using Foundation;
-using Microsoft.Maui.Controls;
 using UIKit;
 #endif
 
@@ -135,26 +134,12 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                 string filename;
 
                 // Microsoft.Maui.Storage.FilePicker shows the iCloud picker (not photo picker) on iOS.
-                // This iOS code shows the photo picker.
-#if IOS
-                Stream imageStream = await GetImageStreamAsync();
-                if (imageStream == null)
-                {
-                    return;
-                }
-
-                if (!_filename.EndsWith(".jpg") && !_filename.EndsWith(".jpeg"))
-                {
-                    await Application.Current.MainPage.DisplayAlert("Try again!", "This sample only allows uploading jpg files.", "OK");
-                    return;
-                }
-                filename = _filename;
-
-                attachmentData = new byte[imageStream.Length];
-                imageStream.Read(attachmentData, 0, attachmentData.Length);
-                imageStream.Close();
-#elif MACCATALYST
+                
+#if IOS || MACCATALYST
                 attachmentData = await GetImageBytesAsync();
+
+                // Return if no image was loaded.
+                if (attachmentData == null) return;
 
                 if (!_filename.EndsWith(".jpg") && !_filename.EndsWith(".jpeg"))
                 {
@@ -204,7 +189,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             }
             catch (Exception exception)
             {
-                await Application.Current.MainPage.DisplayAlert("Error adding attachment", exception.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error adding attachment", exception.Message, "OK");
             }
             finally
             {
@@ -288,15 +273,15 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             return attachments.Where(attachment => attachment.ContentType == "image/jpeg").ToList();
         }
 
-        // Image picker implementation.
+        // Image picker implementation for iOS using UIImagePickerController.
         // Microsoft.Maui.Storage.FilePicker shows an iCloud file picker; comment this out
         // and use the cross-platform implementation if that's what you want.
 #if IOS
-        private TaskCompletionSource<Stream> _taskCompletionSource;
+        private TaskCompletionSource<byte[]> _taskCompletionSource;
         private UIImagePickerController _imagePicker;
         private string _filename;
 
-        private Task<Stream> GetImageStreamAsync()
+        private Task<byte[]> GetImageBytesAsync()
         {
             // Create and define UIImagePickerController.
             _imagePicker = new UIImagePickerController
@@ -312,51 +297,48 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             // Present UIImagePickerController.
             UIWindow window = UIApplication.SharedApplication.KeyWindow;
             var viewController = window.RootViewController;
-            viewController.PresentModalViewController(_imagePicker, true);
+            viewController.PresentViewController(_imagePicker, true, null);
 
             // Return Task object.
-            _taskCompletionSource = new TaskCompletionSource<Stream>();
+            _taskCompletionSource = new TaskCompletionSource<byte[]>();
             return _taskCompletionSource.Task;
         }
 
-        void OnImagePickerFinishedPickingMedia(object sender, UIImagePickerMediaPickedEventArgs args)
+        private void OnImagePickerFinishedPickingMedia(object sender, UIImagePickerMediaPickedEventArgs args)
         {
             UIImage image = args.EditedImage ?? args.OriginalImage;
             _filename = args.ImageUrl.LastPathComponent;
             if (image != null)
             {
-                // Convert UIImage to .NET Stream object.
+                // Get the image data.
                 NSData data = image.AsJPEG(1);
-                Stream stream = data.AsStream();
 
-                UnregisterEventHandlers();
-
-                // Set the Stream as the completion of the Task.
-                _taskCompletionSource.SetResult(stream);
+                // Set the byte array as the completion of the Task.
+                _taskCompletionSource.SetResult(data.ToArray());
             }
             else
             {
-                UnregisterEventHandlers();
                 _taskCompletionSource.SetResult(null);
             }
 
-            _imagePicker.DismissModalViewController(true);
+            UnregisterEventHandlers();
         }
 
-        void OnImagePickerCancelled(object sender, EventArgs args)
+        private void OnImagePickerCancelled(object sender, EventArgs args)
         {
             UnregisterEventHandlers();
             _taskCompletionSource.SetResult(null);
-            _imagePicker.DismissModalViewController(true);
         }
 
         void UnregisterEventHandlers()
         {
             _imagePicker.FinishedPickingMedia -= OnImagePickerFinishedPickingMedia;
             _imagePicker.Canceled -= OnImagePickerCancelled;
+            _imagePicker.DismissViewController(true, null);
         }
 #endif
 
+        // Image picker implementation for Mac using UIDocumentPickerViewController.
 #if MACCATALYST
         private TaskCompletionSource<byte[]> _taskCompletionSource;
         private UIDocumentPickerViewController _imagePicker;
@@ -364,26 +346,30 @@ namespace ArcGIS.Samples.EditFeatureAttachments
 
         public async Task<byte[]> GetImageBytesAsync()
         {
-			var allowedTypes = new string[]
-			{
-			  "public.image"
-			};
+            var allowedTypes = new UniformTypeIdentifiers.UTType[]
+            {
+              UniformTypeIdentifiers.UTTypes.Image,
+            };
 
-			_imagePicker = new UIDocumentPickerViewController(allowedTypes, UIDocumentPickerMode.Open);
-			_taskCompletionSource = new TaskCompletionSource<byte[]>();
+            _imagePicker = new UIDocumentPickerViewController(allowedTypes) { AllowsMultipleSelection = false };
+            _taskCompletionSource = new TaskCompletionSource<byte[]>();
 
             _imagePicker.DidPickDocument += DocumentPicked;
             _imagePicker.DidPickDocumentAtUrls += DocumentAtUrlsPicked;
             _imagePicker.WasCancelled += DocumentCancelled;
 
-            // Present UIImagePickerController.
+            // Present the UIDocumentPickerViewController.
             UIWindow window = UIApplication.SharedApplication.KeyWindow;
             var viewController = window.RootViewController;
-            viewController.PresentModalViewController(_imagePicker, true);
+            viewController.PresentViewController(_imagePicker, true, null);
 
             return await _taskCompletionSource.Task;
-		}
+        }
 
+        private void DocumentPicked(object sender, UIDocumentPickedEventArgs e)
+        {
+            PickDocumentAsync(e.Url);
+        }
         private void DocumentAtUrlsPicked(object sender, UIDocumentPickedAtUrlsEventArgs e)
         {
             PickDocumentAsync(e.Urls[0]);
@@ -391,36 +377,40 @@ namespace ArcGIS.Samples.EditFeatureAttachments
 
         private void DocumentCancelled(object sender, EventArgs e)
         {
-            _taskCompletionSource.TrySetCanceled();
-            _imagePicker.DidPickDocument -= DocumentPicked;
-            _imagePicker.WasCancelled -= DocumentCancelled;
-            _imagePicker.DismissModalViewController(true);
-        }
-
-        private void DocumentPicked(object sender, UIDocumentPickedEventArgs e)
-        {
-            PickDocumentAsync(e.Url);
+            // A null result will cancel without presenting an error message.
+            _taskCompletionSource.TrySetResult(null);
+            UnregisterEventHandlers();
         }
 
         private void PickDocumentAsync(NSUrl url)
         {
             try
             {
+                // Set the filename for later use.
                 _filename = url.LastPathComponent;
+
+                // Load the data from the local file.
                 NSData data = NSData.FromUrl(url);
-                byte[] bytes = data.ToArray();
-                _taskCompletionSource.TrySetResult(bytes);
+
+                // Set the byte array as the completion of the Task.
+                _taskCompletionSource.TrySetResult(data.ToArray());
             }
             catch (Exception ex)
             {
-                _taskCompletionSource.TrySetResult(null);
+                System.Diagnostics.Debug.Print(ex.Message);
+                _taskCompletionSource.TrySetException(ex);
             }
             finally
             {
-                _imagePicker.DidPickDocument -= DocumentPicked;
-                _imagePicker.WasCancelled -= DocumentCancelled;
-                _imagePicker.DismissModalViewController(true);
+                UnregisterEventHandlers();
             }
+        }
+        void UnregisterEventHandlers()
+        {
+            _imagePicker.DidPickDocument -= DocumentPicked;
+            _imagePicker.DidPickDocumentAtUrls -= DocumentAtUrlsPicked;
+            _imagePicker.WasCancelled -= DocumentCancelled;
+            _imagePicker.DismissViewController(true, null);
         }
 #endif
     }

@@ -108,7 +108,7 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
                 // - Don't attempt to change the style if the user cancels or misclicks.
                 if (style is null || style.Equals("Cancel")) { return; }
                 int styleIndex = Array.IndexOf(styles, style);
-                ChosenStyle.Text = style;
+                ChosenStyle.Text = $"Current style: {style}";
 
                 // Check if the user selected an online or offline custom style.
                 // Create a new basemap with the appropriate style.

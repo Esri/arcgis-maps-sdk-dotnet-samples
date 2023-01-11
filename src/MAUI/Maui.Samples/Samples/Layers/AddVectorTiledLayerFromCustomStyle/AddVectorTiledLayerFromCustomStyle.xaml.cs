@@ -39,7 +39,7 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
         };
 
         // Items to fill the ActionDisplaySheet for switching custom styles.
-        private readonly string[] styles = { "Default", "Style 1", "Style 2", "Style 3", "Offline custom style: Light", "Offline custom style: Dark" };
+        private readonly string[] styles = { "Default", "Style 1", "Style 2", "Style 3", "Offline custom style - Light", "Offline custom style - Dark" };
 
         // Path to Dodge City vector tile package.
         private readonly string _localVectorPackagePath = DataManager.GetDataFolder("f4b742a57af344988b02227e2824ca5f", "dodge_city.vtpk");

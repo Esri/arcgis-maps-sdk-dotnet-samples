@@ -136,7 +136,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
 
                 // Microsoft.Maui.Storage.FilePicker shows the iCloud picker (not photo picker) on iOS.
                 // This iOS code shows the photo picker.
-#if IOS || MACCATALYST
+#if IOS
                 Stream imageStream = await GetImageStreamAsync();
                 if (imageStream == null)
                 {
@@ -153,7 +153,15 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                 attachmentData = new byte[imageStream.Length];
                 imageStream.Read(attachmentData, 0, attachmentData.Length);
                 imageStream.Close();
-                
+#elif MACCATALYST
+                attachmentData = await GetImageBytesAsync();
+
+                if (!_filename.EndsWith(".jpg") && !_filename.EndsWith(".jpeg"))
+                {
+                    await Application.Current.MainPage.DisplayAlert("Try again!", "This sample only allows uploading jpg files.", "OK");
+                    return;
+                }
+                filename = _filename;
 #else
                 // Show a file picker
                 FileResult fileData = await FilePicker.PickAsync(new PickOptions { FileTypes = FilePickerFileType.Jpeg });
@@ -350,11 +358,11 @@ namespace ArcGIS.Samples.EditFeatureAttachments
 #endif
 
 #if MACCATALYST
-        private TaskCompletionSource<Stream> _taskCompletionSource;
+        private TaskCompletionSource<byte[]> _taskCompletionSource;
         private UIDocumentPickerViewController _imagePicker;
         private string _filename;
 
-        public async Task<Stream> GetImageStreamAsync()
+        public async Task<byte[]> GetImageBytesAsync()
         {
 			var allowedTypes = new string[]
 			{
@@ -362,7 +370,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
 			};
 
 			_imagePicker = new UIDocumentPickerViewController(allowedTypes, UIDocumentPickerMode.Open);
-			_taskCompletionSource = new TaskCompletionSource<Stream>();
+			_taskCompletionSource = new TaskCompletionSource<byte[]>();
 
             _imagePicker.DidPickDocument += DocumentPicked;
             _imagePicker.DidPickDocumentAtUrls += DocumentAtUrlsPicked;
@@ -399,8 +407,9 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             try
             {
                 _filename = url.LastPathComponent;
-                Stream fileStream = File.Open(url.ToString(), FileMode.Open);
-                _taskCompletionSource.TrySetResult(fileStream);
+                NSData data = NSData.FromUrl(url);
+                byte[] bytes = data.ToArray();
+                _taskCompletionSource.TrySetResult(bytes);
             }
             catch (Exception ex)
             {

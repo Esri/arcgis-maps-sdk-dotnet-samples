@@ -40,7 +40,7 @@ If you are only interested in one platform, you can open a platform-specific sol
 - [WPF (.NET Framework)](src/WPF/readme.md): `src\WPF\WPF.Viewer.NetFramework.sln`
 - [WPF (.NET 6)](src/WPF/readme.md): `src\WPF\WPF.Viewer.Net.sln`
 - [.NET MAUI](src/MAUI/readme.md): `src\MAUI\ArcGIS.Samples.Maui.sln`
-- [WinUI](src/WinUI/readme.md): `\src\WinUI\ArcGIS.WinUI.Viewer.sln (Preview)`
+- [WinUI](src/WinUI/readme.md): `src\WinUI\ArcGIS.WinUI.Viewer.sln`
 
 The following platforms are being kept for reference, but no new sample implementations are being added:
 

@@ -306,8 +306,12 @@ namespace ArcGIS.Samples.EditFeatureAttachments
 
         private void OnImagePickerFinishedPickingMedia(object sender, UIImagePickerMediaPickedEventArgs args)
         {
+            // The picker can have values for an edited image and an original image. We use the edited image if it is not null.
             UIImage image = args.EditedImage ?? args.OriginalImage;
+
+            // Set the filename for later use.
             _filename = args.ImageUrl.LastPathComponent;
+
             if (image != null)
             {
                 // Get the image data.

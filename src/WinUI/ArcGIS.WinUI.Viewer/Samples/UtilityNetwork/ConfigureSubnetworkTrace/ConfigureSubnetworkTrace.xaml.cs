@@ -178,7 +178,7 @@ namespace ArcGIS.WinUI.Samples.ConfigureSubnetworkTrace
                 // Check if attribute domain is a coded value domain.
                 if (attributeComparison.NetworkAttribute.Domain is CodedValueDomain domain)
                 {
-                    // Get the coded value using the the attribute comparison value and attribute data type.
+                    // Get the coded value using the attribute comparison value and attribute data type.
                     UtilityNetworkAttributeDataType dataType = attributeComparison.NetworkAttribute.DataType;
                     object attributeValue = ConvertToDataType(attributeComparison.Value, attributeComparison.NetworkAttribute.DataType);
                     CodedValue codedValue = domain.CodedValues.FirstOrDefault(value => ConvertToDataType(value.Code, dataType).Equals(attributeValue));

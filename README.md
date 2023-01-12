@@ -52,7 +52,7 @@ The following platforms are being kept for reference, but no new sample implemen
 
 - The .NET sample viewers have a prompt for setting an API key. You can also hardcode your API key in the [`GetLocalKey() method`](https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/main/src/ArcGIS.Samples.Shared/Managers/ApiKeyManager.cs#L89) of the [`ApiKeyManager class`](https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/main/src/ArcGIS.Samples.Shared/Managers/ApiKeyManager.cs).
 - Before using WinUI, install the [latest Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and the [vsix plugin](https://aka.ms/windowsappsdk/stable-vsix-2022-cs).
-- When compiling Universal Windows Platform samples, make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
+- When compiling Universal Windows Platform or WinUI samples, make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
 
 ### Offline data
 

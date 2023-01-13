@@ -1,69 +1,23 @@
-<ContentPage
-    x:Class="ArcGIS.Samples.TraceUtilityNetwork.TraceUtilityNetwork"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:MapView x:Name="MyMapView"
-                        GeoViewTapped="OnGeoViewTapped"
-                        Style="{DynamicResource EsriSampleGeoView}" />
-        <StackLayout x:Name="BusyIndicator"
-                     Grid.Row="0"
-                     Grid.RowSpan="2"
-                     Grid.ColumnSpan="2"
-                     HeightRequest="40"
-                     IsVisible="False"
-                     VerticalOptions="Center">
-            <ActivityIndicator HeightRequest="40"
-                               HorizontalOptions="Center"
-                               IsRunning="True"
-                               VerticalOptions="Center" />
-        </StackLayout>
-        <Border x:Name="ControlPanelBorder"
-                Padding="5"
-                Style="{DynamicResource EsriSampleControlPanel}">
-            <StackLayout x:Name="MainUI" Orientation="Vertical">
-                <Button x:Name="TracePickerButton"
-                        Clicked="TraceTypeButtonPressed"
-                        Text="Trace type: Connected" />
-                <Grid Margin="0,5"
-                      ColumnSpacing="5"
-                      RowSpacing="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <Button x:Name="IsAddingStartingLocations"
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Clicked="IsAddingStartingLocations_Clicked"
-                            IsEnabled="False"
-                            Text="Origin" />
-                    <Button x:Name="IsAddingBarriers"
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Clicked="IsAddingBarriers_Clicked"
-                            Text="Barrier" />
-                    <Button Grid.Row="1"
-                            Grid.Column="1"
-                            Clicked="OnReset"
-                            Text="Reset" />
-                    <Button Grid.Row="1"
-                            Grid.Column="0"
-                            Clicked="OnTrace"
-                            Text="Trace" />
-                </Grid>
-                <Label x:Name="Status"
-                       Grid.Row="0"
-                       Margin="5"
-                       HorizontalOptions="Center"
-                       MaximumWidthRequest="200"
-                       Text="Loading sample..." />
-            </StackLayout>
-        </Border>
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.TraceUtilityNetwork.TraceUtilityNetwork"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriTK="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             Title="TraceUtilityNetwork">
+    <ContentPage.Resources>
+        <Style TargetType="Grid">
+            <Setter Property="Background" Value="{AppThemeBinding Dark=#353535, Light=#F8F8F8}" />
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="300" />
+        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" />
+        <esriTK:UtilityNetworkTraceTool x:Name="TraceTool"
+                                        Grid.Row="1"
+                                        GeoView="{Binding Source={x:Reference MyMapView}}" />
     </Grid>
 </ContentPage>

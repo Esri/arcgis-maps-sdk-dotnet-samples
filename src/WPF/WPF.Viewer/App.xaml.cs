@@ -47,7 +47,7 @@ namespace ArcGIS.WPF.Viewer
         private void Application_Exit(object sender, ExitEventArgs e)
         {
             // Analytics are only used in the Microsoft store version of the viewer.
-            AnalyticsHelper.WriteToSettingsFile();
+            //AnalyticsHelper.WriteToSettingsFile();
             //AnalyticsHelper.TrackEvent("sample_viewer_closed", new Dictionary<string, string>());
         }
     }

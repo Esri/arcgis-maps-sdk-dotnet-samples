@@ -89,7 +89,6 @@ namespace ArcGIS
         private void TelemetryCheckboxChanged(object sender, RoutedEventArgs e)
         {
             AnalyticsHelper.AnalyticsEnabled = TelemetryCheckbox.IsChecked == true;
-            AnalyticsHelper.EnableAnalytics();
         }
 
         private void HyperlinkClick(object sender, System.Windows.Forms.HtmlElementEventArgs e)

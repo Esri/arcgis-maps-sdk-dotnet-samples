@@ -236,7 +236,7 @@ namespace ArcGIS.Samples.Managers
             {
                 favorites.Add(sampleName);
 
-                Helpers.AnalyticsHelper.TrackEvent("favorite", new Dictionary<string, string> {
+                Helpers.AnalyticsHelper.TrackEvent("favorite_added", new Dictionary<string, string> {
                     { "Sample", AllSamples.FirstOrDefault(s => s.FormalName.Equals(sampleName)).SampleName },
                 });
             }

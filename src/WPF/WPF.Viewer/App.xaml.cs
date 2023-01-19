@@ -7,7 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGIS.Helpers;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 
@@ -32,7 +34,7 @@ namespace ArcGIS.WPF.Viewer
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
 
                 // Analytics are only used in the Microsoft store version of the viewer.
-                //ArcGISRuntime.Helpers.AnalyticsHelper.StartAnalytics("");
+                //AnalyticsHelper.StartAnalytics("", "");
             }
             catch (Exception ex)
             {
@@ -40,6 +42,13 @@ namespace ArcGIS.WPF.Viewer
                 MessageBox.Show(string.Format("There was an error that prevented initializing the runtime. {0}", ex.Message));
                 Current.Shutdown();
             }
+        }
+
+        private void Application_Exit(object sender, ExitEventArgs e)
+        {
+            // Analytics are only used in the Microsoft store version of the viewer.
+            AnalyticsHelper.WriteToSettingsFile();
+            //AnalyticsHelper.TrackEvent("sample_viewer_closed", new Dictionary<string, string>());
         }
     }
 }

@@ -131,6 +131,7 @@
   </ItemGroup>
   <!-- Samples -->
   <ItemGroup>
+    <Compile Include="Helpers\AnalyticsSettings.cs" />
     <Compile Include="Samples\**\*.xaml.cs" DependentUpon="%(Filename)" />
     <Content Include="Samples\*\*\*.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

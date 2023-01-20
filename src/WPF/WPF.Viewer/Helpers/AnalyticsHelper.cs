@@ -1,9 +1,9 @@
-﻿using Newtonsoft.Json;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
 using System.Text;
+using System.Text.Json;
 
 namespace ArcGIS.Helpers
 {
@@ -64,7 +64,7 @@ namespace ArcGIS.Helpers
                        };
 
                 // Serialize json body content.
-                var jsonContent = JsonConvert.SerializeObject(postData);
+                var jsonContent = JsonSerializer.Serialize(postData);
                 var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
 
                 // Initialize Google Analytics URI.
@@ -91,7 +91,7 @@ namespace ArcGIS.Helpers
 
             // Save the settings to a local file.
             string filePath = GetLocalFilePath("settings");
-            string jsonSettings = JsonConvert.SerializeObject(analyticsSettings);
+            string jsonSettings = JsonSerializer.Serialize(analyticsSettings);
             File.WriteAllText(filePath, jsonSettings);
         }
 
@@ -105,7 +105,7 @@ namespace ArcGIS.Helpers
 
             if (File.Exists(settingsPath))
             {
-                analyticsSettings = JsonConvert.DeserializeObject<AnalyticsSettings>(File.ReadAllText(settingsPath));
+                analyticsSettings = JsonSerializer.Deserialize<AnalyticsSettings>(File.ReadAllText(settingsPath));
             }
 
             // Generate a client id if one does not already exist, enable analytics by default.

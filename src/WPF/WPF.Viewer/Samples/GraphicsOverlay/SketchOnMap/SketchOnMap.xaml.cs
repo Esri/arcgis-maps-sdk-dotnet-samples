@@ -241,7 +241,7 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
         private void SelectTool(Button selectedButton)
         {
             // Gray out the background of the currently enabled tool.
-            if (EnabledTool is not null)
+            if (EnabledTool != null)
                 EnabledTool.Background = LightGray;
 
             // Set the static variable to whichever button that was just clicked.
@@ -254,7 +254,7 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
         private void UnselectTool(object sender, RoutedEventArgs e)
         {
             // Gray out the background of the currently enabled tool.
-            if (EnabledTool is not null)
+            if (EnabledTool != null)
                 EnabledTool.Background = LightGray;
 
             // Dereference the unselected tool's button.
@@ -267,7 +267,7 @@ namespace ArcGIS.WPF.Samples.SketchOnMap
         {
             try
             {
-                if (_graphicCompletionSource is not null && !_graphicCompletionSource.Task.IsCompleted)
+                if (_graphicCompletionSource != null && !_graphicCompletionSource.Task.IsCompleted)
                 {
                     // Identify graphics in the graphics overlay using the point.
                     IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 2, false);

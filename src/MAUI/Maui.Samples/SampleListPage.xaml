@@ -1,12 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="ArcGIS.SampleListPage">
-        <ListView x:Name="SampleList" ItemsSource="{Binding .}" ItemTapped="OnItemTapped" SelectionMode="None">
+<ContentPage
+    x:Class="ArcGIS.SampleListPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:ArcGIS.Converters">
+
+
+    <!--<ListView x:Name="SampleList" ItemsSource="{Binding .}" ItemTapped="OnItemTapped" SelectionMode="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell Text="{Binding SampleName}" TextColor="{AppThemeBinding Light=Black, Dark=LightGray}" />
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+        </ListView>-->
+    <ContentPage.Resources>
+        <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
+    </ContentPage.Resources>
+    <CollectionView ItemsSource="{Binding .}" SelectionMode="None">
+        <CollectionView.ItemTemplate>
+            <DataTemplate>
+                <Grid x:Name="SampleGrid">
+                    <Border Margin="2">
+                        <Grid Margin="0,10,0,2" WidthRequest="300">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="200" />
+                                <RowDefinition Height="45" />
+                            </Grid.RowDefinitions>
+                            <Image
+                                HeightRequest="250"
+                                HorizontalOptions="Center"
+                                Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
+                                WidthRequest="300" />
+                            <Label
+                                Grid.Row="0"
+                                Padding="10"
+                                Background="#A52F2F2F"
+                                FontSize="18"
+                                Text="{Binding SampleName}"
+                                VerticalTextAlignment="End" />
+                            <Label
+                                Grid.Row="1"
+                                Margin="5"
+                                FontSize="13"
+                                Text="{Binding Description}"
+                                VerticalTextAlignment="Start" />
+                        </Grid>
+                    </Border>
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>

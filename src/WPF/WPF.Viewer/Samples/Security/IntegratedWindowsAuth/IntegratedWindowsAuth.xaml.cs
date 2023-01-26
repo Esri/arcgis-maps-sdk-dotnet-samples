@@ -142,11 +142,8 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
                     return;
                 }
 
-                // Check if the current Window credentials should be used or require an explicit login.
-                bool requireLogin = RequireLoginCheckBox.IsChecked == true;
-
                 // Create an instance of the IWA-secured portal, the user may be challenged for access.
-                _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(securedPortalUrl), requireLogin);
+                _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(securedPortalUrl), false);
 
                 // Call a function to search the portal.
                 _ = SearchPortal(_iwaSecuredPortal);
@@ -200,8 +197,6 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
                     MapItemListBox.Items.Add(itm);
                 }
 
-                // Enable the button for adding a web map.
-                AddMapItem.IsEnabled = true;
             }
             catch (Exception ex)
             {
@@ -234,7 +229,7 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
             try
             {
                 // Clear the current MapView control from the app.
-                MyMapGrid.Children.Clear();
+                MyMapView.Map = null;
 
                 // See if using the public or secured portal; get the appropriate object reference.
                 ArcGISPortal portal = null;
@@ -262,16 +257,7 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
                 if (portalItem != null)
                 {
                     // Create a Map using the web map (portal item).
-                    Map webMap = new Map(portalItem);
-
-                    // Create a new MapView control to display the Map.
-                    MapView myMapView = new MapView
-                    {
-                        Map = webMap
-                    };
-
-                    // Add the MapView to the UI.
-                    MyMapGrid.Children.Add(myMapView);
+                    MyMapView.Map = new Map(portalItem);
                 }
 
                 // Report success.

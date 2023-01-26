@@ -235,6 +235,7 @@
 
 * [ArcGIS token challenge](Maui.Samples/Samples/Security/TokenSecuredChallenge) - This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.
 * [Authenticate with OAuth](Maui.Samples/Samples/Security/OAuth) - Authenticate with ArcGIS Online (or your own portal) using OAuth2 to access secured resources (such as private web maps or layers).
+* [Integrated Windows Authentication](Maui.Samples/Samples/Security/IntegratedWindowsAuth) - Connect to an IWA secured Portal and search for maps.
 
 ## Symbology
 

@@ -25,7 +25,7 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
         name: "Integrated Windows Authentication",
         category: "Security",
         description: "Connect to an IWA secured Portal and search for maps.",
-        instructions: "Enter the URL to your IWA-secured portal.",
+        instructions: "1. Enter the URL to your IWA-secured portal.",
         tags: new[] { "Portal", "Windows", "authentication", "security" })]
     public partial class IntegratedWindowsAuth
     {

@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/integratedwindowsauth.htm"
+        "/net/latest/maui/sample-code/integratedwindowsauth.htm"
     ],
     "relevant_apis": [
         "ArcGISNetworkCredential",
@@ -22,10 +22,10 @@
         "AuthenticationManager"
     ],
     "snippets": [
+        "IWALoginPage.xaml",
+        "IWALoginPage.xaml.cs",
         "IntegratedWindowsAuth.xaml",
-        "IntegratedWindowsAuth.xaml.cs",
-        "LoginWindow.xaml",
-        "LoginWindow.xaml.cs"
+        "IntegratedWindowsAuth.xaml.cs"
     ],
     "title": "Integrated Windows Authentication"
 }

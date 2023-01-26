@@ -1,0 +1,31 @@
+{
+    "category": "Security",
+    "description": "Connect to an IWA secured Portal and search for maps.",
+    "formal_name": "IntegratedWindowsAuth",
+    "ignore": false,
+    "images": [
+        "IntegratedWindowsAuth.jpg"
+    ],
+    "keywords": [
+        "Portal",
+        "Windows",
+        "authentication",
+        "security"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/integratedwindowsauth.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISNetworkCredential",
+        "ArcGISPortal",
+        "AuthenticationManager"
+    ],
+    "snippets": [
+        "IntegratedWindowsAuth.xaml",
+        "IntegratedWindowsAuth.xaml.cs",
+        "LoginWindow.xaml",
+        "LoginWindow.xaml.cs"
+    ],
+    "title": "Integrated Windows Authentication"
+}

@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.IntegratedWindowsAuth.IWALoginPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <Grid ColumnDefinitions="auto,auto"
+          ColumnSpacing="10"
+          HorizontalOptions="Center"
+          RowDefinitions="auto,auto,auto,auto,auto"
+          RowSpacing="10">
+        <Label x:Name="LoginLabel"
+               Grid.Row="0"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Text="Login to access token-secured service" />
+        <Entry x:Name="UsernameEntry"
+               Grid.Row="1"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Placeholder="Username = user1" />
+        <Entry x:Name="PasswordEntry"
+               Grid.Row="2"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               IsPassword="True"
+               Placeholder="Password = user1" />
+        <Entry x:Name="DomainEntry"
+               Grid.Row="3"
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Placeholder="Domain = domain1" />
+        <Button x:Name="LoginButton"
+                Grid.Row="4"
+                Grid.Column="0"
+                Clicked="LoginButtonClicked"
+                Text="Login" />
+        <Button x:Name="CancelButton"
+                Grid.Row="4"
+                Grid.Column="1"
+                Clicked="CancelButtonClicked"
+                Text="Cancel" />
+    </Grid>
+</ContentPage>

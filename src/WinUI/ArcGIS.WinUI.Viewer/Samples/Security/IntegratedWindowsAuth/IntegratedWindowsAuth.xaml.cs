@@ -9,13 +9,11 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.UI.Controls;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
 {
@@ -34,15 +32,8 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
         // Note: The Universal Windows Platform handles challenging for Windows credentials.
         //       You do not need to surface your own UI to prompt the user for username, password, and domain.
 
-        // The ArcGIS Online URL for searching public web maps.
-        private string _publicPortalUrl = "https://www.arcgis.com";
-
         // The public and secured portals.
         private ArcGISPortal _iwaSecuredPortal = null;
-        private ArcGISPortal _publicPortal = null;
-
-        // Track if the user is looking at search results from the public or secured portal.
-        private bool _usingPublicPortal;
 
         public IntegratedWindowsAuth()
         {
@@ -52,31 +43,12 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
             MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
         }
 
-        // Search the public portal for web maps and display the results in a list.
-        private async void SearchPublicMapsButtonClick(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                // Create an instance of the public portal.
-                _publicPortal = await ArcGISPortal.CreateAsync(new Uri(_publicPortalUrl));
-
-                // Call a function to search the portal.
-                _ = SearchPortal(_publicPortal);
-
-                // Set a variable that indicates this is the public portal.
-                // When a map is loaded from the results, will need to know which portal it came from.
-                _usingPublicPortal = true;
-            }
-            catch (Exception ex)
-            {
-                // Report any errors that were encountered.
-                MessagesTextBlock.Text = ex.Message;
-            }
-        }
-
         // Search the IWA-secured portal for web maps and display the results in a list.
         private async void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
         {
+
+            var messageBuilder = new StringBuilder();
+
             try
             {
                 // Get the value entered for the secure portal URL.
@@ -93,39 +65,20 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
                 // Create an instance of the IWA-secured portal, the user may be challenged for access.
                 _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(securedPortalUrl));
 
-                // Call a function to search the portal.
-                _ = SearchPortal(_iwaSecuredPortal);
+                // Clear any existing results.
+                MapItemListBox.Items.Clear();
 
-                // Set a variable that indicates this is the secure portal.
-                // When a map is loaded from the results, will need to know which portal it came from.
-                _usingPublicPortal = false;
-            }
-            catch (Exception ex)
-            {
-                // Report errors (connecting to the secured portal, for example).
-                MessagesTextBlock.Text = ex.Message;
-            }
-        }
+                // Show status message and the progress bar.
+                MessagesTextBlock.Text = "Searching for web map items on the portal at " + _iwaSecuredPortal.Uri.AbsoluteUri;
+                ProgressStatus.Visibility = Visibility.Visible;
 
-        private async Task SearchPortal(ArcGISPortal currentPortal)
-        {
-            // Clear any existing results.
-            MapItemListBox.Items.Clear();
-
-            // Show status message and the progress bar.
-            MessagesTextBlock.Text = "Searching for web map items on the portal at " + currentPortal.Uri.AbsoluteUri;
-            ProgressStatus.Visibility = Visibility.Visible;
-            var messageBuilder = new StringBuilder();
-
-            try
-            {
                 // Report connection info
-                messageBuilder.AppendLine("Connected to the portal on " + currentPortal.Uri.Host);
+                messageBuilder.AppendLine("Connected to the portal on " + _iwaSecuredPortal.Uri.Host);
 
                 // Report the user name used for this connection.
-                if (currentPortal.User != null)
+                if (_iwaSecuredPortal.User != null)
                 {
-                    messageBuilder.AppendLine("Connected as: " + currentPortal.User.UserName);
+                    messageBuilder.AppendLine("Connected as: " + _iwaSecuredPortal.User.UserName);
                 }
                 else
                 {
@@ -134,7 +87,7 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
                 }
 
                 // Search the portal for web maps.
-                var items = await currentPortal.FindItemsAsync(new PortalQueryParameters("type:(\"web map\" NOT \"web mapping application\")"));
+                var items = await _iwaSecuredPortal.FindItemsAsync(new PortalQueryParameters("type:(\"web map\" NOT \"web mapping application\")"));
 
                 // Build a list of items from the results that shows the map name and stores the item ID (with the Tag property).
                 var resultItems = from r in items.Results select new ListBoxItem { Tag = r.ItemId, Content = r.Title };
@@ -144,13 +97,10 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
                 {
                     MapItemListBox.Items.Add(itm);
                 }
-
-                // Enable the button to load a selected web map item.
-                AddMapItem.IsEnabled = true;
             }
             catch (Exception ex)
             {
-                // Report errors searching the portal.
+                // Report errors.
                 messageBuilder.AppendLine(ex.Message);
             }
             finally
@@ -158,19 +108,14 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
                 // Show messages, hide progress bar.
                 MessagesTextBlock.Text = messageBuilder.ToString();
                 ProgressStatus.Visibility = Visibility.Collapsed;
+
+                MapItemListBox.Visibility = Visibility.Visible;
+                MapItemListBox.SelectedIndex = 0;
             }
         }
 
-        private async void AddMapItemClick(object sender, RoutedEventArgs e)
+        private async void ListBoxSelectedIndexChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Get a web map from the selected portal item and display it in the map view.
-            if (MapItemListBox.SelectedItem == null)
-            {
-                var dialog = new MessageDialog2("No web map item is selected.");
-                _ = dialog.ShowAsync();
-                return;
-            }
-
             // Clear status messages.
             MessagesTextBlock.Text = string.Empty;
 
@@ -179,49 +124,23 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
 
             try
             {
-                // Clear the current MapView control from the app.
-                MyMapGrid.Children.Clear();
-
-                // See if using the public or secured portal; get the appropriate object reference.
-                ArcGISPortal portal = null;
-                if (_usingPublicPortal)
-                {
-                    portal = _publicPortal;
-                }
-                else
-                {
-                    portal = _iwaSecuredPortal;
-                }
-
-                // Throw an exception if the portal is null.
-                if (portal == null)
-                {
-                    throw new Exception("Portal has not been instantiated.");
-                }
+                // Clear the current Map.
+                MyMapView.Map = null;
 
                 // Get the portal item ID from the selected list box item (read it from the Tag property).
                 var itemId = (MapItemListBox.SelectedItem as ListBoxItem).Tag.ToString();
 
                 // Use the item ID to create a PortalItem from the appropriate portal.
-                var portalItem = await PortalItem.CreateAsync(portal, itemId);
+                var portalItem = await PortalItem.CreateAsync(_iwaSecuredPortal, itemId);
 
                 if (portalItem != null)
                 {
                     // Create a Map using the web map (portal item).
-                    Map webMap = new Map(portalItem);
-
-                    // Create a new MapView control to display the Map.
-                    MapView myMapView = new MapView
-                    {
-                        Map = webMap
-                    };
-
-                    // Add the MapView to the app.
-                    MyMapGrid.Children.Add(myMapView);
+                    MyMapView.Map = new Map(portalItem);
                 }
 
                 // Report success.
-                statusInfo.AppendLine("Successfully loaded web map from item #" + itemId + " from " + portal.Uri.Host);
+                statusInfo.AppendLine("Successfully loaded web map from item #" + itemId + " from " + _iwaSecuredPortal.Uri.Host);
             }
             catch (Exception ex)
             {

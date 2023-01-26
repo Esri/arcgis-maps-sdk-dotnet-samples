@@ -4,7 +4,7 @@
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border x:Name="LoadMapPanel" Style="{StaticResource BorderStyle}">
+        <Border Style="{StaticResource BorderStyle}">
             <ScrollViewer>
                 <StackPanel>
                     <TextBox x:Name="SecurePortalUrlTextBox"
@@ -19,7 +19,7 @@
                              SelectionChanged="ListBoxSelectedIndexChanged"
                              Visibility="Collapsed" />
                     <TextBlock x:Name="MessagesTextBlock"
-                               Text="No credentials have been entered."
+                               Text="Will use Windows credentials."
                                TextWrapping="Wrap" />
                     <ProgressBar x:Name="ProgressStatus"
                                  IsIndeterminate="True"

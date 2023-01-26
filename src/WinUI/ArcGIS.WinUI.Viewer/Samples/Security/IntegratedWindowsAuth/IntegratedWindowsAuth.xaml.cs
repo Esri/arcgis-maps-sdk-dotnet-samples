@@ -29,24 +29,17 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
         tags: new[] { "Portal", "Windows", "authentication", "security" })]
     public partial class IntegratedWindowsAuth
     {
-        // Note: The Universal Windows Platform handles challenging for Windows credentials.
-        //       You do not need to surface your own UI to prompt the user for username, password, and domain.
-
         // The public and secured portals.
         private ArcGISPortal _iwaSecuredPortal = null;
 
         public IntegratedWindowsAuth()
         {
             InitializeComponent();
-
-            // Show the light gray canvas basemap.
-            MyMapView.Map = new Map(BasemapStyle.ArcGISLightGray);
         }
 
         // Search the IWA-secured portal for web maps and display the results in a list.
         private async void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
         {
-
             var messageBuilder = new StringBuilder();
 
             try
@@ -62,11 +55,8 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
                     return;
                 }
 
-                // Create an instance of the IWA-secured portal, the user may be challenged for access.
+                // Create an instance of the IWA-secured portal.
                 _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(securedPortalUrl));
-
-                // Clear any existing results.
-                MapItemListBox.Items.Clear();
 
                 // Show status message and the progress bar.
                 MessagesTextBlock.Text = "Searching for web map items on the portal at " + _iwaSecuredPortal.Uri.AbsoluteUri;
@@ -109,7 +99,10 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
                 MessagesTextBlock.Text = messageBuilder.ToString();
                 ProgressStatus.Visibility = Visibility.Collapsed;
 
+                // Make the ListBox visible now that it has been populated.
                 MapItemListBox.Visibility = Visibility.Visible;
+
+                // Load the first portal item by default (calls ListBoxSelectedIndexChange).
                 MapItemListBox.SelectedIndex = 0;
             }
         }

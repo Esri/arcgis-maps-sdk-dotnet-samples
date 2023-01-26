@@ -25,7 +25,7 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
         name: "Integrated Windows Authentication",
         category: "Security",
         description: "Connect to an IWA secured Portal and search for maps.",
-        instructions: "1. Enter the URL to your IWA-secured portal.",
+        instructions: "Enter the URL to your IWA-secured portal.",
         tags: new[] { "Portal", "Windows", "authentication", "security" })]
     public partial class IntegratedWindowsAuth
     {
@@ -87,6 +87,16 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
                 {
                     MapItemListBox.Items.Add(itm);
                 }
+
+                // Make the ListBox visible now that it has been populated.
+                MapItemListBox.Visibility = Visibility.Visible;
+
+                // Simplify UI.
+                SecurePortalUrlTextBox.Visibility = Visibility.Collapsed;
+                SearchSecureMapsButton.Visibility = Visibility.Collapsed;
+
+                // Load the first portal item by default (calls ListBoxSelectedIndexChange).
+                MapItemListBox.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -98,12 +108,6 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
                 // Show messages, hide progress bar.
                 MessagesTextBlock.Text = messageBuilder.ToString();
                 ProgressStatus.Visibility = Visibility.Collapsed;
-
-                // Make the ListBox visible now that it has been populated.
-                MapItemListBox.Visibility = Visibility.Visible;
-
-                // Load the first portal item by default (calls ListBoxSelectedIndexChange).
-                MapItemListBox.SelectedIndex = 0;
             }
         }
 

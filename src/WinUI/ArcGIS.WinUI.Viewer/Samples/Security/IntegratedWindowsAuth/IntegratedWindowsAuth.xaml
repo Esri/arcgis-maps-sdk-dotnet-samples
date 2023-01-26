@@ -10,7 +10,8 @@
                     <TextBox x:Name="SecurePortalUrlTextBox"
                              Margin="5"
                              PlaceholderText="URL to an IWA secured portal" />
-                    <Button Margin="5"
+                    <Button x:Name="SearchSecureMapsButton"
+                            Margin="5"
                             Click="SearchSecureMapsButtonClick"
                             Content="Search IWA secured maps" />
                     <ListBox x:Name="MapItemListBox"

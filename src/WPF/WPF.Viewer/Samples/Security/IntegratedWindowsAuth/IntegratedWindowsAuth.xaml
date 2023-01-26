@@ -7,17 +7,16 @@
         <Border Style="{StaticResource BorderStyle}">
             <ScrollViewer>
                 <StackPanel>
-                    <TextBlock Margin="50,5"
+                    <TextBlock x:Name="Instruction"
+                               Margin="50,5"
                                HorizontalAlignment="Left"
                                VerticalAlignment="Center"
-                               Foreground="DarkGray"
                                IsHitTestVisible="False"
                                Text="Enter the URL to your secured portal" />
                     <TextBox x:Name="SecurePortalUrlTextBox"
                              Width="265"
                              Height="20"
-                             Margin="0,5"
-                             Text="" />
+                             Margin="0,5" />
                     <Button x:Name="SearchSecureMapsButton"
                             Width="265"
                             Height="35"
@@ -26,8 +25,8 @@
                     <ListBox x:Name="MapItemListBox"
                              Width="265"
                              Height="150"
-                             FontSize="12"
-                             SelectionChanged="ListBoxSelectedIndexChanged" />
+                             SelectionChanged="ListBoxSelectedIndexChanged"
+                             Visibility="Collapsed" />
                     <TextBlock x:Name="MessagesTextBlock"
                                Text="Using default system credentials."
                                TextWrapping="Wrap" />

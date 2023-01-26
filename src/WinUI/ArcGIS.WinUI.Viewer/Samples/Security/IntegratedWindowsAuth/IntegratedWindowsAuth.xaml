@@ -19,7 +19,7 @@
                              SelectionChanged="ListBoxSelectedIndexChanged"
                              Visibility="Collapsed" />
                     <TextBlock x:Name="MessagesTextBlock"
-                               Text="Will use Windows credentials."
+                               Text="Using default system credentials."
                                TextWrapping="Wrap" />
                     <ProgressBar x:Name="ProgressStatus"
                                  IsIndeterminate="True"

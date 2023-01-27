@@ -28,9 +28,7 @@ Your organization might use Integrated Windows Authentication (IWA) to secure Ar
 
 ## About the data
 
-This sample searches for web map portal items on a secure portal. To successfully run the sample, you need:
-* Access to a portal secured with Integrated Windows Authentication that contains one or more web map items.
-* A login that grants you access to the portal.
+This sample searches for web map portal items on a secure portal. To successfully run the sample, you need access to a portal secured with Integrated Windows Authentication that contains one or more web map items and credentials which grants you access to that portal.
 
 ## Additional information
 

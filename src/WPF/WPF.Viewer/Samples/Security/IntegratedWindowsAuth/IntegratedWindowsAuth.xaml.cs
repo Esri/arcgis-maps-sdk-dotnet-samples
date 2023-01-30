@@ -91,7 +91,7 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
                 SecurePortalUrlTextBox.Visibility = Visibility.Collapsed;
                 SearchSecureMapsButton.Visibility = Visibility.Collapsed;
 
-                // Load the first portal item by default (calls ListBoxSelectedIndexChange).
+                // Load the first portal item by default (calls ListBoxSelectedIndexChanged).
                 MapItemListBox.SelectedIndex = 0;
             }
             catch (Exception ex)

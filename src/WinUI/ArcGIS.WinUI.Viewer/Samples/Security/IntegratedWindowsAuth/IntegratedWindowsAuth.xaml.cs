@@ -96,7 +96,7 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
                 SearchSecureMapsButton.Visibility = Visibility.Collapsed;
                 Instruction.Visibility = Visibility.Collapsed;
 
-                // Load the first portal item by default (calls ListBoxSelectedIndexChange).
+                // Load the first portal item by default (calls ListBoxSelectedIndexChanged).
                 MapItemListBox.SelectedIndex = 0;
             }
             catch (Exception ex)

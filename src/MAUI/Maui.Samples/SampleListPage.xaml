@@ -16,18 +16,33 @@
     <ContentPage.Resources>
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
     </ContentPage.Resources>
-    <CollectionView ItemsSource="{Binding .}" SelectionMode="None">
-        <CollectionView.ItemTemplate>
+    <ListView
+        FlowDirection="LeftToRight"
+        ItemsSource="{Binding .}"
+        VerticalOptions="Start">
+        <ListView.ItemTemplate>
             <DataTemplate>
                 <Grid x:Name="SampleGrid">
-                    <Border Margin="2">
-                        <Grid Margin="0,10,0,2" WidthRequest="300">
+                    <Border
+                        HeightRequest="250"
+                        Stroke="{AppThemeBinding Light=Blue,
+                                                 Dark=Red}"
+                        StrokeShape="RoundRectangle 10"
+                        StrokeThickness="2"
+                        WidthRequest="300">
+                        <Border.Shadow>
+                            <Shadow
+                                Brush="red"
+                                Opacity=".8"
+                                Offset="10,10" />
+                        </Border.Shadow>
+                        <Grid WidthRequest="300">
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="200" />
+                                <RowDefinition Height="*" />
                                 <RowDefinition Height="45" />
                             </Grid.RowDefinitions>
                             <Image
-                                HeightRequest="250"
+                                Grid.Row="0"
                                 HorizontalOptions="Center"
                                 Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
                                 WidthRequest="300" />
@@ -36,18 +51,22 @@
                                 Padding="10"
                                 Background="#A52F2F2F"
                                 FontSize="18"
+                                HeightRequest="50"
                                 Text="{Binding SampleName}"
-                                VerticalTextAlignment="End" />
+                                VerticalOptions="End"
+                                VerticalTextAlignment="Center" />
                             <Label
                                 Grid.Row="1"
                                 Margin="5"
                                 FontSize="13"
                                 Text="{Binding Description}"
+                                TextColor="{AppThemeBinding Dark=LightGray,
+                                                            Light=Black}"
                                 VerticalTextAlignment="Start" />
                         </Grid>
                     </Border>
                 </Grid>
             </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+        </ListView.ItemTemplate>
+    </ListView>
 </ContentPage>

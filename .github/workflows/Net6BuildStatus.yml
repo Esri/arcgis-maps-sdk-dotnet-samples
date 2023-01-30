@@ -1,7 +1,7 @@
 # This workflow will build a .NET project
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-net
 
-name: .NET
+name: .NET 6.0 Build Status
 
 on:
   push:
@@ -22,5 +22,7 @@ jobs:
         dotnet-version: 6.0.x
     - name: Build WPF Net 6.0
       run: dotnet build src/WPF/WPF.Viewer/ArcGIS.WPF.Viewer.Net.csproj
-    - name: Build WPF NetFramework
-      run: dotnet build src/WPF/WPF.Viewer/ArcGIS.WPF.Viewer.NetFramework.csproj
+    - name: Build WinUI Net 6.0
+      run: dotnet build src/WinUI/ArcGIS.WinUI.Viewer/ArcGIS.WinUI.Viewer.csproj
+    - name: Build MAUI Net 6.0
+      run: dotnet build src/MAUI/Maui.Samples/ArcGIS.Samples.Maui.csproj

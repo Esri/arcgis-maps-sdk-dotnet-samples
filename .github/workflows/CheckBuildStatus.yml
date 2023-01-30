@@ -21,4 +21,4 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Build
-      run: dotnet build ArcGIS.WPF.Viewer.NetFramework | ArcGIS.WPF.Viewer.NetFramework
+      run: dotnet build src/WPF/WPF.Viewer/ArcGIS.WPF.Viewer.NetFramework.csproj

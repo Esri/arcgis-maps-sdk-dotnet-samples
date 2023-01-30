@@ -146,5 +146,11 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
                 MessagesTextBlock.Text = statusInfo.ToString();
             }
         }
+
+        // Enable the search button if the entered URL is in the correct format.
+        private void SecurePortalUrlTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchSecureMapsButton.IsEnabled = Uri.IsWellFormedUriString(SecurePortalUrlTextBox.Text.ToString().Trim(), UriKind.Absolute);
+        }
     }
 }

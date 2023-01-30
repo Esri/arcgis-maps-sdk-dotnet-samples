@@ -7,13 +7,16 @@
         <Border Style="{StaticResource BorderStyle}">
             <ScrollViewer>
                 <StackPanel>
+                    <TextBlock x:Name="Instruction" Text="Enter URL to an IWA secured portal:" />
                     <TextBox x:Name="SecurePortalUrlTextBox"
                              Margin="5"
-                             PlaceholderText="URL to an IWA secured portal" />
+                             PlaceholderText="URL to an IWA secured portal"
+                             TextChanged="SecurePortalUrlTextBox_TextChanged" />
                     <Button x:Name="SearchSecureMapsButton"
                             Margin="5"
                             Click="SearchSecureMapsButtonClick"
-                            Content="Search IWA secured maps" />
+                            Content="Search IWA secured maps"
+                            IsEnabled="False" />
                     <ListBox x:Name="MapItemListBox"
                              MinHeight="100"
                              Margin="5"

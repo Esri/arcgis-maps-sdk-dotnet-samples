@@ -16,12 +16,14 @@
                     <TextBox x:Name="SecurePortalUrlTextBox"
                              Width="265"
                              Height="20"
-                             Margin="0,5" />
+                             Margin="0,5"
+                             TextChanged="SecurePortalUrlTextBox_TextChanged" />
                     <Button x:Name="SearchSecureMapsButton"
                             Width="265"
                             Height="35"
                             Click="SearchSecureMapsButtonClick"
-                            Content="Search IWA secured maps" />
+                            Content="Search IWA secured maps"
+                            IsEnabled="False" />
                     <ListBox x:Name="MapItemListBox"
                              Width="265"
                              Height="150"

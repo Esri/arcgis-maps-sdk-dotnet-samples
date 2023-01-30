@@ -62,7 +62,7 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
                 MessagesTextBlock.Text = "Searching for web map items on the portal at " + _iwaSecuredPortal.Uri.AbsoluteUri;
                 ProgressStatus.Visibility = Visibility.Visible;
 
-                // Report connection info
+                // Report connection info.
                 messageBuilder.AppendLine("Connected to the portal on " + _iwaSecuredPortal.Uri.Host);
 
                 // Report the user name used for this connection.
@@ -94,6 +94,7 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
                 // Simplify UI.
                 SecurePortalUrlTextBox.Visibility = Visibility.Collapsed;
                 SearchSecureMapsButton.Visibility = Visibility.Collapsed;
+                Instruction.Visibility = Visibility.Collapsed;
 
                 // Load the first portal item by default (calls ListBoxSelectedIndexChange).
                 MapItemListBox.SelectedIndex = 0;
@@ -149,6 +150,12 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
                 // Show messages.
                 MessagesTextBlock.Text = statusInfo.ToString();
             }
+        }
+
+        // Enable the search button if the entered URL is in the correct format.
+        private void SecurePortalUrlTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchSecureMapsButton.IsEnabled = Uri.IsWellFormedUriString(SecurePortalUrlTextBox.Text.ToString().Trim(), UriKind.Absolute);
         }
     }
 }

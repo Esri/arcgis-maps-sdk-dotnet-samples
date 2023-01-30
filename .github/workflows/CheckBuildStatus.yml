@@ -20,5 +20,7 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    - name: Build
+    - name: Build WPF NetFramework
       run: dotnet build src/WPF/WPF.Viewer/ArcGIS.WPF.Viewer.NetFramework.csproj
+    - name: Build WPF Net 6.0
+      run: dotnet build src/WPF/WPF.Viewer/ArcGIS.WPF.Viewer.Net.csproj

@@ -7,7 +7,7 @@
                      IconImageSource="maps.png"
                      Text="Sample" />
         <ToolbarItem Clicked="DetailButton_Clicked"
-                     IconImageSource="information.png"
+                     IconImageSource="informationdark.png"
                      Text="About" />
         <ToolbarItem Clicked="SourceButton_Clicked"
                      IconImageSource="code.png"

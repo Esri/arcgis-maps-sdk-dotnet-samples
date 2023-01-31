@@ -15,7 +15,9 @@
         <SearchBar Grid.Row="0" Text="{Binding Path=SearchQuery}" />
         <ListView x:Name="SampleSearchResultList"
                   Grid.Row="1"
-                  IsVisible="{OnPlatform Default={Binding Path=IsSearchOpen}, iOS=True, MacCatalyst=True}"
+                  IsVisible="{OnPlatform Default={Binding Path=IsSearchOpen},
+                                         iOS=True,
+                                         MacCatalyst=True}"
                   ItemTapped="OnItemTapped"
                   ItemsSource="{Binding Path=SearchResults}"
                   SelectionMode="None">
@@ -37,6 +39,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        
+
     </Grid>
 </ContentPage>

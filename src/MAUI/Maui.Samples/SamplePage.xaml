@@ -4,13 +4,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="SampleButton_Clicked"
-                     IconImageSource="mapsdark.png"
+                     IconImageSource="maps.png"
                      Text="Sample" />
         <ToolbarItem Clicked="DetailButton_Clicked"
-                     IconImageSource="descriptiondark.png"
+                     IconImageSource="information.png"
                      Text="About" />
         <ToolbarItem Clicked="SourceButton_Clicked"
-                     IconImageSource="documentationdark.png"
+                     IconImageSource="code.png"
                      Text="Source" />
     </ContentPage.ToolbarItems>
     <Grid>

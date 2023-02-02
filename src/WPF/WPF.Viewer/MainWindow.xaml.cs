@@ -7,7 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+#if ENABLE_ANALYTICS
 using ArcGIS.Helpers;
+#endif
+
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.Samples.Shared.Models;
@@ -57,9 +60,11 @@ namespace ArcGIS.Samples.Desktop
 
                 Loaded += FirstLoaded;
 
+#if ENABLE_ANALYTICS
                 // Check analytics settings
                 AnalyticsHelper.ReadSettingsFromFile();
-                AnalyticsHelper.TrackEvent("sample_viewer_opened", new Dictionary<string, string>());
+                AnalyticsHelper.TrackEvent("sample_viewer_opened");
+#endif
             }
             catch (Exception ex)
             {
@@ -130,7 +135,9 @@ namespace ArcGIS.Samples.Desktop
                     { "Category", category.Name },
                 };
 
+#if ENABLE_ANALYTICS
                 AnalyticsHelper.TrackEvent("category_selected", eventData);
+#endif
             }
             else if (sample != null)
             {
@@ -154,7 +161,9 @@ namespace ArcGIS.Samples.Desktop
                     { "Sample", selectedSample.SampleName },
             };
 
+#if ENABLE_ANALYTICS
             AnalyticsHelper.TrackEvent("sample_opened", eventData);
+#endif
 
             // Restore API key if leaving named user sample.
             if (_namedUserSamples.Contains(SampleManager.Current?.SelectedSample?.FormalName))
@@ -294,20 +303,28 @@ namespace ArcGIS.Samples.Desktop
         {
             ShowSampleTab();
 
-            AnalyticsHelper.TrackEvent("tab_selected", new Dictionary<string, string> {
+            var eventData = new Dictionary<string, string> {
                 { "Tab", "Sample" },
                 { "Sample", SampleManager.Current.SelectedSample?.SampleName },
-            });
+            };
+
+#if ENABLE_ANALYTICS
+            AnalyticsHelper.TrackEvent("tab_selected", eventData);
+#endif
         }
 
         private void Description_Click(object sender, RoutedEventArgs e)
         {
             ShowDescriptionTab();
 
-            AnalyticsHelper.TrackEvent("tab_selected", new Dictionary<string, string> {
+            var eventData = new Dictionary<string, string> {
                 { "Tab", "Description" },
                 { "Sample", SampleManager.Current.SelectedSample?.SampleName },
-            });
+            };
+
+#if ENABLE_ANALYTICS
+            AnalyticsHelper.TrackEvent("tab_selected", eventData);
+#endif
 
         }
 
@@ -315,10 +332,14 @@ namespace ArcGIS.Samples.Desktop
         {
             ShowSourceTab();
 
-            AnalyticsHelper.TrackEvent("tab_selected", new Dictionary<string, string> {
+            var eventData = new Dictionary<string, string> {
                 { "Tab", "Source code" },
                 { "Sample", SampleManager.Current.SelectedSample?.SampleName },
-            });
+            };
+
+#if ENABLE_ANALYTICS
+            AnalyticsHelper.TrackEvent("tab_selected", eventData);
+#endif
         }
 
         // Code here is adapted from the following StackOverflow answer:
@@ -384,7 +405,9 @@ namespace ArcGIS.Samples.Desktop
                 eventData.Add("Category", CategoriesHeader.Text);
             }
 
+#if ENABLE_ANALYTICS
             AnalyticsHelper.TrackEvent("search_text", eventData);
+#endif
         }
 
         private bool SampleSearchFunc(SampleInfo sample)
@@ -400,7 +423,7 @@ namespace ArcGIS.Samples.Desktop
             settingsWindow.Show();
         }
 
-        #region Update Favorites
+#region Update Favorites
 
         private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
         {
@@ -443,9 +466,9 @@ namespace ArcGIS.Samples.Desktop
             SampleFavoriteButton.Foreground = selectedSample.IsFavorite ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.White);
         }
 
-        #endregion Update Favorites
+#endregion Update Favorites
 
-        #region Category Visibility Properties
+#region Category Visibility Properties
 
         private void SetSelectedCategory(string selectedCategoryName)
         {
@@ -499,7 +522,7 @@ namespace ArcGIS.Samples.Desktop
             return expandedCategories;
         }
 
-        #endregion Category Visibility Properties
+#endregion Category Visibility Properties
 
         private void UpdateTreeViewItems()
         {
@@ -522,7 +545,7 @@ namespace ArcGIS.Samples.Desktop
             SetExpandedCategories(expandedCategoryNames);
         }
 
-        #region Screenshot Tool
+#region Screenshot Tool
 
         private void ScreenshotButton_Click(object sender, RoutedEventArgs e)
         {
@@ -597,6 +620,6 @@ namespace ArcGIS.Samples.Desktop
             }
         }
 
-        #endregion Screenshot Tool
+#endregion Screenshot Tool
     }
 }

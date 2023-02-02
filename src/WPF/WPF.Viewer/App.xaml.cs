@@ -7,6 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+#if ENABLE_ANALYTICS
+using ArcGIS.Helpers;
+using System.Collections.Generic;
+#endif
+
 using System;
 using System.IO;
 using System.Windows;
@@ -31,8 +36,10 @@ namespace ArcGIS.WPF.Viewer
                 // Initialize ArcGISRuntime.
                 Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
 
+#if ENABLE_ANALYTICS
                 // Analytics are only used in the Microsoft store version of the viewer.
-                //AnalyticsHelper.StartAnalytics("", "");
+                AnalyticsHelper.StartAnalytics("", "");
+#endif
             }
             catch (Exception ex)
             {
@@ -44,9 +51,11 @@ namespace ArcGIS.WPF.Viewer
 
         private void Application_Exit(object sender, ExitEventArgs e)
         {
+#if ENABLE_ANALYTICS
             // Analytics are only used in the Microsoft store version of the viewer.
-            //AnalyticsHelper.WriteToSettingsFile();
-            //AnalyticsHelper.TrackEvent("sample_viewer_closed", new Dictionary<string, string>());
+            AnalyticsHelper.WriteToSettingsFile();
+            AnalyticsHelper.TrackEvent("sample_viewer_closed", new Dictionary<string, string>());
+#endif
         }
     }
 }

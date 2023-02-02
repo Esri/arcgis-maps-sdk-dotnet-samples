@@ -1,4 +1,6 @@
-﻿using System;
+﻿#if ENABLE_ANALYTICS
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -41,12 +43,17 @@ namespace ArcGIS.Helpers
         /// </summary>
         /// <param name="eventName"></param>
         /// <param name="eventData"></param>
-        public static void TrackEvent(string eventName, IDictionary<string, string> eventData)
+        public static void TrackEvent(string eventName, IDictionary<string, string> eventData = null)
         {
             if (!AnalyticsEnabled) return;
 
             try
             {
+                if (eventData == null)
+                {
+                    eventData = new Dictionary<string, string>();
+                }
+
                 double sessionCurrentTimeMs = new TimeSpan(DateTime.UtcNow.Ticks - _sessionStartTime).TotalMilliseconds;
                 eventData.Add("engagement_time_msec", sessionCurrentTimeMs.ToString());
 
@@ -121,3 +128,4 @@ namespace ArcGIS.Helpers
         #endregion
     }
 }
+#endif

@@ -71,6 +71,7 @@ namespace ArcGIS
 
         private void SetUpTelemetryTab()
         {
+#if ENABLE_ANALYTICS
             TelemetryTab.Visibility = AnalyticsHelper.AnalyticsStarted ? Visibility.Visible : Visibility.Collapsed;
 
             // Set telemetry checkbox.
@@ -84,12 +85,17 @@ namespace ArcGIS
                 TelemetryCheckbox.Checked -= TelemetryCheckboxChanged;
                 TelemetryCheckbox.Unchecked -= TelemetryCheckboxChanged;
             };
+#else
+            TelemetryTab.Visibility = Visibility.Collapsed;
+#endif
         }
 
+#if ENABLE_ANALYTICS
         private void TelemetryCheckboxChanged(object sender, RoutedEventArgs e)
         {
             AnalyticsHelper.AnalyticsEnabled = TelemetryCheckbox.IsChecked == true;
         }
+#endif
 
         private void HyperlinkClick(object sender, System.Windows.Forms.HtmlElementEventArgs e)
         {

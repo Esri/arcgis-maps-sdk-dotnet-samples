@@ -9,7 +9,6 @@
 
 #if ENABLE_ANALYTICS
 using ArcGIS.Helpers;
-using System.Collections.Generic;
 #endif
 
 using System;
@@ -54,7 +53,7 @@ namespace ArcGIS.WPF.Viewer
 #if ENABLE_ANALYTICS
             // Analytics are only used in the Microsoft store version of the viewer.
             AnalyticsHelper.WriteToSettingsFile();
-            AnalyticsHelper.TrackEvent("sample_viewer_closed", new Dictionary<string, string>());
+            AnalyticsHelper.TrackEvent("sample_viewer_closed");
 #endif
         }
     }

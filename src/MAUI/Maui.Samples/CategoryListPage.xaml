@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="SettingsClicked"
-                     IconImageSource="settingsdark.png"
+                     IconImageSource="settings.png"
                      Text="Settings" />
     </ContentPage.ToolbarItems>
     <Grid>

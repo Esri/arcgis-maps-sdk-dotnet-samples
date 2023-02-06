@@ -20,24 +20,8 @@
     <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' OR '$(Configuration)|$(Platform)' == 'Release|x64' ">
-	<OutputType>WinExe</OutputType>
-	<TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
-	<UseWPF>true</UseWPF>
-	<UseWindowsForms>true</UseWindowsForms>
-	<ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
-	<RootNamespace>ArcGIS</RootNamespace>
-	<AssemblyName>ArcGIS</AssemblyName>
-	<OutputPath>..\..\..\output\WPFCore\$(Configuration)\</OutputPath>
-	<ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>
-	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-	<PublishTrimmed>false</PublishTrimmed>
-	<PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
-	<RuntimeIdentifiers>win10-x64;win10-x86;win10-arm64</RuntimeIdentifiers>
-	<Platforms>AnyCPU;x64;x86;ARM64</Platforms>
-	<SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
-	<DefineConstants>TRACE;NET_CORE_3;ENABLE_ANALYTICS</DefineConstants>
-	<NoWarn>1701;1702;CA1416</NoWarn>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+	<DefineConstants>$(DefineConstants);ENABLE_ANALYTICS</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>

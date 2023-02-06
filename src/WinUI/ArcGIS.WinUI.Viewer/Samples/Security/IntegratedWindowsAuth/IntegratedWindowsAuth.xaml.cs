@@ -40,19 +40,23 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
         private async void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
         {
             var messageBuilder = new StringBuilder();
+
+            // Indicate through UI that authentication is being attempted.
             SearchSecureMapsButton.IsEnabled = false;
+            ProgressStatus.Visibility = Visibility.Visible;
 
             try
             {
-                // Get the value entered for the secure portal URL.
+                // Get the value entered for the secure portal URL and format as a URI.
                 string securedPortalUrl = SecurePortalUrlTextBox.Text.Trim();
-
-                // Create an instance of the IWA-secured portal.
-                _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(securedPortalUrl));
+                var securedPortal = new Uri(securedPortalUrl);
 
                 // Show status message and the progress bar.
-                AuthenticationMessages.Text = "Searching for web map items on the portal at " + _iwaSecuredPortal.Uri.AbsoluteUri;
+                AuthenticationMessages.Text = "Attempting authentication and searching for web maps at " + securedPortal.AbsoluteUri;
                 ProgressStatus.Visibility = Visibility.Visible;
+
+                // Create an instance of the IWA-secured portal.
+                _iwaSecuredPortal = await ArcGISPortal.CreateAsync(securedPortal);
 
                 // Report the user name used for this connection.
                 if (_iwaSecuredPortal.User != null)

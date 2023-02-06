@@ -19,7 +19,7 @@
     <DefineConstants>TRACE;NET_CORE_3</DefineConstants>
     <NoWarn>1701;1702;CA1416</NoWarn>
   </PropertyGroup>
-	
+
   <ItemGroup>
     <Content Include="Resources\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

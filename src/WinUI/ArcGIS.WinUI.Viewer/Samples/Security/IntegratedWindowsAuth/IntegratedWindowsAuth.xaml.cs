@@ -40,6 +40,7 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
         private async void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
         {
             var messageBuilder = new StringBuilder();
+            SearchSecureMapsButton.IsEnabled = false;
 
             try
             {
@@ -66,7 +67,6 @@ namespace ArcGIS.WinUI.Samples.IntegratedWindowsAuth
 
                 // Report connection info.
                 messageBuilder.AppendLine("Connected to the portal on " + _iwaSecuredPortal.Uri.Host);
-
 
                 // Search the portal for web maps.
                 var items = await _iwaSecuredPortal.FindItemsAsync(new PortalQueryParameters("type:(\"web map\" NOT \"web mapping application\")"));

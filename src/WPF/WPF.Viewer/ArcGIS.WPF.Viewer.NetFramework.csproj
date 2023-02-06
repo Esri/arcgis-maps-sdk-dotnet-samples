@@ -303,8 +303,9 @@
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="200.0.0" />
     <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.0.0" />
     <PackageReference Include="Markdig" Version="0.30.2" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.5.3" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.5.3" />
+    <PackageReference Include="System.Text.Json">
+      <Version>7.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />

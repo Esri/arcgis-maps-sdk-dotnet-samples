@@ -6,7 +6,7 @@
             xmlns:resources="clr-namespace:ArcGIS.Resources"
             Title="Settings">
     <TabbedPage.Children>
-        <ContentPage Title="About" IconImageSource="{AppThemeBinding Light=description.png, Dark=descriptiondark.png}">
+        <ContentPage Title="About" IconImageSource="{AppThemeBinding Light=information.png, Dark=informationdark.png}">
             <ContentPage.Content>
                 <WebView x:Name="AboutPage" />
             </ContentPage.Content>

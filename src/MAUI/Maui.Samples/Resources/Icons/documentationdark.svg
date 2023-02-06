@@ -1,3 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32" class="svg-icon">
-	<path fill="#ffffff" d="M22 24h4v2h-4v-2zm0-12h4v2h-4v-2zm0 4h4v2h-4v-2zM8 6h10v2H8V6zm14 14h4v2h-4v-2zM8 12h10v2H8v-2zm0 4h12v2H8v-2zM22.801 0H4v32h26V7.199L22.801 0zM28 30H6V2h14v8h8v20zm0-22h-6V2h.621L28 7.379V8zM8 20h12v2H8v-2zm0 4h10v2H8v-2z"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+	<path fill="#ffffff" d="M27 9.699L19.3 2H5v28h22zM26 29H6V3h12v8h8zm-7-19V3l7 7zM9 14h14v1H9zm0 5h14v1H9zm0 5h11v1H9z"/>
+	<path fill="none" d="M0 0h32v32H0z"/>
 </svg>

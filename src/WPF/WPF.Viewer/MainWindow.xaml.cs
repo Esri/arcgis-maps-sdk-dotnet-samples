@@ -7,7 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+#if ENABLE_ANALYTICS
 using ArcGIS.Helpers;
+#endif
+
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.Samples.Shared.Models;
@@ -27,8 +30,9 @@ namespace ArcGIS.Samples.Desktop
 {
     public partial class MainWindow
     {
-        private bool _waitFlag;
         private List<TreeViewItem> _samples;
+        private System.Windows.Forms.Timer _delaySearchTimer;
+        private const int _delayedTextChangedTimeout = 500;
 
         private List<string> _namedUserSamples = new List<string> {
             "AuthorMap",
@@ -45,8 +49,6 @@ namespace ArcGIS.Samples.Desktop
         {
             try
             {
-                AnalyticsHelper.DisableAnalytics();
-
                 SampleManager.Current.Initialize();
 
                 // Set category data context
@@ -58,7 +60,11 @@ namespace ArcGIS.Samples.Desktop
 
                 Loaded += FirstLoaded;
 
-                AnalyticsHelper.EnableAnalytics();
+#if ENABLE_ANALYTICS
+                // Check analytics settings
+                AnalyticsHelper.ReadSettingsFromFile();
+                AnalyticsHelper.TrackEvent("sample_viewer_opened");
+#endif
             }
             catch (Exception ex)
             {
@@ -124,16 +130,20 @@ namespace ArcGIS.Samples.Desktop
                 CategoriesHeader.Text = category.Name;
 
                 // Send analytics.
-                var dict = new Dictionary<string, string> {
+                var eventData = new Dictionary<string, string> 
+                {
                     { "Category", category.Name },
                 };
-                if (SearchFilterBox.SearchText != null) dict.Add("Search", SearchFilterBox.SearchText);
-                AnalyticsHelper.TrackEvent("category", dict);
+
+#if ENABLE_ANALYTICS
+                AnalyticsHelper.TrackEvent("category_selected", eventData);
+#endif
             }
             else if (sample != null)
             {
                 DetailsRegion.Visibility = Visibility.Visible;
                 CategoriesRegion.Visibility = Visibility.Collapsed;
+                CategoriesHeader.Text = string.Empty;
                 await SelectSample(sample);
             }
         }
@@ -146,11 +156,14 @@ namespace ArcGIS.Samples.Desktop
             if (SampleManager.Current.SelectedSample == selectedSample) return;
 
             // Send analytics.
-            var dict = new Dictionary<string, string> {
+            var eventData = new Dictionary<string, string> 
+            {
                     { "Sample", selectedSample.SampleName },
-                };
-            if (SearchFilterBox.SearchText != null) dict.Add("Search", SearchFilterBox.SearchText);
-            AnalyticsHelper.TrackEvent("sample", dict);
+            };
+
+#if ENABLE_ANALYTICS
+            AnalyticsHelper.TrackEvent("sample_opened", eventData);
+#endif
 
             // Restore API key if leaving named user sample.
             if (_namedUserSamples.Contains(SampleManager.Current?.SelectedSample?.FormalName))
@@ -275,11 +288,6 @@ namespace ArcGIS.Samples.Desktop
             DescriptionContainer.Visibility = Visibility.Visible;
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Collapsed;
-
-            AnalyticsHelper.TrackEvent("tab", new Dictionary<string, string> {
-                { "Tab", "Description" },
-                { "Sample", SampleManager.Current.SelectedSample?.SampleName },
-            });
         }
 
         private void ShowSourceTab()
@@ -289,34 +297,83 @@ namespace ArcGIS.Samples.Desktop
             DescriptionContainer.Visibility = Visibility.Collapsed;
             CategoriesRegion.Visibility = Visibility.Collapsed;
             SourceCodeContainer.Visibility = Visibility.Visible;
-
-            AnalyticsHelper.TrackEvent("tab", new Dictionary<string, string> {
-                { "Tab", "Source code" },
-                { "Sample", SampleManager.Current.SelectedSample?.SampleName },
-            });
         }
 
-        private void LiveSample_Click(object sender, RoutedEventArgs e) => ShowSampleTab();
+        private void LiveSample_Click(object sender, RoutedEventArgs e)
+        {
+            ShowSampleTab();
 
-        private void Description_Click(object sender, RoutedEventArgs e) => ShowDescriptionTab();
+            var eventData = new Dictionary<string, string> {
+                { "Tab", "Sample" },
+                { "Sample", SampleManager.Current.SelectedSample?.SampleName },
+            };
 
-        private void SourceCode_Click(object sender, RoutedEventArgs e) => ShowSourceTab();
+#if ENABLE_ANALYTICS
+            AnalyticsHelper.TrackEvent("tab_selected", eventData);
+#endif
+        }
 
-        private async void SearchFilterBox_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void Description_Click(object sender, RoutedEventArgs e)
+        {
+            ShowDescriptionTab();
+
+            var eventData = new Dictionary<string, string> {
+                { "Tab", "Description" },
+                { "Sample", SampleManager.Current.SelectedSample?.SampleName },
+            };
+
+#if ENABLE_ANALYTICS
+            AnalyticsHelper.TrackEvent("tab_selected", eventData);
+#endif
+
+        }
+
+        private void SourceCode_Click(object sender, RoutedEventArgs e)
+        {
+            ShowSourceTab();
+
+            var eventData = new Dictionary<string, string> {
+                { "Tab", "Source code" },
+                { "Sample", SampleManager.Current.SelectedSample?.SampleName },
+            };
+
+#if ENABLE_ANALYTICS
+            AnalyticsHelper.TrackEvent("tab_selected", eventData);
+#endif
+        }
+
+        // Code here is adapted from the following StackOverflow answer:
+        // https://stackoverflow.com/a/34148858
+        private void SearchFilterBox_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             // Don't update results immediately; makes search-as-you-type more comfortable
-            if (_waitFlag) { return; }
-            _waitFlag = true;
-            await Task.Delay(200);
-            _waitFlag = false;
+            if (_delaySearchTimer != null)
+            {
+                _delaySearchTimer.Stop();
+            }
 
+            if (_delaySearchTimer == null)
+            {
+                _delaySearchTimer = new System.Windows.Forms.Timer();
+                _delaySearchTimer.Tick += DelaySearchTimer_Tick;
+                _delaySearchTimer.Interval = _delayedTextChangedTimeout;
+            }
+
+            _delaySearchTimer.Start();
+        }
+
+        private void DelaySearchTimer_Tick(object sender, EventArgs e)
+        {
             PopulateSearchedTree();
+
+            if (_delaySearchTimer != null)
+            {
+                _delaySearchTimer.Stop();
+            }
         }
 
         private void PopulateSearchedTree()
         {
-            AnalyticsHelper.DisableAnalytics();
-
             var results = SampleManager.Current.FullTree.Search(SampleSearchFunc);
 
             // Set category data context
@@ -326,13 +383,31 @@ namespace ArcGIS.Samples.Desktop
             if (!string.IsNullOrWhiteSpace(SearchFilterBox.SearchText))
             {
                 OpenCategoryLeaves();
+                TrackSearchEvent();
             }
             else
             {
                 CloseCategoryLeaves();
             }
+        }
 
-            AnalyticsHelper.EnableAnalytics();
+        private void TrackSearchEvent()
+        {
+            var eventData = new Dictionary<string, string>() { { "Search", SearchFilterBox.SearchText } };
+
+            // If the search has been initiated in a sample or category track the sample or category name. 
+            if (SampleManager.Current.SelectedSample != null)
+            {
+                eventData.Add("Sample", SampleManager.Current.SelectedSample.SampleName);
+            }
+            else if (!string.IsNullOrEmpty(CategoriesHeader.Text))
+            {
+                eventData.Add("Category", CategoriesHeader.Text);
+            }
+
+#if ENABLE_ANALYTICS
+            AnalyticsHelper.TrackEvent("search_text", eventData);
+#endif
         }
 
         private bool SampleSearchFunc(SampleInfo sample)
@@ -348,7 +423,7 @@ namespace ArcGIS.Samples.Desktop
             settingsWindow.Show();
         }
 
-        #region Update Favorites
+#region Update Favorites
 
         private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
         {
@@ -391,9 +466,9 @@ namespace ArcGIS.Samples.Desktop
             SampleFavoriteButton.Foreground = selectedSample.IsFavorite ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.White);
         }
 
-        #endregion Update Favorites
+#endregion Update Favorites
 
-        #region Category Visibility Properties
+#region Category Visibility Properties
 
         private void SetSelectedCategory(string selectedCategoryName)
         {
@@ -447,7 +522,7 @@ namespace ArcGIS.Samples.Desktop
             return expandedCategories;
         }
 
-        #endregion Category Visibility Properties
+#endregion Category Visibility Properties
 
         private void UpdateTreeViewItems()
         {
@@ -470,7 +545,7 @@ namespace ArcGIS.Samples.Desktop
             SetExpandedCategories(expandedCategoryNames);
         }
 
-        #region Screenshot Tool
+#region Screenshot Tool
 
         private void ScreenshotButton_Click(object sender, RoutedEventArgs e)
         {
@@ -545,6 +620,6 @@ namespace ArcGIS.Samples.Desktop
             }
         }
 
-        #endregion Screenshot Tool
+#endregion Screenshot Tool
     }
 }

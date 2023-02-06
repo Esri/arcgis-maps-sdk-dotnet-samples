@@ -18,8 +18,7 @@
     ],
     "relevant_apis": [
         "ArcGISNetworkCredential",
-        "ArcGISPortal",
-        "AuthenticationManager"
+        "ArcGISPortal"
     ],
     "snippets": [
         "IntegratedWindowsAuth.xaml",

@@ -38,27 +38,22 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
         {
             var messageBuilder = new StringBuilder();
 
+            // Indicate through UI that authentication is being attempted.
+            SearchSecureMapsButton.IsEnabled = false;
+            ProgressStatus.Visibility = Visibility.Visible;
+
             try
             {
-                // Get the string entered for the secure portal URL.
+                // Get the string entered for the secure portal and format as a URI.
                 string securedPortalUrl = SecurePortalUrlTextBox.Text.Trim();
+                var securedPortal = new Uri(securedPortalUrl);
 
-                // Make sure a portal URL has been entered in the text box.
-                if (string.IsNullOrEmpty(securedPortalUrl))
-                {
-                    MessageBox.Show("Please enter the URL of the secured portal.", "Missing URL");
-                    return;
-                }
-
-                // Create an instance of the IWA-secured portal, the user may be challenged for access.
-                _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(securedPortalUrl), false);
-
-                // Show a status message and progress bar.
-                MessagesTextBlock.Text = "Searching for web map items on the portal at " + _iwaSecuredPortal.Uri.AbsoluteUri;
+                // Show status message and the progress bar.
+                AuthenticationMessages.Text = "Attempting authentication and searching for web maps at " + securedPortal.AbsoluteUri;
                 ProgressStatus.Visibility = Visibility.Visible;
 
-                // Report connection info.
-                messageBuilder.AppendLine("Connected to the portal on " + _iwaSecuredPortal.Uri.Host);
+                // Create an instance of the IWA-secured portal.
+                _iwaSecuredPortal = await ArcGISPortal.CreateAsync(securedPortal);
 
                 // Report the user name used for this connection.
                 if (_iwaSecuredPortal.User != null)
@@ -71,13 +66,14 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
                     messageBuilder.AppendLine("Anonymous");
                 }
 
+                // Report connection info.
+                messageBuilder.AppendLine("Connected to the portal on " + _iwaSecuredPortal.Uri.Host);
+
                 // Search the portal for web maps.
                 var items = await _iwaSecuredPortal.FindItemsAsync(new PortalQueryParameters("type:(\"web map\" NOT \"web mapping application\")"));
 
-                // Build a list of items from the results that shows the map name and stores the item ID (with the Tag property).
+                // Add map names to the list box.
                 var resultItems = from r in items.Results select new ListBoxItem { Tag = r.ItemId, Content = r.Title };
-
-                // Add the items to the list box.
                 foreach (var itm in resultItems)
                 {
                     MapItemListBox.Items.Add(itm);
@@ -86,23 +82,23 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
                 // Make the ListBox visible now that it has been populated.
                 MapItemListBox.Visibility = Visibility.Visible;
 
-                // Simplify UI.
-                Instruction.Visibility = Visibility.Collapsed;
-                SecurePortalUrlTextBox.Visibility = Visibility.Collapsed;
-                SearchSecureMapsButton.Visibility = Visibility.Collapsed;
+                // Update UI to reflect authenticated state.
+                AuthenticationBorder.Visibility = Visibility.Collapsed;
+                PostAuthenticationBorder.Visibility = Visibility.Visible;
+                PostAuthenticationMessages.Text = messageBuilder.ToString();
 
                 // Load the first portal item by default (calls ListBoxSelectedIndexChanged).
                 MapItemListBox.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
-                // Report errors (connecting to the secured portal, for example).
-                messageBuilder.Append(ex.Message);
+                // Report errors.
+                messageBuilder.AppendLine(ex.Message);
+                AuthenticationMessages.Text = messageBuilder.ToString();
             }
             finally
             {
-                // Show messages, hide progress bar.
-                MessagesTextBlock.Text = messageBuilder.ToString();
+                // Hide progress bar.
                 ProgressStatus.Visibility = Visibility.Collapsed;
             }
         }
@@ -110,7 +106,7 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
         private async void ListBoxSelectedIndexChanged(object sender, RoutedEventArgs e)
         {
             // Clear status messages.
-            MessagesTextBlock.Text = string.Empty;
+            PostAuthenticationMessages.Text = string.Empty;
 
             // Store status (or errors) when adding the map.
             var statusInfo = new StringBuilder();
@@ -126,11 +122,8 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
                 // Use the item ID to create a PortalItem from the portal.
                 var portalItem = await PortalItem.CreateAsync(_iwaSecuredPortal, itemId);
 
-                if (portalItem != null)
-                {
-                    // Create a Map using the web map (portal item).
-                    MyMapView.Map = new Map(portalItem);
-                }
+                // Create a Map using the web map (portal item).
+                MyMapView.Map = new Map(portalItem);
 
                 // Report success.
                 statusInfo.AppendLine("Successfully loaded web map from item #" + itemId + " from " + _iwaSecuredPortal.Uri.Host);
@@ -143,7 +136,7 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
             finally
             {
                 // Show messages.
-                MessagesTextBlock.Text = statusInfo.ToString();
+                PostAuthenticationMessages.Text = statusInfo.ToString();
             }
         }
 

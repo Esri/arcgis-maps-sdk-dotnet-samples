@@ -9,13 +9,9 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Security;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -29,158 +25,40 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
         tags: new[] { "Portal", "Windows", "authentication", "security" })]
     public partial class IntegratedWindowsAuth
     {
-        // The ArcGIS Online URL for searching public web maps.
-        private string _publicPortalUrl = "https://www.arcgis.com";
-
-        // The public and secured portals.
+        // An Integrated Windows Authentication secured portal.
         private ArcGISPortal _iwaSecuredPortal = null;
-        private ArcGISPortal _publicPortal = null;
-
-        // Track if the user is looking at search results from the public or secured portal.
-        private bool _usingPublicPortal;
-
-        // Track if the user has canceled the login dialog.
-        private bool _canceledLogin;
 
         public IntegratedWindowsAuth()
         {
             InitializeComponent();
-
-            // Define a challenge handler method for the AuthenticationManager.
-            // This method handles getting credentials when a secured resource is encountered.
-            // Note: for IWA-secured services, the current system credentials will be used by default.
-            // The user will only be challenged for resources the current account doesn't have permissions for.
-            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCredentialAsync);
-        }
-
-        // Prompt the user for a credential if unauthorized access to a secured resource is attempted.
-        public async Task<Credential> CreateCredentialAsync(CredentialRequestInfo info)
-        {
-            Credential credential = null;
-            try
-            {
-                // Dispatch to the UI thread to show the login UI.
-                credential = Dispatcher.Invoke(new Func<Credential>(() =>
-                {
-                    Credential cred = null;
-
-                    // Exit if the user clicked "Cancel" in the login window.
-                    // The dialog will continue to be challenge the user if incorrect credentials are entered.
-                    if (_canceledLogin)
-                    {
-                        _canceledLogin = false;
-                        return null;
-                    }
-
-                    // Create a new login window.
-                    var win = new LoginWindow();
-
-                    // Show the window to get the user login (if canceled, false is returned).
-                    _canceledLogin = (win.ShowDialog() == false);
-
-                    if (!_canceledLogin)
-                    {
-                        // Get the credential information provided.
-                        var username = win.UsernameTextBox.Text;
-                        var password = win.PasswordTextBox.Password;
-                        var domain = win.DomainTextBox.Text;
-
-                        // Create a new network credential using the user input and the URI of the resource.
-                        cred = new ArcGISNetworkCredential(info.ServiceUri, new System.Net.NetworkCredential(username, password, domain));
-                    }
-
-                    // Return the credential
-                    return cred;
-                }));
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine("Exception: " + ex.Message);
-            }
-
-            // Add the credential to the AuthenticationManager.
-            AuthenticationManager.Current.AddCredential(credential);
-
-            // Return the credential.
-            return await Task.FromResult(credential);
-        }
-
-        // Search the public portal for web maps and display the results in a list.
-        private async void SearchPublicMapsClick(object sender, RoutedEventArgs e)
-        {
-            // Set a variable that indicates this is the public portal.
-            // When a map is loaded from the results, will need to know which portal it came from.
-            _usingPublicPortal = true;
-
-            try
-            {
-                // Create an instance of the public portal.
-                _publicPortal = await ArcGISPortal.CreateAsync(new Uri(_publicPortalUrl));
-
-                // Call a function to search the portal.
-                _ = SearchPortal(_publicPortal);
-            }
-            catch (Exception ex)
-            {
-                // Report any errors encountered.
-                MessagesTextBlock.Text = ex.Message;
-            }
         }
 
         // Search the IWA-secured portal for web maps and display the results in a list.
         private async void SearchSecureMapsButtonClick(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                // Get the string entered for the secure portal URL.
-                string securedPortalUrl = SecurePortalUrlTextBox.Text.Trim();
-
-                // Make sure a portal URL has been entered in the text box.
-                if (string.IsNullOrEmpty(securedPortalUrl))
-                {
-                    MessageBox.Show("Please enter the URL of the secured portal.", "Missing URL");
-                    return;
-                }
-
-                // Check if the current Window credentials should be used or require an explicit login.
-                bool requireLogin = RequireLoginCheckBox.IsChecked == true;
-
-                // Create an instance of the IWA-secured portal, the user may be challenged for access.
-                _iwaSecuredPortal = await ArcGISPortal.CreateAsync(new Uri(securedPortalUrl), requireLogin);
-
-                // Call a function to search the portal.
-                _ = SearchPortal(_iwaSecuredPortal);
-
-                // Set a variable that indicates this is the secure portal.
-                // When a map is loaded from the results, will need to know which portal it came from.
-                _usingPublicPortal = false;
-            }
-            catch (Exception ex)
-            {
-                // Report errors (connecting to the secured portal, for example).
-                MessagesTextBlock.Text = ex.Message;
-            }
-        }
-
-        private async Task SearchPortal(ArcGISPortal currentPortal)
-        {
-            // Remove any existing results from the list.
-            MapItemListBox.Items.Clear();
-
-            // Show a status message and progress bar.
-            MessagesTextBlock.Text = "Searching for web map items on the portal at " + currentPortal.Uri.AbsoluteUri;
-            ProgressStatus.Visibility = Visibility.Visible;
             var messageBuilder = new StringBuilder();
 
+            // Indicate through UI that authentication is being attempted.
+            SearchSecureMapsButton.IsEnabled = false;
+            ProgressStatus.Visibility = Visibility.Visible;
+
             try
             {
-                // Report connection info.
-                messageBuilder.AppendLine("Connected to the portal on " + currentPortal.Uri.Host);
+                // Get the string entered for the secure portal and format as a URI.
+                string securedPortalUrl = SecurePortalUrlTextBox.Text.Trim();
+                var securedPortal = new Uri(securedPortalUrl);
+
+                // Show status message and the progress bar.
+                AuthenticationMessages.Text = "Attempting authentication and searching for web maps at " + securedPortal.AbsoluteUri;
+                ProgressStatus.Visibility = Visibility.Visible;
+
+                // Create an instance of the IWA-secured portal.
+                _iwaSecuredPortal = await ArcGISPortal.CreateAsync(securedPortal);
 
                 // Report the user name used for this connection.
-                if (currentPortal.User != null)
+                if (_iwaSecuredPortal.User != null)
                 {
-                    messageBuilder.AppendLine("Connected as: " + currentPortal.User.UserName);
+                    messageBuilder.AppendLine("Connected as: " + _iwaSecuredPortal.User.UserName);
                 }
                 else
                 {
@@ -188,94 +66,67 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
                     messageBuilder.AppendLine("Anonymous");
                 }
 
+                // Report connection info.
+                messageBuilder.AppendLine("Connected to the portal on " + _iwaSecuredPortal.Uri.Host);
+
                 // Search the portal for web maps.
-                var items = await currentPortal.FindItemsAsync(new PortalQueryParameters("type:(\"web map\" NOT \"web mapping application\")"));
+                var items = await _iwaSecuredPortal.FindItemsAsync(new PortalQueryParameters("type:(\"web map\" NOT \"web mapping application\")"));
 
-                // Build a list of items from the results that shows the map name and stores the item ID (with the Tag property).
+                // Add map names to the list box.
                 var resultItems = from r in items.Results select new ListBoxItem { Tag = r.ItemId, Content = r.Title };
-
-                // Add the items to the list box.
                 foreach (var itm in resultItems)
                 {
                     MapItemListBox.Items.Add(itm);
                 }
 
-                // Enable the button for adding a web map.
-                AddMapItem.IsEnabled = true;
+                // Make the ListBox visible now that it has been populated.
+                MapItemListBox.Visibility = Visibility.Visible;
+
+                // Update UI to reflect authenticated state.
+                AuthenticationBorder.Visibility = Visibility.Collapsed;
+                PostAuthenticationBorder.Visibility = Visibility.Visible;
+                PostAuthenticationMessages.Text = messageBuilder.ToString();
+
+                // Load the first portal item by default (calls ListBoxSelectedIndexChanged).
+                MapItemListBox.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
-                // Report errors searching the portal.
+                // Report errors.
                 messageBuilder.AppendLine(ex.Message);
+                AuthenticationMessages.Text = messageBuilder.ToString();
             }
             finally
             {
-                // Show messages, hide the progress bar.
-                MessagesTextBlock.Text = messageBuilder.ToString();
-                ProgressStatus.Visibility = Visibility.Hidden;
+                // Hide progress bar.
+                ProgressStatus.Visibility = Visibility.Collapsed;
             }
         }
 
-        private async void AddMapItemClick(object sender, RoutedEventArgs e)
+        private async void ListBoxSelectedIndexChanged(object sender, RoutedEventArgs e)
         {
-            // Get a web map from the selected portal item and display it in the map view.
-            if (MapItemListBox.SelectedItem == null)
-            {
-                MessageBox.Show("No web map item is selected.");
-                return;
-            }
-
             // Clear status messages.
-            MessagesTextBlock.Text = string.Empty;
+            PostAuthenticationMessages.Text = string.Empty;
 
             // Store status (or errors) when adding the map.
             var statusInfo = new StringBuilder();
 
             try
             {
-                // Clear the current MapView control from the app.
-                MyMapGrid.Children.Clear();
-
-                // See if using the public or secured portal; get the appropriate object reference.
-                ArcGISPortal portal = null;
-                if (_usingPublicPortal)
-                {
-                    portal = _publicPortal;
-                }
-                else
-                {
-                    portal = _iwaSecuredPortal;
-                }
-
-                // Throw an exception if the portal is null.
-                if (portal == null)
-                {
-                    throw new Exception("Portal has not been instantiated.");
-                }
+                // Clear the current Map.
+                MyMapView.Map = null;
 
                 // Get the portal item ID from the selected list box item (read it from the Tag property).
                 var itemId = (this.MapItemListBox.SelectedItem as ListBoxItem).Tag.ToString();
 
                 // Use the item ID to create a PortalItem from the portal.
-                var portalItem = await PortalItem.CreateAsync(portal, itemId);
+                var portalItem = await PortalItem.CreateAsync(_iwaSecuredPortal, itemId);
 
-                if (portalItem != null)
-                {
-                    // Create a Map using the web map (portal item).
-                    Map webMap = new Map(portalItem);
-
-                    // Create a new MapView control to display the Map.
-                    MapView myMapView = new MapView
-                    {
-                        Map = webMap
-                    };
-
-                    // Add the MapView to the UI.
-                    MyMapGrid.Children.Add(myMapView);
-                }
+                // Create a Map using the web map (portal item).
+                MyMapView.Map = new Map(portalItem);
 
                 // Report success.
-                statusInfo.AppendLine("Successfully loaded web map from item #" + itemId + " from " + portal.Uri.Host);
+                statusInfo.AppendLine("Successfully loaded web map from item #" + itemId + " from " + _iwaSecuredPortal.Uri.Host);
             }
             catch (Exception ex)
             {
@@ -285,8 +136,14 @@ namespace ArcGIS.WPF.Samples.IntegratedWindowsAuth
             finally
             {
                 // Show messages.
-                MessagesTextBlock.Text = statusInfo.ToString();
+                PostAuthenticationMessages.Text = statusInfo.ToString();
             }
+        }
+
+        // Enable the search button if the entered URL is in the correct format.
+        private void SecurePortalUrlTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SearchSecureMapsButton.IsEnabled = Uri.IsWellFormedUriString(SecurePortalUrlTextBox.Text.ToString().Trim(), UriKind.Absolute);
         }
     }
 }

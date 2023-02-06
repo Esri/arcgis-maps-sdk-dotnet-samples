@@ -28,13 +28,16 @@
 		<Category name="MapView">
 			<Sample>FilterByTimeExtent</Sample>
 		</Category>
+		<Category name="Scene">
+			<Sample>ShowLabelsOnLayer3D</Sample>
+		</Category>
+		<Category name="Security">
+			<Sample>IntegratedWindowsAuth</Sample>
+		</Category>"
 		<Category name="Symbology">
 			<Sample>RenderMultilayerSymbols</Sample>
 			<Sample>SymbolStylesFromWebStyles</Sample>
 			<Sample>UniqueValuesAlternateSymbols</Sample>
-		</Category>
-		<Category name="Scene">
-		    <Sample>ShowLabelsOnLayer3D</Sample>
 		</Category>
 		<Category name="UtilityNetwork">
 			<Sample>DisplayUtilityNetworkContainer</Sample>

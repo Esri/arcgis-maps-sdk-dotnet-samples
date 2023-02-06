@@ -5,68 +5,58 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:converters="clr-namespace:ArcGIS.Converters">
 
-
-    <!--<ListView x:Name="SampleList" ItemsSource="{Binding .}" ItemTapped="OnItemTapped" SelectionMode="None">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding SampleName}" TextColor="{AppThemeBinding Light=Black, Dark=LightGray}" />
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
     <ContentPage.Resources>
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
     </ContentPage.Resources>
-    <ListView
-        FlowDirection="LeftToRight"
-        ItemsSource="{Binding .}"
-        VerticalOptions="Start">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <Grid x:Name="SampleGrid">
-                    <Border
-                        HeightRequest="250"
-                        Stroke="{AppThemeBinding Light=Blue,
-                                                 Dark=Red}"
-                        StrokeShape="RoundRectangle 10"
-                        StrokeThickness="2"
-                        WidthRequest="300">
-                        <Border.Shadow>
-                            <Shadow
-                                Brush="red"
-                                Opacity=".8"
-                                Offset="10,10" />
-                        </Border.Shadow>
-                        <Grid WidthRequest="300">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="45" />
-                            </Grid.RowDefinitions>
-                            <Image
-                                Grid.Row="0"
-                                HorizontalOptions="Center"
-                                Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
-                                WidthRequest="300" />
-                            <Label
-                                Grid.Row="0"
-                                Padding="10"
-                                Background="#A52F2F2F"
-                                FontSize="18"
-                                HeightRequest="50"
-                                Text="{Binding SampleName}"
-                                VerticalOptions="End"
-                                VerticalTextAlignment="Center" />
-                            <Label
-                                Grid.Row="1"
-                                Margin="5"
-                                FontSize="13"
-                                Text="{Binding Description}"
-                                TextColor="{AppThemeBinding Dark=LightGray,
-                                                            Light=Black}"
-                                VerticalTextAlignment="Start" />
-                        </Grid>
-                    </Border>
-                </Grid>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+    <ScrollView>
+        <FlexLayout
+            AlignContent="Start"
+            AlignItems="Start"
+            BackgroundColor="Transparent"
+            BindableLayout.ItemsSource="{Binding .}"
+            JustifyContent="Start"
+            Wrap="Wrap">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Grid x:Name="SampleGrid">
+                        <Border
+                            Margin="5"
+                            StrokeThickness="0"
+                            WidthRequest="300">
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="TapGestureRecognizer_Tapped" />
+                            </Border.GestureRecognizers>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="45" />
+                                </Grid.RowDefinitions>
+                                <Image
+                                    Grid.Row="0"
+                                    Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
+                                    WidthRequest="300" />
+                                <Label
+                                    Grid.Row="0"
+                                    Padding="10"
+                                    Background="#A52F2F2F"
+                                    FontSize="18"
+                                    HeightRequest="50"
+                                    Text="{Binding SampleName}"
+                                    VerticalOptions="End"
+                                    VerticalTextAlignment="Center" />
+                                <Label
+                                    Grid.Row="1"
+                                    Margin="5"
+                                    FontSize="13"
+                                    Text="{Binding Description}"
+                                    TextColor="{AppThemeBinding Dark=LightGray,
+                                                                Light=Black}"
+                                    VerticalTextAlignment="Start" />
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
+    </ScrollView>
 </ContentPage>

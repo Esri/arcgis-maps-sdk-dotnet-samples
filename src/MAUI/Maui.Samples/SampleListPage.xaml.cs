@@ -44,9 +44,9 @@ namespace ArcGIS
             BindingContext = _listSampleItems;
         }
 
-        public void OnItemTapped(object sender, ItemTappedEventArgs e)
+        private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
         {
-            var sampleInfo = e.Item as SampleInfo;
+            var sampleInfo = e.Parameter as SampleInfo;
             _ = SampleLoader.LoadSample(sampleInfo, this);
         }
     }

@@ -118,6 +118,12 @@
     <None Remove="Resources\PictureMarkerSymbols\pin_blue.png" />
     <None Remove="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <None Remove="Resources\routingSymbol.png" />
+    <None Remove="Resources\Thumbnails\Placeholder_Android.jpg" />
+    <None Remove="Resources\Thumbnails\Placeholder_Windows.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AndroidAsset Include="Resources\Thumbnails\Placeholder_Android.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
@@ -143,6 +149,7 @@
     <MauiImage Include="Resources\routingsymbol.png" />
   </ItemGroup>
 	<ItemGroup>
+    <MauiAsset Include="Resources\Thumbnails\Placeholder_Windows.jpg" />
     <MauiAsset Include="SyntaxHighlighting\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiAsset>

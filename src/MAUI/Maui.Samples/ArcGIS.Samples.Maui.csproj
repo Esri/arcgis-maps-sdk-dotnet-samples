@@ -97,56 +97,14 @@
     <EmbeddedResource Include="Helpers\**\*.cs" />
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Resources\Icons\applications.svg" />
-    <None Remove="Resources\Icons\applicationsDark.svg" />
-    <None Remove="Resources\Icons\description.svg" />
-    <None Remove="Resources\Icons\descriptiondark.svg" />
-    <None Remove="Resources\Icons\documentation.svg" />
-    <None Remove="Resources\Icons\documentationdark.svg" />
-    <None Remove="Resources\Icons\download.svg" />
-    <None Remove="Resources\Icons\downloaddark.svg" />
-    <None Remove="Resources\Icons\key.svg" />
-    <None Remove="Resources\Icons\keydark.svg" />
-    <None Remove="Resources\Icons\maps.svg" />
-    <None Remove="Resources\Icons\mapsdark.svg" />
-    <None Remove="Resources\Icons\settings.svg" />
-    <None Remove="Resources\Icons\settingsdark.svg" />
-    <None Remove="Resources\Icons\trash.svg" />
-    <None Remove="Resources\Icons\trashdark.svg" />
-    <None Remove="Resources\PictureMarkerSymbols\pin_blue.png" />
-    <None Remove="Resources\PictureMarkerSymbols\pin_star_blue.png" />
-    <None Remove="Resources\routingSymbol.png" />
-    <None Remove="Resources\Thumbnails\Placeholder_Android.jpg" />
-    <None Remove="Resources\Thumbnails\Placeholder_Windows.jpg" />
-  </ItemGroup>
-
   <ItemGroup>
     <AndroidAsset Include="Resources\Thumbnails\Placeholder_Android.jpg" />
+    <None Remove="Resources\Icons\*.svg" />
+	  <MauiImage Include="Resources\Icons\*.svg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <MauiImage Include="Resources\Icons\applicationsdark.svg" />
-    <MauiImage Include="Resources\Icons\descriptiondark.svg" />
-    <MauiImage Include="Resources\Icons\documentationdark.svg" />
-    <MauiImage Include="Resources\Icons\downloaddark.svg" />
-    <MauiImage Include="Resources\Icons\keydark.svg" />
-    <MauiImage Include="Resources\Icons\maps.svg" />
-    <MauiImage Include="Resources\Icons\applications.svg" />
-    <MauiImage Include="Resources\Icons\documentation.svg" />
-    <MauiImage Include="Resources\Icons\description.svg" />
-    <MauiImage Include="Resources\Icons\download.svg" />
-    <MauiImage Include="Resources\Icons\key.svg" />
-    <MauiImage Include="Resources\Icons\mapsdark.svg" />
-    <MauiImage Include="Resources\Icons\settings.svg" />
-    <MauiImage Include="Resources\Icons\settingsdark.svg" />
-    <MauiImage Include="Resources\Icons\trash.svg" />
-    <MauiImage Include="Resources\Icons\trashdark.svg" />
-    <MauiImage Include="Resources\routingsymbol.png" />
   </ItemGroup>
 	<ItemGroup>
     <MauiAsset Include="Resources\Thumbnails\Placeholder_Windows.jpg" />

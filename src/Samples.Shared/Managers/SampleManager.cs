@@ -236,9 +236,13 @@ namespace ArcGIS.Samples.Managers
             {
                 favorites.Add(sampleName);
 
-                Helpers.AnalyticsHelper.TrackEvent("favorite", new Dictionary<string, string> {
-                    { "Sample", AllSamples.FirstOrDefault(s => s.FormalName.Equals(sampleName)).SampleName },
-                });
+#if ENABLE_ANALYTICS
+                var eventData = new Dictionary<string, string> {
+                    { "Sample", AllSamples.FirstOrDefault(s => s.FormalName.Equals(sampleName)).SampleName }
+                };
+
+                Helpers.AnalyticsHelper.TrackEvent("favorite_added", eventData);
+#endif
             }
 
             // Save the new list of favorites.

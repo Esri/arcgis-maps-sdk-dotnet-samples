@@ -11,9 +11,9 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Collections.Generic;
 
 namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
 {
@@ -29,9 +29,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
         private readonly Uri _medicareHospitalSpendLayer =
             new Uri("https://services1.arcgis.com/4yjifSiIG17X0gW4/arcgis/rest/services/Medicare_Hospital_Spending_per_Patient/FeatureServer/0");
 
-        // Feature table to query.
-        private ServiceFeatureTable _featureTable;
-
+        // Key is for the ComboBox and value is for query.
         private readonly Dictionary<string, string> _states = new Dictionary<string, string>()
         {
             {"Alabama","AL"}, {"Alaska","AK"}, {"Arizona","AZ"}, {"Arkansas","AR"}, {"California","CA"}, {"Colorado","CO"},
@@ -44,6 +42,9 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
             {"Utah","UT"}, {"Vermont","VT"}, {"Virginia","VA"}, {"Washington","WA"}, {"West Virginia","WV"}, {"Wisconsin","WI"},
             {"Wyoming","WY"}
         };
+
+        // Feature table to query.
+        private ServiceFeatureTable _featureTable;
 
         public QueryFeatureCountAndExtent()
         {
@@ -65,6 +66,9 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
             // Add the feature layer to the map.
             myMap.OperationalLayers.Add(myFeatureLayer);
 
+            // Populate the ComboBox with states.
+            foreach (var state in _states) { StatesComboBox.Items.Add(state.Key); }
+
             try
             {
                 // Wait for the feature layer to load.
@@ -80,9 +84,6 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
             {
                 MessageBox.Show(e.ToString(), "Error");
             }
-
-            // Populate the ComboBox with states.
-            foreach (var state in _states) { StatesComboBox.Items.Add(state.Key); }
         }
 
         private async void ZoomToFeatures(object sender, RoutedEventArgs e)
@@ -102,7 +103,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
                 await MyMapView.SetViewpointAsync(resultViewpoint);
 
                 // Update the UI.
-                ResultsTextbox.Text = $"Zoomed to features in {StatesComboBox.SelectedItem.ToString()}";
+                Results.Text = $"Zoomed to features in {StatesComboBox.SelectedItem}";
             }
             catch (Exception ex)
             {
@@ -110,7 +111,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private async void BtnCountFeaturesClick(object sender, RoutedEventArgs e)
+        private async void CountFeatures(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -129,7 +130,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
                 long count = await _featureTable.QueryFeatureCountAsync(queryCityCount);
 
                 // Update the UI.
-                ResultsTextbox.Text = $"{count} features in extent";
+                Results.Text = $"{count} features in extent";
             }
             catch (Exception ex)
             {

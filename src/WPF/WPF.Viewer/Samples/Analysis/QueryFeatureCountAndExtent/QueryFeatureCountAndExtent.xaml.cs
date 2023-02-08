@@ -13,6 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
+using static System.Windows.Forms.AxHost;
 
 namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
 {
@@ -30,6 +31,17 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
 
         // Feature table to query.
         private ServiceFeatureTable _featureTable;
+
+        string[] states = { "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "DC", "Delaware",
+                "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland",
+                "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+                "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
+                "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
+                "West Virginia", "Wisconsin", "Wyoming" };
+
+        private string[] states_abbreviated = { "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "ID", "IL",
+                "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC",
+                "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY" };
 
         public QueryFeatureCountAndExtent()
         {
@@ -66,24 +78,20 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
             {
                 MessageBox.Show(e.ToString(), "Error");
             }
+
+            // Populate the ComboBox with states.
+            foreach (var state in states) { StateComboBox.Items.Add(state); }
         }
 
-        private async void BtnZoomToFeaturesClick(object sender, RoutedEventArgs e)
+        private async void ZoomToFeatures(object sender, RoutedEventArgs e)
         {
             try
             {
                 // Create the query parameters.
-                QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(State) LIKE '%{StateTextbox.Text}%'" };
+                QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(State) LIKE '%{states_abbreviated[StateComboBox.SelectedIndex]}%'" };
 
                 // Get the extent from the query.
                 Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
-
-                // Return if there is no result (might happen if query is invalid).
-                if (resultExtent?.SpatialReference == null)
-                {
-                    ResultsTextbox.Text = "No results. Search for an abbreviated name (e.g. NH).";
-                    return;
-                }
 
                 // Create a viewpoint from the extent.
                 Viewpoint resultViewpoint = new Viewpoint(resultExtent);
@@ -92,7 +100,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
                 await MyMapView.SetViewpointAsync(resultViewpoint);
 
                 // Update the UI.
-                ResultsTextbox.Text = $"Zoomed to features in {StateTextbox.Text}";
+                ResultsTextbox.Text = $"Zoomed to features in {StateComboBox.SelectedItem.ToString()}";
             }
             catch (Exception ex)
             {

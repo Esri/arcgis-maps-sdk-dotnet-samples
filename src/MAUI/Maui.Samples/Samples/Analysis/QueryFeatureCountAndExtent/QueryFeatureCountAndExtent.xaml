@@ -7,18 +7,22 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5" RowDefinitions="auto,auto,auto,auto">
-                <Entry x:Name="txtStateEntry"
-                       Grid.Row="0"
-                       Margin="5"
-                       Text="NH" />
-                <Button Grid.Row="1"
-                        Clicked="BtnZoomToFeatures_Click"
-                        Text="Zoom to matching" />
+            <Grid Padding="5"
+                  RowDefinitions="auto,auto,auto,auto"
+                  RowSpacing="5">
+                <Label Grid.Row="0"
+                       FontAttributes="Bold"
+                       Text="Select a state to zoom to matching features:" />
+                <Picker x:Name="StatesPicker"
+                        Grid.Row="1"
+                        SelectedIndexChanged="ZoomToFeatures"
+                        WidthRequest="275" />
                 <Button Grid.Row="2"
-                        Clicked="BtnCountFeatures_Click"
+                        Clicked="CountFeatures"
                         Text="Count in extent" />
-                <Label x:Name="txtResults" Grid.Row="3" />
+                <Label x:Name="Results"
+                       Grid.Row="3"
+                       HorizontalTextAlignment="Center" />
             </Grid>
         </Border>
     </Grid>

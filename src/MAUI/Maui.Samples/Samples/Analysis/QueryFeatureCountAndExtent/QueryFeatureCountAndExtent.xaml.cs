@@ -25,6 +25,20 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
         private readonly Uri _medicareHospitalSpendLayer =
             new Uri("https://services1.arcgis.com/4yjifSiIG17X0gW4/arcgis/rest/services/Medicare_Hospital_Spending_per_Patient/FeatureServer/0");
 
+        // Key is for the ComboBox and value is for query.
+        private readonly Dictionary<string, string> _states = new Dictionary<string, string>()
+        {
+            {"Alabama","AL"}, {"Alaska","AK"}, {"Arizona","AZ"}, {"Arkansas","AR"}, {"California","CA"}, {"Colorado","CO"},
+            {"Connecticut","CT"}, {"DC","DC"}, {"Delaware","DE"}, {"Florida","FL"}, {"Georgia","GA"}, {"Hawaii","HI"}, {"Idaho","ID"},
+            {"Illinois","IL"}, {"Indiana","IN"}, {"Iowa","IA"}, {"Kansas","KS"}, {"Kentucky","KY"}, {"Louisiana","LA"}, {"Maine","ME"},
+            {"Maryland","MD"}, {"Massachusetts","MA"}, {"Michigan","MI"}, {"Minnesota","MN"}, {"Mississippi","MS"}, {"Missouri","MO"},
+            {"Montana","MT"}, {"Nebraska","NE"}, {"Nevada","NV"}, {"New Hampshire","NH"}, {"New Jersey","NJ"}, {"New Mexico","NM"},
+            {"New York","NY"}, {"North Carolina","NC"}, {"North Dakota","ND"}, {"Ohio","OH"}, {"Oklahoma","OK"}, {"Oregon","OR"},
+            {"Pennsylvania","PA"}, {"Rhode Island","RI"}, {"South Carolina","SC"}, {"South Dakota","SD"}, {"Tennessee","TN"}, {"Texas","TX"},
+            {"Utah","UT"}, {"Vermont","VT"}, {"Virginia","VA"}, {"Washington","WA"}, {"West Virginia","WV"}, {"Wisconsin","WI"},
+            {"Wyoming","WY"}
+        };
+
         // Feature table to query.
         private ServiceFeatureTable _featureTable;
 
@@ -48,6 +62,9 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
             // Add the feature layer to the map.
             myMap.OperationalLayers.Add(myFeatureLayer);
 
+            // Populate the ComboBox with states.
+            foreach (var state in _states) { StatesPicker.Items.Add(state.Key); }
+
             try
             {
                 // Wait for the feature layer to load.
@@ -65,10 +82,10 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private async void BtnZoomToFeatures_Click(object sender, EventArgs e)
+        private async void ZoomToFeatures(object sender, EventArgs e)
         {
             // Create the query parameters.
-            QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(State) LIKE '%{txtStateEntry.Text.ToUpper()}%'" };
+            QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(State) LIKE '%{_states[StatesPicker.SelectedItem.ToString()]}%'" };
 
             try
             {
@@ -88,7 +105,7 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
                 await MyMapView.SetViewpointAsync(resultViewpoint);
 
                 // Update the UI.
-                txtResults.Text = $"Zoomed to features in {txtStateEntry.Text}";
+                Results.Text = $"Zoomed to features in {StatesPicker.SelectedItem}";
             }
             catch (Exception ex)
             {
@@ -96,7 +113,7 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private async void BtnCountFeatures_Click(object sender, EventArgs e)
+        private async void CountFeatures(object sender, EventArgs e)
         {
             // Get the current visible extent.
             Geometry currentExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;
@@ -115,7 +132,7 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
                 long count = await _featureTable.QueryFeatureCountAsync(queryCityCount);
 
                 // Update the UI.
-                txtResults.Text = $"{count} features in extent";
+                Results.Text = $"{count} features in extent";
             }
             catch (Exception ex)
             {

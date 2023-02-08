@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Microsoft.UI.Xaml;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ArcGIS.WinUI.Samples.QueryFeatureCountAndExtent
@@ -27,6 +28,20 @@ namespace ArcGIS.WinUI.Samples.QueryFeatureCountAndExtent
         // URL to the feature service.
         private readonly Uri _medicareHospitalSpendLayer =
             new Uri("https://services1.arcgis.com/4yjifSiIG17X0gW4/arcgis/rest/services/Medicare_Hospital_Spending_per_Patient/FeatureServer/0");
+
+        // Key is for the ComboBox and value is for query.
+        private readonly Dictionary<string, string> _states = new Dictionary<string, string>()
+        {
+            {"Alabama","AL"}, {"Alaska","AK"}, {"Arizona","AZ"}, {"Arkansas","AR"}, {"California","CA"}, {"Colorado","CO"},
+            {"Connecticut","CT"}, {"DC","DC"}, {"Delaware","DE"}, {"Florida","FL"}, {"Georgia","GA"}, {"Hawaii","HI"}, {"Idaho","ID"},
+            {"Illinois","IL"}, {"Indiana","IN"}, {"Iowa","IA"}, {"Kansas","KS"}, {"Kentucky","KY"}, {"Louisiana","LA"}, {"Maine","ME"},
+            {"Maryland","MD"}, {"Massachusetts","MA"}, {"Michigan","MI"}, {"Minnesota","MN"}, {"Mississippi","MS"}, {"Missouri","MO"},
+            {"Montana","MT"}, {"Nebraska","NE"}, {"Nevada","NV"}, {"New Hampshire","NH"}, {"New Jersey","NJ"}, {"New Mexico","NM"},
+            {"New York","NY"}, {"North Carolina","NC"}, {"North Dakota","ND"}, {"Ohio","OH"}, {"Oklahoma","OK"}, {"Oregon","OR"},
+            {"Pennsylvania","PA"}, {"Rhode Island","RI"}, {"South Carolina","SC"}, {"South Dakota","SD"}, {"Tennessee","TN"}, {"Texas","TX"},
+            {"Utah","UT"}, {"Vermont","VT"}, {"Virginia","VA"}, {"Washington","WA"}, {"West Virginia","WV"}, {"Wisconsin","WI"},
+            {"Wyoming","WY"}
+        };
 
         // Feature table to query.
         private ServiceFeatureTable _featureTable;
@@ -51,6 +66,9 @@ namespace ArcGIS.WinUI.Samples.QueryFeatureCountAndExtent
             // Add the feature layer to the map.
             myMap.OperationalLayers.Add(myFeatureLayer);
 
+            // Populate the ComboBox with states.
+            foreach (var state in _states) { StatesComboBox.Items.Add(state.Key); }
+
             try
             {
                 // Wait for the feature layer to load.
@@ -68,10 +86,10 @@ namespace ArcGIS.WinUI.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private async void BtnZoomToFeaturesClick(object sender, RoutedEventArgs e)
+        private async void ZoomToFeatures(object sender, RoutedEventArgs e)
         {
             // Create the query parameters.
-            QueryParameters queryStates = new QueryParameters() { WhereClause = $"upper(State) LIKE '%{StateEntry.Text.ToUpper()}%'" };
+            QueryParameters queryStates = new QueryParameters() { WhereClause = $"upper(State) LIKE '%{_states[StatesComboBox.SelectedItem.ToString()]}%'" };
 
             try
             {
@@ -91,8 +109,7 @@ namespace ArcGIS.WinUI.Samples.QueryFeatureCountAndExtent
                 await MyMapView.SetViewpointAsync(resultViewpoint);
 
                 // Update the UI.
-                ResultView.Text = $"Zoomed to features in {StateEntry.Text}";
-                ResultView.Visibility = Visibility.Visible;
+                Results.Text = $"Zoomed to features in {StatesComboBox.SelectedItem}";
             }
             catch (Exception ex)
             {
@@ -100,7 +117,7 @@ namespace ArcGIS.WinUI.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private async void BtnCountFeaturesClick(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        private async void CountFeatures(object sender, RoutedEventArgs e)
         {
             // Get the current visible extent.
             Geometry currentExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;
@@ -119,8 +136,7 @@ namespace ArcGIS.WinUI.Samples.QueryFeatureCountAndExtent
                 long count = await _featureTable.QueryFeatureCountAsync(queryCityCount);
 
                 // Update the UI.
-                ResultView.Text = $"{count} features in extent";
-                ResultView.Visibility = Visibility.Visible;
+                Results.Text = $"{count} features in extent";
             }
             catch (Exception ex)
             {

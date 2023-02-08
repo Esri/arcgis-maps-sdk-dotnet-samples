@@ -32,7 +32,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
         // Feature table to query.
         private ServiceFeatureTable _featureTable;
 
-        private Dictionary<string, string> states = new Dictionary<string, string>()
+        private readonly Dictionary<string, string> _states = new Dictionary<string, string>()
         {
             {"Alabama","AL"}, {"Alaska","AK"}, {"Arizona","AZ"}, {"Arkansas","AR"}, {"California","CA"}, {"Colorado","CO"},
             {"Connecticut","CT"}, {"DC","DC"}, {"Delaware","DE"}, {"Florida","FL"}, {"Georgia","GA"}, {"Hawaii","HI"}, {"Idaho","ID"},
@@ -82,7 +82,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
             }
 
             // Populate the ComboBox with states.
-            foreach (var state in states) { StatesComboBox.Items.Add(state.Key); }
+            foreach (var state in _states) { StatesComboBox.Items.Add(state.Key); }
         }
 
         private async void ZoomToFeatures(object sender, RoutedEventArgs e)
@@ -90,7 +90,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
             try
             {
                 // Create the query parameters.
-                QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(State) LIKE '%{states[StatesComboBox.SelectedItem.ToString()]}%'" };
+                QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(State) LIKE '%{_states[StatesComboBox.SelectedItem.ToString()]}%'" };
 
                 // Get the extent from the query.
                 Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);

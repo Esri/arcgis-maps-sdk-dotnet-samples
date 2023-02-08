@@ -25,7 +25,7 @@
                            FontWeight="SemiBold"
                            Text="Select a state to zoom to matching features."
                            TextWrapping="Wrap" />
-                <ComboBox x:Name="StateComboBox" Grid.Row="1" SelectionChanged="ZoomToFeatures"/>
+                <ComboBox x:Name="StatesComboBox" Grid.Row="1" SelectionChanged="ZoomToFeatures"/>
                 <Button Grid.Row="2"
                         Click="BtnCountFeaturesClick"
                         Content="Count features in extent" />

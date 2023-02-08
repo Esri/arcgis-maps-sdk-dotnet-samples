@@ -13,7 +13,7 @@ using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Threading.Tasks;
 using System.Windows;
-using static System.Windows.Forms.AxHost;
+using System.Collections.Generic;
 
 namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
 {
@@ -32,16 +32,18 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
         // Feature table to query.
         private ServiceFeatureTable _featureTable;
 
-        string[] states = { "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "DC", "Delaware",
-                "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine", "Maryland",
-                "Massachusetts", "Michigan", "Minnesota", "Mississippi", "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
-                "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania",
-                "Rhode Island", "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
-                "West Virginia", "Wisconsin", "Wyoming" };
-
-        private string[] states_abbreviated = { "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA", "HI", "ID", "IL",
-                "IN", "IA", "KS", "KY", "LA", "ME", "MD", "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ", "NM", "NY", "NC",
-                "ND", "OH", "OK", "OR", "PA", "RI", "SC", "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY" };
+        private Dictionary<string, string> states = new Dictionary<string, string>()
+        {
+            {"Alabama","AL"}, {"Alaska","AK"}, {"Arizona","AZ"}, {"Arkansas","AR"}, {"California","CA"}, {"Colorado","CO"},
+            {"Connecticut","CT"}, {"DC","DC"}, {"Delaware","DE"}, {"Florida","FL"}, {"Georgia","GA"}, {"Hawaii","HI"}, {"Idaho","ID"},
+            {"Illinois","IL"}, {"Indiana","IN"}, {"Iowa","IA"}, {"Kansas","KS"}, {"Kentucky","KY"}, {"Louisiana","LA"}, {"Maine","ME"},
+            {"Maryland","MD"}, {"Massachusetts","MA"}, {"Michigan","MI"}, {"Minnesota","MN"}, {"Mississippi","MS"}, {"Missouri","MO"},
+            {"Montana","MT"}, {"Nebraska","NE"}, {"Nevada","NV"}, {"New Hampshire","NH"}, {"New Jersey","NJ"}, {"New Mexico","NM"},
+            {"New York","NY"}, {"North Carolina","NC"}, {"North Dakota","ND"}, {"Ohio","OH"}, {"Oklahoma","OK"}, {"Oregon","OR"},
+            {"Pennsylvania","PA"}, {"Rhode Island","RI"}, {"South Carolina","SC"}, {"South Dakota","SD"}, {"Tennessee","TN"}, {"Texas","TX"},
+            {"Utah","UT"}, {"Vermont","VT"}, {"Virginia","VA"}, {"Washington","WA"}, {"West Virginia","WV"}, {"Wisconsin","WI"},
+            {"Wyoming","WY"}
+        };
 
         public QueryFeatureCountAndExtent()
         {
@@ -80,7 +82,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
             }
 
             // Populate the ComboBox with states.
-            foreach (var state in states) { StateComboBox.Items.Add(state); }
+            foreach (var state in states) { StatesComboBox.Items.Add(state.Key); }
         }
 
         private async void ZoomToFeatures(object sender, RoutedEventArgs e)
@@ -88,7 +90,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
             try
             {
                 // Create the query parameters.
-                QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(State) LIKE '%{states_abbreviated[StateComboBox.SelectedIndex]}%'" };
+                QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(State) LIKE '%{states[StatesComboBox.SelectedItem.ToString()]}%'" };
 
                 // Get the extent from the query.
                 Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
@@ -100,7 +102,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
                 await MyMapView.SetViewpointAsync(resultViewpoint);
 
                 // Update the UI.
-                ResultsTextbox.Text = $"Zoomed to features in {StateComboBox.SelectedItem.ToString()}";
+                ResultsTextbox.Text = $"Zoomed to features in {StatesComboBox.SelectedItem.ToString()}";
             }
             catch (Exception ex)
             {

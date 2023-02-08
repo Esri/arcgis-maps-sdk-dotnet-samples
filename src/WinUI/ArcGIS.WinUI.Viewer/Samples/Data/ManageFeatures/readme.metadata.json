@@ -1,0 +1,19 @@
+{
+    "category": "Data",
+    "description": "Create or delete features, update attributes or geometry.",
+    "formal_name": "ManageFeatures",
+    "ignore": false,
+    "images": [
+        "ManageFeatures.jpg"
+    ],
+    "keywords": [
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/ManageFeatures.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Manage features"
+}

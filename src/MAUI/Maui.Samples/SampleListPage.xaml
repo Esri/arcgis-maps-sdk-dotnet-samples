@@ -3,60 +3,72 @@
     x:Class="ArcGIS.SampleListPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ArcGIS.Controls"
     xmlns:converters="clr-namespace:ArcGIS.Converters">
 
     <ContentPage.Resources>
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
     </ContentPage.Resources>
-    <ScrollView>
-        <FlexLayout
-            AlignContent="Start"
-            AlignItems="Start"
-            BackgroundColor="Transparent"
-            BindableLayout.ItemsSource="{Binding .}"
-            JustifyContent="Start"
-            Wrap="Wrap">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate>
-                    <Grid x:Name="SampleGrid">
-                        <Border
-                            Margin="5"
-                            StrokeThickness="0"
-                            WidthRequest="300">
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="TapGestureRecognizer_Tapped" />
-                            </Border.GestureRecognizers>
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="45" />
-                                </Grid.RowDefinitions>
-                                <Image
-                                    Grid.Row="0"
-                                    Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
-                                    WidthRequest="300" />
-                                <Label
-                                    Grid.Row="0"
-                                    Padding="10"
-                                    Background="#A52F2F2F"
-                                    FontSize="18"
-                                    HeightRequest="50"
-                                    Text="{Binding SampleName}"
-                                    VerticalOptions="End"
-                                    VerticalTextAlignment="Center" />
-                                <Label
-                                    Grid.Row="1"
-                                    Margin="5"
-                                    FontSize="13"
-                                    Text="{Binding Description}"
-                                    TextColor="{AppThemeBinding Dark=LightGray,
-                                                                Light=Black}"
-                                    VerticalTextAlignment="Start" />
-                            </Grid>
-                        </Border>
-                    </Grid>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </FlexLayout>
-    </ScrollView>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="280" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <controls:TreeView
+            x:Name="CategoriesTree"
+            Grid.Column="0"
+            Margin="4"
+            BackgroundColor="Transparent" />
+        <ScrollView Grid.Column="1">
+            <FlexLayout
+                AlignContent="Start"
+                AlignItems="Start"
+                BackgroundColor="Transparent"
+                BindableLayout.ItemsSource="{Binding .}"
+                JustifyContent="Start"
+                Wrap="Wrap">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate>
+                        <Grid x:Name="SampleGrid">
+                            <Border
+                                Margin="5"
+                                StrokeThickness="0"
+                                WidthRequest="300">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="TapGestureRecognizer_SampleTapped" />
+                                </Border.GestureRecognizers>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="45" />
+                                    </Grid.RowDefinitions>
+                                    <Image
+                                        Grid.Row="0"
+                                        Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
+                                        WidthRequest="300" />
+                                    <Label
+                                        Grid.Row="0"
+                                        Padding="10"
+                                        Background="#A52F2F2F"
+                                        FontSize="18"
+                                        HeightRequest="50"
+                                        Text="{Binding SampleName}"
+                                        VerticalOptions="End"
+                                        VerticalTextAlignment="Center" />
+                                    <Label
+                                        Grid.Row="1"
+                                        Margin="5"
+                                        FontSize="13"
+                                        Text="{Binding Description}"
+                                        TextColor="{AppThemeBinding Dark=LightGray,
+                                                                    Light=Black}"
+                                        VerticalTextAlignment="Start" />
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </FlexLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>

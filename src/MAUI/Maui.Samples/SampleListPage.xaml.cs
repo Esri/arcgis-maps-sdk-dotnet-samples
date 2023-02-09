@@ -10,12 +10,13 @@
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
 using ArcGIS.Helpers;
+using ArcGIS.Controls;
 
 namespace ArcGIS
 {
     public partial class SampleListPage
     {
-        private readonly string _categoryName;
+        private string _categoryName;
         private List<SampleInfo> _listSampleItems;
 
         public SampleListPage(string name)
@@ -26,11 +27,20 @@ namespace ArcGIS
 
             InitializeComponent();
 
+            LoadTreeView(SampleManager.Current.FullTree);
+
             Title = _categoryName;
         }
 
         private void Initialize()
         {
+            SetBindingContext();
+        }
+
+        private void SetBindingContext()
+        {
+            Title = _categoryName;
+
             // Get the list of sample categories.
             List<object> sampleCategories = SampleManager.Current.FullTree.Items;
 
@@ -44,7 +54,66 @@ namespace ArcGIS
             BindingContext = _listSampleItems;
         }
 
-        private void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
+        private void LoadTreeView(SearchableTreeNode fullTree)
+        {
+            var rootNodes = CategoriesTree.ProcessTreeItemGroups(fullTree);
+
+            CategoriesTree.RootNodes = rootNodes;
+
+            foreach (TreeViewNode rootNode in rootNodes)
+            {
+                var rootNodeTappedRecognizer = new TapGestureRecognizer()
+                {
+                    NumberOfTapsRequired = 1,
+                    CommandParameter = rootNode,
+                };
+
+                rootNodeTappedRecognizer.Tapped += TapGestureRecognizer_RootNodeTapped;
+
+                rootNode.GestureRecognizers.Add(rootNodeTappedRecognizer);
+
+                foreach (TreeViewNode child in rootNode.ChildrenList)
+                {
+                    var childTappedRecognizer = new TapGestureRecognizer()
+                    {
+                        NumberOfTapsRequired = 1,
+                        CommandParameter = child,
+                    };
+
+                    childTappedRecognizer.Tapped += TapGestureRecognizer_ChildTapped;
+
+                    child.GestureRecognizers.Add(childTappedRecognizer);
+                }
+            }
+        }
+
+        private void TapGestureRecognizer_RootNodeTapped(object sender, TappedEventArgs e)
+        {
+            if (e.Parameter is TreeViewNode rootNode && rootNode.BindingContext is SearchableTreeNode searchableTreeNode)
+            {
+                if (searchableTreeNode.Name != Title)
+                {
+                    CategoriesTree.SelectedItem = rootNode;
+                    UpdateSelectedCategory(searchableTreeNode.Name);
+                }
+            }
+        }
+
+        private void TapGestureRecognizer_ChildTapped(object sender, TappedEventArgs e)
+        {
+            if (e.Parameter is TreeViewNode childNode && childNode.BindingContext is SampleInfo)
+            {
+                CategoriesTree.SelectedItem = childNode;
+            }
+        }
+
+        private void UpdateSelectedCategory(string categoryName)
+        {
+            _categoryName = categoryName;
+            SetBindingContext();
+        }
+
+        private void TapGestureRecognizer_SampleTapped(object sender, TappedEventArgs e)
         {
             var sampleInfo = e.Parameter as SampleInfo;
             _ = SampleLoader.LoadSample(sampleInfo, this);

@@ -103,6 +103,9 @@
 	  <MauiImage Include="Resources\Icons\*.svg" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="Helpers\SampleTreeViewBuilder.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>

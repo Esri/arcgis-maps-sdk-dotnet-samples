@@ -17,7 +17,6 @@ namespace ArcGIS.Controls
         private readonly BoxView _spacerBoxView = new BoxView() { Color = Colors.Transparent };
         private readonly BoxView _emptyBox = new BoxView { BackgroundColor = Colors.Orange, Opacity = 0.5 };
 
-        private const int ExpandButtonWidth = 32;
         private ContentView _expandButtonContent = new();
 
         private readonly Grid _mainGrid = new Grid

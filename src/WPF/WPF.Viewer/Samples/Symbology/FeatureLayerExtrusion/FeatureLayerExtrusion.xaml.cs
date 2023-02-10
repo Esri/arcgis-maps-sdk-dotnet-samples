@@ -64,7 +64,8 @@ namespace ArcGIS.WPF.Samples.FeatureLayerExtrusion
                 // Set the extrusion mode for the scene properties.
                 myRendererSceneProperties.ExtrusionMode = ExtrusionMode.AbsoluteHeight;
 
-                // Set the initial extrusion expression to the 2007 population field divided of 10 for better visibility.
+                // Set the initial extrusion expression to the 2007 population field from the data set divided by 10.
+                // This reduces the height of the extruded features for better visibility.
                 myRendererSceneProperties.ExtrusionExpression = "[POP2007] / 10";
 
                 // Set the feature layer's renderer to the define simple renderer.

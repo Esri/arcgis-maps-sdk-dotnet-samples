@@ -93,6 +93,15 @@ namespace ArcGIS
         {
             await Navigation.PushAsync(new SettingsPage(), true);
         }
+
+        private void TapGestureRecognizer_CategoryTapped(object sender, TappedEventArgs e)
+        {
+            if (e.Parameter != null)
+            {
+                // Navigate to the listing page for the category.
+                _ =  Navigation.PushAsync(new SampleListPage((string)e.Parameter));
+            }
+        }
     }
 
     public class SamplesSearchViewModel : INotifyPropertyChanged

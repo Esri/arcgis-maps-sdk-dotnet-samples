@@ -98,7 +98,7 @@
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Resources\Thumbnails\Placeholder_Android.jpg" />
+    <MauiImage Include="Resources\Thumbnails\placeholder_android.jpg" />
     <None Remove="Resources\Icons\*.svg" />
 	  <MauiImage Include="Resources\Icons\*.svg" />
   </ItemGroup>
@@ -106,11 +106,19 @@
     <Compile Remove="Helpers\SampleTreeViewBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Resources\Thumbnails\Placeholder_iOS.jpg" />
+    <None Remove="Resources\Thumbnails\Placeholder_MacCatalyst.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <MauiImage Include="Resources\Thumbnails\placeholder_ios.jpg" />
+    <MauiImage Include="Resources\Thumbnails\placeholder_maccatalyst.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>
 	<ItemGroup>
-    <MauiAsset Include="Resources\Thumbnails\Placeholder_Windows.jpg" />
+    <MauiAsset Include="Resources\Thumbnails\placeholder_windows.jpg" />
     <MauiAsset Include="SyntaxHighlighting\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiAsset>

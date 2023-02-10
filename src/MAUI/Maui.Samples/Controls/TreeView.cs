@@ -1,4 +1,5 @@
-﻿using ArcGIS.Helpers;
+﻿#if WINDOWS || MACCATALYST
+using ArcGIS.Helpers;
 using ArcGIS.Samples.Shared.Models;
 using Microsoft.Maui.ApplicationModel;
 using System.Collections.ObjectModel;
@@ -225,3 +226,4 @@ namespace ArcGIS.Controls
         }
     }
 }
+#endif

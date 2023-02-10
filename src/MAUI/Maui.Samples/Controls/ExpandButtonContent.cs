@@ -1,4 +1,5 @@
-﻿using Microsoft.Maui.ApplicationModel;
+﻿#if WINDOWS || MACCATALYST
+using Microsoft.Maui.ApplicationModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,3 +34,4 @@ namespace ArcGIS.Controls
         }
     }
 }
+#endif

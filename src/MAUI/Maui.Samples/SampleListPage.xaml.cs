@@ -10,7 +10,10 @@
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
 using ArcGIS.Helpers;
+
+#if WINDOWS || MACCATALYST
 using ArcGIS.Controls;
+#endif
 
 namespace ArcGIS
 {
@@ -19,22 +22,43 @@ namespace ArcGIS
         private string _categoryName;
         private List<SampleInfo> _listSampleItems;
 
+#if WINDOWS || MACCATALYST
+        private TreeView _categoriesTree;
+#endif
+
         public SampleListPage(string name)
         {
             _categoryName = name;
 
-            Initialize();
-
             InitializeComponent();
 
-            LoadTreeView(SampleManager.Current.FullTree);
+            Initialize();
 
+#if WINDOWS || MACCATALYST
+            LoadTreeView(SampleManager.Current.FullTree);
+#endif
             Title = _categoryName;
         }
 
         private void Initialize()
         {
             SetBindingContext();
+#if WINDOWS || MACCATALYST
+
+            SampleListGrid.ColumnDefinitions = new ColumnDefinitionCollection { new ColumnDefinition() { Width = 280 }, new ColumnDefinition() { Width = GridLength.Star } };           
+
+            _categoriesTree = new TreeView()
+            {
+                Margin = 4,
+                BackgroundColor = Colors.Transparent
+            };
+            SampleListGrid.Add(_categoriesTree);
+            SampleListGrid.SetColumn(_categoriesTree, 0);
+            SampleListGrid.SetColumn(SampleScrollView, 1);
+#else
+            SampleListGrid.ColumnDefinitions = new ColumnDefinitionCollection { new ColumnDefinition() { Width = GridLength.Star } };
+            SampleListGrid.SetColumn(SampleScrollView, 0);
+#endif
         }
 
         private void SetBindingContext()
@@ -54,11 +78,12 @@ namespace ArcGIS
             BindingContext = _listSampleItems;
         }
 
+#if WINDOWS || MACCATALYST
         private void LoadTreeView(SearchableTreeNode fullTree)
         {
-            var rootNodes = CategoriesTree.ProcessTreeItemGroups(fullTree);
+            var rootNodes = _categoriesTree.ProcessTreeItemGroups(fullTree);
 
-            CategoriesTree.RootNodes = rootNodes;
+            _categoriesTree.RootNodes = rootNodes;
 
             foreach (TreeViewNode rootNode in rootNodes)
             {
@@ -93,7 +118,7 @@ namespace ArcGIS
             {
                 if (searchableTreeNode.Name != Title)
                 {
-                    CategoriesTree.SelectedItem = rootNode;
+                    _categoriesTree.SelectedItem = rootNode;
                     UpdateSelectedCategory(searchableTreeNode.Name);
                 }
             }
@@ -103,7 +128,7 @@ namespace ArcGIS
         {
             if (e.Parameter is TreeViewNode childNode && childNode.BindingContext is SampleInfo)
             {
-                CategoriesTree.SelectedItem = childNode;
+                _categoriesTree.SelectedItem = childNode;
             }
         }
 
@@ -112,6 +137,7 @@ namespace ArcGIS
             _categoryName = categoryName;
             SetBindingContext();
         }
+#endif
 
         private void TapGestureRecognizer_SampleTapped(object sender, TappedEventArgs e)
         {

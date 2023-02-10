@@ -1,12 +1,8 @@
-﻿using ArcGIS.Helpers;
+﻿#if WINDOWS || MACCATALYST
+using ArcGIS.Helpers;
 using ArcGIS.Samples.Shared.Models;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArcGIS.Controls
 {
@@ -31,7 +27,7 @@ namespace ArcGIS.Controls
             RowSpacing = 2
         };
 
-        private readonly StackLayout _contentStackLayout = new StackLayout {Orientation = StackOrientation.Horizontal };
+        private readonly StackLayout _contentStackLayout = new StackLayout { Orientation = StackOrientation.Horizontal };
 
         private readonly ContentView _contentView = new ContentView
         {
@@ -241,3 +237,4 @@ namespace ArcGIS.Controls
         }
     }
 }
+#endif

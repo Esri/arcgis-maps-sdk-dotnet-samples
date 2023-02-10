@@ -11,13 +11,13 @@ namespace ArcGIS.Converters
             {
                 string platform = string.Empty;
 #if WINDOWS
-                platform = "_Windows";
+                platform = "_windows";
 #elif ANDROID
-                platform = "_Android";
+                platform = "_android";
 #elif MACCATALYST
-                platform = "_MacCatalyst";
+                platform = "_maccatalyst";
 #elif IOS
-                platform = "_iOS";
+                platform = "_ios";
 #endif
 
                 ImageSource image = null;
@@ -28,7 +28,11 @@ namespace ArcGIS.Converters
                 }
                 else
                 {
-                    image = ImageSource.FromFile($@"Resources\Thumbnails\Placeholder{platform}.jpg");
+#if ANDROID
+                    image = ImageSource.FromFile($@"Resources/Thumbnails/placeholder{platform}.jpg");
+#else
+                    image = ImageSource.FromFile($@"Resources\Thumbnails\placeholder{platform}.jpg");
+#endif
                 }
 
                 if (image != null)

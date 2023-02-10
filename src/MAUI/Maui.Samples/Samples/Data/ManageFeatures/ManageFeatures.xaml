@@ -5,16 +5,21 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource EsriSampleControlPanel}">
-            <StackLayout>
+        <Border Style="{StaticResource EsriSampleControlPanel}"
+                VerticalOptions="Start">
+            <StackLayout Padding="5"
+                         Spacing="5">
                 <Label Text="Select an option." />
                 <Picker x:Name="MethodPicker"
                         IsEnabled="True"
                         SelectedIndexChanged="OnComboBoxSelectionChanged" />
                 <Label x:Name="InstructionLabel" 
                        Text="Select an option to show instructions." />
-                <Picker x:Name="DamageTypeDropDown"
-                        IsEnabled="False" />
+                <Picker x:Name="DamageTypePicker"
+                        IsVisible="False" />
+                <Button x:Name="DeleteButton"
+                        Clicked="DeleteButton_Click"
+                        IsVisible="False"/>
             </StackLayout>
 
         </Border>

@@ -10,19 +10,8 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+
 using GeoViewInputEventArgs = Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs;
-using Microsoft.Maui.ApplicationModel;
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 namespace ArcGIS.Samples.ManageFeatures
@@ -49,6 +38,8 @@ namespace ArcGIS.Samples.ManageFeatures
 
         // Hold a reference to the selected feature.
         private ArcGISFeature _selectedFeature;
+
+        private Feature _tappedFeature;
 
         // Create an items source list for the ComboBox.
         private List<string> _methodList = new List<string> { "Create feature", "Delete feature", "Update attribute", "Update geometry" };
@@ -98,7 +89,7 @@ namespace ArcGIS.Samples.ManageFeatures
         private void DamageTable_Loaded(object sender, EventArgs e)
         {
             // This code needs to work with the UI, so it needs to run on the UI thread.
-            MainThread.BeginInvokeOnMainThread(() =>
+            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
             {
                 // Get the relevant field from the table.
                 ServiceFeatureTable table = (ServiceFeatureTable)sender;
@@ -108,53 +99,64 @@ namespace ArcGIS.Samples.ManageFeatures
                 CodedValueDomain attributeDomain = (CodedValueDomain)typeDamageField.Domain;
 
                 // Update the ComboBox with the attribute values.
-                DamageTypeDropDown.ItemsSource = (System.Collections.IList)attributeDomain.CodedValues.Select(codedValue => codedValue.Name);
+                DamageTypePicker.ItemsSource = attributeDomain.CodedValues.Select(codedValue => codedValue.Name).ToList();
             });
         }
 
         private async void OnComboBoxSelectionChanged(object sender, EventArgs e)
         {
-            // Clear all potentially hooked GeoViewTapped events.
+            // Clear all currently hooked GeoViewTapped events.
             MyMapView.GeoViewTapped -= MapView_Tapped_CreateFeature;
             MyMapView.GeoViewTapped -= MapView_Tapped_DeleteFeature;
             MyMapView.GeoViewTapped -= MapView_Tapped_UpdateAttribute;
             MyMapView.GeoViewTapped -= MapView_Tapped_UpdateGeometry;
 
+            // Reset UI elements.
+            DeleteButton.IsVisible = false;
+            DamageTypePicker.IsVisible = false;
+
             // Hold a variable for the Picker's selected value.
             Picker picker = (Picker)sender;
 
-            if (picker.SelectedIndex == 0)
+            try
             {
-                // Update the label.
-                InstructionLabel.Text = "Tap to add a feature.";
+                if (picker.SelectedIndex == 0)
+                {
+                    // Update the label.
+                    InstructionLabel.Text = "Tap to add a feature.";
 
-                // Update the currently hooked GeoViewTapped event.
-                MyMapView.GeoViewTapped += MapView_Tapped_CreateFeature;
+                    // Update the currently hooked GeoViewTapped event.
+                    MyMapView.GeoViewTapped += MapView_Tapped_CreateFeature;
 
+                }
+                else if (picker.SelectedIndex == 1)
+                {
+                    // Update the label.
+                    InstructionLabel.Text = "Tap to delete a feature.";
+
+                    // Update the currently hooked GeoViewTapped event.
+                    MyMapView.GeoViewTapped += MapView_Tapped_DeleteFeature;
+                }
+                else if (picker.SelectedIndex == 2)
+                {
+                    // Update the label.
+                    InstructionLabel.Text = "Tap to select a feature, then change its damage type.";
+
+                    // Update the currently hooked GeoViewTapped event.
+                    MyMapView.GeoViewTapped += MapView_Tapped_UpdateAttribute;
+                }
+                else if (picker.SelectedIndex == 3)
+                {
+                    // Update the label.
+                    InstructionLabel.Text = "Tap to select a feature. Tap again to move it.";
+
+                    // Update the currently hooked GeoViewTapped event.
+                    MyMapView.GeoViewTapped += MapView_Tapped_UpdateGeometry;
+                }
             }
-            else if (picker.SelectedIndex == 1)
+            catch (Exception ex)
             {
-                // Update the label.
-                InstructionLabel.Text = "Tap to delete a feature.";
-
-                // Update the currently hooked GeoViewTapped event.
-                MyMapView.GeoViewTapped += MapView_Tapped_DeleteFeature;
-            }
-            else if (picker.SelectedIndex == 2)
-            {
-                // Update the label.
-                InstructionLabel.Text = "Tap to select a feature, then change its damage type.";
-
-                // Update the currently hooked GeoViewTapped event.
-                MyMapView.GeoViewTapped += MapView_Tapped_UpdateAttribute;
-            }
-            else if (picker.SelectedIndex == 3)
-            {
-                // Update the label.
-                InstructionLabel.Text = "Tap to select a feature. Tap again to move it.";
-
-                // Update the currently hooked GeoViewTapped event.
-                MyMapView.GeoViewTapped += MapView_Tapped_UpdateGeometry;
+                await DisplayAlert("Error", ex.ToString(), "OK");
             }
 
         }
@@ -167,7 +169,7 @@ namespace ArcGIS.Samples.ManageFeatures
                 ArcGISFeature feature = (ArcGISFeature)_damageFeatureTable.CreateFeature();
 
                 // Get the normalized geometry for the tapped location and use it as the feature's geometry.
-                MapPoint tappedPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(e.Location);
+                MapPoint tappedPoint = (MapPoint)e.Location.NormalizeCentralMeridian();
                 feature.Geometry = tappedPoint;
 
                 // Set feature attributes.
@@ -177,18 +179,18 @@ namespace ArcGIS.Samples.ManageFeatures
                 // Add the feature to the table.
                 await _damageFeatureTable.AddFeatureAsync(feature);
 
-                // Apply the edits to the service on the service geodatbase.
+                // Apply the edits to the service geodatabase.
                 await _damageFeatureTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Update the feature to get the updated objectid - a temporary ID is used before the feature is added.
                 feature.Refresh();
 
                 // Confirm feature addition.
-                await DisplayAlert("Success!", "Created feature " + feature.Attributes["objectid"], "OK");
+                await Application.Current.MainPage.DisplayAlert("Success!", $"Created feature {feature.Attributes["objectid"]}", "OK");
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error adding feature", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error adding feature", ex.ToString(), "OK");
             }
         }
 
@@ -197,13 +199,14 @@ namespace ArcGIS.Samples.ManageFeatures
             // Clear any existing selection.
             _damageLayer.ClearSelection();
 
-            // Dismiss any existing callouts.
-            MyMapView.DismissCallout();
+            // Reconfigure the button.
+            DeleteButton.IsVisible = false;
+            DeleteButton.Text = "Delete feature";
 
             try
             {
                 // Perform an identify to determine if a user tapped on a feature.
-                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_damageLayer, e.Position, 2, false);
+                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_damageLayer, e.Position, 5, false);
 
                 // Do nothing if there are no results.
                 if (!identifyResult.GeoElements.Any())
@@ -218,61 +221,54 @@ namespace ArcGIS.Samples.ManageFeatures
                 QueryParameters qp = new QueryParameters();
                 qp.ObjectIds.Add(featureId);
                 FeatureQueryResult queryResult = await _damageLayer.FeatureTable.QueryFeaturesAsync(qp);
-                Feature tappedFeature = queryResult.First();
+                _tappedFeature = queryResult.First();
 
                 // Select the feature.
-                _damageLayer.SelectFeature(tappedFeature);
+                _damageLayer.SelectFeature(_tappedFeature);
 
-                // Show the callout.
-                ShowDeletionCallout(tappedFeature);
+                // Update the button to allow deleting the feature.
+                ConfigureDeletionButton(_tappedFeature);
             }
             catch (Exception ex)
             {
-                await DisplayAlert("There was a problem.", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
-        private void ShowDeletionCallout(Feature tappedFeature)
+        private void ConfigureDeletionButton(Feature tappedFeature)
         {
             // Create a button for deleting the feature.
-            Button deleteButton = new Button();
-            deleteButton.Text = "Delete incident";
-            deleteButton.Padding = new Microsoft.Maui.Thickness(5);
-            //1
-            //deleteButton.Tag = tappedFeature;
-
-            // Handle button clicks.
-            deleteButton.Clicked += DeleteButton_Click;
-
-            // Show the callout.
-            //MyMapView.ShowCalloutAt((MapPoint)tappedFeature.Geometry, deleteButton);
-            MyMapView.ShowCalloutAt((MapPoint)tappedFeature.Geometry, new CalloutDefinition(deleteButton.Text));
+            DeleteButton.Text = $"Delete incident {tappedFeature.Attributes["objectid"]}";
+            DeleteButton.IsVisible = true;
         }
-        
+
         private async void DeleteButton_Click(object sender, EventArgs e)
         {
-            // Dismiss the callout.
-            MyMapView.DismissCallout();
+            // Reconfigure the button.
+            DeleteButton.IsVisible = false;
+            DeleteButton.Text = "Delete feature";
+
+            // Guard against null.
+            if (_tappedFeature == null)
+            {
+                return;
+            }
 
             try
             {
-                // Get the feature to delete from the layer.
-                Button deleteButton = (Button)sender;
-                //Feature featureToDelete = deleteButton.Tag;
-
                 // Delete the feature.
-                //await _damageLayer.FeatureTable.DeleteFeatureAsync(featureToDelete);
+                await _damageLayer.FeatureTable.DeleteFeatureAsync(_tappedFeature);
 
-                // Sync the change with the service on the service geodatabase.
+                // Sync the change with the service geodatabase.
                 ServiceFeatureTable serviceTable = (ServiceFeatureTable)_damageLayer.FeatureTable;
                 await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Show a message confirming the deletion.
-                await DisplayAlert("Success!", "Deleted feature with ID ", "OK");
+                await Application.Current.MainPage.DisplayAlert("Success!", $"Deleted feature with ID {_tappedFeature.Attributes["objectid"]}", "OK");
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", "Couldn't delete feature", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -284,14 +280,14 @@ namespace ArcGIS.Samples.ManageFeatures
             // Dismiss any existing callouts.
             MyMapView.DismissCallout();
 
-            // Reset the dropdown.
-            DamageTypeDropDown.IsEnabled = false;
-            DamageTypeDropDown.SelectedIndex = -1;
+            // Reset the picker.
+            DamageTypePicker.IsVisible = false;
+            DamageTypePicker.SelectedIndex = -1;
 
             try
             {
                 // Perform an identify to determine if a user tapped on a feature.
-                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_damageLayer, e.Position, 2, false);
+                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_damageLayer, e.Position, 8, false);
 
                 // Do nothing if there are no results.
                 if (!identifyResult.GeoElements.Any())
@@ -310,7 +306,7 @@ namespace ArcGIS.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("There was a problem.", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error selecting feature.", ex.ToString(), "OK");
             }
         }
 
@@ -319,19 +315,19 @@ namespace ArcGIS.Samples.ManageFeatures
             // Get the current value.
             string currentAttributeValue = _selectedFeature.Attributes[AttributeFieldName].ToString();
 
-            // Update the ComboBox selection without triggering the event.
-            DamageTypeDropDown.SelectedIndexChanged -= DamageType_Changed;
-            DamageTypeDropDown.SelectedItem = currentAttributeValue;
-            DamageTypeDropDown.SelectedIndexChanged += DamageType_Changed;
+            // Update the combobox selection without triggering the event.
+            DamageTypePicker.SelectedIndexChanged -= DamageType_Changed;
+            DamageTypePicker.SelectedItem = currentAttributeValue;
+            DamageTypePicker.SelectedIndexChanged += DamageType_Changed;
 
-            // Enable the ComboBox.
-            DamageTypeDropDown.IsEnabled = true;
+            // Enable the combobox.
+            DamageTypePicker.IsVisible = true;
         }
 
         private async void DamageType_Changed(object sender, EventArgs e)
         {
             // Skip if nothing is selected.
-            if (DamageTypeDropDown.SelectedIndex == -1)
+            if (DamageTypePicker.SelectedIndex == -1)
             {
                 return;
             }
@@ -339,7 +335,7 @@ namespace ArcGIS.Samples.ManageFeatures
             try
             {
                 // Get the new value.
-                string selectedAttributeValue = DamageTypeDropDown.SelectedItem.ToString();
+                string selectedAttributeValue = DamageTypePicker.SelectedItem.ToString();
 
                 // Load the feature.
                 await _selectedFeature.LoadAsync();
@@ -350,15 +346,15 @@ namespace ArcGIS.Samples.ManageFeatures
                 // Update the table.
                 await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
 
-                // Update the service on the service geodatabase.
+                // Update the service geodatabase.
                 ServiceFeatureTable table = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await table.ServiceGeodatabase.ApplyEditsAsync();
 
-                await DisplayAlert("Success!", "Edited feature " + _selectedFeature.Attributes["objectid"], "OK");
+                await Application.Current.MainPage.DisplayAlert("Success!", $"Edited feature {_selectedFeature.Attributes["objectid"]}", "OK");
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Failed to edit feature", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Failed to edit feature", ex.ToString(), "OK");
             }
             finally
             {
@@ -367,8 +363,8 @@ namespace ArcGIS.Samples.ManageFeatures
                 _selectedFeature = null;
 
                 // Update the UI.
-                DamageTypeDropDown.IsEnabled = false;
-                DamageTypeDropDown.SelectedIndex = -1;
+                DamageTypePicker.IsVisible = false;
+                DamageTypePicker.SelectedIndex = -1;
             }
         }
 
@@ -395,7 +391,7 @@ namespace ArcGIS.Samples.ManageFeatures
                 MapPoint destinationPoint = tapEventDetails.Location;
 
                 // Normalize the point - needed when the tapped location is over the international date line.
-                destinationPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(destinationPoint);
+                destinationPoint = (MapPoint)destinationPoint.NormalizeCentralMeridian();
 
                 // Load the feature.
                 await _selectedFeature.LoadAsync();
@@ -406,15 +402,14 @@ namespace ArcGIS.Samples.ManageFeatures
                 // Apply the edit to the feature table.
                 await _selectedFeature.FeatureTable.UpdateFeatureAsync(_selectedFeature);
 
-                // Push the update to the service with the service geodatabase.
+                // Push the update to the service geodatabase.
                 ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
-                await DisplayAlert("Success!", "Moved feature " + _selectedFeature.Attributes["objectid"], "OK");
-
+                await Application.Current.MainPage.DisplayAlert("Success!", $"Moved feature {_selectedFeature.Attributes["objectid"]}", "OK");
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error when moving feature.", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error when moving feature", ex.ToString(), "OK");
             }
             finally
             {
@@ -445,7 +440,7 @@ namespace ArcGIS.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("There was a problem.", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Problem selecting feature", ex.ToString(), "OK");
             }
         }
     }

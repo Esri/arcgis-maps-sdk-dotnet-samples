@@ -4,19 +4,18 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border Style="{DynamicResource BorderStyle}">
             <StackPanel>
-                <Label Content="Select an option." />
+                <Label Content="Select an edit operation."
+                       FontWeight="SemiBold"/>
                 <ComboBox x:Name="MethodPicker"
                           IsEditable="False"
                           IsEnabled="True"
                           SelectionChanged="OnComboBoxSelectionChanged" />
                 <Label x:Name="InstructionLabel" 
-                       Content="Select an option to show instructions." 
-                       FontWeight="SemiBold" />
+                       Content="Select an option to show instructions." />
                 <ComboBox x:Name="DamageTypeDropDown"
-                          IsEditable="False"
-                          IsEnabled="False" />
+                          Visibility="Collapsed"/>
             </StackPanel>
         </Border>
     </Grid>

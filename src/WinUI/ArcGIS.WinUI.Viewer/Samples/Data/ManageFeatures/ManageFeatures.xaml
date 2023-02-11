@@ -4,22 +4,21 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esri="using:Esri.ArcGISRuntime"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
-  <Grid>
+    <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-      <StackPanel>
-        <TextBox Text="Select an option." />
-        <ComboBox x:Name="MethodPicker"
-                  IsEditable="False"
-                  IsEnabled="True"
-                  SelectionChanged="OnComboBoxSelectionChanged" />
-        <TextBox x:Name="InstructionLabel"
-                 Text="Select an option to show instructions."
-                 FontWeight="SemiBold" />
-        <ComboBox x:Name="DamageTypeDropDown"
-                  IsEditable="False"
-                  IsEnabled="False" />
-      </StackPanel>
-    </Border>
-  </Grid>
+            <StackPanel>
+                <TextBox Text ="Select an edit operation."
+                          FontWeight="SemiBold" />
+                <ComboBox x:Name="MethodPicker"
+                          IsEditable="False"
+                          IsEnabled="True"
+                          SelectionChanged="OnComboBoxSelectionChanged" />
+                <TextBox x:Name="InstructionLabel" 
+                         Text ="Select an option to show instructions." />
+                <ComboBox x:Name="DamageTypeDropDown"
+                          Visibility="Collapsed" />
+            </StackPanel>
+        </Border>
+    </Grid>
 </UserControl>

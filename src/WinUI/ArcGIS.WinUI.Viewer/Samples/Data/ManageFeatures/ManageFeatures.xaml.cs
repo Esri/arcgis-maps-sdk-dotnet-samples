@@ -10,17 +10,13 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
 
 namespace ArcGIS.WinUI.Samples.ManageFeatures
 {
@@ -88,14 +84,14 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
             }
         }
 
         private void DamageTable_Loaded(object sender, EventArgs e)
         {
             // This code needs to work with the UI, so it needs to run on the UI thread.
-            Dispatcher.Invoke(() =>
+            DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () =>
             {
                 // Get the relevant field from the table.
                 ServiceFeatureTable table = (ServiceFeatureTable)sender;
@@ -117,13 +113,18 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             MyMapView.GeoViewTapped -= MapView_Tapped_UpdateAttribute;
             MyMapView.GeoViewTapped -= MapView_Tapped_UpdateGeometry;
 
+            // Reset UI elements.
+            _damageLayer.ClearSelection();
+            DamageTypeDropDown.Visibility = Visibility.Collapsed;
+            MyMapView.DismissCallout();
+
             // Hold a variable for the ComboBox's selected value.
             ComboBox comboBox = (ComboBox)sender;
 
             if (comboBox.SelectedIndex == 0)
             {
                 // Update the label.
-                InstructionLabel.Text = "Tap to add a feature.";
+                InstructionLabel.Text = "Tap on the map to create a new feature.";
 
                 // Update the currently hooked GeoViewTapped event.
                 MyMapView.GeoViewTapped += MapView_Tapped_CreateFeature;
@@ -132,7 +133,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             else if (comboBox.SelectedIndex == 1)
             {
                 // Update the label.
-                InstructionLabel.Content = "Tap to delete a feature.";
+                InstructionLabel.Text = "Tap an existing feature to delete it.";
 
                 // Update the currently hooked GeoViewTapped event.
                 MyMapView.GeoViewTapped += MapView_Tapped_DeleteFeature;
@@ -140,7 +141,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             else if (comboBox.SelectedIndex == 2)
             {
                 // Update the label.
-                InstructionLabel.Content = "Tap to select a feature, then change its damage type.";
+                InstructionLabel.Text = "Tap an existing feature to edit its attribute.";
 
                 // Update the currently hooked GeoViewTapped event.
                 MyMapView.GeoViewTapped += MapView_Tapped_UpdateAttribute;
@@ -148,7 +149,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             else if (comboBox.SelectedIndex == 3)
             {
                 // Update the label.
-                InstructionLabel.Content = "Tap to select a feature. Tap again to move it.";
+                InstructionLabel.Text = "Tap an existing feature to select it, tap the map to move it to a new position.";
 
                 // Update the currently hooked GeoViewTapped event.
                 MyMapView.GeoViewTapped += MapView_Tapped_UpdateGeometry;
@@ -181,11 +182,11 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
                 feature.Refresh();
 
                 // Confirm feature addition.
-                MessageBox.Show("Created feature " + feature.Attributes["objectid"], "Success!");
+                await new MessageDialog2($"Created feature {feature.Attributes["objectid"]}", "Success!").ShowAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error adding feature");
+                await new MessageDialog2(ex.ToString(), "Error creating feature").ShowAsync(); ;
             }
         }
 
@@ -225,7 +226,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "There was a problem.");
+                await new MessageDialog2(ex.ToString(), "Error selecting feature.").ShowAsync();
             }
         }
 
@@ -263,11 +264,11 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
                 await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Show a message confirming the deletion.
-                MessageBox.Show("Deleted feature with ID " + featureToDelete.Attributes["objectid"], "Success!");
+                await new MessageDialog2($"Deleted feature with ID {featureToDelete.Attributes["objectid"]}", "Success!").ShowAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Couldn't delete feature");
+                await new MessageDialog2(ex.ToString(), "Couldn't delete feature.").ShowAsync();
             }
         }
 
@@ -280,7 +281,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             MyMapView.DismissCallout();
 
             // Reset the dropdown.
-            DamageTypeDropDown.IsEnabled = false;
+            DamageTypeDropDown.Visibility = Visibility.Collapsed;
             DamageTypeDropDown.SelectedIndex = -1;
 
             try
@@ -305,7 +306,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "There was a problem.");
+                await new MessageDialog2(ex.ToString(), "Error selecting feature.").ShowAsync();
             }
         }
 
@@ -320,7 +321,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             DamageTypeDropDown.SelectionChanged += DamageType_Changed;
 
             // Enable the ComboBox.
-            DamageTypeDropDown.IsEnabled = true;
+            DamageTypeDropDown.Visibility = Visibility.Visible;
         }
 
         private async void DamageType_Changed(object sender, SelectionChangedEventArgs e)
@@ -349,11 +350,11 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
                 ServiceFeatureTable table = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await table.ServiceGeodatabase.ApplyEditsAsync();
 
-                MessageBox.Show("Edited feature " + _selectedFeature.Attributes["objectid"], "Success!");
+                await new MessageDialog2($"Edited feature {_selectedFeature.Attributes["objectid"]}", "Success!").ShowAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Failed to edit feature");
+                await new MessageDialog2(ex.ToString(), "Failed to edit feature.").ShowAsync();
             }
             finally
             {
@@ -362,7 +363,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
                 _selectedFeature = null;
 
                 // Update the UI.
-                DamageTypeDropDown.IsEnabled = false;
+                DamageTypeDropDown.Visibility = Visibility.Collapsed;
                 DamageTypeDropDown.SelectedIndex = -1;
             }
         }
@@ -404,11 +405,11 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
                 // Push the update to the service with the service geodatabase.
                 ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
-                MessageBox.Show("Moved feature " + _selectedFeature.Attributes["objectid"], "Success!");
+                await new MessageDialog2($"Moved feature {_selectedFeature.Attributes["objectid"]}", "Success!").ShowAsync();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "Error when moving feature.");
+                await new MessageDialog2(ex.ToString(), "Error when moving feature.").ShowAsync();
             }
             finally
             {
@@ -439,7 +440,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString(), "There was a problem.");
+                await new MessageDialog2(ex.ToString(), "There was a problem.").ShowAsync();
             }
         }
     }

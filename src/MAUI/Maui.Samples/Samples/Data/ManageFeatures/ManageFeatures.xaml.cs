@@ -10,9 +10,8 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-
-using GeoViewInputEventArgs = Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs;
 using Map = Esri.ArcGISRuntime.Mapping.Map;
+using GeoViewInputEventArgs = Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs;
 
 namespace ArcGIS.Samples.ManageFeatures
 {
@@ -111,7 +110,9 @@ namespace ArcGIS.Samples.ManageFeatures
             MyMapView.GeoViewTapped -= MapView_Tapped_UpdateAttribute;
             MyMapView.GeoViewTapped -= MapView_Tapped_UpdateGeometry;
 
+            // TODO - unselect all features
             // Reset UI elements.
+            _damageLayer.ClearSelection();
             DeleteButton.IsVisible = false;
             DamageTypePicker.IsVisible = false;
 
@@ -123,7 +124,7 @@ namespace ArcGIS.Samples.ManageFeatures
                 if (picker.SelectedIndex == 0)
                 {
                     // Update the label.
-                    InstructionLabel.Text = "Tap to add a feature.";
+                    InstructionLabel.Text = "Tap on the map to create a new feature.";
 
                     // Update the currently hooked GeoViewTapped event.
                     MyMapView.GeoViewTapped += MapView_Tapped_CreateFeature;
@@ -132,7 +133,7 @@ namespace ArcGIS.Samples.ManageFeatures
                 else if (picker.SelectedIndex == 1)
                 {
                     // Update the label.
-                    InstructionLabel.Text = "Tap to delete a feature.";
+                    InstructionLabel.Text = "Tap an existing feature to delete it.";
 
                     // Update the currently hooked GeoViewTapped event.
                     MyMapView.GeoViewTapped += MapView_Tapped_DeleteFeature;
@@ -140,7 +141,7 @@ namespace ArcGIS.Samples.ManageFeatures
                 else if (picker.SelectedIndex == 2)
                 {
                     // Update the label.
-                    InstructionLabel.Text = "Tap to select a feature, then change its damage type.";
+                    InstructionLabel.Text = "Tap an existing feature to edit its attribute.";
 
                     // Update the currently hooked GeoViewTapped event.
                     MyMapView.GeoViewTapped += MapView_Tapped_UpdateAttribute;
@@ -148,7 +149,7 @@ namespace ArcGIS.Samples.ManageFeatures
                 else if (picker.SelectedIndex == 3)
                 {
                     // Update the label.
-                    InstructionLabel.Text = "Tap to select a feature. Tap again to move it.";
+                    InstructionLabel.Text = "Tap an existing feature to select it, tap the map to move it to a new position.";
 
                     // Update the currently hooked GeoViewTapped event.
                     MyMapView.GeoViewTapped += MapView_Tapped_UpdateGeometry;
@@ -276,9 +277,6 @@ namespace ArcGIS.Samples.ManageFeatures
         {
             // Clear any existing selection.
             _damageLayer.ClearSelection();
-
-            // Dismiss any existing callouts.
-            MyMapView.DismissCallout();
 
             // Reset the picker.
             DamageTypePicker.IsVisible = false;

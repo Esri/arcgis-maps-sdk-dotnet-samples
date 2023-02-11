@@ -114,13 +114,18 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
             MyMapView.GeoViewTapped -= MapView_Tapped_UpdateAttribute;
             MyMapView.GeoViewTapped -= MapView_Tapped_UpdateGeometry;
 
+            // Reset UI elements.
+            _damageLayer.ClearSelection();
+            DamageTypeDropDown.Visibility = Visibility.Collapsed;
+            MyMapView.DismissCallout();
+
             // Hold a variable for the ComboBox's selected value.
             ComboBox comboBox = (ComboBox)sender;
 
             if (comboBox.SelectedIndex == 0)
             {
                 // Update the label.
-                InstructionLabel.Content = "Tap to add a feature.";
+                InstructionLabel.Content = "Tap on the map to create a new feature.";
 
                 // Update the currently hooked GeoViewTapped event.
                 MyMapView.GeoViewTapped += MapView_Tapped_CreateFeature;
@@ -129,7 +134,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
             else if (comboBox.SelectedIndex == 1)
             {
                 // Update the label.
-                InstructionLabel.Content = "Tap to delete a feature.";
+                InstructionLabel.Content = "Tap an existing feature to delete it.";
 
                 // Update the currently hooked GeoViewTapped event.
                 MyMapView.GeoViewTapped += MapView_Tapped_DeleteFeature;
@@ -137,7 +142,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
             else if (comboBox.SelectedIndex == 2)
             {
                 // Update the label.
-                InstructionLabel.Content = "Tap to select a feature, then change its damage type.";
+                InstructionLabel.Content = "Tap an existing feature to edit its attribute.";
 
                 // Update the currently hooked GeoViewTapped event.
                 MyMapView.GeoViewTapped += MapView_Tapped_UpdateAttribute;
@@ -145,7 +150,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
             else if (comboBox.SelectedIndex == 3)
             {
                 // Update the label.
-                InstructionLabel.Content = "Tap to select a feature. Tap again to move it.";
+                InstructionLabel.Content = "Tap an existing feature to select it, tap the map to move it to a new position.";
 
                 // Update the currently hooked GeoViewTapped event.
                 MyMapView.GeoViewTapped += MapView_Tapped_UpdateGeometry;
@@ -277,7 +282,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
             MyMapView.DismissCallout();
 
             // Reset the dropdown.
-            DamageTypeDropDown.IsEnabled = false;
+            DamageTypeDropDown.Visibility = Visibility.Collapsed;
             DamageTypeDropDown.SelectedIndex = -1;
 
             try
@@ -317,7 +322,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
             DamageTypeDropDown.SelectionChanged += DamageType_Changed;
 
             // Enable the ComboBox.
-            DamageTypeDropDown.IsEnabled = true;
+            DamageTypeDropDown.Visibility = Visibility.Visible;
         }
 
         private async void DamageType_Changed(object sender, SelectionChangedEventArgs e)
@@ -359,7 +364,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
                 _selectedFeature = null;
 
                 // Update the UI.
-                DamageTypeDropDown.IsEnabled = false;
+                DamageTypeDropDown.Visibility = Visibility.Collapsed;
                 DamageTypeDropDown.SelectedIndex = -1;
             }
         }

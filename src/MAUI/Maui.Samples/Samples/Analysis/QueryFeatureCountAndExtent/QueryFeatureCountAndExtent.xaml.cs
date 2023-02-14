@@ -25,11 +25,11 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
         private readonly Uri _medicareHospitalSpendLayer =
             new Uri("https://services1.arcgis.com/4yjifSiIG17X0gW4/arcgis/rest/services/Medicare_Hospital_Spending_per_Patient/FeatureServer/0");
 
-        // Key is for the ComboBox and value is for query.
+        // Key is for ComboBox and value is for query.
         private readonly Dictionary<string, string> _states = new Dictionary<string, string>()
         {
             {"Alabama","AL"}, {"Alaska","AK"}, {"Arizona","AZ"}, {"Arkansas","AR"}, {"California","CA"}, {"Colorado","CO"},
-            {"Connecticut","CT"}, {"DC","DC"}, {"Delaware","DE"}, {"Florida","FL"}, {"Georgia","GA"}, {"Hawaii","HI"}, {"Idaho","ID"},
+            {"Connecticut","CT"}, {"Delaware","DE"}, {"District of Columbia","DC"}, {"Florida","FL"}, {"Georgia","GA"}, {"Hawaii","HI"}, {"Idaho","ID"},
             {"Illinois","IL"}, {"Indiana","IN"}, {"Iowa","IA"}, {"Kansas","KS"}, {"Kentucky","KY"}, {"Louisiana","LA"}, {"Maine","ME"},
             {"Maryland","MD"}, {"Massachusetts","MA"}, {"Michigan","MI"}, {"Minnesota","MN"}, {"Mississippi","MS"}, {"Missouri","MO"},
             {"Montana","MT"}, {"Nebraska","NE"}, {"Nevada","NV"}, {"New Hampshire","NH"}, {"New Jersey","NJ"}, {"New Mexico","NM"},
@@ -50,6 +50,12 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
 
         private async Task Initialize()
         {
+            // Populate the ComboBox with states.
+            foreach (var state in _states)
+            {
+                StatesPicker.Items.Add(state.Key);
+            }
+
             // Create the map with a basemap.
             Map myMap = new Map(BasemapStyle.ArcGISDarkGray);
 
@@ -62,16 +68,14 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
             // Add the feature layer to the map.
             myMap.OperationalLayers.Add(myFeatureLayer);
 
-            // Populate the ComboBox with states.
-            foreach (var state in _states) { StatesPicker.Items.Add(state.Key); }
-
             try
             {
-                // Wait for the feature layer to load.
+                // Wait for the feature layer and spatial reference to load.
                 await myFeatureLayer.LoadAsync();
+                await myMap.LoadAsync();
 
-                // Set the map initial extent to the extent of the feature layer.
-                myMap.InitialViewpoint = new Viewpoint(myFeatureLayer.FullExtent);
+                // Set the map initial extent to the US.
+                myMap.InitialViewpoint = new Viewpoint(new MapPoint(-10900000, 4900000, SpatialReferences.WebMercator), 25000000);
 
                 // Add the map to the MapView.
                 MyMapView.Map = myMap;
@@ -85,7 +89,7 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
         private async void ZoomToFeatures(object sender, EventArgs e)
         {
             // Create the query parameters.
-            QueryParameters queryStates = new QueryParameters { WhereClause = $"upper(State) LIKE '%{_states[StatesPicker.SelectedItem.ToString()]}%'" };
+            QueryParameters queryStates = new QueryParameters { WhereClause = $"State LIKE '%{_states[StatesPicker.SelectedItem.ToString()]}%'" };
 
             try
             {

@@ -29,7 +29,7 @@ namespace ArcGIS.WinUI.Samples.QueryFeatureCountAndExtent
         private readonly Uri _medicareHospitalSpendLayer =
             new Uri("https://services1.arcgis.com/4yjifSiIG17X0gW4/arcgis/rest/services/Medicare_Hospital_Spending_per_Patient/FeatureServer/0");
 
-        // Key is for the ComboBox and value is for query.
+        // Key is for ComboBox and value is for query.
         private readonly Dictionary<string, string> _states = new Dictionary<string, string>()
         {
             {"Alabama","AL"}, {"Alaska","AK"}, {"Arizona","AZ"}, {"Arkansas","AR"}, {"California","CA"}, {"Colorado","CO"},

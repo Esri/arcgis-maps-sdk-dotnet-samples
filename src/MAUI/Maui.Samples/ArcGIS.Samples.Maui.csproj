@@ -152,6 +152,19 @@
       <Version>1.5.1.1</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Update="AppShell.xaml.cs">
+      <DependentUpon>AppShell.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <MauiXaml Update="AppShell.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="CategoryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+  </ItemGroup>
 
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />
 </Project>

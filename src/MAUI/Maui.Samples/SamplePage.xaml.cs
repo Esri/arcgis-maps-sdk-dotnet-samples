@@ -275,6 +275,13 @@ namespace ArcGIS
             };
             CurrentFileLabel.Text = fileName;
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            _ = Navigation.PopAsync();
+        }
     }
 
     public class SourceCodeFile

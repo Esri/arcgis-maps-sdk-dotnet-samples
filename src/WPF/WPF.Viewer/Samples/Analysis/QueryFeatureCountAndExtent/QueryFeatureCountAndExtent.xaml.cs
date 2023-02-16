@@ -90,12 +90,15 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private async void ZoomToFeatures(object sender, RoutedEventArgs e)
+        private async void StatesComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
             try
             {
+                // Abbreviate the selected state alike the dataset's State field.
+                string stateAbbreviation = _states[StatesComboBox.SelectedItem.ToString()];
+
                 // Create the query parameters.
-                QueryParameters queryStates = new QueryParameters { WhereClause = $"State LIKE '%{_states[StatesComboBox.SelectedItem.ToString()]}%'" };
+                QueryParameters queryStates = new QueryParameters { WhereClause = $"State LIKE '%{stateAbbreviation}%'" };
 
                 // Get the extent from the query.
                 Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
@@ -115,7 +118,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private async void CountFeatures(object sender, RoutedEventArgs e)
+        private async void CountFeaturesButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {

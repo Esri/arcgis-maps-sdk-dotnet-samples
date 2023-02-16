@@ -12,28 +12,30 @@
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border Style="{StaticResource BorderStyle}" MaxWidth="300">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
-                           Margin="5,0,5,0"
                            FontWeight="SemiBold"
                            Text="Select a state to zoom to matching features:"
                            TextWrapping="Wrap" />
                 <ComboBox x:Name="StatesComboBox"
                           Grid.Row="1"
-                          SelectionChanged="ZoomToFeatures" />
+                          HorizontalAlignment="Stretch"
+                          SelectionChanged="StatesComboBox_SelectionChanged" />
                 <Button Grid.Row="2"
-                        Click="CountFeatures"
+                        Click="CountFeaturesButton_Click"
+                        HorizontalAlignment="Stretch"
                         Content="Count features in extent" />
                 <TextBlock x:Name="Results"
                            Grid.Row="3"
                            IsEnabled="False"
+                           MaxWidth="300"
                            TextAlignment="Center" />
             </Grid>
         </Border>

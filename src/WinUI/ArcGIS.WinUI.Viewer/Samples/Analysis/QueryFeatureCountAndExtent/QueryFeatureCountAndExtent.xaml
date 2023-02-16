@@ -4,13 +4,13 @@
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border MaxWidth="275" Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
                            FontWeight="SemiBold"
@@ -18,16 +18,17 @@
                            TextWrapping="Wrap" />
                 <ComboBox x:Name="StatesComboBox"
                           Grid.Row="1"
-                          Width="275"
-                          SelectionChanged="ZoomToFeatures" />
+                          HorizontalAlignment="Stretch"
+                          SelectionChanged="StatesComboBox_SelectionChanged" />
                 <Button Grid.Row="2"
                         Margin="0,5,0,5"
                         HorizontalAlignment="Stretch"
-                        Click="CountFeatures"
+                        Click="CountFeaturesButton_Click"
                         Content="Count features in extent" />
                 <TextBlock x:Name="Results"
                            Grid.Row="3"
-                           TextAlignment="Center" />
+                           TextAlignment="Center"
+                           TextWrapping="Wrap" />
             </Grid>
         </Border>
     </Grid>

@@ -90,21 +90,17 @@ namespace ArcGIS.WinUI.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private async void ZoomToFeatures(object sender, RoutedEventArgs e)
+        private async void StatesComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
+            string stateAbbreviation = _states[StatesComboBox.SelectedItem.ToString()];
+
             // Create the query parameters.
-            QueryParameters queryStates = new QueryParameters() { WhereClause = $"State LIKE '%{_states[StatesComboBox.SelectedItem.ToString()]}%'" };
+            QueryParameters queryStates = new QueryParameters() { WhereClause = $"State LIKE '%{stateAbbreviation}%'" };
 
             try
             {
                 // Get the extent from the query.
                 Envelope resultExtent = await _featureTable.QueryExtentAsync(queryStates);
-
-                // Return if there is no result (might happen if query is invalid).
-                if (resultExtent?.SpatialReference == null)
-                {
-                    return;
-                }
 
                 // Create a viewpoint from the extent.
                 Viewpoint resultViewpoint = new Viewpoint(resultExtent);
@@ -121,7 +117,7 @@ namespace ArcGIS.WinUI.Samples.QueryFeatureCountAndExtent
             }
         }
 
-        private async void CountFeatures(object sender, RoutedEventArgs e)
+        private async void CountFeaturesButton_Click(object sender, RoutedEventArgs e)
         {
             // Get the current visible extent.
             Geometry currentExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry;

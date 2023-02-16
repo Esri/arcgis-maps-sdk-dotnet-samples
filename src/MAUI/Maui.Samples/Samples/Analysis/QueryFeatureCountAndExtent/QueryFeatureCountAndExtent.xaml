@@ -15,10 +15,9 @@
                        Text="Select a state to zoom to matching features:" />
                 <Picker x:Name="StatesPicker"
                         Grid.Row="1"
-                        SelectedIndexChanged="ZoomToFeatures"
-                        WidthRequest="275" />
+                        SelectedIndexChanged="StatesPicker_SelectionChanged" />
                 <Button Grid.Row="2"
-                        Clicked="CountFeatures"
+                        Clicked="CountFeaturesButton_Click"
                         Text="Count in extent" />
                 <Label x:Name="Results"
                        Grid.Row="3"

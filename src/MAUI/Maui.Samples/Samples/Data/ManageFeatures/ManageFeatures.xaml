@@ -6,22 +6,28 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView"
                         Style="{DynamicResource EsriSampleGeoView}"/>
-        <Border Style="{DynamicResource EsriSampleControlPanel}"
-                VerticalOptions="Start">
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout Padding="5"
                          Spacing="5">
                 <Label Text="Select a feature management operation:"
                        MinimumWidthRequest="200" />
                 <Picker x:Name="MethodPicker"
-                        IsEnabled="True"
-                        SelectedIndexChanged="OnComboBoxSelectionChanged" />
+                        SelectedIndexChanged="OnComboBoxSelectionChanged"
+                        HorizontalOptions="Start"
+                        WidthRequest="250"
+                        IsEnabled="True" />
                 <Label x:Name="InstructionLabel" 
-                       Text="Select an option to show instructions." />
+                       Text="Select an option to show instructions."
+                       HorizontalOptions="Start"
+                       MaximumWidthRequest="250"
+                       LineBreakMode="WordWrap" />
                 <Picker x:Name="DamageTypePicker"
+                        HorizontalOptions="Start"
+                        WidthRequest="250"
                         IsVisible="False" />
                 <Button x:Name="DeleteButton"
                         Clicked="DeleteButton_Click"
-                        IsVisible="False"/>
+                        IsVisible="False" />
             </StackLayout>
 
         </Border>

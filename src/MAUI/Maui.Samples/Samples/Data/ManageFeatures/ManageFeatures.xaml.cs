@@ -110,9 +110,9 @@ namespace ArcGIS.Samples.ManageFeatures
             MyMapView.GeoViewTapped -= MapView_Tapped_UpdateAttribute;
             MyMapView.GeoViewTapped -= MapView_Tapped_UpdateGeometry;
 
-            // TODO - unselect all features
             // Reset UI elements.
             _damageLayer.ClearSelection();
+            _selectedFeature = null;
             DeleteButton.IsVisible = false;
             DamageTypePicker.IsVisible = false;
 
@@ -287,9 +287,10 @@ namespace ArcGIS.Samples.ManageFeatures
                 // Perform an identify to determine if a user tapped on a feature.
                 IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_damageLayer, e.Position, 8, false);
 
-                // Do nothing if there are no results.
+                // Reset the instruction label and return if there are no results.
                 if (!identifyResult.GeoElements.Any())
                 {
+                    InstructionLabel.Text = "Tap an existing feature to edit its attribute.";
                     return;
                 }
 
@@ -299,8 +300,11 @@ namespace ArcGIS.Samples.ManageFeatures
                 // Select the feature.
                 _damageLayer.SelectFeature(_selectedFeature);
 
+                // Update instruction label.
+                InstructionLabel.Text = "Select damage type:";
+
                 // Update the UI for the selection.
-                UpdateUiForSelectedFeature();
+                UpdateUIForSelectedFeature();
             }
             catch (Exception ex)
             {
@@ -308,7 +312,7 @@ namespace ArcGIS.Samples.ManageFeatures
             }
         }
 
-        private void UpdateUiForSelectedFeature()
+        private void UpdateUIForSelectedFeature()
         {
             // Get the current value.
             string currentAttributeValue = _selectedFeature.Attributes[AttributeFieldName].ToString();
@@ -353,16 +357,6 @@ namespace ArcGIS.Samples.ManageFeatures
             catch (Exception ex)
             {
                 await Application.Current.MainPage.DisplayAlert("Failed to edit feature", ex.ToString(), "OK");
-            }
-            finally
-            {
-                // Clear the selection.
-                _damageLayer.ClearSelection();
-                _selectedFeature = null;
-
-                // Update the UI.
-                DamageTypePicker.IsVisible = false;
-                DamageTypePicker.SelectedIndex = -1;
             }
         }
 

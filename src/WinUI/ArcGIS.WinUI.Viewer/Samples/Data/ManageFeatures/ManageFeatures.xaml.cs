@@ -115,6 +115,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
 
             // Reset UI elements.
             _damageLayer.ClearSelection();
+            _selectedFeature = null;
             DamageTypeDropDown.Visibility = Visibility.Collapsed;
             MyMapView.DismissCallout();
 
@@ -289,9 +290,10 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
                 // Perform an identify to determine if a user tapped on a feature.
                 IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(_damageLayer, e.Position, 2, false);
 
-                // Do nothing if there are no results.
+                // Reset the instruction label and return if there are no results.
                 if (!identifyResult.GeoElements.Any())
                 {
+                    InstructionLabel.Text = "Tap an existing feature to edit its attribute.";
                     return;
                 }
 
@@ -301,8 +303,11 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
                 // Select the feature.
                 _damageLayer.SelectFeature(_selectedFeature);
 
+                // Update instruction label.
+                InstructionLabel.Text = "Select damage type:";
+
                 // Update the UI for the selection.
-                UpdateUiForSelectedFeature();
+                UpdateUIForSelectedFeature();
             }
             catch (Exception ex)
             {
@@ -310,7 +315,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             }
         }
 
-        private void UpdateUiForSelectedFeature()
+        private void UpdateUIForSelectedFeature()
         {
             // Get the current value.
             string currentAttributeValue = _selectedFeature.Attributes[AttributeFieldName].ToString();
@@ -355,16 +360,6 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             catch (Exception ex)
             {
                 await new MessageDialog2(ex.ToString(), "Failed to edit feature.").ShowAsync();
-            }
-            finally
-            {
-                // Clear the selection.
-                _damageLayer.ClearSelection();
-                _selectedFeature = null;
-
-                // Update the UI.
-                DamageTypeDropDown.Visibility = Visibility.Collapsed;
-                DamageTypeDropDown.SelectedIndex = -1;
             }
         }
 

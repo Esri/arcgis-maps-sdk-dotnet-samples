@@ -10,18 +10,19 @@ An end-user performing a survey may want to edit features on the map in various 
 
 ## How to use the sample
 
-Pick a function, then tap a location on the map to perform the function at that location.
+Pick a function, then tap a location on the map to perform the function at that location. Available edit functions include, "Create feature", "Delete feature", "Update attribute", "Update geometry".
 
 ## How it works
 
 A `Feature` instance is added to a `ServiceFeatureTable` which then pushes that new feature to the server.
-
+	* When the table loads, you can get the domain to determine which options to present in your UI.
 1. Create a `ServiceGeodatabase` from a URL.
 2. Get a `ServiceFeatureTable` from the `ServiceGeodatabase`.
 3. Create a `FeatureLayer` derived from the `ServiceFeatureTable` instance.
-4. Create a `Feature` with attributes and a location using the `ServiceFeatureTable`.
-5. Add the `Feature` to the `ServiceFeatureTable`.
-6. *Apply edits* to the `ServiceGeodatabase` which will upload the new feature to the online service.
+4. Create a Picker with four options, each representing its corresponding edit function. Selecting a new option should change the behavior of `GeoViewInputArgsEvent`.
+5. Create a `Feature` with attributes and a location using the `ServiceFeatureTable`.
+6. *Apply edits* intended by the selected option to the `ServiceGeodatabase` upon tapping the map.
+7. After the change, update the table on the server using `ApplyEditsAsync`.
 
 ## Relevant API
 
@@ -37,4 +38,4 @@ When editing feature tables that are subject to database behavior (operations on
 
 ## Tags
 
-edit, feature, online service
+amend, attribute, deletion, details, edit, editing, feature, feature layer, feature table, information, moving, online service, service, updating, value

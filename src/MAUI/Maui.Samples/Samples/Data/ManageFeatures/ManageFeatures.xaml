@@ -10,7 +10,8 @@
                 VerticalOptions="Start">
             <StackLayout Padding="5"
                          Spacing="5">
-                <Label Text="Select an edit operation:" />
+                <Label Text="Select a feature management operation:"
+                       MinimumWidthRequest="200" />
                 <Picker x:Name="MethodPicker"
                         IsEnabled="True"
                         SelectedIndexChanged="OnComboBoxSelectionChanged" />

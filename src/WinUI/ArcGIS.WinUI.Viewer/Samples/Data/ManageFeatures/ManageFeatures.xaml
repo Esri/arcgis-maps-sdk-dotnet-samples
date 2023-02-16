@@ -9,7 +9,7 @@
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock Padding="5"
-                           Text ="Select an edit operation."
+                           Text ="Select a feature managment operation."
                            FontWeight="SemiBold" />
                 <ComboBox x:Name="MethodPicker"
                           HorizontalAlignment="Stretch"

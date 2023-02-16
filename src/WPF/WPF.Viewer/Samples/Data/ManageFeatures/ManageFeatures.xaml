@@ -6,7 +6,7 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{DynamicResource BorderStyle}">
             <StackPanel>
-                <Label Content="Select an edit operation."
+                <Label Content="Select a feature management operation."
                        FontWeight="SemiBold"/>
                 <ComboBox x:Name="MethodPicker"
                           IsEditable="False"

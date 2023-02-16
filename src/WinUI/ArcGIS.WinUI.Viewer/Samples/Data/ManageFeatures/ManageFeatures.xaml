@@ -8,15 +8,20 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBox Text ="Select an edit operation."
-                          FontWeight="SemiBold" />
+                <TextBlock Padding="5"
+                           Text ="Select an edit operation."
+                           FontWeight="SemiBold" />
                 <ComboBox x:Name="MethodPicker"
+                          HorizontalAlignment="Stretch"
+                          Padding="5"
                           IsEditable="False"
                           IsEnabled="True"
                           SelectionChanged="OnComboBoxSelectionChanged" />
-                <TextBox x:Name="InstructionLabel" 
-                         Text ="Select an option to show instructions." />
+                <TextBlock x:Name="InstructionLabel"
+                           Padding="5"
+                           Text ="Select an option to show instructions." />
                 <ComboBox x:Name="DamageTypeDropDown"
+                          HorizontalAlignment="Stretch"
                           Visibility="Collapsed" />
             </StackPanel>
         </Border>

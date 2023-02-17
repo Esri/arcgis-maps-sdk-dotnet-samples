@@ -21,7 +21,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
         name: "Query feature count and extent",
         category: "Analysis",
         description: "Zoom to features matching a query and count the features in the current visible extent.",
-        instructions: "Use the button to zoom to the extent of the state specified (by abbreviation) in the textbox or use the button to count the features in the current extent.",
+        instructions: "Use the picker to zoom to the extent of the state specified. Use the button to count the features in the current extent.",
         tags: new[] { "count", "feature layer", "feature table", "features", "filter", "number", "query" })]
     public partial class QueryFeatureCountAndExtent
     {

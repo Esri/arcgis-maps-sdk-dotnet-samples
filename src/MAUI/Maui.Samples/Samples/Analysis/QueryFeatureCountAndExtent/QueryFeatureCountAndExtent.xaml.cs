@@ -51,7 +51,7 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
         private async Task Initialize()
         {
             // Populate the Picker with states.
-            StatesPicker.ItemsSource = new List<string>(this._states.Keys);
+            StatesPicker.ItemsSource = _states.Keys.ToList();
 
             // Create the map with a basemap.
             Map myMap = new Map(BasemapStyle.ArcGISDarkGray);

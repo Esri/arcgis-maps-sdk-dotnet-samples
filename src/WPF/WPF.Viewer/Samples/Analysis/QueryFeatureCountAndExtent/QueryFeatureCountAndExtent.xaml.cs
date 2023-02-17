@@ -55,7 +55,7 @@ namespace ArcGIS.WPF.Samples.QueryFeatureCountAndExtent
         private async Task Initialize()
         {
             // Populate the ComboBox with states.
-            StatesComboBox.ItemsSource = new List<string>(this._states.Keys);
+            StatesComboBox.ItemsSource = _states.Keys;
 
             // Create the map with a basemap.
             Map myMap = new Map(BasemapStyle.ArcGISDarkGray);

@@ -4,38 +4,31 @@
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border MaxWidth="275" Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Row="0"
                            FontWeight="SemiBold"
-                           Text="Tap 'Zoom to matching features' to zoom to features matching the given state abbreviation. Click 'Count features in extent' to count the features in the current extent (regardless of the results of the query)."
+                           Text="Select a state to zoom to matching features:"
                            TextWrapping="Wrap" />
-                <TextBox x:Name="StateEntry"
-                         Grid.Row="1"
-                         Margin="0,5,0,5"
-                         PlaceholderText="e.g. NY" />
+                <ComboBox x:Name="StatesComboBox"
+                          Grid.Row="1"
+                          HorizontalAlignment="Stretch"
+                          SelectionChanged="StatesComboBox_SelectionChanged" />
                 <Button Grid.Row="2"
-                        HorizontalAlignment="Stretch"
-                        Click="BtnZoomToFeaturesClick"
-                        Content="Zoom to matching features" />
-                <Button Grid.Row="3"
                         Margin="0,5,0,5"
                         HorizontalAlignment="Stretch"
-                        Click="BtnCountFeaturesClick"
+                        Click="CountFeaturesButton_Click"
                         Content="Count features in extent" />
-                <TextBlock x:Name="ResultView"
-                           Grid.Row="4"
-                           FontWeight="SemiBold"
+                <TextBlock x:Name="Results"
+                           Grid.Row="3"
                            TextAlignment="Center"
-                           Visibility="Collapsed" />
+                           TextWrapping="Wrap" />
             </Grid>
         </Border>
     </Grid>

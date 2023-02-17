@@ -50,11 +50,8 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
 
         private async Task Initialize()
         {
-            // Populate the ComboBox with states.
-            foreach (var state in _states)
-            {
-                StatesPicker.Items.Add(state.Key);
-            }
+            // Populate the Picker with states.
+            StatesPicker.ItemsSource = new List<string>(this._states.Keys);
 
             // Create the map with a basemap.
             Map myMap = new Map(BasemapStyle.ArcGISDarkGray);

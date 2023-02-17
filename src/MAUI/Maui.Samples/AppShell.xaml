@@ -2,6 +2,33 @@
 <Shell
     x:Class="ArcGIS.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <TabBar x:Name="CategoriesTabBar" />
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Shell.TabBarIsVisible="False">
+
+    <Shell.FlyoutHeader>
+        <Label
+            Margin="10"
+            FontFamily="bold"
+            HorizontalOptions="Center"
+            Text="Categories" />
+    </Shell.FlyoutHeader>
+
+    <FlyoutItem
+        x:Name="CategoriesFlyout"
+        Title="Categories"
+        FlyoutDisplayOptions="AsMultipleItems"
+        FlyoutIcon="menu.jpg" />
+
+    <!--<TabBar x:Name="CategoriesTabBar" />-->
+    <!--<Shell.ItemTemplate>
+        <DataTemplate>
+            <Grid ColumnDefinitions="20,*">
+                <Label Grid.Column="0" Text="1" />
+                <Label
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    Text="{Binding Title}" />
+            </Grid>
+        </DataTemplate>
+    </Shell.ItemTemplate>-->
 </Shell>

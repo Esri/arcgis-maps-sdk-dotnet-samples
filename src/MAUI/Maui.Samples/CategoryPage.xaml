@@ -3,7 +3,38 @@
     x:Class="ArcGIS.CategoryPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ArcGIS.Controls"
     xmlns:converters="clr-namespace:ArcGIS.Converters">
+
+    <Shell.TitleView>
+        <Grid
+            BackgroundColor="pink"
+            ColumnDefinitions="0.4*,0.2*,0.4*"
+            HorizontalOptions="FillAndExpand">
+            <Label
+                x:Name="PageTitle"
+                Grid.Column="1"
+                BackgroundColor="green"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                TextColor="{AppThemeBinding Dark=White,
+                                            Light=Black}"
+                VerticalOptions="Center"
+                WidthRequest="200" />
+        </Grid>
+    </Shell.TitleView>
+
+    <Shell.SearchHandler>
+        <controls:SampleSearchHandler Placeholder="Enter search term" ShowsResults="True">
+            <controls:SampleSearchHandler.ItemTemplate>
+                <DataTemplate>
+                    <Grid Padding="10">
+                        <Label Text="{Binding SampleName}" VerticalOptions="Center" />
+                    </Grid>
+                </DataTemplate>
+            </controls:SampleSearchHandler.ItemTemplate>
+        </controls:SampleSearchHandler>
+    </Shell.SearchHandler>
 
     <ContentPage.Resources>
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />

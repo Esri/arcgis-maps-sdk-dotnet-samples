@@ -11,13 +11,15 @@ public partial class CategoryPage : ContentPage
 	{
 		_category = category;
 
-		Initialize();
+        InitializeComponent();
 
-		InitializeComponent();
+        Initialize();
 	}
 
     private void Initialize()
     {
+        PageTitle.Text = _category.Name;
+
         // Get the samples from the category.
         var listSampleItems = _category?.Items.OfType<SampleInfo>().ToList();
 

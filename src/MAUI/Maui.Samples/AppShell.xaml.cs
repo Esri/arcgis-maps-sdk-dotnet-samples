@@ -23,6 +23,7 @@ public partial class AppShell : Shell
         var allSamples = SampleManager.Current.AllSamples.ToList();
 
         //FlyoutItem flyoutItem = new FlyoutItem();
+        //flyoutItem.Icon = "menu.jpg";
         //flyoutItem.FlyoutDisplayOptions = FlyoutDisplayOptions.AsMultipleItems;
 
         //Items.Add(flyoutItem);
@@ -34,24 +35,7 @@ public partial class AppShell : Shell
             shellContent.Content = new CategoryPage(category);
             shellContent.Route = $"{nameof(CategoryPage)}_{category.Name}";
 
-            CategoriesTabBar.Items.Add(shellContent);
-
-            //Tab tab = new Tab();
-            //tab.Title = category.Name;
-            //flyoutItem.Items.Add(tab);
-
-            //foreach (SampleInfo sample in category.Items)
-            //{
-            //    ShellContent shellContent = new ShellContent();
-            //    shellContent.Title = sample.SampleName;
-
-            //    ContentPage sampleControl = (ContentPage)SampleManager.Current.SampleToControl(sample);
-
-            //    shellContent.Content = new SamplePage(sampleControl, sample);
-            //    shellContent.Route = $"{nameof(SamplePage)}_{sample.FormalName}";
-
-            //    tab.Items.Add(shellContent);
-            //}
+            CategoriesFlyout.Items.Add(shellContent);
         }
     }
 

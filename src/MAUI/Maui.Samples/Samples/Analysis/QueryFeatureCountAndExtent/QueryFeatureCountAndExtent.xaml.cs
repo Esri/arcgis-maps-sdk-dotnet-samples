@@ -90,7 +90,7 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
         {
             try
             {
-                // Abbreviate the selected state alike the dataset's State field.
+                // Get the abbreviation of the selected state to match the dataset's State field.
                 string stateAbbreviation = _states[StatesPicker.SelectedItem.ToString()];
 
                 // Create the query parameters.

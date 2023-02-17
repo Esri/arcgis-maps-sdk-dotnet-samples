@@ -92,6 +92,7 @@ namespace ArcGIS.WinUI.Samples.QueryFeatureCountAndExtent
 
         private async void StatesComboBox_SelectionChanged(object sender, RoutedEventArgs e)
         {
+            // Get the abbreviation of the selected state to match the dataset's State field.
             string stateAbbreviation = _states[StatesComboBox.SelectedItem.ToString()];
 
             // Create the query parameters.

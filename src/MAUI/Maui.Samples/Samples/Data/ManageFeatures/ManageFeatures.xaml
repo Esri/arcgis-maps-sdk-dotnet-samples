@@ -5,7 +5,7 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView"
-                        Style="{DynamicResource EsriSampleGeoView}"/>
+                        Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout Padding="5"
                          Spacing="5">
@@ -17,7 +17,6 @@
                         WidthRequest="250"
                         IsEnabled="True" />
                 <Label x:Name="InstructionLabel" 
-                       Text="Select an option to show instructions."
                        HorizontalOptions="Start"
                        MaximumWidthRequest="250"
                        LineBreakMode="WordWrap" />

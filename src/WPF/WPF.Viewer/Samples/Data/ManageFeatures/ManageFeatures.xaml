@@ -12,8 +12,7 @@
                           IsEditable="False"
                           IsEnabled="True"
                           SelectionChanged="OnComboBoxSelectionChanged" />
-                <Label x:Name="InstructionLabel" 
-                       Content="Select an option to show instructions." />
+                <Label x:Name="InstructionLabel" />
                 <ComboBox x:Name="DamageTypeDropDown"
                           Visibility="Collapsed"/>
             </StackPanel>

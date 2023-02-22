@@ -183,7 +183,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
                 feature.Refresh();
 
                 // Confirm feature addition.
-                await new MessageDialog2($"Created feature {feature.Attributes["objectid"]}", "Success!").ShowAsync();
+                await new MessageDialog2($"Created feature {feature.Attributes["objectid"]}", "Success").ShowAsync();
             }
             catch (Exception ex)
             {
@@ -227,7 +227,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                await new MessageDialog2(ex.ToString(), "Error selecting feature.").ShowAsync();
+                await new MessageDialog2(ex.ToString(), "Error selecting feature").ShowAsync();
             }
         }
 
@@ -265,7 +265,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
                 await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Show a message confirming the deletion.
-                await new MessageDialog2($"Deleted feature with ID {featureToDelete.Attributes["objectid"]}", "Success!").ShowAsync();
+                await new MessageDialog2($"Deleted feature with ID {featureToDelete.Attributes["objectid"]}", "Success").ShowAsync();
             }
             catch (Exception ex)
             {
@@ -355,7 +355,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
                 ServiceFeatureTable table = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await table.ServiceGeodatabase.ApplyEditsAsync();
 
-                await new MessageDialog2($"Edited feature {_selectedFeature.Attributes["objectid"]}", "Success!").ShowAsync();
+                await new MessageDialog2($"Edited feature {_selectedFeature.Attributes["objectid"]}", "Success").ShowAsync();
             }
             catch (Exception ex)
             {
@@ -400,7 +400,7 @@ namespace ArcGIS.WinUI.Samples.ManageFeatures
                 // Push the update to the service with the service geodatabase.
                 ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
-                await new MessageDialog2($"Moved feature {_selectedFeature.Attributes["objectid"]}", "Success!").ShowAsync();
+                await new MessageDialog2($"Moved feature {_selectedFeature.Attributes["objectid"]}", "Success").ShowAsync();
             }
             catch (Exception ex)
             {

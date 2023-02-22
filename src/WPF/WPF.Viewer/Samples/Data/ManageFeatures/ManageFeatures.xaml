@@ -7,14 +7,14 @@
         <Border Style="{DynamicResource BorderStyle}">
             <StackPanel>
                 <Label Content="Select a feature management operation."
-                       FontWeight="SemiBold"/>
+                       FontWeight="SemiBold" />
                 <ComboBox x:Name="MethodPicker"
                           IsEditable="False"
                           IsEnabled="True"
                           SelectionChanged="OnComboBoxSelectionChanged" />
                 <Label x:Name="InstructionLabel" />
                 <ComboBox x:Name="DamageTypeDropDown"
-                          Visibility="Collapsed"/>
+                          Visibility="Collapsed" />
             </StackPanel>
         </Border>
     </Grid>

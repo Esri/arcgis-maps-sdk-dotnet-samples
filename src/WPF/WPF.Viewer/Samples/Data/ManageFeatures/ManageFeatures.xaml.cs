@@ -184,7 +184,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
                 feature.Refresh();
 
                 // Confirm feature addition.
-                MessageBox.Show("Created feature " + feature.Attributes["objectid"], "Success!");
+                MessageBox.Show("Created feature " + feature.Attributes["objectid"], "Success");
             }
             catch (Exception ex)
             {
@@ -266,7 +266,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
                 await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Show a message confirming the deletion.
-                MessageBox.Show("Deleted feature with ID " + featureToDelete.Attributes["objectid"], "Success!");
+                MessageBox.Show("Deleted feature with ID " + featureToDelete.Attributes["objectid"], "Success");
             }
             catch (Exception ex)
             {
@@ -356,7 +356,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
                 ServiceFeatureTable table = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await table.ServiceGeodatabase.ApplyEditsAsync();
 
-                MessageBox.Show("Edited feature " + _selectedFeature.Attributes["objectid"], "Success!");
+                MessageBox.Show("Edited feature " + _selectedFeature.Attributes["objectid"], "Success");
             }
             catch (Exception ex)
             {
@@ -401,7 +401,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
                 // Push the update to the service with the service geodatabase.
                 ServiceFeatureTable serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
-                MessageBox.Show("Moved feature " + _selectedFeature.Attributes["objectid"], "Success!");
+                MessageBox.Show("Moved feature " + _selectedFeature.Attributes["objectid"], "Success");
             }
             catch (Exception ex)
             {

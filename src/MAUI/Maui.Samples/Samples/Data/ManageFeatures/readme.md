@@ -6,7 +6,7 @@ Manage a feature layer's features in four distinct ways.
 
 ## Use case
 
-An end-user performing a survey may want to edit features on the map in various ways during the course of their work.
+An end-user performing a survey may want to manage features on the map in various ways during the course of their work.
 
 ## How to use the sample
 
@@ -15,8 +15,9 @@ Pick a function, then tap a location on the map to perform the function at that 
 ## How it works
 
 A `Feature` instance is added to a `ServiceFeatureTable` which then pushes that new feature to the server.
-	* When the table loads, you can get the domain to determine which options to present in your UI.
+
 1. Create a `ServiceGeodatabase` from a URL.
+	* When the table loads, you can get the domain to determine which options to present in your UI.
 2. Get a `ServiceFeatureTable` from the `ServiceGeodatabase`.
 3. Create a `FeatureLayer` derived from the `ServiceFeatureTable` instance.
 4. Create a `Picker` with four options, each representing its corresponding edit function. Selecting a new option should change the behavior of `GeoViewInputArgsEvent`.

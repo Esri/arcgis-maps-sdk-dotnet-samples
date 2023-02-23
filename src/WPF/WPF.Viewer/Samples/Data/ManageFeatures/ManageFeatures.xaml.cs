@@ -32,7 +32,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
         // URL to the feature service.
         private const string FeatureServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0";
 
-        // Hold a reference to the feature layer
+        // Hold a reference to the feature layer.
         private FeatureLayer _damageLayer;
 
         // Hold a reference to the feature table.

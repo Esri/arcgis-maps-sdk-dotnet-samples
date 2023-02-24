@@ -16,10 +16,11 @@ using GeoViewInputEventArgs = Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs;
 namespace ArcGIS.Samples.ManageFeatures
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Manage features",
-        "Data",
-        "Create or delete features, update attributes or geometry.",
-        "")]
+        name: "Manage features",
+        category: "Data",
+        description: "Manage a feature layer's features in four distinct ways.",
+        instructions: "Pick a function, then tap a location on the map to perform the function at that location. Available edit functions include, \"Create feature\", \"Delete feature\", \"Update attribute\", and \"Update geometry\".",
+        tags: new[] { "amend", "attribute", "deletion", "details", "edit", "editing", "feature", "feature layer", "feature table", "information", "moving", "online service", "service", "updating", "value" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class ManageFeatures
     {

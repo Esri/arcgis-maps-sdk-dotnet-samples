@@ -178,8 +178,8 @@ namespace ArcGIS.WinUI.Samples.DisplayUtilityNetworkContainer
                 else
                 {
                     // Create a bounding box using the combined extents of the elements from associations.
-                    Envelope combinedExtents = GeometryEngine.CombineExtents(contentFeatures.Select(f => f.Geometry));
-                    boundingBox = GeometryEngine.Buffer(combinedExtents, 0.05);
+                    Envelope combinedExtents = contentFeatures.Select(f => f.Geometry).CombineExtents();
+                    boundingBox = combinedExtents.Buffer(0.05);
                 }
 
                 // Add a graphic for the bounding box.

@@ -154,8 +154,8 @@ namespace ArcGIS.WinUI.Samples.ViewshedGeoElement
 
             // Get the current location and distance from the destination.
             MapPoint location = (MapPoint)_tank.Geometry;
-            GeodeticDistanceResult distance = GeometryEngine.DistanceGeodetic(
-                location, _tankEndPoint, _metersUnit, _degreesUnit, GeodeticCurveType.Geodesic);
+            GeodeticDistanceResult distance = location.DistanceGeodetic(_tankEndPoint, 
+                _metersUnit, _degreesUnit, GeodeticCurveType.Geodesic);
 
             // Move the tank a short distance.
             location = GeometryEngine.MoveGeodetic(new List<MapPoint>() { location }, 1.0, _metersUnit, distance.Azimuth1, _degreesUnit,

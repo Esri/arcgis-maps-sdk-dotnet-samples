@@ -82,19 +82,19 @@ namespace ArcGIS.WPF.Samples.SpatialOperations
             switch (operation)
             {
                 case "Union":
-                    resultPolygon = GeometryEngine.Union(polygonOne, polygonTwo);
+                    resultPolygon = polygonOne.Union(polygonTwo);
                     break;
 
                 case "Difference":
-                    resultPolygon = GeometryEngine.Difference(polygonOne, polygonTwo);
+                    resultPolygon = polygonOne.Difference(polygonTwo);
                     break;
 
                 case "Symmetric difference":
-                    resultPolygon = GeometryEngine.SymmetricDifference(polygonOne, polygonTwo);
+                    resultPolygon = polygonOne.SymmetricDifference(polygonTwo);
                     break;
 
                 case "Intersection":
-                    resultPolygon = GeometryEngine.Intersection(polygonOne, polygonTwo);
+                    resultPolygon = polygonOne.Intersection(polygonTwo);
                     break;
             }
 

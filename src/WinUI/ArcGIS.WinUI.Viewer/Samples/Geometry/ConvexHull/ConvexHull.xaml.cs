@@ -65,7 +65,7 @@ namespace ArcGIS.WinUI.Samples.ConvexHull
             try
             {
                 // Normalize the tapped point.
-                var centralizedPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(e.Location);
+                var centralizedPoint = (MapPoint)e.Location.NormalizeCentralMeridian();
 
                 // Add the map point to the list that will be used by the GeometryEngine.ConvexHull operation.
                 _inputPointCollection.Add(centralizedPoint);
@@ -110,7 +110,7 @@ namespace ArcGIS.WinUI.Samples.ConvexHull
                 Multipoint inputMultipoint = new Multipoint(_inputPointCollection);
 
                 // Get the returned result from the convex hull operation.
-                Geometry convexHullGeometry = GeometryEngine.ConvexHull(inputMultipoint);
+                Geometry convexHullGeometry = inputMultipoint.ConvexHull();
 
                 // Create a simple line symbol for the outline of the convex hull graphic(s).
                 SimpleLineSymbol convexHullSimpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 4);

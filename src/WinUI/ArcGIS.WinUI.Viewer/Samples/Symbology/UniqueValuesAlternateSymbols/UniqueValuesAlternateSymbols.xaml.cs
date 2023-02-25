@@ -82,6 +82,7 @@ namespace ArcGIS.WinUI.Samples.UniqueValuesAlternateSymbols
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            if (double.IsNaN((double)value)) return "Scale:";
             return $"Scale: 1:{System.Convert.ToInt32(value)}";
         }
 

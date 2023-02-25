@@ -151,7 +151,7 @@ namespace ArcGIS.Samples.ClipGeometry
                 // Perform the clip operation. The first parameter of the clip operation will always be the Colorado graphic.
                 // The second parameter of the clip operation will be one of the 3 different clip geometries (_outsideGraphic,
                 // _containedGraphic, or _intersectingGraphic).
-                Geometry myGeometry = GeometryEngine.Clip(_coloradoGraphic.Geometry, (Envelope)graphic.Geometry);
+                Geometry myGeometry = _coloradoGraphic.Geometry.Clip((Envelope)graphic.Geometry);
 
                 // Only work on returned geometries that are not null.
                 if (myGeometry != null)

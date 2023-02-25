@@ -1,0 +1,96 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--ArcGIS Local Server Deployment Configuration-->
+<Packages>
+  <!--This local server has support for ArcGIS Pro mpkx and gpkx packages. It is 64 bit only-->
+  <Package id="Pro" name="ArcGIS Pro Compatible Server" enabled="false">
+    <ChildPackages>
+      <!--Including Microsoft C and C++ libraries in the runtime deployment allows for XCopy style deployments.
+Only include these if your setup is not installing the Microsoft redistribution package.-->
+      <Package id="ProCRuntime" name="Microsoft C and C++ Runtime Libraries" enabled="false" />
+      <!--Provides the ability to perform geoprocessing tasks via geoprocessing packages.-->
+      <!--Geoprocessing packages must be created with ArcGIS Maps SDK for Native Apps support enabled.-->
+      <Package id="ProGeoProcessing" name="Geoprocessing" enabled="false">
+        <ChildPackages>
+          <!--Adds 3D Analyst geoprocessing tools.-->
+          <Package id="Pro3DAnalyst" name="3D Analyst" enabled="false" />
+          <!--Provides the ability to use ArcGIS Locators-->
+          <Package id="ProGeoCoding" name="Geocoding" enabled="false" />
+          <!--Adds data consolidation, map packaging and create runtime content tools.-->
+          <Package id="ProMapPackaging" name="Map Packaging" enabled="false" />
+          <!--Adds the ability to produce results as Map Services.-->
+          <Package id="ProMapServerResults" name="Map Server Results" enabled="false" />
+          <!--Adds Network Analyst geoprocessing tools.-->
+          <Package id="ProNetworkAnalyst" name="Network Analyst" enabled="false" />
+          <!--Adds Spatial Analyst geoprocessing tools.-->
+          <Package id="ProSpatialAnalyst" name="Spatial Analyst" enabled="false" />
+        </ChildPackages>
+      </Package>
+      <!--Provides the ability to use Python scripts.-->
+      <Package id="ProPythonScripting" name="Python Scripting" enabled="false" />
+      <!--Provides additional vector and raster data format support.-->
+      <Package id="ProAdditionalDataFormats" name="Additional Data Formats" enabled="false">
+        <ChildPackages>
+          <!--Provides additional raster file data format support.-->
+          <Package id="ProRaster" name="Raster" enabled="false">
+            <ChildPackages>
+              <!--Provides support for ECW format Raster.-->
+              <Package id="ProECWRasters" name="ECW Rasters" enabled="false" />
+              <!--Provides support for Raster Mosaic Layers.-->
+              <Package id="ProMosaicRasters" name="Mosaic Rasters" enabled="false" />
+            </ChildPackages>
+          </Package>
+          <!--Provides additional vector file data format support.-->
+          <Package id="ProVector" name="Vector" enabled="false" />
+          <!--Adds support for direct connect to DBMS system that Esri supports. This option must be selected in conjunction with at least one of the following DBMS(s): DB2, Informix, Oracle, PostgreSQL, SQL Server, Netezza, HANA, Teradata or Alitbase.-->
+          <!--SDE direct connect deployed. Specific database drivers also required.-->
+          <Package id="ProSDE" name="SDE" enabled="false">
+            <ChildPackages>
+              <!--Adds support for direct connect to geodatabases stored in Alitbase.-->
+              <!--Alitbase Drivers must be present on end users machine.-->
+              <Package id="ProAlitbase" name="Alitbase" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in Dameng.-->
+              <!--Dameng Drivers must be present on end users machine.-->
+              <Package id="ProDameng" name="Dameng" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in DB2.-->
+              <!--DB2 Drivers must be present on end users machine.-->
+              <Package id="ProDB2" name="DB2" enabled="false" />
+              <!-- Adds support for direct connect to geodatabases stored in Oracle.-->
+              <!--Oracle Drivers must be present on end users machine.-->
+              <Package id="ProOracle" name="Oracle" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in PostgreSQL.-->
+              <!--PostgreSQL Drivers must be present on end users machine.-->
+              <Package id="ProPostgreSQL" name="PostgreSQL" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in SAP HANA.-->
+              <!--SAP HANA SQL Server Drivers must be present on end users machine.-->
+              <Package id="ProSAPHANA" name="SAP HANA" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in SQL Server.-->
+              <!--MS SQL Server Drivers must be present on end users machine.-->
+              <Package id="ProSQLServer" name="SQL Server" enabled="false" />
+              <!--Adds support for direct connect to geodatabases stored in SQL Server.-->
+              <!--MS SQL Server Drivers must be present on end users machine.-->
+              <Package id="ProSQLite" name="SQLite" enabled="false">
+                <ChildPackages>
+                  <!--Adds support for SpatiaLite geometry type-->
+                  <Package id="ProSpatialLite" name="SpatiaLite" enabled="false" />
+                </ChildPackages>
+              </Package>
+              <!--Adds support for direct connect to geodatabases stored in Teradata.-->
+              <!--Teradata Drivers must be present on end users machine.-->
+              <Package id="ProTeradata" name="Teradata" enabled="false" />
+            </ChildPackages>
+          </Package>
+        </ChildPackages>
+      </Package>
+      <!--Adds more projections and geotransformations.-->
+      <Package id="ProAdditionalProjectionEngineTransformations" name="Additional Projection Engine Transformations" enabled="false" />
+      <!--Enables debugging options within the runtime.-->
+      <!--Debugging options should only be used for testing purposes, and not deployed in final solutions.-->
+      <Package id="ProDebug" name="Debug" enabled="false">
+        <ChildPackages>
+          <!--Adds support for runtime logging.-->
+          <Package id="ProLogging" name="Logging" enabled="false" />
+        </ChildPackages>
+      </Package>
+    </ChildPackages>
+  </Package>
+</Packages>

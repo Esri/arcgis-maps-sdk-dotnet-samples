@@ -42,13 +42,13 @@ namespace ArcGIS.WPF.Samples.ProjectWithSpecificTransformation
             GeographicTransformation geoTransform = new GeographicTransformation(geoStep);
 
             // Project to a coordinate system used in New York, NAD_1983_HARN_StatePlane_New_York_Central_FIPS_3102
-            MapPoint afterPoint = (MapPoint)GeometryEngine.Project(startingPoint, SpatialReference.Create(2829), geoTransform);
+            MapPoint afterPoint = (MapPoint)startingPoint.Project(SpatialReference.Create(2829), geoTransform);
 
             // Update the UI with the projected coordinates
             AfterLabel.Content = String.Format("x: {0}, y: {1}", afterPoint.X, afterPoint.Y);
 
             // Perform the same projection without specified transformation
-            MapPoint unspecifiedTransformPoint = (MapPoint)GeometryEngine.Project(startingPoint, SpatialReference.Create(2829));
+            MapPoint unspecifiedTransformPoint = (MapPoint)startingPoint.Project(SpatialReference.Create(2829));
 
             // Update the UI with the projection done without specific transform for comparison purposes
             NonSpecificLabel.Content = String.Format("x: {0}, y: {1}", unspecifiedTransformPoint.X, unspecifiedTransformPoint.Y);

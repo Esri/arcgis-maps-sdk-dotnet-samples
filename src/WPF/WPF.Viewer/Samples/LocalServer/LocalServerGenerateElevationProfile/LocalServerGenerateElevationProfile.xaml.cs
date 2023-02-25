@@ -471,10 +471,10 @@ namespace ArcGIS.WPF.Samples.LocalServerGenerateElevationProfile
                 }
 
                 // Project the point to the spatial reference of the raster layer.
-                MapPoint projectedPoint = (MapPoint)GeometryEngine.Project(point, _rasterLayerSpatialReference);
+                MapPoint projectedPoint = (MapPoint)point.Project(_rasterLayerSpatialReference);
 
                 // Check that the user has clicked within the extent of the raster.
-                if (GeometryEngine.Intersects(projectedPoint, _rasterLayer.FullExtent))
+                if (projectedPoint.Intersects(_rasterLayer.FullExtent))
                 {
                     // Add the projected point to the collection of projected points and the graphics overlay displaying tapped points.
                     _pointCollection.Add(projectedPoint);

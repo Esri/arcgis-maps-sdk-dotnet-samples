@@ -36,6 +36,9 @@ namespace ArcGIS.Samples.RasterRgbRenderer
 
         private async Task Initialize()
         {
+            // Add available stretch types to the combo box.
+            StretchTypeComboBox.ItemsSource = new string[] { "Min Max", "Percent Clip", "Standard Deviation" };
+
             // Create a map with a streets basemap.
             Map map = new Map(BasemapStyle.ArcGISStreets);
 
@@ -65,11 +68,6 @@ namespace ArcGIS.Samples.RasterRgbRenderer
 
                 // Add the map to the map view.
                 MyMapView.Map = map;
-
-                // Add available stretch types to the combo box.
-                StretchTypeComboBox.Items.Add("Min Max");
-                StretchTypeComboBox.Items.Add("Percent Clip");
-                StretchTypeComboBox.Items.Add("Standard Deviation");
 
                 // Select "Min Max" as the stretch type.
                 StretchTypeComboBox.SelectedIndex = 0;

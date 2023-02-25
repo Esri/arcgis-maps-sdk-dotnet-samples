@@ -39,8 +39,8 @@ If you are only interested in one platform, you can open a platform-specific sol
 
 - [WPF (.NET Framework)](src/WPF/readme.md): `src\WPF\WPF.Viewer.NetFramework.sln`
 - [WPF (.NET 6)](src/WPF/readme.md): `src\WPF\WPF.Viewer.Net.sln`
-- [.NET MAUI](src/MAUI/readme.md): 'src\MAUI\ArcGIS.Samples.Maui.sln'
-- [WinUI](src/WinUI/readme.md): `\src\WinUI\ArcGIS.WinUI.Viewer.sln (Preview)`
+- [.NET MAUI](src/MAUI/readme.md): `src\MAUI\ArcGIS.Samples.Maui.sln`
+- [WinUI](src/WinUI/readme.md): `src\WinUI\ArcGIS.WinUI.Viewer.sln`
 
 The following platforms are being kept for reference, but no new sample implementations are being added:
 
@@ -50,9 +50,9 @@ The following platforms are being kept for reference, but no new sample implemen
 
 > **IMPORTANT** When you run the samples, you will need to provide an API key. You can get a free developer account and key on the [ArcGIS Developers website](developers.arcgis.com). For more information see https://links.esri.com/arcgis-runtime-security-auth.
 
-- The .NET sample viewers have a prompt for setting an API key. You can also hardcode your API key in the [`GetLocalKey() method`](https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/main/src/ArcGIS.Samples.Shared/Managers/ApiKeyManager.cs#L89) of the [`ApiKeyManager class`](https://github.com/Esri/arcgis-runtime-samples-dotnet/tree/main/src/ArcGIS.Samples.Shared/Managers/ApiKeyManager.cs).
+- The .NET sample viewers have a prompt for setting an API key. You can also hardcode your API key in the [`GetLocalKey() method`](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/blob/main/src/Samples.Shared/Managers/ApiKeyManager.cs#L112) of the [`ApiKeyManager class`](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/blob/main/src/Samples.Shared/Managers/ApiKeyManager.cs).
 - Before using WinUI, install the [latest Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and the [vsix plugin](https://aka.ms/windowsappsdk/stable-vsix-2022-cs).
-- When compiling Universal Windows Platform samples, make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
+- When compiling Universal Windows Platform or WinUI samples, make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
 
 ### Offline data
 
@@ -64,7 +64,7 @@ that use the data manager to download their data are differentiated as follows:
 - They have one or more entries under `DataItemIds` in their metadata.json files (these are portal item Ids)
 - They use the data manager to identify the correct path for their offline files at run time
 
-See the [contribution guidelines](https://github.com/Esri/arcgis-runtime-samples-dotnet/wiki/Contributing) for more detailed information.
+See the [contribution guidelines](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/wiki/Contributing) for more detailed information.
 
 ### Requirements
 
@@ -76,7 +76,7 @@ Esri uses several tools to more efficiently manage the content in this repo. See
 
 ## Contribute
 
-Anyone and everyone is welcome to [contribute](https://github.com/Esri/arcgis-runtime-samples-dotnet/wiki/Contributing).
+Anyone and everyone is welcome to [contribute](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/wiki/Contributing).
 
 ## License
 

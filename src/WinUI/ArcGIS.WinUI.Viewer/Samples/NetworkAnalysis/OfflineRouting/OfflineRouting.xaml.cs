@@ -260,7 +260,7 @@ namespace ArcGIS.WinUI.Samples.OfflineRouting
             ErrorTextBlock.Text = "";
 
             // Make sure the stop is valid before proceeding.
-            if (!GeometryEngine.Contains(_routableArea, e.Location))
+            if (!_routableArea.Contains(e.Location))
             {
                 ShowMessage("Can't add stop.", "That location is outside of the area where offline routing data is available.");
                 return;
@@ -299,7 +299,7 @@ namespace ArcGIS.WinUI.Samples.OfflineRouting
                 MapPoint hoverLocation = MyMapView.ScreenToLocation(hoverPoint.Position);
 
                 // Return if the location is outside the routable area.
-                if (!GeometryEngine.Contains(_routableArea, hoverLocation))
+                if (!_routableArea.Contains(hoverLocation))
                 {
                     return;
                 }

@@ -1,56 +1,131 @@
-﻿using Microsoft.AppCenter;
-using Microsoft.AppCenter.Analytics;
-using Microsoft.AppCenter.Crashes;
+﻿#if ENABLE_ANALYTICS
+
+using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.IO;
+using System.Net.Http;
+using System.Text;
+using System.Text.Json;
 
 namespace ArcGIS.Helpers
 {
     internal class AnalyticsHelper
     {
+        // Property to determine telemetry tab visibility.
+        // This is only visible in the store version of the WPF viewer.
+        public static bool AnalyticsStarted;
+
+        // Property that dictates whether or not telemetry data is gathered.
         public static bool AnalyticsEnabled;
+
+        // Variables set when the analytics process starts, used for HTTP requests.
+        private static Guid _clientId;
+        private static long _sessionStartTime;
+        private static string _api_secret;
+        private static string _measurement_id;
+        private static readonly HttpClient _httpClient = new HttpClient();
+
+        /// <summary>
+        /// Initialize Google Analytics settings. 
+        /// </summary>
+        /// <param name="apiSecret">The required API key for Google Analytics.</param>
+        /// <param name="measurementId">The required measurement ID for Google Analytics.</param>
+        public static void StartAnalytics(string apiSecret, string measurementId)
+        {
+            _api_secret = apiSecret;
+            _measurement_id = measurementId;
+            _sessionStartTime = DateTime.UtcNow.Ticks;
+            AnalyticsStarted = true;
+        }
 
         /// <summary>
         /// Helper method to only track events when analytics is actually running. This prevents unneeded debug output.
         /// </summary>
-        /// <param name="name"></param>
-        /// <param name="properties"></param>
-        public static void TrackEvent(string name, IDictionary<string, string> properties = null)
+        /// <param name="eventName"></param>
+        /// <param name="eventData"></param>
+        public static void TrackEvent(string eventName, IDictionary<string, string> eventData = null)
         {
             if (!AnalyticsEnabled) return;
 
-            Analytics.TrackEvent(name, properties);
+            try
+            {
+                if (eventData == null)
+                {
+                    eventData = new Dictionary<string, string>();
+                }
+
+                double sessionCurrentTimeMs = new TimeSpan(DateTime.UtcNow.Ticks - _sessionStartTime).TotalMilliseconds;
+                eventData.Add("engagement_time_msec", sessionCurrentTimeMs.ToString());
+
+                var events = new Dictionary<string, object>()
+                {
+                    {"name", eventName},
+                    {"params", eventData }
+                };
+
+                // The request body including the required client ID field and an array of tracked events.
+                var postData = new Dictionary<string, object>
+                       {
+                           { "client_id", _clientId },
+                           { "events", events }
+                       };
+
+                // Serialize json body content.
+                var jsonContent = JsonSerializer.Serialize(postData);
+                var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+
+                // Initialize Google Analytics URI.
+                var uri = new Uri("https://google-analytics.com/mp/collect?api_secret=" + _api_secret + "&measurement_id=" + _measurement_id);
+
+                // Send HTTP Request.
+                HttpResponseMessage response = _httpClient.PostAsync(uri, content).Result;
+            }
+            catch
+            {
+                // Silently fail.
+            }
         }
 
-        /// <summary>
-        /// Disable analytics without changing the Analytics enabled setting.
-        /// </summary>
-        public static void DisableAnalytics()
+        #region Save/Load Analytics Settings
+        public static void WriteToSettingsFile()
         {
-            Analytics.Instance.InstanceEnabled = false;
+            // Create an object for storing the analytics settings.
+            AnalyticsSettings analyticsSettings = new AnalyticsSettings()
+            {
+                ClientId = _clientId,
+                AnalyticsEnabled = AnalyticsEnabled,
+            };
+
+            // Save the settings to a local file.
+            string filePath = GetLocalFilePath("settings");
+            string jsonSettings = JsonSerializer.Serialize(analyticsSettings);
+            File.WriteAllText(filePath, jsonSettings);
         }
 
-        /// <summary>
-        /// Re-enable if they are enabled in the public property.
-        /// </summary>
-        public static void EnableAnalytics()
+        public static void ReadSettingsFromFile()
         {
-            Analytics.Instance.InstanceEnabled = AnalyticsEnabled;
+            // Initialize a new object for the analytics settings.
+            AnalyticsSettings analyticsSettings = new AnalyticsSettings();
+
+            // Read client id and analytics enabled settings from local file.
+            string settingsPath = GetLocalFilePath("settings");
+
+            if (File.Exists(settingsPath))
+            {
+                analyticsSettings = JsonSerializer.Deserialize<AnalyticsSettings>(File.ReadAllText(settingsPath));
+            }
+
+            // Generate a client id if one does not already exist, enable analytics by default.
+            _clientId = analyticsSettings.ClientId.HasValue ? analyticsSettings.ClientId.Value : Guid.NewGuid();
+            AnalyticsEnabled = analyticsSettings.ClientId.HasValue ? analyticsSettings.AnalyticsEnabled : true;
         }
 
-        /// <summary>
-        /// Start analytics for the app.
-        /// </summary>
-        public static void StartAnalytics(string appSecret)
+        private static string GetLocalFilePath(string fileName)
         {
-            AnalyticsEnabled = true;
-
-            // Start app analytics.
-            AppCenter.Start(appSecret, typeof(Analytics), typeof(Crashes));
-            AppCenter.SetCountryCode(RegionInfo.CurrentRegion.TwoLetterISORegionName);
-            Analytics.StartSession();
+            string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            return Path.Combine(appData, fileName);
         }
-
-        public static bool AnalyticsStarted => Analytics.Instance.InstanceEnabled;
+        #endregion
     }
 }
+#endif

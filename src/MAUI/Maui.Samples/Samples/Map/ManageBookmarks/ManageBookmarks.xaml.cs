@@ -28,10 +28,9 @@ namespace ArcGIS.Samples.ManageBookmarks
         private void Initialize()
         {
             // Create new map with a base map
-            Map myMap = new Map(BasemapStyle.ArcGISImagery);
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImagery);
 
-            // Add the map to the mapview
-            MyMapView.Map = myMap;
+            BookmarkPicker.ItemsSource = MyMapView.Map.Bookmarks;
 
             // Create a set of predefined bookmarks; each one follows the pattern of:
             // ~ Initialize a viewpoint pointing to a latitude longitude
@@ -49,7 +48,6 @@ namespace ArcGIS.Samples.ManageBookmarks
                 Viewpoint = myViewpoint1
             };
             MyMapView.Map.Bookmarks.Add(myBookmark1);
-            bookmarkPicker.Items.Add(myBookmark1.Name);
 
             // Bookmark-2
             Viewpoint myViewpoint2 = new Viewpoint(-39.299987, 174.060858, 600000);
@@ -59,7 +57,6 @@ namespace ArcGIS.Samples.ManageBookmarks
                 Viewpoint = myViewpoint2
             };
             MyMapView.Map.Bookmarks.Add(myBookmark2);
-            bookmarkPicker.Items.Add(myBookmark2.Name);
 
             // Bookmark-3
             Viewpoint myViewpoint3 = new Viewpoint(-33.867886, -63.985, 40000);
@@ -69,7 +66,6 @@ namespace ArcGIS.Samples.ManageBookmarks
                 Viewpoint = myViewpoint3
             };
             MyMapView.Map.Bookmarks.Add(myBookmark3);
-            bookmarkPicker.Items.Add(myBookmark3.Name);
 
             // Bookmark-4
             Viewpoint myViewpoint4 = new Viewpoint(44.525049, -110.83819, 6000);
@@ -79,43 +75,19 @@ namespace ArcGIS.Samples.ManageBookmarks
                 Viewpoint = myViewpoint4
             };
             MyMapView.Map.Bookmarks.Add(myBookmark4);
-            bookmarkPicker.Items.Add(myBookmark4.Name);
 
             // Set the initial combo box selection to the last bookmark added
-            bookmarkPicker.SelectedIndex = 3;
-
-            // Zoom to the last bookmark
-            myMap.InitialViewpoint = myMap.Bookmarks.Last().Viewpoint;
+            BookmarkPicker.SelectedIndex = 0;
         }
 
         private void BookmarkPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Get the selected bookmarks name
-            string selectedBookmarkName = bookmarkPicker.Items[bookmarkPicker.SelectedIndex];
-
-            // Get the collection of bookmarks in the map
-            BookmarkCollection myBookmarkCollection = MyMapView.Map.Bookmarks;
-
-            // Loop through each bookmark
-            foreach (Bookmark myBookmark in myBookmarkCollection)
-            {
-                // Get the bookmarks name
-                string theBookmarkName = myBookmark.Name;
-
-                // If the selected bookmarks name matches one in the bookmark collection
-                // set that to be the maps viewpoint
-                if (theBookmarkName == selectedBookmarkName.ToString())
-                {
-                    MyMapView.SetViewpoint(myBookmark.Viewpoint);
-                }
+            // Verify that the selected item is a bookmark.
+            if(BookmarkPicker.SelectedItem is Bookmark bookmark)
+            { 
+                MyMapView.SetViewpoint(bookmark.Viewpoint);
             }
         }
-
-        // Member (aka. global) variables for the dynamically created page allowing
-        // the user to add additional bookmarks
-        public Entry myEntryBookmarkName;
-
-        public ContentPage bookmarkAddPage;
 
         private async void ButtonAddBookmark_Clicked(object sender, EventArgs e)
         {
@@ -144,13 +116,6 @@ namespace ArcGIS.Samples.ManageBookmarks
 
                 // Add the bookmark to bookmark collection of the map
                 MyMapView.Map.Bookmarks.Add(myBookmark);
-
-                // Add the bookmark name to the list of choices in the picker
-                bookmarkPicker.Items.Add(name);
-
-                // Close the user interaction page to add a bookmark
-                Navigation.RemovePage(bookmarkAddPage);
-                bookmarkAddPage = null;
             }
             catch (Exception)
             {

@@ -75,7 +75,7 @@ namespace ArcGIS.WinUI.Samples.SelectEncFeatures
                 }
 
                 // Use the geometry engine to compute the full extent of the ENC Exchange Set
-                Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
+                Envelope fullExtent = dataSetExtents.CombineExtents();
 
                 // Set the viewpoint
                 MyMapView.SetViewpoint(new Viewpoint(fullExtent));

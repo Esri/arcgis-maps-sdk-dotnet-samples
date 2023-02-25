@@ -82,11 +82,11 @@
 
 * [Add a point scene layer](WPF.Viewer/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
 * [Add integrated mesh layer](WPF.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
+* [Add vector tiled layer from custom style](WPF.Viewer/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - Load ArcGIS vector tiled layers using custom styles.
 * [Apply mosaic rule to rasters](WPF.Viewer/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](WPF.Viewer/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.
 * [ArcGIS map image layer](WPF.Viewer/Samples/Layers/ArcGISMapImageLayerUrl) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](WPF.Viewer/Samples/Layers/ArcGISTiledLayerUrl) - Load an ArcGIS tiled layer from a URL.
-* [ArcGIS vector tiled layer URL](WPF.Viewer/Samples/Layers/ArcGISVectorTiledLayerUrl) - Load an ArcGIS Vector Tiled Layer from a URL.
 * [Blend renderer](WPF.Viewer/Samples/Layers/ChangeBlendRenderer) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
 * [Browse OGC API feature service](WPF.Viewer/Samples/Layers/BrowseOAFeatureService) - Browse an OGC API feature service for layers and add them to the map.
 * [Browse WFS layers](WPF.Viewer/Samples/Layers/BrowseWfsLayers) - Browse a WFS service for layers and add them to the map.
@@ -221,6 +221,7 @@
 * [Get elevation at a point](WPF.Viewer/Samples/Scene/GetElevationAtPoint) - Get the elevation for a given point on a surface in a scene.
 * [Open mobile scene package](WPF.Viewer/Samples/Scene/OpenMobileScenePackage) - Opens and displays a scene from a Mobile Scene Package (.mspk).
 * [Open scene (portal item)](WPF.Viewer/Samples/Scene/OpenScenePortalItem) - Open a web scene from a portal item.
+* [Show labels on layer 3D](WPF.Viewer/Samples/Scene/ShowLabelsOnLayer3D) - Display custom labels in a 3D scene.
 * [Terrain exaggeration](WPF.Viewer/Samples/Scene/TerrainExaggeration) - Vertically exaggerate terrain in a scene.
 * [View content beneath terrain surface](WPF.Viewer/Samples/Scene/ViewContentBeneathSurface) - See through terrain in a scene and move the camera underground.
 

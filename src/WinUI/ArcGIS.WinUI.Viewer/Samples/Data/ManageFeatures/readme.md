@@ -17,7 +17,7 @@ Pick a function, then tap a location on the map to perform the function at that 
 A `Feature` instance is added to a `ServiceFeatureTable` which then pushes that new feature to the server.
 
 1. Create a `ServiceGeodatabase` from a URL.
-	* When the table loads, you can get the domain to determine which options to present in your UI.
+   * When the table loads, you can get the domain to determine which options to present in your UI.
 2. Get a `ServiceFeatureTable` from the `ServiceGeodatabase`.
 3. Create a `FeatureLayer` derived from the `ServiceFeatureTable` instance.
 4. Create a `Picker` with four options, each representing its corresponding edit function. Selecting a new option should change the behavior of `GeoViewInputArgsEvent`.

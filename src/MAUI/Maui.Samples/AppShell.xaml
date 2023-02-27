@@ -19,16 +19,4 @@
         FlyoutDisplayOptions="AsMultipleItems"
         FlyoutIcon="menu.jpg" />
 
-    <!--<TabBar x:Name="CategoriesTabBar" />-->
-    <!--<Shell.ItemTemplate>
-        <DataTemplate>
-            <Grid ColumnDefinitions="20,*">
-                <Label Grid.Column="0" Text="1" />
-                <Label
-                    Grid.Column="1"
-                    FontAttributes="Bold"
-                    Text="{Binding Title}" />
-            </Grid>
-        </DataTemplate>
-    </Shell.ItemTemplate>-->
 </Shell>

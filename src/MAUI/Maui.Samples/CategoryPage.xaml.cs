@@ -18,8 +18,6 @@ public partial class CategoryPage : ContentPage
 
     private void Initialize()
     {
-        PageTitle.Text = _category.Name;
-
         // Get the samples from the category.
         var listSampleItems = _category?.Items.OfType<SampleInfo>().ToList();
 

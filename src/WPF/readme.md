@@ -12,10 +12,8 @@
 
 ## Data
 
-* [Add features](WPF.Viewer/Samples/Data/AddFeatures) - Add features to a feature layer.
 * [Add features with contingent values](WPF.Viewer/Samples/Data/AddFeaturesWithContingentValues) - Create and add features whose attribute values satisfy a predefined set of contingencies.
 * [Create mobile geodatabase](WPF.Viewer/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.
-* [Delete features (feature service)](WPF.Viewer/Samples/Data/DeleteFeatures) - Delete features from an online feature service.
 * [Edit and sync features](WPF.Viewer/Samples/Data/EditAndSyncFeatures) - Synchronize offline edits with a feature service.
 * [Edit feature attachments](WPF.Viewer/Samples/Data/EditFeatureAttachments) - Add, delete, and download attachments for features from a service.
 * [Edit features with feature-linked annotation](WPF.Viewer/Samples/Data/EditFeatureLinkedAnnotation) - Edit feature attributes which are linked to annotation through an expression.
@@ -24,6 +22,7 @@
 * [Generate geodatabase replica from feature service](WPF.Viewer/Samples/Data/GenerateGeodatabaseReplica) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](WPF.Viewer/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](WPF.Viewer/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
+* [Manage features](WPF.Viewer/Samples/Data/ManageFeatures) - Manage a feature layer's features in four distinct ways.
 * [Query features with Arcade expression](WPF.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
 * [Raster layer (GeoPackage)](WPF.Viewer/Samples/Data/RasterLayerGeoPackage) - Display a raster contained in a GeoPackage.
 * [Read GeoPackage](WPF.Viewer/Samples/Data/ReadGeoPackage) - Add rasters and feature tables from a GeoPackage to a map.
@@ -32,8 +31,6 @@
 * [Statistical query group and sort](WPF.Viewer/Samples/Data/StatsQueryGroupAndSort) - Query a feature table for statistics, grouping and sorting by different fields.
 * [Symbolize shapefile](WPF.Viewer/Samples/Data/SymbolizeShapefile) - Display a shapefile with custom symbology.
 * [Toggle between feature request modes](WPF.Viewer/Samples/Data/ToggleBetweenFeatureRequestModes) - Use different feature request modes to populate the map from a service feature table.
-* [Update attributes (feature service)](WPF.Viewer/Samples/Data/UpdateAttributes) - Update feature attributes in an online feature service.
-* [Update geometries (feature service)](WPF.Viewer/Samples/Data/UpdateGeometries) - Update a feature's location in an online feature service.
 * [View point cloud data offline](WPF.Viewer/Samples/Data/ViewPointCloudDataOffline) - Display local 3D point cloud data.
 
 ## Geometry

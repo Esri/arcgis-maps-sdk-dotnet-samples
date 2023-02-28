@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ManageFeatures.ManageFeatures"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{DynamicResource BorderStyle}">
+            <StackPanel>
+                <Label Content="Select a feature management operation."
+                       FontWeight="SemiBold" />
+                <ComboBox x:Name="MethodPicker"
+                          IsEditable="False"
+                          IsEnabled="True"
+                          SelectionChanged="OnComboBoxSelectionChanged" />
+                <Label x:Name="InstructionLabel" />
+                <ComboBox x:Name="DamageTypeDropDown"
+                          Visibility="Collapsed" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

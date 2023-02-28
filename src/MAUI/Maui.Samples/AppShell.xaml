@@ -8,7 +8,8 @@
     <Shell.FlyoutHeader>
         <Label
             Margin="10"
-            FontFamily="bold"
+            FontAttributes="Bold"
+            FontSize="Medium"
             HorizontalOptions="Center"
             Text="Categories" />
     </Shell.FlyoutHeader>

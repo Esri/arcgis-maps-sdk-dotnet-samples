@@ -22,12 +22,6 @@ public partial class AppShell : Shell
         var samplesCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
         var allSamples = SampleManager.Current.AllSamples.ToList();
 
-        //FlyoutItem flyoutItem = new FlyoutItem();
-        //flyoutItem.Icon = "menu.jpg";
-        //flyoutItem.FlyoutDisplayOptions = FlyoutDisplayOptions.AsMultipleItems;
-
-        //Items.Add(flyoutItem);
-
         foreach (var category in samplesCategories)
         {
             ShellContent shellContent = new ShellContent();

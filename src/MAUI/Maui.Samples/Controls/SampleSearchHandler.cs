@@ -1,12 +1,6 @@
 ﻿using ArcGIS.Helpers;
 using ArcGIS.Samples.Managers;
-using ArcGIS.Samples.Maui;
 using ArcGIS.Samples.Shared.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ArcGIS.Controls
 {
@@ -22,7 +16,8 @@ namespace ArcGIS.Controls
             if (string.IsNullOrWhiteSpace(newValue))
             {
                 ItemsSource = null;
-            } else
+            }
+            else
             {
                 var allSamples = SampleManager.Current.AllSamples.ToList();
                 string searchText = newValue.ToLower();
@@ -40,8 +35,6 @@ namespace ArcGIS.Controls
 
             // Let animation complete.
             await Task.Delay(1000);
-
-            //ShellNavigationState state = (App.Current.MainPage as Shell).CurrentState;
 
             await SampleLoader.LoadSample((SampleInfo)item, Shell.Current.CurrentPage);
 

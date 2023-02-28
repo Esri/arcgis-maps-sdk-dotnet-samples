@@ -204,7 +204,7 @@ namespace ArcGIS.Samples.Managers
                    sample.Tags.Any(tag => tag.Contains(searchText));
         }
 
-#if !(WinUI || WINDOWS_UWP || MAUI)
+#if !(WinUI || WINDOWS_UWP)
 
         private static List<string> GetFavoriteSampleNames()
         {

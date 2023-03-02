@@ -1,7 +1,11 @@
 ﻿<UserControl x:Class="ArcGIS.WPF.Samples.DisplayRouteLayer.DisplayRouteLayer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:converters="clr-namespace:ArcGIS.Converters">
+    <UserControl.Resources>
+        <converters:DirectionPointTypeToIconConverter x:Key="Converter" />
+    </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border x:Name="Border"
@@ -13,6 +17,7 @@
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Margin="0,0,5,5" Text="{Binding Attributes[Sequence], StringFormat={}{0}.}" />
+                            <TextBlock Margin="0,0,5,5" FontFamily="pack://application:,,,/Fonts/#calcite-ui-icons-24" Text="7"/>
                             <TextBlock Text="{Binding Attributes[DisplayText]}" />
                         </StackPanel>
                     </DataTemplate>

@@ -3,6 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" />
+        <Border x:Name="Border"
+                Width="550"
+                Style="{StaticResource BorderStyle}"
+                Visibility="Collapsed">
+            <ItemsControl x:Name="DirectionsList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Margin="0,0,5,5" Text="{Binding Attributes[Sequence], StringFormat={}{0}.}" />
+                            <TextBlock Text="{Binding Attributes[DisplayText]}" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Border>
     </Grid>
 </UserControl>

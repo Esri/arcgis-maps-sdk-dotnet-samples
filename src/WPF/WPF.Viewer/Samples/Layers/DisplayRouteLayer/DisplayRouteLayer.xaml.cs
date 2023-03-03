@@ -8,27 +8,14 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Media;
 using Esri.ArcGISRuntime.Portal;
-using Windows.UI.WebUI;
 using Esri.ArcGISRuntime;
-using System.Diagnostics;
-using System.Windows.Data;
-using System.Globalization;
 
 namespace ArcGIS.WPF.Samples.DisplayRouteLayer
 {

@@ -9,7 +9,7 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border x:Name="Border"
-                Width="550"
+                Width="575"
                 Style="{StaticResource BorderStyle}"
                 Visibility="Collapsed">
             <ItemsControl x:Name="DirectionsList">
@@ -22,7 +22,7 @@
                                        Text="{Binding Attributes[Sequence], StringFormat={}{0}.}" />
                             <TextBlock Margin="0,0,5,5"
                                        FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
-                                       FontSize="15"
+                                       FontSize="20"
                                        Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
                             <TextBlock VerticalAlignment="Center" Text="{Binding Attributes[DisplayText]}" />
                         </StackPanel>

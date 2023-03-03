@@ -10,6 +10,8 @@ namespace ArcGIS;
 public partial class CategoryPage : ContentPage
 {
 	private SearchableTreeNode _category;
+    private List<SampleInfo> _listSampleItems;
+    private bool IsOnMobile = true;
 
 	public CategoryPage(SearchableTreeNode category)
 	{
@@ -22,11 +24,16 @@ public partial class CategoryPage : ContentPage
 
     private void Initialize()
     {
+        SetBindingContext();
+    }
+
+    private void SetBindingContext()
+    {
         // Get the samples from the category.
-        var listSampleItems = _category?.Items.OfType<SampleInfo>().ToList();
+        _listSampleItems = _category?.Items.OfType<SampleInfo>().ToList();
 
         // Update the binding to show the samples.
-        BindingContext = listSampleItems;
+        BindingContext = _listSampleItems;
     }
 
     private void TapGestureRecognizer_SampleTapped(object sender, TappedEventArgs e)
@@ -41,9 +48,7 @@ public partial class CategoryPage : ContentPage
 
         var grid = (Grid)view.Content;
 
-        var childGrid = (Grid)grid.Children[1];
-
-        var imageButton = (ImageButton)childGrid[0];
+        var imageButton = (ImageButton)grid.Children[1];
 
         imageButton.IsVisible = true;// = Colors.Pink;
 
@@ -56,24 +61,45 @@ public partial class CategoryPage : ContentPage
 
         var grid = (Grid)view.Content;
 
-        var childGrid = (Grid)grid.Children[1];
+        var imageButton = (ImageButton)grid.Children[1];
 
-        var imageButton = (ImageButton)childGrid[0];
+        SampleInfo pointerSample = imageButton.CommandParameter as SampleInfo;
 
-        imageButton.IsVisible = false; // App.Current.PlatformAppTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? Colors.White : Colors.Black;
-
-        Console.WriteLine("PointerRecognized");
+        imageButton.IsVisible = false || SampleManager.Current.IsSampleFavorited(pointerSample.FormalName); 
     }
 
     private void FavoriteButton_Clicked(object sender, EventArgs e)
     {
         var favoriteButton = sender as ImageButton;
 
-        string sampleFormalName = favoriteButton.CommandParameter.ToString();
+        SampleInfo clickedSample = favoriteButton.CommandParameter as SampleInfo;
 
-        SampleManager.Current.AddRemoveFavorite(sampleFormalName);
+        SampleManager.Current.AddRemoveFavorite(clickedSample.FormalName);
 
-        //// Fill or empty the star icon.
-        //favoriteButton.Source = (ImageSource)new BoolToImageSourceConverter().Convert(SampleManager.Current.IsFavorite(sampleFormalName), Type.GetType("ImageSource"), null, null);
+        // Get the samples from the category.
+        var listSampleItems = _category?.Items.OfType<SampleInfo>().ToList();
+
+        if(_category.Name == "Favorites" && !clickedSample.IsFavorite)
+        {
+            _category = SampleManager.Current.GetFavoritesCategory();
+
+            listSampleItems.Remove(clickedSample);
+        }
+
+        // Update the binding to show the newly favorited samples.
+        BindingContext = listSampleItems;
+    }
+
+    protected override void OnAppearing()
+    {
+        base.OnAppearing();
+
+        // Ensure the favorite category is up to date with the correct favorited samples. 
+        if (_category.Name == "Favorites")
+        {
+            _category = SampleManager.Current.GetFavoritesCategory();
+
+            SetBindingContext();
+        }
     }
 }

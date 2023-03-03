@@ -60,6 +60,7 @@ namespace ArcGIS.Samples.Shared.Models
         public string Instructions { get; set; }
 
         public bool IsFavorite { get; set; }
+        public bool IsViewedOnMobile { get; set; }
 
         /// <summary>
         /// A list of offline data items that should be downloaded

@@ -21,6 +21,7 @@
     <ContentPage.Resources>
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
         <converters:BoolToImageSourceConverter x:Key="BoolToImageSourceConverter" />
+        <converters:AnyTrueConverter x:Key="AnyTrueConverter" />
     </ContentPage.Resources>
     <Grid x:Name="SampleListGrid">
         <ScrollView x:Name="SampleScrollView" HorizontalOptions="Center">
@@ -40,7 +41,7 @@
                                 WidthRequest="300">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="TapGestureRecognizer_SampleTapped" />
-                                    <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" PointerEnteredCommandParameter="{Binding .}}" />
+                                    <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" PointerEnteredCommandParameter="{Binding .}" />
                                     <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" PointerExitedCommandParameter="{Binding .}" />
                                 </Border.GestureRecognizers>
                                 <Grid>
@@ -52,24 +53,31 @@
                                         Grid.Row="0"
                                         Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
                                         WidthRequest="300" />
-                                    <Grid BackgroundColor="#A52F2F2F">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition />
-                                            <ColumnDefinition Width="20" />
-                                        </Grid.ColumnDefinitions>
-                                        <ImageButton
-                                            x:Name="FavoriteButton"
-                                            Grid.Row="0"
-                                            Grid.RowSpan="2"
-                                            Grid.Column="1"
-                                            Background="Transparent"
-                                            Clicked="FavoriteButton_Clicked"
-                                            CommandParameter="{Binding FormalName}"
-                                            HeightRequest="16"
-                                            IsVisible="{Binding IsFavorite}"
-                                            Source="{Binding IsFavorite, Converter={StaticResource BoolToImageSourceConverter}}"
-                                            VerticalOptions="End"
-                                            WidthRequest="32" />
+
+                                    <ImageButton
+                                        x:Name="FavoriteButton"
+                                        Grid.Row="0"
+                                        Padding="3"
+                                        Background="#A52F2F2F"
+                                        Clicked="FavoriteButton_Clicked"
+                                        CommandParameter="{Binding .}"
+                                        HeightRequest="25"
+                                        HorizontalOptions="Start"
+                                        Source="{Binding IsFavorite, Converter={StaticResource BoolToImageSourceConverter}}"
+                                        VerticalOptions="Start"
+                                        WidthRequest="25">
+                                        <ImageButton.IsVisible>
+                                            <MultiBinding Converter="{StaticResource AnyTrueConverter}">
+                                                <Binding Path="IsFavorite" />
+                                                <Binding Path="IsViewedOnMobile" />
+                                            </MultiBinding>
+                                        </ImageButton.IsVisible>
+                                    </ImageButton>
+
+                                    <Grid
+                                        Grid.Row="0"
+                                        BackgroundColor="#A52F2F2F"
+                                        VerticalOptions="End">
                                         <Label
                                             Grid.Row="0"
                                             Grid.Column="0"
@@ -77,6 +85,7 @@
                                             FontSize="18"
                                             HeightRequest="50"
                                             Text="{Binding SampleName}"
+                                            TextColor="White"
                                             VerticalOptions="End"
                                             VerticalTextAlignment="Center" />
                                     </Grid>

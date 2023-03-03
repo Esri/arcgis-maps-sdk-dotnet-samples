@@ -19,7 +19,7 @@ namespace ArcGIS.Converters
             ImageSource imageSource;
             if ((bool)value)
             {
-                imageSource = currentTheme == AppTheme.Light ? ImageSource.FromFile("starfilled.png") : ImageSource.FromFile("starfilleddark.png");
+                imageSource = ImageSource.FromFile("starfilled.png");
             }
             else
             {

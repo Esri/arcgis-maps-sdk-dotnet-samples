@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime;
+using System.Windows.Controls;
 
 namespace ArcGIS.WPF.Samples.DisplayRouteLayer
 {
@@ -37,6 +38,7 @@ namespace ArcGIS.WPF.Samples.DisplayRouteLayer
 
         private async Task Initialize()
         {
+
             // Create a new map with the topographic basemap style.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 

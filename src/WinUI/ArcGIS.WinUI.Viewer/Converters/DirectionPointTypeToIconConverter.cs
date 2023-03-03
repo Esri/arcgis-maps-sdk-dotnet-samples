@@ -14,7 +14,7 @@ namespace ArcGIS.WinUI.Viewer.Converters
         // Create a dictionary of direction point type and corresponding icons.
         private Dictionary<int, string> _directionIcons = new Dictionary<int, string>()
         {
-            {51, "calcite_glyphicon_RouteFrom"}, {52, "calcite_glyphicon_Straight"}, {301, "calcite_glyphicon_ForkRight"},
+            {51, "&#xe259;"}, {52, "calcite_glyphicon_Straight"}, {301, "calcite_glyphicon_ForkRight"},
             {200, "calcite_glyphicon_ForkLeft"}, {305, "calcite_glyphicon_Right"}, {205, "calcite_glyphicon_Left"},
             {50, "calcite_glyphicon_RouteTo"}
         };

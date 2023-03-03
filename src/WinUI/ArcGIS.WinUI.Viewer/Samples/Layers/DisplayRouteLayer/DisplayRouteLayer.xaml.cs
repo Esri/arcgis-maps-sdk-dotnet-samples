@@ -8,30 +8,28 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
+using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime;
+using Microsoft.UI.Xaml.Controls;
+using System.Collections.Generic;
 
 namespace ArcGIS.WinUI.Samples.DisplayRouteLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Display Route Layer",
+        "Display route layer",
         "Layers",
         "Display a route layer and its directions using feature collection.",
         "")]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayRouteLayer
     {
+        private readonly string _itemId = "0e3c8e86b4544274b45ecb61c9f41336";
+
         public DisplayRouteLayer()
         {
             InitializeComponent();
@@ -40,6 +38,44 @@ namespace ArcGIS.WinUI.Samples.DisplayRouteLayer
 
         private async Task Initialize()
         {
+            // Create a new map with the topographic basemap style.
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
+
+            try
+            {
+                // Set the portal.
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+
+                // Get the portal item containing route data.
+                PortalItem item = await PortalItem.CreateAsync(portal, _itemId);
+
+                // Create a collection of feature layers, then load.
+                var featureCollection = new FeatureCollection(item);
+                await featureCollection.LoadAsync();
+
+                if (featureCollection.LoadStatus == LoadStatus.Loaded)
+                {
+                    // Select all tables.
+                    IList<FeatureCollectionTable> tables = featureCollection.Tables;
+
+                    // List the turn by turn directions.
+                    var directionPoints = tables.Where(t => t.TableName == "DirectionPoints").FirstOrDefault();
+                    DirectionsList.ItemsSource = directionPoints;
+
+                    // Add the feature collection layers to the map.
+                    MyMapView.Map.OperationalLayers.Add(new FeatureCollectionLayer(featureCollection));
+
+                    // Set the viewpoint to Oregon, US.
+                    await MyMapView.SetViewpointAsync(new Viewpoint(45.2281, -122.8309, 57e4));
+
+                    // Make controls relating to UI visible.
+                    Border.Visibility = Visibility.Visible;
+                }
+            }
+            catch (Exception e)
+            {
+                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+            }
         }
     }
 }

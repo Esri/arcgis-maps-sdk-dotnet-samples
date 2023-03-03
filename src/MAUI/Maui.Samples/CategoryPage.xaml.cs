@@ -36,6 +36,12 @@ public partial class CategoryPage : ContentPage
         BindingContext = _listSampleItems;
     }
 
+    private async void SettingsClicked(object sender, EventArgs e)
+    {
+        await Shell.Current.Navigation.PushAsync(new SettingsPage(), true);
+    }
+
+
     private void TapGestureRecognizer_SampleTapped(object sender, TappedEventArgs e)
     {
         var sampleInfo = e.Parameter as SampleInfo;

@@ -18,6 +18,13 @@
         </controls:SampleSearchHandler>
     </Shell.SearchHandler>
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Clicked="SettingsClicked"
+            IconImageSource="settings.png"
+            Text="Settings" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Resources>
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
         <converters:BoolToImageSourceConverter x:Key="BoolToImageSourceConverter" />

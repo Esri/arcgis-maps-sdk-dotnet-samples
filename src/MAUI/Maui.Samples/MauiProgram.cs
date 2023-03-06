@@ -13,6 +13,7 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                fonts.AddFont("calcite-ui-icons-24.ttf", "calcite-ui-icons-24");
             }).UseArcGISRuntime();
 
         return builder.Build();

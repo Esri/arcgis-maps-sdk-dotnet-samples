@@ -2,8 +2,33 @@
 <ContentPage x:Class="ArcGIS.Samples.DisplayRouteLayer.DisplayRouteLayer"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="using:ArcGIS.Converters"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+
+    <ContentPage.Resources>
+        <converters:DirectionPointTypeToIconConverter x:Key="Converter" />
+    </ContentPage.Resources>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border x:Name="Border"
+                IsVisible="False"
+                Style="{StaticResource EsriSampleControlPanel}"
+                WidthRequest="650">
+            <CollectionView x:Name="DirectionsList">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding Attributes[Sequence]}" />
+                            <Label Margin="0,0,5,0"
+                                   FontFamily="calcite-ui-icons-24"
+                                   FontSize="20"
+                                   Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
+                            <Label Text="{Binding Attributes[DisplayText]}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Border>
     </Grid>
+
 </ContentPage>

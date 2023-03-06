@@ -1,22 +1,15 @@
 ﻿using Microsoft.UI.Xaml.Data;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace ArcGIS.WinUI.Viewer.Converters
 {
     internal class DirectionPointTypeToIconConverter : IValueConverter
     {
-
         // Create a dictionary of direction point type and corresponding icons.
-        private Dictionary<int, string> _directionIcons = new Dictionary<int, string>()
+        private Dictionary<int, string> _directionIcons = new()
         {
-            {51, "&#xe259;"}, {52, "calcite_glyphicon_Straight"}, {301, "calcite_glyphicon_ForkRight"},
-            {200, "calcite_glyphicon_ForkLeft"}, {305, "calcite_glyphicon_Right"}, {205, "calcite_glyphicon_Left"},
-            {50, "calcite_glyphicon_RouteTo"}
+            {51, "\xe259"}, {52, "\xe2aa"}, {301, "\xe124"}, {200, "\xe122"}, {305, "\xe24e"},
+            {205, "\xe199"}, {50, "\xe25a"}
         };
 
         public object Convert(object value, Type targetType, object parameter, string language)

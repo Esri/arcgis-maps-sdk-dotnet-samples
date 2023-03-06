@@ -10,6 +10,13 @@
     </UserControl.Resources>
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
+        <ToggleButton x:Name="Button"
+                      Margin="30"
+                      HorizontalAlignment="lEFT"
+                      VerticalAlignment="Top"
+                      Click="Button_Click"
+                      Content="Display directions"
+                      Visibility="Collapsed" />
         <Border x:Name="Border"
                 Width="650"
                 Style="{StaticResource BorderStyle}"
@@ -31,7 +38,9 @@
                                        FontFamily="{StaticResource Calcite}"
                                        FontSize="20"
                                        Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
-                            <TextBlock Grid.Column="3" Text="{Binding Attributes[DisplayText]}" />
+                            <TextBlock Grid.Column="3"
+                                       Text="{Binding Attributes[DisplayText]}"
+                                       TextWrapping="Wrap" />
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

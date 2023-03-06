@@ -69,8 +69,8 @@ namespace ArcGIS.WPF.Samples.DisplayRouteLayer
                     // Set the viewpoint to Oregon, US.
                     await MyMapView.SetViewpointAsync(new Viewpoint(45.2281, -122.8309, 57e4));
 
-                    // Make controls relating to UI visible.
-                    Border.Visibility = Visibility.Visible;
+                    // Allow the user to display directions.
+                    Button.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception ex)
@@ -78,6 +78,12 @@ namespace ArcGIS.WPF.Samples.DisplayRouteLayer
                 // Report exceptions.
                 MessageBox.Show("Error: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // Toggle the visibility of the directions.
+            Border.Visibility = Border.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

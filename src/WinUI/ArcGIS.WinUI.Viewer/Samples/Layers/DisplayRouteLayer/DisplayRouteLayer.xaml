@@ -2,11 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="using:ArcGIS.WinUI.Viewer.Converters"
-             xmlns:esri="using:Esri.ArcGISRuntime"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
 
     <UserControl.Resources>
         <converters:DirectionPointTypeToIconConverter x:Key="Converter" />
+        <FontFamily x:Key="Calcite">/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24</FontFamily>
     </UserControl.Resources>
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
@@ -21,8 +21,8 @@
                             <TextBlock Text="{Binding Attributes[Sequence]}" />
                             <TextBlock Text="." />
                             <TextBlock Margin="0,0,5,5"
-                                       FontFamily="pack://application:,,,/Fonts/#calcite-ui-icons-24"
-                                       Text="{Binding Attributes[DirectionPointType]}" />
+                                       FontFamily="{StaticResource Calcite}"
+                                       Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
                             <TextBlock Text="{Binding Attributes[DisplayText]}" />
                         </StackPanel>
                     </DataTemplate>

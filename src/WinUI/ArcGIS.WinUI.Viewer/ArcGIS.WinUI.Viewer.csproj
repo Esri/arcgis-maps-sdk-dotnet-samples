@@ -87,11 +87,12 @@
 
   <ItemGroup>
     <Folder Include="Samples\GraphicsOverlay\SketchOnMap\resources\" />
-	  <Folder Include="Resources\Fonts\"/>
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Fonts\calcite-ui-icons-24.ttf" />
+    <Content Include="Resources\Fonts\calcite-ui-icons-24.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

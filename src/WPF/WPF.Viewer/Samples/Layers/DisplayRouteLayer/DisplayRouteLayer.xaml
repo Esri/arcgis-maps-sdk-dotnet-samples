@@ -15,17 +15,22 @@
             <ItemsControl x:Name="DirectionsList">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Horizontal">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="20" />
+                                <ColumnDefinition Width="25" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
                             <TextBlock Margin="0,0,5,5"
                                        HorizontalAlignment="Right"
-                                       VerticalAlignment="Center"
                                        Text="{Binding Attributes[Sequence], StringFormat={}{0}.}" />
-                            <TextBlock Margin="0,0,5,5"
+                            <TextBlock Grid.Column="1"
+                                       Margin="0,0,5,5"
                                        FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
                                        FontSize="20"
                                        Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
-                            <TextBlock VerticalAlignment="Center" Text="{Binding Attributes[DisplayText]}" />
-                        </StackPanel>
+                            <TextBlock Grid.Column="2" Text="{Binding Attributes[DisplayText]}" />
+                        </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

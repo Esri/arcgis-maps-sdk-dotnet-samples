@@ -17,14 +17,15 @@
             <CollectionView x:Name="DirectionsList">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Orientation="Horizontal">
-                            <Label Text="{Binding Attributes[Sequence]}" />
-                            <Label Margin="0,0,5,0"
+                        <Grid ColumnDefinitions="20,25,*">
+                            <Label HorizontalOptions="End" Text="{Binding Attributes[Sequence], StringFormat={}{0}.}" />
+                            <Label Grid.Column="1"
+                                   Margin="0,0,5,0"
                                    FontFamily="calcite-ui-icons-24"
                                    FontSize="20"
                                    Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
-                            <Label Text="{Binding Attributes[DisplayText]}" />
-                        </StackLayout>
+                            <Label Grid.Column="2" Text="{Binding Attributes[DisplayText]}" />
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

@@ -12,7 +12,7 @@
         <esriUI:MapView x:Name="MyMapView" />
         <ToggleButton x:Name="Button"
                       Margin="30"
-                      HorizontalAlignment="lEFT"
+                      HorizontalAlignment="Left"
                       VerticalAlignment="Top"
                       Click="Button_Click"
                       Content="Display directions"

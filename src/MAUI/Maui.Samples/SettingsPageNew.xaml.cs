@@ -319,30 +319,46 @@ namespace ArcGIS
         {
             AboutPage.IsVisible = true;
             LicensesPage.IsVisible = OfflineDataPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
+
+            AboutButton.IsEnabled = false;
+            LicensesButton.IsEnabled = OfflineDataButton.IsEnabled = ApiKeyButton.IsEnabled = ScreenshotButton.IsEnabled = true;
+
+            Title = "Settings > About";
         }
 
         private void LicensesButton_Clicked(object sender, EventArgs e)
         {
             LicensesPage.IsVisible = true;
             AboutPage.IsVisible = OfflineDataPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
+
+            LicensesButton.IsEnabled = false;
+            AboutButton.IsEnabled = OfflineDataButton.IsEnabled = ApiKeyButton.IsEnabled = ScreenshotButton.IsEnabled = true;
+
+            Title = "Settings > Licenses";
         }
 
         private void OfflineDataButton_Clicked(object sender, EventArgs e)
         {
             OfflineDataPage.IsVisible = true;
             AboutPage.IsVisible = LicensesPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
+
+            Title = "Settings > Offline data";
         }
 
         private void ApiKeyButton_Clicked(object sender, EventArgs e)
         {
             ApiKeyPage.IsVisible = true;
             AboutPage.IsVisible = LicensesPage.IsVisible = ScreenshotPage.IsVisible = OfflineDataPage.IsVisible = false;
+
+            Title = "Settings > API Key";
         }
 
         private void ScreenshotButton_Clicked(object sender, EventArgs e)
         {
             ScreenshotPage.IsVisible = true;
             AboutPage.IsVisible = LicensesPage.IsVisible = ApiKeyPage.IsVisible = OfflineDataPage.IsVisible = false;
+
+            Title = "Settings > Screenshot tool";
         }
     }
 }

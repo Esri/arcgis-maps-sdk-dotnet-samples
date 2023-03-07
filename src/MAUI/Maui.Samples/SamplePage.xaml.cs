@@ -7,6 +7,11 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+#if WINDOWS
+        //using uiXaml =  Microsoft.UI.Xaml;
+        using ArcGIS.Samples.Shared.Managers;
+        //using System.Drawing.Common;
+#endif
 using ArcGIS.Samples.Shared.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -48,6 +53,20 @@ namespace ArcGIS
 
             // Update the content - this displays the sample.
             SampleContentPage.Content = sample.Content;
+
+#if WINDOWS
+            if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
+            {
+                //var screenshotToolbarItem = new ToolbarItem();
+                //screenshotToolbarItem.Clicked += ScreenshotButton_Clicked;
+                //screenshotToolbarItem.IconImageSource="cameradark.png";
+                //screenshotToolbarItem.Text = "Screenshot";
+                //ToolbarItems.Add(screenshotToolbarItem);
+
+                SampleContentPage.WidthRequest = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
+                SampleContentPage.HeightRequest = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
+            }
+#endif
 
             //  Start AR
             if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
@@ -266,6 +285,62 @@ namespace ArcGIS
             {
             }
         }
+
+//#if WINDOWS
+//#region ScreenshotTool
+//        private void ScreenshotButton_Clicked(object sender, EventArgs e)
+//        {
+//            SaveScreenshot(SampleContentPage);
+//        }
+
+//        // Code here is adapted from the following Stack Overflow answers:
+//        // https://stackoverflow.com/q/24466482
+//        // https://stackoverflow.com/a/15537372
+//        private void SaveScreenshot(VisualElement source)
+//        {
+//            double scale = ScreenshotManager.ScreenshotSettings.ScaleFactor.HasValue ? ScreenshotManager.ScreenshotSettings.ScaleFactor.Value : double.NaN;
+
+//            var nativeElement = (uiXaml.UIElement)source.Handler.PlatformView;
+
+//            int height = (int)(source.DesiredSize.Height * scale);
+//            int width = (int)(source.DesiredSize.Width * scale);
+//            var visual = nativeElement.TransformToVisual(null).TransformPoint(new Windows.Foundation.Point(0, 0));
+
+//            // This is the height of the top bar for the viewer application.
+//            int topBorderWidth = 29;
+
+//            int X = (int)(visual.X * scale);
+//            int Y = (int)(visual.Y * scale) + topBorderWidth;
+
+//            Bitmap screenshot = new Bitmap(width, height);
+//            Graphics G = Graphics.FromImage(screenshot);
+//            G.CopyFromScreen(X, Y, 0, 0, new Size(width, height), CopyPixelOperation.SourceCopy);
+
+//            // If scaling has occurred due to screen scaling we need to resize the image.
+//            Bitmap resizedScreenshot = new Bitmap(screenshot, new Size((int)(screenshot.Width / scale), (int)(screenshot.Height / scale)));
+
+//            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\MAUI\\MAUI.Samples\\Samples\\" +
+//                $"{SampleManager.Current.SelectedSample.Category}\\" +
+//                $"{SampleManager.Current.SelectedSample.FormalName}\\" +
+//                $"{SampleManager.Current.SelectedSample.FormalName}.jpg";
+
+//            // Remove white space.
+//            filePath = Regex.Replace(filePath, @"\s+", "");
+
+//            try
+//            {
+//                System.IO.FileStream fs = System.IO.File.Open(filePath, System.IO.FileMode.OpenOrCreate);
+//                resizedScreenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+//                fs.Close();
+//            }
+//            catch (Exception ex)
+//            {
+//                Console.WriteLine($"Error saving screenshot: {ex.Message}");
+//            }
+//        }
+//#endregion Screenshot Tool
+//#endif
+
 
         private void SelectFile(string fileName)
         {

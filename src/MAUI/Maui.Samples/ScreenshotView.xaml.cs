@@ -14,11 +14,24 @@ public partial class ScreenshotView : ContentView
 
     private void Initialize()
     {
+        // Remove event handlers to populate fields with existing data.
+        ScreenshotEnabledCheckBox.CheckedChanged -= ScreenshotEnabledCheckBox_CheckedChanged;
+        SourcePathEntry.TextChanged -= Entry_TextChanged;
+        WidthEntry.TextChanged -= Entry_TextChanged;
+        HeightEntry.TextChanged -= Entry_TextChanged;
+        ScaleFactorEntry.TextChanged -= Entry_TextChanged;
+
         ScreenshotEnabledCheckBox.IsChecked = ScreenshotManager.ScreenshotSettings.ScreenshotEnabled;
         SourcePathEntry.Text = ScreenshotManager.ScreenshotSettings.SourcePath;
         WidthEntry.Text = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.ToString() : null;
         HeightEntry.Text = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.ToString() : null;
         ScaleFactorEntry.Text = ScreenshotManager.ScreenshotSettings.ScaleFactor.HasValue ? ScreenshotManager.ScreenshotSettings.ScaleFactor.ToString() : null;
+
+        ScreenshotEnabledCheckBox.CheckedChanged += ScreenshotEnabledCheckBox_CheckedChanged;
+        SourcePathEntry.TextChanged += Entry_TextChanged;
+        WidthEntry.TextChanged += Entry_TextChanged;
+        HeightEntry.TextChanged += Entry_TextChanged;
+        ScaleFactorEntry.TextChanged += Entry_TextChanged;
     }
 
     private void SaveData()

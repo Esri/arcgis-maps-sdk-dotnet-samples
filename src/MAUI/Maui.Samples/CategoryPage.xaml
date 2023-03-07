@@ -66,6 +66,8 @@
                                         Grid.Row="0"
                                         Padding="3"
                                         Background="#A52F2F2F"
+                                        BorderColor="Black"
+                                        BorderWidth="1"
                                         Clicked="FavoriteButton_Clicked"
                                         CommandParameter="{Binding .}"
                                         HeightRequest="25"

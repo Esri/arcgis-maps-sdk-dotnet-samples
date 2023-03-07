@@ -35,7 +35,7 @@
                 Margin="5"
                 HorizontalOptions="Start"
                 TextChanged="Entry_TextChanged"
-                WidthRequest="40" />
+                WidthRequest="60" />
             <Label
                 Margin="5"
                 Text="Height"
@@ -45,7 +45,7 @@
                 Margin="5"
                 HorizontalOptions="Start"
                 TextChanged="Entry_TextChanged"
-                WidthRequest="40" />
+                WidthRequest="60" />
         </HorizontalStackLayout>
         <HorizontalStackLayout>
             <Label
@@ -57,7 +57,7 @@
                 Margin="5"
                 HorizontalOptions="Start"
                 TextChanged="Entry_TextChanged"
-                WidthRequest="40" />
+                WidthRequest="60" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentView>

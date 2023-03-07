@@ -60,7 +60,7 @@ namespace ArcGIS.WPF.Samples.DisplayRouteLayer
                     IList<FeatureCollectionTable> tables = featureCollection.Tables;
                     
                     // List the turn by turn directions.
-                    var directionPoints = tables.Where(t => t.TableName == "DirectionPoints").FirstOrDefault();
+                    FeatureCollectionTable directionPoints = tables.Where(t => t.TableName == "DirectionPoints").FirstOrDefault();
                     DirectionsList.ItemsSource = directionPoints;
 
                     // Add the feature collection layers to the map.

@@ -12,23 +12,35 @@
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border x:Name="Border"
                 IsVisible="False"
+                MaximumHeightRequest="75"
                 Style="{StaticResource EsriSampleControlPanel}"
-                WidthRequest="650">
-            <CollectionView x:Name="DirectionsList">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
-                        <Grid ColumnDefinitions="20,25,*">
-                            <Label HorizontalOptions="End" Text="{Binding Attributes[Sequence], StringFormat={}{0}.}" />
-                            <Label Grid.Column="1"
-                                   Margin="0,0,5,0"
-                                   FontFamily="calcite-ui-icons-24"
-                                   FontSize="20"
-                                   Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
-                            <Label Grid.Column="2" Text="{Binding Attributes[DisplayText]}" />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+                WidthRequest="350">
+            <VerticalStackLayout>
+                <Label FontAttributes="Bold"
+                       Text="Display directions:"
+                       TextColor="{AppThemeBinding Light={StaticResource Black},
+                                                   Dark={StaticResource White}}" />
+                <Switch HorizontalOptions="Start" Toggled="Switch_Toggled" />
+                <CollectionView x:Name="DirectionsList"
+                                HeightRequest="225"
+                                IsVisible="False"
+                                VerticalScrollBarVisibility="Default">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="20,25,*">
+                                <Label HorizontalOptions="End" Text="{Binding Attributes[Sequence], StringFormat='{}{0}.'}" />
+                                <Label Grid.Column="1"
+                                       FontFamily="calcite-ui-icons-24"
+                                       FontSize="20"
+                                       Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
+                                <Label Grid.Column="2"
+                                       LineBreakMode="WordWrap"
+                                       Text="{Binding Attributes[DisplayText]}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
         </Border>
     </Grid>
 

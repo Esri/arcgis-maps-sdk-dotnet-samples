@@ -21,10 +21,11 @@ using System.Collections.Generic;
 namespace ArcGIS.WinUI.Samples.DisplayRouteLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Display route layer",
-        "Layers",
-        "Display a route layer and its directions using feature collection.",
-        "")]
+        name: "Display route layer",
+        category: "Layers",
+        description: "Display a route layer and its directions using feature collection.",
+        instructions: "Pan and zoom to view the route displayed by the feature collection layer. Toggle to view or hide the turn by turn directions.",
+        tags: new[] { "directions", "feature collection", "route layer" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayRouteLayer
     {

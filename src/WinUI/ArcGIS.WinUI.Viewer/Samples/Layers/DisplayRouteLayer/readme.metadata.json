@@ -4,16 +4,25 @@
     "formal_name": "DisplayRouteLayer",
     "ignore": false,
     "images": [
-        "DisplayRouteLayer.jpg"
+        "display-route-layer.png"
     ],
     "keywords": [
+        "directions",
+        "feature collection",
+        "route layer"
     ],
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/DisplayRouteLayer.htm"
+        "/net/latest/winui/sample-code/displayroutelayer.htm"
     ],
     "relevant_apis": [
+        "AGSFeatureCollection",
+        "AGSFeatureCollectionLayer",
+        "AGSFeatureCollectionTable"
     ],
     "snippets": [
+        "DisplayRouteLayer.xaml",
+        "DisplayRouteLayer.xaml.cs"
     ],
-    "title": "Display Route Layer"
+    "title": "Display route layer"
 }

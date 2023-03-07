@@ -4,9 +4,9 @@ using ArcGIS.Samples.Shared.Models;
 namespace ArcGIS;
 
 [XamlCompilation(XamlCompilationOptions.Compile)]
-public partial class ScreenshotTab : ContentPage
+public partial class ScreenshotView : ContentView
 {
-    public ScreenshotTab()
+    public ScreenshotView()
     {
         InitializeComponent();
         Initialize();

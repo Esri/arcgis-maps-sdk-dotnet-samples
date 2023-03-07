@@ -50,7 +50,7 @@ public partial class AppShell : Shell
         ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
         if (status != ApiKeyStatus.Valid)
         {
-            await Navigation.PushAsync(new ApiKeyPrompt(), true);
+            await Navigation.PushAsync(new ApiKeyPage(), true);
         }
     }
     #endregion

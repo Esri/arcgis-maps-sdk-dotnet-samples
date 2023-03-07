@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGIS.ApiKeyPrompt"
+<ContentView
+    x:Class="ArcGIS.ApiKeyView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="Manage API key">
-    <ContentPage.Content>
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <ContentView.Content>
         <StackLayout Orientation="Vertical">
             <Label x:Name="Instructions" Margin="5">
                 <Label.FormattedText>
@@ -44,5 +43,5 @@
             </StackLayout>
             <Label x:Name="Status" Margin="5,0,0,0" />
         </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+    </ContentView.Content>
+</ContentView>

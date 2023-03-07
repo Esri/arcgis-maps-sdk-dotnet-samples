@@ -70,16 +70,12 @@
                                         CommandParameter="{Binding .}"
                                         HeightRequest="25"
                                         HorizontalOptions="Start"
+                                        IsVisible="{OnPlatform iOS=true,
+                                                               Android=true,
+                                                               Default={Binding IsFavorite}}"
                                         Source="{Binding IsFavorite, Converter={StaticResource BoolToImageSourceConverter}}"
                                         VerticalOptions="Start"
-                                        WidthRequest="25">
-                                        <ImageButton.IsVisible>
-                                            <MultiBinding Converter="{StaticResource AnyTrueConverter}">
-                                                <Binding Path="IsFavorite" />
-                                                <Binding Path="IsViewedOnMobile" />
-                                            </MultiBinding>
-                                        </ImageButton.IsVisible>
-                                    </ImageButton>
+                                        WidthRequest="25" />
 
                                     <Grid
                                         Grid.Row="0"

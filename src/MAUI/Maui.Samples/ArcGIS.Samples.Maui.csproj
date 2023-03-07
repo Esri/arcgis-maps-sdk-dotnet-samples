@@ -153,18 +153,33 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="ApiKeyView.xaml.cs">
+      <DependentUpon>ApiKeyView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
+    <Compile Update="ScreenshotView.xaml.cs">
+      <DependentUpon>ScreenshotView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="SettingsPageNew.xaml.cs">
+      <DependentUpon>SettingsPageNew.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <MauiXaml Update="ApiKeyPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="AppShell.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="CategoryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="ScreenshotTab.xaml">
+    <MauiXaml Update="ScreenshotView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="SettingsPageNew.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
   </ItemGroup>

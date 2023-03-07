@@ -138,10 +138,6 @@ namespace ArcGIS.Samples.Managers
                 {
                     SampleInfo sampleInfo = new SampleInfo(type);
 
-#if IOS || ANDROID
-                    sampleInfo.IsViewedOnMobile = true;
-#endif
-
                     samples.Add(sampleInfo);
                 }
                 catch (Exception ex)

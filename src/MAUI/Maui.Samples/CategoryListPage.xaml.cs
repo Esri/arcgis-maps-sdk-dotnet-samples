@@ -66,7 +66,7 @@ namespace ArcGIS
             ApiKeyStatus status = await ApiKeyManager.CheckKeyValidity();
             if (status != ApiKeyStatus.Valid)
             {
-                await Navigation.PushAsync(new ApiKeyPrompt(), true);
+                await Navigation.PushAsync(new ApiKeyPage(), true);
             }
         }
 
@@ -91,7 +91,7 @@ namespace ArcGIS
 
         private async void SettingsClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SettingsPage(), true);
+            await Navigation.PushAsync(new SettingsPageNew(), true);
         }
 
         private void TapGestureRecognizer_CategoryTapped(object sender, TappedEventArgs e)

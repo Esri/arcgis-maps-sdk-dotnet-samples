@@ -38,9 +38,8 @@ public partial class CategoryPage : ContentPage
 
     private async void SettingsClicked(object sender, EventArgs e)
     {
-        await Shell.Current.Navigation.PushAsync(new SettingsPage(), true);
+        await this.Navigation.PushAsync(new SettingsPageNew(), true);
     }
-
 
     private void TapGestureRecognizer_SampleTapped(object sender, TappedEventArgs e)
     {

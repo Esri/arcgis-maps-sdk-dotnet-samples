@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGIS.ScreenshotTab"
+<ContentView
+    x:Class="ArcGIS.ScreenshotView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="ScreenshotTab">
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
     <VerticalStackLayout>
         <HorizontalStackLayout>
             <Label
@@ -61,4 +60,4 @@
                 WidthRequest="40" />
         </HorizontalStackLayout>
     </VerticalStackLayout>
-</ContentPage>
+</ContentView>

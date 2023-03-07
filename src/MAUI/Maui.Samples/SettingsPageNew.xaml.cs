@@ -15,12 +15,13 @@ using System.Reflection;
 
 namespace ArcGIS
 {
-    public partial class SettingsPage : TabbedPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class SettingsPageNew : ContentPage
     {
         private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
 
-        public SettingsPage()
+        public SettingsPageNew()
         {
             InitializeComponent();
             Initialize();
@@ -76,18 +77,18 @@ namespace ArcGIS
                 viewportHTML +
 #endif
                 $"</head><body class=\"markdown-body\">{Markdig.Markdown.ToHtml(licenseString)}</body>";
-            LicensePage.Source = new HtmlWebViewSource() { Html = licenseHTML };
+            LicensePageContent.Source = new HtmlWebViewSource() { Html = licenseHTML };
 
             string aboutHTML = htmlStart +
 #if IOS
                 viewportHTML +
 #endif
                 $"</head><body class=\"markdown-body\">{Markdig.Markdown.ToHtml(aboutString)}{versionNumber}</body>";
-            AboutPage.Source = new HtmlWebViewSource() { Html = aboutHTML };
+            AboutPageContent.Source = new HtmlWebViewSource() { Html = aboutHTML };
 
             // Add an event handler for hyperlinks in the web views.
-            AboutPage.Navigating += HyperlinkClicked;
-            LicensePage.Navigating += HyperlinkClicked;
+            AboutPageContent.Navigating += HyperlinkClicked;
+            LicensePageContent.Navigating += HyperlinkClicked;
         }
 
         private async void HyperlinkClicked(object sender, WebNavigatingEventArgs e)
@@ -305,6 +306,43 @@ namespace ArcGIS
                     StatusBar.ProgressTo(progress, 10, Easing.Linear);
                 }
             });
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            _ = Navigation.PopAsync();
+        }
+
+        private void AboutButton_Clicked(object sender, EventArgs e)
+        {
+            AboutPage.IsVisible = true;
+            LicensesPage.IsVisible = OfflineDataPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
+        }
+
+        private void LicensesButton_Clicked(object sender, EventArgs e)
+        {
+            LicensesPage.IsVisible = true;
+            AboutPage.IsVisible = OfflineDataPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
+        }
+
+        private void OfflineDataButton_Clicked(object sender, EventArgs e)
+        {
+            OfflineDataPage.IsVisible = true;
+            AboutPage.IsVisible = LicensesPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
+        }
+
+        private void ApiKeyButton_Clicked(object sender, EventArgs e)
+        {
+            ApiKeyPage.IsVisible = true;
+            AboutPage.IsVisible = LicensesPage.IsVisible = ScreenshotPage.IsVisible = OfflineDataPage.IsVisible = false;
+        }
+
+        private void ScreenshotButton_Clicked(object sender, EventArgs e)
+        {
+            ScreenshotPage.IsVisible = true;
+            AboutPage.IsVisible = LicensesPage.IsVisible = ApiKeyPage.IsVisible = OfflineDataPage.IsVisible = false;
         }
     }
 }

@@ -6,7 +6,7 @@ Display a route layer and its directions using feature collection.
 
 ## Use case
 
-Routes can be stored as feature collection layers. These layers can store useful information such as directions, estimated trip time, and more. 
+Routes can be stored as feature collection layers. These layers can store useful information such as directions, estimated trip time, and more.
 
 You can create a route layer in ArcGIS Pro and store a route layer as a portal item, making it easy to access, share, or display.
 

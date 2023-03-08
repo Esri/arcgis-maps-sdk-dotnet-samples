@@ -7,15 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime;
 using System.Windows.Controls;
 
 namespace ArcGIS.WPF.Samples.DisplayRouteLayer
@@ -39,7 +39,6 @@ namespace ArcGIS.WPF.Samples.DisplayRouteLayer
 
         private async Task Initialize()
         {
-
             // Create a new map with the topographic basemap style.
             MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
 
@@ -59,7 +58,7 @@ namespace ArcGIS.WPF.Samples.DisplayRouteLayer
                 {
                     // Select all tables.
                     IList<FeatureCollectionTable> tables = featureCollection.Tables;
-                    
+
                     // List the turn by turn directions.
                     FeatureCollectionTable directionPoints = tables.Where(t => t.TableName == "DirectionPoints").FirstOrDefault();
                     DirectionsList.ItemsSource = directionPoints;

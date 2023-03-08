@@ -22,9 +22,9 @@ namespace ArcGIS.Converters
 
                 ImageSource image = null;
 
-                if (value != null && File.Exists(value.ToString() + platform))
+                if (value != null && File.Exists(value.ToString()))
                 {
-                    image = ImageSource.FromFile(value.ToString() + platform);
+                    image = ImageSource.FromFile(value.ToString());
                 }
                 else
                 {

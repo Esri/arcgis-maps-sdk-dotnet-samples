@@ -72,6 +72,9 @@ namespace ArcGIS.Helpers
                 // Create the sample display page to show the sample and the metadata.
                 SamplePage page = new SamplePage(sampleControl, sampleInfo);
 
+                // Set the currently selected sample.
+                SampleManager.Current.SelectedSample = sampleInfo;
+
                 // Show the sample.
                 await nav.Navigation.PushAsync(page, true);
             }

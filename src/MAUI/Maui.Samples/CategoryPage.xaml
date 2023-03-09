@@ -46,7 +46,8 @@
                         <Grid x:Name="SampleGrid">
                             <Border
                                 Margin="5"
-                                StrokeThickness="1"
+                                StrokeThickness="{OnPlatform Default=0,
+                                                             Android=1}"
                                 WidthRequest="{OnPlatform Default=300,
                                                           Android=400}">
                                 <Border.GestureRecognizers>

@@ -86,7 +86,16 @@ namespace ArcGIS.Samples.Shared.Models
         /// This is intened for use on Windows.
         /// </summary>
         public string Image
-        { get { return String.Format("{0}.jpg", FormalName); } }
+        { 
+            get 
+            {
+#if !MAUI
+                return String.Format("{0}.jpg", FormalName); 
+#else
+                return String.Format("{0}.jpg", FormalName.ToLower()); 
+#endif
+            }
+        }
 
         /// <summary>
         /// The underlying .NET type for this sample.

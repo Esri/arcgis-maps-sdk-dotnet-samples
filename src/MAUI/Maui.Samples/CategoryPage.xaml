@@ -46,8 +46,9 @@
                         <Grid x:Name="SampleGrid">
                             <Border
                                 Margin="5"
-                                StrokeThickness="0"
-                                WidthRequest="300">
+                                StrokeThickness="1"
+                                WidthRequest="{OnPlatform Default=300,
+                                                          Android=400}">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding SampleObject}" Tapped="TapGestureRecognizer_SampleTapped" />
                                     <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
@@ -61,25 +62,28 @@
                                     <Image
                                         Grid.Row="0"
                                         Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
-                                        WidthRequest="300" />
+                                        WidthRequest="{OnPlatform Default=300,
+                                                                  Android=400}" />
 
                                     <ImageButton
                                         x:Name="FavoriteButton"
                                         Grid.Row="0"
-                                        Padding="3"
+                                        Padding="1"
                                         Background="#A52F2F2F"
                                         BorderColor="Black"
                                         BorderWidth="1"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
                                         CommandParameter="{Binding SampleFormalName}"
-                                        HeightRequest="25"
+                                        HeightRequest="{OnPlatform Default=25,
+                                                                   Android=40}"
                                         HorizontalOptions="Start"
                                         IsVisible="{OnPlatform iOS=true,
                                                                Android=true,
                                                                Default={Binding IsFavorite}}"
                                         Source="{Binding IsFavorite, Converter={StaticResource BoolToImageSourceConverter}}"
                                         VerticalOptions="Start"
-                                        WidthRequest="25" />
+                                        WidthRequest="{OnPlatform Default=25,
+                                                                  Android=40}" />
 
                                     <Grid
                                         Grid.Row="0"

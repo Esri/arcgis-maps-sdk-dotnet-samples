@@ -320,10 +320,12 @@ namespace ArcGIS
             // If scaling has occurred due to screen scaling we need to resize the image.
             Bitmap resizedScreenshot = new Bitmap(screenshot, new System.Drawing.Size((int)(screenshot.Width / scale), (int)(screenshot.Height / scale)));
 
+            string sampleName = SampleManager.Current.SelectedSample.FormalName.FirstCharToLowerCase();
+
             string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\MAUI\\MAUI.Samples\\Samples\\" +
                 $"{SampleManager.Current.SelectedSample.Category}\\" +
                 $"{SampleManager.Current.SelectedSample.FormalName}\\" +
-                $"{SampleManager.Current.SelectedSample.FormalName}.jpg";
+                $"{sampleName}.jpg";
 
             // Remove white space.
             filePath = Regex.Replace(filePath, @"\s+", "");
@@ -339,6 +341,16 @@ namespace ArcGIS
                 Console.WriteLine($"Error saving screenshot: {ex.Message}");
             }
         }
+
+        public static string? FirstCharToLowerCase(this string? str)
+        {              
+            if ( !string.IsNullOrEmpty(str) && char.IsUpper(str[0]))
+            {
+                return str.Length == 1 ? char.ToLower(str[0]).ToString() : char.ToLower(str[0]) + str[1..];
+            }
+
+            return str;
+        }  
 #endif
 
 

@@ -37,12 +37,6 @@
             IconImageSource="{AppThemeBinding Light=key.png,
                                               Dark=keydark.png}"
             Text="API key" />
-        <!--<ToolbarItem
-            x:Name="ScreenshotButton"
-            Clicked="ScreenshotButton_Clicked"
-            IconImageSource="{AppThemeBinding Light=camera.png,
-                                              Dark=cameradark.png}"
-            Text="Screenshot settings" />-->
     </ContentPage.ToolbarItems>
 
     <Grid>

@@ -31,7 +31,6 @@
     <ContentPage.Resources>
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
         <converters:BoolToImageSourceConverter x:Key="BoolToImageSourceConverter" />
-        <converters:AnyTrueConverter x:Key="AnyTrueConverter" />
     </ContentPage.Resources>
     <Grid x:Name="SampleListGrid">
         <ScrollView x:Name="SampleScrollView" HorizontalOptions="Center">

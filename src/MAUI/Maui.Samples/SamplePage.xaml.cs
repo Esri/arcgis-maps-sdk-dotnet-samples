@@ -320,7 +320,7 @@ namespace ArcGIS
             // If scaling has occurred due to screen scaling we need to resize the image.
             Bitmap resizedScreenshot = new Bitmap(screenshot, new System.Drawing.Size((int)(screenshot.Width / scale), (int)(screenshot.Height / scale)));
 
-            string sampleName = SampleManager.Current.SelectedSample.FormalName.FirstCharToLowerCase();
+            string sampleName = FirstCharToLowerCase(SampleManager.Current.SelectedSample.FormalName);
 
             string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\MAUI\\MAUI.Samples\\Samples\\" +
                 $"{SampleManager.Current.SelectedSample.Category}\\" +
@@ -342,7 +342,7 @@ namespace ArcGIS
             }
         }
 
-        public static string? FirstCharToLowerCase(this string? str)
+        public static string? FirstCharToLowerCase(string? str)
         {              
             if ( !string.IsNullOrEmpty(str) && char.IsUpper(str[0]))
             {

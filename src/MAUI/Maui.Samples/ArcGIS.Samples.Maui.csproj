@@ -103,22 +103,11 @@
 	  <MauiImage Include="Resources\Icons\*.svg" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Remove="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Remove="Helpers\SampleTreeViewBuilder.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Remove="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Resources\Thumbnails\Placeholder_iOS.jpg" />
-    <None Remove="Resources\Thumbnails\Placeholder_MacCatalyst.jpg" />
   </ItemGroup>
   <ItemGroup>
     <MauiImage Include="Resources\Thumbnails\placeholder_ios.jpg" />
     <MauiImage Include="Resources\Thumbnails\placeholder_maccatalyst.jpg" />
-    <MauiAsset Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />

@@ -91,7 +91,7 @@
   <!-- Resource outputs for description and source code viewing -->
   <ItemGroup>
     <EmbeddedResource Include="Samples\**\*.md" />
-	<MauiImage Include="Samples\**\*.jpg"/>
+	<MauiImage Include="Samples\**\*.jpg" />
     <EmbeddedResource Include="Samples\**\*.cs" />
     <EmbeddedResource Include="Helpers\**\*.cs" />
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />

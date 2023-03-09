@@ -136,6 +136,7 @@
     </MauiAsset>
   </ItemGroup>
   <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
       <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0" />
       <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="200.0.0" />
       <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" Version="200.0.0" />
@@ -163,8 +164,8 @@
     <Compile Update="ScreenshotView.xaml.cs">
       <DependentUpon>ScreenshotView.xaml</DependentUpon>
     </Compile>
-    <Compile Update="SettingsPageNew.xaml.cs">
-      <DependentUpon>SettingsPageNew.xaml</DependentUpon>
+    <Compile Update="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +181,7 @@
     <MauiXaml Update="ScreenshotView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiXaml Update="SettingsPageNew.xaml">
+    <MauiXaml Update="SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
   </ItemGroup>

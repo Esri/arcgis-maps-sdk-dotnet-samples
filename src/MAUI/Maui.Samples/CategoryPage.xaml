@@ -4,12 +4,15 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:controls="clr-namespace:ArcGIS.Controls"
-    xmlns:converters="clr-namespace:ArcGIS.Converters">
+    xmlns:converters="clr-namespace:ArcGIS.Converters"
+    xmlns:models="clr-namespace:ArcGIS.Samples.Shared.Models"
+    xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
+    x:DataType="viewModels:CategoryViewModel">
 
     <Shell.SearchHandler>
         <controls:SampleSearchHandler Placeholder="Enter search term" ShowsResults="True">
             <controls:SampleSearchHandler.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="models:SampleInfo">
                     <Grid Padding="10">
                         <Label Text="{Binding SampleName}" VerticalOptions="Center" />
                     </Grid>
@@ -36,20 +39,20 @@
                 AlignContent="Start"
                 AlignItems="Start"
                 BackgroundColor="Transparent"
-                BindableLayout.ItemsSource="{Binding .}"
+                BindableLayout.ItemsSource="{Binding SamplesItems}"
                 JustifyContent="SpaceEvenly"
                 Wrap="Wrap">
                 <BindableLayout.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="viewModels:SampleViewModel">
                         <Grid x:Name="SampleGrid">
                             <Border
                                 Margin="5"
                                 StrokeThickness="0"
                                 WidthRequest="300">
                                 <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding .}" Tapped="TapGestureRecognizer_SampleTapped" />
-                                    <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" PointerEnteredCommandParameter="{Binding .}" />
-                                    <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" PointerExitedCommandParameter="{Binding .}" />
+                                    <TapGestureRecognizer CommandParameter="{Binding SampleObject}" Tapped="TapGestureRecognizer_SampleTapped" />
+                                    <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
+                                    <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
                                 </Border.GestureRecognizers>
                                 <Grid>
                                     <Grid.RowDefinitions>
@@ -68,8 +71,8 @@
                                         Background="#A52F2F2F"
                                         BorderColor="Black"
                                         BorderWidth="1"
-                                        Clicked="FavoriteButton_Clicked"
-                                        CommandParameter="{Binding .}"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
+                                        CommandParameter="{Binding SampleFormalName}"
                                         HeightRequest="25"
                                         HorizontalOptions="Start"
                                         IsVisible="{OnPlatform iOS=true,

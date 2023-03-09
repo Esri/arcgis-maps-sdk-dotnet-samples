@@ -10,18 +10,19 @@
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
 using Esri.ArcGISRuntime;
+using Microsoft.Maui.ApplicationModel;
 using System.Diagnostics;
 using System.Reflection;
 
 namespace ArcGIS
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SettingsPageNew : ContentPage
+    public partial class SettingsPage : ContentPage
     {
         private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
 
-        public SettingsPageNew()
+        public SettingsPage()
         {
             InitializeComponent();
             Initialize();
@@ -89,6 +90,17 @@ namespace ArcGIS
             // Add an event handler for hyperlinks in the web views.
             AboutPageContent.Navigating += HyperlinkClicked;
             LicensePageContent.Navigating += HyperlinkClicked;
+
+#if WINDOWS
+            AppTheme currentTheme = Application.Current.RequestedTheme; 
+
+            var screenshotTab = new ToolbarItem();
+            screenshotTab.Clicked += ScreenshotButton_Clicked;
+            screenshotTab.Text = "Screenshot settings";
+            screenshotTab.IconImageSource = currentTheme == AppTheme.Light ? "camera.png" : "cameradark.png";
+
+            ToolbarItems.Add(screenshotTab);
+#endif
         }
 
         private async void HyperlinkClicked(object sender, WebNavigatingEventArgs e)
@@ -320,9 +332,6 @@ namespace ArcGIS
             AboutPage.IsVisible = true;
             LicensesPage.IsVisible = OfflineDataPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
 
-            AboutButton.IsEnabled = false;
-            LicensesButton.IsEnabled = OfflineDataButton.IsEnabled = ApiKeyButton.IsEnabled = ScreenshotButton.IsEnabled = true;
-
             Title = "Settings > About";
         }
 
@@ -330,9 +339,6 @@ namespace ArcGIS
         {
             LicensesPage.IsVisible = true;
             AboutPage.IsVisible = OfflineDataPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
-
-            LicensesButton.IsEnabled = false;
-            AboutButton.IsEnabled = OfflineDataButton.IsEnabled = ApiKeyButton.IsEnabled = ScreenshotButton.IsEnabled = true;
 
             Title = "Settings > Licenses";
         }

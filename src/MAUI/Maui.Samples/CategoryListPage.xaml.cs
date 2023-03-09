@@ -91,7 +91,7 @@ namespace ArcGIS
 
         private async void SettingsClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new SettingsPageNew(), true);
+            await Navigation.PushAsync(new SettingsPage(), true);
         }
 
         private void TapGestureRecognizer_CategoryTapped(object sender, TappedEventArgs e)

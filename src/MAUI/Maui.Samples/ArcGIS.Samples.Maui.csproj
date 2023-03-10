@@ -82,15 +82,17 @@
   <ItemGroup>
     <None Remove="Resources\SettingsPage\*.md" />
     <EmbeddedResource Include="Resources\SettingsPage\*.md" />
-    <Content Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
+	  <!--<MauiAsset Include ="Samples\**\*.md"/>-->
+    <!--<Content Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />-->
     <Content Include="Samples\**\*.jpg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
-    <BundleResource Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'iOS'" />
-    <AndroidAsset Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
+    <!--<BundleResource Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'iOS'" />-->
+    <!--<AndroidAsset Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />-->
   </ItemGroup>
 
   <!-- Resource outputs for description and source code viewing -->
   <ItemGroup>
-    <EmbeddedResource Include="Samples\**\*.md" />
+	<None Remove="Samples\**\*.md" />
+    <EmbededResource Include="Samples\**\*.md" />
 	<MauiImage Include="Samples\**\*.jpg" />
     <EmbeddedResource Include="Samples\**\*.cs" />
     <EmbeddedResource Include="Helpers\**\*.cs" />
@@ -130,6 +132,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiAsset>
   </ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="Samples\**\*.md" />
+	</ItemGroup>
   <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
       <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0" />

@@ -26,6 +26,9 @@ namespace ArcGIS.Helpers
         {
             try
             {
+                // Set the currently selected sample.
+                SampleManager.Current.SelectedSample = sampleInfo;
+
                 // Restore API key if leaving named user sample.
                 if (_namedUserSamples.Contains(SampleManager.Current?.SelectedSample?.FormalName))
                 {
@@ -71,9 +74,6 @@ namespace ArcGIS.Helpers
 
                 // Create the sample display page to show the sample and the metadata.
                 SamplePage page = new SamplePage(sampleControl, sampleInfo);
-
-                // Set the currently selected sample.
-                SampleManager.Current.SelectedSample = sampleInfo;
 
                 // Show the sample.
                 await nav.Navigation.PushAsync(page, true);

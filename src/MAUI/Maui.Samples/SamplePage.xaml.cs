@@ -9,13 +9,13 @@
 
 #if WINDOWS
         using uiXaml =  Microsoft.UI.Xaml;
-        using ArcGIS.Samples.Shared.Managers;
         using System.Drawing;
-        using ArcGIS.Samples.Managers;
+        using ArcGIS.Samples.Shared.Managers;
         using System.Text.RegularExpressions;
         using Microsoft.Maui.Graphics;
 #endif
 
+using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -163,6 +163,8 @@ namespace ArcGIS
                 category = $"{category.Split(" ")[0]}{category.Split(" ")[1][0].ToString().ToUpper()}{category.Split(" ")[1].Substring(1)}";
             }
 
+            var manifestResourceNames = _assembly.GetManifestResourceNames();
+
             string readmeResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{category}.{sampleInfo.FormalName}.readme.md"));
             string readmeContent = new StreamReader(_assembly.GetManifestResourceStream(readmeResource)).ReadToEnd();
             readmeContent = Markdig.Markdown.ToHtml(readmeContent);
@@ -177,15 +179,33 @@ namespace ArcGIS
             cssContent = $"{cssContent} h1 {{\r\n    display: none;\r\n}}";
 #endif
 
-            // Convert the image into a string of bytes to embed into the html.
-            string imageResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.FormalName}.jpg"));
-            var sourceStream = _assembly.GetManifestResourceStream(imageResource);
-            var memoryStream = new MemoryStream();
-            sourceStream.CopyTo(memoryStream);
-            byte[] image = memoryStream.ToArray();
-            memoryStream.Close();
+            string filePath;
 
-            string imgSrc = $"data:image/jpg;base64,{Convert.ToBase64String(image)}";
+#if ANDROID
+            filePath = $"Samples/{SampleManager.Current.SelectedSample.Category}/{SampleManager.Current.SelectedSample.FormalName}/{SampleManager.Current.SelectedSample.FormalName.ToLower()}.jpg";
+            
+
+#else
+
+            filePath = $"Samples\\" +
+                $"{SampleManager.Current.SelectedSample.Category}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName.ToLower()}.jpg";
+#endif
+            string windowstestPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string filepath2 = System.IO.Path.Combine(FileSystem.AppDataDirectory, filePath);
+
+            if (File.Exists(filepath2))
+            {
+                Debug.WriteLine("file found");
+            }
+
+            using var imageEncodeStream = FileSystem.OpenAppPackageFileAsync(filepath2).Result;
+            using var memoryStream = new MemoryStream();
+
+            imageEncodeStream.CopyTo(memoryStream);
+
+            string imgSrc = $"data:image/jpg;base64,{Convert.ToBase64String(memoryStream.ToArray())}";
 
             // Replace paths for image.
             readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
@@ -207,6 +227,15 @@ namespace ArcGIS
                 "</body>";
 
             return fullContent;
+        }
+
+        private async Task<byte[]> ConvertImageSourceToBytesAsync(ImageSource imageSource)
+        {
+            Stream stream = await ((StreamImageSource)imageSource).Stream(CancellationToken.None);
+            byte[] bytesAvailable = new byte[stream.Length];
+            stream.Read(bytesAvailable, 0, bytesAvailable.Length);
+
+            return bytesAvailable;
         }
 
         private void LoadSourceCode(SampleInfo sampleInfo)
@@ -320,12 +349,10 @@ namespace ArcGIS
             // If scaling has occurred due to screen scaling we need to resize the image.
             Bitmap resizedScreenshot = new Bitmap(screenshot, new System.Drawing.Size((int)(screenshot.Width / scale), (int)(screenshot.Height / scale)));
 
-            string sampleName = FirstCharToLowerCase(SampleManager.Current.SelectedSample.FormalName);
-
             string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\MAUI\\MAUI.Samples\\Samples\\" +
                 $"{SampleManager.Current.SelectedSample.Category}\\" +
                 $"{SampleManager.Current.SelectedSample.FormalName}\\" +
-                $"{sampleName}.jpg";
+                $"{SampleManager.Current.SelectedSample.FormalName.ToLower()}.jpg";
 
             // Remove white space.
             filePath = Regex.Replace(filePath, @"\s+", "");

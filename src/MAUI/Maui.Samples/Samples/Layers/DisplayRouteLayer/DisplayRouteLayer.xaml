@@ -8,22 +8,20 @@
     <ContentPage.Resources>
         <converters:DirectionPointTypeToIconConverter x:Key="Converter" />
     </ContentPage.Resources>
+
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border x:Name="Border"
-                IsVisible="False"
-                MaximumHeightRequest="75"
+                HeightRequest="300"
                 Style="{StaticResource EsriSampleControlPanel}"
-                WidthRequest="350">
+                WidthRequest="290">
             <VerticalStackLayout>
                 <Label FontAttributes="Bold"
-                       Text="Display directions:"
+                       Text="Directions:"
                        TextColor="{AppThemeBinding Light={StaticResource Black},
                                                    Dark={StaticResource White}}" />
-                <Switch HorizontalOptions="Start" Toggled="Switch_Toggled" />
                 <CollectionView x:Name="DirectionsList"
-                                HeightRequest="225"
-                                IsVisible="False"
+                                HeightRequest="250"
                                 VerticalScrollBarVisibility="Default">
                     <CollectionView.ItemTemplate>
                         <DataTemplate>

@@ -62,23 +62,12 @@ namespace ArcGIS.Samples.DisplayRouteLayer
 
                     // Set the viewpoint to Oregon, US.
                     await MyMapView.SetViewpointAsync(new Viewpoint(45.2281, -122.8309, 57e4));
-
-                    // Allow the user to display directions.
-                    Border.IsVisible = true;
                 }
             }
             catch (Exception e)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
-        }
-
-        private void Switch_Toggled(object sender, ToggledEventArgs e)
-        {
-            // Toggle the visibility of the directions.
-            DirectionsList.IsVisible = DirectionsList.IsVisible ? false : true;
-
-            Border.MaximumHeightRequest = DirectionsList.IsVisible ? 700 : 75;
         }
     }
 }

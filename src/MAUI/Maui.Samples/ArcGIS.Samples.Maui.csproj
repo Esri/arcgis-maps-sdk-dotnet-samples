@@ -92,8 +92,8 @@
   <!-- Resource outputs for description and source code viewing -->
   <ItemGroup>
 	<None Remove="Samples\**\*.md" />
-    <EmbededResource Include="Samples\**\*.md" />
-	<MauiImage Include="Samples\**\*.jpg" />
+	<EmbeddedResource Include="Samples\**\*.md" />
+	<EmbeddedResource Include="Samples\**\*.jpg" />
     <EmbeddedResource Include="Samples\**\*.cs" />
     <EmbeddedResource Include="Helpers\**\*.cs" />
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
@@ -107,7 +107,7 @@
     <Compile Remove="Helpers\SampleTreeViewBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
-    <MauiImage Include="Resources\Thumbnails\placeholder_ios.jpg" />
+	  <MauiImage Include="Resources\Thumbnails\placeholder_ios.jpg" />
     <MauiImage Include="Resources\Thumbnails\placeholder_maccatalyst.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -132,9 +132,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiAsset>
   </ItemGroup>
-	<ItemGroup>
-	  <EmbeddedResource Include="Samples\**\*.md" />
-	</ItemGroup>
   <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
       <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0" />

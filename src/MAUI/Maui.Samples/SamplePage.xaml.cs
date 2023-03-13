@@ -179,37 +179,19 @@ namespace ArcGIS
             cssContent = $"{cssContent} h1 {{\r\n    display: none;\r\n}}";
 #endif
 
-            string filePath;
+            // Convert the image into a string of bytes to embed into the html.
+            var resources = _assembly.GetManifestResourceNames();
+            string imageResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.FormalName.ToLower()}.jpg"));
+            var sourceStream = _assembly.GetManifestResourceStream(imageResource);
+            var memoryStream = new MemoryStream();
+            sourceStream.CopyTo(memoryStream);
+            byte[] image = memoryStream.ToArray();
+            memoryStream.Close();
 
-#if ANDROID
-            filePath = $"Samples/{SampleManager.Current.SelectedSample.Category}/{SampleManager.Current.SelectedSample.FormalName}/{SampleManager.Current.SelectedSample.FormalName.ToLower()}.jpg";
-            
-
-#else
-
-            filePath = $"Samples\\" +
-                $"{SampleManager.Current.SelectedSample.Category}\\" +
-                $"{SampleManager.Current.SelectedSample.FormalName}\\" +
-                $"{SampleManager.Current.SelectedSample.FormalName.ToLower()}.jpg";
-#endif
-            string windowstestPath = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string filepath2 = System.IO.Path.Combine(FileSystem.AppDataDirectory, filePath);
-
-            if (File.Exists(filepath2))
-            {
-                Debug.WriteLine("file found");
-            }
-
-            using var imageEncodeStream = FileSystem.OpenAppPackageFileAsync(filepath2).Result;
-            using var memoryStream = new MemoryStream();
-
-            imageEncodeStream.CopyTo(memoryStream);
-
-            string imgSrc = $"data:image/jpg;base64,{Convert.ToBase64String(memoryStream.ToArray())}";
+            string imgSrc = $"data:image/jpg;base64,{Convert.ToBase64String(image)}";
 
             // Replace paths for image.
             readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
-
             // Build the html.
             var fullContent =
                 "<!doctype html><head><style>" +

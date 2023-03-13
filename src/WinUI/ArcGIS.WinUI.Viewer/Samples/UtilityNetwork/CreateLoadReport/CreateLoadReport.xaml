@@ -1,0 +1,53 @@
+<UserControl x:Class="ArcGIS.WinUI.Samples.CreateLoadReport.CreateLoadReport"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+             xmlns:esri="using:Esri.ArcGISRuntime"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+
+    <Grid Background="LightGray">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <TextBlock x:Name="Phases" />
+        <Grid Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <ComboBox x:Name="PhasesList">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button Grid.Column="1"
+                    Click="OnAddPhase"
+                    Content="Add" />
+        </Grid>
+        <Button Grid.Row="1"
+                Click="OnReset"
+                Content="Reset" />
+        <Button Grid.Row="1"
+                Grid.Column="1"
+                Click="OnRunReport"
+                Content="Run Report" />
+        <controls:DataGrid x:Name="ReportView"
+                           Grid.Row="3"
+                           Grid.ColumnSpan="2"
+                           AutoGenerateColumns="False">
+            <controls:DataGrid.Columns>
+                <controls:DataGridTextColumn Binding="{Binding Phase}" Header="Phase" />
+                <controls:DataGridTextColumn Binding="{Binding TotalCustomers}" Header="Total Customers" />
+                <controls:DataGridTextColumn Binding="{Binding TotalLoad}" Header="Total Load" />
+            </controls:DataGrid.Columns>
+        </controls:DataGrid>
+    </Grid>
+</UserControl>

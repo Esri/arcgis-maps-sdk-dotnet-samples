@@ -35,13 +35,22 @@ namespace ArcGIS.Converters
 #else
                 string imagePath = value.ToString();
                 List<string> folders = imagePath.Split('/').ToList();
-                folders.RemoveRange(0, 6);
+                string fileName = folders.Last();
 
-                imagePath = string.Join('/', folders);
+                var assembly = Assembly.GetExecutingAssembly();
+                string imageResource = assembly.GetManifestResourceNames().Single(n => n.EndsWith(fileName));
+                var sourceStream = assembly.GetManifestResourceStream(imageResource);
+                var memoryStream = new MemoryStream();
+                sourceStream.CopyTo(memoryStream);
+                byte[] bytes = memoryStream.ToArray();
+                memoryStream.Close();
 
                 if (value != null)
                 {
-                    image = ImageSource.FromFile(imagePath);
+                    image = ImageSource.FromStream(() =>
+                    { 
+                        return new MemoryStream(bytes);
+                    });
                 }
                 else
                 {

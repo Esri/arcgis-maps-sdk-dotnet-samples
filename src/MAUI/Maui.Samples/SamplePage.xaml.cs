@@ -181,7 +181,7 @@ namespace ArcGIS
 
             // Convert the image into a string of bytes to embed into the html.
             var resources = _assembly.GetManifestResourceNames();
-            string imageResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.FormalName.ToLower()}.jpg"));
+            string imageResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.FormalName}.jpg"));
             var sourceStream = _assembly.GetManifestResourceStream(imageResource);
             var memoryStream = new MemoryStream();
             sourceStream.CopyTo(memoryStream);
@@ -334,7 +334,7 @@ namespace ArcGIS
             string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\MAUI\\MAUI.Samples\\Samples\\" +
                 $"{SampleManager.Current.SelectedSample.Category}\\" +
                 $"{SampleManager.Current.SelectedSample.FormalName}\\" +
-                $"{SampleManager.Current.SelectedSample.FormalName.ToLower()}.jpg";
+                $"{SampleManager.Current.SelectedSample.FormalName}.jpg";
 
             // Remove white space.
             filePath = Regex.Replace(filePath, @"\s+", "");
@@ -349,16 +349,6 @@ namespace ArcGIS
             {
                 Console.WriteLine($"Error saving screenshot: {ex.Message}");
             }
-        }
-
-        public static string? FirstCharToLowerCase(string? str)
-        {              
-            if ( !string.IsNullOrEmpty(str) && char.IsUpper(str[0]))
-            {
-                return str.Length == 1 ? char.ToLower(str[0]).ToString() : char.ToLower(str[0]) + str[1..];
-            }
-
-            return str;
         }  
 #endif
 

@@ -61,8 +61,8 @@
 	  <None Remove="Samples\MapView\FilterByTimeExtent\**" />
 	</ItemGroup>
 
-	<!-- Exclude some samples on mac catalyst -->
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-maccatalyst')) == true">
+	<!-- Exclude Indoor Positioning on desktop platforms -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-maccatalyst')) or $(TargetFramework.StartsWith('net7.0-windows'))">
 	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
 	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
 	  <EmbeddedResource Remove="Samples\Location\IndoorPositioning\**" />
@@ -82,11 +82,7 @@
   <ItemGroup>
     <None Remove="Resources\SettingsPage\*.md" />
     <EmbeddedResource Include="Resources\SettingsPage\*.md" />
-	  <!--<MauiAsset Include ="Samples\**\*.md"/>-->
-    <!--<Content Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />-->
     <Content Include="Samples\**\*.jpg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
-    <!--<BundleResource Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'iOS'" />-->
-    <!--<AndroidAsset Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />-->
   </ItemGroup>
 
   <!-- Resource outputs for description and source code viewing -->

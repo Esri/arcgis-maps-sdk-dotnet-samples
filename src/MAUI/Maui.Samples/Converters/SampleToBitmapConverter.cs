@@ -22,19 +22,14 @@ namespace ArcGIS.Converters
 
                 ImageSource image = null;
 
-#if !ANDROID
-                if (value != null && File.Exists(value.ToString()))
-                {
-                    image = ImageSource.FromFile(value.ToString());
-                }
-                else
-                {
-                    image = ImageSource.FromFile($@"Resources\Thumbnails\placeholder{platform}.jpg");
-
-                }
-#else
                 string imagePath = value.ToString();
-                List<string> folders = imagePath.Split('/').ToList();
+                List<string> folders = new List<string>();
+
+#if MACCATALYST || ANDROID
+                folders = imagePath.Split('/').ToList();
+#elif WINDOWS
+                folders = imagePath.Split('\\').ToList();
+#endif
                 string fileName = folders.Last();
 
                 var assembly = Assembly.GetExecutingAssembly();
@@ -56,7 +51,7 @@ namespace ArcGIS.Converters
                 {
                     image = ImageSource.FromFile($@"Resources/Thumbnails/placeholder{platform}.jpg");
                 }
-#endif
+
                 if (image != null)
                 {
                     return image;

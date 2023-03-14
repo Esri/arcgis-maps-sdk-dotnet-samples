@@ -10,11 +10,23 @@
     x:DataType="viewModels:CategoryViewModel">
 
     <Shell.SearchHandler>
-        <controls:SampleSearchHandler Placeholder="Enter search term" ShowsResults="True">
+        <controls:SampleSearchHandler
+            ClearIcon="clear.png"
+            Placeholder="Enter search term"
+            QueryIcon="search.png"
+            ShowsResults="True">
             <controls:SampleSearchHandler.ItemTemplate>
                 <DataTemplate x:DataType="models:SampleInfo">
-                    <Grid Padding="10">
-                        <Label Text="{Binding SampleName}" VerticalOptions="Center" />
+                    <Grid Padding="10" ColumnDefinitions="0.15*,0.85*">
+                        <Image
+                            Grid.Column="0"
+                            HeightRequest="30"
+                            Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
+                            WidthRequest="40" />
+                        <Label
+                            Grid.Column="1"
+                            Text="{Binding SampleName}"
+                            VerticalOptions="Center" />
                     </Grid>
                 </DataTemplate>
             </controls:SampleSearchHandler.ItemTemplate>
@@ -67,7 +79,6 @@
                                         Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
                                         WidthRequest="{OnPlatform Default=400,
                                                                   WinUI=300}" />
-
                                     <ImageButton
                                         x:Name="FavoriteButton"
                                         Grid.Row="0"
@@ -88,7 +99,6 @@
                                         VerticalOptions="Start"
                                         WidthRequest="{OnPlatform Default=25,
                                                                   Android=40}" />
-
                                     <Grid
                                         Grid.Row="0"
                                         BackgroundColor="#A52F2F2F"

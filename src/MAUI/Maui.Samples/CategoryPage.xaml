@@ -47,12 +47,11 @@
                             <Border
                                 Margin="5"
                                 HeightRequest="{OnPlatform Default=-1,
-                                                           MacCatalyst=250}"
+                                                           MacCatalyst=300}"
                                 StrokeThickness="{OnPlatform Default=0,
                                                              Android=1}"
                                 WidthRequest="{OnPlatform Default=300,
-                                                          Android=400,
-                                                          MacCatalyst=250}">
+                                                          Android=400}">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding SampleObject}" Tapped="TapGestureRecognizer_SampleTapped" />
                                     <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
@@ -72,6 +71,7 @@
                                     <ImageButton
                                         x:Name="FavoriteButton"
                                         Grid.Row="0"
+                                        Margin="1,0"
                                         Padding="1"
                                         Background="#A52F2F2F"
                                         BorderColor="Black"
@@ -98,7 +98,9 @@
                                             Grid.Column="0"
                                             Padding="10"
                                             FontSize="18"
-                                            HeightRequest="50"
+                                            HeightRequest="{OnPlatform Default=50,
+                                                                       MacCatalyst=80}"
+                                            LineBreakMode="WordWrap"
                                             Text="{Binding SampleName}"
                                             TextColor="White"
                                             VerticalOptions="End"
@@ -107,7 +109,9 @@
                                     <Label
                                         Grid.Row="1"
                                         Margin="5"
+                                        Padding="0,5"
                                         FontSize="13"
+                                        LineBreakMode="TailTruncation"
                                         Text="{Binding Description}"
                                         TextColor="{AppThemeBinding Dark=LightGray,
                                                                     Light=Black}"

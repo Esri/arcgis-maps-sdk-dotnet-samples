@@ -30,7 +30,7 @@ using Esri.ArcGISRuntime.Security;
 namespace ArcGIS.WPF.Samples.CreateLoadReport
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Create Load report",
+        name: "Create load report",
         category: "Utility network",
         description: "Demonstrates the creation of a simple electric distribution report. It traces downstream from a given point and adds up the count of customers and total load per phase.",
         instructions: "Choose phases to be included in the report. Click 'Run Report' to initiate a downstream trace on the network and create a load report. Click 'Reset' to clear the phases and start over.",

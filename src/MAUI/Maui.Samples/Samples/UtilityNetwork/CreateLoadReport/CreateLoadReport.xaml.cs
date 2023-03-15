@@ -29,7 +29,7 @@ using Esri.ArcGISRuntime.Security;
 namespace ArcGIS.Samples.CreateLoadReport
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Create Load report",
+        name: "Create load report",
         category: "Utility network",
         description: "Demonstrates the creation of a simple electric distribution report. It traces downstream from a given point and adds up the count of customers and total load per phase.",
         instructions: "Choose phases to be included in the report. Tap 'Run Report' to initiate a downstream trace on the network and create a load report. Tap 'Reset' to clear the phases and start over.",
@@ -105,7 +105,7 @@ namespace ArcGIS.Samples.CreateLoadReport
             try
             {
                 ReportView.ItemsSource = _phaseSummaries;
-                Phases.Text = $"Phases: {string.Join(",", _phases)}";
+                Phases.Text = $"Phases: {string.Join(", ", _phases)}";
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
 
                 // Create default starting location

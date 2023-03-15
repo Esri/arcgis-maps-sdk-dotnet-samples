@@ -2,57 +2,45 @@
 <ContentPage x:Class="ArcGIS.Samples.CreateLoadReport.CreateLoadReport"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid HorizontalOptions="FillAndExpand">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Label x:Name="Phases"
-               Grid.Row="0"
-               FontSize="Large" />
-        <Grid Grid.Row="1" BackgroundColor="Black">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:toolkit="using:Esri.ArcGISRuntime.Toolkit.Maui">
+    <Border Style="{DynamicResource EsriSampleControlPanel}">
+        <VerticalStackLayout>
+            <Label x:Name="Phases"
+                   BackgroundColor="{AppThemeBinding Dark=Gray}"
+                   FontSize="30"
+                   HorizontalTextAlignment="Center" />
             <Picker x:Name="PhasesList"
-                    Grid.Row="0"
-                    Grid.Column="0"
-                    ItemDisplayBinding="{Binding Name}"
-                    MinimumWidthRequest="100" />
-            <Button Grid.Row="0"
-                    Grid.Column="1"
-                    Clicked="OnAddPhase"
-                    MinimumWidthRequest="100"
-                    Text="Add" />
-            <Button Grid.Row="1"
-                    Grid.Column="0"
-                    Clicked="OnReset"
-                    Text="Reset" />
-            <Button Grid.Row="1"
-                    Grid.Column="1"
-                    Clicked="OnRunReport"
-                    Text="Run Report" />
-        </Grid>
-        <CollectionView x:Name="ReportView"
-                        Grid.Row="2"
-                        Grid.ColumnSpan="2"
-                        Header="Phase, Total Customers, Total Load">
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <HorizontalStackLayout Spacing="10">
-                        <Label FontSize="Medium" Text="{Binding Phase}" />
-                        <Label FontSize="Medium" Text="{Binding TotalCustomers}" />
-                        <Label FontSize="Medium" Text="{Binding TotalLoad}" />
-                    </HorizontalStackLayout>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
-    </Grid>
+                    HorizontalTextAlignment="Center"
+                    ItemDisplayBinding="{Binding Name}" />
+            <Button Clicked="OnAddPhase" Text="Add" />
+            <Button Clicked="OnReset" Text="Reset" />
+            <Button Clicked="OnRunReport" Text="Run Report" />
+            <CollectionView x:Name="ReportView"
+                            Margin="0,10,0,0"
+                            BackgroundColor="{AppThemeBinding Dark=Gray}">
+                <CollectionView.Header>
+                    <Grid ColumnSpacing="10" HorizontalOptions="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Label Grid.Column="0" Text="Phase" />
+                        <Label Grid.Column="1" Text="Total Customers" />
+                        <Label Grid.Column="2" Text="Total Load" />
+                    </Grid>
+                </CollectionView.Header>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
+                            <Label FontSize="Medium" Text="{Binding Phase}" />
+                            <Label FontSize="Medium" Text="{Binding TotalCustomers}" />
+                            <Label FontSize="Medium" Text="{Binding TotalLoad}" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </Border>
 </ContentPage>

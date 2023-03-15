@@ -159,7 +159,7 @@ namespace ArcGIS.WinUI.Samples.CreateLoadReport
             if (PhasesList.SelectedItem is CodedValue codedValue)
             {
                 _phases.Add(codedValue.Name);
-                Phases.Text = $"Phases: {string.Join(",", _phases)}";
+                Phases.Text = $"Phases: {string.Join(", ", _phases)}";
             }
         }
 

@@ -15,30 +15,52 @@
             <ColumnDefinition />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="Phases" />
+        <TextBlock x:Name="Phases"
+                   VerticalAlignment="Center"
+                   FontSize="20"
+                   TextAlignment="Center" />
         <Grid Grid.Column="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <ComboBox x:Name="PhasesList">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                       HorizontalAlignment="Stretch"
+                       FontWeight="Bold"
+                       Text="Select a phase type, then click 'Add'"
+                       TextAlignment="Center" />
+            <ComboBox x:Name="PhasesList"
+                      Grid.Row="1"
+                      HorizontalAlignment="Stretch">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <TextBlock Text="{Binding Name}" />
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
             </ComboBox>
-            <Button Grid.Column="1"
+            <Button Grid.RowSpan="2"
+                    Grid.Column="1"
+                    Width="100"
+                    VerticalAlignment="Stretch"
                     Click="OnAddPhase"
-                    Content="Add" />
+                    Content="Add"
+                    FontSize="20" />
         </Grid>
         <Button Grid.Row="1"
+                HorizontalAlignment="Stretch"
                 Click="OnReset"
-                Content="Reset" />
+                Content="Reset"
+                FontSize="20" />
         <Button Grid.Row="1"
                 Grid.Column="1"
+                HorizontalAlignment="Stretch"
                 Click="OnRunReport"
-                Content="Run Report" />
+                Content="Run Report"
+                FontSize="20" />
         <controls:DataGrid x:Name="ReportView"
                            Grid.Row="3"
                            Grid.ColumnSpan="2"

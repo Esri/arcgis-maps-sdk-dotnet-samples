@@ -106,7 +106,7 @@ namespace ArcGIS.WPF.Samples.CreateLoadReport
             try
             {
                 ReportView.ItemsSource = _phaseSummaries;
-                Phases.Text = $"Phases: {string.Join(",", _phases)}";
+                Phases.Text = $"Phases: {string.Join(", ", _phases)}";
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
 
                 // Create default starting location

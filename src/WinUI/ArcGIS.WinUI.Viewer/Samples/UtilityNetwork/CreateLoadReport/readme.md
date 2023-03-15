@@ -1,4 +1,4 @@
-# Create Load report
+# Create load report
 
 Demonstrates the creation of a simple electric distribution report. It traces downstream from a given point and adds up the count of customers and total load per phase.
 

@@ -10,7 +10,7 @@
             Text="Sample" />
         <ToolbarItem
             Clicked="DetailButton_Clicked"
-            IconImageSource="informationdark.png"
+            IconImageSource="information.png"
             Text="About" />
         <ToolbarItem
             Clicked="SourceButton_Clicked"

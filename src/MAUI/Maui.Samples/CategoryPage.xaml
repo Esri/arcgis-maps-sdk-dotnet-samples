@@ -9,31 +9,11 @@
     xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
     x:DataType="viewModels:CategoryViewModel">
 
-    <Shell.SearchHandler>
-        <controls:SampleSearchHandler
-            ClearIcon="clear.png"
-            Placeholder="Enter search term"
-            QueryIcon="search.png"
-            ShowsResults="True">
-            <controls:SampleSearchHandler.ItemTemplate>
-                <DataTemplate x:DataType="models:SampleInfo">
-                    <Grid Padding="10" ColumnDefinitions="0.15*,0.85*">
-                        <Image
-                            Grid.Column="0"
-                            HeightRequest="30"
-                            Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
-                            WidthRequest="40" />
-                        <Label
-                            Grid.Column="1"
-                            Text="{Binding SampleName}"
-                            VerticalOptions="Center" />
-                    </Grid>
-                </DataTemplate>
-            </controls:SampleSearchHandler.ItemTemplate>
-        </controls:SampleSearchHandler>
-    </Shell.SearchHandler>
-
     <ContentPage.ToolbarItems>
+        <ToolbarItem
+            Clicked="SearchClicked"
+            IconImageSource="search.png"
+            Text="Search" />
         <ToolbarItem
             Clicked="SettingsClicked"
             IconImageSource="settings.png"

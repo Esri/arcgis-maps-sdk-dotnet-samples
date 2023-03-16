@@ -2,6 +2,7 @@ using ArcGIS.Helpers;
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
 using ArcGIS.ViewModels;
+using CommunityToolkit.Maui.Views;
 
 namespace ArcGIS;
 
@@ -35,6 +36,13 @@ public partial class CategoryPage : ContentPage
     private async void SettingsClicked(object sender, EventArgs e)
     {
         await this.Navigation.PushAsync(new SettingsPage(), true);
+    }
+
+    private async void SearchClicked(object sender, EventArgs e)
+    {
+        var popup = new SearchPopup(this);
+
+        var result = await this.ShowPopupAsync(popup);
     }
 
     private void TapGestureRecognizer_SampleTapped(object sender, TappedEventArgs e)

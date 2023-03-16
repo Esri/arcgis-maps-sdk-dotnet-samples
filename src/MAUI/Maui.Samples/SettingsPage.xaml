@@ -5,37 +5,28 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:arcgisruntime="clr-namespace:ArcGIS"
     xmlns:controls="clr-namespace:ArcGIS.Controls"
-    xmlns:resources="clr-namespace:ArcGIS.Resources"
-    Title="Settings &gt; About">
-
-    <Shell.SearchHandler>
-        <controls:SampleSearchHandler IsSearchEnabled="False" />
-    </Shell.SearchHandler>
+    xmlns:resources="clr-namespace:ArcGIS.Resources">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
             x:Name="AboutButton"
             Clicked="AboutButton_Clicked"
-            IconImageSource="{AppThemeBinding Light=information.png,
-                                              Dark=informationdark.png}"
+            IconImageSource="information.png"
             Text="About" />
         <ToolbarItem
             x:Name="LicensesButton"
             Clicked="LicensesButton_Clicked"
-            IconImageSource="{AppThemeBinding Light=documentation.png,
-                                              Dark=documentationdark.png}"
+            IconImageSource="documentation.png"
             Text="Licenses" />
         <ToolbarItem
             x:Name="OfflineDataButton"
             Clicked="OfflineDataButton_Clicked"
-            IconImageSource="{AppThemeBinding Light=download.png,
-                                              Dark=downloaddark.png}"
+            IconImageSource="download.png"
             Text="Offline data" />
         <ToolbarItem
             x:Name="ApiKeyButton"
             Clicked="ApiKeyButton_Clicked"
-            IconImageSource="{AppThemeBinding Light=key.png,
-                                              Dark=keydark.png}"
+            IconImageSource="key.png"
             Text="API key" />
     </ContentPage.ToolbarItems>
 

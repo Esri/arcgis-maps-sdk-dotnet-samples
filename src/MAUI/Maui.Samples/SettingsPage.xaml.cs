@@ -97,9 +97,15 @@ namespace ArcGIS
             var screenshotTab = new ToolbarItem();
             screenshotTab.Clicked += ScreenshotButton_Clicked;
             screenshotTab.Text = "Screenshot settings";
-            screenshotTab.IconImageSource = currentTheme == AppTheme.Light ? "camera.png" : "cameradark.png";
+            screenshotTab.IconImageSource = "camera.png";
 
             ToolbarItems.Add(screenshotTab);
+#endif
+
+#if WINDOWS || MACCATALYST
+            Title = "Settings > About";
+#else
+            Title = "About";
 #endif
         }
 
@@ -332,7 +338,11 @@ namespace ArcGIS
             AboutPage.IsVisible = true;
             LicensesPage.IsVisible = OfflineDataPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
 
+#if WINDOWS || MACCATALYST
             Title = "Settings > About";
+#else
+            Title = "About";
+#endif
         }
 
         private void LicensesButton_Clicked(object sender, EventArgs e)
@@ -340,7 +350,11 @@ namespace ArcGIS
             LicensesPage.IsVisible = true;
             AboutPage.IsVisible = OfflineDataPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
 
+#if WINDOWS || MACCATALYST
             Title = "Settings > Licenses";
+#else
+            Title = "Licenses";
+#endif
         }
 
         private void OfflineDataButton_Clicked(object sender, EventArgs e)
@@ -348,7 +362,11 @@ namespace ArcGIS
             OfflineDataPage.IsVisible = true;
             AboutPage.IsVisible = LicensesPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
 
+#if WINDOWS || MACCATALYST
             Title = "Settings > Offline data";
+#else
+            Title = "Offline data";
+#endif
         }
 
         private void ApiKeyButton_Clicked(object sender, EventArgs e)
@@ -356,7 +374,11 @@ namespace ArcGIS
             ApiKeyPage.IsVisible = true;
             AboutPage.IsVisible = LicensesPage.IsVisible = ScreenshotPage.IsVisible = OfflineDataPage.IsVisible = false;
 
+#if WINDOWS || MACCATALYST
             Title = "Settings > API Key";
+#else
+            Title = "API key";
+#endif
         }
 
         private void ScreenshotButton_Clicked(object sender, EventArgs e)

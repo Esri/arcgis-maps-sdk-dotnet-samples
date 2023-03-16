@@ -129,6 +129,7 @@
     </MauiAsset>
   </ItemGroup>
   <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
       <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0" />
       <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="200.0.0" />
@@ -172,6 +173,9 @@
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="ScreenshotView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="SearchPopup.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="SettingsPage.xaml">

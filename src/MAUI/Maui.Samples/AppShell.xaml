@@ -3,12 +3,4 @@
     x:Class="ArcGIS.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Shell.TabBarIsVisible="False">
-
-    <Shell.ItemTemplate>
-        <DataTemplate>
-            <Label Text="{Binding Title}" Margin="5,0" VerticalTextAlignment="Center"/>
-        </DataTemplate>
-    </Shell.ItemTemplate>
-
-</Shell>
+    Shell.TabBarIsVisible="False" />

@@ -22,6 +22,8 @@ public partial class CategoryPage : ContentPage
     private void Initialize()
     {
         SetBindingContext();
+
+        Title = _category.Name;
     }
 
     private void SetBindingContext()

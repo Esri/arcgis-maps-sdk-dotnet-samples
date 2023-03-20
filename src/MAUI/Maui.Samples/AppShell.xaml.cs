@@ -22,14 +22,21 @@ public partial class AppShell : Shell
         var samplesCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
         var allSamples = SampleManager.Current.AllSamples.ToList();
 
+        List<FlyoutItem> flyoutItems = new List<FlyoutItem>();
+
         foreach (var category in samplesCategories)
         {
+            FlyoutItem flyoutItem = new FlyoutItem();
+            flyoutItem.Title = category.Name;
+
             ShellContent shellContent = new ShellContent();
-            shellContent.Title = category.Name;
+            //shellContent.Title = category.Name;
             shellContent.Content = new CategoryPage(category);
             shellContent.Route = $"{nameof(CategoryPage)}_{category.Name}";
 
-            CategoriesFlyout.Items.Add(shellContent);
+            flyoutItem.Items.Add(shellContent);
+
+            this.Items.Add(flyoutItem);
         }
     }
 

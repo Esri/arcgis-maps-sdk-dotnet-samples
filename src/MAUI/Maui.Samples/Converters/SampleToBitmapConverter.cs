@@ -25,7 +25,7 @@ namespace ArcGIS.Converters
                 string imagePath = value.ToString();
                 List<string> folders = new List<string>();
 
-#if MACCATALYST || ANDROID
+#if MACCATALYST || ANDROID || IOS
                 folders = imagePath.Split('/').ToList();
 #elif WINDOWS
                 folders = imagePath.Split('\\').ToList();

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="ArcGIS.CategoryPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -41,7 +41,7 @@
                                 StrokeThickness="{OnPlatform Default=0,
                                                              Android=1}"
                                 WidthRequest="{OnPlatform Default=400,
-                                                          WinUI=300}">
+                                                          WinUI=300, iOS=400}">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding SampleObject}" Tapped="TapGestureRecognizer_SampleTapped" />
                                     <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
@@ -55,7 +55,7 @@
                                     <Image
                                         Grid.Row="0"
                                         HeightRequest="{OnPlatform Default=-1,
-                                                                   MacCatalyst=300}"
+                                                                   MacCatalyst=300, iOS=300}"
                                         Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
                                         WidthRequest="{OnPlatform Default=400,
                                                                   WinUI=300}" />

@@ -72,6 +72,7 @@
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
                                         CommandParameter="{Binding SampleFormalName}"
                                         HeightRequest="{OnPlatform Default=25,
+                                                                   iOS=40,
                                                                    Android=40}"
                                         HorizontalOptions="Start"
                                         IsVisible="{OnPlatform iOS=true,
@@ -80,6 +81,7 @@
                                         Source="{Binding IsFavorite, Converter={StaticResource BoolToImageSourceConverter}}"
                                         VerticalOptions="Start"
                                         WidthRequest="{OnPlatform Default=25,
+                                                                  iOS=40,
                                                                   Android=40}" />
                                     <Grid
                                         Grid.Row="0"

@@ -1,0 +1,38 @@
+{
+    "category": "Layers",
+    "description": "Display data from an ArcGIS stream service using a dynamic entity layer.",
+    "formal_name": "AddDynamicEntityLayer",
+    "ignore": false,
+    "images": [
+        "DisplayDynamicEntityLayer.jpg"
+    ],
+    "keywords": [
+        "data",
+        "dynamic",
+        "entity",
+        "live",
+        "purge",
+        "real-time",
+        "service",
+        "stream",
+        "track"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/adddynamicentitylayer.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISStreamService",
+        "ConnectionStatus",
+        "DynamicEntity",
+        "DynamicEntityFilter",
+        "DynamicEntityLayer",
+        "DynamicEntityPurgeOptions",
+        "TrackDisplayProperties"
+    ],
+    "snippets": [
+        "AddDynamicEntityLayer.xaml",
+        "AddDynamicEntityLayer.xaml.cs"
+    ],
+    "title": "Add dynamic entity layer"
+}

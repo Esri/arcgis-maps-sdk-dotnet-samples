@@ -17,7 +17,7 @@ namespace ArcGIS.Samples.DisplayRouteLayer
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display route layer",
         category: "Layers",
-        description: "Display a route layer and its directions using feature collection.",
+        description: "Display a route layer and its directions using a feature collection.",
         instructions: "Pan and zoom to view the route displayed by the feature collection layer. Toggle to view or hide the turn by turn directions.",
         tags: new[] { "directions", "feature collection", "route layer" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]

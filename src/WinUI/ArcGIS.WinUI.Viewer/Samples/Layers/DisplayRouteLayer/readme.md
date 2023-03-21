@@ -1,6 +1,6 @@
 # Display route layer
 
-Display a route layer and its directions using feature collection.
+Display a route layer and its directions using a feature collection.
 
 ![Display route layer](DisplayRouteLayer.jpg)
 

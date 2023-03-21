@@ -69,9 +69,6 @@ namespace ArcGIS.WinUI.Samples.DisplayRouteLayer
 
                     // Set the viewpoint to the full extent of the FeatureCollectionLayer in Oregon, US.
                     await MyMapView.SetViewpointAsync(new Viewpoint(featureCollectionLayer.FullExtent));
-
-                    // Allow the user to display directions.
-                    Button.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception e)

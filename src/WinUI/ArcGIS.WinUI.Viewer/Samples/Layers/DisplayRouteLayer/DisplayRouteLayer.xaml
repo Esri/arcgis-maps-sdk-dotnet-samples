@@ -10,41 +10,38 @@
     </UserControl.Resources>
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <ToggleButton x:Name="Button"
-                      Margin="30"
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Top"
-                      Click="Button_Click"
-                      Content="Display directions"
-                      Visibility="Collapsed" />
         <Border x:Name="Border"
-                Width="650"
-                Style="{StaticResource BorderStyle}"
-                Visibility="Collapsed">
-            <ItemsControl x:Name="DirectionsList">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20" />
-                                <ColumnDefinition Width="2" />
-                                <ColumnDefinition Width="25" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock HorizontalAlignment="Right" Text="{Binding Attributes[Sequence]}" />
-                            <TextBlock Grid.Column="1" Text="." />
-                            <TextBlock Grid.Column="2"
-                                       Margin="0,0,0,10"
-                                       FontFamily="{StaticResource Calcite}"
-                                       FontSize="20"
-                                       Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
-                            <TextBlock Grid.Column="3"
-                                       Text="{Binding Attributes[DisplayText]}"
-                                       TextWrapping="Wrap" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                Height="300"
+                Style="{StaticResource BorderStyle}">
+            <ScrollViewer Height="250" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock FontWeight="Bold" Text="Directions:" />
+                    <ItemsControl x:Name="DirectionsList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="2" />
+                                        <ColumnDefinition Width="25" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock HorizontalAlignment="Right" Text="{Binding Attributes[Sequence]}" />
+                                    <TextBlock Grid.Column="1" Text="." />
+                                    <TextBlock Grid.Column="2"
+                                               Margin="0,0,0,10"
+                                               FontFamily="{StaticResource Calcite}"
+                                               FontSize="20"
+                                               Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
+                                    <TextBlock Grid.Column="3"
+                                               Text="{Binding Attributes[DisplayText]}"
+                                               TextWrapping="Wrap" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
     </Grid>
 

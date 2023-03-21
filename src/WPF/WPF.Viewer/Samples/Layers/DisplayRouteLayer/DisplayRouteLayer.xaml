@@ -8,39 +8,38 @@
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <ToggleButton x:Name="Button"
-                      Margin="30"
-                      HorizontalAlignment="Left"
-                      VerticalAlignment="Top"
-                      Click="Button_Click"
-                      Content="Display directions"
-                      Visibility="Collapsed" />
         <Border x:Name="Border"
-                Width="575"
-                Style="{StaticResource BorderStyle}"
-                Visibility="Collapsed">
-            <ItemsControl x:Name="DirectionsList">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="20" />
-                                <ColumnDefinition Width="25" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Margin="0,0,5,5"
-                                       HorizontalAlignment="Right"
-                                       Text="{Binding Attributes[Sequence], StringFormat={}{0}.}" />
-                            <TextBlock Grid.Column="1"
-                                       Margin="0,0,5,5"
-                                       FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
-                                       FontSize="20"
-                                       Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
-                            <TextBlock Grid.Column="2" Text="{Binding Attributes[DisplayText]}" />
-                        </Grid>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+                Height="300"
+                Style="{StaticResource BorderStyle}">
+            <ScrollViewer Height="250" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Directions:" FontWeight="Bold"/>
+                    <ItemsControl x:Name="DirectionsList">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="25" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Margin="0,0,5,5"
+                                           HorizontalAlignment="Right"
+                                           Text="{Binding Attributes[Sequence], StringFormat={}{0}.}" />
+                                    <TextBlock Grid.Column="1"
+                                           Margin="0,0,5,5"
+                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                           FontSize="20"
+                                           Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
+                                    <TextBlock Grid.Column="2"
+                                           Text="{Binding Attributes[DisplayText]}"
+                                           TextWrapping="Wrap" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
     </Grid>
 </UserControl>

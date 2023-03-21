@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.AddDynamicEntityLayer.AddDynamicEntityLayer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border x:Name="MainUI" Style="{DynamicResource BorderStyle}">
+            <StackPanel>
+                <Label Name="ConnectionStatusLabel" />
+                <Button x:Name="ConnectionButton"
+                        Margin="5"
+                        Click="ConnectionButtonClick"
+                        IsEnabled="False" />
+                <CheckBox Margin="5"
+                          Checked="LineVisibilityCheckbox_Checked"
+                          Content="Track lines"
+                          IsChecked="True"
+                          Unchecked="LineVisibilityCheckbox_Checked" />
+                <CheckBox Margin="5"
+                          Checked="EntityVisibilityCheckbox_Checked"
+                          Content="Previous observations"
+                          IsChecked="True"
+                          Unchecked="EntityVisibilityCheckbox_Checked" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Width="155"
+                           VerticalAlignment="Center"
+                           Content="{Binding ElementName=EntitiesSlider, Path=Value}"
+                           ContentStringFormat="Observations per track ({0})" />
+                    <Slider Name="EntitiesSlider"
+                            Grid.Column="1"
+                            VerticalAlignment="Center"
+                            IsSnapToTickEnabled="True"
+                            Maximum="16"
+                            Minimum="1"
+                            TickFrequency="1"
+                            ValueChanged="Slider_ValueChanged"
+                            Value="5" />
+                </Grid>
+                <Button Margin="5"
+                        Click="PurgeClick"
+                        Content="Purge all observations" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -3,7 +3,6 @@
     x:Class="ArcGIS.CategoryPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:ArcGIS.Controls"
     xmlns:converters="clr-namespace:ArcGIS.Converters"
     xmlns:models="clr-namespace:ArcGIS.Samples.Shared.Models"
     xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"

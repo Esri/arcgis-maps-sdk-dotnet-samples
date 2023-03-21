@@ -57,11 +57,12 @@ namespace ArcGIS.Samples.DisplayRouteLayer
                     var directionPoints = tables.Where(t => t.TableName == "DirectionPoints").FirstOrDefault();
                     DirectionsList.ItemsSource = directionPoints;
 
-                    // Add the feature collection layers to the map.
-                    MyMapView.Map.OperationalLayers.Add(new FeatureCollectionLayer(featureCollection));
+                    // Create a FeatureCollectionLayer and add it to the map.
+                    FeatureCollectionLayer featureCollectionLayer = new FeatureCollectionLayer(featureCollection);
+                    MyMapView.Map.OperationalLayers.Add(featureCollectionLayer);
 
-                    // Set the viewpoint to Oregon, US.
-                    await MyMapView.SetViewpointAsync(new Viewpoint(45.2281, -122.8309, 57e4));
+                    // Set the viewpoint to the full extent of the FeatureCollectionLayer in Oregon, US.
+                    await MyMapView.SetViewpointAsync(new Viewpoint(featureCollectionLayer.FullExtent));
                 }
             }
             catch (Exception e)

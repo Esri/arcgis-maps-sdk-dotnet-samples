@@ -44,7 +44,7 @@ namespace ArcGIS.WinUI.Samples.DisplayRouteLayer
 
             try
             {
-                // Set the portal.
+                // Create a portal instance..
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
                 // Get the portal item containing route data.

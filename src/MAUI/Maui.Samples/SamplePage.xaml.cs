@@ -63,7 +63,7 @@ namespace ArcGIS
             {
                 var screenshotToolbarItem = new ToolbarItem();
                 screenshotToolbarItem.Clicked += ScreenshotButton_Clicked;
-                screenshotToolbarItem.IconImageSource="cameradark.png";
+                screenshotToolbarItem.IconImageSource="camera.png";
                 screenshotToolbarItem.Text = "Screenshot";
                 ToolbarItems.Insert(0, screenshotToolbarItem);
 

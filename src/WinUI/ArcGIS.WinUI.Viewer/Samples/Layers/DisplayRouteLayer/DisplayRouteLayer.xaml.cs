@@ -24,7 +24,7 @@ namespace ArcGIS.WinUI.Samples.DisplayRouteLayer
         name: "Display route layer",
         category: "Layers",
         description: "Display a route layer and its directions using a feature collection.",
-        instructions: "Pan and zoom to view the route displayed by the feature collection layer. Toggle to view or hide the turn by turn directions.",
+        instructions: "Pan and zoom to view the route displayed by the feature collection layer. Toggle to view or hide the turn-by-turn directions.",
         tags: new[] { "directions", "feature collection", "route layer" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayRouteLayer
@@ -59,7 +59,7 @@ namespace ArcGIS.WinUI.Samples.DisplayRouteLayer
                     // Select all tables.
                     IList<FeatureCollectionTable> tables = featureCollection.Tables;
 
-                    // List the turn by turn directions.
+                    // List the turn-by-turn directions.
                     FeatureCollectionTable directionPoints = tables.Where(t => t.TableName == "DirectionPoints").FirstOrDefault();
                     DirectionsList.ItemsSource = directionPoints;
 

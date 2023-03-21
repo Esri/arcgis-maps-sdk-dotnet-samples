@@ -78,6 +78,7 @@
 ## Layers
 
 * [Add a point scene layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
+* [Add dynamic entity layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
 * [Add vector tiled layer from custom style](ArcGIS.WinUI.Viewer/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - Load ArcGIS vector tiled layers using custom styles.
 * [Apply mosaic rule to rasters](ArcGIS.WinUI.Viewer/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.

@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace ArcGIS.WPF.Samples.DisplayRouteLayer
 {
@@ -76,12 +75,6 @@ namespace ArcGIS.WPF.Samples.DisplayRouteLayer
                 // Report exceptions.
                 MessageBox.Show("Error: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // Toggle the visibility of the directions.
-            Border.Visibility = Border.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

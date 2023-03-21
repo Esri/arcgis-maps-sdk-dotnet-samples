@@ -11,8 +11,6 @@ using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,12 +73,6 @@ namespace ArcGIS.WinUI.Samples.DisplayRouteLayer
             {
                 await new MessageDialog2(e.ToString(), "Error").ShowAsync();
             }
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            // Toggle the visibility of the directions.
-            Border.Visibility = Border.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
     }
 }

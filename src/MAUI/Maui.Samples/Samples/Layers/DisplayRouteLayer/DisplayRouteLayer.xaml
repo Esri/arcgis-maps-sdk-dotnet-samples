@@ -11,8 +11,7 @@
 
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border x:Name="Border"
-                HeightRequest="300"
+        <Border HeightRequest="300"
                 Style="{StaticResource EsriSampleControlPanel}"
                 WidthRequest="290">
             <VerticalStackLayout>

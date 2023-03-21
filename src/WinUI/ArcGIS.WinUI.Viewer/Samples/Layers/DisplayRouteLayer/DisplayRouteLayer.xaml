@@ -10,9 +10,7 @@
     </UserControl.Resources>
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border x:Name="Border"
-                Height="300"
-                Style="{StaticResource BorderStyle}">
+        <Border Height="300" Style="{StaticResource BorderStyle}">
             <ScrollViewer Height="250" VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <TextBlock FontWeight="Bold" Text="Directions:" />

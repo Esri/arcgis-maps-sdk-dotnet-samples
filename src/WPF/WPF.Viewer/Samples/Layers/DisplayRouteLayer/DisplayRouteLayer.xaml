@@ -8,12 +8,10 @@
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border x:Name="Border"
-                Height="300"
-                Style="{StaticResource BorderStyle}">
+        <Border Height="300" Style="{StaticResource BorderStyle}">
             <ScrollViewer Height="250" VerticalScrollBarVisibility="Auto">
                 <StackPanel>
-                    <TextBlock Text="Directions:" FontWeight="Bold"/>
+                    <TextBlock FontWeight="Bold" Text="Directions:" />
                     <ItemsControl x:Name="DirectionsList">
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
@@ -24,16 +22,16 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Margin="0,0,5,5"
-                                           HorizontalAlignment="Right"
-                                           Text="{Binding Attributes[Sequence], StringFormat={}{0}.}" />
+                                               HorizontalAlignment="Right"
+                                               Text="{Binding Attributes[Sequence], StringFormat={}{0}.}" />
                                     <TextBlock Grid.Column="1"
-                                           Margin="0,0,5,5"
-                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
-                                           FontSize="20"
-                                           Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
+                                               Margin="0,0,5,5"
+                                               FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                               FontSize="20"
+                                               Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
                                     <TextBlock Grid.Column="2"
-                                           Text="{Binding Attributes[DisplayText]}"
-                                           TextWrapping="Wrap" />
+                                               Text="{Binding Attributes[DisplayText]}"
+                                               TextWrapping="Wrap" />
                                 </Grid>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>

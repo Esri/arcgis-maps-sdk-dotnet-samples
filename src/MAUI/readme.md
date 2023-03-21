@@ -81,6 +81,7 @@
 ## Layers
 
 * [Add a point scene layer](Maui.Samples/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
+* [Add dynamic entity layer](Maui.Samples/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](Maui.Samples/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
 * [Apply mosaic rule to rasters](Maui.Samples/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](Maui.Samples/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.

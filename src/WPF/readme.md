@@ -81,6 +81,7 @@
 ## Layers
 
 * [Add a point scene layer](WPF.Viewer/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
+* [Add dynamic entity layer](WPF.Viewer/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](WPF.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
 * [Apply mosaic rule to rasters](WPF.Viewer/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](WPF.Viewer/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.

@@ -38,7 +38,7 @@ namespace ArcGIS.Samples.DisplayRouteLayer
 
             try
             {
-                // Create a portal instance..
+                // Create a portal instance.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
                 // Get the portal item containing route data.
@@ -54,7 +54,7 @@ namespace ArcGIS.Samples.DisplayRouteLayer
                     IList<FeatureCollectionTable> tables = featureCollection.Tables;
 
                     // List the turn-by-turn directions.
-                    var directionPoints = tables.Where(t => t.TableName == "DirectionPoints").FirstOrDefault();
+                    FeatureCollectionTable directionPoints = tables.Where(t => t.TableName == "DirectionPoints").FirstOrDefault();
                     DirectionsList.ItemsSource = directionPoints;
 
                     // Create a FeatureCollectionLayer and add it to the map.

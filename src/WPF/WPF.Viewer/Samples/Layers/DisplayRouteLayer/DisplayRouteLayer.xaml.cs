@@ -44,7 +44,7 @@ namespace ArcGIS.WPF.Samples.DisplayRouteLayer
 
             try
             {
-                // Create a portal instance..
+                // Create a portal instance.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
                 // Get the portal item containing route data.
@@ -69,12 +69,6 @@ namespace ArcGIS.WPF.Samples.DisplayRouteLayer
 
                     // Set the viewpoint to the full extent of the FeatureCollectionLayer in Oregon, US.
                     await MyMapView.SetViewpointAsync(new Viewpoint(featureCollectionLayer.FullExtent));
-
-                    // Set the viewpoint to Oregon, US.
-                    await MyMapView.SetViewpointAsync(new Viewpoint(45.2281, -122.8309, 57e4));
-
-                    // Allow the user to display directions.
-                    Button.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception ex)

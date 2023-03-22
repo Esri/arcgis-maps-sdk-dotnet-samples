@@ -35,6 +35,9 @@
     <Resource Include="Assets\**\*.ico" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\*.png" />
     <Resource Include="Resources\*.png" />
+	<Resource Include="Resources\Fonts\calcite-ui-icons-24.ttf">
+	  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	</Resource>
     <Content Include="Samples\**\*.jpg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

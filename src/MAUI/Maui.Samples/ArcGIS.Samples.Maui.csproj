@@ -102,6 +102,10 @@
     <None Remove="Resources\Icons\*.svg" />
 	  <MauiImage Include="Resources\Icons\*.svg" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\calcite-ui-icons-24.ttf" />
+  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
@@ -139,6 +143,11 @@
     <PackageReference Include="Xamarin.AndroidX.AppCompat">
       <Version>1.5.1.1</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <MauiFont Update="Resources\Fonts\calcite-ui-icons-24.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiFont>
   </ItemGroup>
 
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />

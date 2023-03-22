@@ -54,6 +54,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Resources\Fonts\calcite-ui-icons-24.ttf" />
     <None Remove="ScreenshotTab.xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -86,6 +87,12 @@
 
   <ItemGroup>
     <Folder Include="Samples\GraphicsOverlay\SketchOnMap\resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\Fonts\calcite-ui-icons-24.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>

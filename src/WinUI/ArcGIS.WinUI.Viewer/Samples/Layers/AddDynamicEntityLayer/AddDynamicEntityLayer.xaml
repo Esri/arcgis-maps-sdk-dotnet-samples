@@ -24,13 +24,12 @@
                           Unchecked="EntityVisibilityCheckbox_Checked" />
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="0.2*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <TextBlock Width="155"
                                VerticalAlignment="Center"
                                Text="{Binding ElementName=EntitiesSlider, Path=Value}" />
-                    <!--  ContentStringFormat="Observations per track ({0})"  -->
                     <Slider Name="EntitiesSlider"
                             Grid.Column="1"
                             VerticalAlignment="Center"

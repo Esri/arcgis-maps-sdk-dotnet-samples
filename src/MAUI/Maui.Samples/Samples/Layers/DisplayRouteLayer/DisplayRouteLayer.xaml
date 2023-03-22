@@ -20,8 +20,8 @@
                                                       Dark=#303030}"
                     HorizontalOptions="End"
                     IsVisible="False"
-                    MaximumHeightRequest="250"
-                    MaximumWidthRequest="300"
+                    HeightRequest="250"
+                    WidthRequest="300"
                     StrokeShape="RoundRectangle 10">
                 <VerticalStackLayout>
                     <Label FontAttributes="Bold"

@@ -56,9 +56,10 @@
                                         Grid.Row="0"
                                         HeightRequest="{OnPlatform Default=-1,
                                                                    MacCatalyst=300,
-                                                                   iOS=300}"
+                                                                   iOS=280}"
                                         Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
                                         WidthRequest="{OnPlatform Default=400,
+                                                                  iOS=375,
                                                                   WinUI=300}" />
                                     <ImageButton
                                         x:Name="FavoriteButton"

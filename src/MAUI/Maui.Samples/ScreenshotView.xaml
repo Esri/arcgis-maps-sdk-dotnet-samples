@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="ArcGIS.ScreenshotView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+    <VerticalStackLayout>
+        <HorizontalStackLayout>
+            <Label
+                Margin="5"
+                Text="Screenshot tool enabled"
+                VerticalOptions="Center" />
+            <CheckBox
+                x:Name="ScreenshotEnabledCheckBox"
+                CheckedChanged="ScreenshotEnabledCheckBox_CheckedChanged"
+                VerticalOptions="Center" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label
+                Margin="5"
+                Text="Source path:"
+                VerticalTextAlignment="Center" />
+            <Entry
+                x:Name="SourcePathEntry"
+                Margin="5"
+                TextChanged="Entry_TextChanged"
+                WidthRequest="450" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label
+                Margin="5"
+                Text="Width"
+                VerticalTextAlignment="Center" />
+            <Entry
+                x:Name="WidthEntry"
+                Margin="5"
+                HorizontalOptions="Start"
+                TextChanged="Entry_TextChanged"
+                WidthRequest="60" />
+            <Label
+                Margin="5"
+                Text="Height"
+                VerticalTextAlignment="Center" />
+            <Entry
+                x:Name="HeightEntry"
+                Margin="5"
+                HorizontalOptions="Start"
+                TextChanged="Entry_TextChanged"
+                WidthRequest="60" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout>
+            <Label
+                Margin="5"
+                Text="Scale Factor"
+                VerticalTextAlignment="Center" />
+            <Entry
+                x:Name="ScaleFactorEntry"
+                Margin="5"
+                HorizontalOptions="Start"
+                TextChanged="Entry_TextChanged"
+                WidthRequest="60" />
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentView>

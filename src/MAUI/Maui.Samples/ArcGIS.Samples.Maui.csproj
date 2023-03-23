@@ -61,8 +61,8 @@
 	  <None Remove="Samples\MapView\FilterByTimeExtent\**" />
 	</ItemGroup>
 
-	<!-- Exclude some samples on mac catalyst -->
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-maccatalyst')) == true">
+	<!-- Exclude Indoor Positioning on desktop platforms -->
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-maccatalyst')) or $(TargetFramework.StartsWith('net7.0-windows'))">
 	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
 	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
 	  <EmbeddedResource Remove="Samples\Location\IndoorPositioning\**" />
@@ -82,31 +82,36 @@
   <ItemGroup>
     <None Remove="Resources\SettingsPage\*.md" />
     <EmbeddedResource Include="Resources\SettingsPage\*.md" />
-    <Content Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
     <Content Include="Samples\**\*.jpg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
-    <BundleResource Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'iOS'" />
-    <AndroidAsset Include="Samples\**\*.jpg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
-    <AndroidAsset Include="Samples\**\*.md" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'" />
   </ItemGroup>
 
   <!-- Resource outputs for description and source code viewing -->
   <ItemGroup>
-    <EmbeddedResource Include="Samples\**\*.md" />
-    <EmbeddedResource Include="Samples\**\*.jpg" />
+	<None Remove="Samples\**\*.md" />
+	<EmbeddedResource Include="Samples\**\*.md" />
+	<EmbeddedResource Include="Samples\**\*.jpg" />
     <EmbeddedResource Include="Samples\**\*.cs" />
     <EmbeddedResource Include="Helpers\**\*.cs" />
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
   </ItemGroup>
-
   <ItemGroup>
+    <MauiImage Include="Resources\Thumbnails\placeholder_android.jpg" />
     <None Remove="Resources\Icons\*.svg" />
 	  <MauiImage Include="Resources\Icons\*.svg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Helpers\SampleTreeViewBuilder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+	  <MauiImage Include="Resources\Thumbnails\placeholder_ios.jpg" />
+    <MauiImage Include="Resources\Thumbnails\placeholder_maccatalyst.jpg" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>
 	<ItemGroup>
+    <MauiAsset Include="Resources\Thumbnails\placeholder_windows.jpg" />
     <MauiAsset Include="SyntaxHighlighting\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiAsset>
@@ -124,10 +129,13 @@
     </MauiAsset>
   </ItemGroup>
   <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
       <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0" />
       <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="200.0.0" />
       <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" Version="200.0.0" />
       <PackageReference Include="Markdig" Version="0.30.4" />
+      <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
   </ItemGroup>
 
   <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->
@@ -139,6 +147,40 @@
     <PackageReference Include="Xamarin.AndroidX.AppCompat">
       <Version>1.5.1.1</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="ApiKeyView.xaml.cs">
+      <DependentUpon>ApiKeyView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="AppShell.xaml.cs">
+      <DependentUpon>AppShell.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="ScreenshotView.xaml.cs">
+      <DependentUpon>ScreenshotView.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <MauiXaml Update="ApiKeyPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="AppShell.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="CategoryPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="ScreenshotView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="SearchPopup.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="SettingsPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
   </ItemGroup>
 
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />

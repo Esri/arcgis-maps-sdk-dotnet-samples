@@ -30,25 +30,25 @@ namespace ArcGIS.WinUI.Samples.CreateLoadReport
     {
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
 
-        // Default starting location
+        // Default starting location.
         private const string NetworkSourceName = "Electric Distribution Device";
         private const string AssetGroupName = "Circuit Breaker";
         private const string AssetTypeName = "Three Phase";
         private const string TerminalName = "Load";
         private const string GlobalId = "{1CAF7740-0BF4-4113-8DB2-654E18800028}";
 
-        // Default trace configuration
+        // Default trace configuration.
         private const string DomainNetworkName = "ElectricDistribution";
         private const string TierName = "Medium Voltage Radial";
         private UtilityTraceConditionalExpression _baseCondition = null;
 
-        // Compute total customers
+        // Compute total customers.
         private const string ServiceCategoryName = "ServicePoint";
 
-        // Compute total loads
+        // Compute total loads.
         private const string LoadNetworkAttributeName = "Service Load";
 
-        // Varying attribute
+        // Varying attribute.
         private const string PhasesNetworkAttributeName = "Phases Current";
         private UtilityNetworkAttribute _phasesNetworkAttribute = null;
         private List<string> _phases = new List<string>(new[] { "A", "B", "C" });
@@ -99,7 +99,7 @@ namespace ArcGIS.WinUI.Samples.CreateLoadReport
                 Phases.Text = $"Phases: {string.Join(",", _phases)}";
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
 
-                // Create default starting location
+                // Create default starting location.
                 UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(NetworkSourceName);
                 UtilityAssetGroup assetGroup = networkSource?.GetAssetGroup(AssetGroupName);
                 UtilityAssetType assetType = assetGroup?.GetAssetType(AssetTypeName);
@@ -110,17 +110,17 @@ namespace ArcGIS.WinUI.Samples.CreateLoadReport
                 {
                     var startingLocation = _utilityNetwork.CreateElement(assetType, globalId, terminal);
 
-                    // Get base condition and trace configuration from a default tier
+                    // Get base condition and trace configuration from a default tier.
                     UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName);
                     UtilityTier tier = domainNetwork?.GetTier(TierName);
                     _baseCondition = tier?.GetDefaultTraceConfiguration()?.Traversability?.Barriers as UtilityTraceConditionalExpression;
 
-                    // Create downstream trace with function outputs
+                    // Create downstream trace with function outputs.
                     _traceParameters = new UtilityTraceParameters(UtilityTraceType.Downstream, new[] { startingLocation });
                     _traceParameters.ResultTypes.Add(UtilityTraceResultType.FunctionOutputs);
                     _traceParameters.TraceConfiguration = tier?.GetDefaultTraceConfiguration();
 
-                    // Create function input and output condition
+                    // Create function input and output condition.
                     UtilityCategory serviceCategory = _utilityNetwork.Definition.Categories.FirstOrDefault(c => c.Name == ServiceCategoryName);
                     UtilityNetworkAttribute loadAttribute = _utilityNetwork.Definition.GetNetworkAttribute(LoadNetworkAttributeName);
                     _phasesNetworkAttribute = _utilityNetwork.Definition.GetNetworkAttribute(PhasesNetworkAttributeName);

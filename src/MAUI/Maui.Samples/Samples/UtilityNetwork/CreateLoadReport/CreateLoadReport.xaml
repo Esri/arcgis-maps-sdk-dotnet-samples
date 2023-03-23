@@ -7,8 +7,7 @@
     <Border Style="{DynamicResource EsriSampleControlPanel}">
         <VerticalStackLayout Spacing="5">
             <Label Text="Select a phase using the dropdown, add, then run report." />
-            <Picker x:Name="PhasesList"
-                    ItemDisplayBinding="{Binding Name}" />
+            <Picker x:Name="PhasesList" ItemDisplayBinding="{Binding Name}" />
             <Button Clicked="OnAddPhase" Text="Add" />
             <Label x:Name="Phases"
                    BackgroundColor="{AppThemeBinding Dark=Gray}"

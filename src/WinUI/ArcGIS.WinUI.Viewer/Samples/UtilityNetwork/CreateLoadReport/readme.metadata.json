@@ -1,49 +1,49 @@
 {
-    "category": "Utility network",
-    "description": "Demonstrates the creation of a simple electric distribution report. It traces downstream from a given point and adds up the count of customers and total load per phase.",
-    "formal_name": "CreateLoadReport",
-    "ignore": false,
-    "images": [
-        "CreateLoadReport.jpg"
-    ],
-    "keywords": [
-        "condition barriers",
-        "downstream trace",
-        "network analysis",
-        "subnetwork trace",
-        "trace configuration",
-        "traversability",
-        "upstream trace",
-        "utility network",
-        "validate consistency"
-    ],
-    "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/createloadreport.htm"
-    ],
-    "relevant_apis": [
-        "UtilityAssetType",
-        "UtilityCategoryComparison",
-        "UtilityDomainNetwork",
-        "UtilityElement",
-        "UtilityElementTraceResult",
-        "UtilityNetwork",
-        "UtilityNetworkAttribute",
-        "UtilityNetworkAttributeComparison",
-        "UtilityNetworkDefinition",
-        "UtilityNetworkSource",
-        "UtilityTerminal",
-        "UtilityTier",
-        "UtilityTraceConfiguration",
-        "UtilityTraceFunction",
-        "UtilityTraceParameters",
-        "UtilityTraceResult",
-        "UtilityTraceType",
-        "UtilityTraversability"
-    ],
-    "snippets": [
-        "CreateLoadReport.xaml",
-        "CreateLoadReport.xaml.cs"
-    ],
-    "title": "Create load report"
+  "category": "Utility network",
+  "description": "Demonstrates the creation of a simple electric distribution report. It traces downstream from a given point and adds up the count of customers and total load per phase.",
+  "formal_name": "CreateLoadReport",
+  "ignore": false,
+  "images": [
+    "CreateLoadReport.jpg"
+  ],
+  "keywords": [
+    "condition barriers",
+    "downstream trace",
+    "network analysis",
+    "subnetwork trace",
+    "trace configuration",
+    "traversability",
+    "upstream trace",
+    "utility network",
+    "validate consistency"
+  ],
+  "offline_data": [],
+  "redirect_from": [
+    "/net/latest/winui/sample-code/createloadreport.htm"
+  ],
+  "relevant_apis": [
+    "UtilityAssetType",
+    "UtilityCategoryComparison",
+    "UtilityDomainNetwork",
+    "UtilityElement",
+    "UtilityElementTraceResult",
+    "UtilityNetwork",
+    "UtilityNetworkAttribute",
+    "UtilityNetworkAttributeComparison",
+    "UtilityNetworkDefinition",
+    "UtilityNetworkSource",
+    "UtilityTerminal",
+    "UtilityTier",
+    "UtilityTraceConfiguration",
+    "UtilityTraceFunction",
+    "UtilityTraceParameters",
+    "UtilityTraceResult",
+    "UtilityTraceType",
+    "UtilityTraversability"
+  ],
+  "snippets": [
+    "CreateLoadReport.xaml",
+    "CreateLoadReport.xaml.cs"
+  ],
+  "title": "Create load report"
 }

@@ -157,7 +157,7 @@ namespace ArcGIS.WPF.Samples.CreateLoadReport
 
         private void OnAddPhase(object sender, RoutedEventArgs e)
         {
-            if (PhasesList.SelectedItem is CodedValue codedValue)
+            if (PhasesList.SelectedItem is CodedValue codedValue && !_phases.Contains(codedValue.Name))
             {
                 _phases.Add(codedValue.Name);
                 Phases.Text = $"Phases: {string.Join(",", _phases)}";

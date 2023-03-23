@@ -8,23 +8,9 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using System.Collections.ObjectModel;
-using Esri.ArcGISRuntime.Security;
 
 namespace ArcGIS.Samples.CreateLoadReport
 {
@@ -156,7 +142,7 @@ namespace ArcGIS.Samples.CreateLoadReport
 
         private void OnAddPhase(object sender, EventArgs e)
         {
-            if (PhasesList.SelectedItem is CodedValue codedValue)
+            if (PhasesList.SelectedItem is CodedValue codedValue && !_phases.Contains(codedValue.Name))
             {
                 _phases.Add(codedValue.Name);
                 Phases.Text = $"Phases: {string.Join(",", _phases)}";

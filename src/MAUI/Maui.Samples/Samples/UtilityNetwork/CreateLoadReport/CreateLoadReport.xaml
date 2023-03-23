@@ -5,17 +5,16 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:toolkit="using:Esri.ArcGISRuntime.Toolkit.Maui">
     <Border Style="{DynamicResource EsriSampleControlPanel}">
-        <VerticalStackLayout>
-            <Label x:Name="Phases"
-                   BackgroundColor="{AppThemeBinding Dark=Gray}"
-                   FontSize="30"
-                   HorizontalTextAlignment="Center" />
+        <VerticalStackLayout Spacing="5">
+            <Label Text="Select a phase using the dropdown, add, then run report." />
             <Picker x:Name="PhasesList"
-                    HorizontalTextAlignment="Center"
                     ItemDisplayBinding="{Binding Name}" />
             <Button Clicked="OnAddPhase" Text="Add" />
-            <Button Clicked="OnReset" Text="Reset" />
+            <Label x:Name="Phases"
+                   BackgroundColor="{AppThemeBinding Dark=Gray}"
+                   HorizontalTextAlignment="Center" />
             <Button Clicked="OnRunReport" Text="Run Report" />
+            <Button Clicked="OnReset" Text="Reset" />
             <CollectionView x:Name="ReportView"
                             Margin="0,10,0,0"
                             BackgroundColor="{AppThemeBinding Dark=Gray}">

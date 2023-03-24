@@ -39,9 +39,7 @@
                                 Margin="5"
                                 StrokeThickness="{OnPlatform Default=0,
                                                              Android=1}"
-                                WidthRequest="{OnPlatform Default=400,
-                                                          WinUI=300,
-                                                          iOS=400}">
+                                WidthRequest="{Binding SampleImageWidth}">
                                 <Border.GestureRecognizers>
                                     <TapGestureRecognizer CommandParameter="{Binding SampleObject}" Tapped="TapGestureRecognizer_SampleTapped" />
                                     <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
@@ -54,13 +52,9 @@
                                     </Grid.RowDefinitions>
                                     <Image
                                         Grid.Row="0"
-                                        HeightRequest="{OnPlatform Default=-1,
-                                                                   MacCatalyst=300,
-                                                                   iOS=280}"
+                                        HeightRequest="{Binding SampleImageHeight}"
                                         Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
-                                        WidthRequest="{OnPlatform Default=400,
-                                                                  iOS=375,
-                                                                  WinUI=300}" />
+                                        WidthRequest="{Binding SampleImageWidth}" />
                                     <ImageButton
                                         x:Name="FavoriteButton"
                                         Grid.Row="0"

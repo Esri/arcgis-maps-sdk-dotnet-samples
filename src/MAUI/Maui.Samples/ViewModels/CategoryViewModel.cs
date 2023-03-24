@@ -14,9 +14,25 @@ namespace ArcGIS.ViewModels
         {
             _samplesItems = new ObservableCollection<SampleViewModel>();
 
+            double sampleImageWidth = 400;
+
+#if WINDOWS
+
+            sampleImageWidth  = 300;
+
+#elif IOS || ANDROID
+
+            var displayWidth = DeviceDisplay.MainDisplayInfo.Width;
+            var displayDensity = DeviceDisplay.MainDisplayInfo.Density;
+
+            sampleImageWidth = displayWidth / displayDensity - 10;
+#endif
+
+            double sampleImageHeight = Math.Floor(sampleImageWidth * 3 / 4);
+
             foreach (var sampleInfo in sampleInfos)
             {
-                SamplesItems.Add(new SampleViewModel(sampleInfo));
+                SamplesItems.Add(new SampleViewModel(sampleInfo, sampleImageWidth, sampleImageHeight));
             }
 
             _category = category;
@@ -43,7 +59,7 @@ namespace ArcGIS.ViewModels
 
     public partial class SampleViewModel : ObservableObject
     {
-        public SampleViewModel(SampleInfo sampleInfo)
+        public SampleViewModel(SampleInfo sampleInfo, double sampleImageWidth, double sampleImageHeight)
         {
             SampleObject = sampleInfo;
             SampleName = sampleInfo.SampleName;
@@ -51,6 +67,8 @@ namespace ArcGIS.ViewModels
             Description = sampleInfo.Description;
             SampleImageName = sampleInfo.SampleImageName;
             IsFavorite = sampleInfo.IsFavorite;
+            SampleImageWidth = sampleImageWidth;
+            SampleImageHeight = sampleImageHeight;
         }
 
         [ObservableProperty]
@@ -70,6 +88,12 @@ namespace ArcGIS.ViewModels
 
         [ObservableProperty]
         SampleInfo _sampleObject;
+
+        [ObservableProperty]
+        double _sampleImageWidth;
+
+        [ObservableProperty]
+        double _sampleImageHeight;
 
     }
 }

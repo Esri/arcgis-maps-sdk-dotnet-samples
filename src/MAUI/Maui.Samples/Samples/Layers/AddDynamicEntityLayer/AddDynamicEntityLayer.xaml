@@ -23,26 +23,26 @@
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-                    <Label Grid.Row="0"
-                           Grid.Column="0"
-                           Text="Track lines" />
                     <CheckBox Grid.Row="0"
-                              Grid.Column="1"
+                              Grid.Column="0"
                               Margin="5"
                               CheckedChanged="LineVisibilityCheckbox_Checked"
                               IsChecked="True" />
-                    <Label Grid.Row="1"
-                           Grid.Column="0"
-                           Text="Previous observations" />
+                    <Label Grid.Row="0"
+                           Grid.Column="1"
+                           Text="Track lines"
+                           VerticalTextAlignment="Center" />
                     <CheckBox Grid.Row="1"
-                              Grid.Column="1"
+                              Grid.Column="0"
                               Margin="5"
                               CheckedChanged="EntityVisibilityCheckbox_Checked"
                               IsChecked="True" />
+                    <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Text="Previous observations"
+                           VerticalTextAlignment="Center" />
                 </Grid>
-                <Label BindingContext="{x:Reference EntitiesSlider}"
-                       Text="{Binding Value, StringFormat='Observations per track ({0})'}"
-                       VerticalOptions="Center" />
+                <Label x:Name="previousObservationsLabel" Text="Previous observations per track: 5" />
                 <Slider x:Name="EntitiesSlider"
                         Grid.Column="1"
                         Maximum="16"

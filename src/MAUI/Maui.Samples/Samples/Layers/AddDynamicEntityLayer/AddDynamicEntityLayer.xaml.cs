@@ -145,6 +145,7 @@ namespace ArcGIS.Samples.AddDynamicEntityLayer
             if (_dynamicEntityLayer != null)
             {
                 _dynamicEntityLayer.TrackDisplayProperties.MaximumObservations = (int)e.NewValue;
+                previousObservationsLabel.Text = String.Format("Previous observations per track: {0}", Math.Round(e.NewValue).ToString());
             }
         }
 

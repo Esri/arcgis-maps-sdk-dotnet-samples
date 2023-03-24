@@ -14,6 +14,7 @@ namespace ArcGIS.ViewModels
         {
             _samplesItems = new ObservableCollection<SampleViewModel>();
 
+            // Calculate the sample image width and height on mobile platforms based on device display size. 
             double sampleImageWidth = 400;
 
 #if WINDOWS
@@ -22,12 +23,16 @@ namespace ArcGIS.ViewModels
 
 #elif IOS || ANDROID
 
+            // Ensure that the correct dimension is being used, this accounts for situations where the app is opened in landscape orientation. 
             var displayWidth = DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait ? DeviceDisplay.MainDisplayInfo.Width : DeviceDisplay.MainDisplayInfo.Height;
 
             var displayDensity = DeviceDisplay.MainDisplayInfo.Density;
 
+            // Calculate the width for the image using the device display density. Account for a margin arround the image. 
             sampleImageWidth = displayWidth / displayDensity - 20;
             
+            // For tablets check to see if multiple images could fit rather than one tablet sized image. 
+            // If multiple images of arbitrary size "400" would fit then updat the image width.
             var sampleImageFactor = Math.Floor(sampleImageWidth / 400);
 
             if (sampleImageFactor > 1)
@@ -35,7 +40,7 @@ namespace ArcGIS.ViewModels
                 sampleImageWidth = sampleImageWidth / sampleImageFactor;
             }
 #endif
-
+            // Maintain 4:3 image resolution. 
             double sampleImageHeight = Math.Floor(sampleImageWidth * 3 / 4);
 
             foreach (var sampleInfo in sampleInfos)

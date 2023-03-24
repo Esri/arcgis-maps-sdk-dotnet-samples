@@ -23,16 +23,16 @@ namespace ArcGIS.ViewModels
 
 #elif IOS || ANDROID
 
-            // Ensure that the correct dimension is being used, this accounts for situations where the app is opened in landscape orientation. 
+            // Ensure that the correct dimension is being used, this accounts for situations where the viewer is opened in landscape orientation. 
             var displayWidth = DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait ? DeviceDisplay.MainDisplayInfo.Width : DeviceDisplay.MainDisplayInfo.Height;
 
             var displayDensity = DeviceDisplay.MainDisplayInfo.Density;
 
-            // Calculate the width for the image using the device display density. Account for a margin arround the image. 
+            // Calculate the width for the image using the device display density. Account for a margin around the image. 
             sampleImageWidth = displayWidth / displayDensity - 20;
             
             // For tablets check to see if multiple images could fit rather than one tablet sized image. 
-            // If multiple images of arbitrary size "400" would fit then updat the image width.
+            // If multiple images of arbitrary size "400" would fit then update the image width.
             var sampleImageFactor = Math.Floor(sampleImageWidth / 400);
 
             if (sampleImageFactor > 1)

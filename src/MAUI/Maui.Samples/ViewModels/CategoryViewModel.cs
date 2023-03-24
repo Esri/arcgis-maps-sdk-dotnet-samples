@@ -22,10 +22,11 @@ namespace ArcGIS.ViewModels
 
 #elif IOS || ANDROID
 
-            var displayWidth = DeviceDisplay.MainDisplayInfo.Width;
+            var displayWidth = DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait ? DeviceDisplay.MainDisplayInfo.Width : DeviceDisplay.MainDisplayInfo.Height;
+
             var displayDensity = DeviceDisplay.MainDisplayInfo.Density;
 
-            sampleImageWidth = displayWidth / displayDensity - 10;
+            sampleImageWidth = displayWidth / displayDensity - 20;
 #endif
 
             double sampleImageHeight = Math.Floor(sampleImageWidth * 3 / 4);

@@ -27,6 +27,13 @@ namespace ArcGIS.ViewModels
             var displayDensity = DeviceDisplay.MainDisplayInfo.Density;
 
             sampleImageWidth = displayWidth / displayDensity - 20;
+            
+            var sampleImageFactor = Math.Floor(sampleImageWidth / 400);
+
+            if (sampleImageFactor > 1)
+            {
+                sampleImageWidth = sampleImageWidth / sampleImageFactor;
+            }
 #endif
 
             double sampleImageHeight = Math.Floor(sampleImageWidth * 3 / 4);

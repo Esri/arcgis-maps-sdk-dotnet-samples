@@ -81,7 +81,7 @@ namespace ArcGIS.Samples.Managers
             SearchableTreeNode featured = new SearchableTreeNode("Featured", AllSamples.Where(sample => featuredSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase)).OrderBy(sample => sample.SampleName));
             FullTree.Items.Insert(0, featured);
 
-#if !(WinUI || WINDOWS_UWP || MAUI)
+#if !(WinUI || WINDOWS_UWP)
             // Get favorite samples if they exist. This feature is only available on WPF.
             AddFavoritesCategory();
 #endif
@@ -136,7 +136,9 @@ namespace ArcGIS.Samples.Managers
             {
                 try
                 {
-                    samples.Add(new SampleInfo(type));
+                    SampleInfo sampleInfo = new SampleInfo(type);
+
+                    samples.Add(sampleInfo);
                 }
                 catch (Exception ex)
                 {
@@ -204,7 +206,11 @@ namespace ArcGIS.Samples.Managers
                    sample.Tags.Any(tag => tag.Contains(searchText));
         }
 
-#if !(WinUI || WINDOWS_UWP || MAUI)
+#if !(WinUI || WINDOWS_UWP)
+        public bool IsSampleFavorited(string sampleFormalName)
+        {
+            return GetFavoriteSampleNames().Contains(sampleFormalName);
+        }
 
         private static List<string> GetFavoriteSampleNames()
         {
@@ -254,16 +260,7 @@ namespace ArcGIS.Samples.Managers
 
         private void AddFavoritesCategory()
         {
-            IEnumerable<string> favoriteSamples = GetFavoriteSampleNames();
-
-            // Set favorited samples.
-            foreach (var sample in AllSamples)
-            {
-                sample.IsFavorite = favoriteSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase);
-            }
-
-            // Create a new SearchableTreeNode for the updated favorites.
-            SearchableTreeNode favorites = new SearchableTreeNode("Favorites", AllSamples.Where(sample => favoriteSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase)).OrderBy(sample => sample.SampleName));
+            SearchableTreeNode favorites = GetFavoritesCategory();
 
             // Get the existing favorites to check if they are already present in the category tree.
             SearchableTreeNode existingFavorites = FullTree.Items.FirstOrDefault(i => i is SearchableTreeNode t && t.Name == "Favorites") as SearchableTreeNode;
@@ -276,6 +273,20 @@ namespace ArcGIS.Samples.Managers
             {
                 FullTree.Items[1] = favorites;
             }
+        }
+
+        public SearchableTreeNode GetFavoritesCategory()
+        {
+            IEnumerable<string> favoriteSamples = GetFavoriteSampleNames();
+
+            // Set favorited samples.
+            foreach (var sample in AllSamples)
+            {
+                sample.IsFavorite = favoriteSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase);
+            }
+
+            // Create a new SearchableTreeNode for the updated favorites.
+            return new SearchableTreeNode("Favorites", AllSamples.Where(sample => favoriteSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase)).OrderBy(sample => sample.SampleName));
         }
 
         internal static string GetFavoritesFolder()

@@ -12,9 +12,9 @@ using ArcGIS.Samples.Shared.Managers;
 namespace ArcGIS
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ApiKeyPrompt : ContentPage
+    public partial class ApiKeyView : ContentView
     {
-        public ApiKeyPrompt()
+        public ApiKeyView()
         {
             InitializeComponent();
             Initialize();

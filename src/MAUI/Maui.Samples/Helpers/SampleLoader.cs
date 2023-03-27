@@ -26,6 +26,9 @@ namespace ArcGIS.Helpers
         {
             try
             {
+                // Set the currently selected sample.
+                SampleManager.Current.SelectedSample = sampleInfo;
+
                 // Restore API key if leaving named user sample.
                 if (_namedUserSamples.Contains(SampleManager.Current?.SelectedSample?.FormalName))
                 {

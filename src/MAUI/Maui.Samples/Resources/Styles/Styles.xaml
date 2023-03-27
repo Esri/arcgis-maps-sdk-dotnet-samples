@@ -1,8 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
-<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-                    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
 
     <!--  Esri samples helper styles  -->
     <Style x:Key="EsriSampleContainer" TargetType="Grid">
@@ -442,7 +443,6 @@
 
     <Style x:Key="BaseStyle" TargetType="Element">
         <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}" />
-        <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
         <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource White}}" />
         <Setter Property="Shell.DisabledColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
         <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
@@ -453,9 +453,10 @@
         <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
     </Style>
 
-    <Style ApplyToDerivedTypes="True"
-           BasedOn="{StaticResource BaseStyle}"
-           TargetType="ShellItem" />
+    <Style
+        ApplyToDerivedTypes="True"
+        BasedOn="{StaticResource BaseStyle}"
+        TargetType="ShellItem" />
 
     <Style TargetType="NavigationPage">
         <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}" />

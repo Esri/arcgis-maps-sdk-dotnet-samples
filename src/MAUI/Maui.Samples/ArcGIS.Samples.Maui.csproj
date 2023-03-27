@@ -153,9 +153,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <MauiFont Update="Resources\Fonts\calcite-ui-icons-24.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </MauiFont>
     <Compile Update="ApiKeyView.xaml.cs">
       <DependentUpon>ApiKeyView.xaml</DependentUpon>
     </Compile>
@@ -188,6 +185,9 @@
     <MauiXaml Update="SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiFont Update="Resources\Fonts\calcite-ui-icons-24.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiFont>
   </ItemGroup>
 
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />

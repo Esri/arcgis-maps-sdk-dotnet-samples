@@ -169,7 +169,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
 
             // The main sample page continues when OnDisappearing is called.
             // OnDisappearing is called by Esri.ArcGISRuntime.Maui when navigation away from this page happens.
-            Application.Current.MainPage.Navigation.PopModalAsync(true);
+            Shell.Current.Navigation.PopModalAsync(true);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace ArcGIS.Helpers
             "OAuth",};
 
         // Used to load a sample from the search or list in a category.
-        public static async Task LoadSample(SampleInfo sampleInfo, NavigableElement nav)
+        public static async Task LoadSample(SampleInfo sampleInfo)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace ArcGIS.Helpers
 
                     // Show the wait page.
                     var waitPage = new WaitPage(cancellationSource) { Title = sampleInfo.SampleName };
-                    await nav.Navigation.PushModalAsync(waitPage, false);
+                    await Shell.Current.Navigation.PushModalAsync(waitPage, false);
 
                     // Wait for the sample data download.
                     await DataManager.EnsureSampleDataPresent(sampleInfo, cancellationSource.Token, (info) =>
@@ -66,7 +66,7 @@ namespace ArcGIS.Helpers
                     });
 
                     // Remove the waiting page.
-                    await nav.Navigation.PopModalAsync(false);
+                    await Shell.Current.Navigation.PopModalAsync(false);
                 }
 
                 // Get the sample control from the selected sample.
@@ -76,12 +76,12 @@ namespace ArcGIS.Helpers
                 SamplePage page = new SamplePage(sampleControl, sampleInfo);
 
                 // Show the sample.
-                await nav.Navigation.PushAsync(page, true);
+                await Shell.Current.Navigation.PushAsync(page, true);
             }
             catch (OperationCanceledException)
             {
                 // Remove the waiting page.
-                await nav.Navigation.PopModalAsync(false);
+                await Shell.Current.Navigation.PopModalAsync(false);
 
                 await Application.Current.MainPage.DisplayAlert("", "Download cancelled", "OK");
             }

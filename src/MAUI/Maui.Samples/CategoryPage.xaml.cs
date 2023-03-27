@@ -42,7 +42,7 @@ public partial class CategoryPage : ContentPage
 
     private async void SearchClicked(object sender, EventArgs e)
     {
-        var popup = new SearchPopup(this);
+        var popup = new SearchPopup();
 
         var result = await this.ShowPopupAsync(popup);
     }
@@ -50,7 +50,7 @@ public partial class CategoryPage : ContentPage
     private void TapGestureRecognizer_SampleTapped(object sender, TappedEventArgs e)
     {
         var sampleInfo = e.Parameter as SampleInfo;
-        _ = SampleLoader.LoadSample(sampleInfo, this);
+        _ = SampleLoader.LoadSample(sampleInfo);
     }
 
     private void PointerGestureRecognizer_PointerEntered(object sender, PointerEventArgs e)

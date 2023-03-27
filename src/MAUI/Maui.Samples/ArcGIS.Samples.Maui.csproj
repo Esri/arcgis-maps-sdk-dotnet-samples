@@ -99,6 +99,10 @@
     <None Remove="Resources\Icons\*.svg" />
 	  <MauiImage Include="Resources\Icons\*.svg" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Fonts\calcite-ui-icons-24.ttf" />
+  </ItemGroup>
   <ItemGroup>
     <Compile Remove="Helpers\SampleTreeViewBuilder.cs" />
   </ItemGroup>
@@ -181,6 +185,9 @@
     <MauiXaml Update="SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
+    <MauiFont Update="Resources\Fonts\calcite-ui-icons-24.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiFont>
   </ItemGroup>
 
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />

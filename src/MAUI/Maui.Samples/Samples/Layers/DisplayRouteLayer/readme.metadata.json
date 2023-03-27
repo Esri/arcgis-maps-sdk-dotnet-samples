@@ -1,0 +1,28 @@
+{
+    "category": "Layers",
+    "description": "Display a route layer and its directions using a feature collection.",
+    "formal_name": "DisplayRouteLayer",
+    "ignore": false,
+    "images": [
+        "DisplayRouteLayer.jpg"
+    ],
+    "keywords": [
+        "directions",
+        "feature collection",
+        "route layer"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/displayroutelayer.htm"
+    ],
+    "relevant_apis": [
+        "AGSFeatureCollection",
+        "AGSFeatureCollectionLayer",
+        "AGSFeatureCollectionTable"
+    ],
+    "snippets": [
+        "DisplayRouteLayer.xaml",
+        "DisplayRouteLayer.xaml.cs"
+    ],
+    "title": "Display route layer"
+}

@@ -165,6 +165,7 @@
     <Content Include="Resources\hide-header.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Fonts\calcite-ui-icons-24.ttf" />
     <Resource Include="Assets\**\*.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-256.ico" />
     <None Include="Properties\Settings.settings">

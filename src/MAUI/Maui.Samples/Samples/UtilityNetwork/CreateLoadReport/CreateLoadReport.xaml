@@ -6,13 +6,13 @@
              xmlns:toolkit="using:Esri.ArcGISRuntime.Toolkit.Maui">
     <Border Style="{DynamicResource EsriSampleControlPanel}">
         <VerticalStackLayout Spacing="5">
-            <Label Text="Select a phase using the dropdown, add, then run report." />
+            <Label Text="Add phases from the dropdown list, then run report." />
             <Picker x:Name="PhasesList" ItemDisplayBinding="{Binding Name}" />
             <Button Clicked="OnAddPhase" Text="Add" />
             <Label x:Name="Phases"
                    BackgroundColor="{AppThemeBinding Dark=Gray}"
                    HorizontalTextAlignment="Center" />
-            <Button Clicked="OnRunReport" Text="Run Report" />
+            <Button Clicked="RunReportButton_Clicked" Text="Run Report" />
             <Button Clicked="OnReset" Text="Reset" />
             <CollectionView x:Name="ReportView"
                             Margin="0,10,0,0"

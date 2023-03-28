@@ -156,7 +156,7 @@ namespace ArcGIS.Samples.CreateLoadReport
             _phaseSummaries.Clear();
         }
 
-        private async void OnRunReport(object sender, EventArgs e)
+        private async void RunReportButton_Clicked(object sender, EventArgs e)
         {
             try
             {

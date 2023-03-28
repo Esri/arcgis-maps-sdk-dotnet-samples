@@ -171,7 +171,7 @@ namespace ArcGIS.WPF.Samples.CreateLoadReport
             _phaseSummaries.Clear();
         }
 
-        private async void OnRunReport(object sender, RoutedEventArgs e)
+        private async void RunReportButton_Clicked(object sender, RoutedEventArgs e)
         {
             try
             {

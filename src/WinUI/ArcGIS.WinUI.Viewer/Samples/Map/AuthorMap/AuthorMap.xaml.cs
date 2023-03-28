@@ -242,7 +242,7 @@ namespace ArcGIS.WinUI.Samples.AuthorMap
             Envelope currentExtent = currentViewpoint.TargetGeometry as Envelope;
 
             // Project the current extent to geographic coordinates (longitude / latitude)
-            Envelope currentGeoExtent = (Envelope)GeometryEngine.Project(currentExtent, SpatialReferences.Wgs84);
+            Envelope currentGeoExtent = (Envelope)currentExtent.Project(SpatialReferences.Wgs84);
 
             // Fill the app text boxes with min / max longitude (x) and latitude (y) to four decimal places
             XMinTextBox.Text = currentGeoExtent.XMin.ToString("0.####");

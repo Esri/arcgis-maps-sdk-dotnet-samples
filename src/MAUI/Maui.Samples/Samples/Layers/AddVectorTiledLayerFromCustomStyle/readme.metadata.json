@@ -1,0 +1,33 @@
+{
+    "category": "Layers",
+    "description": "Load ArcGIS vector tiled layers using custom styles.",
+    "formal_name": "AddVectorTiledLayerFromCustomStyle",
+    "ignore": false,
+    "images": [
+        "AddVectorTiledLayerFromCustomStyle.jpg"
+    ],
+    "keywords": [
+        "tiles",
+        "vector",
+        "vector basemap",
+        "vector tiled layer",
+        "vector tiles"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/addvectortiledlayerfromcustomstyle.htm"
+    ],
+    "relevant_apis": [
+        "ExportVectorTilesJob",
+        "ExportVectorTilesResult",
+        "ExportVectorTilesTask",
+        "VectorTileCache",
+        "VectorTiledLayer",
+        "VectorTilesTask"
+    ],
+    "snippets": [
+        "AddVectorTiledLayerFromCustomStyle.xaml",
+        "AddVectorTiledLayerFromCustomStyle.xaml.cs"
+    ],
+    "title": "Add vector tiled layer from custom style"
+}

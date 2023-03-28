@@ -1,0 +1,27 @@
+<UserControl x:Class="ArcGIS.WinUI.Samples.AddVectorTiledLayerFromCustomStyle.AddVectorTiledLayerFromCustomStyle"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border MaxWidth="280" Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock Margin="0,0,0,5"
+                           HorizontalAlignment="Center"
+                           FontWeight="SemiBold"
+                           Text="Select style:"
+                           TextWrapping="Wrap" />
+                <ComboBox x:Name="StyleChooser"
+                          MinWidth="230"
+                          SelectionChanged="StyleChooserSelectionChanged">
+                    <ComboBoxItem Content="Default" />
+                    <ComboBoxItem Content="Style 1" />
+                    <ComboBoxItem Content="Style 2" />
+                    <ComboBoxItem Content="Style 3" />
+                    <ComboBoxItem Content="Offline custom style - Light" />
+                    <ComboBoxItem Content="Offline custom style - Dark" />
+                </ComboBox>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

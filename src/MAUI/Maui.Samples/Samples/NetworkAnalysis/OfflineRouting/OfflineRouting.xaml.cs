@@ -244,7 +244,7 @@ namespace ArcGIS.Samples.OfflineRouting
             }
 
             // Make sure the stop is valid before proceeding.
-            if (!GeometryEngine.Contains(_routableArea, e.Location))
+            if (!_routableArea.Contains(e.Location))
             {
                 ShowMessage("Can't add stop.", "That location is outside of the area where offline routing data is available.");
                 return;

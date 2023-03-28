@@ -14,7 +14,7 @@ Tap the "Clip" button to clip the blue graphic with the red dashed envelopes.
 
 ## How it works
 
-1. Use the static method `GeometryEngine.Clip()` to generate a clipped `Geometry`, passing in an existing `Geometry` and an `Envelope` as parameters.  The existing geometry will be clipped where it intersects an envelope.
+1. Use the static extension method `GeometryEngine.Clip()` to generate a clipped `Geometry`, passing in an existing `Geometry` and an `Envelope` as parameters.  The existing geometry will be clipped where it intersects an envelope.
 2. Create a new `Graphic` from the clipped geometry and add it to a `GraphicsOverlay` on the `MapView`.
 
 ## Relevant API

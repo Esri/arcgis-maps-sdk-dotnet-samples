@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.ManageFeatures.ManageFeatures"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <StackLayout Padding="5"
+                         Spacing="5">
+                <Label Text="Select a feature management operation:"
+                       MinimumWidthRequest="200" />
+                <Picker x:Name="MethodPicker"
+                        SelectedIndexChanged="OnComboBoxSelectionChanged"
+                        HorizontalOptions="Start"
+                        WidthRequest="250"
+                        IsEnabled="True" />
+                <Label x:Name="InstructionLabel" 
+                       HorizontalOptions="Start"
+                       MaximumWidthRequest="250"
+                       LineBreakMode="WordWrap" />
+                <Picker x:Name="DamageTypePicker"
+                        HorizontalOptions="Start"
+                        WidthRequest="250"
+                        IsVisible="False" />
+                <Button x:Name="DeleteButton"
+                        Clicked="DeleteButton_Click"
+                        IsVisible="False" />
+            </StackLayout>
+
+        </Border>
+    </Grid>
+</ContentPage>

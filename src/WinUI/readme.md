@@ -12,10 +12,8 @@
 
 ## Data
 
-* [Add features](ArcGIS.WinUI.Viewer/Samples/Data/AddFeatures) - Add features to a feature layer.
 * [Add features with contingent values](ArcGIS.WinUI.Viewer/Samples/Data/AddFeaturesWithContingentValues) - Create and add features whose attribute values satisfy a predefined set of contingencies.
 * [Create mobile geodatabase](ArcGIS.WinUI.Viewer/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.
-* [Delete features (feature service)](ArcGIS.WinUI.Viewer/Samples/Data/DeleteFeatures) - Delete features from an online feature service.
 * [Edit and sync features](ArcGIS.WinUI.Viewer/Samples/Data/EditAndSyncFeatures) - Synchronize offline edits with a feature service.
 * [Edit feature attachments](ArcGIS.WinUI.Viewer/Samples/Data/EditFeatureAttachments) - Add, delete, and download attachments for features from a service.
 * [Edit features with feature-linked annotation](ArcGIS.WinUI.Viewer/Samples/Data/EditFeatureLinkedAnnotation) - Edit feature attributes which are linked to annotation through an expression.
@@ -24,6 +22,7 @@
 * [Generate geodatabase replica from feature service](ArcGIS.WinUI.Viewer/Samples/Data/GenerateGeodatabaseReplica) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](ArcGIS.WinUI.Viewer/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](ArcGIS.WinUI.Viewer/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
+* [Manage features](ArcGIS.WinUI.Viewer/Samples/Data/ManageFeatures) - Manage a feature layer's features in four distinct ways.
 * [Query features with Arcade expression](ArcGIS.WinUI.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
 * [Raster layer (GeoPackage)](ArcGIS.WinUI.Viewer/Samples/Data/RasterLayerGeoPackage) - Display a raster contained in a GeoPackage.
 * [Read GeoPackage](ArcGIS.WinUI.Viewer/Samples/Data/ReadGeoPackage) - Add rasters and feature tables from a GeoPackage to a map.
@@ -32,8 +31,6 @@
 * [Statistical query group and sort](ArcGIS.WinUI.Viewer/Samples/Data/StatsQueryGroupAndSort) - Query a feature table for statistics, grouping and sorting by different fields.
 * [Symbolize shapefile](ArcGIS.WinUI.Viewer/Samples/Data/SymbolizeShapefile) - Display a shapefile with custom symbology.
 * [Toggle between feature request modes](ArcGIS.WinUI.Viewer/Samples/Data/ToggleBetweenFeatureRequestModes) - Use different feature request modes to populate the map from a service feature table.
-* [Update attributes (feature service)](ArcGIS.WinUI.Viewer/Samples/Data/UpdateAttributes) - Update feature attributes in an online feature service.
-* [Update geometries (feature service)](ArcGIS.WinUI.Viewer/Samples/Data/UpdateGeometries) - Update a feature's location in an online feature service.
 * [View point cloud data offline](ArcGIS.WinUI.Viewer/Samples/Data/ViewPointCloudDataOffline) - Display local 3D point cloud data.
 
 ## Geometry
@@ -83,11 +80,11 @@
 * [Add a point scene layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
 * [Add dynamic entity layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
+* [Add vector tiled layer from custom style](ArcGIS.WinUI.Viewer/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - Load ArcGIS vector tiled layers using custom styles.
 * [Apply mosaic rule to rasters](ArcGIS.WinUI.Viewer/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](ArcGIS.WinUI.Viewer/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.
 * [ArcGIS map image layer](ArcGIS.WinUI.Viewer/Samples/Layers/ArcGISMapImageLayerUrl) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](ArcGIS.WinUI.Viewer/Samples/Layers/ArcGISTiledLayerUrl) - Load an ArcGIS tiled layer from a URL.
-* [ArcGIS vector tiled layer URL](ArcGIS.WinUI.Viewer/Samples/Layers/ArcGISVectorTiledLayerUrl) - Load an ArcGIS Vector Tiled Layer from a URL.
 * [Blend renderer](ArcGIS.WinUI.Viewer/Samples/Layers/ChangeBlendRenderer) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
 * [Browse OGC API feature service](ArcGIS.WinUI.Viewer/Samples/Layers/BrowseOAFeatureService) - Browse an OGC API feature service for layers and add them to the map.
 * [Browse WFS layers](ArcGIS.WinUI.Viewer/Samples/Layers/BrowseWfsLayers) - Browse a WFS service for layers and add them to the map.
@@ -106,6 +103,7 @@
 * [Display annotation](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayAnnotation) - Display annotation from a feature service URL.
 * [Display dimensions](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayDimensions) - Display dimension features from a mobile map package.
 * [Display feature layers](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayFeatureLayers) - Display feature layers from various data sources.
+* [Display route layer](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayRouteLayer) - Display a route layer and its directions using a feature collection.
 * [Display subtype feature layer](ArcGIS.WinUI.Viewer/Samples/Layers/DisplaySubtypeFeatureLayer) - Displays a composite layer of all the subtype values in a feature class.
 * [Edit KML ground overlay](ArcGIS.WinUI.Viewer/Samples/Layers/EditKmlGroundOverlay) - Edit the values of a KML ground overlay.
 * [Export tiles](ArcGIS.WinUI.Viewer/Samples/Layers/ExportTiles) - Download tiles to a local tile cache file stored on the device.
@@ -217,6 +215,7 @@
 * [Get elevation at a point](ArcGIS.WinUI.Viewer/Samples/Scene/GetElevationAtPoint) - Get the elevation for a given point on a surface in a scene.
 * [Open mobile scene package](ArcGIS.WinUI.Viewer/Samples/Scene/OpenMobileScenePackage) - Opens and displays a scene from a Mobile Scene Package (.mspk).
 * [Open scene (portal item)](ArcGIS.WinUI.Viewer/Samples/Scene/OpenScenePortalItem) - Open a web scene from a portal item.
+* [Show labels on layer 3D](ArcGIS.WinUI.Viewer/Samples/Scene/ShowLabelsOnLayer3D) - Display custom labels in a 3D scene.
 * [Terrain exaggeration](ArcGIS.WinUI.Viewer/Samples/Scene/TerrainExaggeration) - Vertically exaggerate terrain in a scene.
 * [View content beneath terrain surface](ArcGIS.WinUI.Viewer/Samples/Scene/ViewContentBeneathSurface) - See through terrain in a scene and move the camera underground.
 

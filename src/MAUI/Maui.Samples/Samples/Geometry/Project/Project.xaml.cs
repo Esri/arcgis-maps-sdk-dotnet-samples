@@ -61,7 +61,7 @@ namespace ArcGIS.Samples.Project
             MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(tappedPoint));
 
             // Project the point to WGS84
-            MapPoint projectedPoint = (MapPoint)GeometryEngine.Project(tappedPoint, SpatialReferences.Wgs84);
+            MapPoint projectedPoint = (MapPoint)tappedPoint.Project(SpatialReferences.Wgs84);
 
             // Format the results in strings.
             string originalCoords = $"Original: {tappedPoint.X:F4}, {tappedPoint.Y:F4}";

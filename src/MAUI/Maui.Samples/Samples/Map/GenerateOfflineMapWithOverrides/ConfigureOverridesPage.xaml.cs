@@ -51,7 +51,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
 
             // Expand the area of interest based on the specified buffer distance.
             int bufferDistance = (int)ExtentBufferEntry.Value;
-            basemapParams.AreaOfInterest = GeometryEngine.BufferGeodetic(_areaOfInterest, bufferDistance, LinearUnits.Meters);
+            basemapParams.AreaOfInterest = _areaOfInterest.BufferGeodetic(bufferDistance, LinearUnits.Meters);
         }
 
         private void ConfigureLayerExclusion(GenerateOfflineMapParameterOverrides overrides)
@@ -169,7 +169,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
 
             // The main sample page continues when OnDisappearing is called.
             // OnDisappearing is called by Esri.ArcGISRuntime.Maui when navigation away from this page happens.
-            Navigation.PopModalAsync(true);
+            Shell.Current.Navigation.PopModalAsync(true);
         }
     }
 }

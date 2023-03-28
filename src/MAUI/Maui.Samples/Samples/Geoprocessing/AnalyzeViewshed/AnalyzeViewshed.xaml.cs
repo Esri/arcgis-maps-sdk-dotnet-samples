@@ -78,7 +78,7 @@ namespace ArcGIS.Samples.AnalyzeViewshed
             // Normalize the geometry if wrap-around is enabled.
             //    This is necessary because of how wrapped-around map coordinates are handled by Runtime.
             //    Without this step, the task may fail because wrapped-around coordinates are out of bounds.
-            if (MyMapView.IsWrapAroundEnabled) { geometry = (MapPoint)GeometryEngine.NormalizeCentralMeridian(geometry); }
+            if (MyMapView.IsWrapAroundEnabled) { geometry = (MapPoint)geometry.NormalizeCentralMeridian(); }
 
             try
             {

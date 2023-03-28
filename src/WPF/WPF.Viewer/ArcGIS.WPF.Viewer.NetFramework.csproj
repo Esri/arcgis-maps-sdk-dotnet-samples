@@ -135,6 +135,23 @@
     <Content Include="Samples\*\*\*.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\arrow.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\brush.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\circle.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\clear.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\edit.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\ellipse.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\freehand-polyline.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\multipoint.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\point.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\polygon.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\polyline.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\rectangle.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\redo.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\save.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\trash-can-outline.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\triangle.png" />
+    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\undo.png" />
     <Page Include="Samples\**\*.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
@@ -148,6 +165,7 @@
     <Content Include="Resources\hide-header.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Resources\Fonts\calcite-ui-icons-24.ttf" />
     <Resource Include="Assets\**\*.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-256.ico" />
     <None Include="Properties\Settings.settings">
@@ -286,8 +304,9 @@
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="200.0.0" />
     <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.0.0" />
     <PackageReference Include="Markdig" Version="0.30.2" />
-    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="4.5.3" />
-    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="4.5.3" />
+    <PackageReference Include="System.Text.Json">
+      <Version>7.0.1</Version>
+    </PackageReference>
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />

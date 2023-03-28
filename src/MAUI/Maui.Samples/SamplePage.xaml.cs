@@ -7,6 +7,15 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+#if WINDOWS
+        using uiXaml =  Microsoft.UI.Xaml;
+        using System.Drawing;
+        using ArcGIS.Samples.Shared.Managers;
+        using System.Text.RegularExpressions;
+        using Microsoft.Maui.Graphics;
+#endif
+
+using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -48,6 +57,20 @@ namespace ArcGIS
 
             // Update the content - this displays the sample.
             SampleContentPage.Content = sample.Content;
+
+#if WINDOWS
+            if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
+            {
+                var screenshotToolbarItem = new ToolbarItem();
+                screenshotToolbarItem.Clicked += ScreenshotButton_Clicked;
+                screenshotToolbarItem.IconImageSource="camera.png";
+                screenshotToolbarItem.Text = "Screenshot";
+                ToolbarItems.Insert(0, screenshotToolbarItem);
+
+                SampleContentPage.WidthRequest = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
+                SampleContentPage.HeightRequest = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
+            }
+#endif
 
             //  Start AR
             if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
@@ -140,6 +163,8 @@ namespace ArcGIS
                 category = $"{category.Split(" ")[0]}{category.Split(" ")[1][0].ToString().ToUpper()}{category.Split(" ")[1].Substring(1)}";
             }
 
+            var manifestResourceNames = _assembly.GetManifestResourceNames();
+
             string readmeResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{category}.{sampleInfo.FormalName}.readme.md"));
             string readmeContent = new StreamReader(_assembly.GetManifestResourceStream(readmeResource)).ReadToEnd();
             readmeContent = Markdig.Markdown.ToHtml(readmeContent);
@@ -155,6 +180,7 @@ namespace ArcGIS
 #endif
 
             // Convert the image into a string of bytes to embed into the html.
+            var resources = _assembly.GetManifestResourceNames();
             string imageResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.FormalName}.jpg"));
             var sourceStream = _assembly.GetManifestResourceStream(imageResource);
             var memoryStream = new MemoryStream();
@@ -166,7 +192,6 @@ namespace ArcGIS
 
             // Replace paths for image.
             readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
-
             // Build the html.
             var fullContent =
                 "<!doctype html><head><style>" +
@@ -184,6 +209,15 @@ namespace ArcGIS
                 "</body>";
 
             return fullContent;
+        }
+
+        private async Task<byte[]> ConvertImageSourceToBytesAsync(ImageSource imageSource)
+        {
+            Stream stream = await ((StreamImageSource)imageSource).Stream(CancellationToken.None);
+            byte[] bytesAvailable = new byte[stream.Length];
+            stream.Read(bytesAvailable, 0, bytesAvailable.Length);
+
+            return bytesAvailable;
         }
 
         private void LoadSourceCode(SampleInfo sampleInfo)
@@ -266,6 +300,58 @@ namespace ArcGIS
             {
             }
         }
+
+
+#if WINDOWS
+        private void ScreenshotButton_Clicked(object sender, EventArgs e)
+        {
+            SaveScreenshot(SampleContentPage);
+        }
+
+        // Code here is adapted from the following Stack Overflow answers:
+        // https://stackoverflow.com/q/24466482
+        // https://stackoverflow.com/a/15537372
+        private void SaveScreenshot(VisualElement source)
+        {
+            double scale = ScreenshotManager.ScreenshotSettings.ScaleFactor.HasValue ? ScreenshotManager.ScreenshotSettings.ScaleFactor.Value : double.NaN;
+
+            var nativeElement = (uiXaml.UIElement)source.Handler.PlatformView;
+
+            int height = (int)(source.DesiredSize.Height * scale);
+            int width = (int)(source.DesiredSize.Width * scale);
+            var visual = nativeElement.TransformToVisual(null).TransformPoint(new Windows.Foundation.Point(0, 0));
+
+            int X = (int)(visual.X * scale);
+            int Y = (int)(visual.Y * scale);
+
+            Bitmap screenshot = new Bitmap(width, height);
+            Graphics G = Graphics.FromImage(screenshot);
+            G.CopyFromScreen(X, Y, 0, 0, new System.Drawing.Size(width, height), CopyPixelOperation.SourceCopy);
+
+            // If scaling has occurred due to screen scaling we need to resize the image.
+            Bitmap resizedScreenshot = new Bitmap(screenshot, new System.Drawing.Size((int)(screenshot.Width / scale), (int)(screenshot.Height / scale)));
+
+            string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\MAUI\\MAUI.Samples\\Samples\\" +
+                $"{SampleManager.Current.SelectedSample.Category}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}\\" +
+                $"{SampleManager.Current.SelectedSample.FormalName}.jpg";
+
+            // Remove white space.
+            filePath = Regex.Replace(filePath, @"\s+", "");
+
+            try
+            {
+                System.IO.FileStream fs = System.IO.File.Open(filePath, System.IO.FileMode.OpenOrCreate);
+                resizedScreenshot.Save(fs, System.Drawing.Imaging.ImageFormat.Jpeg);
+                fs.Close();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error saving screenshot: {ex.Message}");
+            }
+        }  
+#endif
+
 
         private void SelectFile(string fileName)
         {

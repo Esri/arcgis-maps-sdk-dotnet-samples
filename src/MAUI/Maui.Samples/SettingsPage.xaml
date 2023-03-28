@@ -1,128 +1,160 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage x:Class="ArcGIS.SettingsPage"
-            xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:arcgisruntime="clr-namespace:ArcGIS"
-            xmlns:resources="clr-namespace:ArcGIS.Resources"
-            Title="Settings">
-    <TabbedPage.Children>
-        <ContentPage Title="About" IconImageSource="{AppThemeBinding Light=description.png, Dark=descriptiondark.png}">
-            <ContentPage.Content>
-                <WebView x:Name="AboutPage" />
-            </ContentPage.Content>
-        </ContentPage>
-        <ContentPage Title="Licenses" IconImageSource="{AppThemeBinding Light=documentation.png, Dark=documentationdark.png}">
-            <ContentPage.Content>
-                <WebView x:Name="LicensePage" />
-            </ContentPage.Content>
-        </ContentPage>
-        <ContentPage Title="Offline data" IconImageSource="{AppThemeBinding Light=download.png, Dark=downloaddark.png}">
-            <ContentPage.Content>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <Button Grid.Column="0"
-                                Clicked="DownloadAllClicked"
-                                Text="Download all" />
-                        <Button Grid.Column="1"
-                                Clicked="DeleteAllClicked"
-                                IsEnabled="True"
-                                IsVisible="True"
-                                Text="Delete all" />
-                        <Button x:Name="CancelButton"
-                                Grid.Column="2"
-                                Clicked="CancelClicked"
-                                IsVisible="False"
-                                Text="Cancel" />
-                    </Grid>
-                    <ListView x:Name="OfflineDataView"
-                              Grid.Row="1"
-                              SelectionMode="None">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <ViewCell>
-                                    <Grid x:Name="ListViewGrid">
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="Auto" />
-                                        </Grid.ColumnDefinitions>
-                                        <Label Grid.Column="0"
-                                               Margin="5"
-                                               Text="{Binding SampleName}"
-                                               VerticalOptions="Center" />
-                                        <ImageButton Grid.Column="1"
-                                                     Margin="5"
-                                                     Clicked="DownloadClicked"
-                                                     CommandParameter="{Binding .}"
-                                                     HeightRequest="25"
-                                                     Source="{AppThemeBinding Light=download.png,
-                                                                              Dark=downloaddark.png}"
-                                                     VerticalOptions="CenterAndExpand"
-                                                     WidthRequest="25" />
-                                        <ImageButton Grid.Column="2"
-                                                     Margin="5"
-                                                     Clicked="AGOLClicked"
-                                                     CommandParameter="{Binding .}"
-                                                     HeightRequest="25"
-                                                     Source="{AppThemeBinding Light=applications.png,
-                                                                              Dark=applicationsdark.png}"
-                                                     VerticalOptions="CenterAndExpand"
-                                                     WidthRequest="25" />
-                                        <ImageButton Grid.Column="3"
-                                                     Margin="5"
-                                                     Clicked="DeleteClicked"
-                                                     CommandParameter="{Binding .}"
-                                                     HeightRequest="25"
-                                                     IsEnabled="True"
-                                                     IsVisible="True"
-                                                     Source="{AppThemeBinding Light=trash.png,
-                                                                              Dark=trashdark.png}"
-                                                     VerticalOptions="CenterAndExpand"
-                                                     WidthRequest="25" />
-                                    </Grid>
-                                </ViewCell>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label x:Name="StatusLabel"
-                               Grid.Column="0"
-                               Margin="10"
-                               VerticalOptions="Center" />
-                        <Grid Grid.Column="1"
-                              HeightRequest="40"
-                              WidthRequest="{x:OnPlatform Android=120,
-                                                          iOS=120,
-                                                          WinUI=240,
-                                                          MacCatalyst=240}">
-                            <ProgressBar x:Name="StatusBar"
-                                         Margin="5"
-                                         IsVisible="False"
-                                         VerticalOptions="Center" />
-                            <ActivityIndicator x:Name="IndefiniteSpinner"
-                                               Margin="5"
-                                               IsRunning="true"
-                                               IsVisible="false" />
-                        </Grid>
+<ContentPage
+    x:Class="ArcGIS.SettingsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:arcgisruntime="clr-namespace:ArcGIS"
+    xmlns:controls="clr-namespace:ArcGIS.Controls"
+    xmlns:resources="clr-namespace:ArcGIS.Resources">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem
+            x:Name="AboutButton"
+            Clicked="AboutButton_Clicked"
+            IconImageSource="information.png"
+            Text="About" />
+        <ToolbarItem
+            x:Name="LicensesButton"
+            Clicked="LicensesButton_Clicked"
+            IconImageSource="documentation.png"
+            Text="Licenses" />
+        <ToolbarItem
+            x:Name="OfflineDataButton"
+            Clicked="OfflineDataButton_Clicked"
+            IconImageSource="download.png"
+            Text="Offline data" />
+        <ToolbarItem
+            x:Name="ApiKeyButton"
+            Clicked="ApiKeyButton_Clicked"
+            IconImageSource="key.png"
+            Text="API key" />
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <Border x:Name="AboutPage" IsVisible="true">
+            <WebView x:Name="AboutPageContent" />
+        </Border>
+        <Border x:Name="LicensesPage" IsVisible="false">
+            <WebView x:Name="LicensePageContent" />
+        </Border>
+        <Border x:Name="OfflineDataPage" IsVisible="false">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        Clicked="DownloadAllClicked"
+                        Text="Download all" />
+                    <Button
+                        Grid.Column="1"
+                        Clicked="DeleteAllClicked"
+                        IsEnabled="True"
+                        IsVisible="True"
+                        Text="Delete all" />
+                    <Button
+                        x:Name="CancelButton"
+                        Grid.Column="2"
+                        Clicked="CancelClicked"
+                        IsVisible="False"
+                        Text="Cancel" />
+                </Grid>
+                <ListView
+                    x:Name="OfflineDataView"
+                    Grid.Row="1"
+                    SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid x:Name="ListViewGrid">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label
+                                        Grid.Column="0"
+                                        Margin="5"
+                                        Text="{Binding SampleName}"
+                                        VerticalOptions="Center" />
+                                    <ImageButton
+                                        Grid.Column="1"
+                                        Margin="5"
+                                        Clicked="DownloadClicked"
+                                        CommandParameter="{Binding .}"
+                                        HeightRequest="25"
+                                        Source="{AppThemeBinding Light=download.png,
+                                                                 Dark=downloaddark.png}"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="25" />
+                                    <ImageButton
+                                        Grid.Column="2"
+                                        Margin="5"
+                                        Clicked="AGOLClicked"
+                                        CommandParameter="{Binding .}"
+                                        HeightRequest="25"
+                                        Source="{AppThemeBinding Light=applications.png,
+                                                                 Dark=applicationsdark.png}"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="25" />
+                                    <ImageButton
+                                        Grid.Column="3"
+                                        Margin="5"
+                                        Clicked="DeleteClicked"
+                                        CommandParameter="{Binding .}"
+                                        HeightRequest="25"
+                                        IsEnabled="True"
+                                        IsVisible="True"
+                                        Source="{AppThemeBinding Light=trash.png,
+                                                                 Dark=trashdark.png}"
+                                        VerticalOptions="CenterAndExpand"
+                                        WidthRequest="25" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Label
+                        x:Name="StatusLabel"
+                        Grid.Column="0"
+                        Margin="10"
+                        VerticalOptions="Center" />
+                    <Grid
+                        Grid.Column="1"
+                        HeightRequest="40"
+                        WidthRequest="{x:OnPlatform Android=120,
+                                                    iOS=120,
+                                                    WinUI=240,
+                                                    MacCatalyst=240}">
+                        <ProgressBar
+                            x:Name="StatusBar"
+                            Margin="5"
+                            IsVisible="False"
+                            VerticalOptions="Center" />
+                        <ActivityIndicator
+                            x:Name="IndefiniteSpinner"
+                            Margin="5"
+                            IsRunning="true"
+                            IsVisible="false" />
                     </Grid>
                 </Grid>
-            </ContentPage.Content>
-        </ContentPage>
-        <arcgisruntime:ApiKeyPrompt Title="API Key" IconImageSource="{AppThemeBinding Light=key.png, Dark=keydark.png}" />
-    </TabbedPage.Children>
-</TabbedPage>
+            </Grid>
+        </Border>
+        <arcgisruntime:ApiKeyView x:Name="ApiKeyPage" IsVisible="false" />
+        <arcgisruntime:ScreenshotView x:Name="ScreenshotPage" IsVisible="false" />
+    </Grid>
+</ContentPage>

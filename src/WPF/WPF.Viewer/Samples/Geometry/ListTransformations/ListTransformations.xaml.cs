@@ -177,7 +177,7 @@ namespace ArcGIS.WPF.Samples.ListTransformations
             {
                 // Project the original point using the selected transform.
                 MapPoint projectedPoint =
-                    (MapPoint)GeometryEngine.Project(_originalPoint, MyMapView.SpatialReference, selectedTransform);
+                    (MapPoint)_originalPoint.Project(MyMapView.SpatialReference, selectedTransform);
 
                 // Update the projected graphic (if it already exists), create it otherwise.
                 if (_projectedPointGraphic != null)

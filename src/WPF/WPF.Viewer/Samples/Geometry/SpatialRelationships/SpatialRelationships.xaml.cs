@@ -177,13 +177,13 @@ namespace ArcGIS.WPF.Samples.SpatialRelationships
         private static IEnumerable<SpatialRelationship> GetSpatialRelationships(Geometry a, Geometry b)
         {
             List<SpatialRelationship> relationships = new List<SpatialRelationship>();
-            if (GeometryEngine.Crosses(a, b)) { relationships.Add(SpatialRelationship.Crosses); }
-            if (GeometryEngine.Contains(a, b)) { relationships.Add(SpatialRelationship.Contains); }
-            if (GeometryEngine.Disjoint(a, b)) { relationships.Add(SpatialRelationship.Disjoint); }
-            if (GeometryEngine.Intersects(a, b)) { relationships.Add(SpatialRelationship.Intersects); }
-            if (GeometryEngine.Overlaps(a, b)) { relationships.Add(SpatialRelationship.Overlaps); }
-            if (GeometryEngine.Touches(a, b)) { relationships.Add(SpatialRelationship.Touches); }
-            if (GeometryEngine.Within(a, b)) { relationships.Add(SpatialRelationship.Within); }
+            if (a.Crosses(b)) { relationships.Add(SpatialRelationship.Crosses); }
+            if (a.Contains(b)) { relationships.Add(SpatialRelationship.Contains); }
+            if (a.Disjoint(b)) { relationships.Add(SpatialRelationship.Disjoint); }
+            if (a.Intersects(b)) { relationships.Add(SpatialRelationship.Intersects); }
+            if (a.Overlaps(b)) { relationships.Add(SpatialRelationship.Overlaps); }
+            if (a.Touches(b)) { relationships.Add(SpatialRelationship.Touches); }
+            if (a.Within(b)) { relationships.Add(SpatialRelationship.Within); }
             return relationships;
         }
     }

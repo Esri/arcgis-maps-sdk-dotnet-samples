@@ -42,8 +42,8 @@
   </PropertyGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <PropertyGroup>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <ProjectGuid>13a60801-7b9a-4573-923f-9f2373e8bf84</ProjectGuid>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
     <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
@@ -58,6 +58,8 @@
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
     <GenerateTestArtifacts>True</GenerateTestArtifacts>
     <HoursBetweenUpdateChecks>0</HoursBetweenUpdateChecks>
+    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+    <EntryPointProjectUniqueName>..\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj</EntryPointProjectUniqueName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <AppxBundle>Never</AppxBundle>
@@ -161,8 +163,4 @@
     <Content Include="Images\Wide310x150Logo.scale-400.png" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
-  <PropertyGroup>
-    <ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
-    <EntryPointProjectUniqueName>..\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj</EntryPointProjectUniqueName>
-  </PropertyGroup>
 </Project>

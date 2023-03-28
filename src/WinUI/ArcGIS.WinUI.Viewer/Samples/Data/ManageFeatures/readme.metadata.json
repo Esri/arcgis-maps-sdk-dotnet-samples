@@ -1,0 +1,42 @@
+{
+    "category": "Data",
+    "description": "Manage a feature layer's features in four distinct ways.",
+    "formal_name": "ManageFeatures",
+    "ignore": false,
+    "images": [
+        "ManageFeatures.jpg"
+    ],
+    "keywords": [
+        "amend",
+        "attribute",
+        "deletion",
+        "details",
+        "edit",
+        "editing",
+        "feature",
+        "feature layer",
+        "feature table",
+        "information",
+        "moving",
+        "online service",
+        "service",
+        "updating",
+        "value"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/managefeatures.htm"
+    ],
+    "relevant_apis": [
+        "Feature",
+        "FeatureEditResult",
+        "FeatureLayer",
+        "ServiceFeatureTable",
+        "ServiceGeodatabase"
+    ],
+    "snippets": [
+        "ManageFeatures.xaml",
+        "ManageFeatures.xaml.cs"
+    ],
+    "title": "Manage features"
+}

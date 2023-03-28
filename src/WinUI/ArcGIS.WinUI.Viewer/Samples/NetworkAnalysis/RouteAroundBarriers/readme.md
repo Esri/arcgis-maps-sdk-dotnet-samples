@@ -26,7 +26,7 @@ Click 'Add stop' to add stops to the route. Click 'Add barrier' to add areas tha
     5. Add the graphic to the stops graphics overlay.
 4. When the user adds a barrier, create a polygon barrier and add it to the route parameters.
     1. Normalize the geometry (see **3i** above).
-    2. Buffer the geometry to create a larger barrier from the tapped point by calling `GeometryEngine.BufferGeodetic(mapLocation, 500, LinearUnits.Meters)`.
+    2. Buffer the geometry to create a larger barrier from the tapped point by calling `mapLocation.BufferGeodetic(500, LinearUnits.Meters)`.
     3. Create the graphic from the geometry and the symbol.
     4. Add the graphic to the barriers overlay.
 5. When ready to find the route, configure the route parameters.

@@ -45,6 +45,9 @@ namespace ArcGIS.Samples.SpatialOperations
 
         private void Initialize()
         {
+            // Fill the combo box with some spatial operations to run on the polygon graphics.
+            SpatialOperationComboBox.ItemsSource = new string[] { "Difference", "Intersection", "Symmetric difference", "Union" };
+
             // Create the map with a gray canvas basemap and an initial location centered on London, UK.
             Map myMap = new Map(BasemapStyle.ArcGISLightGray);
             myMap.InitialViewpoint = new Viewpoint(51.5017, -0.12714, 20000);
@@ -54,12 +57,6 @@ namespace ArcGIS.Samples.SpatialOperations
 
             // Create and add two overlapping polygon graphics to operate on.
             CreatePolygonsOverlay();
-
-            // Fill the combo box with some spatial operations to run on the polygon graphics.
-            SpatialOperationComboBox.Items.Add("Difference");
-            SpatialOperationComboBox.Items.Add("Intersection");
-            SpatialOperationComboBox.Items.Add("Symmetric difference");
-            SpatialOperationComboBox.Items.Add("Union");
         }
 
         // Handle the spatial operation selection by performing the operation and showing the result polygon.
@@ -83,19 +80,19 @@ namespace ArcGIS.Samples.SpatialOperations
             switch (operation)
             {
                 case "Union":
-                    resultPolygon = GeometryEngine.Union(polygonOne, polygonTwo);
+                    resultPolygon = polygonOne.Union(polygonTwo);
                     break;
 
                 case "Difference":
-                    resultPolygon = GeometryEngine.Difference(polygonOne, polygonTwo);
+                    resultPolygon = polygonOne.Difference(polygonTwo);
                     break;
 
                 case "Symmetric difference":
-                    resultPolygon = GeometryEngine.SymmetricDifference(polygonOne, polygonTwo);
+                    resultPolygon = polygonOne.SymmetricDifference(polygonTwo);
                     break;
 
                 case "Intersection":
-                    resultPolygon = GeometryEngine.Intersection(polygonOne, polygonTwo);
+                    resultPolygon = polygonOne.Intersection(polygonTwo);
                     break;
             }
 

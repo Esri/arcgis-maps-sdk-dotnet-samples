@@ -176,8 +176,8 @@ namespace ArcGIS.Samples.TraceUtilityNetwork
                     // Compute how far tapped location is along the edge feature.
                     if (feature.Geometry is Polyline line)
                     {
-                        line = GeometryEngine.RemoveZ(line) as Polyline;
-                        double fraction = GeometryEngine.FractionAlong(line, e.Location, -1);
+                        line = line.RemoveZ() as Polyline;
+                        double fraction = line.FractionAlong(e.Location, -1);
                         if (double.IsNaN(fraction)) { return; }
                         element.FractionAlongEdge = fraction;
                         Status.Text = $"Fraction along edge: {element.FractionAlongEdge}";

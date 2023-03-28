@@ -72,7 +72,7 @@ namespace ArcGIS.WPF.Samples.AddEncExchangeSet
                 }
 
                 // Use the geometry engine to compute the full extent of the ENC Exchange Set
-                Envelope fullExtent = GeometryEngine.CombineExtents(dataSetExtents);
+                Envelope fullExtent = dataSetExtents.CombineExtents();
 
                 // Set the viewpoint
                 await MyMapView.SetViewpointAsync(new Viewpoint(fullExtent));

@@ -101,13 +101,13 @@ namespace ArcGIS.Samples.RouteAroundBarriers
         private async Task HandleMapTap(MapPoint mapLocation)
         {
             // Normalize geometry - important for geometries that will be sent to a server for processing.
-            mapLocation = (MapPoint)GeometryEngine.NormalizeCentralMeridian(mapLocation);
+            mapLocation = (MapPoint)mapLocation.NormalizeCentralMeridian();
 
             switch (_currentSampleState)
             {
                 case SampleState.AddingBarriers:
                     // Buffer the tapped point to create a larger barrier.
-                    Geometry bufferedGeometry = GeometryEngine.BufferGeodetic(mapLocation, 500, LinearUnits.Meters);
+                    Geometry bufferedGeometry = mapLocation.BufferGeodetic(500, LinearUnits.Meters);
 
                     // Create the graphic to show the barrier.
                     Graphic barrierGraphic = new Graphic(bufferedGeometry, _barrierSymbol);

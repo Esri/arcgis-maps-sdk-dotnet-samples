@@ -266,8 +266,8 @@ namespace ArcGIS.WPF.Samples.PerformValveIsolationTrace
                     if (feature.Geometry is Polyline line)
                     {
                         // Remove elevation data, FractionAlong only supports 2D lines.
-                        line = GeometryEngine.RemoveZ(line) as Polyline;
-                        double fraction = GeometryEngine.FractionAlong(line, e.Location, -1);
+                        line = line.RemoveZ() as Polyline;
+                        double fraction = line.FractionAlong(e.Location, -1);
 
                         // Check for rare edge case where the fraction is invalid.
                         if (double.IsNaN(fraction)) { return; }

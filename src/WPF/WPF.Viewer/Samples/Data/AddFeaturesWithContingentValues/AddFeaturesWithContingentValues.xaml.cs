@@ -134,7 +134,7 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithContingentValues
                 foreach (Feature feature in results.ToList())
                 {
                     double bufferDistance = Convert.ToDouble(feature.GetAttributeValue("BufferSize"));
-                    Geometry buffer = GeometryEngine.Buffer(feature.Geometry, bufferDistance);
+                    Geometry buffer = feature.Geometry.Buffer(bufferDistance);
                     MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(buffer));
                 }
             }
@@ -152,7 +152,7 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithContingentValues
                 _newFeature = (ArcGISFeature)_geodatabaseFeatureTable.CreateFeature();
 
                 // Get the normalized geometry for the tapped location and use it as the feature's geometry.
-                MapPoint tappedPoint = (MapPoint)GeometryEngine.NormalizeCentralMeridian(e.Location);
+                MapPoint tappedPoint = (MapPoint)e.Location.NormalizeCentralMeridian();
                 _newFeature.Geometry = tappedPoint;
 
                 // Add the feature to the table.

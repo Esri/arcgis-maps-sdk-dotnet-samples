@@ -1,0 +1,9 @@
+﻿<UserControl
+    x:Class="ArcGIS.WPF.Samples.ShowLabelsOnLayer3D.ShowLabelsOnLayer3D"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+
+    <esri:SceneView x:Name="MySceneView" />
+
+</UserControl>

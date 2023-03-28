@@ -196,7 +196,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
                 };
 
                 // Show the configuration UI.
-                await Application.Current.MainPage.Navigation.PushModalAsync(configurationPage, true);
+                await Shell.Current.Navigation.PushModalAsync(configurationPage, true);
             }
             catch (TaskCanceledException)
             {

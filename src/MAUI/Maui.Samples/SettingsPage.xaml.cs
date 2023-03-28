@@ -10,12 +10,14 @@
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
 using Esri.ArcGISRuntime;
+using Microsoft.Maui.ApplicationModel;
 using System.Diagnostics;
 using System.Reflection;
 
 namespace ArcGIS
 {
-    public partial class SettingsPage : TabbedPage
+    [XamlCompilation(XamlCompilationOptions.Compile)]
+    public partial class SettingsPage : ContentPage
     {
         private CancellationTokenSource _cancellationTokenSource;
         private List<SampleInfo> OfflineDataSamples;
@@ -76,18 +78,35 @@ namespace ArcGIS
                 viewportHTML +
 #endif
                 $"</head><body class=\"markdown-body\">{Markdig.Markdown.ToHtml(licenseString)}</body>";
-            LicensePage.Source = new HtmlWebViewSource() { Html = licenseHTML };
+            LicensePageContent.Source = new HtmlWebViewSource() { Html = licenseHTML };
 
             string aboutHTML = htmlStart +
 #if IOS
                 viewportHTML +
 #endif
                 $"</head><body class=\"markdown-body\">{Markdig.Markdown.ToHtml(aboutString)}{versionNumber}</body>";
-            AboutPage.Source = new HtmlWebViewSource() { Html = aboutHTML };
+            AboutPageContent.Source = new HtmlWebViewSource() { Html = aboutHTML };
 
             // Add an event handler for hyperlinks in the web views.
-            AboutPage.Navigating += HyperlinkClicked;
-            LicensePage.Navigating += HyperlinkClicked;
+            AboutPageContent.Navigating += HyperlinkClicked;
+            LicensePageContent.Navigating += HyperlinkClicked;
+
+#if WINDOWS
+            AppTheme currentTheme = Application.Current.RequestedTheme; 
+
+            var screenshotTab = new ToolbarItem();
+            screenshotTab.Clicked += ScreenshotButton_Clicked;
+            screenshotTab.Text = "Screenshot settings";
+            screenshotTab.IconImageSource = "camera.png";
+
+            ToolbarItems.Add(screenshotTab);
+#endif
+
+#if WINDOWS || MACCATALYST
+            Title = "Settings > About";
+#else
+            Title = "About";
+#endif
         }
 
         private async void HyperlinkClicked(object sender, WebNavigatingEventArgs e)
@@ -305,6 +324,69 @@ namespace ArcGIS
                     StatusBar.ProgressTo(progress, 10, Easing.Linear);
                 }
             });
+        }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            _ = Navigation.PopAsync();
+        }
+
+        private void AboutButton_Clicked(object sender, EventArgs e)
+        {
+            AboutPage.IsVisible = true;
+            LicensesPage.IsVisible = OfflineDataPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
+
+#if WINDOWS || MACCATALYST
+            Title = "Settings > About";
+#else
+            Title = "About";
+#endif
+        }
+
+        private void LicensesButton_Clicked(object sender, EventArgs e)
+        {
+            LicensesPage.IsVisible = true;
+            AboutPage.IsVisible = OfflineDataPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
+
+#if WINDOWS || MACCATALYST
+            Title = "Settings > Licenses";
+#else
+            Title = "Licenses";
+#endif
+        }
+
+        private void OfflineDataButton_Clicked(object sender, EventArgs e)
+        {
+            OfflineDataPage.IsVisible = true;
+            AboutPage.IsVisible = LicensesPage.IsVisible = ApiKeyPage.IsVisible = ScreenshotPage.IsVisible = false;
+
+#if WINDOWS || MACCATALYST
+            Title = "Settings > Offline data";
+#else
+            Title = "Offline data";
+#endif
+        }
+
+        private void ApiKeyButton_Clicked(object sender, EventArgs e)
+        {
+            ApiKeyPage.IsVisible = true;
+            AboutPage.IsVisible = LicensesPage.IsVisible = ScreenshotPage.IsVisible = OfflineDataPage.IsVisible = false;
+
+#if WINDOWS || MACCATALYST
+            Title = "Settings > API Key";
+#else
+            Title = "API key";
+#endif
+        }
+
+        private void ScreenshotButton_Clicked(object sender, EventArgs e)
+        {
+            ScreenshotPage.IsVisible = true;
+            AboutPage.IsVisible = LicensesPage.IsVisible = ApiKeyPage.IsVisible = OfflineDataPage.IsVisible = false;
+
+            Title = "Settings > Screenshot tool";
         }
     }
 }

@@ -16,7 +16,7 @@ Choose phases to be included in the report. Click 'Run Report' to initiate a dow
 
 1. Create and load a `UtilityNetwork` with a feature service URL, then get an asset type, tier, network attributes, and category by their names.
 2. Create a `UtilityElement` from the asset type to use as the starting location for the trace.
-3. Get a base condition from the `UtilityTier.traceConfiguration.traversability.barriers`.
+3. Get a base condition from the `UtilityTier.TraceConfiguration.Traversability.Barriers`.
 4. Create `UtilityTraceParameters` passing in `UtilityTraceType.downstream` and the default starting location. Set its `UtilityTraceConfiguration` with the `UtilityTier.traceConfiguration`.
 5. Create a `UtilityCategoryComparison` where `"Service Point"` category exists.
 6. Reset `UtilityTraceConfiguration.functions` with a new `UtilityTraceFunction` adding a `Service Load` network attribute where this category comparison applies. This will limit the function results.

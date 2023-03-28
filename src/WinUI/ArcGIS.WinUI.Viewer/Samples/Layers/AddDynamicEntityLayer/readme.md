@@ -2,7 +2,7 @@
 
 Display data from an ArcGIS stream service using a dynamic entity layer.
 
-![Image of display dynamic entity layer](DisplayDynamicEntityLayer.jpg)
+![Image of display dynamic entity layer](AddDynamicEntityLayer.jpg)
 
 ## Use case
 

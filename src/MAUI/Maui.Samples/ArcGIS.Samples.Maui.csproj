@@ -136,7 +136,7 @@
       <PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
       <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.0.0" />
-      <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="200.0.0" />
+      <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="200.1.0-daily3828" />
       <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" Version="200.0.0" />
       <PackageReference Include="Markdig" Version="0.30.4" />
       <PackageReference Include="System.Drawing.Common" Version="7.0.0" />

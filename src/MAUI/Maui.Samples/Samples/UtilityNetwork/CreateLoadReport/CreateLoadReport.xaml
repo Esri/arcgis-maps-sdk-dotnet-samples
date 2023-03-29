@@ -7,35 +7,50 @@
     <Border Style="{DynamicResource EsriSampleControlPanel}">
         <VerticalStackLayout Spacing="5">
             <Label Text="Add phases from the dropdown list, then run report." />
-            <Picker x:Name="PhasesList" ItemDisplayBinding="{Binding Name}" />
-            <Button Clicked="OnAddPhase" Text="Add" />
+            <HorizontalStackLayout Spacing="5">
+                <Picker x:Name="PhasesList" ItemDisplayBinding="{Binding Name}" WidthRequest="150" />
+                <Button Clicked="OnAddPhase" Text="Add"/>
+            </HorizontalStackLayout>
             <Label x:Name="Phases"
                    BackgroundColor="{AppThemeBinding Dark=Gray}"
                    HorizontalTextAlignment="Center" />
-            <Button Clicked="RunReportButton_Clicked" Text="Run Report" />
-            <Button Clicked="OnReset" Text="Reset" />
+            <HorizontalStackLayout Spacing="5">
+                <Button Clicked="RunReportButton_Clicked" Text="Run Report" />
+                <Button Clicked="OnReset" Text="Reset" />
+            </HorizontalStackLayout>
             <CollectionView x:Name="ReportView"
-                            Margin="0,10,0,0"
-                            BackgroundColor="{AppThemeBinding Dark=Gray}">
+                            Margin="0,5,0,0"
+                            BackgroundColor="{AppThemeBinding Dark=Gray}"
+                            HeightRequest="150"
+                            VerticalScrollBarVisibility="Default">
                 <CollectionView.Header>
-                    <Grid ColumnSpacing="10" HorizontalOptions="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <Label Grid.Column="0" Text="Phase" />
-                        <Label Grid.Column="1" Text="Total Customers" />
-                        <Label Grid.Column="2" Text="Total Load" />
+                    <Grid ColumnDefinitions="Auto, Auto, Auto"
+                          ColumnSpacing="25"
+                          HorizontalOptions="Center">
+                        <Label Grid.Column="0"
+                               FontAttributes="Bold"
+                               Text="Phase" />
+                        <Label Grid.Column="1"
+                               FontAttributes="Bold"
+                               Text="Total Customers" />
+                        <Label Grid.Column="2"
+                               FontAttributes="Bold"
+                               Text="Total Load" />
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <HorizontalStackLayout HorizontalOptions="Center" Spacing="50">
-                            <Label FontSize="Medium" Text="{Binding Phase}" />
-                            <Label FontSize="Medium" Text="{Binding TotalCustomers}" />
-                            <Label FontSize="Medium" Text="{Binding TotalLoad}" />
-                        </HorizontalStackLayout>
+                        <Grid Margin="5"
+                              ColumnDefinitions="100, 50, 175"
+                              HorizontalOptions="Center">
+                            <Label Text="{Binding Phase}" />
+                            <Label Grid.Column="1"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding TotalCustomers}" />
+                            <Label Grid.Column="2"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding TotalLoad}" />
+                        </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

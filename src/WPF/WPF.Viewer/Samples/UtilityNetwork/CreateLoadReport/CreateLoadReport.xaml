@@ -1,0 +1,77 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.CreateLoadReport.CreateLoadReport"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*" />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0" Background="LightGray">
+            <TextBlock FontSize="20"
+                       Text="1. Select a phase type using the dropdown"
+                       TextWrapping="Wrap" />
+            <TextBlock FontSize="20" Text="2. Click 'Add'" />
+            <TextBlock FontSize="20"
+                       Text="3. When finished adding, click 'Run Report'"
+                       TextWrapping="Wrap" />
+            <ComboBox x:Name="PhasesList"
+                      HorizontalAlignment="Stretch"
+                      FontSize="20">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button HorizontalAlignment="Stretch"
+                    Click="OnAddPhase"
+                    Content="Add"
+                    FontSize="20" />
+            <TextBlock x:Name="Phases"
+                       HorizontalAlignment="Center"
+                       FontSize="20" />
+            <Button Grid.Row="1"
+                    Grid.Column="0"
+                    HorizontalAlignment="Stretch"
+                    Click="RunReportButton_Clicked"
+                    Content="Run Report"
+                    FontSize="20" />
+            <Button Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    Click="OnReset"
+                    Content="Reset"
+                    FontSize="20" />
+        </StackPanel>
+        <ListView x:Name="ReportView"
+                  Grid.Column="1"
+                  AlternationCount="2">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="100" Header="Phase">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Phase}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="Total Customers">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TotalCustomers}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Width="100" Header="Total Load">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TotalLoad}" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</UserControl>

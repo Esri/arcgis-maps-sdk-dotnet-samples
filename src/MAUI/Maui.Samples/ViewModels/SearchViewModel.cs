@@ -5,6 +5,7 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reflection;
+using System.Text.RegularExpressions;
 
 namespace ArcGIS.ViewModels
 {
@@ -33,6 +34,10 @@ namespace ArcGIS.ViewModels
             }
             else
             {
+                // Remove punctuation from the search text and any trailing white space at the end. 
+                Regex regex = new Regex("[^a-zA-Z0-9 -]");
+                searchTerm = regex.Replace(searchTerm, "");
+                
                 searchTerm = searchTerm.TrimEnd();
 
                 var allSamples = SampleManager.Current.AllSamples.ToList();

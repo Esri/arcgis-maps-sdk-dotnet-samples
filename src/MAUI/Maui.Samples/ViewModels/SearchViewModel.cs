@@ -33,6 +33,8 @@ namespace ArcGIS.ViewModels
             }
             else
             {
+                searchTerm = searchTerm.TrimEnd();
+
                 var allSamples = SampleManager.Current.AllSamples.ToList();
                 string searchText = searchTerm.ToLower();
 
@@ -45,12 +47,12 @@ namespace ArcGIS.ViewModels
                 {
                     var searchResults = new ObservableCollection<SearchResultViewModel>();
 
-                    SearchItems.Clear();
-
                     foreach (var sampleResult in sampleResults)
                     {
-                        SearchItems.Add(new SearchResultViewModel(sampleResult));
+                        searchResults.Add(new SearchResultViewModel(sampleResult));
                     }
+
+                    SearchItems = searchResults;
                 }
                 catch (Exception ex)
                 {

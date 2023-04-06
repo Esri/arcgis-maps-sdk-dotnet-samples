@@ -60,11 +60,12 @@ namespace ArcGIS.Samples.Shared.Models
 
         public string Instructions { get; set; }
 
-        public bool IsFavorite { get; set; }
-
-        public bool ShowFavoriteIcon
-        {
-            get { return _showFavoriteIcon; }
+        public bool IsFavorite 
+        { 
+            get
+            { 
+                return _showFavoriteIcon; 
+            }
             set
             {
 #if (__IOS__ || __ANDROID__)
@@ -73,12 +74,12 @@ namespace ArcGIS.Samples.Shared.Models
                 }
 #else
                 {
-                _showFavoriteIcon=IsFavorite;
+                    _showFavoriteIcon = value;
                 }
 #endif
-
             }
         }
+
         /// <summary>
         /// A list of offline data items that should be downloaded
         /// from ArcGIS Online prior to loading the sample. These

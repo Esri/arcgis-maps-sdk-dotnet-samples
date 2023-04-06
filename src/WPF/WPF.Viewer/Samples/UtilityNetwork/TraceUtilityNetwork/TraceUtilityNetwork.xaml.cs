@@ -19,8 +19,8 @@ namespace ArcGIS.WPF.Samples.TraceUtilityNetwork
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Trace utility network",
         category: "Utility network",
-        description: "Discover connected features in a utility network using connected, connected with aggregated geometry, subnetwork, upstream, and downstream traces.",
-        instructions: "Tap on one or more features while 'Add starting locations' or 'Add barriers' is selected. When a junction feature is identified, you may be prompted to select a terminal. When an edge feature is identified, the distance from the tapped location to the beginning of the edge feature will be computed. Select the type of trace using the drop down menu. Click 'Trace' to initiate a trace on the network. Click 'Reset' to clear the trace parameters and start over.",
+        description: "Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.",
+        instructions: "Select a trace configuration from the menu. Tap on features after pressing 'Add starting point' button. Delete unwanted starting points by pressing the corresponding trash icon. Press 'Run trace' to initiate a trace on the network. View the results, then 'Clear results' to start over.",
         tags: new[] { "condition barriers", "downstream trace", "network analysis", "subnetwork trace", "trace configuration", "traversability", "upstream trace", "utility network", "validate consistency" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class TraceUtilityNetwork : UserControl

@@ -69,9 +69,7 @@
                                                                    iOS=40,
                                                                    Android=40}"
                                         HorizontalOptions="Start"
-                                        IsVisible="{OnPlatform iOS=true,
-                                                               Android=true,
-                                                               Default={Binding IsFavorite}}"
+                                        IsVisible="{Binding ShowFavoriteIcon}"
                                         Source="{Binding IsFavorite, Converter={StaticResource BoolToImageSourceConverter}}"
                                         VerticalOptions="Start"
                                         WidthRequest="{OnPlatform Default=25,

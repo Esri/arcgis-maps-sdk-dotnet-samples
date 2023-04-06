@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGIS.Samples.Shared.Attributes;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -18,6 +19,7 @@ namespace ArcGIS.Samples.Shared.Models
 {
     public partial class SampleInfo
     {
+        private bool _showFavoriteIcon;
 #if NETFX_CORE
         private string _pathStub = Windows.ApplicationModel.Package.Current.Installed­Location.Path;
 #else
@@ -61,6 +63,23 @@ namespace ArcGIS.Samples.Shared.Models
 
         public bool IsFavorite { get; set; }
 
+        public bool ShowFavoriteIcon
+        {
+            get { return _showFavoriteIcon; }
+            set
+            {
+#if (__IOS__ || __ANDROID__)
+                {
+                    _showFavoriteIcon = true;
+                }
+#else
+                {
+                _showFavoriteIcon=IsFavorite;
+                }
+#endif
+
+            }
+        }
         /// <summary>
         /// A list of offline data items that should be downloaded
         /// from ArcGIS Online prior to loading the sample. These

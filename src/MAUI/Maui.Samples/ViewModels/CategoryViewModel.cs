@@ -80,6 +80,7 @@ namespace ArcGIS.ViewModels
             Description = sampleInfo.Description;
             SampleImageName = sampleInfo.SampleImageName;
             IsFavorite = sampleInfo.IsFavorite;
+            ShowFavoriteIcon=sampleInfo.ShowFavoriteIcon;
             SampleImageWidth = sampleImageWidth;
             SampleImageHeight = sampleImageHeight;
         }
@@ -95,6 +96,9 @@ namespace ArcGIS.ViewModels
 
         [ObservableProperty]
         bool _isFavorite;
+
+        [ObservableProperty]
+        bool _showFavoriteIcon;
 
         [ObservableProperty]
         string _sampleImageName;

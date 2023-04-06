@@ -21,7 +21,7 @@
 
     <ContentPage.Resources>
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
-        <converters:BoolToFavoriteGlyphConverter x:Key="BoolToFavoriteGlyphConverter" />
+        <converters:BoolToImageSourceConverter x:Key="BoolToImageSourceConverter" />
     </ContentPage.Resources>
     <Grid x:Name="SampleListGrid">
         <ScrollView x:Name="SampleScrollView" HorizontalOptions="Center">
@@ -53,28 +53,28 @@
                                     <Image
                                         Grid.Row="0"
                                         HeightRequest="{Binding SampleImageHeight}"
-                                        Source="{Binding SampleImageName}"
+                                        Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
                                         WidthRequest="{Binding SampleImageWidth}" />
-
-                                    <Button FontFamily="calcite-ui-icons-24"
-                                        Text="{Binding IsFavorite, Converter={StaticResource BoolToFavoriteGlyphConverter}}"
+                                    <ImageButton
                                         x:Name="FavoriteButton"
                                         Grid.Row="0"
-                                        Margin="5"
+                                        Margin="1,0"
                                         Padding="1"
                                         Background="#A52F2F2F"
+                                        BorderColor="Black"
+                                        BorderWidth="1"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
                                         CommandParameter="{Binding SampleFormalName}"
+                                        HeightRequest="{OnPlatform Default=25,
+                                                                   iOS=40,
+                                                                   Android=40}"
                                         HorizontalOptions="Start"
-                                        TextColor="Yellow" 
-                                        IsVisible="{OnPlatform iOS=true,
-                                                               Android=true,
-                                                               Default={Binding IsFavorite}}"
+                                        IsVisible="{Binding ShowFavoriteIcon}"
+                                        Source="{Binding IsFavorite, Converter={StaticResource BoolToImageSourceConverter}}"
                                         VerticalOptions="Start"
-                                        FontSize="{OnPlatform Default=25,
+                                        WidthRequest="{OnPlatform Default=25,
                                                                   iOS=40,
                                                                   Android=40}" />
-
                                     <Grid
                                         Grid.Row="0"
                                         BackgroundColor="#A52F2F2F"

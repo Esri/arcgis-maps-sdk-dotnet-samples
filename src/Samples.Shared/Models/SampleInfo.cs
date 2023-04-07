@@ -8,7 +8,6 @@
 // language governing permissions and limitations under the License.
 
 using ArcGIS.Samples.Shared.Attributes;
-using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

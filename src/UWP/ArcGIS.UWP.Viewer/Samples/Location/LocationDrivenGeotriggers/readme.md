@@ -39,7 +39,7 @@ Observe a virtual walking tour of the Santa Barbara Botanic Garden. Information 
 
 ## About the data
 
-This sample uses the [Santa Barbara Botanic Garden Geotriggers Sample](https://arcgisruntime.maps.arcgis.com/home/item.html?id=6ab0e91dc39e478cae4f408e1a36a308) ArcGIS Online Web Map which includes a georeferenced map of the garden as well as select polygon and point features to denote garden sections and points of interest. Description text and attachment images in the feature layers were provided by the Santa Barbara Botanic Garden and more information can be found on the [Garden Sections & Displays](https://www.sbbg.org/explore-garden/garden-sections-displays) portion of their website. All assets are used with permission from the Santa Barbara Botanic Garden. For more information, visit the [Santa Barbara Botanic Garden](https://www.sbbg.org) website.
+This sample uses the [Santa Barbara Botanic Garden Geotriggers Sample](https://arcgisruntime.maps.arcgis.com/home/item.html?id=6ab0e91dc39e478cae4f408e1a36a308) ArcGIS Online Web Map which includes a georeferenced map of the garden as well as select polygon and point features to denote garden sections and points of interest. Description text and attachment images in the feature layers were provided by the Santa Barbara Botanic Garden and more information can be found on the [Explore > Sections](https://sbbotanicgarden.org/explore/sections/) portion of their website. All assets are used with permission from the Santa Barbara Botanic Garden. For more information, visit the [Santa Barbara Botanic Garden](https://sbbotanicgarden.org/) website.
 
 ## Tags
 

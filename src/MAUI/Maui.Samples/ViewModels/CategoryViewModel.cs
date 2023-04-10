@@ -67,6 +67,8 @@ namespace ArcGIS.ViewModels
             {
                 SamplesItems.Remove(sample);
             }
+
+            
         }
     }
 
@@ -80,6 +82,7 @@ namespace ArcGIS.ViewModels
             Description = sampleInfo.Description;
             SampleImageName = sampleInfo.SampleImageName;
             IsFavorite = sampleInfo.IsFavorite;
+            ShowFavoriteIcon = sampleInfo.ShowFavoriteIcon;
             SampleImageWidth = sampleImageWidth;
             SampleImageHeight = sampleImageHeight;
         }

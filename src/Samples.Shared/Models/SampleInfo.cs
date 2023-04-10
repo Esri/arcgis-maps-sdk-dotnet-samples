@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Attributes;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,6 @@ namespace ArcGIS.Samples.Shared.Models
 {
     public partial class SampleInfo
     {
-        private bool _showFavoriteIcon;
 #if NETFX_CORE
         private string _pathStub = Windows.ApplicationModel.Package.Current.Installed­Location.Path;
 #else
@@ -60,24 +60,20 @@ namespace ArcGIS.Samples.Shared.Models
 
         public string Instructions { get; set; }
 
-        public bool IsFavorite 
-        { 
+        public bool IsFavorite { get; set; }
+
+        public bool ShowFavoriteIcon
+        {
             get
-            { 
-                return _showFavoriteIcon; 
-            }
-            set
             {
-#if (__IOS__ || __ANDROID__)
-                {
-                    _showFavoriteIcon = true;
-                }
-#else
-                {
-                    _showFavoriteIcon = value;
-                }
-#endif
+                // Determine if on mobile.
+                var device = DeviceInfo.Current.Platform;
+                bool isMobile = device.Equals(DevicePlatform.Android) || device.Equals(DevicePlatform.iOS);
+
+                // Always show icons on mobile platforms; on desktop, only show yellow stars.
+                return isMobile || SampleManager.Current.IsSampleFavorited(FormalName);
             }
+
         }
 
         /// <summary>

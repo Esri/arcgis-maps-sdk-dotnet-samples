@@ -89,10 +89,10 @@
   <ItemGroup>
 	<None Remove="Samples\**\*.md" />
 	<EmbeddedResource Include="Samples\**\*.md" />
-	<EmbeddedResource Include="Samples\**\*.jpg" />
     <EmbeddedResource Include="Samples\**\*.cs" />
     <EmbeddedResource Include="Helpers\**\*.cs" />
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
+    <MauiImage Include="Samples\**\*.jpg" />
   </ItemGroup>
   <ItemGroup>
     <MauiImage Include="Resources\Thumbnails\placeholder_android.jpg" />

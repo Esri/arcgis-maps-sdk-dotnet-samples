@@ -53,7 +53,7 @@
                                     <Image
                                         Grid.Row="0"
                                         HeightRequest="{Binding SampleImageHeight}"
-                                        Source="{Binding SampleImageName, Converter={StaticResource SampleToBitmapConverter}}"
+                                        Source="{Binding SampleImageName}"
                                         WidthRequest="{Binding SampleImageWidth}" />
                                     <ImageButton
                                         x:Name="FavoriteButton"

@@ -362,7 +362,6 @@ namespace ArcGIS.WinUI.Samples.Animate3DGraphic
             }
         }
 
-
         private void MissionPlaySpeedChanged(object sender, Microsoft.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             Slider sliderControl = (Slider)sender;

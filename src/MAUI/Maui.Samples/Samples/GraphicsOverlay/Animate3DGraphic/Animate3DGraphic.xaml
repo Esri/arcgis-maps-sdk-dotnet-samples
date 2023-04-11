@@ -45,7 +45,9 @@
                 <Button x:Name="MissionPlayPause"
                         Clicked="MissionPlayPlauseClick"
                         Text="Pause" />
-                <Button x:Name="CameraControlButton" Clicked="ToggleFollowPlane" Text="Don't Follow" />
+                <Button x:Name="CameraControlButton"
+                        Clicked="ToggleFollowPlane"
+                        Text="Don't Follow" />
             </StackLayout>
         </Border>
     </Grid>

@@ -62,18 +62,21 @@ namespace ArcGIS.Samples.Shared.Models
 
         public bool IsFavorite { get; set; }
 
+
         public bool ShowFavoriteIcon
         {
             get
             {
                 // Determine if on mobile.
-                var device = DeviceInfo.Current.Platform;
-                bool isMobile = device.Equals(DevicePlatform.Android) || device.Equals(DevicePlatform.iOS);
-
+                bool isMobile;
+#if ANDROID || IOS
+                isMobile = true;
+#else
+                isMobile = false;
+#endif
                 // Always show icons on mobile platforms; on desktop, only show yellow stars.
                 return isMobile || SampleManager.Current.IsSampleFavorited(FormalName);
             }
-
         }
 
         /// <summary>

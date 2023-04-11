@@ -10,6 +10,7 @@
                 BackgroundColor="{AppThemeBinding Light=#dfdfdf,
                                                   Dark=#303030}"
                 HorizontalOptions="End"
+                WidthRequest="400"
                 StrokeShape="RoundRectangle 5"
                 VerticalOptions="Start">
             <StackLayout Padding="5">

@@ -111,7 +111,7 @@ namespace ArcGIS.ViewModels
         public SearchResultViewModel(SampleInfo sampleResult)
         {
             SampleName = sampleResult.SampleName;
-            SampleImage = GetImageSourceBySampleName(sampleResult.FormalName);
+            SampleImage = new FileImageSource() { File = sampleResult.SampleImageName };
             SampleObject = sampleResult;
         }
 
@@ -123,23 +123,5 @@ namespace ArcGIS.ViewModels
 
         [ObservableProperty]
         SampleInfo _sampleObject;
-
-        private ImageSource GetImageSourceBySampleName(string sampleFormalName)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            string imageResource = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleFormalName}.jpg"));
-            var sourceStream = assembly.GetManifestResourceStream(imageResource);
-            var memoryStream = new MemoryStream();
-            sourceStream.CopyTo(memoryStream);
-            byte[] bytes = memoryStream.ToArray();
-            memoryStream.Close();
-
-            var image = ImageSource.FromStream(() =>
-            {
-                return new MemoryStream(bytes);
-            });
-
-            return image;
-        }
     }
 }

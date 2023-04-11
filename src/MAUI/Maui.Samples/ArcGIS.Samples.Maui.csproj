@@ -88,11 +88,11 @@
   <!-- Resource outputs for description and source code viewing -->
   <ItemGroup>
 	<None Remove="Samples\**\*.md" />
-	<EmbeddedResource Include="Samples\**\*.md" />
+    <MauiAsset Include="Samples\**\*.md" />
+    <MauiImage Include="Samples\**\*.jpg" />
     <EmbeddedResource Include="Samples\**\*.cs" />
     <EmbeddedResource Include="Helpers\**\*.cs" />
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
-    <MauiImage Include="Samples\**\*.jpg" />
   </ItemGroup>
   <ItemGroup>
     <MauiImage Include="Resources\Thumbnails\placeholder_android.jpg" />

@@ -78,10 +78,14 @@ namespace ArcGIS
             // Set the title.
             Title = sampleInfo.SampleName;
 
+            LoadSampleData(sampleInfo);
+        }
+        private async void LoadSampleData(SampleInfo sampleInfo)
+        { 
             // Set up the description page.
             try
             {
-                var htmlString = GetDescriptionHtml(sampleInfo);
+                var htmlString = await GetDescriptionHtml(sampleInfo);
                 DescriptionView.Source = new HtmlWebViewSource()
                 {
                     Html = htmlString
@@ -154,7 +158,7 @@ namespace ArcGIS
             }
         }
 
-        private string GetDescriptionHtml(SampleInfo sampleInfo)
+        private async Task<string> GetDescriptionHtml(SampleInfo sampleInfo)
         {
             string category = sampleInfo.Category;
             if (category.Contains(" "))
@@ -164,9 +168,9 @@ namespace ArcGIS
             }
 
             var manifestResourceNames = _assembly.GetManifestResourceNames();
-
-            string readmeResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{category}.{sampleInfo.FormalName}.readme.md"));
-            string readmeContent = new StreamReader(_assembly.GetManifestResourceStream(readmeResource)).ReadToEnd();
+            using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync($"Samples/{category}/{sampleInfo.FormalName}/readme.md").ConfigureAwait(false);
+            StreamReader r = new StreamReader(fileStream);
+            var readmeContent = r.ReadToEnd();
             readmeContent = Markdig.Markdown.ToHtml(readmeContent);
 
             // Set CSS for dark mode or light mode.
@@ -181,9 +185,8 @@ namespace ArcGIS
 
             // Convert the image into a string of bytes to embed into the html.
             var resources = _assembly.GetManifestResourceNames();
-            string imageResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.FormalName}.jpg"));
-            var sourceStream = _assembly.GetManifestResourceStream(imageResource);
-            var memoryStream = new MemoryStream();
+            var sourceStream = await FileSystem.Current.OpenAppPackageFileAsync(sampleInfo.SampleImageName);
+            using var memoryStream = new MemoryStream();
             sourceStream.CopyTo(memoryStream);
             byte[] image = memoryStream.ToArray();
             memoryStream.Close();

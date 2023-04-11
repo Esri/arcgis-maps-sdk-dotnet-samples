@@ -17,6 +17,7 @@
 
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
+using Microsoft.Maui.Platform;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -185,7 +186,7 @@ namespace ArcGIS
 
             // Convert the image into a string of bytes to embed into the html.
             var resources = _assembly.GetManifestResourceNames();
-            var sourceStream = await FileSystem.Current.OpenAppPackageFileAsync(sampleInfo.SampleImageName);
+            var sourceStream = await LoadImageStreamAsync(sampleInfo.SampleImageName);
             using var memoryStream = new MemoryStream();
             sourceStream.CopyTo(memoryStream);
             byte[] image = memoryStream.ToArray();
@@ -213,7 +214,52 @@ namespace ArcGIS
 
             return fullContent;
         }
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        public static async Task<Stream> LoadImageStreamAsync(string file)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        {
+            if (Path.IsPathRooted(file) && File.Exists(file))
+                return File.OpenRead(file);
 
+#if __ANDROID__
+            var context = Android.App.Application.Context;
+            var resources = context.Resources;
+
+            var resourceId = context.GetDrawableId(file);
+            if (resourceId > 0)
+            {
+                var imageUri = new Android.Net.Uri.Builder()
+                    .Scheme(Android.Content.ContentResolver.SchemeAndroidResource)
+                    .Authority(resources.GetResourcePackageName(resourceId))
+                    .AppendPath(resources.GetResourceTypeName(resourceId))
+                    .AppendPath(resources.GetResourceEntryName(resourceId))
+                    .Build();
+
+                var stream = context.ContentResolver.OpenInputStream(imageUri);
+                if (stream is not null)
+                    return stream;
+            }
+#else //if WINDOWS
+		try
+		{
+            return await FileSystem.Current.OpenAppPackageFileAsync(file);
+		}
+		catch
+		{
+		}
+
+//#elif IOS || MACCATALYST
+//		var root = Foundation.NSBundle.MainBundle.BundlePath;
+//#if MACCATALYST || MACOS
+//		root = Path.Combine(root, "Contents", "Resources");
+//#endif
+//		file = Path.Combine(root, file);
+//		if (File.Exists(file))
+//			return File.OpenRead(file);
+#endif
+
+            return null;
+        }
         private async Task<byte[]> ConvertImageSourceToBytesAsync(ImageSource imageSource)
         {
             Stream stream = await ((StreamImageSource)imageSource).Stream(CancellationToken.None);

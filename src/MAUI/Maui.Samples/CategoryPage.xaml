@@ -60,14 +60,14 @@
                                         Text="{Binding IsFavorite, Converter={StaticResource BoolToFavoriteGlyphConverter}}"
                                         x:Name="FavoriteButton"
                                         Grid.Row="0"
-                                        Margin="1,0"
+                                        BorderWidth="5"
+                                        BorderColor="Transparent"
                                         Padding="1"
-                                        Background="Transparent"
-                                        BorderWidth="0"
+                                        Background="#A52F2F2F"
                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
                                         CommandParameter="{Binding SampleFormalName}"
                                         HorizontalOptions="Start"
-                                        TextColor="{AppThemeBinding Light=#ffff00, Dark=#ffffff}" 
+                                        TextColor="Yellow" 
                                         IsVisible="{OnPlatform iOS=true,
                                                                Android=true,
                                                                Default={Binding IsFavorite}}"

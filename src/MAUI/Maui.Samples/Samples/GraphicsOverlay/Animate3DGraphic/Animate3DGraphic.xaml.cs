@@ -202,7 +202,8 @@ namespace ArcGIS.Samples.Animate3DGraphic
             // Set the MissionPlayPause button back to the currently 'playing' state
             MissionPlayPause.Text = "Pause";
 
-            // Restart the animation
+            // At the start of a new mission, follow the animated plane
+            FollowPlane(true);
             _animationTimer = true;
         }
 
@@ -335,25 +336,24 @@ namespace ArcGIS.Samples.Animate3DGraphic
 
         private void ToggleFollowPlane(object sender, EventArgs e)
         {
-            // Get a reference to the button
-            Button cameraControlButton = (Button)sender;
-
             // Get the current text of the button
-            string cameraControlText = cameraControlButton.Text;
+            FollowPlane(CameraControlButton.Text == "Follow");
+        }
 
-            switch (cameraControlText)
+        private void FollowPlane(bool follow)
+        {
+            if (follow)
             {
-                // Resume following
-                case "Follow":
-                    cameraControlButton.Text = "Don't Follow";
-                    MySceneView.CameraController = _orbitCameraController;
-                    break;
+                CameraControlButton.Text = "Don't follow";
+                MySceneView.CameraController = _orbitCameraController;
+            }
+            else
+            {
                 // Stop following
-                case "Don't Follow":
-                    cameraControlButton.Text = "Follow";
-                    // Setting the scene view's camera controller to null has the effect of resetting the value to the default
-                    MySceneView.CameraController = null;
-                    break;
+                CameraControlButton.Text = "Follow";
+
+                // Setting the scene view's camera controller to null has the effect of resetting the value to the default
+                MySceneView.CameraController = null;
             }
         }
 

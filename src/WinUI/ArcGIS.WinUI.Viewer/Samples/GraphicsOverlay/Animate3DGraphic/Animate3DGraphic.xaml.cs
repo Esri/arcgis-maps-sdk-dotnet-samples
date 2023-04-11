@@ -207,7 +207,8 @@ namespace ArcGIS.WinUI.Samples.Animate3DGraphic
             // Set the MissionPlayPause button back to the currently 'playing' state
             MissionPlayPause.Content = "Pause";
 
-            // Restart the animation
+            // At the start of a new mission, follow the animated plane
+            FollowPlane(true);
             _animationTimer.Start();
         }
 
@@ -340,27 +341,27 @@ namespace ArcGIS.WinUI.Samples.Animate3DGraphic
 
         private void ToggleFollowPlane(object sender, RoutedEventArgs e)
         {
-            // Get a reference to the button
-            Button cameraControlButton = (Button)sender;
-
             // Get the current text of the button
-            string cameraControlText = cameraControlButton.Content?.ToString();
+            FollowPlane(CameraControlButton.Content.ToString() == "Follow");
+        }
 
-            switch (cameraControlText)
+        private void FollowPlane(bool follow)
+        {
+            if (follow)
             {
-                // Resume following
-                case "Follow":
-                    cameraControlButton.Content = "Don't follow";
-                    MySceneView.CameraController = _orbitCameraController;
-                    break;
+                CameraControlButton.Content = "Don't follow";
+                MySceneView.CameraController = _orbitCameraController;
+            }
+            else
+            {
                 // Stop following
-                case "Don't follow":
-                    cameraControlButton.Content = "Follow";
-                    // Setting the scene view's camera controller to null has the effect of resetting the value to the default
-                    MySceneView.CameraController = null;
-                    break;
+                CameraControlButton.Content = "Follow";
+
+                // Setting the scene view's camera controller to null has the effect of resetting the value to the default
+                MySceneView.CameraController = null;
             }
         }
+
 
         private void MissionPlaySpeedChanged(object sender, Microsoft.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {

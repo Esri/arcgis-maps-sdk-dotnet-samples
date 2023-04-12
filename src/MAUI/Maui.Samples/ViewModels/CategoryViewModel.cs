@@ -33,7 +33,7 @@ namespace ArcGIS.ViewModels
             
             // For tablets check to see if multiple images could fit rather than one tablet sized image. 
             // If multiple images of arbitrary size "400" would fit then update the image width.
-            var sampleImageFactor = Math.Floor(sampleImageWidth / 400);
+            var sampleImageFactor = Math.Floor(sampleImageWidth / 300);
 
             if (sampleImageFactor > 1)
             {

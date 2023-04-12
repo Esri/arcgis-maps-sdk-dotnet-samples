@@ -104,7 +104,15 @@ namespace ArcGIS.Samples.Shared.Models
         /// The path to the sample image on disk; intended for use on Windows.
         /// </summary>
         public string SampleImageName
-        { get { return System.IO.Path.Combine(Path, Image); } }
+#if MAUI
+#if __IOS__
+            => Image.ToLower();
+#else
+            => $"Samples/{CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Category).Replace(" ","")}/{FormalName}/{Image.ToLower()}";
+#endif
+#else
+            => System.IO.Path.Combine(Path, Image);
+#endif
 
         /// <summary>
         /// Base directory for the samples; defaults to executable directory

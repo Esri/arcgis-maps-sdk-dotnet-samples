@@ -187,15 +187,18 @@ namespace ArcGIS
             // Convert the image into a string of bytes to embed into the html.
             var resources = _assembly.GetManifestResourceNames();
             var sourceStream = await LoadImageStreamAsync(sampleInfo.SampleImageName);
-            using var memoryStream = new MemoryStream();
-            sourceStream.CopyTo(memoryStream);
-            byte[] image = memoryStream.ToArray();
-            memoryStream.Close();
+            if (sourceStream is not null)
+            {
+                using var memoryStream = new MemoryStream();
+                sourceStream.CopyTo(memoryStream);
+                byte[] image = memoryStream.ToArray();
+                memoryStream.Close();
 
-            string imgSrc = $"data:image/jpg;base64,{Convert.ToBase64String(image)}";
+                string imgSrc = $"data:image/jpg;base64,{Convert.ToBase64String(image)}";
 
-            // Replace paths for image.
-            readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
+                // Replace paths for image.
+                readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
+            }
             // Build the html.
             var fullContent =
                 "<!doctype html><head><style>" +
@@ -239,25 +242,15 @@ namespace ArcGIS
                 if (stream is not null)
                     return stream;
             }
-#else //if WINDOWS
-		try
-		{
-            return await FileSystem.Current.OpenAppPackageFileAsync(file);
-		}
-		catch
-		{
-		}
-
-//#elif IOS || MACCATALYST
-//		var root = Foundation.NSBundle.MainBundle.BundlePath;
-//#if MACCATALYST || MACOS
-//		root = Path.Combine(root, "Contents", "Resources");
-//#endif
-//		file = Path.Combine(root, file);
-//		if (File.Exists(file))
-//			return File.OpenRead(file);
+#else
+		    try
+            {
+                return await FileSystem.Current.OpenAppPackageFileAsync(file);
+            }
+            catch
+            {
+            }
 #endif
-
             return null;
         }
         private async Task<byte[]> ConvertImageSourceToBytesAsync(ImageSource imageSource)

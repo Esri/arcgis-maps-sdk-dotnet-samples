@@ -105,7 +105,11 @@ namespace ArcGIS.Samples.Shared.Models
         /// </summary>
         public string SampleImageName
 #if MAUI
+#if __IOS__
+            => Image.ToLower();
+#else
             => $"Samples/{CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Category).Replace(" ","")}/{FormalName}/{Image.ToLower()}";
+#endif
 #else
             => System.IO.Path.Combine(Path, Image);
 #endif

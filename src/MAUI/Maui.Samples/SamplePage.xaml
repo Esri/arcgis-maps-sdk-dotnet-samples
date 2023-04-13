@@ -18,10 +18,10 @@
             Text="Source" />
     </ContentPage.ToolbarItems>
     <Grid>
-        <Border x:Name="SampleDetailPage">
+        <Border x:Name="SampleDetailPage" IsVisible="false">
             <WebView x:Name="DescriptionView" />
         </Border>
-        <Border x:Name="SourceCodePage">
+        <Border x:Name="SourceCodePage" IsVisible="false">
             <StackLayout>
                 <StackLayout Orientation="Horizontal">
                     <Button

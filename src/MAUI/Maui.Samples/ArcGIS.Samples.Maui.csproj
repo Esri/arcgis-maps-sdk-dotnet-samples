@@ -88,8 +88,8 @@
   <!-- Resource outputs for description and source code viewing -->
   <ItemGroup>
 	<None Remove="Samples\**\*.md" />
-	<EmbeddedResource Include="Samples\**\*.md" />
-	<EmbeddedResource Include="Samples\**\*.jpg" />
+    <MauiAsset Include="Samples\**\*.md" />
+    <MauiImage Include="Samples\**\*.jpg" />
     <EmbeddedResource Include="Samples\**\*.cs" />
     <EmbeddedResource Include="Helpers\**\*.cs" />
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />

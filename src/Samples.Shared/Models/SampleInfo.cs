@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Attributes;
 using System;
 using System.Collections.Generic;
@@ -61,6 +62,23 @@ namespace ArcGIS.Samples.Shared.Models
 
         public bool IsFavorite { get; set; }
 
+
+        public bool ShowFavoriteIcon
+        {
+            get
+            {
+                // Determine if on mobile.
+                bool isMobile;
+#if ANDROID || IOS
+                isMobile = true;
+#else
+                isMobile = false;
+#endif
+                // Always show icons on mobile platforms; on desktop, only show yellow stars.
+                return isMobile || SampleManager.Current.IsSampleFavorited(FormalName);
+            }
+        }
+
         /// <summary>
         /// A list of offline data items that should be downloaded
         /// from ArcGIS Online prior to loading the sample. These
@@ -104,7 +122,15 @@ namespace ArcGIS.Samples.Shared.Models
         /// The path to the sample image on disk; intended for use on Windows.
         /// </summary>
         public string SampleImageName
-        { get { return System.IO.Path.Combine(Path, Image); } }
+#if MAUI
+#if __IOS__
+            => Image.ToLower();
+#else
+            => $"Samples/{CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Category).Replace(" ","")}/{FormalName}/{Image.ToLower()}";
+#endif
+#else
+            => System.IO.Path.Combine(Path, Image);
+#endif
 
         /// <summary>
         /// Base directory for the samples; defaults to executable directory

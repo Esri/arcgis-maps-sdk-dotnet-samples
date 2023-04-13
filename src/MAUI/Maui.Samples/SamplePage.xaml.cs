@@ -17,6 +17,7 @@
 
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
+using Microsoft.Maui.Platform;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -78,10 +79,14 @@ namespace ArcGIS
             // Set the title.
             Title = sampleInfo.SampleName;
 
+            LoadSampleData(sampleInfo);
+        }
+        private async void LoadSampleData(SampleInfo sampleInfo)
+        { 
             // Set up the description page.
             try
             {
-                var htmlString = GetDescriptionHtml(sampleInfo);
+                var htmlString = await GetDescriptionHtml(sampleInfo);
                 DescriptionView.Source = new HtmlWebViewSource()
                 {
                     Html = htmlString
@@ -154,7 +159,7 @@ namespace ArcGIS
             }
         }
 
-        private string GetDescriptionHtml(SampleInfo sampleInfo)
+        private async Task<string> GetDescriptionHtml(SampleInfo sampleInfo)
         {
             string category = sampleInfo.Category;
             if (category.Contains(" "))
@@ -164,9 +169,9 @@ namespace ArcGIS
             }
 
             var manifestResourceNames = _assembly.GetManifestResourceNames();
-
-            string readmeResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{category}.{sampleInfo.FormalName}.readme.md"));
-            string readmeContent = new StreamReader(_assembly.GetManifestResourceStream(readmeResource)).ReadToEnd();
+            using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync($"Samples/{category}/{sampleInfo.FormalName}/readme.md").ConfigureAwait(false);
+            StreamReader r = new StreamReader(fileStream);
+            var readmeContent = r.ReadToEnd();
             readmeContent = Markdig.Markdown.ToHtml(readmeContent);
 
             // Set CSS for dark mode or light mode.
@@ -181,17 +186,19 @@ namespace ArcGIS
 
             // Convert the image into a string of bytes to embed into the html.
             var resources = _assembly.GetManifestResourceNames();
-            string imageResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{sampleInfo.FormalName}.jpg"));
-            var sourceStream = _assembly.GetManifestResourceStream(imageResource);
-            var memoryStream = new MemoryStream();
-            sourceStream.CopyTo(memoryStream);
-            byte[] image = memoryStream.ToArray();
-            memoryStream.Close();
+            var sourceStream = await LoadImageStreamAsync(sampleInfo.SampleImageName);
+            if (sourceStream is not null)
+            {
+                using var memoryStream = new MemoryStream();
+                sourceStream.CopyTo(memoryStream);
+                byte[] image = memoryStream.ToArray();
+                memoryStream.Close();
 
-            string imgSrc = $"data:image/jpg;base64,{Convert.ToBase64String(image)}";
+                string imgSrc = $"data:image/jpg;base64,{Convert.ToBase64String(image)}";
 
-            // Replace paths for image.
-            readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
+                // Replace paths for image.
+                readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
+            }
             // Build the html.
             var fullContent =
                 "<!doctype html><head><style>" +
@@ -210,7 +217,42 @@ namespace ArcGIS
 
             return fullContent;
         }
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+        public static async Task<Stream> LoadImageStreamAsync(string file)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        {
+            if (Path.IsPathRooted(file) && File.Exists(file))
+                return File.OpenRead(file);
 
+#if __ANDROID__
+            var context = Android.App.Application.Context;
+            var resources = context.Resources;
+
+            var resourceId = context.GetDrawableId(file);
+            if (resourceId > 0)
+            {
+                var imageUri = new Android.Net.Uri.Builder()
+                    .Scheme(Android.Content.ContentResolver.SchemeAndroidResource)
+                    .Authority(resources.GetResourcePackageName(resourceId))
+                    .AppendPath(resources.GetResourceTypeName(resourceId))
+                    .AppendPath(resources.GetResourceEntryName(resourceId))
+                    .Build();
+
+                var stream = context.ContentResolver.OpenInputStream(imageUri);
+                if (stream is not null)
+                    return stream;
+            }
+#else
+		    try
+            {
+                return await FileSystem.Current.OpenAppPackageFileAsync(file);
+            }
+            catch
+            {
+            }
+#endif
+            return null;
+        }
         private async Task<byte[]> ConvertImageSourceToBytesAsync(ImageSource imageSource)
         {
             Stream stream = await ((StreamImageSource)imageSource).Stream(CancellationToken.None);

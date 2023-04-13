@@ -59,7 +59,7 @@ public partial class CategoryPage : ContentPage
 
         var grid = (Grid)view.Content;
 
-        var imageButton = (ImageButton)grid.Children[1];
+        var imageButton = (Button)grid.Children[1];
 
         imageButton.IsVisible = true;
 
@@ -72,7 +72,7 @@ public partial class CategoryPage : ContentPage
 
         var grid = (Grid)view.Content;
 
-        var imageButton = (ImageButton)grid.Children[1];
+        var imageButton = (Button)grid.Children[1];
 
         string sampleName = (string)imageButton.CommandParameter;
 
@@ -87,8 +87,9 @@ public partial class CategoryPage : ContentPage
         if (_category.Name == "Favorites")
         {
             _category = SampleManager.Current.GetFavoritesCategory();
-
-            SetBindingContext();
         }
+
+        SetBindingContext();
+        
     }
 }

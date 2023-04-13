@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Attributes;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,23 @@ namespace ArcGIS.Samples.Shared.Models
         public string Instructions { get; set; }
 
         public bool IsFavorite { get; set; }
+
+
+        public bool ShowFavoriteIcon
+        {
+            get
+            {
+                // Determine if on mobile.
+                bool isMobile;
+#if ANDROID || IOS
+                isMobile = true;
+#else
+                isMobile = false;
+#endif
+                // Always show icons on mobile platforms; on desktop, only show yellow stars.
+                return isMobile || SampleManager.Current.IsSampleFavorited(FormalName);
+            }
+        }
 
         /// <summary>
         /// A list of offline data items that should be downloaded

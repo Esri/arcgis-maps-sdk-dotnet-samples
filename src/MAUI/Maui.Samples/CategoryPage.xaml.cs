@@ -87,8 +87,9 @@ public partial class CategoryPage : ContentPage
         if (_category.Name == "Favorites")
         {
             _category = SampleManager.Current.GetFavoritesCategory();
-
-            SetBindingContext();
         }
+
+        SetBindingContext();
+        
     }
 }

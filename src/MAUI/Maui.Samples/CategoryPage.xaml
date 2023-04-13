@@ -67,9 +67,7 @@
                                         CommandParameter="{Binding SampleFormalName}"
                                         HorizontalOptions="Start"
                                         TextColor="Yellow" 
-                                        IsVisible="{OnPlatform iOS=true,
-                                                               Android=true,
-                                                               Default={Binding IsFavorite}}"
+                                        IsVisible="{Binding ShowFavoriteIcon}"
                                         VerticalOptions="Start"
                                         FontSize="{OnPlatform Default=25,
                                                                   iOS=40,

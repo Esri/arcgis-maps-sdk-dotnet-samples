@@ -376,7 +376,7 @@ namespace ArcGIS
             string filePath = $"{ScreenshotManager.ScreenshotSettings.SourcePath}\\MAUI\\MAUI.Samples\\Samples\\" +
                 $"{SampleManager.Current.SelectedSample.Category}\\" +
                 $"{SampleManager.Current.SelectedSample.FormalName}\\" +
-                $"{SampleManager.Current.SelectedSample.FormalName}.jpg";
+                $"{SampleManager.Current.SelectedSample.FormalName.ToLower()}.jpg";
 
             // Remove white space.
             filePath = Regex.Replace(filePath, @"\s+", "");

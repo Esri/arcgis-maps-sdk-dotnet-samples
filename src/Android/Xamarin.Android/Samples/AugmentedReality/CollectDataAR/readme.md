@@ -51,7 +51,7 @@ This sample only uses the `ARScreenToLocation` approach, as it is the only way t
 
 Note that unlike other scene samples, a basemap isn't shown most of the time, because the real world provides the context. Only while calibrating is the basemap displayed at 50% opacity, to give the user a visual reference to compare to.
 
-**Real-scale AR** is one of three main patterns for working with geographic information in augmented reality. See [Augmented reality](https://developers.arcgis.com/net/scenes-3d/display-scenes-in-augmented-reality/) in the guide for more information.
+**Real-scale AR** is one of three main patterns for working with geographic information in augmented reality. See [Augmented reality](https://developers.arcgis.com/net/v100/scenes-3d/display-scenes-in-augmented-reality/) in the guide for more information.
 
 See the 'Edit feature attachments' sample for more specific information about the attachment editing workflow.
 

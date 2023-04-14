@@ -39,9 +39,9 @@ This sample uses the [Philadelphia Mobile Scene Package](https://www.arcgis.com/
 
 ## Additional information
 
-**Tabletop AR** is one of three main patterns for working with geographic information in augmented reality. See [Display scenes in augmented reality](https://developers.arcgis.com/net/scenes-3d/display-scenes-in-augmented-reality/) in the guide for more information.
+**Tabletop AR** is one of three main patterns for working with geographic information in augmented reality. See [Display scenes in augmented reality](https://developers.arcgis.com/net/v100/scenes-3d/display-scenes-in-augmented-reality/) in the guide for more information.
 
-This sample uses the ArcGIS Runtime Toolkit. See [Display scenes in augmented reality](https://developers.arcgis.com/net/scenes-3d/display-scenes-in-augmented-reality/) in the guide to learn about the toolkit and how to add it to your app.
+This sample uses the ArcGIS Runtime Toolkit. See [Display scenes in augmented reality](https://developers.arcgis.com/net/v100/scenes-3d/display-scenes-in-augmented-reality/) in the guide to learn about the toolkit and how to add it to your app.
 
 ## Tags
 

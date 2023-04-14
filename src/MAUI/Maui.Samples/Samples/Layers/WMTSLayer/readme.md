@@ -35,7 +35,7 @@ To explore layers from a WMTS service:
 
 ## About the data
 
-We acknowledge the use of imagery provided by services from the [Global Imagery Browse Services (GIBS)](https://wiki.earthdata.nasa.gov/display/GIBS/), operated by the [NASA/GSFC/Earth Science Data and Information System (ESDIS)](https://earthdata.nasa.gov) with funding provided by NASA/HQ.
+We acknowledge the use of imagery provided by services from the [Global Imagery Browse Services (GIBS)](https://www.earthdata.nasa.gov/eosdis/science-system-description/eosdis-components/gibs), operated by the [NASA/GSFC/Earth Science Data and Information System (ESDIS)](https://earthdata.nasa.gov) with funding provided by NASA/HQ.
 
 ## Tags
 

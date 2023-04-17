@@ -70,10 +70,6 @@ namespace ArcGIS.Samples.Animate3DGraphic
         {
             InitializeComponent();
 
-            // Hide the stats display on iOS because it looks bad
-#if IOS
-            LayoutFrame.IsVisible = false;
-#endif
             // Create the UI, setup the control references and execute initialization
             _ = Initialize();
         }

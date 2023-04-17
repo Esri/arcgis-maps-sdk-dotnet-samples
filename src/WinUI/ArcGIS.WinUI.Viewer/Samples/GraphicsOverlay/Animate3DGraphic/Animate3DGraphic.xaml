@@ -31,7 +31,8 @@
                     Orientation="Horizontal">
             <ComboBox x:Name="MissionSelectionBox"
                       MinWidth="150"
-                      VerticalAlignment="Top" />
+                      VerticalAlignment="Top"
+                      HorizontalContentAlignment="Center" />
             <Button x:Name="MissionPlayPause"
                     MinWidth="75"
                     Margin="5,0,0,0"

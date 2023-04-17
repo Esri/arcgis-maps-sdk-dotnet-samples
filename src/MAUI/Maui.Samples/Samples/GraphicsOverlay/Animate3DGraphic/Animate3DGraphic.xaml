@@ -4,27 +4,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:SceneView x:Name="MySceneView" AtmosphereEffect="Realistic" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border WidthRequest="{OnPlatform MacCatalyst=375, WinUI=375}"
-                Style="{DynamicResource EsriSampleControlPanel}">
+        <esriUI:SceneView x:Name="MySceneView"
+                          AtmosphereEffect="Realistic"
+                          Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="{OnPlatform MacCatalyst=375, WinUI=375}">
             <StackLayout>
                 <StackLayout Orientation="Horizontal" Spacing="5">
-                    <Picker x:Name="MissionSelectionBox" WidthRequest="125" HorizontalTextAlignment="Center" />
+                    <Picker x:Name="MissionSelectionBox"
+                            HorizontalTextAlignment="Center"
+                            WidthRequest="150" />
                     <Button x:Name="MissionPlayPause"
                             Clicked="MissionPlayPlauseClick"
-                            WidthRequest="75"
-                            Text="Pause" />
+                            Text="Pause"
+                            WidthRequest="75" />
                     <Button x:Name="CameraControlButton"
                             Clicked="ToggleFollowPlane"
-                            WidthRequest="110"
-                            Text="Don't Follow" />
+                            Text="Don't Follow"
+                            WidthRequest="110" />
                 </StackLayout>
                 <Label Text="Mission Progress:" />
                 <Slider x:Name="MissionProgressBar"
                         Maximum="100"
-                        HorizontalOptions="Start"
-                        WidthRequest="350"
-                        ValueChanged="MissionProgressOnSeek" />
+                        ValueChanged="MissionProgressOnSeek"
+                        WidthRequest="350" />
                 <Grid ColumnDefinitions="100,*">
                     <StackLayout Orientation="Vertical">
                         <Label>Altitude:</Label>

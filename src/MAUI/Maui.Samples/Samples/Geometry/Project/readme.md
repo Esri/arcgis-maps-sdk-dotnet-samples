@@ -2,7 +2,7 @@
 
 Project a point from one spatial reference to another.
 
-![Image of project](Project.jpg)
+![Image of project](project.jpg)
 
 ## Use case
 

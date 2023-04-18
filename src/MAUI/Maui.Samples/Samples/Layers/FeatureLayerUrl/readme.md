@@ -2,7 +2,7 @@
 
 Show features from an online feature service.
 
-![Image of feature layer feature service](FeatureLayerUrl.jpg)
+![Image of feature layer feature service](featurelayerurl.jpg)
 
 ## Use case
 

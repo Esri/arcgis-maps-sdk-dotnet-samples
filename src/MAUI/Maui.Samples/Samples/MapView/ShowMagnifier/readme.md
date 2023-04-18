@@ -2,7 +2,7 @@
 
 Tap and hold on a map to show a magnifier.
 
-![Image of show magnifier](ShowMagnifier.jpg)
+![Image of show magnifier](showmagnifier.jpg)
 
 ## Use case
 

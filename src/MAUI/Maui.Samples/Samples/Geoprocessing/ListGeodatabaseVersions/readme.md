@@ -2,7 +2,7 @@
 
 Connect to a service and list versions of the geodatabase.
 
-![Image of list geodatabase versions](ListGeodatabaseVersions.jpg)
+![Image of list geodatabase versions](listgeodatabaseversions.jpg)
 
 ## Use case
 

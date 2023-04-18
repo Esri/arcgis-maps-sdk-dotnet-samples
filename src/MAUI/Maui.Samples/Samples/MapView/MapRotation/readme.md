@@ -2,7 +2,7 @@
 
 Rotate a map.
 
-![Image of map rotation](MapRotation.jpg)
+![Image of map rotation](maprotation.jpg)
 
 ## Use case
 

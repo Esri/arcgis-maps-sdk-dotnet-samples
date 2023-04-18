@@ -2,7 +2,7 @@
 
 Use annotation sublayers to gain finer control of annotation layer subtypes.
 
-![Image of control annotation sublayer visibility](ControlAnnotationSublayerVisibility.jpg)
+![Image of control annotation sublayer visibility](controlannotationsublayervisibility.jpg)
 
 ## Use case
 

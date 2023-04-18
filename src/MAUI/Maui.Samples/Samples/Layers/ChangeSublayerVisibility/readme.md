@@ -2,7 +2,7 @@
 
 Change the visibility of sublayers.
 
-![screenshot](ChangeSublayerVisibility.jpg)
+![screenshot](changesublayervisibility.jpg)
 
 ## Use case
 

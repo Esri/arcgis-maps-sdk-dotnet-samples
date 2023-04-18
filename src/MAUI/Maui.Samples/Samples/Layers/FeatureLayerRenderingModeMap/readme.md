@@ -2,7 +2,7 @@
 
 Render features statically or dynamically by setting the feature layer rendering mode.
 
-![Image of feature layer rendering mode map](FeatureLayerRenderingModeMap.jpg)
+![Image of feature layer rendering mode map](featurelayerrenderingmodemap.jpg)
 
 ## Use case
 

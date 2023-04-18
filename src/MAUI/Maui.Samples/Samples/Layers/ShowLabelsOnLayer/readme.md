@@ -2,7 +2,7 @@
 
 Display custom labels on a feature layer.
 
-![Image of show labels on layers](ShowLabelsOnLayer.jpg)
+![Image of show labels on layers](showlabelsonlayer.jpg)
 
 ## Use case
 

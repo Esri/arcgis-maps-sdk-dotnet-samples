@@ -2,7 +2,7 @@
 
 Configure the display of ENC content.
 
-![Image of change ENC display settings app](ChangeEncDisplaySettings.jpg)
+![Image of change ENC display settings app](changeencdisplaysettings.jpg)
 
 ## Use case
 

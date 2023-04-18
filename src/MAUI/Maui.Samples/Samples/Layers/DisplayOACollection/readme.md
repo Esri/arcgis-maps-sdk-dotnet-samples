@@ -2,7 +2,7 @@
 
 Display an OGC API feature collection and query features while navigating the map view.
 
-![Image of display OGC API collection](DisplayOACollection.jpg)
+![Image of display OGC API collection](displayoacollection.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Display an ArcGIS scene layer from a URL.
 
-![Image of scene layer URL](SceneLayerUrl.jpg)
+![Image of scene layer URL](scenelayerurl.jpg)
 
 ## Use case
 

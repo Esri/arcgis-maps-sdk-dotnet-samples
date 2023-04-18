@@ -2,7 +2,7 @@
 
 Create a Feature Collection Layer from a Feature Collection Table, and add it to a map.
 
-![screenshot](CreateFeatureCollectionLayer.jpg)
+![screenshot](createfeaturecollectionlayer.jpg)
 
 ## Use case
 

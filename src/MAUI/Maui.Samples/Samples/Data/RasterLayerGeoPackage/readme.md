@@ -2,7 +2,7 @@
 
 Display a raster contained in a GeoPackage.
 
-![Image of raster layer GeoPackage](RasterLayerGeoPackage.jpg)
+![Image of raster layer GeoPackage](rasterlayergeopackage.jpg)
 
 ## Use case
 

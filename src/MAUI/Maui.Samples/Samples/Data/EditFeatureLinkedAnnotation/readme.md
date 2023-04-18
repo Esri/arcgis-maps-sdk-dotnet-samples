@@ -2,7 +2,7 @@
 
 Edit feature attributes which are linked to annotation through an expression.
 
-![Image of edit features with feature-linked annotation](EditFeatureLinkedAnnotation.jpg)
+![Image of edit features with feature-linked annotation](editfeaturelinkedannotation.jpg)
 
 ## Use case
 

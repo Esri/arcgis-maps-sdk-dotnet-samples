@@ -2,7 +2,7 @@
 
 Specify a map's spatial reference.
 
-![Image of map spatial reference](SetMapSpatialReference.jpg)
+![Image of map spatial reference](setmapspatialreference.jpg)
 
 ## Use case
 

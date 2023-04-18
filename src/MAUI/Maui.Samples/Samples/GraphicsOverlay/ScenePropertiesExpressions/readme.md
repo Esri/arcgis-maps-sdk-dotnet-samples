@@ -2,7 +2,7 @@
 
 Update the orientation of a graphic using expressions based on its attributes.
 
-![Image of scene properties expressions](ScenePropertiesExpressions.jpg)
+![Image of scene properties expressions](scenepropertiesexpressions.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
 
-![Image of blend renderer](ChangeBlendRenderer.jpg)
+![Image of blend renderer](changeblendrenderer.jpg)
 
 ## Use case
 

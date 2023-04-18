@@ -2,7 +2,7 @@
 
 Use different feature request modes to populate the map from a service feature table.
 
-![Image of toggle between feature request modes](ToggleBetweenFeatureRequestModes.jpg)
+![Image of toggle between feature request modes](togglebetweenfeaturerequestmodes.jpg)
 
 ## Use case
 

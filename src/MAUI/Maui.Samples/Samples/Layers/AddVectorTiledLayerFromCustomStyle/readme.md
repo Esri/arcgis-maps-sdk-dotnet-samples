@@ -2,7 +2,7 @@
 
 Load ArcGIS vector tiled layers using custom styles.
 
-![Image of offline vector tiled layer custom style](AddVectorTiledLayerFromCustomStyle.jpg)
+![Image of offline vector tiled layer custom style](addvectortiledlayerfromcustomstyle.jpg)
 
 ## Use case
 

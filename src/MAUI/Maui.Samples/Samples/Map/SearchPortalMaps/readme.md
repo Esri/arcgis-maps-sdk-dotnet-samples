@@ -2,7 +2,7 @@
 
 Find webmap portal items by using a search term.
 
-![Image of search for webmap](SearchPortalMaps.jpg)
+![Image of search for webmap](searchportalmaps.jpg)
 
 ## Use case
 

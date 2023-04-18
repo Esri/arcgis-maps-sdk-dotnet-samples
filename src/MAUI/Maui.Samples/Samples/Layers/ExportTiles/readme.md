@@ -2,7 +2,7 @@
 
 Download tiles to a local tile cache file stored on the device.
 
-![Image of export tiles](ExportTiles.jpg)
+![Image of export tiles](exporttiles.jpg)
 
 ## Use case
 

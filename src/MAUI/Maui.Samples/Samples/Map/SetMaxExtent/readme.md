@@ -2,7 +2,7 @@
 
 Limit the view of a map to a particular area.
 
-![Image of set max extent](SetMaxExtent.jpg)
+![Image of set max extent](setmaxextent.jpg)
 
 ## Use case
 

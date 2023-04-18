@@ -2,7 +2,7 @@
 
 Display a map from a mobile map package.
 
-![Image of open mobile map package](OpenMobileMap.jpg)
+![Image of open mobile map package](openmobilemap.jpg)
 
 ## Use case
 

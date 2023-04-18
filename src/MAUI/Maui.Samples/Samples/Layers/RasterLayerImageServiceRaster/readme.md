@@ -2,7 +2,7 @@
 
 Create a raster layer from a raster image service.
 
-![Image of raster layer service](RasterLayerImageServiceRaster.jpg)
+![Image of raster layer service](rasterlayerimageserviceraster.jpg)
 
 ## Use case
 

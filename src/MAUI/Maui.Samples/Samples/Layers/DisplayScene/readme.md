@@ -2,7 +2,7 @@
 
 Display a scene with a terrain surface and some imagery.
 
-![Image of display scene](DisplayScene.jpg)
+![Image of display scene](displayscene.jpg)
 
 ## Use case
 

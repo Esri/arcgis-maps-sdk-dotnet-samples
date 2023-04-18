@@ -2,7 +2,7 @@
 
 Display a tiled web layer.
 
-![Image of web tiled layer](LoadWebTiledLayer.jpg)
+![Image of web tiled layer](loadwebtiledlayer.jpg)
 
 ## Use case
 

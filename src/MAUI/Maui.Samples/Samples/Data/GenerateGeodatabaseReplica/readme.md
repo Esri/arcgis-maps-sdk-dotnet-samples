@@ -2,7 +2,7 @@
 
 Generate a local geodatabase from an online feature service.
 
-![Image of generate geodatabase replica from feature service](GenerateGeodatabaseReplica.jpg)
+![Image of generate geodatabase replica from feature service](generategeodatabasereplica.jpg)
 
 ## Use case
 

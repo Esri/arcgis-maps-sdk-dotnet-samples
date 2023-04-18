@@ -2,7 +2,7 @@
 
 Display a file with a KML network link, including displaying any network link control messages at launch.
 
-![Image of display KML network links](DisplayKmlNetworkLinks.jpg)
+![Image of display KML network links](displaykmlnetworklinks.jpg)
 
 ## Use case
 

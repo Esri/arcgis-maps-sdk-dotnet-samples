@@ -2,7 +2,7 @@
 
 Connect to a WMS service and show the available layers and sublayers. 
 
-![Image of WMS service catalog](WmsServiceCatalog.jpg)
+![Image of WMS service catalog](wmsservicecatalog.jpg)
 
 ## Use case
 

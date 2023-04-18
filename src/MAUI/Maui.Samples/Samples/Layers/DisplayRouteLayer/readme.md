@@ -2,7 +2,7 @@
 
 Display a route layer and its directions using a feature collection.
 
-![Display route layer](DisplayRouteLayer.jpg)
+![Display route layer](displayroutelayer.jpg)
 
 ## Use case
 

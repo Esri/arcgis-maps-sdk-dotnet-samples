@@ -2,7 +2,7 @@
 
 Take a screenshot of the map.
 
-![Image of take screenshot](TakeScreenshot.jpg)
+![Image of take screenshot](takescreenshot.jpg)
 
 ## Use case
 

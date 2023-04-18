@@ -2,7 +2,7 @@
 
 Change the style of a Web Map Service (WMS) layer.
 
-![Image of style WMS layers](StyleWmsLayer.jpg)
+![Image of style WMS layers](stylewmslayer.jpg)
 
 ## Use case
 

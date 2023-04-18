@@ -2,7 +2,7 @@
 
 Determine if a layer is currently being viewed.
 
-![Image of display layer view state](DisplayLayerViewState.jpg)
+![Image of display layer view state](displaylayerviewstate.jpg)
 
 ## Use case
 

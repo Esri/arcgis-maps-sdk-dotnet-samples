@@ -2,7 +2,7 @@
 
 Display a map with an imagery basemap.
 
-![Image of display map](DisplayMap.jpg)
+![Image of display map](displaymap.jpg)
 
 ## Use case
 

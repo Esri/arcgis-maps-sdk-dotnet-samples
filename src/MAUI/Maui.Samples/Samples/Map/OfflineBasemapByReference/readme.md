@@ -2,7 +2,7 @@
 
 Use the `OfflineMapTask` to take a web map offline, but instead of downloading an online basemap, use one which is already on the device.
 
-![Image of Generate offline map with local basemap](OfflineBasemapByReference.jpg)
+![Image of Generate offline map with local basemap](offlinebasemapbyreference.jpg)
 
 ## Use case
 

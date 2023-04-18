@@ -2,7 +2,7 @@
 
 Show a callout with the latitude and longitude of user-tapped points.
 
-![Image of show callout](ShowCallout.jpg)
+![Image of show callout](showcallout.jpg)
 
 ## Use case
 

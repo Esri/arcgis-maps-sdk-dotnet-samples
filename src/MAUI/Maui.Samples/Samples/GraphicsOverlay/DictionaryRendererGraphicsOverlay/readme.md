@@ -2,7 +2,7 @@
 
 Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.
 
-![Image of dictionary renderer graphics overlay](DictionaryRendererGraphicsOverlay.jpg)
+![Image of dictionary renderer graphics overlay](dictionaryrenderergraphicsoverlay.jpg)
 
 ## Use case
 

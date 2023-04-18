@@ -2,7 +2,7 @@
 
 Display a shapefile with custom symbology.
 
-![Image of symbolize shapefile](SymbolizeShapefile.jpg)
+![Image of symbolize shapefile](symbolizeshapefile.jpg)
 
 ## Use case
 

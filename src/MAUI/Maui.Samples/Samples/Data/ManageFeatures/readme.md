@@ -2,7 +2,7 @@
 
 Manage a feature layer's features in four distinct ways.
 
-![Image of managing features](ManageFeatures.jpg)
+![Image of managing features](managefeatures.jpg)
 
 ## Use case
 

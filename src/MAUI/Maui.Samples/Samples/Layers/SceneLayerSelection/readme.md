@@ -2,7 +2,7 @@
 
 Identify features in a scene to select.
 
-![Image of scene layer selection](SceneLayerSelection.jpg)
+![Image of scene layer selection](scenelayerselection.jpg)
 
 ## Use case
 

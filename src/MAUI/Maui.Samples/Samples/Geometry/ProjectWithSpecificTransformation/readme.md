@@ -2,7 +2,7 @@
 
 Project a point from one coordinate system to another using a specific transformation step.
 
-![Image of project with specific transformation](ProjectWithSpecificTransformation.jpg)
+![Image of project with specific transformation](projectwithspecifictransformation.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Create a feature collection layer to show a query result from a service feature table.
 
-![Image of feature collection layer](FeatureCollectionLayerFromQuery.jpg)
+![Image of feature collection layer](featurecollectionlayerfromquery.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Create and share a mobile geodatabase.
 
-![Create mobile geodatabase sample](CreateMobileGeodatabase.jpg)
+![Create mobile geodatabase sample](createmobilegeodatabase.jpg)
 
 ## Use case
 

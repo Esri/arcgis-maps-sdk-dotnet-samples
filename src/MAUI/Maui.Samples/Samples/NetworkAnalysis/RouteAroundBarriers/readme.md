@@ -2,7 +2,7 @@
 
 Find a route that reaches all stops without crossing any barriers.
 
-![Image of route around barriers](RouteAroundBarriers.jpg)
+![Image of route around barriers](routearoundbarriers.jpg)
 
 ## Use case
 

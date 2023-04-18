@@ -2,7 +2,7 @@
 
 See through terrain in a scene and move the camera underground.
 
-![Image of view content beneath terrain surface](ViewContentBeneathSurface.jpg)
+![Image of view content beneath terrain surface](viewcontentbeneathsurface.jpg)
 
 ## Use case
 

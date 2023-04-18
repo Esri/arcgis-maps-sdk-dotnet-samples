@@ -2,7 +2,7 @@
 
 Geocode addresses to locations and reverse geocode locations to addresses offline.
 
-![Image of offline geocode](OfflineGeocode.jpg)
+![Image of offline geocode](offlinegeocode.jpg)
 
 ## Use case
 

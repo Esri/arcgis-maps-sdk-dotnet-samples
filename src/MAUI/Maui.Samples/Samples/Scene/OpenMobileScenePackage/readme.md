@@ -2,7 +2,7 @@
 
 Opens and displays a scene from a Mobile Scene Package (.mspk).
 
-![Image of open mobile scene package](OpenMobileScenePackage.jpg)
+![Image of open mobile scene package](openmobilescenepackage.jpg)
 
 ## Use case
 

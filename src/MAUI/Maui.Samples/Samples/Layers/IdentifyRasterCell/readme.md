@@ -2,7 +2,7 @@
 
 Get the cell value of a local raster at the tapped location and display the result in a callout.
 
-![Image of identify raster cell](IdentifyRasterCell.jpg)
+![Image of identify raster cell](identifyrastercell.jpg)
 
 ## Use case
 

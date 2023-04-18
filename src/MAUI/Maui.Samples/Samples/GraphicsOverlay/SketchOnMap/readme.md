@@ -2,7 +2,7 @@
 
 Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.
 
-![Image of sketch on map](SketchOnMap.jpg)
+![Image of sketch on map](sketchonmap.jpg)
 
 ## Use case
 

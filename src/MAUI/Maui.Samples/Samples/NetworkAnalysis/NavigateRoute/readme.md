@@ -2,7 +2,7 @@
 
 Use a routing service to navigate between points.
 
-![Image of navigate route](NavigateRoute.jpg)
+![Image of navigate route](navigateroute.jpg)
 
 ## Use case
 

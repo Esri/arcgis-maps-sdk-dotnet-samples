@@ -2,7 +2,7 @@
 
 Filter data in layers by applying a time extent to a MapView.
 
-![Image of change time extent](ChangeTimeExtent.jpg)
+![Image of change time extent](changetimeextent.jpg)
 
 ## Use case
 

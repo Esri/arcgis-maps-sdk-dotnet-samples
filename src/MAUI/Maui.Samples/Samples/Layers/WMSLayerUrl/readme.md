@@ -2,7 +2,7 @@
 
 Display a WMS layer using a WMS service URL.
 
-![Image of WMS layer URL](WMSLayerUrl.jpg)
+![Image of WMS layer URL](wmslayerurl.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Changes the appearance of the atmosphere in a scene.
 
-![Image of change atmosphere effect](ChangeAtmosphereEffect.jpg)
+![Image of change atmosphere effect](changeatmosphereeffect.jpg)
 
 ## Use case
 

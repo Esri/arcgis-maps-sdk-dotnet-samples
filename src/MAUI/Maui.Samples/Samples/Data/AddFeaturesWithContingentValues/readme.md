@@ -2,7 +2,7 @@
 
 Create and add features whose attribute values satisfy a predefined set of contingencies.
 
-![Add features with contingent values](AddFeaturesWithContingentValues.jpg)
+![Add features with contingent values](addfeatureswithcontingentvalues.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Query a feature table for statistics, grouping and sorting by different fields.
 
-![Image of statistical query group and sort](StatsQueryGroupAndSort.jpg)
+![Image of statistical query group and sort](statsquerygroupandsort.jpg)
 
 ## Use case
 

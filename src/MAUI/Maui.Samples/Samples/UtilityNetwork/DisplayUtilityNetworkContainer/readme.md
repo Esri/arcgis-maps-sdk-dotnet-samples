@@ -2,7 +2,7 @@
 
 A utility network container allows a dense collection of features to be represented by a single feature, which can be used to reduce map clutter.
 
-![Image of display content of utility network container](DisplayUtilityNetworkContainer.jpg)
+![Image of display content of utility network container](displayutilitynetworkcontainer.jpg)
 
 ## Use case
 

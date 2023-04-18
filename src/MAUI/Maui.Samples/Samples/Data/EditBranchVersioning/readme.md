@@ -2,7 +2,7 @@
 
 Create, query and edit a specific server version using service geodatabase.
 
-![Image of edit with branch versioning](EditBranchVersioning.jpg)
+![Image of edit with branch versioning](editbranchversioning.jpg)
 
 ## Use case
 

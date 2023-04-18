@@ -2,7 +2,7 @@
 
 Find the union, intersection, or difference of two geometries.
 
-![Image of perform spatial operations](SpatialOperations.jpg)
+![Image of perform spatial operations](spatialoperations.jpg)
 
 ## Use case
 

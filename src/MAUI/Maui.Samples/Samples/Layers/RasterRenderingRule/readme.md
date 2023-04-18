@@ -2,7 +2,7 @@
 
 Display a raster on a map and apply different rendering rules to that raster.
 
-![Image of raster rendering rule](RasterRenderingRule.jpg)
+![Image of raster rendering rule](rasterrenderingrule.jpg)
 
 ## Use case
 

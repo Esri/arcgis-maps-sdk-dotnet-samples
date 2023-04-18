@@ -2,7 +2,7 @@
 
 Set the map view to a new viewpoint.
 
-![Image of change viewpoint](ChangeViewpoint.jpg)
+![Image of change viewpoint](changeviewpoint.jpg)
 
 ## Use case
 

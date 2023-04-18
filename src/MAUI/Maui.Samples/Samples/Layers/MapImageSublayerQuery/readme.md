@@ -2,7 +2,7 @@
 
 Find features in a sublayer based on attributes and location.
 
-![Image of query map image sublayer](MapImageSublayerQuery.jpg)
+![Image of query map image sublayer](mapimagesublayerquery.jpg)
 
 ## Use case
 

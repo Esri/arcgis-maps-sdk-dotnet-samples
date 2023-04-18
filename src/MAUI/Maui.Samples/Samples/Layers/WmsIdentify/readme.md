@@ -2,7 +2,7 @@
 
 Identify features in a WMS layer and display the associated popup content.
 
-![Image of identify WFS features](WmsIdentify.jpg)
+![Image of identify WFS features](wmsidentify.jpg)
 
 ## Use case
 

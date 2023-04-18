@@ -2,7 +2,7 @@
 
 Solve a route on-the-fly using offline data.
 
-![Image of offline routing](OfflineRouting.jpg)
+![Image of offline routing](offlinerouting.jpg)
 
 ## Use case
 

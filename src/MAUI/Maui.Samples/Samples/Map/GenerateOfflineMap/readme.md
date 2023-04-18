@@ -2,7 +2,7 @@
 
 Take a web map offline.
 
-![Image of generate offline map](GenerateOfflineMap.jpg)
+![Image of generate offline map](generateofflinemap.jpg)
 
 ## Use case
 

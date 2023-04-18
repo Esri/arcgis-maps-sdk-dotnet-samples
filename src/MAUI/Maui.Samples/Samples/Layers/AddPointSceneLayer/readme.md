@@ -2,7 +2,7 @@
 
 View a point scene layer from a scene service.
 
-![Image of a point scene layer](AddPointSceneLayer.jpg)
+![Image of a point scene layer](addpointscenelayer.jpg)
 
 ## Use case
 

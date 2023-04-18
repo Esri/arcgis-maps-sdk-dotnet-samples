@@ -2,7 +2,7 @@
 
 The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.
 
-![Filter by time extent](FilterByTimeExtent.jpg)
+![Filter by time extent](filterbytimeextent.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Display a layer from a WFS service, requesting only features for the current extent.
 
-![Image of display WFS layer](DisplayWfs.jpg)
+![Image of display WFS layer](displaywfs.jpg)
 
 ## Use case
 

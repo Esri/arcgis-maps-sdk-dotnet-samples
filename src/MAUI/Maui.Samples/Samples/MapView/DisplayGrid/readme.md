@@ -2,7 +2,7 @@
 
 Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.
 
-![Image of display grid](DisplayGrid.jpg)
+![Image of display grid](displaygrid.jpg)
 
 ## Use case
 

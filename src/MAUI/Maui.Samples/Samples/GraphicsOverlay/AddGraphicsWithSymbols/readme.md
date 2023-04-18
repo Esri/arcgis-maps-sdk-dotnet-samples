@@ -2,7 +2,7 @@
 
 Use a symbol style to display a graphic on a graphics overlay.
 
-![Image of Add graphics with symbols](AddGraphicsWithSymbols.jpg)
+![Image of Add graphics with symbols](addgraphicswithsymbols.jpg)
 
 ## Use case
 

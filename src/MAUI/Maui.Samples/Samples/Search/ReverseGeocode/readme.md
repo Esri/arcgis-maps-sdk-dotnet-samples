@@ -2,7 +2,7 @@
 
 Use an online service to find the address for a tapped point.
 
-![Image of reverse geocode](ReverseGeocode.jpg)
+![Image of reverse geocode](reversegeocode.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Display nautical charts per the ENC specification.
 
-![Image showing the add ENC exchange set app](AddEncExchangeSet.jpg)
+![Image showing the add ENC exchange set app](addencexchangeset.jpg)
 
 ## Use case
 

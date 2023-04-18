@@ -2,7 +2,7 @@
 
 List features related to the selected feature.
 
-![Image of list related features](ListRelatedFeatures.jpg)
+![Image of list related features](listrelatedfeatures.jpg)
 
 ## Use case
 

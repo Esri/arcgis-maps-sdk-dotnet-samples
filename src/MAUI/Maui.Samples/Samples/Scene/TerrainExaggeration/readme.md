@@ -2,7 +2,7 @@
 
 Vertically exaggerate terrain in a scene.
 
-![Image of terrain exaggeration](TerrainExaggeration.jpg)
+![Image of terrain exaggeration](terrainexaggeration.jpg)
 
 ## Use case
 

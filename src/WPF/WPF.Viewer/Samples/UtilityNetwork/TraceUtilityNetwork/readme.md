@@ -57,6 +57,8 @@ The [Naperville electrical](https://sampleserver7.arcgisonline.com/server/rest/s
 
 Using utility network on ArcGIS Enterprise 10.8 requires an ArcGIS Enterprise member account licensed with the [Utility Network user type extension](https://enterprise.arcgis.com/en/portal/latest/administer/windows/license-user-type-extensions.htm#ESRI_SECTION1_41D78AD9691B42E0A8C227C113C0C0BF). Please refer to the [utility network services documentation](https://enterprise.arcgis.com/en/server/latest/publish-services/windows/utility-network-services.htm).
 
+A `UtilityNetworkTraceTool` component can be used for various utility network related use cases. For information about setting up the toolkit, as well as code for the component, visit the [toolkit repository](https://github.com/Esri/arcgis-maps-sdk-dotnet-toolkit).
+
 ## Tags
 
-condition barriers, downstream trace, network analysis, subnetwork trace, trace configuration, traversability, upstream trace, utility network, validate consistency
+condition barriers, downstream trace, network analysis, subnetwork trace, toolkit, trace configuration, traversability, upstream trace, utility network, validate consistency

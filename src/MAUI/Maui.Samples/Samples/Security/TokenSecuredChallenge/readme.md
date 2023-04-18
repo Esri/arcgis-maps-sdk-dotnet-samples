@@ -2,7 +2,7 @@
 
 This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.
 
-![Image of ArcGIS token challenge](TokenSecuredChallenge.jpg)
+![Image of ArcGIS token challenge](tokensecuredchallenge.jpg)
 
 ## Use case
 

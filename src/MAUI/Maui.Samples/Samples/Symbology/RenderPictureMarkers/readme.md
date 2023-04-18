@@ -2,7 +2,7 @@
 
 Use pictures for markers.
 
-![Image of picture marker symbol](RenderPictureMarkers.jpg)
+![Image of picture marker symbol](renderpicturemarkers.jpg)
 
 ## Use case
 

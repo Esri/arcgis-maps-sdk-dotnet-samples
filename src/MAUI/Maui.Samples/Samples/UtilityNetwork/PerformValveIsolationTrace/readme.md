@@ -2,7 +2,7 @@
 
 Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
 
-![Image of a utility network with an isolation trace applied to it](PerformValveIsolationTrace.jpg)
+![Image of a utility network with an isolation trace applied to it](performvalveisolationtrace.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Apply a unique value with alternate symbols at different scales.
 
-![Apply unique values with alternate symbols sample](UniqueValuesAlternateSymbols.jpg)
+![Apply unique values with alternate symbols sample](uniquevaluesalternatesymbols.jpg)
 
 ## Use case
 

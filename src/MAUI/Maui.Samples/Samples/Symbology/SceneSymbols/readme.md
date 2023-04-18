@@ -2,7 +2,7 @@
 
 Show various kinds of 3D symbols in a scene.
 
-![Image of scene symbols](SceneSymbols.jpg)
+![Image of scene symbols](scenesymbols.jpg)
 
 ## Use case
 

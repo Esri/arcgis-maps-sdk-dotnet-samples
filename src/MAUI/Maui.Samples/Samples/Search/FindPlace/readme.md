@@ -2,7 +2,7 @@
 
 Find places of interest near a location or within a specific area.
 
-![Image of find place](FindPlace.jpg)
+![Image of find place](findplace.jpg)
 
 ## Use case
 

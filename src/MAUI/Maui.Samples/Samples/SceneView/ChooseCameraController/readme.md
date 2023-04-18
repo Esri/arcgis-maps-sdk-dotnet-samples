@@ -2,7 +2,7 @@
 
 Control the behavior of the camera in a scene.
 
-![Image of choose camera controller](ChooseCameraController.jpg)
+![Image of choose camera controller](choosecameracontroller.jpg)
 
 ## Use case
 

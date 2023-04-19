@@ -6,31 +6,27 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <VerticalStackLayout>
-                <HorizontalStackLayout>
+            <VerticalStackLayout Padding="5">
+                <Grid ColumnDefinitions="100,auto">
                     <Switch x:Name="OnlyInExtentSwitch" HorizontalOptions="End" />
-                    <Label Text="Cities in current extent"
+                    <Label Grid.Column="1"
+                           Text="Cities in current extent"
                            VerticalOptions="Center" />
-                </HorizontalStackLayout>
-                <HorizontalStackLayout>
-                    <Switch x:Name="OnlyBigCitiesSwitch"
-                        HorizontalOptions="End" />
-                    <Label 
-                       HorizontalOptions="Start"
-                       Text="Cities larger than 5M"
-                       VerticalOptions="Center" />
-                </HorizontalStackLayout>
+                </Grid>
+                <Grid ColumnDefinitions="100,auto">
+                    <Switch x:Name="OnlyBigCitiesSwitch" HorizontalOptions="End" />
+                    <Label Grid.Column="1"
+                           Text="Cities larger than 5M"
+                           VerticalOptions="Center" />
+                </Grid>
                 <Button x:Name="GetStatsButton"
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
                         Clicked="OnExecuteStatisticsQueryClicked"
                         Text="Get Statistics" />
-                <Label Text="Statistics have been rounded to the nearest whole number." 
-                       Grid.Row="3" 
-                       Grid.ColumnSpan="2" />
+                <Label Grid.Row="3"
+                       Grid.ColumnSpan="2"
+                       Margin="5"
+                       Text="Statistics have been rounded to the nearest whole number." />
             </VerticalStackLayout>
-            
         </Border>
         <Border x:Name="ResultsGrid"
                 Grid.RowSpan="2"
@@ -39,17 +35,17 @@
                                              Dark=#303030}"
                 HorizontalOptions="Center"
                 IsVisible="False"
-                WidthRequest="275"
                 StrokeShape="RoundRectangle 10, 10, 10, 10"
-                VerticalOptions="Center">
-            <Grid Padding="5" Margin="5">
+                VerticalOptions="Center"
+                WidthRequest="275">
+            <Grid Margin="5" Padding="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                <ListView x:Name="StatResultsList" 
-                          HeightRequest="150" 
-                          SelectionMode="None"  />
+                <ListView x:Name="StatResultsList"
+                          HeightRequest="150"
+                          SelectionMode="None" />
                 <Button Grid.Row="1"
                         Margin="5"
                         Clicked="HideResults"

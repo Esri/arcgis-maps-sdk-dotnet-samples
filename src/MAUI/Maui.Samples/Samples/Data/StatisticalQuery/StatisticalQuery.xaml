@@ -6,15 +6,15 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <VerticalStackLayout Padding="5">
+            <VerticalStackLayout Padding="5" Spacing="5">
                 <Grid ColumnDefinitions="100,auto">
-                    <Switch x:Name="OnlyInExtentSwitch" HorizontalOptions="End" />
+                    <Switch x:Name="OnlyInExtentSwitch" />
                     <Label Grid.Column="1"
                            Text="Cities in current extent"
                            VerticalOptions="Center" />
                 </Grid>
                 <Grid ColumnDefinitions="100,auto">
-                    <Switch x:Name="OnlyBigCitiesSwitch" HorizontalOptions="End" />
+                    <Switch x:Name="OnlyBigCitiesSwitch" />
                     <Label Grid.Column="1"
                            Text="Cities larger than 5M"
                            VerticalOptions="Center" />
@@ -35,9 +35,9 @@
                                              Dark=#303030}"
                 HorizontalOptions="Center"
                 IsVisible="False"
+                WidthRequest="450"
                 StrokeShape="RoundRectangle 10, 10, 10, 10"
-                VerticalOptions="Center"
-                WidthRequest="275">
+                VerticalOptions="Center">
             <Grid Margin="5" Padding="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />

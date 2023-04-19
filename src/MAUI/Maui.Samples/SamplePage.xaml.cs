@@ -197,7 +197,7 @@ namespace ArcGIS
                 string imgSrc = $"data:image/jpg;base64,{Convert.ToBase64String(image)}";
 
                 // Replace paths for image.
-                readmeContent = readmeContent.Replace($"{sampleInfo.FormalName}.jpg", imgSrc);
+                readmeContent = readmeContent.Replace($"{sampleInfo.FormalName.ToLower()}.jpg", imgSrc);
             }
             // Build the html.
             var fullContent =

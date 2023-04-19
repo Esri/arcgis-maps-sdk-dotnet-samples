@@ -27,6 +27,17 @@ namespace ArcGIS.Samples.StatisticalQuery
         // World cities feature table
         private FeatureTable _worldCitiesTable;
 
+        private readonly Dictionary<string, string> _statisticNames = new Dictionary<string, string>
+        {
+            {"AVG_POP","average population"},
+            {"CityCount","city count"},
+            {"MAX_POP","maximum population"},
+            {"MIN_POP","minimum population"},
+            {"STDDEV_POP","population standard deviation"},
+            {"SUM_POP","population summation"},
+            {"VAR_POP","population standard variance"}
+        };
+
         public StatisticalQuery()
         {
             InitializeComponent();
@@ -105,8 +116,18 @@ namespace ArcGIS.Samples.StatisticalQuery
                 // Execute the statistical query with these parameters and await the results
                 StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
-                // Display results in the list box
-                StatResultsList.ItemsSource = statQueryResult.First().Statistics.Select(m => $"{m.Key}:{m.Value}").ToList();
+                var stats = new List<string>();
+                foreach (var stat in statQueryResult.First().Statistics)
+                {
+                    // Round to the nearest whole number; add thousands separators (commas)
+                    string roundedValue = (Math.Round(Convert.ToDouble(stat.Value), MidpointRounding.AwayFromZero).ToString("N"));
+
+                    // Format the results to improve readability
+                    stats.Add(_statisticNames[stat.Key] + ":\n" + roundedValue[..^3] + "\n");
+                }
+
+                // Display results in the list
+                StatResultsList.ItemsSource = stats;
                 ResultsGrid.IsVisible = true;
             }
             catch (Exception ex)

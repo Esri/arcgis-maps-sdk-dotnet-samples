@@ -11,15 +11,14 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <CheckBox x:Name="OnlyInExtentCheckbox"
                           Grid.Row="0"
-                          Content="Cities in current extent"
-                          FontWeight="SemiBold" />
+                          Content="Cities in current extent" />
                 <CheckBox x:Name="OnlyBigCitiesCheckbox"
                           Grid.Row="1"
-                          Content="Cities larger than 5M"
-                          FontWeight="SemiBold" />
+                          Content="Cities larger than 5M" />
                 <ListBox x:Name="StatResultsListBox"
                          Grid.Row="2"
                          Margin="0,5,0,5"
@@ -29,6 +28,9 @@
                         HorizontalAlignment="Stretch"
                         Click="OnExecuteStatisticsQueryClicked"
                         Content="Get statistics" />
+                <TextBlock Grid.Row="4"
+                           Text="Statistics have been rounded to the nearest whole number."
+                           TextWrapping="Wrap" />
             </Grid>
         </Border>
     </Grid>

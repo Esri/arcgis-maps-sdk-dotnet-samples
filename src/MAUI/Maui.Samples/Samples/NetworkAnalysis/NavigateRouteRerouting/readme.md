@@ -2,7 +2,7 @@
 
 Navigate between two points and dynamically recalculate an alternate route when the original route is unavailable.
 
-![Image of navigate route with rerouting](NavigateRouteRerouting.jpg)
+![Image of navigate route with rerouting](navigateroutererouting.jpg)
 
 ## Use case
 

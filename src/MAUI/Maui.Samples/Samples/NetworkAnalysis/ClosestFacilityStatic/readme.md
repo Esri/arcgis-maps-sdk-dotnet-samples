@@ -2,7 +2,7 @@
 
 Find routes from several locations to the respective closest facility.
 
-![Image of find closest facility to multiple incidents service](ClosestFacilityStatic.jpg)
+![Image of find closest facility to multiple incidents service](closestfacilitystatic.jpg)
 
 ## Use case
 

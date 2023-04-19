@@ -2,7 +2,7 @@
 
 Perform a viewshed analysis from a defined vantage point.
 
-![Image of viewshed location](ViewshedLocation.jpg)
+![Image of viewshed location](viewshedlocation.jpg)
 
 ## Use case
 

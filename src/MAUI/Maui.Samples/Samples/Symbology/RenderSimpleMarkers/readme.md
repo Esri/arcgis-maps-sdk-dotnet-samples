@@ -2,7 +2,7 @@
 
 Show a simple marker symbol on a map.
 
-![Image of simple marker symbol](RenderSimpleMarkers.jpg)
+![Image of simple marker symbol](rendersimplemarkers.jpg)
 
 ## Use case
 

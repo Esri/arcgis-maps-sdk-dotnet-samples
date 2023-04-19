@@ -2,7 +2,7 @@
 
 Display directions for a route between two points.
 
-![Image of find route](FindRoute.jpg)
+![Image of find route](findroute.jpg)
 
 ## Use case
 

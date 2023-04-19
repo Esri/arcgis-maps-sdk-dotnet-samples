@@ -2,7 +2,7 @@
 
 Combine multiple symbols from a mobile style file into a single symbol.
 
-![Image of read symbols from mobile style](SymbolsFromMobileStyle.jpg)
+![Image of read symbols from mobile style](symbolsfrommobilestyle.jpg)
 
 ## Use case
 

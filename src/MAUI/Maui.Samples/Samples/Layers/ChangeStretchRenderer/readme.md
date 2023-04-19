@@ -2,7 +2,7 @@
 
 Use a stretch renderer to enhance the visual contrast of raster data for analysis.
 
-![Image of stretch renderer](ChangeStretchRenderer.jpg)
+![Image of stretch renderer](changestretchrenderer.jpg)
 
 ## Use case
 

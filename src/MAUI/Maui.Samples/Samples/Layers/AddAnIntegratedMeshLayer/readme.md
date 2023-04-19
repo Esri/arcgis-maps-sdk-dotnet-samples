@@ -2,7 +2,7 @@
 
 View an integrated mesh layer from a scene service.
 
-![Add integrated mesh layer sample](AddAnIntegratedMeshLayer.jpg)
+![Add integrated mesh layer sample](addanintegratedmeshlayer.jpg)
 
 ## Use case
 

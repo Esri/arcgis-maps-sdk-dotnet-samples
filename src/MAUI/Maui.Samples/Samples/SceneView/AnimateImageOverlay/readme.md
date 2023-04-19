@@ -2,7 +2,7 @@
 
 Animate a series of images with an image overlay.
 
-![Image of animate images with image overlay](AnimateImageOverlay.jpg)
+![Image of animate images with image overlay](animateimageoverlay.jpg)
 
 ## Use case
 

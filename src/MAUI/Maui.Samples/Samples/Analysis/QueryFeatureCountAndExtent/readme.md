@@ -2,7 +2,7 @@
 
 Zoom to features matching a query and count the features in the current visible extent.
 
-![Image of query feature count and extent](QueryFeatureCountAndExtent.jpg)
+![Image of query feature count and extent](queryfeaturecountandextent.jpg)
 
 ## Use case
 

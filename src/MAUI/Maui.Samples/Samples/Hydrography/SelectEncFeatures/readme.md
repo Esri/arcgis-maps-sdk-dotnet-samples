@@ -2,7 +2,7 @@
 
 Select features in an ENC layer.
 
-![Image of select ENC features](SelectEncFeatures.jpg)
+![Image of select ENC features](selectencfeatures.jpg)
 
 ## Use case
 

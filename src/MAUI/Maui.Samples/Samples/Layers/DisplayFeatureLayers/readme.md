@@ -2,7 +2,7 @@
 
 Display feature layers from various data sources.
 
-![Display feature layers](DisplayFeatureLayers.jpg)
+![Display feature layers](displayfeaturelayers.jpg)
 
 ## Use case
 

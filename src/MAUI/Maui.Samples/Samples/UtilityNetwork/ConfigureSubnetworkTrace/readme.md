@@ -2,7 +2,7 @@
 
 Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
 
-![Image of configure subnetwork trace](ConfigureSubnetworkTrace.jpg)
+![Image of configure subnetwork trace](configuresubnetworktrace.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Query data using a time extent. 
 
-![Image of time-based query](TimeBasedQuery.jpg)
+![Image of time-based query](timebasedquery.jpg)
 
 ## Use case
 

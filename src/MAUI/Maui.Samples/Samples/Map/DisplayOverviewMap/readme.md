@@ -2,7 +2,7 @@
 
 Include an overview or inset map as an additional map view to show the wider context of the primary view. 
 
-![Image of display overview map](DisplayOverviewMap.jpg)
+![Image of display overview map](displayoverviewmap.jpg)
 
 ## Use case
 

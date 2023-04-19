@@ -2,7 +2,7 @@
 
 Display common symbols for all graphics in a graphics overlay with a renderer.
 
-![Image of simple renderer](SimpleRenderers.jpg)
+![Image of simple renderer](simplerenderers.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Select features in a feature layer.
 
-![Image of feature layer selection](FeatureLayerSelection.jpg)
+![Image of feature layer selection](featurelayerselection.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Create graphics for utility associations in a utility network.
 
-![Image of display utility associations](DisplayUtilityAssociations.jpg)
+![Image of display utility associations](displayutilityassociations.jpg)
 
 ## Use case
 

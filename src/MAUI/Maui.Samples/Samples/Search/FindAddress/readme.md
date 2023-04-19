@@ -2,7 +2,7 @@
 
 Find the location for an address.
 
-![Image of find address](FindAddress.jpg)
+![Image of find address](findaddress.jpg)
 
 ## Use case
 

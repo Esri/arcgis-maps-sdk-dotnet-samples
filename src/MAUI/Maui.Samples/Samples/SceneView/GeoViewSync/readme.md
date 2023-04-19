@@ -2,7 +2,7 @@
 
 Keep the view points of two views (e.g. MapView and SceneView) synchronized with each other.
 
-![Image of geo view viewpoint synchronization](GeoViewSync.jpg)
+![Image of geo view viewpoint synchronization](geoviewsync.jpg)
 
 ## Use case
 

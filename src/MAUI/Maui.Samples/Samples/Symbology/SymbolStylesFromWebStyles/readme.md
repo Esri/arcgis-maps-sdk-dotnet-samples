@@ -2,7 +2,7 @@
 
 Create symbol styles from a style file hosted on a portal.
 
-![Image of create symbol styles from web styles](SymbolStylesFromWebStyles.jpg)
+![Image of create symbol styles from web styles](symbolstylesfromwebstyles.jpg)
 
 ## Use case
 

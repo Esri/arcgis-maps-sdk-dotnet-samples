@@ -2,7 +2,7 @@
 
 Group a collection of layers together and toggle their visibility as a group.
 
-![Image of group layers](GroupLayers.jpg)
+![Image of group layers](grouplayers.jpg)
 
 ## Use case
 

@@ -2,7 +2,7 @@
 
 Display local 3D point cloud data.
 
-![Image of view point cloud data offline](ViewPointCloudDataOffline.jpg)
+![Image of view point cloud data offline](viewpointclouddataoffline.jpg)
 
 ## Use case
 

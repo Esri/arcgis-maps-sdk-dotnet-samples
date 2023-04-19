@@ -2,7 +2,7 @@
 
 Query features on a map using an Arcade expression.
 
-![QueryFeaturesWithArcadeExpression](QueryFeaturesWithArcadeExpression.jpg)
+![QueryFeaturesWithArcadeExpression](queryfeatureswitharcadeexpression.jpg)
 
 ## Use case
 

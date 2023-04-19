@@ -2,7 +2,7 @@
 
 Apply an RGB renderer to a raster layer to enhance feature visibility.
 
-![Image of RGB renderer](RasterRgbRenderer.jpg)
+![Image of RGB renderer](rasterrgbrenderer.jpg)
 
 ## Use case
 

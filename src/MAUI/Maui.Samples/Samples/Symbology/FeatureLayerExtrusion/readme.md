@@ -2,7 +2,7 @@
 
 Extrude features based on their attributes.
 
-![Image of feature layer extrusion](FeatureLayerExtrusion.jpg)
+![Image of feature layer extrusion](featurelayerextrusion.jpg)
 
 ## Use case
 

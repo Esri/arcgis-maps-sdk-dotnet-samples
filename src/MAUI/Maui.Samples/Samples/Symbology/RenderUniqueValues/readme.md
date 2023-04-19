@@ -2,7 +2,7 @@
 
 Render features in a layer using a distinct symbol for each unique attribute value.
 
-![Image of unique value renderer](RenderUniqueValues.jpg)
+![Image of unique value renderer](renderuniquevalues.jpg)
 
 ## Use case
 

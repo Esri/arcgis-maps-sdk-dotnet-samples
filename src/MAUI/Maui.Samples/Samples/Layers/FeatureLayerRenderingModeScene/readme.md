@@ -2,7 +2,7 @@
 
 Render features in a scene statically or dynamically by setting the feature layer rendering mode.
 
-![Image of feature layer rendering mode scene](FeatureLayerRenderingModeScene.jpg)
+![Image of feature layer rendering mode scene](featurelayerrenderingmodescene.jpg)
 
 ## Use case
 

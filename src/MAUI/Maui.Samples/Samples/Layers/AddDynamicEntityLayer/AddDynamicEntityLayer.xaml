@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.AddDynamicEntityLayer.AddDynamicEntityLayer"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border x:Name="MainUI"
+                Style="{DynamicResource EsriSampleControlPanel}"
+                VerticalOptions="Start">
+            <StackLayout>
+                <Label x:Name="ConnectionStatusLabel" />
+                <Button x:Name="ConnectionButton"
+                        Margin="5"
+                        Clicked="ConnectionButtonClick"
+                        IsEnabled="False" />
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="auto" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <CheckBox Grid.Row="0"
+                              Grid.Column="0"
+                              Margin="5"
+                              CheckedChanged="LineVisibilityCheckbox_Checked"
+                              IsChecked="True" />
+                    <Label Grid.Row="0"
+                           Grid.Column="1"
+                           Text="Track lines"
+                           VerticalTextAlignment="Center" />
+                    <CheckBox Grid.Row="1"
+                              Grid.Column="0"
+                              Margin="5"
+                              CheckedChanged="EntityVisibilityCheckbox_Checked"
+                              IsChecked="True" />
+                    <Label Grid.Row="1"
+                           Grid.Column="1"
+                           Text="Previous observations"
+                           VerticalTextAlignment="Center" />
+                </Grid>
+                <Label x:Name="previousObservationsLabel" Text="Previous observations per track: 5" />
+                <Slider x:Name="EntitiesSlider"
+                        Grid.Column="1"
+                        Maximum="16"
+                        Minimum="1"
+                        ValueChanged="Slider_ValueChanged"
+                        VerticalOptions="Center"
+                        Value="5" />
+                <Button Margin="5"
+                        Clicked="PurgeClick"
+                        Text="Purge all observations" />
+            </StackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

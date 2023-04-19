@@ -3,49 +3,49 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <esriUI:SceneView x:Name="MySceneView" AtmosphereEffect="Realistic" />
-        <Border x:Name="LayoutFrame"
-                Margin="5"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}"
-                HorizontalOptions="End"
-                StrokeShape="RoundRectangle 5"
-                VerticalOptions="Start">
-            <StackLayout Padding="5">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:SceneView x:Name="MySceneView"
+                          AtmosphereEffect="Realistic"
+                          Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="{OnPlatform MacCatalyst=375, WinUI=375}">
+            <StackLayout>
+                <StackLayout Orientation="Horizontal" Spacing="5">
+                    <Picker x:Name="MissionSelectionBox"
+                            HorizontalTextAlignment="Center"
+                            WidthRequest="150" />
+                    <Button x:Name="MissionPlayPause"
+                            Clicked="MissionPlayPlauseClick"
+                            Text="Pause"
+                            WidthRequest="75" />
+                    <Button x:Name="CameraControlButton"
+                            Clicked="ToggleFollowPlane"
+                            Text="Don't Follow"
+                            WidthRequest="110" />
+                </StackLayout>
                 <Label Text="Mission Progress:" />
                 <Slider x:Name="MissionProgressBar"
                         Maximum="100"
-                        ValueChanged="MissionProgressOnSeek" />
-                <Label>Altitude:</Label>
-                <Label x:Name="AltitudeLabel" />
-                <Label>Heading:</Label>
-                <Label x:Name="HeadingLabel" />
-                <Label>Pitch:</Label>
-                <Label x:Name="PitchLabel" />
-                <Label>Roll:</Label>
-                <Label x:Name="RollLabel" />
-            </StackLayout>
-        </Border>
-        <esriUI:MapView x:Name="InsetMapView"
-                        Margin="20"
-                        HeightRequest="150"
-                        HorizontalOptions="Start"
-                        IsAttributionTextVisible="False"
-                        VerticalOptions="End"
-                        WidthRequest="150" />
-        <Border Margin="5"
-                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}"
-                HorizontalOptions="Start"
-                StrokeShape="RoundRectangle 5"
-                VerticalOptions="Start">
-            <StackLayout Orientation="Vertical" Spacing="5">
-                <Picker x:Name="MissionSelectionBox" WidthRequest="125" />
-                <Button x:Name="MissionPlayPause"
-                        Clicked="MissionPlayPlauseClick"
-                        Text="Pause" />
-                <Button Clicked="ToggleFollowPlane" Text="Don't Follow" />
+                        ValueChanged="MissionProgressOnSeek"
+                        WidthRequest="350" />
+                <Grid ColumnDefinitions="100,*">
+                    <StackLayout Orientation="Vertical">
+                        <Label>Altitude:</Label>
+                        <Label x:Name="AltitudeLabel" />
+                        <Label>Heading:</Label>
+                        <Label x:Name="HeadingLabel" />
+                        <Label>Pitch:</Label>
+                        <Label x:Name="PitchLabel" />
+                        <Label>Roll:</Label>
+                        <Label x:Name="RollLabel" />
+                    </StackLayout>
+                    <esriUI:MapView x:Name="InsetMapView"
+                                    Grid.Column="1"
+                                    HeightRequest="150"
+                                    HorizontalOptions="End"
+                                    IsAttributionTextVisible="False"
+                                    VerticalOptions="Start"
+                                    WidthRequest="150" />
+                </Grid>
             </StackLayout>
         </Border>
     </Grid>

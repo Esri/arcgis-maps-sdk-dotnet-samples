@@ -34,7 +34,7 @@ namespace ArcGIS.WPF.Samples.Animate3DGraphic
         description: "An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.",
         instructions: "Animation Controls:",
         tags: new[] { "animation", "camera", "heading", "pitch", "roll", "rotation", "visualize" })]
-	[ArcGIS.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63", "681d6f7694644709a7c830ec57a2d72b", "e87c154fb9c2487f999143df5b08e9b1", "5a9b60cee9ba41e79640a06bcdf8084d", "12509ffdc684437f8f2656b0129d2c13")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("290f0c571c394461a8b58b6775d0bd63", "681d6f7694644709a7c830ec57a2d72b", "e87c154fb9c2487f999143df5b08e9b1", "5a9b60cee9ba41e79640a06bcdf8084d", "12509ffdc684437f8f2656b0129d2c13")]
     public partial class Animate3DGraphic
     {
         // URL to the elevation service - provides terrain elevation
@@ -211,10 +211,8 @@ namespace ArcGIS.WPF.Samples.Animate3DGraphic
             _frameCount = _missionData.Length;
             _keyframe = 0;
 
-            // Set the MissionPlayPause button back to the currently 'playing' state
-            MissionPlayPause.Content = "Pause";
-
-            // Restart the animation
+            // At the start of a new mission, follow the animated plane
+            FollowPlane(true);
             _animationTimer.Start();
         }
 
@@ -347,25 +345,24 @@ namespace ArcGIS.WPF.Samples.Animate3DGraphic
 
         private void ToggleFollowPlane(object sender, RoutedEventArgs e)
         {
-            // Get a reference to the button
-            Button cameraControlButton = (Button)sender;
-
             // Get the current text of the button
-            string cameraControlText = cameraControlButton.Content.ToString();
+            FollowPlane(CameraControlButton.Content.ToString() == "Follow");
+        }
 
-            switch (cameraControlText)
+        private void FollowPlane(bool follow)
+        {
+            if (follow)
             {
-                // Resume following
-                case "Follow":
-                    cameraControlButton.Content = "Don't follow";
-                    MySceneView.CameraController = _orbitCameraController;
-                    break;
+                CameraControlButton.Content = "Don't follow";
+                MySceneView.CameraController = _orbitCameraController;
+            }
+            else
+            {
                 // Stop following
-                case "Don't follow":
-                    cameraControlButton.Content = "Follow";
-                    // Setting the scene view's camera controller to null has the effect of resetting the value to the default
-                    MySceneView.CameraController = null;
-                    break;
+                CameraControlButton.Content = "Follow";
+
+                // Setting the scene view's camera controller to null has the effect of resetting the value to the default
+                MySceneView.CameraController = null;
             }
         }
 

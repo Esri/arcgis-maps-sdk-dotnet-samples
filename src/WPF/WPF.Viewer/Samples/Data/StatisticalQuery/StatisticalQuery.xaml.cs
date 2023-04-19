@@ -12,7 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Printing;
 using System.Windows;
 
 namespace ArcGIS.WPF.Samples.StatisticalQuery
@@ -30,6 +32,17 @@ namespace ArcGIS.WPF.Samples.StatisticalQuery
 
         // World cities feature table
         private FeatureTable _worldCitiesTable;
+
+        private readonly Dictionary<string, string> _statisticNames = new Dictionary<string, string>
+        {
+            {"AVG_POP","average population"},
+            {"CityCount","city count"},
+            {"MAX_POP", "maximum population"},
+            {"MIN_POP", "minimum population"},
+            {"STDDEV_POP", "population standard deviation"},
+            {"SUM_POP", "population summation"},
+            {"VAR_POP", "population standard variance"}
+        };
 
         public StatisticalQuery()
         {
@@ -106,11 +119,21 @@ namespace ArcGIS.WPF.Samples.StatisticalQuery
 
             try
             {
-                // Execute the statistical query with these parameters and await the results
+                // Execute the statistical query and await the results
                 StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
+                var stats = new List<string>();
+                foreach(var stat in statQueryResult.First().Statistics)
+                {
+                    // Round to the nearest whole number; add thousands separators (commas)
+                    string roundedValue = (Math.Round(Convert.ToDouble(stat.Value), MidpointRounding.AwayFromZero).ToString("N"));
+
+                    // Format the results to improve readability
+                    stats.Add(_statisticNames[stat.Key] + ": " + roundedValue[..^3]);
+                }
+
                 // Display results in the list box
-                StatResultsListBox.ItemsSource = statQueryResult.First().Statistics.ToList();
+                StatResultsListBox.ItemsSource = stats;
             }
             catch (Exception ex)
             {

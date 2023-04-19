@@ -10,6 +10,7 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition Height="150" />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -36,6 +37,9 @@
                          Grid.Row="2"
                          Grid.Column="0"
                          Grid.ColumnSpan="2" />
+                <TextBlock Grid.Row="3"
+                           Grid.ColumnSpan="2"
+                           Text="Statistics have been rounded to the nearest whole number." />
             </Grid>
         </Border>
     </Grid>

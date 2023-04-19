@@ -12,9 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Printing;
 using System.Windows;
 
 namespace ArcGIS.WPF.Samples.StatisticalQuery
@@ -37,11 +35,11 @@ namespace ArcGIS.WPF.Samples.StatisticalQuery
         {
             {"AVG_POP","average population"},
             {"CityCount","city count"},
-            {"MAX_POP", "maximum population"},
-            {"MIN_POP", "minimum population"},
-            {"STDDEV_POP", "population standard deviation"},
-            {"SUM_POP", "population summation"},
-            {"VAR_POP", "population standard variance"}
+            {"MAX_POP","maximum population"},
+            {"MIN_POP","minimum population"},
+            {"STDDEV_POP","population standard deviation"},
+            {"SUM_POP","population summation"},
+            {"VAR_POP","population standard variance"}
         };
 
         public StatisticalQuery()
@@ -123,7 +121,7 @@ namespace ArcGIS.WPF.Samples.StatisticalQuery
                 StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
                 var stats = new List<string>();
-                foreach(var stat in statQueryResult.First().Statistics)
+                foreach (var stat in statQueryResult.First().Statistics)
                 {
                     // Round to the nearest whole number; add thousands separators (commas)
                     string roundedValue = (Math.Round(Convert.ToDouble(stat.Value), MidpointRounding.AwayFromZero).ToString("N"));

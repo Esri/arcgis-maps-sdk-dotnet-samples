@@ -64,7 +64,7 @@ namespace ArcGIS.Samples.StatisticalQuery
             MyMapView.Map = myMap;
         }
 
-        private async void OnExecuteStatisticsQueryClicked(object sender, EventArgs e)
+        private async void OnExecuteStatisticsQuery_Clicked(object sender, EventArgs e)
         {
             // Create definitions for each statistic to calculate
             StatisticDefinition statDefinitionAvgPop = new StatisticDefinition("POP", StatisticType.Average, "");
@@ -116,18 +116,19 @@ namespace ArcGIS.Samples.StatisticalQuery
                 // Execute the statistical query with these parameters and await the results
                 StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
-                var stats = new List<string>();
+                string stats = "";
+                
                 foreach (var stat in statQueryResult.First().Statistics)
                 {
                     // Round to the nearest whole number; add thousands separators (commas)
                     string roundedValue = (Math.Round(Convert.ToDouble(stat.Value), MidpointRounding.AwayFromZero).ToString("N"));
 
                     // Format the results to improve readability
-                    stats.Add(_statisticNames[stat.Key] + ": " + roundedValue[..^4]);
+                    stats += _statisticNames[stat.Key] + ": " + roundedValue[..^4] + "\n";
                 }
 
                 // Display results in the list
-                StatResultsList.ItemsSource = stats;
+                StatsListed.Text = stats;
                 ResultsGrid.IsVisible = true;
             }
             catch (Exception ex)

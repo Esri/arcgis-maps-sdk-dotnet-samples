@@ -22,10 +22,9 @@
                 <Button x:Name="GetStatsButton"
                         Clicked="OnExecuteStatisticsQueryClicked"
                         Text="Get Statistics" />
-                <Label Grid.Row="3"
-                       Grid.ColumnSpan="2"
-                       Margin="5"
-                       Text="Statistics have been rounded to the nearest whole number." />
+                <Label Margin="5"
+                       Text="Statistics will be rounded to the nearest integer."
+                       LineBreakMode="WordWrap"/>
             </VerticalStackLayout>
         </Border>
         <Border x:Name="ResultsGrid"
@@ -35,7 +34,6 @@
                                              Dark=#303030}"
                 HorizontalOptions="Center"
                 IsVisible="False"
-                WidthRequest="450"
                 StrokeShape="RoundRectangle 10, 10, 10, 10"
                 VerticalOptions="Center">
             <Grid Margin="5" Padding="5">
@@ -43,9 +41,8 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                <ListView x:Name="StatResultsList"
-                          HeightRequest="150"
-                          SelectionMode="None" />
+                <Label x:Name="StatsListed"
+                          HeightRequest="150" />
                 <Button Grid.Row="1"
                         Margin="5"
                         Clicked="HideResults"

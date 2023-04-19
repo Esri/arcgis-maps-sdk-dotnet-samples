@@ -1,17 +1,16 @@
 {
     "category": "Utility network",
-    "description": "Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.",
-    "formal_name": "TraceUtilityNetwork",
+    "description": "Demonstrates the creation of a simple electric distribution report. It traces downstream from a given point and adds up the count of customers and total load per phase.",
+    "formal_name": "CreateLoadReport",
     "ignore": false,
     "images": [
-        "traceutilitynetwork.jpg"
+        "CreateLoadReport.jpg"
     ],
     "keywords": [
         "condition barriers",
         "downstream trace",
         "network analysis",
         "subnetwork trace",
-        "toolkit",
         "trace configuration",
         "traversability",
         "upstream trace",
@@ -20,29 +19,31 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/traceutilitynetwork.htm"
+        "/net/latest/winui/sample-code/createloadreport.htm"
     ],
     "relevant_apis": [
-        "FractionAlong",
-        "ServiceGeodatabase",
         "UtilityAssetType",
+        "UtilityCategoryComparison",
         "UtilityDomainNetwork",
         "UtilityElement",
         "UtilityElementTraceResult",
         "UtilityNetwork",
+        "UtilityNetworkAttribute",
+        "UtilityNetworkAttributeComparison",
         "UtilityNetworkDefinition",
         "UtilityNetworkSource",
         "UtilityTerminal",
         "UtilityTier",
         "UtilityTraceConfiguration",
+        "UtilityTraceFunction",
         "UtilityTraceParameters",
         "UtilityTraceResult",
         "UtilityTraceType",
         "UtilityTraversability"
     ],
     "snippets": [
-        "TraceUtilityNetwork.xaml",
-        "TraceUtilityNetwork.xaml.cs"
+        "CreateLoadReport.xaml",
+        "CreateLoadReport.xaml.cs"
     ],
-    "title": "Trace utility network"
+    "title": "Create load report"
 }

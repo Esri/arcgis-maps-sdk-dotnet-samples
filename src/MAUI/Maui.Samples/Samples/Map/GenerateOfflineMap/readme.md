@@ -34,7 +34,7 @@ The map used in this sample shows the [stormwater network](https://arcgisruntime
 
 ## Additional information
 
-The creation of the offline map can be fine-tuned using [parameter overrides for feature layers](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/tree/main/src/WPF/ArcGISRuntime.WPF.Viewer/Samples/Map/GenerateOfflineMapWithOverrides), or by using [local basemaps](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/tree/main/src/WPF/ArcGISRuntime.WPF.Viewer/Samples/Map/OfflineBasemapByReference)
+The creation of the offline map can be fine-tuned using [parameter overrides for feature layers](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/tree/main/src/WPF/WPF.Viewer/Samples/Map/GenerateOfflineMapWithOverrides), or by using [local basemaps](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/tree/main/src/WPF/WPF.Viewer/Samples/Map/OfflineBasemapByReference)
  to achieve more customized results.
 
 ## Tags

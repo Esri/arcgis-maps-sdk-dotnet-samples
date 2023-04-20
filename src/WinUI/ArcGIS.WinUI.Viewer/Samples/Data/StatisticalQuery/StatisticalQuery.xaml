@@ -5,33 +5,19 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <CheckBox x:Name="OnlyInExtentCheckbox"
-                          Grid.Row="0"
-                          Content="Cities in current extent" />
-                <CheckBox x:Name="OnlyBigCitiesCheckbox"
-                          Grid.Row="1"
-                          Content="Cities larger than 5M" />
-                <ListBox x:Name="StatResultsListBox"
-                         Grid.Row="2"
-                         Margin="0,5,0,5"
-                         HorizontalAlignment="Stretch" />
-                <Button Grid.Row="3"
-                        Margin="0,5,0,0"
+            <StackPanel>
+                <CheckBox x:Name="OnlyInExtentCheckbox" Content="Cities in current extent" />
+                <CheckBox x:Name="OnlyBigCitiesCheckbox" Content="Cities larger than 5M" />
+                <Button Margin="0,5,0,0"
                         HorizontalAlignment="Stretch"
-                        Click="OnExecuteStatisticsQueryClicked"
+                        Click="OnExecuteStatisticsQuery_Clicked"
                         Content="Get statistics" />
-                <TextBlock Grid.Row="4"
-                           Text="Statistics have been rounded to the nearest whole number."
-                           TextWrapping="Wrap" />
-            </Grid>
+                <TextBlock Text="Statistics will be rounded to the nearest integer." TextWrapping="Wrap" />
+                <ListBox x:Name="StatsResultsListBox"
+                         Margin="0,5,0,5"
+                         HorizontalAlignment="Stretch"
+                         Visibility="Collapsed" />
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>

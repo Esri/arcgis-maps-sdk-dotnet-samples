@@ -68,7 +68,7 @@ namespace ArcGIS.WPF.Samples.StatisticalQuery
             MyMapView.Map = myMap;
         }
 
-        private async void OnExecuteStatisticsQueryClicked(object sender, RoutedEventArgs e)
+        private async void OnExecuteStatisticsQuery_Clicked(object sender, RoutedEventArgs e)
         {
             // Create definitions for each statistic to calculate
             StatisticDefinition statDefinitionAvgPop = new StatisticDefinition("POP", StatisticType.Average, "");
@@ -131,7 +131,8 @@ namespace ArcGIS.WPF.Samples.StatisticalQuery
                 }
 
                 // Display results in the list box
-                StatResultsListBox.ItemsSource = stats;
+                StatsResultsListBox.ItemsSource = stats;
+                StatsResultsListBox.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {

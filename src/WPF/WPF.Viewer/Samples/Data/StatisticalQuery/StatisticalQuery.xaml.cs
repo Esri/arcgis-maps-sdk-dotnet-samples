@@ -127,7 +127,7 @@ namespace ArcGIS.WPF.Samples.StatisticalQuery
                     string roundedValue = (Math.Round(Convert.ToDouble(stat.Value), MidpointRounding.AwayFromZero).ToString("N"));
 
                     // Format the results to improve readability
-                    stats.Add(_statisticNames[stat.Key] + ": " + roundedValue[..^3]);
+                    stats.Add(_statisticNames[stat.Key] + ": " + roundedValue.Substring(0, roundedValue.Length - 3));
                 }
 
                 // Display results in the list box

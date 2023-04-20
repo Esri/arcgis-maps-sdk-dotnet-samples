@@ -20,11 +20,10 @@
                            VerticalOptions="Center" />
                 </Grid>
                 <Button x:Name="GetStatsButton"
-                        Clicked="OnExecuteStatisticsQueryClicked"
+                        Clicked="OnExecuteStatisticsQuery_Clicked"
                         Text="Get Statistics" />
                 <Label Margin="5"
-                       Text="Statistics will be rounded to the nearest integer."
-                       LineBreakMode="WordWrap"/>
+                       Text="Statistics will be rounded to the nearest integer." />
             </VerticalStackLayout>
         </Border>
         <Border x:Name="ResultsGrid"
@@ -41,8 +40,7 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                <Label x:Name="StatsListed"
-                          HeightRequest="150" />
+                <Label x:Name="StatsListed" />
                 <Button Grid.Row="1"
                         Margin="5"
                         Clicked="HideResults"

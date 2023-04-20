@@ -123,11 +123,12 @@ namespace ArcGIS.WPF.Samples.StatisticalQuery
                 var stats = new List<string>();
                 foreach (var stat in statQueryResult.First().Statistics)
                 {
-                    // Round to the nearest whole number; add thousands separators (commas)
-                    string roundedValue = (Math.Round(Convert.ToDouble(stat.Value), MidpointRounding.AwayFromZero).ToString("N"));
+                    // Round to the nearest integer
+                    // Add thousands separators (commas); set the precision specifier to zero to prevent decimal digits
+                    string formattedNumber = (Math.Round(Convert.ToDouble(stat.Value), MidpointRounding.AwayFromZero).ToString("N0"));
 
                     // Format the results to improve readability
-                    stats.Add(_statisticNames[stat.Key] + ": " + roundedValue.Substring(0, roundedValue.Length - 3));
+                    stats.Add(_statisticNames[stat.Key] + ": " + formattedNumber);
                 }
 
                 // Display results in the list box

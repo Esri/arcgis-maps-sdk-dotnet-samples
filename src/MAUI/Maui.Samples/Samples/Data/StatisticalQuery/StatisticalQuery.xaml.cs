@@ -120,17 +120,12 @@ namespace ArcGIS.Samples.StatisticalQuery
 
                 foreach (var stat in statQueryResult.First().Statistics)
                 {
-                    // Round to the nearest whole number; add thousands separators (commas)
-                    string roundedValue = (Math.Round(Convert.ToDouble(stat.Value), MidpointRounding.AwayFromZero).ToString("N"));
-
-                    // Account for platform differences in substring length
-                    int substringEndIndex = roundedValue.Length - 4;
-#if WINDOWS
-                    substringEndIndex += 1;
-#endif
+                    // Round to the nearest integer
+                    // Add thousands separators (commas); set the precision specifier to zero to prevent decimal digits
+                    string formattedNumber = (Math.Round(Convert.ToDouble(stat.Value), MidpointRounding.AwayFromZero).ToString("N0"));
 
                     // Format the results to improve readability
-                    stats += _statisticNames[stat.Key] + ": " + roundedValue.Substring(0, substringEndIndex) + "\n";
+                    stats += _statisticNames[stat.Key] + ": " + formattedNumber + "\n";
                 }
 
                 // Display results in the list

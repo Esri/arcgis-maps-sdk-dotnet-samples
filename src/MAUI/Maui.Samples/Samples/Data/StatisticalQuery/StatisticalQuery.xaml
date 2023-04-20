@@ -22,8 +22,7 @@
                 <Button x:Name="GetStatsButton"
                         Clicked="OnExecuteStatisticsQuery_Clicked"
                         Text="Get Statistics" />
-                <Label Margin="5"
-                       Text="Statistics will be rounded to the nearest integer." />
+                <Label Margin="5" Text="Statistics will be rounded to the nearest integer." />
             </VerticalStackLayout>
         </Border>
         <Border x:Name="ResultsGrid"

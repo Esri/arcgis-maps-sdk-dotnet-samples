@@ -131,7 +131,7 @@ namespace ArcGIS.WPF.Samples.StatisticalQuery
                     stats.Add(_statisticNames[stat.Key] + ": " + formattedNumber);
                 }
 
-                // Display results in the list box.
+                // Display results.
                 StatsResultsListBox.ItemsSource = stats;
                 Results.Visibility = Visibility.Visible;
             }

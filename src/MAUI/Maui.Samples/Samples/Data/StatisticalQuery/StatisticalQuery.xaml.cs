@@ -128,7 +128,7 @@ namespace ArcGIS.Samples.StatisticalQuery
                     stats += _statisticNames[stat.Key] + ": " + formattedNumber + "\n";
                 }
 
-                // Display results in the list.
+                // Display results.
                 StatsListed.Text = stats;
                 Results.IsVisible = true;
             }

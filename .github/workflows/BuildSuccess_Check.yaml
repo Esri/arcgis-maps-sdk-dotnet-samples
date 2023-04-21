@@ -1,0 +1,40 @@
+# The name of the job, which will be displayed for the status check in PR.
+name: Build success check
+
+# Controls when the action will run.
+# Below triggers the workflow on pull requests to `main` or `v.next` branch.
+on:
+  pull_request:
+    branches:
+      - main
+
+# A workflow run is made up of one or more jobs that can run sequentially or
+# in parallel.
+jobs:
+  # This workflow contains a single job called "changes"
+  build:
+    name: Check build success.
+    
+    # Comment out the line below if the job is only running for certain labels.
+    # i.e. only run the job on PRs with label "new-sample"
+
+    # if: contains(github.event.pull_request.labels.*.name, 'new-sample')
+    
+    # The type of runner that the job will run on
+    # supported VMs are here: https://docs.github.com/en/free-pro-team@latest/actions/reference/specifications-for-github-hosted-runners#supported-runners-and-hardware-resources
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+          dotnet-version: ['6.0.x']
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies 
+        run: dotnet restore
+      - name: Build 
+        run: dotnet build --configuration Release ArcGIS.WPF.Viewer.NET --no-restore
+    

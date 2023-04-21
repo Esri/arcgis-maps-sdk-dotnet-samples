@@ -50,6 +50,10 @@ def replace_readmes(category, formal_name, sample_root):
         platformcontent = platformcontent.replace("wpf/guide", str.lower(platform)+"/guide")
         platformcontent = platformcontent.replace("wpf/sample-code/", str.lower(platform)+"/sample-code/")
 
+        # Ensure MAUI image name is lowercase
+        if platform == "MAUI":
+            platformcontent = platformcontent.replace(formal_name+".jpg", str.lower(formal_name)+".jpg")
+
         # For other changes that need to be made.
         #platformcontent = platformcontent.replace("oldlink", "newlink")
 

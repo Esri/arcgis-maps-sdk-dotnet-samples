@@ -124,7 +124,7 @@ namespace ArcGIS.WPF.Samples.StatisticalQuery
                 foreach (var stat in statQueryResult.First().Statistics)
                 {
                     // Round to the nearest integer.
-                    // Add thousands separators (commas); set the precision specifier to zero to prevent decimal digits.
+                    // Add thousands separators; set the precision specifier to zero to prevent decimal digits.
                     string formattedNumber = (Math.Round(Convert.ToDouble(stat.Value), MidpointRounding.AwayFromZero).ToString("N0"));
 
                     // Format the results to improve readability.
@@ -133,12 +133,17 @@ namespace ArcGIS.WPF.Samples.StatisticalQuery
 
                 // Display results in the list box.
                 StatsResultsListBox.ItemsSource = stats;
-                StatsResultsListBox.Visibility = Visibility.Visible;
+                Results.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error");
             }
+        }
+
+        private void DismissButton_Clicked(object sender, RoutedEventArgs e)
+        {
+            Results.Visibility = Visibility.Collapsed;
         }
     }
 }

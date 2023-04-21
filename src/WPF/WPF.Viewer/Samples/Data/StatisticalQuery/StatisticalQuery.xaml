@@ -13,9 +13,21 @@
                         Click="OnExecuteStatisticsQuery_Clicked"
                         Content="Get statistics" />
                 <TextBlock Text="Statistics will be rounded to the nearest integer." TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+        <Border x:Name="Results"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Visibility="Collapsed"
+                Style="{StaticResource BorderStyle}">
+            <StackPanel>
                 <ListBox x:Name="StatsResultsListBox"
-                         Visibility="Collapsed"
-                         Margin="0,5,0,5" />
+                         Margin="0,5,0,5"
+                         HorizontalAlignment="Stretch"/>
+                <Button 
+                        Click="DismissButton_Clicked"
+                        HorizontalAlignment="Stretch"
+                        Content="Dismiss" />
             </StackPanel>
         </Border>
     </Grid>

@@ -63,9 +63,22 @@ namespace ArcGIS.WPF.Viewer
             // Add additional class files from the sample.
             if (SampleManager.Current.SelectedSample.ClassFiles != null)
             {
-                foreach (string additionalPath in SampleManager.Current.SelectedSample.ClassFiles)
+                try
                 {
-                    SourceFiles.Insert(0, new SourceCodeFile(additionalPath));
+                    var folderName = folderPath.Split("//").Last();
+
+                    foreach (string additionalPath in SampleManager.Current.SelectedSample.ClassFiles)
+                    {
+                        var additionalPathArray = additionalPath.Split("//");
+
+                        if (folderName != additionalPathArray[additionalPathArray.Length - 1]) continue;
+
+                        SourceFiles.Insert(0, new SourceCodeFile(additionalPath));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // do nothing
                 }
             }
 

@@ -25,7 +25,7 @@
                 <Label Margin="5" Text="Statistics will be rounded to the nearest integer." />
             </VerticalStackLayout>
         </Border>
-        <Border x:Name="ResultsGrid"
+        <Border x:Name="Results"
                 Grid.RowSpan="2"
                 Grid.ColumnSpan="2"
                 Background="{AppThemeBinding Light=#dfdfdf,

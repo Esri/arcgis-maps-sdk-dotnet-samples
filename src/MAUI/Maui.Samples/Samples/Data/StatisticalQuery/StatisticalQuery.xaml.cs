@@ -121,7 +121,7 @@ namespace ArcGIS.Samples.StatisticalQuery
                 foreach (var stat in statQueryResult.First().Statistics)
                 {
                     // Round to the nearest integer.
-                    // Add thousands separators (commas); set the precision specifier to zero to prevent decimal digits.
+                    // Add thousands separators; set the precision specifier to zero to prevent decimal digits.
                     string formattedNumber = (Math.Round(Convert.ToDouble(stat.Value), MidpointRounding.AwayFromZero).ToString("N0"));
 
                     // Format the results to improve readability.
@@ -130,7 +130,7 @@ namespace ArcGIS.Samples.StatisticalQuery
 
                 // Display results in the list.
                 StatsListed.Text = stats;
-                ResultsGrid.IsVisible = true;
+                Results.IsVisible = true;
             }
             catch (Exception ex)
             {
@@ -140,7 +140,7 @@ namespace ArcGIS.Samples.StatisticalQuery
 
         private void HideResults(object sender, EventArgs e)
         {
-            ResultsGrid.IsVisible = false;
+            Results.IsVisible = false;
         }
     }
 }

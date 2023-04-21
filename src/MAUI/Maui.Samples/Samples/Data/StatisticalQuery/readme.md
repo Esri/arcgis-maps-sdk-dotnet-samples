@@ -15,9 +15,9 @@ Pan and zoom to define the extent for the query. Use the 'Cities in current exte
 ## How it works
 
 1. Create a `ServiceFeatureTable` with a URL to the feature service.
-2. Create `StatisticsQueryParameters`, and `StatisticDefinition` objects, and add to the parameters.
-3. Execute `QueryStatistics` on the `ServiceFeatureTable`. Depending on the state of the two checkboxes, additional parameters are set.
-4. Display each `StatisticRecord` in the first returned `QueryStatisticsResult`.
+2. Create a `StatisticsQueryParameters` with a `List<StatisticDefinition>` parameter.
+3. Call `QueryStatisticsAsync` on the `ServiceFeatureTable`. Depending on the state of the two checkboxes, additional parameters are set.
+4. Format and display each statistic found in the first `StatisticRecord` of the `StatisticsQueryResult`.
 
 ## Relevant API
 

@@ -21,10 +21,10 @@ namespace ArcGIS.Samples.StatisticalQuery
         tags: new[] { "analysis", "average", "bounding geometry", "filter", "intersect", "maximum", "mean", "minimum", "query", "spatial query", "standard deviation", "statistics", "sum", "variance" })]
     public partial class StatisticalQuery : ContentPage
     {
-        // URI for the world cities map service layer
+        // URI for the world cities map service layer.
         private Uri _worldCitiesServiceUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/0");
 
-        // World cities feature table
+        // World cities feature table.
         private FeatureTable _worldCitiesTable;
 
         private readonly Dictionary<string, string> _statisticNames = new Dictionary<string, string>
@@ -42,31 +42,31 @@ namespace ArcGIS.Samples.StatisticalQuery
         {
             InitializeComponent();
 
-            // Initialize the base map and world cities feature layer
+            // Initialize the base map and world cities feature layer.
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create a new Map with the world streets vector basemap
+            // Create a new Map with the world streets vector basemap.
             Map myMap = new Map(BasemapStyle.ArcGISStreets);
 
-            // Create feature table using the world cities URI
+            // Create feature table using the world cities URI.
             _worldCitiesTable = new ServiceFeatureTable(_worldCitiesServiceUri);
 
-            // Create a new feature layer to display features in the world cities table
+            // Create a new feature layer to display features in the world cities table.
             FeatureLayer worldCitiesLayer = new FeatureLayer(_worldCitiesTable);
 
-            // Add the world cities layer to the map
+            // Add the world cities layer to the map.
             myMap.OperationalLayers.Add(worldCitiesLayer);
 
-            // Assign the map to the MapView
+            // Assign the map to the MapView.
             MyMapView.Map = myMap;
         }
 
         private async void OnExecuteStatisticsQuery_Clicked(object sender, EventArgs e)
         {
-            // Create definitions for each statistic to calculate
+            // Create definitions for each statistic to calculate.
             StatisticDefinition statDefinitionAvgPop = new StatisticDefinition("POP", StatisticType.Average, "");
             StatisticDefinition statDefinitionMinPop = new StatisticDefinition("POP", StatisticType.Minimum, "");
             StatisticDefinition statDefinitionMaxPop = new StatisticDefinition("POP", StatisticType.Maximum, "");
@@ -74,10 +74,10 @@ namespace ArcGIS.Samples.StatisticalQuery
             StatisticDefinition statDefinitionStdDevPop = new StatisticDefinition("POP", StatisticType.StandardDeviation, "");
             StatisticDefinition statDefinitionVarPop = new StatisticDefinition("POP", StatisticType.Variance, "");
 
-            // Create a definition for count that includes an alias for the output
+            // Create a definition for count that includes an alias for the output.
             StatisticDefinition statDefinitionCount = new StatisticDefinition("POP", StatisticType.Count, "CityCount");
 
-            // Add the statistics definitions to a list
+            // Add the statistics definitions to a list.
             List<StatisticDefinition> statDefinitions = new List<StatisticDefinition>
                           { statDefinitionAvgPop,
                             statDefinitionCount,
@@ -88,47 +88,47 @@ namespace ArcGIS.Samples.StatisticalQuery
                             statDefinitionVarPop
                           };
 
-            // Create the statistics query parameters, pass in the list of definitions
+            // Create the statistics query parameters, pass in the list of definitions.
             StatisticsQueryParameters statQueryParams = new StatisticsQueryParameters(statDefinitions);
 
-            // If only using features in the current extent, set up the spatial filter for the statistics query parameters
+            // If only using features in the current extent, set up the spatial filter for the statistics query parameters.
             if (OnlyInExtentSwitch.IsToggled)
             {
-                // Get the current extent (envelope) from the map view
+                // Get the current extent (envelope) from the map view.
                 Envelope currentExtent = MyMapView.GetCurrentViewpoint(ViewpointType.BoundingGeometry).TargetGeometry as Envelope;
 
-                // Set the statistics query parameters geometry with the envelope
+                // Set the statistics query parameters geometry with the envelope.
                 statQueryParams.Geometry = currentExtent;
 
-                // Set the spatial relationship to Intersects (which is the default)
+                // Set the spatial relationship to Intersects (which is the default).
                 statQueryParams.SpatialRelationship = SpatialRelationship.Intersects;
             }
 
-            // If only evaluating the largest cities (over 5 million in population), set up an attribute filter
+            // If only evaluating the largest cities (over 5 million in population), set up an attribute filter.
             if (OnlyBigCitiesSwitch.IsToggled)
             {
-                // Set a where clause to get the largest cities (could also use "POP_CLASS = '5,000,000 and greater'")
+                // Set a where clause to get the largest cities (could also use "POP_CLASS = '5,000,000 and greater'").
                 statQueryParams.WhereClause = "POP_RANK = 1";
             }
 
             try
             {
-                // Execute the statistical query with these parameters and await the results
+                // Execute the statistical query with these parameters and await the results.
                 StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
                 string stats = "";
 
                 foreach (var stat in statQueryResult.First().Statistics)
                 {
-                    // Round to the nearest integer
-                    // Add thousands separators (commas); set the precision specifier to zero to prevent decimal digits
+                    // Round to the nearest integer.
+                    // Add thousands separators (commas); set the precision specifier to zero to prevent decimal digits.
                     string formattedNumber = (Math.Round(Convert.ToDouble(stat.Value), MidpointRounding.AwayFromZero).ToString("N0"));
 
-                    // Format the results to improve readability
+                    // Format the results to improve readability.
                     stats += _statisticNames[stat.Key] + ": " + formattedNumber + "\n";
                 }
 
-                // Display results in the list
+                // Display results in the list.
                 StatsListed.Text = stats;
                 ResultsGrid.IsVisible = true;
             }

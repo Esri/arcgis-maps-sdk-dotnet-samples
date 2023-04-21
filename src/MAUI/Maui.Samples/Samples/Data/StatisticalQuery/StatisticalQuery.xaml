@@ -42,7 +42,7 @@
                 <Label x:Name="StatsListed" />
                 <Button Grid.Row="1"
                         Margin="5"
-                        Clicked="HideResults"
+                        Clicked="DismissButton_Clicked"
                         Text="Dismiss" />
             </Grid>
         </Border>

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -27,15 +28,15 @@ namespace ArcGIS.Samples.StatisticalQuery
         // World cities feature table.
         private FeatureTable _worldCitiesTable;
 
-        private readonly Dictionary<string, string> _statisticNames = new Dictionary<string, string>
+        private readonly Dictionary<string, string> _statisticNames = new()
         {
-            {"AVG_POP","average population"},
-            {"CityCount","city count"},
-            {"MAX_POP","maximum population"},
-            {"MIN_POP","minimum population"},
-            {"STDDEV_POP","population standard deviation"},
-            {"SUM_POP","population summation"},
-            {"VAR_POP","population standard variance"}
+            {"AVG_POP","Average Population"},
+            {"CityCount","City Count"},
+            {"MAX_POP","Maximum Population"},
+            {"MIN_POP","Minimum Population"},
+            {"STDDEV_POP","Population Standard Deviation"},
+            {"SUM_POP","Population Summation"},
+            {"VAR_POP","Population Standard Variance"}
         };
 
         public StatisticalQuery()
@@ -116,9 +117,12 @@ namespace ArcGIS.Samples.StatisticalQuery
                 // Execute the statistical query with these parameters and await the results.
                 StatisticsQueryResult statQueryResult = await _worldCitiesTable.QueryStatisticsAsync(statQueryParams);
 
+                // Attempt to get the first query result containing the statistics.
+                IReadOnlyDictionary<string, object> iterableStatistics = GetIterableStatistics(statQueryResult);
+
                 string stats = "";
 
-                foreach (var stat in statQueryResult.First().Statistics)
+                foreach (var stat in iterableStatistics)
                 {
                     // Round to the nearest integer.
                     // Add thousands separators; set the precision specifier to zero to prevent decimal digits.
@@ -138,7 +142,20 @@ namespace ArcGIS.Samples.StatisticalQuery
             }
         }
 
-        private void HideResults(object sender, EventArgs e)
+        private static IReadOnlyDictionary<string, object> GetIterableStatistics(StatisticsQueryResult statQueryResult)
+        {
+            try
+            {
+                return statQueryResult.First().Statistics;
+            }
+            catch (ArgumentException)
+            {
+                // Throw an exception indicating a query failure.
+                throw new Exception("Statistics were unable to be calculated. Try a different query.");
+            }
+        }
+
+        private void DismissButton_Clicked(object sender, EventArgs e)
         {
             Results.IsVisible = false;
         }

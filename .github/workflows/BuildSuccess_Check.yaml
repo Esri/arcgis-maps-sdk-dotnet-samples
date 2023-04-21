@@ -34,7 +34,7 @@ jobs:
         with:
           dotnet-version: ${{ matrix.dotnet-version }}
       - name: Install dependencies 
-        run: dotnet restore
+        run: dotnet restore src/WPF/WPF.Viewer/ArcGIS.WPF.Viewer.Net
       - name: Build 
         run: dotnet build --configuration Release ArcGIS.WPF.Viewer.NET --no-restore
     

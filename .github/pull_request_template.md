@@ -33,4 +33,4 @@ Summary of the change and any relevant info.
 - [ ] Code is commented and follows .NET conventions and standards
 - [ ] Codemaid and XAML styler extensions have been run on every changed file
 - [ ] No unrelated changes have been made to any other code or project files
-- [ ] Screenshots are correct size and display in description tab (800 x 600 on Windows, 600 height mobile screenshots for MAUI)
+- [ ] Screenshots are correct size and display in description tab (800 x 600 on Windows, MAUI mobile platforms use the MAUI Windows screenshot)

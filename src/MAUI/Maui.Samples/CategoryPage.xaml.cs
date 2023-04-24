@@ -17,7 +17,7 @@ public partial class CategoryPage : ContentPage
         InitializeComponent();
 
         Initialize();
-    }
+    }s
 
     private void Initialize()
     {

@@ -36,4 +36,4 @@ jobs:
 
     - name: Build WinUI
       run: |
-        msbuild /restore /t:Build src/WinUI/ArcGIS.WinUI.Viewer.sln /p:Configuration=Release /p:Platform=x64 /p:PublishReadyToRun=false
+        msbuild /restore /t:Build src/WinUI/ArcGIS.WinUI.Viewer.sln /p:Configuration=Release /p:Platform=x86 /p:PublishReadyToRun=false

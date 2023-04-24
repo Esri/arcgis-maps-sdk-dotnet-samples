@@ -16,7 +16,6 @@
     <DefineConstants>WinUI</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x86'">
-    <PublishReadyToRun>true</PublishReadyToRun>
     <DefineConstants>WinUI</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

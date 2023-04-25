@@ -23,7 +23,7 @@ env:
 jobs:
 # MAUI Android Build
   build-android:
-    runs-on: windows-2022
+    runs-on: windows-latest
     name: Android Build
     steps:
 
@@ -42,11 +42,11 @@ jobs:
         run: dotnet restore src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj
 
       - name: Build MAUI Android
-        run: dotnet build src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj -c Release -f net6.0-android --no-restore
+        run: dotnet publish src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj -c Release -f net7.0-android --no-restore
 
 # MAUI Windows Build
   build-windows:
-    runs-on: windows-2022
+    runs-on: windows-latest
     name: Windows Build
     steps:
 
@@ -65,11 +65,11 @@ jobs:
         run: dotnet restore src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj
 
       - name: Build MAUI Windows
-        run: dotnet build src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj -c Release -f net7.0-windows10.0.19041.0 --no-restore
+        run: dotnet publish src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj -c Release -f net7.0-windows10.0.19041.0 --no-restore
 
 # MAUI iOS Build
   build-ios:
-    runs-on: macos-12
+    runs-on: macos-13
     name: iOS Build
     steps:
 
@@ -88,11 +88,11 @@ jobs:
         run: dotnet restore src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj
 
       - name: Build MAUI iOS
-        run: dotnet build src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj -c Release -f net7.0-ios --no-restore /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
+        run: dotnet publish src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj -c Release -f net7.0-ios --no-restore /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
 
 # MAUI MacCatalyst Build
   build-mac:
-    runs-on: macos-12
+    runs-on: macos-13
     name: MacCatalyst Build
     steps:
     
@@ -111,4 +111,51 @@ jobs:
         run: dotnet restore src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj
 
       - name: Build MAUI MacCatalyst
-        run: dotnet build src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj -c Release -f net7.0-maccatalyst --no-restore -p:BuildIpa=True
+        run: dotnet publish src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj -c Release -f net7.0-maccatalyst --no-restore -p:BuildIpa=True
+
+# WPF .NET Build
+  build-wpf:
+    runs-on: windows-latest
+    name: WPF .NET Build
+    steps:
+    - name: Clone .NET Samples
+      uses: actions/checkout@v1
+    
+    - name: Setup Visual Studio Command Prompt
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Build WPF .NET
+      run: |
+        msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.Net.sln /p:Configuration=Release
+
+
+# WPF .NETFramework Build
+  build-wpf:
+    runs-on: windows-latest
+    name: WPF .NETFramework Build
+    steps:
+    - name: Clone .NET Samples
+      uses: actions/checkout@v1
+    
+    - name: Setup Visual Studio Command Prompt
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Build WPF .NETFramework
+      run: |
+        msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.NetFramework.sln /p:Configuration=Release
+
+
+# WinUI Build
+  build-wpf:
+    runs-on: windows-latest
+    name: WPF .NET Build
+    steps:
+    - name: Clone .NET Samples
+      uses: actions/checkout@v1
+    
+    - name: Setup Visual Studio Command Prompt
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Build WinUI
+      run: |
+        msbuild /restore /t:Build src/WinUI/ArcGIS.WinUI.Viewer.sln /p:Configuration=Release

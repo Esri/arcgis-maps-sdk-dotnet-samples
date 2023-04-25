@@ -10,30 +10,105 @@ on:
 
 # A workflow run is made up of one or more jobs that can run sequentially or
 # in parallel.
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_NOLOGO: true                     # Disable the .NET logo
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Disable the .NET first time experience
+  DOTNET_CLI_TELEMETRY_OPTOUT: true       # Disable sending .NET CLI telemetry
+
 jobs:
-  build:
-
-    runs-on: windows-latest
-    
+# MAUI Android Build
+  build-android:
+    runs-on: windows-2022
+    name: Android Build
     steps:
-    - name: Clone .NET Samples
-      uses: actions/checkout@v1
+
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup .NET 7
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+          
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
+
+      - name: Restore Dependencies
+        run: dotnet restore src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj
+
+      - name: Build MAUI Android
+        run: dotnet build src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj -c Release -f net6.0-android --no-restore
+
+# MAUI Windows Build
+  build-windows:
+    runs-on: windows-2022
+    name: Windows Build
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup .NET 7
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
+
+      - name: Restore Dependencies
+        run: dotnet restore src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj
+
+      - name: Build MAUI Windows
+        run: dotnet build src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj -c Release -f net7.0-windows10.0.19041.0 --no-restore
+
+# MAUI iOS Build
+  build-ios:
+    runs-on: macos-12
+    name: iOS Build
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Setup .NET 7
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
+
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
+
+      - name: Restore Dependencies
+        run: dotnet restore src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj
+
+      - name: Build MAUI iOS
+        run: dotnet build src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj -c Release -f net7.0-ios --no-restore /p:buildForSimulator=True /p:packageApp=True /p:ArchiveOnBuild=False
+
+# MAUI MacCatalyst Build
+  build-mac:
+    runs-on: macos-12
+    name: MacCatalyst Build
+    steps:
     
-    - name: Setup Visual Studio Command Prompt
-      uses: microsoft/setup-msbuild@v1.0.2
-       
-    - name: Build WPF .NET
-      run: |
-        msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.Net.sln /p:Configuration=Release
+      - name: Checkout
+        uses: actions/checkout@v1
 
-    - name: Build WPF .NETFramework
-      run: |
-        msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.NetFramework.sln /p:Configuration=Release
+      - name: Setup .NET 6
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 7.0.x
 
-    - name: Build MAUI
-      run: |
-        msbuild /restore /t:Build src/MAUI/ArcGIS.Samples.MAUI.sln /p:Configuration=Release
+      - name: Install MAUI Workload
+        run: dotnet workload install maui --ignore-failed-sources
 
-    - name: Build WinUI
-      run: |
-        msbuild /restore /t:Build src/WinUI/ArcGIS.WinUI.Viewer.sln /p:Configuration=Release
+      - name: Restore Dependencies
+        run: dotnet restore src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj
+
+      - name: Build MAUI MacCatalyst
+        run: dotnet build src/MAUI/MAUI.Samples/ArcGIS.Samples.MAUI.csproj -c Release -f net7.0-maccatalyst --no-restore -p:BuildIpa=True

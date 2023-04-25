@@ -130,7 +130,7 @@ jobs:
 
 
 # WPF .NETFramework Build
-  build-wpf:
+  build-wpf-framework:
     runs-on: windows-latest
     name: WPF .NETFramework Build
     steps:
@@ -146,7 +146,7 @@ jobs:
 
 
 # WinUI Build
-  build-wpf:
+  build-winUI:
     runs-on: windows-latest
     name: WPF .NET Build
     steps:

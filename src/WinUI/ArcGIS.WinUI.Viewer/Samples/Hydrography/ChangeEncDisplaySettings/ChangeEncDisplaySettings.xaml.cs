@@ -30,57 +30,57 @@ namespace ArcGIS.WinUI.Samples.ChangeEncDisplaySettings
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization
+            // Setup the control references and execute initialization.
             _ = Initialize();
         }
 
         private async Task Initialize()
         {
-            // Apply initial display settings
+            // Apply initial display settings.
             UpdateDisplaySettings();
 
-            // Initialize the map with an oceans basemap
+            // Initialize the map with an oceans basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISOceans);
 
-            // Get the path to the ENC Exchange Set
+            // Get the path to the ENC Exchange Set.
             string encPath = DataManager.GetDataFolder("9d2987a825c646468b3ce7512fb76e2d", "ExchangeSetwithoutUpdates", "ENC_ROOT",
                 "CATALOG.031");
 
-            // Create the Exchange Set
-            // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data
+            // Create the Exchange Set.
+            // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data.
             EncExchangeSet myEncExchangeSet = new EncExchangeSet(new string[] { encPath });
 
             try
             {
-                // Wait for the exchange set to load
+                // Wait for the exchange set to load.
                 await myEncExchangeSet.LoadAsync();
 
-                // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set
+                // Store a list of data set extent's - will be used to zoom the mapview to the full extent of the Exchange Set.
                 List<Envelope> dataSetExtents = new List<Envelope>();
 
-                // Add each data set as a layer
+                // Add each data set as a layer.
                 foreach (EncDataset myEncDataSet in myEncExchangeSet.Datasets)
                 {
-                    // Create the cell and layer
+                    // Create the cell and layer.
                     EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));
 
-                    // Add the layer to the map
+                    // Add the layer to the map.
                     MyMapView.Map.OperationalLayers.Add(myEncLayer);
 
-                    // Wait for the layer to load
+                    // Wait for the layer to load.
                     await myEncLayer.LoadAsync();
 
-                    // Add the extent to the list of extents
+                    // Add the extent to the list of extents.
                     dataSetExtents.Add(myEncLayer.FullExtent);
                 }
 
-                // Use the geometry engine to compute the full extent of the ENC Exchange Set
+                // Use the geometry engine to compute the full extent of the ENC Exchange Set.
                 Envelope fullExtent = dataSetExtents.CombineExtents();
 
-                // Set the viewpoint
+                // Set the viewpoint.
                 MyMapView.SetViewpoint(new Viewpoint(fullExtent));
 
-                // Subscribe to notifications about leaving so that settings can be re-set
+                // Subscribe to notifications about leaving so that settings can be re-set.
                 this.Unloaded += SampleUnloaded;
 
                 // Enable the setting change UI.
@@ -100,8 +100,8 @@ namespace ArcGIS.WinUI.Samples.ChangeEncDisplaySettings
 
         private void SampleUnloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            // ENC environment settings apply to the entire application
-            // They need to be reset after leaving the sample to avoid affecting other samples
+            // ENC environment settings apply to the entire application.
+            // They need to be reset after leaving the sample to avoid affecting other samples.
             EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings.ResetToDefaults();
             EncEnvironmentSettings.Default.DisplaySettings.ViewingGroupSettings.ResetToDefaults();
             EncEnvironmentSettings.Default.DisplaySettings.TextGroupVisibilitySettings.ResetToDefaults();
@@ -109,29 +109,29 @@ namespace ArcGIS.WinUI.Samples.ChangeEncDisplaySettings
 
         private void UpdateDisplaySettings()
         {
-            // Hold a reference to the application-wide ENC Display Settings
+            // Hold a reference to the application-wide ENC Display Settings.
             EncDisplaySettings globalDisplaySettings = EncEnvironmentSettings.Default.DisplaySettings;
 
-            // Hold a reference to the application-wide ENC Mariner Settings (part of display settings)
+            // Hold a reference to the application-wide ENC Mariner Settings (part of display settings).
             EncMarinerSettings globalMarinerSettings = globalDisplaySettings.MarinerSettings;
 
-            // Apply color scheme
+            // Apply color scheme.
             if (DayRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Day; }
             else if (DuskRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Dusk; }
             else if (NightRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Night; }
 
-            // Apply area symbolization
+            // Apply area symbolization.
             if (PlainAreaRadioButton.IsChecked == true) { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
             else { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
 
-            // Apply point symbolization
+            // Apply point symbolization.
             if (PaperPointRadioButton.IsChecked == true) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
             else { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
         }
 
         private void Setting_Checked(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            // Apply display settings
+            // Apply display settings.
             UpdateDisplaySettings();
         }
     }

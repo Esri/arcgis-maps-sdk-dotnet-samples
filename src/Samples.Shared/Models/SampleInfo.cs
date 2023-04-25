@@ -61,7 +61,7 @@ namespace ArcGIS.Samples.Shared.Models
         public string Instructions { get; set; }
 
 
-#if (!WinUI)
+#if !(WinUI || WINDOWS_UWP)
         public bool IsFavorite { get; set; }
 
         public bool ShowFavoriteIcon

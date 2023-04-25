@@ -6,64 +6,43 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5" ColumnSpacing="3">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="auto" />
-                </Grid.ColumnDefinitions>
-                <Switch x:Name="OnlyInExtentSwitch"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        HorizontalOptions="End" />
-                <Label Grid.Row="0"
-                       Grid.Column="1"
-                       Margin="10,0"
-                       HorizontalOptions="Start"
-                       Text="Cities in current extent"
-                       VerticalOptions="Center" />
-                <Switch x:Name="OnlyBigCitiesSwitch"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        HorizontalOptions="End" />
-                <Label Grid.Row="1"
-                       Grid.Column="1"
-                       Margin="10,0"
-                       HorizontalOptions="Start"
-                       Text="Cities larger than 5M"
-                       VerticalOptions="Center" />
+            <VerticalStackLayout Padding="5" Spacing="5">
+                <Grid ColumnDefinitions="100,auto">
+                    <Switch x:Name="OnlyInExtentSwitch" />
+                    <Label Grid.Column="1"
+                           Text="Cities in current extent"
+                           VerticalOptions="Center" />
+                </Grid>
+                <Grid ColumnDefinitions="100,auto">
+                    <Switch x:Name="OnlyBigCitiesSwitch" />
+                    <Label Grid.Column="1"
+                           Text="Cities larger than 5M"
+                           VerticalOptions="Center" />
+                </Grid>
                 <Button x:Name="GetStatsButton"
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="5,0"
-                        Clicked="OnExecuteStatisticsQueryClicked"
+                        Clicked="OnExecuteStatisticsQuery_Clicked"
                         Text="Get Statistics" />
-            </Grid>
+                <Label Margin="5" Text="Statistics will be rounded to the nearest integer." />
+            </VerticalStackLayout>
         </Border>
-        <Border x:Name="ResultsGrid"
+        <Border x:Name="Results"
                 Grid.RowSpan="2"
                 Grid.ColumnSpan="2"
                 Background="{AppThemeBinding Light=#dfdfdf,
                                              Dark=#303030}"
                 HorizontalOptions="Center"
                 IsVisible="False"
-                MaximumWidthRequest="300"
                 StrokeShape="RoundRectangle 10, 10, 10, 10"
                 VerticalOptions="Center">
-            <Grid Padding="5">
+            <Grid Margin="5" Padding="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="50" />
                 </Grid.RowDefinitions>
-                <ListView x:Name="StatResultsList" HeightRequest="150" />
+                <Label x:Name="StatsListed" />
                 <Button Grid.Row="1"
                         Margin="5"
-                        Clicked="HideResults"
+                        Clicked="DismissButton_Clicked"
                         Text="Dismiss" />
             </Grid>
         </Border>

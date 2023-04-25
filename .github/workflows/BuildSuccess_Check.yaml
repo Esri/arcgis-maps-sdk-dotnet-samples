@@ -42,10 +42,10 @@ jobs:
         msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.Net.sln /p:Configuration=Release
 
 
-# WPF .NETFramework Build
+# WPF .NET Framework Build
   build-wpf-framework:
     runs-on: windows-latest
-    name: WPF .NETFramework Build
+    name: WPF .NET Framework Build
     steps:
     - name: Clone .NET Samples
       uses: actions/checkout@v1

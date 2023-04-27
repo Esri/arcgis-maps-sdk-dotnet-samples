@@ -87,6 +87,7 @@ def check_argument(ApiKey_argument: str, i: int) -> int: # returns 0 if ALLOW, e
 
     elif (ApiKey_argument[0] == '"' and ApiKey_argument[-1] == '"') or ApiKey_argument[0] == "'" and ApiKey_argument[-1] == "'":
         if len(ApiKey_argument) == 2 or ApiKey_argument[1:-1] == "YOUR_API_KEY":
+            print(ApiKey_argument)
             return -1 # ALLOW, API key is an empty string or Citra requested snippet
         return i # BLOCK, API key is a string
 

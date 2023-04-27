@@ -9,13 +9,23 @@ that they do not contain an API key.
 
 Notes:
 
-    The Qt repo has a more thorough API key checking script that also looks for the API key setter. 
-    We are not including this for now but it can be added in the future. 
+    .NET: Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = "APIKeyString"
+
+    Block Commit:
+        * Anything that contains AAPK
+        * Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = "APIKeyString" - API key is set by string
+        * Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = apiKey - API key is a variable with a value set elsewhere
+            .. apiKey = "APIKeyString"
+        * Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = (1"asdf"df*) - API key is invalid, though may still contain sensitive information
 
     Allow Commit:
-            "AAPK" is not found
+        * Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = "" - empty string
+        * Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = apiKey
+            .. apiKey = "" - empty string
+            .. apiKey is not found
+        * Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey not found
 '''
-
+import re
 import sys
 import argparse
 
@@ -24,6 +34,12 @@ import argparse
 #-------------------------------------------------------------------------------
 
 content = []
+
+net_apiKey_argument_regex = r"Esri\.ArcGISRuntime\.ArcGISRuntimeEnvironment\.ApiKey[\s]*\=[\s]*([\sa-zA-Z0-9_\"\']*)"
+# REGEX explanation: Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = {0+ spaces}{0+ alphanumeric characters}{0+ underscores}{0+ quotes}
+
+valid_variable_regex = r"[_a-zA-Z][_a-zA-Z0-9]*[a-zA-Z0-9]"
+# Starts with an alphabetical character or underscore, contains zero or more alphabetical characters or underscores then ends with an alphanumeric character
 
 #-------------------------------------------------------------------------------
 # Functions
@@ -54,9 +70,53 @@ def read_file(args):
         if "AAPK" in content[i]:
             print(i+1) # BLOCK anything with AAPK to be overly cautious
             return
+        
+        if "Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey" in content[i]:
+            ApiKey_argument = re.search(net_apiKey_argument_regex, content[i]).group(1)
+            print(check_argument(ApiKey_argument, i)+1)
+            return
 
     print(0) # ALLOW, API key not found anywhere
     return
+
+#-------------------------------------------------------------------------------
+
+def check_argument(ApiKey_argument: str, i: int) -> int: # returns 0 if ALLOW, else line_num if BLOCK.
+    if not ApiKey_argument:
+        return -1 # ALLOW, Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey is not set
+
+    elif (ApiKey_argument[0] == '"' and ApiKey_argument[-1] == '"') or ApiKey_argument[0] == "'" and ApiKey_argument[-1] == "'":
+        if len(ApiKey_argument) == 2 or ApiKey_argument[1:-1] == "YOUR_API_KEY":
+            return -1 # ALLOW, API key is an empty string or Citra requested snippet
+        return i # BLOCK, API key is a string
+
+    if not re.match(valid_variable_regex, ApiKey_argument):
+        return i # BLOCK, API key not a valid variable, though may still be sensitive information. For instance "-AAPK{...}"
+
+    else:
+        # The API key is set via a variable so we now need to find the value of that variable
+        return find_value(ApiKey_argument)
+
+    # We return i+1 to indicate the line number where the API key is defined, because line numbers are not zero indexed
+
+#-------------------------------------------------------------------------------
+
+def find_value(var) -> int:
+    for i in range(len(content)):
+        if re.search(var+r" *=", content[i]):
+            try:
+                pattern = r"= *\(*([\"|\']?[\w]*[\"|\']?)\)*;?"
+                # captures anything, after a "=" and zero or more spaces and ignores potential surrounding ()
+                # variable = (("text")) -> "text"
+                ApiKey_argument = re.search(pattern, content[i]).group(1)
+            except:
+                return -1
+
+            return check_argument(ApiKey_argument, i)
+            # We again check this value to see if is null, a string, or another variable
+
+    return -1
+    # The variable was not found or defined (using '=' at least), ALLOW the commit in this case
 
 #-------------------------------------------------------------------------------
 # main process

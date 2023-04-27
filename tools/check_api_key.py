@@ -105,10 +105,10 @@ def find_value(var) -> int:
     for i in range(len(content)):
         if re.search(var+r" *=", content[i]):
             try:
-                pattern = r"= *\(*([\"|\']?[\w]*[\"|\']?)\)*;?"
-                # captures anything, after a "=" and zero or more spaces and ignores potential surrounding ()
-                # variable = (("text")) -> "text"
+                pattern = r"=[\s]*\"*([\"|\']?[\w]*[\"|\']?)\;?\""
+                # captures any quote surrounded string, after a "=" and zero or more spaces
                 ApiKey_argument = re.search(pattern, content[i]).group(1)
+                print(ApiKey_argument)
             except:
                 return -1
 

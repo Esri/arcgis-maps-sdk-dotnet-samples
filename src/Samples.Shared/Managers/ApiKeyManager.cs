@@ -59,7 +59,7 @@ namespace ArcGIS.Samples.Shared.Managers
 
         public static void DisableKey()
         {
-            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = null;
+            Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = "test";
             _keyDisabled = true;
         }
 

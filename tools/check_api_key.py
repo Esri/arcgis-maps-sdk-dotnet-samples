@@ -98,6 +98,7 @@ def check_argument(ApiKey_argument: str, i: int) -> int: # returns 0 if ALLOW, e
     else:
         # The API key is set via a variable so we now need to find the value of that variable
         return find_value(ApiKey_argument)
+    
     # We return i+1 to indicate the line number where the API key is defined, because line numbers are not zero indexed
 
 #-------------------------------------------------------------------------------

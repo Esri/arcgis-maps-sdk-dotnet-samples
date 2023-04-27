@@ -26,7 +26,6 @@ Notes:
         * Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey not found
 '''
 import re
-import sys
 import argparse
 
 #-------------------------------------------------------------------------------

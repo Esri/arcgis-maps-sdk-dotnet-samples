@@ -71,10 +71,13 @@ def read_file(args):
             print(i+1) # BLOCK anything with AAPK to be overly cautious
             return
         
-        if "Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey" in content[i]:
+        if "Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey =" in content[i]:
             ApiKey_argument = re.search(net_apiKey_argument_regex, content[i]).group(1)
-            print(check_argument(ApiKey_argument, i)+1)
-            return
+            argument_value = check_argument(ApiKey_argument, i)+1
+            if argument_value > 0:
+                print(argument_value)
+                return
+            continue
 
     print(0) # ALLOW, API key not found anywhere
     return
@@ -87,7 +90,6 @@ def check_argument(ApiKey_argument: str, i: int) -> int: # returns 0 if ALLOW, e
 
     elif (ApiKey_argument[0] == '"' and ApiKey_argument[-1] == '"') or ApiKey_argument[0] == "'" and ApiKey_argument[-1] == "'":
         if len(ApiKey_argument) == 2 or ApiKey_argument[1:-1] == "YOUR_API_KEY":
-            print(ApiKey_argument)
             return -1 # ALLOW, API key is an empty string or Citra requested snippet
         return i # BLOCK, API key is a string
 
@@ -106,7 +108,9 @@ def find_value(var) -> int:
     for i in range(len(content)):
         if re.search(var+r" *=", content[i]):
             try:
-                pattern = r"=[\s]*\"*([\"|\']?[\w]*[\"|\']?)\;?\""
+                if re.search(r" *= *"+var, content[i]):
+                    continue
+                pattern = r"= *([\"|\']?[\w]*[\"|\']?);?"
                 # captures any quote surrounded string, after a "=" and zero or more spaces
                 ApiKey_argument = re.search(pattern, content[i]).group(1)
             except:

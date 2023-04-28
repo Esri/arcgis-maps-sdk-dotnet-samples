@@ -1,50 +1,49 @@
 ﻿<UserControl x:Class="ArcGIS.WPF.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:converters="clr-namespace:ArcGIS.Converters"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:viewer="clr-namespace:ArcGIS.WPF.Viewer.Converters">
-    <UserControl.Resources>
-        <converters:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
-        <viewer:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
-    </UserControl.Resources>
-    <Grid>
-        <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
-            <StackPanel>
-                <TextBlock FontWeight="SemiBold"
-                           Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout."
-                           TextWrapping="Wrap" />
-                <ListBox ItemsSource="{Binding Maps}" SelectionChanged="Map_Selected">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="esri:Map">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
-                                <Image Grid.Column="1"
-                                       Width="50"
-                                       Height="50"
-                                       Margin="5"
-                                       Source="../../../Resources/routingSymbol.png"
-                                       Visibility="{Binding TransportationNetworks, Converter={StaticResource NullToVisibilityConverter}}" />
-                                <TextBlock Grid.Column="2"
-                                           VerticalAlignment="Center"
-                                           Text="{Binding Item.Title}"
-                                           TextAlignment="Right" />
-                            </Grid>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </StackPanel>
-        </Border>
-    </Grid>
+             xmlns:converters="clr-namespace:ArcGIS.WPF.Viewer.Converters"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+	<UserControl.Resources>
+		<converters:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
+		<converters:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
+	</UserControl.Resources>
+	<Grid>
+		<esri:MapView x:Name="MyMapView" />
+		<Border Style="{StaticResource BorderStyle}">
+			<StackPanel>
+				<TextBlock FontWeight="SemiBold"
+				           Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout."
+				           TextWrapping="Wrap" />
+				<ListBox ItemsSource="{Binding Maps}" SelectionChanged="Map_Selected">
+					<ListBox.ItemContainerStyle>
+						<Style TargetType="ListBoxItem">
+							<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+						</Style>
+					</ListBox.ItemContainerStyle>
+					<ListBox.ItemTemplate>
+						<DataTemplate DataType="esri:Map">
+							<Grid>
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="100" />
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
+								<Image Grid.Column="0" Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
+								<Image Grid.Column="1"
+								       Width="50"
+								       Height="50"
+								       Margin="5"
+								       Source="../../../Resources/routingSymbol.png"
+								       Visibility="{Binding TransportationNetworks, Converter={StaticResource NullToVisibilityConverter}}" />
+								<TextBlock Grid.Column="2"
+								           VerticalAlignment="Center"
+								           Text="{Binding Item.Title}"
+								           TextAlignment="Right" />
+							</Grid>
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</StackPanel>
+		</Border>
+	</Grid>
 </UserControl>

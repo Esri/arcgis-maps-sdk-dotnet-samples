@@ -31,7 +31,7 @@ namespace ArcGIS.WPF.Samples.StatisticalQuery
         // World cities feature table.
         private FeatureTable _worldCitiesTable;
 
-        private readonly Dictionary<string, string> _statisticNames = new()
+        private readonly Dictionary<string, string> _statisticNames = new Dictionary<string, string>
         {
             {"AVG_POP","Average Population"},
             {"CityCount","City Count"},

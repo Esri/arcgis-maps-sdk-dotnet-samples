@@ -104,16 +104,7 @@
     <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\undo.png" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Converters\ItemToImageSourceConverter.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Update="Converters\NullToVisibilityConverter.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Update="Converters\SampleToBitmapConverter.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Update="Converters\TreeViewLeftMarginMultiplierConverter.cs">
+    <Compile Update="Converters\*.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Update="Helpers\ArcGISLoginPrompt.cs">

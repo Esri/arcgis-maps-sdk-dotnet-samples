@@ -65,7 +65,7 @@ namespace ArcGIS.WPF.Viewer
             {
                 foreach (string additionalPath in SampleManager.Current.SelectedSample.ClassFiles)
                 {
-                    SourceFiles.Insert(0, new SourceCodeFile(additionalPath));
+                    SourceFiles.Add(new SourceCodeFile(additionalPath));
                 }
             }
 

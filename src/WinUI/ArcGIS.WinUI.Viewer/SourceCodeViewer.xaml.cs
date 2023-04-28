@@ -44,7 +44,7 @@ namespace ArcGIS.WinUI.Viewer
             foreach (string filepath in Directory.GetFiles(SampleManager.Current.SelectedSample.Path)
                 .Where(candidate => candidate.EndsWith(".cs") || candidate.EndsWith(".xaml")))
             {
-                _sourceFiles.Add(new SourceCodeFile(filepath));
+                _sourceFiles.Insert(0, new SourceCodeFile(filepath));
             }
 
             // Add additional class files from the sample.
@@ -67,7 +67,7 @@ namespace ArcGIS.WinUI.Viewer
                 newTab.Header = Path.GetFileName(file.FilePath);
 
                 // Add the tab to the beginning of the list.
-                _tabs.Insert(0, newTab);
+                _tabs.Add(newTab);
             }
 
             // Set the Tab source to the list of tabs.

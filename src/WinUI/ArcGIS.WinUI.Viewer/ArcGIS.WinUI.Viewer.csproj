@@ -80,6 +80,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Converters\*.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Update="Helpers\ArcGISLoginPrompt.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>

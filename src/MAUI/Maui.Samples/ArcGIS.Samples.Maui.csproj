@@ -91,7 +91,6 @@
     <MauiAsset Include="Samples\**\*.md" />
     <MauiImage Include="Samples\**\*.jpg" />
     <EmbeddedResource Include="Samples\**\*.cs" />
-    <EmbeddedResource Include="Helpers\**\*.cs" />
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
   </ItemGroup>
   <ItemGroup>
@@ -159,6 +158,15 @@
     <Compile Update="AppShell.xaml.cs">
       <DependentUpon>AppShell.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Converters\*.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="Samples\**\*.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="Helpers\ArcGISLoginPrompt.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <Compile Update="ScreenshotView.xaml.cs">
       <DependentUpon>ScreenshotView.xaml</DependentUpon>
     </Compile>
@@ -175,6 +183,9 @@
     </MauiXaml>
     <MauiXaml Update="CategoryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
+    <MauiXaml Update="Samples\**\*.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiXaml>
     <MauiXaml Update="ScreenshotView.xaml">
       <Generator>MSBuild:Compile</Generator>

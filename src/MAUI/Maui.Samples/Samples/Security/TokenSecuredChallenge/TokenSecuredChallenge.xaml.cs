@@ -19,8 +19,7 @@ namespace ArcGIS.Samples.TokenSecuredChallenge
         description: "This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.",
         instructions: "When you run the sample, the app will load a map that contains a layer from a secured service. Then, you will be challenged for a user name and password to view that layer. Enter the correct user name (user1) and password (user1). If you authenticate successfully, the secured layer will display, otherwise the map will contain only the public layers.",
         tags: new[] { "authentication", "cloud", "portal", "remember", "security" })]
-    [ArcGIS.Samples.Shared.Attributes.ClassFile("LoginPage.xaml.cs")]
-    [ArcGIS.Samples.Shared.Attributes.XamlFiles("LoginPage.xaml")]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("LoginPage.xaml.cs", "LoginPage.xaml", "Converters\\LoadStatusToColorConverter.cs")]
     public partial class TokenSecuredChallenge : ContentPage
     {
         // Public and secured map service URLs.
@@ -154,37 +153,6 @@ namespace ArcGIS.Samples.TokenSecuredChallenge
 
             // Cancel the task completion source task.
             _loginTaskCompletionSrc.TrySetCanceled();
-        }
-    }
-
-    // Value converter class to return a color for the current load status
-    public class LoadStatusToColorConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            // Check the provided load status value.
-            switch ((int)value)
-            {
-                // Green for loaded, red for not loaded (or failure to load), gray if still loading.
-                case (int)Esri.ArcGISRuntime.LoadStatus.Loaded:
-                    return Colors.Green;
-
-                case (int)Esri.ArcGISRuntime.LoadStatus.Loading:
-                    return Colors.Gray;
-
-                case (int)Esri.ArcGISRuntime.LoadStatus.FailedToLoad:
-                    return Colors.Red;
-
-                case (int)Esri.ArcGISRuntime.LoadStatus.NotLoaded:
-                    return Colors.Red;
-            }
-            throw new NotImplementedException();
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            // No need to convert the other way.
-            throw new NotImplementedException();
         }
     }
 }

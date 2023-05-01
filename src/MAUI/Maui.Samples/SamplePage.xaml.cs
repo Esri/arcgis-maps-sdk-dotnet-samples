@@ -166,7 +166,6 @@ namespace ArcGIS
                 category = $"{category.Split(" ")[0]}{category.Split(" ")[1][0].ToString().ToUpper()}{category.Split(" ")[1].Substring(1)}";
             }
 
-            var manifestResourceNames = _assembly.GetManifestResourceNames();
             using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync($"Samples/{category}/{sampleInfo.FormalName}/readme.md").ConfigureAwait(false);
             StreamReader r = new StreamReader(fileStream);
             var readmeContent = r.ReadToEnd();
@@ -183,7 +182,6 @@ namespace ArcGIS
 #endif
 
             // Convert the image into a string of bytes to embed into the html.
-            var resources = _assembly.GetManifestResourceNames();
             var sourceStream = await LoadImageStreamAsync(sampleInfo.SampleImageName);
             if (sourceStream is not null)
             {
@@ -215,6 +213,7 @@ namespace ArcGIS
 
             return fullContent;
         }
+
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public static async Task<Stream> LoadImageStreamAsync(string file)
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
@@ -227,6 +226,7 @@ namespace ArcGIS
             var resources = context.Resources;
 
             var resourceId = context.GetDrawableId(file);
+
             if (resourceId > 0)
             {
                 var imageUri = new Android.Net.Uri.Builder()
@@ -257,8 +257,8 @@ namespace ArcGIS
             // Get all files in the samples folder.
             var fileNames = new List<string>
             {
-                $"Samples\\{sampleInfo.Category}\\{sampleInfo.FormalName}\\{sampleInfo.FormalName}.xaml.cs",
-                $"Samples\\{sampleInfo.Category}\\{sampleInfo.FormalName}\\{sampleInfo.FormalName}.xaml",
+                $"Samples/{sampleInfo.Category}/{sampleInfo.FormalName}/{sampleInfo.FormalName}.xaml.cs",
+                $"Samples/{sampleInfo.Category}/{sampleInfo.FormalName}/{sampleInfo.FormalName}.xaml",
             };
 
             // Add every .cs and .xaml file in the directory of the sample.
@@ -275,9 +275,9 @@ namespace ArcGIS
                     // Don't add source files already found in the directory.
                     if (!SourceFiles.Any(f => f.Name == additionalPath))
                     {
-                        if (!additionalPath.Contains('\\'))
+                        if (!additionalPath.Contains('/'))
                         {
-                            string fullPath = $"Samples\\{sampleInfo.Category}\\{sampleInfo.FormalName}\\{additionalPath}";
+                            string fullPath = $"Samples/{sampleInfo.Category}/{sampleInfo.FormalName}/{additionalPath}";
                             SourceFiles.Add(new SourceCodeFile(fullPath));
                         }
                         else
@@ -333,14 +333,14 @@ namespace ArcGIS
         {
             try
             {
-                string[] fileList = SourceFiles.Select(s => s.Name.Split("\\").Last()).ToArray();
+                string[] fileList = SourceFiles.Select(s => s.Name.Split('/').Last()).ToArray();
                 string result = await Application.Current.MainPage.DisplayActionSheet("Choose file:", "Cancel", null, fileList);
 
                 _lastViewedFileIndex = fileList.ToList().IndexOf(result);
 
                 if (fileList.Contains(result))
                 {
-                    SelectFile(SourceFiles.FirstOrDefault(s => s.Name.Split("\\").Last().Equals(result)).Name);
+                    SelectFile(SourceFiles.FirstOrDefault(s => s.Name.Split("/").Last().Equals(result)).Name);
                 }
             }
             // No need to handle any cancellation.
@@ -408,7 +408,7 @@ namespace ArcGIS
                 Html = SourceFiles.FirstOrDefault(s => s.Name == fileName).HtmlContent,
             };
 
-            CurrentFileLabel.Text = fileName.Split("\\").Last();
+            CurrentFileLabel.Text = fileName.Split('/').Last();
         }
     }
 
@@ -461,10 +461,22 @@ namespace ArcGIS
             {
                 string baseContent = string.Empty;
                 var assembly = Assembly.GetExecutingAssembly();
-
+#if __ANDROID__
+                if (_path.EndsWith(".xaml"))
+                {
+                    var fileName = _path.Split('/').Last();
+                    var xamlPath = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{fileName}"));
+                    baseContent = new StreamReader(assembly.GetManifestResourceStream(xamlPath)).ReadToEnd();
+                }
+                else
+                {
+                    using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync(_path).ConfigureAwait(false);
+                    baseContent = new StreamReader(fileStream).ReadToEnd();
+                }
+#else
                 using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync(_path).ConfigureAwait(false);
                 baseContent = new StreamReader(fileStream).ReadToEnd();
-
+#endif
                 // > and < characters will be incorrectly parsed by the html.
                 baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");
 

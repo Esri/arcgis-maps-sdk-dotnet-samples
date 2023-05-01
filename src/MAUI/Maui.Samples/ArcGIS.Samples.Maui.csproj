@@ -55,7 +55,6 @@
     <!-- Excluded due to missing toolkit components -->
 	  <AndroidResource Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <Compile Remove="Samples\MapView\FilterByTimeExtent\**" />
-	  <EmbeddedResource Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <MauiCss Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <MauiXaml Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <None Remove="Samples\MapView\FilterByTimeExtent\**" />
@@ -65,7 +64,6 @@
 	<ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-maccatalyst')) or $(TargetFramework.StartsWith('net7.0-windows'))">
 	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
 	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
-	  <EmbeddedResource Remove="Samples\Location\IndoorPositioning\**" />
 	  <MauiCss Remove="Samples\Location\IndoorPositioning\**" />
 	  <MauiXaml Remove="Samples\Location\IndoorPositioning\**" />
 	  <None Remove="Samples\Location\IndoorPositioning\**" />
@@ -89,8 +87,9 @@
   <ItemGroup>
 	<None Remove="Samples\**\*.md" />
     <MauiAsset Include="Samples\**\*.md" />
+    <MauiAsset Include="Converters\*.cs" />
     <MauiImage Include="Samples\**\*.jpg" />
-    <EmbeddedResource Include="Samples\**\*.cs" />
+    <MauiAsset Include="Samples\**\*.cs" />
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
   </ItemGroup>
   <ItemGroup>
@@ -101,9 +100,6 @@
 
   <ItemGroup>
     <None Remove="Resources\Fonts\calcite-ui-icons-24.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="Helpers\SampleTreeViewBuilder.cs" />
   </ItemGroup>
   <ItemGroup>
 	  <MauiImage Include="Resources\Thumbnails\placeholder_ios.jpg" />
@@ -187,6 +183,15 @@
     <MauiXaml Update="Samples\**\*.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiXaml>
+    <MauiAsset Update="Helpers\ArcGISLoginPrompt.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
+    <MauiAsset Update="Samples\**\*.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
+    <MauiAsset Update="Converters\*.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
     <MauiXaml Update="ScreenshotView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

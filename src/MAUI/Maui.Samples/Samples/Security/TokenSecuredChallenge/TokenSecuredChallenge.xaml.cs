@@ -19,7 +19,7 @@ namespace ArcGIS.Samples.TokenSecuredChallenge
         description: "This sample demonstrates how to prompt the user for a username and password to authenticate with ArcGIS Server to access an ArcGIS token-secured service. Accessing secured services requires a login that's been defined on the server.",
         instructions: "When you run the sample, the app will load a map that contains a layer from a secured service. Then, you will be challenged for a user name and password to view that layer. Enter the correct user name (user1) and password (user1). If you authenticate successfully, the secured layer will display, otherwise the map will contain only the public layers.",
         tags: new[] { "authentication", "cloud", "portal", "remember", "security" })]
-    [ArcGIS.Samples.Shared.Attributes.ClassFile("LoginPage.xaml.cs", "LoginPage.xaml", "Converters\\LoadStatusToColorConverter.cs")]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("LoginPage.xaml.cs", "LoginPage.xaml", "Converters/LoadStatusToColorConverter.cs")]
     public partial class TokenSecuredChallenge : ContentPage
     {
         // Public and secured map service URLs.

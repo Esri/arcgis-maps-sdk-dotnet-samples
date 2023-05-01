@@ -20,7 +20,7 @@ namespace ArcGIS.Samples.AuthorMap
         description: "Create and save a map as an ArcGIS `PortalItem` (i.e. web map).",
         instructions: "1. Select the basemap and layers you'd like to add to your map.",
         tags: new[] { "ArcGIS Online", "OAuth", "portal", "publish", "share", "web map" })]
-    [ArcGIS.Samples.Shared.Attributes.ClassFile("SaveMapPage.xaml.cs", "SaveMapPage.xaml", "Helpers\\ArcGISLoginPrompt.cs")]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("SaveMapPage.xaml.cs", "SaveMapPage.xaml", "Helpers/ArcGISLoginPrompt.cs")]
     [ArcGIS.Samples.Shared.Attributes.XamlFiles()]
     public partial class AuthorMap : ContentPage
     {

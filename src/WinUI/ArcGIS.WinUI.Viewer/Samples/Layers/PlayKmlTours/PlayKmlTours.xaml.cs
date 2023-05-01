@@ -24,7 +24,7 @@ namespace ArcGIS.WinUI.Samples.PlayKmlTours
         name: "Play KML tour",
         category: "Layers",
         description: "Play tours in KML files.",
-        instructions: "The sample will load the KMZ file from ArcGIS Online. When a tour is found, the _Play_ button will be enabled. Use _Play_ and _Pause_ to control the tour. When you're ready to show the tour, use the reset button to return the tour to the unplayed state.",
+        instructions: "The sample will load the KMZ file from ArcGIS Online. When a tour is found, the _Play_ button will be enabled. Use _Play_ and _Pause_ to control the tour. Use the reset button to return the tour to the unplayed state.",
         tags: new[] { "KML", "animation", "interactive", "narration", "pause", "play", "story", "tour" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("f10b1d37fdd645c9bc9b189fb546307c")]
     public partial class PlayKmlTours
@@ -76,7 +76,7 @@ namespace ArcGIS.WinUI.Samples.PlayKmlTours
                 this.Unloaded += Sample_Unloaded;
 
                 // Enable the play button.
-                PlayButton.IsEnabled = true;
+                PlayPauseButton.IsEnabled = true;
 
                 // Hide the status bar.
                 LoadingStatusBar.Visibility = Visibility.Collapsed;
@@ -137,33 +137,46 @@ namespace ArcGIS.WinUI.Samples.PlayKmlTours
             switch (_tourController.Tour.TourStatus)
             {
                 case KmlTourStatus.Completed:
+                    PlayPauseButton.IsEnabled = true;
+                    ResetButton.IsEnabled = false;
+                    PlayPauseButton.Content = "Play";
+                    // Return to the initial viewpoint to visually indicate the tour being over.
+                    MySceneView.SetViewpointAsync(MySceneView.Scene.InitialViewpoint);
+                    break;
                 case KmlTourStatus.Initialized:
-                    PlayButton.IsEnabled = true;
-                    PauseButton.IsEnabled = false;
+                    PlayPauseButton.IsEnabled = true;
+                    ResetButton.IsEnabled = false;
+                    PlayPauseButton.Content = "Play";
                     break;
-
-                case KmlTourStatus.Paused:
-                    PlayButton.IsEnabled = true;
-                    PauseButton.IsEnabled = false;
-                    ResetButton.IsEnabled = true;
-                    break;
-
                 case KmlTourStatus.Playing:
                     ResetButton.IsEnabled = true;
-                    PlayButton.IsEnabled = false;
-                    PauseButton.IsEnabled = true;
+                    PlayPauseButton.Content = "Pause";
+                    break;
+                case KmlTourStatus.Paused:
+                    PlayPauseButton.Content = "Play";
                     break;
             }
         }
 
-        // Play the tour when the button is pressed.
-        private void Play_Clicked(object sender, RoutedEventArgs e) => _tourController?.Play();
+        private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(PlayPauseButton.Content.ToString() == "Play")
+            {
+                _tourController?.Play();
+            }
+            else
+            {
+                _tourController?.Pause();
+            }
+        }
 
-        // Pause the tour when the button is pressed.
-        private void Pause_Clicked(object sender, RoutedEventArgs e) => _tourController?.Pause();
-
-        // Reset the tour when the button is pressed.
-        private void Reset_Clicked(object sender, RoutedEventArgs e) => _tourController?.Reset();
+        // Reset button should then be disabled.
+        private void Reset_Clicked(object sender, RoutedEventArgs e)
+        {
+            _tourController?.Reset();
+            MySceneView.SetViewpointAsync(MySceneView.Scene.InitialViewpoint);
+            PlayPauseButton.Content = "Play";
+        }
 
         // Reset the tour when the user leaves the sample - avoids a crash.
         private void Sample_Unloaded(object sender, RoutedEventArgs e)

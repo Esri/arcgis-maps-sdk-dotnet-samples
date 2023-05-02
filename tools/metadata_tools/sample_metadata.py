@@ -151,7 +151,6 @@ class sample_metadata:
         data["offline_data"] = self.offline_data
         data["formal_name"] = self.formal_name
 
-        print(self.source_files)
         with open(path_to_json, 'w+') as json_file:
             json.dump(data, json_file, indent=4, sort_keys=True)
 

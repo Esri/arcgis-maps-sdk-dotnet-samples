@@ -169,6 +169,7 @@ class MetadataCreator:
                                 additionalFiles.append("../../../" + additional_file_path)
                         break
                 
+                additionalFiles.reverse()
                 for additionalFile in additionalFiles:
                     results.append(additionalFile)
 

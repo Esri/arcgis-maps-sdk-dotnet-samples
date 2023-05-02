@@ -5,30 +5,31 @@
     <Grid>
         <esriUI:SceneView x:Name="MySceneView" />
         <Border Style="{StaticResource BorderStyle}">
-            <StackPanel Padding="5"
-                        Orientation="Vertical"
-                        Spacing="5">
-                <TextBlock Margin="0,0,0,5"
-                           FontWeight="SemiBold"
-                           Text="Play, pause, or reset the tour. Contains audio. 🎧"
-                           TextWrapping="WrapWholeWords" />
-                <Button x:Name="PlayPauseButton"
-                        HorizontalAlignment="Stretch"
-                        Click="PlayPauseButton_Click"
-                        Content="Play"
-                        IsEnabled="False" />
-                <Button x:Name="ResetButton"
-                        HorizontalAlignment="Stretch"
-                        Click="Reset_Clicked"
-                        Content="Reset"
-                        IsEnabled="False" />
+            <StackPanel Orientation="Vertical" Spacing="5">
+                <TextBlock Margin="0,0,0,5" Text="Contains audio. 🎧" />
+                <Grid ColumnSpacing="5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="PlayPauseButton"
+                            HorizontalAlignment="Stretch"
+                            Click="PlayPause_Click"
+                            Content="Play"
+                            IsEnabled="False" />
+                    <Button x:Name="ResetButton"
+                            Grid.Column="1"
+                            HorizontalAlignment="Stretch"
+                            Click="Reset_Click"
+                            Content="Reset"
+                            IsEnabled="False" />
+                </Grid>
                 <ProgressBar x:Name="LoadingStatusBar"
                              Height="10"
                              Margin="0,5,0,0"
                              IsEnabled="True"
                              IsIndeterminate="True" />
             </StackPanel>
-
         </Border>
     </Grid>
 </UserControl>

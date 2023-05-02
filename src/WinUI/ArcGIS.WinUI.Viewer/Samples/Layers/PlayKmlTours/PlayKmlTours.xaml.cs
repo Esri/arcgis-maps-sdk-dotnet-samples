@@ -140,27 +140,31 @@ namespace ArcGIS.WinUI.Samples.PlayKmlTours
                     PlayPauseButton.IsEnabled = true;
                     ResetButton.IsEnabled = false;
                     PlayPauseButton.Content = "Play";
+
                     // Return to the initial viewpoint to visually indicate the tour being over.
                     MySceneView.SetViewpointAsync(MySceneView.Scene.InitialViewpoint);
                     break;
+
                 case KmlTourStatus.Initialized:
                     PlayPauseButton.IsEnabled = true;
                     ResetButton.IsEnabled = false;
                     PlayPauseButton.Content = "Play";
                     break;
+
                 case KmlTourStatus.Playing:
                     ResetButton.IsEnabled = true;
                     PlayPauseButton.Content = "Pause";
                     break;
+
                 case KmlTourStatus.Paused:
                     PlayPauseButton.Content = "Play";
                     break;
             }
         }
 
-        private void PlayPauseButton_Click(object sender, RoutedEventArgs e)
+        private void PlayPause_Click(object sender, RoutedEventArgs e)
         {
-            if(PlayPauseButton.Content.ToString() == "Play")
+            if (PlayPauseButton.Content.ToString() == "Play")
             {
                 _tourController?.Play();
             }
@@ -170,11 +174,11 @@ namespace ArcGIS.WinUI.Samples.PlayKmlTours
             }
         }
 
-        // Reset button should then be disabled.
-        private void Reset_Clicked(object sender, RoutedEventArgs e)
+        // Reset the tour when the button is pressed.
+        private void Reset_Click(object sender, RoutedEventArgs e)
         {
             _tourController?.Reset();
-            MySceneView.SetViewpointAsync(MySceneView.Scene.InitialViewpoint);
+            MySceneView.SetViewpoint(MySceneView.Scene.InitialViewpoint);
             PlayPauseButton.Content = "Play";
         }
 

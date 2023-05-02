@@ -138,6 +138,7 @@ class MetadataCreator:
         :return: A list of c# source code filenames.
         """
         results = []
+        additionalFiles = []
         for file in os.listdir(self.folder_path):
             if os.path.splitext(file)[1] in ['.xaml', '.cs']:
                 results.append(file)
@@ -167,6 +168,10 @@ class MetadataCreator:
                             elif "/" in additional_file_path:
                                 results.append("../../../" + additional_file_path)
                         break
+
+                additionalFiles.sort()
+                for additionalFile in additionalFiles:
+                    results.append(additionalFile)
 
         if not results:
             raise Exception('Unable to get c# source code paths.')

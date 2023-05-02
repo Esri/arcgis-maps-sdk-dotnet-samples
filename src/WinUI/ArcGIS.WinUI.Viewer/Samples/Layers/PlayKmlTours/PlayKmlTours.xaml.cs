@@ -24,7 +24,7 @@ namespace ArcGIS.WinUI.Samples.PlayKmlTours
         name: "Play KML tour",
         category: "Layers",
         description: "Play tours in KML files.",
-        instructions: "The sample will load the KMZ file from ArcGIS Online. When a tour is found, the _Play_ button will be enabled. Use _Play_ and _Pause_ to control the tour. Use the reset button to return the tour to the unplayed state.",
+        instructions: "The sample will load the KMZ file from ArcGIS Online. When a tour is found, the _Play_ button will be enabled. Use _Play_ and _Pause_ to control the tour. Use the _Reset_ button to return the tour to the unplayed state.",
         tags: new[] { "KML", "animation", "interactive", "narration", "pause", "play", "story", "tour" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("f10b1d37fdd645c9bc9b189fb546307c")]
     public partial class PlayKmlTours

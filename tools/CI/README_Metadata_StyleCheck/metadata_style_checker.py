@@ -138,20 +138,16 @@ class MetadataCreator:
         :return: A list of c# source code filenames.
         """
         results = []
+        additionalFiles = []
         for file in os.listdir(self.folder_path):
             if os.path.splitext(file)[1] in ['.xaml', '.cs']:
                 results.append(file)
                 results.sort(reverse=True)
-        if not results:
-            raise Exception('Unable to get c# source code paths.')
-        
-         # populate from .cs files in the directory
-        sample_dir = os.path.split(self.folder_path)[0]
-        for file in os.listdir(sample_dir):
-            if os.path.splitext(file)[1] in [".cs"]:
+            
+            if os.path.splitext(file)[1] in ['.cs']:
                 class_contents = ""
                 try:
-                    class_file = open(os.path.join(sample_dir, file), "r")
+                    class_file = open(os.path.join(self.folder_path, file), "r")
                     class_contents = class_file.readlines()
                     class_file.close()
                 except Exception as err:
@@ -168,10 +164,16 @@ class MetadataCreator:
                             if "\\" in additional_file_path:
                                 additional_file_path_string = str(additional_file_path)
                                 corrected_path = additional_file_path_string.replace("\\\\", "/")
-                                results.append("../../../" + corrected_path)
+                                additionalFiles.append("../../../" + corrected_path)
                             elif "/" in additional_file_path:
-                                results.append("../../../" + additional_file_path)
+                                additionalFiles.append("../../../" + additional_file_path)
                         break
+                
+                for additionalFile in additionalFiles:
+                    results.append(additionalFile)
+
+        if not results:
+            raise Exception('Unable to get c# source code paths.')
 
         return results
 

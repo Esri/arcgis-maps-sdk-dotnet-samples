@@ -152,7 +152,6 @@ namespace ArcGIS.Samples.PlayKmlTours
                 case KmlTourStatus.Paused:
                     PlayPauseButton.Text = "Play";
                     break;
-
             }
         }
 
@@ -172,7 +171,7 @@ namespace ArcGIS.Samples.PlayKmlTours
         private void Reset_Clicked(object sender, EventArgs e)
         {
             _tourController?.Reset();
-            MySceneView.SetViewpointAsync(MySceneView.Scene.InitialViewpoint);
+            MySceneView.SetViewpoint(MySceneView.Scene.InitialViewpoint);
             PlayPauseButton.Text = "Play";
         }
 

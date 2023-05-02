@@ -7,19 +7,19 @@
         <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <VerticalStackLayout Padding="5" Spacing="5">
-                <Label Margin="0,0,0,5"
-                       FontAttributes="Bold"
-                       Text="Play, pause, or reset the tour. Contains audio. 🎧" />
-                <Button x:Name="PlayPauseButton"
-                        Clicked="PlayPause_Clicked"
-                        HorizontalOptions="Fill"
-                        IsEnabled="False"
-                        Text="Play" />
-                <Button x:Name="ResetButton"
-                        Clicked="Reset_Clicked"
-                        HorizontalOptions="Fill"
-                        IsEnabled="False"
-                        Text="Reset" />
+                <Label Margin="0,0,0,5" Text="Contains audio. 🎧" />
+                <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
+                    <Button x:Name="PlayPauseButton"
+                            Clicked="PlayPause_Clicked"
+                            IsEnabled="False"
+                            Text="Play"
+                            WidthRequest="75" />
+                    <Button x:Name="ResetButton"
+                            Grid.Column="1"
+                            Clicked="Reset_Clicked"
+                            IsEnabled="False"
+                            Text="Reset" />
+                </Grid>
                 <ProgressBar x:Name="LoadingStatusBar"
                              Margin="0,5,0,0"
                              IsEnabled="True" />

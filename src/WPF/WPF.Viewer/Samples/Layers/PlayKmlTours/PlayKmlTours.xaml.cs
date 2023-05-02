@@ -77,7 +77,7 @@ namespace ArcGIS.WPF.Samples.PlayKmlTours
                 Application.Current.Exit += Application_Exit;
 
                 // Enable the play button.
-                PlayButton.IsEnabled = true;
+                PlayPauseButton.IsEnabled = true;
 
                 // Hide the status bar.
                 LoadingStatusBar.Visibility = Visibility.Collapsed;
@@ -138,33 +138,50 @@ namespace ArcGIS.WPF.Samples.PlayKmlTours
             switch (_tourController.Tour.TourStatus)
             {
                 case KmlTourStatus.Completed:
-                case KmlTourStatus.Initialized:
-                    PlayButton.IsEnabled = true;
-                    PauseButton.IsEnabled = false;
+                    PlayPauseButton.IsEnabled = true;
+                    ResetButton.IsEnabled = false;
+                    PlayPauseButton.Content = "Play";
+
+                    // Return to the initial viewpoint to visually indicate the tour being over.
+                    MySceneView.SetViewpointAsync(MySceneView.Scene.InitialViewpoint);
                     break;
 
-                case KmlTourStatus.Paused:
-                    PlayButton.IsEnabled = true;
-                    PauseButton.IsEnabled = false;
-                    ResetButton.IsEnabled = true;
+                case KmlTourStatus.Initialized:
+                    PlayPauseButton.IsEnabled = true;
+                    ResetButton.IsEnabled = false;
+                    PlayPauseButton.Content = "Play";
                     break;
 
                 case KmlTourStatus.Playing:
                     ResetButton.IsEnabled = true;
-                    PlayButton.IsEnabled = false;
-                    PauseButton.IsEnabled = true;
+                    PlayPauseButton.Content = "Pause";
+                    break;
+
+                case KmlTourStatus.Paused:
+                    PlayPauseButton.Content = "Play";
                     break;
             }
         }
 
-        // Play the tour when the button is pressed.
-        private void Play_Clicked(object sender, EventArgs e) => _tourController?.Play();
-
-        // Pause the tour when the button is pressed.
-        private void Pause_Clicked(object sender, EventArgs e) => _tourController?.Pause();
+        private void PlayPause_Click(object sender, RoutedEventArgs e)
+        {
+            if (PlayPauseButton.Content.ToString() == "Play")
+            {
+                _tourController?.Play();
+            }
+            else
+            {
+                _tourController?.Pause();
+            }
+        }
 
         // Reset the tour when the button is pressed.
-        private void Reset_Clicked(object sender, EventArgs e) => _tourController?.Reset();
+        private void Reset_Click(object sender, RoutedEventArgs e)
+        {
+            _tourController?.Reset();
+            MySceneView.SetViewpoint(MySceneView.Scene.InitialViewpoint);
+            PlayPauseButton.Content = "Play";
+        }
 
         // Reset the tour when the user leaves the sample - avoids a crash.
         private void Sample_Unloaded(object sender, RoutedEventArgs e)
@@ -182,6 +199,11 @@ namespace ArcGIS.WPF.Samples.PlayKmlTours
             catch
             {
             }
+        }
+
+        private void ResetButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

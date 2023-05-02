@@ -21,8 +21,9 @@
         "AGSFeatureCollectionTable"
     ],
     "snippets": [
+        "DisplayRouteLayer.xaml.cs",
         "DisplayRouteLayer.xaml",
-        "DisplayRouteLayer.xaml.cs"
+        "../../../Converters/DirectionPointTypeToIconConverter.cs"
     ],
     "title": "Display route layer"
 }

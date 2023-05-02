@@ -38,8 +38,8 @@
         "MapView"
     ],
     "snippets": [
-        "IndoorPositioning.xaml",
-        "IndoorPositioning.xaml.cs"
+        "IndoorPositioning.xaml.cs",
+        "IndoorPositioning.xaml"
     ],
     "title": "Show device location using indoor positioning"
 }

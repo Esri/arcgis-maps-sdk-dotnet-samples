@@ -32,8 +32,8 @@
         "RasterLayer"
     ],
     "snippets": [
-        "IdentifyRasterCell.xaml",
-        "IdentifyRasterCell.xaml.cs"
+        "IdentifyRasterCell.xaml.cs",
+        "IdentifyRasterCell.xaml"
     ],
     "title": "Identify raster cell"
 }

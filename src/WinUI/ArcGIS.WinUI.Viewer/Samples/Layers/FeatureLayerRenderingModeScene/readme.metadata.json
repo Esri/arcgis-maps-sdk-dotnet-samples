@@ -25,8 +25,8 @@
         "SceneView"
     ],
     "snippets": [
-        "FeatureLayerRenderingModeScene.xaml",
-        "FeatureLayerRenderingModeScene.xaml.cs"
+        "FeatureLayerRenderingModeScene.xaml.cs",
+        "FeatureLayerRenderingModeScene.xaml"
     ],
     "title": "Feature layer rendering mode (scene)"
 }

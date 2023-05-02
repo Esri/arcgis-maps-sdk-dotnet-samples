@@ -26,8 +26,8 @@
         "ServiceAreaTask"
     ],
     "snippets": [
-        "FindServiceArea.xaml",
-        "FindServiceArea.xaml.cs"
+        "FindServiceArea.xaml.cs",
+        "FindServiceArea.xaml"
     ],
     "title": "Find service area"
 }

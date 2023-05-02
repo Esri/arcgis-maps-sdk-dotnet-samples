@@ -29,8 +29,8 @@
         "TableDescription"
     ],
     "snippets": [
-        "CreateMobileGeodatabase.xaml",
-        "CreateMobileGeodatabase.xaml.cs"
+        "CreateMobileGeodatabase.xaml.cs",
+        "CreateMobileGeodatabase.xaml"
     ],
     "title": "Create mobile geodatabase"
 }

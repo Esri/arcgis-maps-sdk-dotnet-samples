@@ -26,8 +26,8 @@
         "UniqueValueRenderer"
     ],
     "snippets": [
-        "RenderUniqueValues.xaml",
-        "RenderUniqueValues.xaml.cs"
+        "RenderUniqueValues.xaml.cs",
+        "RenderUniqueValues.xaml"
     ],
     "title": "Unique value renderer"
 }

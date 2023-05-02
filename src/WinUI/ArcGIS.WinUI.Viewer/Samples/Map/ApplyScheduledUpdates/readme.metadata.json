@@ -28,8 +28,8 @@
         "OfflineMapUpdatesInfo"
     ],
     "snippets": [
-        "ApplyScheduledUpdates.xaml",
-        "ApplyScheduledUpdates.xaml.cs"
+        "ApplyScheduledUpdates.xaml.cs",
+        "ApplyScheduledUpdates.xaml"
     ],
     "title": "Apply scheduled updates to preplanned map area"
 }

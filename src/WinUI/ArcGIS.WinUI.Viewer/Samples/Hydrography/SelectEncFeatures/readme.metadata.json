@@ -34,8 +34,8 @@
         "IdentifyLayerResult.LayerContent"
     ],
     "snippets": [
-        "SelectEncFeatures.xaml",
-        "SelectEncFeatures.xaml.cs"
+        "SelectEncFeatures.xaml.cs",
+        "SelectEncFeatures.xaml"
     ],
     "title": "Select ENC features"
 }

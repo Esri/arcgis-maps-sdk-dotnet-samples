@@ -27,8 +27,8 @@
         "StatusChangedEvent"
     ],
     "snippets": [
-        "LocalServerFeatureLayer.xaml",
-        "LocalServerFeatureLayer.xaml.cs"
+        "LocalServerFeatureLayer.xaml.cs",
+        "LocalServerFeatureLayer.xaml"
     ],
     "title": "Local server feature layer"
 }

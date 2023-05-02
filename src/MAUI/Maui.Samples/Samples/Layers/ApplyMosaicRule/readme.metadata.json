@@ -23,8 +23,8 @@
         "MosaicRule"
     ],
     "snippets": [
-        "ApplyMosaicRule.xaml",
-        "ApplyMosaicRule.xaml.cs"
+        "ApplyMosaicRule.xaml.cs",
+        "ApplyMosaicRule.xaml"
     ],
     "title": "Apply mosaic rule to rasters"
 }

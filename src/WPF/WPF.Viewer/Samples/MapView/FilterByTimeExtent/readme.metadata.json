@@ -26,8 +26,8 @@
         "ServiceFeatureTable"
     ],
     "snippets": [
-        "FilterByTimeExtent.xaml",
-        "FilterByTimeExtent.xaml.cs"
+        "FilterByTimeExtent.xaml.cs",
+        "FilterByTimeExtent.xaml"
     ],
     "title": "Filter by time extent"
 }

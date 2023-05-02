@@ -151,6 +151,7 @@ class sample_metadata:
         data["offline_data"] = self.offline_data
         data["formal_name"] = self.formal_name
 
+        print(self.source_files)
         with open(path_to_json, 'w+') as json_file:
             json.dump(data, json_file, indent=4, sort_keys=True)
 
@@ -166,10 +167,41 @@ class sample_metadata:
         for file in os.listdir(sample_dir):
             if os.path.splitext(file)[1] in [".xaml", ".cs"]:
                 self.source_files.append(file)        
-        
-        if self.formal_name in ["OAuth", "AuthorMap", "NavigateAR", "SearchPortalMaps"]:
-            self.source_files.append("../../../Helpers/ArcGISLoginPrompt.cs")
-        self.source_files.sort()
+        # order the source files such that the .cs file appears first
+        self.source_files.sort(reverse=True)
+
+    def populate_snippets_from_class(self, platform, path_to_readme):
+        '''
+        Take a path to a readme file
+        Populate the snippets from the sample .cs file;
+        '''
+        # populate from .cs files in the directory
+        sample_dir = os.path.split(path_to_readme)[0]
+        for file in os.listdir(sample_dir):
+            if os.path.splitext(file)[1] in [".cs"]:
+                class_contents = ""
+                try:
+                    class_file = open(os.path.join(sample_dir, file), "r")
+                    class_contents = class_file.readlines()
+                    class_file.close()
+                except Exception as err:
+                    print(f"Error populating metadata from sample - {file} - {err}")
+                    return
+                # Loop through lines in the class file to check for any additional files such as helpers or converters.
+                for line in class_contents:
+                    if "ArcGIS.Samples.Shared.Attributes.ClassFile" in line:
+                        additional_file_paths = re.findall("\"([a-zA-Z0-9.\\\/]*)\"", line)
+                        # We are only interested in adding files that are not contained within the same folder as our class files as these are
+                        # added in `populate_snippets_from_folder`. Here we check for \\ and / characters in the file path and then reconstruct the path
+                        # as required.
+                        for additional_file_path in additional_file_paths:
+                            if "\\" in additional_file_path:
+                                additional_file_path_string = str(additional_file_path)
+                                corrected_path = additional_file_path_string.replace("\\\\", "/")
+                                self.source_files.append("../../../" + corrected_path)
+                            elif "/" in additional_file_path:
+                                self.source_files.append("../../../" + additional_file_path)
+                        break
 
     def splitall(path):
         ## Credits: taken verbatim from https://www.oreilly.com/library/view/python-cookbook/0596001673/ch04s16.html

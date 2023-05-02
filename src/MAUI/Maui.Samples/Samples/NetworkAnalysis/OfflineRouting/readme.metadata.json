@@ -32,8 +32,8 @@
         "TravelMode"
     ],
     "snippets": [
-        "OfflineRouting.xaml",
-        "OfflineRouting.xaml.cs"
+        "OfflineRouting.xaml.cs",
+        "OfflineRouting.xaml"
     ],
     "title": "Offline routing"
 }

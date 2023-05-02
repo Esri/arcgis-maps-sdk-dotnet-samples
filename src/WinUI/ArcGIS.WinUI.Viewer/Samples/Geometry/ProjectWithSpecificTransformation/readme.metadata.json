@@ -24,8 +24,8 @@
         "GeographicTransformationStep"
     ],
     "snippets": [
-        "ProjectWithSpecificTransformation.xaml",
-        "ProjectWithSpecificTransformation.xaml.cs"
+        "ProjectWithSpecificTransformation.xaml.cs",
+        "ProjectWithSpecificTransformation.xaml"
     ],
     "title": "Project with specific transformation"
 }

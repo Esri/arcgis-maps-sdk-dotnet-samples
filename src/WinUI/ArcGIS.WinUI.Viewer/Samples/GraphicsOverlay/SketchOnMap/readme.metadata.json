@@ -23,8 +23,8 @@
         "SketchEditor"
     ],
     "snippets": [
-        "SketchOnMap.xaml",
-        "SketchOnMap.xaml.cs"
+        "SketchOnMap.xaml.cs",
+        "SketchOnMap.xaml"
     ],
     "title": "Sketch on map"
 }

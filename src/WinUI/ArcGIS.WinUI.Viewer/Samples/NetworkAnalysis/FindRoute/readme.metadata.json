@@ -30,8 +30,8 @@
         "Stop"
     ],
     "snippets": [
-        "FindRoute.xaml",
-        "FindRoute.xaml.cs"
+        "FindRoute.xaml.cs",
+        "FindRoute.xaml"
     ],
     "title": "Find route"
 }

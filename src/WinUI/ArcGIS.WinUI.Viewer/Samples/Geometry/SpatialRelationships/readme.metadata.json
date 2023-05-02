@@ -32,8 +32,8 @@
         "Polyline"
     ],
     "snippets": [
-        "SpatialRelationships.xaml",
-        "SpatialRelationships.xaml.cs"
+        "SpatialRelationships.xaml.cs",
+        "SpatialRelationships.xaml"
     ],
     "title": "Spatial relationships"
 }

@@ -21,8 +21,8 @@
         "GeometryEngine.LengthGeodetic"
     ],
     "snippets": [
-        "GeodesicOperations.xaml",
-        "GeodesicOperations.xaml.cs"
+        "GeodesicOperations.xaml.cs",
+        "GeodesicOperations.xaml"
     ],
     "title": "Geodesic operations"
 }

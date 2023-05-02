@@ -21,8 +21,8 @@
         "TimeExtent"
     ],
     "snippets": [
-        "TimeBasedQuery.xaml",
-        "TimeBasedQuery.xaml.cs"
+        "TimeBasedQuery.xaml.cs",
+        "TimeBasedQuery.xaml"
     ],
     "title": "Time-based query"
 }

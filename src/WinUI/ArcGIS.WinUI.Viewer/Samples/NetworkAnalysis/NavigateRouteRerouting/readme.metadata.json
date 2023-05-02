@@ -34,8 +34,8 @@
         "VoiceGuidance"
     ],
     "snippets": [
-        "NavigateRouteRerouting.xaml",
-        "NavigateRouteRerouting.xaml.cs"
+        "NavigateRouteRerouting.xaml.cs",
+        "NavigateRouteRerouting.xaml"
     ],
     "title": "Navigate route with rerouting"
 }

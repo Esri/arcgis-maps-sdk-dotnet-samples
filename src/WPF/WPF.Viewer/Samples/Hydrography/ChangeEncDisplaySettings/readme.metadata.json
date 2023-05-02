@@ -48,8 +48,8 @@
         "EncViewingGroupSettings.ResetToDefaults"
     ],
     "snippets": [
-        "ChangeEncDisplaySettings.xaml",
-        "ChangeEncDisplaySettings.xaml.cs"
+        "ChangeEncDisplaySettings.xaml.cs",
+        "ChangeEncDisplaySettings.xaml"
     ],
     "title": "Change ENC display settings"
 }

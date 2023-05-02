@@ -22,8 +22,8 @@
         "Viewpoint"
     ],
     "snippets": [
-        "ManageBookmarks.xaml",
-        "ManageBookmarks.xaml.cs"
+        "ManageBookmarks.xaml.cs",
+        "ManageBookmarks.xaml"
     ],
     "title": "Manage bookmarks"
 }

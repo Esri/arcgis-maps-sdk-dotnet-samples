@@ -27,8 +27,9 @@
         "SymbolStyleSearchParameters"
     ],
     "snippets": [
+        "SymbolsFromMobileStyle.xaml.cs",
         "SymbolsFromMobileStyle.xaml",
-        "SymbolsFromMobileStyle.xaml.cs"
+        "../../../Converters/ColorToSolidBrushConverter.cs"
     ],
     "title": "Read symbols from mobile style"
 }

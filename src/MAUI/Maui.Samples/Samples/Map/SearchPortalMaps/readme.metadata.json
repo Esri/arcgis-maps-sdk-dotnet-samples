@@ -23,9 +23,9 @@
         "PortalQueryResultSet"
     ],
     "snippets": [
-        "../../../Helpers/ArcGISLoginPrompt.cs",
+        "SearchPortalMaps.xaml.cs",
         "SearchPortalMaps.xaml",
-        "SearchPortalMaps.xaml.cs"
+        "../../../Helpers/ArcGISLoginPrompt.cs"
     ],
     "title": "Search for webmap"
 }

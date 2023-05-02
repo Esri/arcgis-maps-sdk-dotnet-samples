@@ -32,8 +32,8 @@
         "VoiceGuidance"
     ],
     "snippets": [
-        "NavigateRoute.xaml",
-        "NavigateRoute.xaml.cs"
+        "NavigateRoute.xaml.cs",
+        "NavigateRoute.xaml"
     ],
     "title": "Navigate route"
 }

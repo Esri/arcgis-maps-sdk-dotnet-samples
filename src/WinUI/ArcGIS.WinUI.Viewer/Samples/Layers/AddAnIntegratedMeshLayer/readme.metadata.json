@@ -19,8 +19,8 @@
         "IntegratedMeshLayer"
     ],
     "snippets": [
-        "AddAnIntegratedMeshLayer.xaml",
-        "AddAnIntegratedMeshLayer.xaml.cs"
+        "AddAnIntegratedMeshLayer.xaml.cs",
+        "AddAnIntegratedMeshLayer.xaml"
     ],
     "title": "Add integrated mesh layer"
 }

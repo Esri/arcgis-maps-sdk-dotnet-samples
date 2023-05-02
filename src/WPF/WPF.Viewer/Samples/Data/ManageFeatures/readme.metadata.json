@@ -35,8 +35,8 @@
         "ServiceGeodatabase"
     ],
     "snippets": [
-        "ManageFeatures.xaml",
-        "ManageFeatures.xaml.cs"
+        "ManageFeatures.xaml.cs",
+        "ManageFeatures.xaml"
     ],
     "title": "Manage features"
 }

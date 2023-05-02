@@ -29,8 +29,8 @@
         "GeoPackageRaster"
     ],
     "snippets": [
-        "ReadGeoPackage.xaml",
-        "ReadGeoPackage.xaml.cs"
+        "ReadGeoPackage.xaml.cs",
+        "ReadGeoPackage.xaml"
     ],
     "title": "Read GeoPackage"
 }

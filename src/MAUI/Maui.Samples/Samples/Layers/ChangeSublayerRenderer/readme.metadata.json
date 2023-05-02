@@ -26,8 +26,8 @@
         "ClassBreaksRenderer.ClassBreak"
     ],
     "snippets": [
-        "ChangeSublayerRenderer.xaml",
-        "ChangeSublayerRenderer.xaml.cs"
+        "ChangeSublayerRenderer.xaml.cs",
+        "ChangeSublayerRenderer.xaml"
     ],
     "title": "Change sublayer renderer"
 }

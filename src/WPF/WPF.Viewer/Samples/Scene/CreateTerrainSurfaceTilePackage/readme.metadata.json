@@ -23,8 +23,8 @@
         "Surface"
     ],
     "snippets": [
-        "CreateTerrainSurfaceTilePackage.xaml",
-        "CreateTerrainSurfaceTilePackage.xaml.cs"
+        "CreateTerrainSurfaceTilePackage.xaml.cs",
+        "CreateTerrainSurfaceTilePackage.xaml"
     ],
     "title": "Create terrain from local tile package"
 }

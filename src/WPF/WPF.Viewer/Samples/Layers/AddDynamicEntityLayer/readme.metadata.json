@@ -31,8 +31,8 @@
         "TrackDisplayProperties"
     ],
     "snippets": [
-        "AddDynamicEntityLayer.xaml",
-        "AddDynamicEntityLayer.xaml.cs"
+        "AddDynamicEntityLayer.xaml.cs",
+        "AddDynamicEntityLayer.xaml"
     ],
     "title": "Add dynamic entity layer"
 }

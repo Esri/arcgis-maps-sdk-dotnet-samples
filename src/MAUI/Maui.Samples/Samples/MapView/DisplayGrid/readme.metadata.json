@@ -34,8 +34,8 @@
         "UTMGrid"
     ],
     "snippets": [
-        "DisplayGrid.xaml",
-        "DisplayGrid.xaml.cs"
+        "DisplayGrid.xaml.cs",
+        "DisplayGrid.xaml"
     ],
     "title": "Display grid"
 }

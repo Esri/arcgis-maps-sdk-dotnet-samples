@@ -20,8 +20,9 @@
         "Map"
     ],
     "snippets": [
+        "MapReferenceScale.xaml.cs",
         "MapReferenceScale.xaml",
-        "MapReferenceScale.xaml.cs"
+        "../../../Converters/DoubleToScaleStringConverter.cs"
     ],
     "title": "Map reference scale"
 }

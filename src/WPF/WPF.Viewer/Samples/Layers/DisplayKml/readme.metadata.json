@@ -23,8 +23,8 @@
         "KmlLayer"
     ],
     "snippets": [
-        "DisplayKml.xaml",
-        "DisplayKml.xaml.cs"
+        "DisplayKml.xaml.cs",
+        "DisplayKml.xaml"
     ],
     "title": "Display KML"
 }

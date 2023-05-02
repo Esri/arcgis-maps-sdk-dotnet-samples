@@ -28,8 +28,8 @@
         "ServiceFeatureTable.PopulateFromServiceAsync"
     ],
     "snippets": [
-        "ToggleBetweenFeatureRequestModes.xaml",
-        "ToggleBetweenFeatureRequestModes.xaml.cs"
+        "ToggleBetweenFeatureRequestModes.xaml.cs",
+        "ToggleBetweenFeatureRequestModes.xaml"
     ],
     "title": "Toggle between feature request modes"
 }

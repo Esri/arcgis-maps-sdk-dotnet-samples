@@ -28,8 +28,8 @@
         "SketchEditor"
     ],
     "snippets": [
-        "CreateAndSaveKmlFile.xaml",
-        "CreateAndSaveKmlFile.xaml.cs"
+        "CreateAndSaveKmlFile.xaml.cs",
+        "CreateAndSaveKmlFile.xaml"
     ],
     "title": "Create and save KML file"
 }

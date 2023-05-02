@@ -24,8 +24,8 @@
         "Portal"
     ],
     "snippets": [
-        "GenerateOfflineMap.xaml",
-        "GenerateOfflineMap.xaml.cs"
+        "GenerateOfflineMap.xaml.cs",
+        "GenerateOfflineMap.xaml"
     ],
     "title": "Generate offline map"
 }

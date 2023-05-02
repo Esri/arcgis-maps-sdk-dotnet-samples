@@ -26,8 +26,8 @@
         "MapView"
     ],
     "snippets": [
-        "DisplayDeviceLocation.xaml",
-        "DisplayDeviceLocation.xaml.cs"
+        "DisplayDeviceLocation.xaml.cs",
+        "DisplayDeviceLocation.xaml"
     ],
     "title": "Display device location with autopan modes"
 }

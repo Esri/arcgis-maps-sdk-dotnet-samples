@@ -27,8 +27,8 @@
         "SpatialReference"
     ],
     "snippets": [
-        "Project.xaml",
-        "Project.xaml.cs"
+        "Project.xaml.cs",
+        "Project.xaml"
     ],
     "title": "Project"
 }

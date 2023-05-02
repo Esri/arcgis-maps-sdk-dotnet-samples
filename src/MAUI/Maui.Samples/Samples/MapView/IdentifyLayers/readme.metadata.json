@@ -23,8 +23,8 @@
         "MapView.IdentifyLayersAsync"
     ],
     "snippets": [
-        "IdentifyLayers.xaml",
-        "IdentifyLayers.xaml.cs"
+        "IdentifyLayers.xaml.cs",
+        "IdentifyLayers.xaml"
     ],
     "title": "Identify layers"
 }

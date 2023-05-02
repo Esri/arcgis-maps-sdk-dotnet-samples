@@ -24,8 +24,8 @@
         "FeatureLayer"
     ],
     "snippets": [
-        "DisplayAnnotation.xaml",
-        "DisplayAnnotation.xaml.cs"
+        "DisplayAnnotation.xaml.cs",
+        "DisplayAnnotation.xaml"
     ],
     "title": "Display annotation"
 }

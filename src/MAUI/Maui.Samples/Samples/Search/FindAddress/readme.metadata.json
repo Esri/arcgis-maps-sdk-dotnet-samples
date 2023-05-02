@@ -22,8 +22,8 @@
         "LocatorTask"
     ],
     "snippets": [
-        "FindAddress.xaml",
-        "FindAddress.xaml.cs"
+        "FindAddress.xaml.cs",
+        "FindAddress.xaml"
     ],
     "title": "Find address"
 }

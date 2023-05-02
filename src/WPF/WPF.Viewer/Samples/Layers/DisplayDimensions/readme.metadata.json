@@ -22,8 +22,8 @@
         "MobileMapPackage"
     ],
     "snippets": [
-        "DisplayDimensions.xaml",
-        "DisplayDimensions.xaml.cs"
+        "DisplayDimensions.xaml.cs",
+        "DisplayDimensions.xaml"
     ],
     "title": "Display dimensions"
 }

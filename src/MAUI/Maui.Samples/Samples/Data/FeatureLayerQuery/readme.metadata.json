@@ -21,8 +21,8 @@
         "ServiceFeatureTable"
     ],
     "snippets": [
-        "FeatureLayerQuery.xaml",
-        "FeatureLayerQuery.xaml.cs"
+        "FeatureLayerQuery.xaml.cs",
+        "FeatureLayerQuery.xaml"
     ],
     "title": "Feature layer query"
 }

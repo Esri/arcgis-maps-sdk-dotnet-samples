@@ -30,8 +30,8 @@
         "SimpleRenderer.SceneProperties"
     ],
     "snippets": [
-        "ScenePropertiesExpressions.xaml",
-        "ScenePropertiesExpressions.xaml.cs"
+        "ScenePropertiesExpressions.xaml.cs",
+        "ScenePropertiesExpressions.xaml"
     ],
     "title": "Scene properties expressions"
 }

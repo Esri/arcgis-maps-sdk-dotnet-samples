@@ -27,8 +27,8 @@
         "SimpleRenderer"
     ],
     "snippets": [
-        "SymbolizeShapefile.xaml",
-        "SymbolizeShapefile.xaml.cs"
+        "SymbolizeShapefile.xaml.cs",
+        "SymbolizeShapefile.xaml"
     ],
     "title": "Symbolize shapefile"
 }

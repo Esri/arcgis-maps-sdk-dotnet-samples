@@ -42,8 +42,8 @@
         "UtilityTraversability"
     ],
     "snippets": [
-        "CreateLoadReport.xaml",
-        "CreateLoadReport.xaml.cs"
+        "CreateLoadReport.xaml.cs",
+        "CreateLoadReport.xaml"
     ],
     "title": "Create load report"
 }

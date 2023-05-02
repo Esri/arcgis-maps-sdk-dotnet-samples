@@ -22,8 +22,8 @@
         "TokenCredential"
     ],
     "snippets": [
-        "TokenSecuredChallenge.xaml",
-        "TokenSecuredChallenge.xaml.cs"
+        "TokenSecuredChallenge.xaml.cs",
+        "TokenSecuredChallenge.xaml"
     ],
     "title": "ArcGIS token challenge"
 }

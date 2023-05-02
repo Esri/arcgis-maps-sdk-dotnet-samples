@@ -19,8 +19,8 @@
         "ArcGISSceneLayer"
     ],
     "snippets": [
-        "AddPointSceneLayer.xaml",
-        "AddPointSceneLayer.xaml.cs"
+        "AddPointSceneLayer.xaml.cs",
+        "AddPointSceneLayer.xaml"
     ],
     "title": "Add a point scene layer"
 }

@@ -32,8 +32,8 @@
         "StatisticsQueryResult"
     ],
     "snippets": [
-        "StatsQueryGroupAndSort.xaml",
-        "StatsQueryGroupAndSort.xaml.cs"
+        "StatsQueryGroupAndSort.xaml.cs",
+        "StatsQueryGroupAndSort.xaml"
     ],
     "title": "Statistical query group and sort"
 }

@@ -23,8 +23,8 @@
         "WmsServiceInfo"
     ],
     "snippets": [
-        "WmsServiceCatalog.xaml",
-        "WmsServiceCatalog.xaml.cs"
+        "WmsServiceCatalog.xaml.cs",
+        "WmsServiceCatalog.xaml"
     ],
     "title": "WMS service catalog"
 }

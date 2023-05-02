@@ -29,8 +29,8 @@
         "SuggestResult"
     ],
     "snippets": [
-        "FindPlace.xaml",
-        "FindPlace.xaml.cs"
+        "FindPlace.xaml.cs",
+        "FindPlace.xaml"
     ],
     "title": "Find place"
 }

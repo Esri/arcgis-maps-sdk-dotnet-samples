@@ -24,8 +24,8 @@
         "ServiceFeatureTable"
     ],
     "snippets": [
-        "FeatureLayerUrl.xaml",
-        "FeatureLayerUrl.xaml.cs"
+        "FeatureLayerUrl.xaml.cs",
+        "FeatureLayerUrl.xaml"
     ],
     "title": "Feature layer (feature service)"
 }

@@ -24,8 +24,8 @@
         "GraphicsOverlay"
     ],
     "snippets": [
-        "Buffer.xaml",
-        "Buffer.xaml.cs"
+        "Buffer.xaml.cs",
+        "Buffer.xaml"
     ],
     "title": "Buffer"
 }

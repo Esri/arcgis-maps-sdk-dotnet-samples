@@ -27,8 +27,8 @@
         "SymbolStyleSearchParameters"
     ],
     "snippets": [
-        "SymbolsFromMobileStyle.xaml",
-        "SymbolsFromMobileStyle.xaml.cs"
+        "SymbolsFromMobileStyle.xaml.cs",
+        "SymbolsFromMobileStyle.xaml"
     ],
     "title": "Read symbols from mobile style"
 }

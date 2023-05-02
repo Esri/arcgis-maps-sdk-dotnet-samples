@@ -22,8 +22,8 @@
         "SpatialReference"
     ],
     "snippets": [
-        "SetMapSpatialReference.xaml",
-        "SetMapSpatialReference.xaml.cs"
+        "SetMapSpatialReference.xaml.cs",
+        "SetMapSpatialReference.xaml"
     ],
     "title": "Map spatial reference"
 }

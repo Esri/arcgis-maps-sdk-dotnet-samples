@@ -23,8 +23,8 @@
         "ReverseGeocodeParameters"
     ],
     "snippets": [
-        "ReverseGeocode.xaml",
-        "ReverseGeocode.xaml.cs"
+        "ReverseGeocode.xaml.cs",
+        "ReverseGeocode.xaml"
     ],
     "title": "Reverse geocode"
 }

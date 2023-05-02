@@ -21,8 +21,8 @@
         "MobileMapPackage"
     ],
     "snippets": [
-        "HonorMobileMapPackageExpiration.xaml",
-        "HonorMobileMapPackageExpiration.xaml.cs"
+        "HonorMobileMapPackageExpiration.xaml.cs",
+        "HonorMobileMapPackageExpiration.xaml"
     ],
     "title": "Honor mobile map package expiration date"
 }

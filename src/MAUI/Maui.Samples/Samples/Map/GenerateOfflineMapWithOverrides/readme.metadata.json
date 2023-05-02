@@ -35,10 +35,10 @@
         "OfflineMapTask"
     ],
     "snippets": [
-        "ConfigureOverridesPage.xaml",
-        "ConfigureOverridesPage.xaml.cs",
+        "GenerateOfflineMapWithOverrides.xaml.cs",
         "GenerateOfflineMapWithOverrides.xaml",
-        "GenerateOfflineMapWithOverrides.xaml.cs"
+        "ConfigureOverridesPage.xaml.cs",
+        "ConfigureOverridesPage.xaml"
     ],
     "title": "Generate offline map (overrides)"
 }

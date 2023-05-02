@@ -46,8 +46,8 @@
         "UtilityTraversability"
     ],
     "snippets": [
-        "ConfigureSubnetworkTrace.xaml",
-        "ConfigureSubnetworkTrace.xaml.cs"
+        "ConfigureSubnetworkTrace.xaml.cs",
+        "ConfigureSubnetworkTrace.xaml"
     ],
     "title": "Configure subnetwork trace"
 }

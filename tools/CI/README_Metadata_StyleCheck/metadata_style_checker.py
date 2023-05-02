@@ -141,9 +141,39 @@ class MetadataCreator:
         for file in os.listdir(self.folder_path):
             if os.path.splitext(file)[1] in ['.xaml', '.cs']:
                 results.append(file)
+                results.sort(reverse=True)
         if not results:
             raise Exception('Unable to get c# source code paths.')
-        return sorted(results)
+        
+         # populate from .cs files in the directory
+        sample_dir = os.path.split(self.folder_path)[0]
+        for file in os.listdir(sample_dir):
+            if os.path.splitext(file)[1] in [".cs"]:
+                class_contents = ""
+                try:
+                    class_file = open(os.path.join(sample_dir, file), "r")
+                    class_contents = class_file.readlines()
+                    class_file.close()
+                except Exception as err:
+                    print(f"Error populating metadata from sample - {file} - {err}")
+                    return
+                # Loop through lines in the class file to check for any additional files such as helpers or converters.
+                for line in class_contents:
+                    if "ArcGIS.Samples.Shared.Attributes.ClassFile" in line:
+                        additional_file_paths = re.findall("\"([a-zA-Z0-9.\\\/]*)\"", line)
+                        # We are only interested in adding files that are not contained within the same folder as our class files as these are
+                        # added in `populate_snippets_from_folder`. Here we check for \\ and / characters in the file path and then reconstruct the path
+                        # as required.
+                        for additional_file_path in additional_file_paths:
+                            if "\\" in additional_file_path:
+                                additional_file_path_string = str(additional_file_path)
+                                corrected_path = additional_file_path_string.replace("\\\\", "/")
+                                results.append("../../../" + corrected_path)
+                            elif "/" in additional_file_path:
+                                results.append("../../../" + additional_file_path)
+                        break
+
+        return results
 
     def get_images_paths(self):
         """

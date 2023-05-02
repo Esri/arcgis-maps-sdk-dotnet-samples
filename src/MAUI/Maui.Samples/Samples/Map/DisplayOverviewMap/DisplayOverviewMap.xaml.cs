@@ -15,7 +15,7 @@ namespace ArcGIS.Samples.DisplayOverviewMap
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display overview map",
         category: "Map",
-        description: "Include an overview or inset map as an additional map view to show the wider context of the primary view. ",
+        description: "Include an overview or inset map as an additional map view to show the wider context of the primary view.",
         instructions: "Pan or zoom across the map view to browse through the tourist attractions feature layer and notice the viewpoint and scale of the linked overview map update automatically. When running the sample on a desktop, you can also navigate by panning and zooming on the overview map. However, interactivity of the overview map is disabled on mobile devices.",
         tags: new[] { "context", "inset", "map", "minimap", "overview", "preview", "small scale", "toolkit", "view" })]
     public partial class DisplayOverviewMap : ContentPage

@@ -1,6 +1,6 @@
 # WMS service catalog
 
-Connect to a WMS service and show the available layers and sublayers. 
+Connect to a WMS service and show the available layers and sublayers.
 
 ![Image of WMS service catalog](WmsServiceCatalog.jpg)
 

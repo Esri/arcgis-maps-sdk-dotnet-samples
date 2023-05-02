@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "Query data using a time extent. ",
+    "description": "Query data using a time extent.",
     "formal_name": "TimeBasedQuery",
     "ignore": false,
     "images": [

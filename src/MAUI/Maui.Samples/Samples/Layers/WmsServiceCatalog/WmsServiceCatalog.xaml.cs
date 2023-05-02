@@ -16,7 +16,7 @@ namespace ArcGIS.Samples.WmsServiceCatalog
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "WMS service catalog",
         category: "Layers",
-        description: "Connect to a WMS service and show the available layers and sublayers. ",
+        description: "Connect to a WMS service and show the available layers and sublayers.",
         instructions: "",
         tags: new[] { "OGC", "WMS", "catalog", "web map service" })]
     public partial class WmsServiceCatalog : ContentPage

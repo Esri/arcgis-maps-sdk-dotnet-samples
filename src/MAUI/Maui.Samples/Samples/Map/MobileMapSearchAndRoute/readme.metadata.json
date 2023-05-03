@@ -36,8 +36,8 @@
     "snippets": [
         "MobileMapSearchAndRoute.xaml.cs",
         "MobileMapSearchAndRoute.xaml",
-        "../../../Converters/NullToVisibilityConverter.cs",
-        "../../../Converters/ItemToImageSourceConverter.cs"
+        "../../../Converters/ItemToImageSourceConverter.cs",
+        "../../../Converters/NullToVisibilityConverter.cs"
     ],
     "title": "Mobile map (search and route)"
 }

@@ -176,6 +176,7 @@ class sample_metadata:
         '''
         # populate from .cs files in the directory
         sample_dir = os.path.split(path_to_readme)[0]
+        additionalFiles = []
         for file in os.listdir(sample_dir):
             if os.path.splitext(file)[1] in [".cs"]:
                 class_contents = ""
@@ -197,10 +198,14 @@ class sample_metadata:
                             if "\\" in additional_file_path:
                                 additional_file_path_string = str(additional_file_path)
                                 corrected_path = additional_file_path_string.replace("\\\\", "/")
-                                self.source_files.append("../../../" + corrected_path)
+                                additionalFiles.append("../../../" + corrected_path)
                             elif "/" in additional_file_path:
-                                self.source_files.append("../../../" + additional_file_path)
+                                additionalFiles.append("../../../" + additional_file_path)
                         break
+
+        additionalFiles.sort()
+        for additionalFile in additionalFiles:
+            self.source_files.append(additionalFile)
 
     def splitall(path):
         ## Credits: taken verbatim from https://www.oreilly.com/library/view/python-cookbook/0596001673/ch04s16.html

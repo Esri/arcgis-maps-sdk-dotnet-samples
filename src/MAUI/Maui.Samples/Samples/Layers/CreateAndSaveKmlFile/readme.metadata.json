@@ -30,8 +30,8 @@
     "snippets": [
         "CreateAndSaveKmlFile.xaml.cs",
         "CreateAndSaveKmlFile.xaml",
-        "../../../Converters/ImageConverter.cs",
-        "../../../Converters/ColorConverter.cs"
+        "../../../Converters/ColorConverter.cs",
+        "../../../Converters/ImageConverter.cs"
     ],
     "title": "Create and save KML file"
 }

@@ -169,9 +169,9 @@ class MetadataCreator:
                                 results.append("../../../" + additional_file_path)
                         break
 
-                additionalFiles.sort()
-                for additionalFile in additionalFiles:
-                    results.append(additionalFile)
+        additionalFiles.sort()
+        for additionalFile in additionalFiles:
+            results.append(additionalFile)
 
         if not results:
             raise Exception('Unable to get c# source code paths.')

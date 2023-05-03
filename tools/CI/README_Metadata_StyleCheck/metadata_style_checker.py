@@ -164,9 +164,9 @@ class MetadataCreator:
                             if "\\" in additional_file_path:
                                 additional_file_path_string = str(additional_file_path)
                                 corrected_path = additional_file_path_string.replace("\\\\", "/")
-                                results.append("../../../" + corrected_path)
+                                additionalFiles.append("../../../" + corrected_path)
                             elif "/" in additional_file_path:
-                                results.append("../../../" + additional_file_path)
+                                additionalFiles.append("../../../" + additional_file_path)
                         break
 
         additionalFiles.sort()

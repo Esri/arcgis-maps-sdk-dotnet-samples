@@ -24,7 +24,7 @@ namespace ArcGIS.WPF.Samples.WmsServiceCatalog
         name: "WMS service catalog",
         category: "Layers",
         description: "Connect to a WMS service and show the available layers and sublayers.",
-        instructions: "",
+        instructions: "1. Open the sample. A hierarchical list of layers and sublayers will appear.",
         tags: new[] { "OGC", "WMS", "catalog", "web map service" })]
     public partial class WmsServiceCatalog
     {

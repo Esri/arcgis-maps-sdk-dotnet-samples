@@ -8,7 +8,6 @@ Connect to a WMS service and show the available layers and sublayers.
 
 WMS services often contain many layers and sublayers. Presenting the layers and sublayers in a UI allows you to explore what is available in the service and add individual layers to a map.
 
-
 ## How to use the sample
 
 1. Open the sample. A hierarchical list of layers and sublayers will appear.

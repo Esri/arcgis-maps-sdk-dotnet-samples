@@ -4,62 +4,61 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:SceneView x:Name="MySceneView"
-                          Style="{DynamicResource EsriSampleGeoView}" />
+        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto"
-                  ColumnSpacing="5"
+            <Grid ColumnSpacing="5"
+                  RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto"
                   RowSpacing="5">
-                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{OnPlatform Default=auto, Android=*, iOS=*}"/>
-                    <ColumnDefinition Width="{OnPlatform Default=*, Android=auto, iOS=auto}"/>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="{OnPlatform Default=auto, iOS=*}" />
+                    <ColumnDefinition Width="{OnPlatform Default=*, iOS=auto}" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0"
                        Grid.Column="0"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="End">
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
                     Heading
                 </Label>
                 <Label Grid.Row="1"
                        Grid.Column="0"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="End">
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
                     Pitch
                 </Label>
                 <Label Grid.Row="2"
                        Grid.Column="0"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="End">
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
                     Horizontal Angle
                 </Label>
                 <Label Grid.Row="3"
                        Grid.Column="0"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="End">
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
                     Vertical Angle
                 </Label>
                 <Label Grid.Row="4"
                        Grid.Column="0"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="End">
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
                     Minimum Distance
                 </Label>
                 <Label Grid.Row="5"
                        Grid.Column="0"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="End">
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
                     Maximum Distance
                 </Label>
                 <Label Grid.Row="6"
                        Grid.Column="0"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="End">
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
                     Frustum Visibility
                 </Label>
                 <Label Grid.Row="7"
                        Grid.Column="0"
-                       VerticalTextAlignment="Center"
-                       HorizontalTextAlignment="End">
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
                     Analysis Visibility
                 </Label>
                 <Slider x:Name="HeadingSlider"
@@ -116,15 +115,18 @@
                 <Switch x:Name="FrustumVisibilityCheck"
                         Grid.Row="6"
                         Grid.Column="1"
+                        HorizontalOptions="Start"
                         Toggled="HandleSettingsChange" />
                 <Switch x:Name="AnalysisVisibilityCheck"
                         Grid.Row="7"
                         Grid.Column="1"
+                        HorizontalOptions="Start"
                         IsToggled="True"
                         Toggled="HandleSettingsChange" />
                 <Label Grid.Row="8"
                        Grid.Column="0"
-                       Grid.ColumnSpan="2">
+                       Grid.ColumnSpan="2"
+                       HorizontalOptions="Center">
                     Tap scene to change viewshed location.
                 </Label>
             </Grid>

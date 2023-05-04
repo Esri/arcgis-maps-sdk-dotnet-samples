@@ -162,6 +162,7 @@ namespace ArcGIS.WinUI.Samples.PlayKmlTours
             }
         }
 
+        // Play and pause the tour when the button is pressed.
         private void PlayPause_Click(object sender, RoutedEventArgs e)
         {
             if (PlayPauseButton.Content.ToString() == "Play")

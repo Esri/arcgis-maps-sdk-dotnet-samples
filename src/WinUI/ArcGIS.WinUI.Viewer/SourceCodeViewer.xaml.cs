@@ -66,7 +66,7 @@ namespace ArcGIS.WinUI.Viewer
                 // Set the tab text to the file name.
                 newTab.Header = Path.GetFileName(file.FilePath);
 
-                // Add the tab to the beginning of the list.
+                // Add the tab to the end of the list.
                 _tabs.Add(newTab);
             }
 

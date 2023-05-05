@@ -10,8 +10,8 @@
                   RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto"
                   RowSpacing="5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="{OnPlatform Default=auto, iOS=*}" />
-                    <ColumnDefinition Width="{OnPlatform Default=*, iOS=auto}" />
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="{OnPlatform Default=*, iOS=150}" />
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0"
                        Grid.Column="0"

@@ -4,5 +4,28 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
+        <Border Style="{DynamicResource BorderStyle}">
+            <StackPanel>
+                <TextBlock Grid.Row="0"
+                           Margin="0,5"
+                           Text="Set Local Server TempPath:" />
+                <TextBox x:Name="tempPathBox"
+                         Grid.Row="1"
+                         Margin="0,5" />
+                <Grid Margin="0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button Grid.Column="0"
+                            Click="setTempPathButton_Click"
+                            Content="Set" />
+                    <Button Grid.Column="1"
+                            Click="defaultTempPathButton_Click"
+                            Content="Default" />
+                </Grid>
+                <TextBlock x:Name="currentPath" Text="" />
+            </StackPanel>
+        </Border>
     </Grid>
 </UserControl>

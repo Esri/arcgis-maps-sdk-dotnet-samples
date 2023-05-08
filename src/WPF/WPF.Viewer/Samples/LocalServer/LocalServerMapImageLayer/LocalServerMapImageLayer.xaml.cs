@@ -58,10 +58,26 @@ namespace ArcGIS.WPF.Samples.LocalServerMapImageLayer
                 string tempDataPath = Path.Combine(tempDataPathRoot, "EsriSamples", "AppData");
                 Directory.CreateDirectory(tempDataPath); // CreateDirectory won't overwrite if it already exists.
                 LocalServer.Instance.AppDataPath = tempDataPath;
+                currentPath.Text = $"Current path: {LocalServer.Instance.AppDataPath}";
 
                 // Start the local server instance
                 await LocalServer.Instance.StartAsync();
 
+                await LoadMapImageLayer();
+            }
+            catch (Exception ex)
+            {
+                var localServerTypeInfo = typeof(LocalMapService).GetTypeInfo();
+                var localServerVersion = FileVersionInfo.GetVersionInfo(localServerTypeInfo.Assembly.Location);
+
+                MessageBox.Show($"Please ensure that local server {localServerVersion.FileVersion} is installed prior to using the sample. The download link is in the description. Message: {ex.Message}", "Local Server failed to start");
+            }
+        }
+
+        private async Task LoadMapImageLayer()
+        {
+            try
+            {
                 // Get the path to the map package that will be served
                 string datapath = GetDataPath();
 
@@ -88,16 +104,47 @@ namespace ArcGIS.WPF.Samples.LocalServerMapImageLayer
             }
             catch (Exception ex)
             {
-                var localServerTypeInfo = typeof(LocalMapService).GetTypeInfo();
-                var localServerVersion = FileVersionInfo.GetVersionInfo(localServerTypeInfo.Assembly.Location);
-
-                MessageBox.Show($"Please ensure that local server {localServerVersion.FileVersion} is installed prior to using the sample. The download link is in the description. Message: {ex.Message}", "Local Server failed to start");
+                MessageBox.Show(ex.Message, "Error");
             }
         }
 
         private static string GetDataPath()
         {
             return DataManager.GetDataFolder("85c34847bbe1402fa115a1b9b87561ce", "RelationshipID.mpkx");
+        }
+
+        private async void defaultTempPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Resets the app when switching from a custom app data path to default.
+            await Initialize();
+        }
+
+        private async void setTempPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Local Server must be stopped to change the data path.
+                await LocalServer.Instance.StopAsync();
+
+                // Set the data path to content of the TextBox input by the user.
+                string userTempDataPath = tempPathBox.Text;
+                Directory.CreateDirectory(userTempDataPath); // CreateDirectory won't overwrite if it already exists.
+                LocalServer.Instance.AppDataPath = userTempDataPath;
+                currentPath.Text = $"Current path: {LocalServer.Instance.AppDataPath}";
+
+                // Start the local server instance
+                await LocalServer.Instance.StartAsync();
+            }
+            catch (Exception ex)
+            {
+                var localServerTypeInfo = typeof(LocalMapService).GetTypeInfo();
+                var localServerVersion = FileVersionInfo.GetVersionInfo(localServerTypeInfo.Assembly.Location);
+
+                MessageBox.Show($"Please ensure that local server {localServerVersion.FileVersion} is installed prior to using the sample. The download link is in the description. Message: {ex.Message}", "Local Server failed to start");
+                return;
+            }
+
+            await LoadMapImageLayer();
         }
     }
 }

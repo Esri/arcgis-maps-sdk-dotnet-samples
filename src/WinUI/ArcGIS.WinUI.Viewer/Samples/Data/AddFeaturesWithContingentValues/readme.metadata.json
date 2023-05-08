@@ -30,8 +30,8 @@
         "FeatureTable"
     ],
     "snippets": [
-        "AddFeaturesWithContingentValues.xaml",
-        "AddFeaturesWithContingentValues.xaml.cs"
+        "AddFeaturesWithContingentValues.xaml.cs",
+        "AddFeaturesWithContingentValues.xaml"
     ],
     "title": "Add features with contingent values"
 }

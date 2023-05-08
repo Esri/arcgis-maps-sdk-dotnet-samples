@@ -20,7 +20,7 @@ namespace ArcGIS.WinUI.Samples.MapReferenceScale
         description: "Set the map's reference scale and which feature layers should honor the reference scale.",
         instructions: "Use the control at the top to set the map's reference scale (1:500,000 1:250,000 1:100,000 1:50,000). Use the menu checkboxes in the layer menu to set which feature layers should honor the reference scale.",
         tags: new[] { "map", "reference scale", "scene" })]
-    [ArcGIS.Samples.Shared.Attributes.ClassFile("Converters/DoubleToScaleStringConverter")]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("Converters\\DoubleToScaleStringConverter.cs")]
     public partial class MapReferenceScale
     {
         // List of reference scale options.

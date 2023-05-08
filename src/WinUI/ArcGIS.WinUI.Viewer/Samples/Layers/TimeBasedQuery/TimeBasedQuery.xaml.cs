@@ -17,7 +17,7 @@ namespace ArcGIS.WinUI.Samples.TimeBasedQuery
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Time-based query",
         category: "Layers",
-        description: "Query data using a time extent. ",
+        description: "Query data using a time extent.",
         instructions: "Run the sample, and a subset of records will be displayed on the map.",
         tags: new[] { "query", "time", "time extent" })]
     public partial class TimeBasedQuery

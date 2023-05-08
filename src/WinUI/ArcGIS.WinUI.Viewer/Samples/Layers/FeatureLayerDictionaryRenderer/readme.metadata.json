@@ -22,8 +22,8 @@
         "SymbolDictionary"
     ],
     "snippets": [
-        "FeatureLayerDictionaryRenderer.xaml",
-        "FeatureLayerDictionaryRenderer.xaml.cs"
+        "FeatureLayerDictionaryRenderer.xaml.cs",
+        "FeatureLayerDictionaryRenderer.xaml"
     ],
     "title": "Dictionary renderer with feature layer"
 }

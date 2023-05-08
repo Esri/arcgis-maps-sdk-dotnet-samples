@@ -20,8 +20,8 @@
         "ServiceFeatureTable"
     ],
     "snippets": [
-        "MapImageSublayerQuery.xaml",
-        "MapImageSublayerQuery.xaml.cs"
+        "MapImageSublayerQuery.xaml.cs",
+        "MapImageSublayerQuery.xaml"
     ],
     "title": "Query map image sublayer"
 }

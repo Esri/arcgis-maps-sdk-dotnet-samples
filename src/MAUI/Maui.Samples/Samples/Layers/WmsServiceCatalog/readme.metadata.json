@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "Connect to a WMS service and show the available layers and sublayers. ",
+    "description": "Connect to a WMS service and show the available layers and sublayers.",
     "formal_name": "WmsServiceCatalog",
     "ignore": false,
     "images": [
@@ -23,8 +23,8 @@
         "WmsServiceInfo"
     ],
     "snippets": [
-        "WmsServiceCatalog.xaml",
-        "WmsServiceCatalog.xaml.cs"
+        "WmsServiceCatalog.xaml.cs",
+        "WmsServiceCatalog.xaml"
     ],
     "title": "WMS service catalog"
 }

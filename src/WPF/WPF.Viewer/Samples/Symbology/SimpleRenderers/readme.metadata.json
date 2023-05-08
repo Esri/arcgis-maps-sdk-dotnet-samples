@@ -26,8 +26,8 @@
         "SimpleRenderer"
     ],
     "snippets": [
-        "SimpleRenderers.xaml",
-        "SimpleRenderers.xaml.cs"
+        "SimpleRenderers.xaml.cs",
+        "SimpleRenderers.xaml"
     ],
     "title": "Simple renderer"
 }

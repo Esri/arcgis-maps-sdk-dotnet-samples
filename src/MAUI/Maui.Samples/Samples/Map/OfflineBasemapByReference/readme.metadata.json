@@ -27,8 +27,8 @@
         "OfflineMapTask"
     ],
     "snippets": [
-        "OfflineBasemapByReference.xaml",
-        "OfflineBasemapByReference.xaml.cs"
+        "OfflineBasemapByReference.xaml.cs",
+        "OfflineBasemapByReference.xaml"
     ],
     "title": "Generate offline map with local basemap"
 }

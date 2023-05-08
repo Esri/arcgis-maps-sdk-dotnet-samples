@@ -24,8 +24,8 @@
         "WmtsServiceInfo"
     ],
     "snippets": [
-        "WMTSLayer.xaml",
-        "WMTSLayer.xaml.cs"
+        "WMTSLayer.xaml.cs",
+        "WMTSLayer.xaml"
     ],
     "title": "WMTS layer"
 }

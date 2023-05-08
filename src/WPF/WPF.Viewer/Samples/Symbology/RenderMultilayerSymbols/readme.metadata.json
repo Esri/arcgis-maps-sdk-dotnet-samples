@@ -29,8 +29,8 @@
         "VectorMarkerSymbolLayer"
     ],
     "snippets": [
-        "RenderMultilayerSymbols.xaml",
-        "RenderMultilayerSymbols.xaml.cs"
+        "RenderMultilayerSymbols.xaml.cs",
+        "RenderMultilayerSymbols.xaml"
     ],
     "title": "Render multilayer symbols"
 }

@@ -22,8 +22,8 @@
         "WmsLayer"
     ],
     "snippets": [
-        "WMSLayerUrl.xaml",
-        "WMSLayerUrl.xaml.cs"
+        "WMSLayerUrl.xaml.cs",
+        "WMSLayerUrl.xaml"
     ],
     "title": "WMS layer (URL)"
 }

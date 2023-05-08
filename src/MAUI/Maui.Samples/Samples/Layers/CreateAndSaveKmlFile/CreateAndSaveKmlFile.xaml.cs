@@ -30,6 +30,8 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
         description: "Construct a KML document and save it as a KMZ file.",
         instructions: "Tap on one of the buttons in the middle row to start adding a geometry. Tap on the map view to place vertices. Tap the \"Complete Sketch\" button to add the geometry to the KML document as a new KML placemark. Use the style interface to edit the style of the placemark. If you do not wish to set a style, tap the \"Don't Apply Style\" button. When you are finished adding KML nodes, tap on the \"Save KMZ file\" button to save the active KML document as a .kmz file on your system. Use the \"Reset\" button to clear the current KML document and start a new one.",
         tags: new[] { "KML", "KMZ", "Keyhole", "OGC" })]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData()]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("Converters/ImageConverter.cs", "Converters/ColorConverter.cs")]
     public partial class CreateAndSaveKmlFile : ContentPage
     {
         private KmlDocument _kmlDocument;
@@ -316,34 +318,6 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
         private void Reset_Click(object sender, EventArgs e)
         {
             ResetKml();
-        }
-    }
-
-    internal class ImageConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null || value.GetType() != typeof(string)) { return null; }
-            return ImageSource.FromUri(new Uri((string)value));
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    internal class ColorConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            if (value == null || value.GetType() != typeof(string)) { return null; }
-            return Microsoft.Maui.Graphics.Color.FromArgb((string)value);
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

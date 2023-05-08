@@ -28,8 +28,8 @@
         "WfsFeatureTable.PopulateFromServiceAsync"
     ],
     "snippets": [
-        "DisplayWfs.xaml",
-        "DisplayWfs.xaml.cs"
+        "DisplayWfs.xaml.cs",
+        "DisplayWfs.xaml"
     ],
     "title": "Display WFS layer"
 }

@@ -41,8 +41,8 @@
         "Stop.Name"
     ],
     "snippets": [
-        "RouteAroundBarriers.xaml",
-        "RouteAroundBarriers.xaml.cs"
+        "RouteAroundBarriers.xaml.cs",
+        "RouteAroundBarriers.xaml"
     ],
     "title": "Route around barriers"
 }

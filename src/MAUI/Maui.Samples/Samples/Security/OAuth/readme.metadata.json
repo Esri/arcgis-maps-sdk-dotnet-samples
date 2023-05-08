@@ -26,9 +26,9 @@
         "ServerInfo"
     ],
     "snippets": [
-        "../../../Helpers/ArcGISLoginPrompt.cs",
+        "OAuth.xaml.cs",
         "OAuth.xaml",
-        "OAuth.xaml.cs"
+        "../../../Helpers/ArcGISLoginPrompt.cs"
     ],
     "title": "Authenticate with OAuth"
 }

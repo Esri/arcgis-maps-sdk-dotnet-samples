@@ -1,11 +1,11 @@
 ﻿<UserControl x:Class="ArcGIS.WinUI.Samples.MapReferenceScale.MapReferenceScale"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="using:ArcGIS.WinUI.Viewer.Converters"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
-             xmlns:local="using:ArcGIS.WinUI.Samples.MapReferenceScale"
              xmlns:mapping="using:Esri.ArcGISRuntime.Mapping">
     <UserControl.Resources>
-        <local:DoubleToScaleStringConverter x:Key="DoubleToScaleStringConverter" />
+        <converters:DoubleToScaleStringConverter x:Key="DoubleToScaleStringConverter" />
     </UserControl.Resources>
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />

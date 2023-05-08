@@ -27,8 +27,8 @@
         "CoordinateFormatter.UtmConversionMode"
     ],
     "snippets": [
-        "FormatCoordinates.xaml",
-        "FormatCoordinates.xaml.cs"
+        "FormatCoordinates.xaml.cs",
+        "FormatCoordinates.xaml"
     ],
     "title": "Format coordinates"
 }

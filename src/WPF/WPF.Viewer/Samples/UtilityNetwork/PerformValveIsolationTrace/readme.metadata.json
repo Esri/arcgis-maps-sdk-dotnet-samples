@@ -40,8 +40,8 @@
         "UtilityTraceType"
     ],
     "snippets": [
-        "PerformValveIsolationTrace.xaml",
-        "PerformValveIsolationTrace.xaml.cs"
+        "PerformValveIsolationTrace.xaml.cs",
+        "PerformValveIsolationTrace.xaml"
     ],
     "title": "Perform valve isolation trace"
 }

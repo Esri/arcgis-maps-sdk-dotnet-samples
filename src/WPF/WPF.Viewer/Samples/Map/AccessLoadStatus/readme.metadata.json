@@ -21,8 +21,8 @@
         "MapView"
     ],
     "snippets": [
-        "AccessLoadStatus.xaml",
-        "AccessLoadStatus.xaml.cs"
+        "AccessLoadStatus.xaml.cs",
+        "AccessLoadStatus.xaml"
     ],
     "title": "Map load status"
 }

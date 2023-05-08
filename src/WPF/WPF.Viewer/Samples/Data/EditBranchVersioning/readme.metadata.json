@@ -28,8 +28,8 @@
         "VersionAccess"
     ],
     "snippets": [
-        "EditBranchVersioning.xaml",
-        "EditBranchVersioning.xaml.cs"
+        "EditBranchVersioning.xaml.cs",
+        "EditBranchVersioning.xaml"
     ],
     "title": "Edit with branch versioning"
 }

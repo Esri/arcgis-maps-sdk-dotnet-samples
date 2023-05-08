@@ -26,8 +26,8 @@
         "PortalItem"
     ],
     "snippets": [
-        "FeatureCollectionLayerFromPortal.xaml",
-        "FeatureCollectionLayerFromPortal.xaml.cs"
+        "FeatureCollectionLayerFromPortal.xaml.cs",
+        "FeatureCollectionLayerFromPortal.xaml"
     ],
     "title": "Create feature collection layer (Portal item)"
 }

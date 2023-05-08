@@ -23,8 +23,8 @@
         "Map"
     ],
     "snippets": [
-        "SetMaxExtent.xaml",
-        "SetMaxExtent.xaml.cs"
+        "SetMaxExtent.xaml.cs",
+        "SetMaxExtent.xaml"
     ],
     "title": "Set max extent"
 }

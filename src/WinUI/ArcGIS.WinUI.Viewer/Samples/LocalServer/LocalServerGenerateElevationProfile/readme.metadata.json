@@ -38,8 +38,8 @@
         "RasterFunction"
     ],
     "snippets": [
-        "LocalServerGenerateElevationProfile.xaml",
-        "LocalServerGenerateElevationProfile.xaml.cs"
+        "LocalServerGenerateElevationProfile.xaml.cs",
+        "LocalServerGenerateElevationProfile.xaml"
     ],
     "title": "Generate elevation profile with Local Server"
 }

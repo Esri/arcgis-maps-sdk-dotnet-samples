@@ -27,8 +27,8 @@
         "EncLayer"
     ],
     "snippets": [
-        "AddEncExchangeSet.xaml",
-        "AddEncExchangeSet.xaml.cs"
+        "AddEncExchangeSet.xaml.cs",
+        "AddEncExchangeSet.xaml"
     ],
     "title": "Add ENC exchange set"
 }

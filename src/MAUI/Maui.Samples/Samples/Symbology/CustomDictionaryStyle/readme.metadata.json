@@ -30,8 +30,8 @@
         "PortalItem"
     ],
     "snippets": [
-        "CustomDictionaryStyle.xaml",
-        "CustomDictionaryStyle.xaml.cs"
+        "CustomDictionaryStyle.xaml.cs",
+        "CustomDictionaryStyle.xaml"
     ],
     "title": "Custom dictionary style"
 }

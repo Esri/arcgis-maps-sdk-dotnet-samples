@@ -25,8 +25,8 @@
         "UniqueValueRenderer"
     ],
     "snippets": [
-        "UniqueValuesAlternateSymbols.xaml",
-        "UniqueValuesAlternateSymbols.xaml.cs"
+        "UniqueValuesAlternateSymbols.xaml.cs",
+        "UniqueValuesAlternateSymbols.xaml"
     ],
     "title": "Apply unique values with alternate symbols"
 }

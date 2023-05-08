@@ -30,8 +30,8 @@
         "OrbitGeoElementCameraController"
     ],
     "snippets": [
-        "ViewshedGeoElement.xaml",
-        "ViewshedGeoElement.xaml.cs"
+        "ViewshedGeoElement.xaml.cs",
+        "ViewshedGeoElement.xaml"
     ],
     "title": "Viewshed for GeoElement"
 }

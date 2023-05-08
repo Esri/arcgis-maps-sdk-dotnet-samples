@@ -24,8 +24,8 @@
         "MapView"
     ],
     "snippets": [
-        "FeatureLayerRenderingModeMap.xaml",
-        "FeatureLayerRenderingModeMap.xaml.cs"
+        "FeatureLayerRenderingModeMap.xaml.cs",
+        "FeatureLayerRenderingModeMap.xaml"
     ],
     "title": "Feature layer rendering mode (map)"
 }

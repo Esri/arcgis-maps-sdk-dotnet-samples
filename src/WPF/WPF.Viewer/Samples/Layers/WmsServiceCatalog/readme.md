@@ -1,13 +1,12 @@
 # WMS service catalog
 
-Connect to a WMS service and show the available layers and sublayers. 
+Connect to a WMS service and show the available layers and sublayers.
 
 ![Image of WMS service catalog](WmsServiceCatalog.jpg)
 
 ## Use case
 
 WMS services often contain many layers and sublayers. Presenting the layers and sublayers in a UI allows you to explore what is available in the service and add individual layers to a map.
-
 
 ## How to use the sample
 

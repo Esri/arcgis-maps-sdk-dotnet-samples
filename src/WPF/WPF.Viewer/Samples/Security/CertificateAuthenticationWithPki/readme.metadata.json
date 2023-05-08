@@ -24,8 +24,8 @@
         "CertificateCredential"
     ],
     "snippets": [
-        "CertificateAuthenticationWithPKI.xaml",
-        "CertificateAuthenticationWithPKI.xaml.cs"
+        "CertificateAuthenticationWithPKI.xaml.cs",
+        "CertificateAuthenticationWithPKI.xaml"
     ],
     "title": "Certificate authentication with PKI"
 }

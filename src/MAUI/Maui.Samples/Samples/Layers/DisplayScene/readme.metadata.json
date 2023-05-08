@@ -23,8 +23,8 @@
         "SceneView"
     ],
     "snippets": [
-        "DisplayScene.xaml",
-        "DisplayScene.xaml.cs"
+        "DisplayScene.xaml.cs",
+        "DisplayScene.xaml"
     ],
     "title": "Display a scene"
 }

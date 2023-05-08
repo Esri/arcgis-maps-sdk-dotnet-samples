@@ -29,8 +29,8 @@
         "WfsServiceInfo"
     ],
     "snippets": [
-        "BrowseWfsLayers.xaml",
-        "BrowseWfsLayers.xaml.cs"
+        "BrowseWfsLayers.xaml.cs",
+        "BrowseWfsLayers.xaml"
     ],
     "title": "Browse WFS layers"
 }

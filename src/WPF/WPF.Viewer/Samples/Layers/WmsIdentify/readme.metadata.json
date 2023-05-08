@@ -26,8 +26,8 @@
         "WmsLayer"
     ],
     "snippets": [
-        "WmsIdentify.xaml",
-        "WmsIdentify.xaml.cs"
+        "WmsIdentify.xaml.cs",
+        "WmsIdentify.xaml"
     ],
     "title": "Identify WMS features"
 }

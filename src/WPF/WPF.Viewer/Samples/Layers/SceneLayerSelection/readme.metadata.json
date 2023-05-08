@@ -26,8 +26,8 @@
         "SceneView"
     ],
     "snippets": [
-        "SceneLayerSelection.xaml",
-        "SceneLayerSelection.xaml.cs"
+        "SceneLayerSelection.xaml.cs",
+        "SceneLayerSelection.xaml"
     ],
     "title": "Scene layer selection"
 }

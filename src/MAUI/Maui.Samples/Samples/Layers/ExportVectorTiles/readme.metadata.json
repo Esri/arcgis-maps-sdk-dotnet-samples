@@ -26,8 +26,8 @@
         "VectorTileCache"
     ],
     "snippets": [
-        "ExportVectorTiles.xaml",
-        "ExportVectorTiles.xaml.cs"
+        "ExportVectorTiles.xaml.cs",
+        "ExportVectorTiles.xaml"
     ],
     "title": "Export vector tiles"
 }

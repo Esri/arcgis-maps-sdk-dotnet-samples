@@ -31,8 +31,8 @@
         "GeoprocessingTask.CreateJob"
     ],
     "snippets": [
-        "ListGeodatabaseVersions.xaml",
-        "ListGeodatabaseVersions.xaml.cs"
+        "ListGeodatabaseVersions.xaml.cs",
+        "ListGeodatabaseVersions.xaml"
     ],
     "title": "List geodatabase versions"
 }

@@ -26,8 +26,8 @@
         "RelatedFeatureQueryResult"
     ],
     "snippets": [
-        "ListRelatedFeatures.xaml",
-        "ListRelatedFeatures.xaml.cs"
+        "ListRelatedFeatures.xaml.cs",
+        "ListRelatedFeatures.xaml"
     ],
     "title": "List related features"
 }

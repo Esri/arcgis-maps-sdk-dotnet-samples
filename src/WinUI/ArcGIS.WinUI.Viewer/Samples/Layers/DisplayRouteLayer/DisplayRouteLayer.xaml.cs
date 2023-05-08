@@ -25,6 +25,7 @@ namespace ArcGIS.WinUI.Samples.DisplayRouteLayer
         instructions: "Pan and zoom to view the route displayed by the feature collection layer. Toggle to view or hide the turn-by-turn directions.",
         tags: new[] { "directions", "feature collection", "route layer" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("Converters\\DirectionPointTypeToIconConverter.cs")]
     public partial class DisplayRouteLayer
     {
         private readonly string _itemId = "0e3c8e86b4544274b45ecb61c9f41336";

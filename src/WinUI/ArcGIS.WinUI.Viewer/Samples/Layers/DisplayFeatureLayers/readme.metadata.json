@@ -31,8 +31,8 @@
         "ShapefileFeatureTable"
     ],
     "snippets": [
-        "DisplayFeatureLayers.xaml",
-        "DisplayFeatureLayers.xaml.cs"
+        "DisplayFeatureLayers.xaml.cs",
+        "DisplayFeatureLayers.xaml"
     ],
     "title": "Display feature layers"
 }

@@ -26,8 +26,8 @@
         "SpatialReference"
     ],
     "snippets": [
-        "DensifyAndGeneralize.xaml",
-        "DensifyAndGeneralize.xaml.cs"
+        "DensifyAndGeneralize.xaml.cs",
+        "DensifyAndGeneralize.xaml"
     ],
     "title": "Densify and generalize"
 }

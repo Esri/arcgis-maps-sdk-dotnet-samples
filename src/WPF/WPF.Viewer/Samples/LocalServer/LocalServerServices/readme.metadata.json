@@ -31,8 +31,8 @@
         "LocalService"
     ],
     "snippets": [
-        "LocalServerServices.xaml",
-        "LocalServerServices.xaml.cs"
+        "LocalServerServices.xaml.cs",
+        "LocalServerServices.xaml"
     ],
     "title": "Local server services"
 }

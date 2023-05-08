@@ -25,8 +25,8 @@
         "Viewshed"
     ],
     "snippets": [
-        "ViewshedLocation.xaml",
-        "ViewshedLocation.xaml.cs"
+        "ViewshedLocation.xaml.cs",
+        "ViewshedLocation.xaml"
     ],
     "title": "Viewshed (location)"
 }

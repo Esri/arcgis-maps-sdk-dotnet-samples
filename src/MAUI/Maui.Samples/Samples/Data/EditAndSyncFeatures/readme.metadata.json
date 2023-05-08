@@ -29,8 +29,8 @@
         "SyncLayerOption"
     ],
     "snippets": [
-        "EditAndSyncFeatures.xaml",
-        "EditAndSyncFeatures.xaml.cs"
+        "EditAndSyncFeatures.xaml.cs",
+        "EditAndSyncFeatures.xaml"
     ],
     "title": "Edit and sync features"
 }

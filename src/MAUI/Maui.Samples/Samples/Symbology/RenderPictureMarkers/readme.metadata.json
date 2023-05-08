@@ -21,8 +21,8 @@
         "PictureMarkerSymbol"
     ],
     "snippets": [
-        "RenderPictureMarkers.xaml",
-        "RenderPictureMarkers.xaml.cs"
+        "RenderPictureMarkers.xaml.cs",
+        "RenderPictureMarkers.xaml"
     ],
     "title": "Picture marker symbol"
 }

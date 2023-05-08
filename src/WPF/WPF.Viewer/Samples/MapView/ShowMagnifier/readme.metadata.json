@@ -21,8 +21,8 @@
         "MapView.MagnifierEnabled"
     ],
     "snippets": [
-        "ShowMagnifier.xaml",
-        "ShowMagnifier.xaml.cs"
+        "ShowMagnifier.xaml.cs",
+        "ShowMagnifier.xaml"
     ],
     "title": "Show magnifier"
 }

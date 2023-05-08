@@ -1,6 +1,6 @@
 {
     "category": "Map",
-    "description": "Include an overview or inset map as an additional map view to show the wider context of the primary view. ",
+    "description": "Include an overview or inset map as an additional map view to show the wider context of the primary view.",
     "formal_name": "DisplayOverviewMap",
     "ignore": false,
     "images": [
@@ -26,8 +26,8 @@
         "OverviewMap"
     ],
     "snippets": [
-        "DisplayOverviewMap.xaml",
-        "DisplayOverviewMap.xaml.cs"
+        "DisplayOverviewMap.xaml.cs",
+        "DisplayOverviewMap.xaml"
     ],
     "title": "Display overview map"
 }

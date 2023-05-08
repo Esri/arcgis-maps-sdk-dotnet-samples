@@ -34,8 +34,8 @@
         "SimulatedLocationDataSource"
     ],
     "snippets": [
-        "ShowLocationHistory.xaml",
-        "ShowLocationHistory.xaml.cs"
+        "ShowLocationHistory.xaml.cs",
+        "ShowLocationHistory.xaml"
     ],
     "title": "Show location history"
 }

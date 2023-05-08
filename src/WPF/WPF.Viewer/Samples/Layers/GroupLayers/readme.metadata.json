@@ -19,8 +19,8 @@
         "ILayerContent"
     ],
     "snippets": [
-        "GroupLayers.xaml",
-        "GroupLayers.xaml.cs"
+        "GroupLayers.xaml.cs",
+        "GroupLayers.xaml"
     ],
     "title": "Group layers"
 }

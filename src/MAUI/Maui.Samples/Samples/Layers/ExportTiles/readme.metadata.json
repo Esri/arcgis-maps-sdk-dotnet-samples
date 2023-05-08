@@ -27,8 +27,8 @@
         "TileCache"
     ],
     "snippets": [
-        "ExportTiles.xaml",
-        "ExportTiles.xaml.cs"
+        "ExportTiles.xaml.cs",
+        "ExportTiles.xaml"
     ],
     "title": "Export tiles"
 }

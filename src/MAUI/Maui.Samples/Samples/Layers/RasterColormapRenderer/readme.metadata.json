@@ -28,8 +28,8 @@
         "RasterLayer"
     ],
     "snippets": [
-        "RasterColormapRenderer.xaml",
-        "RasterColormapRenderer.xaml.cs"
+        "RasterColormapRenderer.xaml.cs",
+        "RasterColormapRenderer.xaml"
     ],
     "title": "Colormap renderer"
 }

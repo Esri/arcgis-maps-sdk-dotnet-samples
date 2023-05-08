@@ -20,8 +20,8 @@
         "SceneView.AtmosphereEffect"
     ],
     "snippets": [
-        "ChangeAtmosphereEffect.xaml",
-        "ChangeAtmosphereEffect.xaml.cs"
+        "ChangeAtmosphereEffect.xaml.cs",
+        "ChangeAtmosphereEffect.xaml"
     ],
     "title": "Change atmosphere effect"
 }

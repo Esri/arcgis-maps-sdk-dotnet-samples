@@ -22,8 +22,8 @@
         "SceneView"
     ],
     "snippets": [
-        "LineOfSightLocation.xaml",
-        "LineOfSightLocation.xaml.cs"
+        "LineOfSightLocation.xaml.cs",
+        "LineOfSightLocation.xaml"
     ],
     "title": "Line of sight (location)"
 }

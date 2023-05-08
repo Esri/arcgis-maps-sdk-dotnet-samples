@@ -25,8 +25,8 @@
         "Viewpoint"
     ],
     "snippets": [
-        "SetInitialMapArea.xaml",
-        "SetInitialMapArea.xaml.cs"
+        "SetInitialMapArea.xaml.cs",
+        "SetInitialMapArea.xaml"
     ],
     "title": "Map initial extent"
 }

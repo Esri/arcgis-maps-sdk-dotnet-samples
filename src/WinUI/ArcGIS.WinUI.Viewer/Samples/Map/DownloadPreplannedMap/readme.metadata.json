@@ -24,8 +24,8 @@
         "PreplannedMapArea"
     ],
     "snippets": [
-        "DownloadPreplannedMap.xaml",
-        "DownloadPreplannedMap.xaml.cs"
+        "DownloadPreplannedMap.xaml.cs",
+        "DownloadPreplannedMap.xaml"
     ],
     "title": "Download preplanned map area"
 }

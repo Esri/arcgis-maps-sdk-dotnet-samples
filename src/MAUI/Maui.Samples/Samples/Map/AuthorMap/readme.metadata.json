@@ -28,11 +28,11 @@
         "Portal"
     ],
     "snippets": [
-        "../../../Helpers/ArcGISLoginPrompt.cs",
-        "AuthorMap.xaml",
-        "AuthorMap.xaml.cs",
+        "SaveMapPage.xaml.cs",
         "SaveMapPage.xaml",
-        "SaveMapPage.xaml.cs"
+        "AuthorMap.xaml.cs",
+        "AuthorMap.xaml",
+        "../../../Helpers/ArcGISLoginPrompt.cs"
     ],
     "title": "Create and save map"
 }

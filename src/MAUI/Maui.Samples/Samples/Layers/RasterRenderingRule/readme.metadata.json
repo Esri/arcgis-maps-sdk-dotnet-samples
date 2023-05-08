@@ -21,8 +21,8 @@
         "RenderingRule"
     ],
     "snippets": [
-        "RasterRenderingRule.xaml",
-        "RasterRenderingRule.xaml.cs"
+        "RasterRenderingRule.xaml.cs",
+        "RasterRenderingRule.xaml"
     ],
     "title": "Raster rendering rule"
 }

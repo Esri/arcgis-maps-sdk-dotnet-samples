@@ -19,8 +19,8 @@
         "PointCloudLayer"
     ],
     "snippets": [
-        "ViewPointCloudDataOffline.xaml",
-        "ViewPointCloudDataOffline.xaml.cs"
+        "ViewPointCloudDataOffline.xaml.cs",
+        "ViewPointCloudDataOffline.xaml"
     ],
     "title": "View point cloud data offline"
 }

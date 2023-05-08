@@ -27,8 +27,8 @@
         "RasterLayer"
     ],
     "snippets": [
-        "ChangeBlendRenderer.xaml",
-        "ChangeBlendRenderer.xaml.cs"
+        "ChangeBlendRenderer.xaml.cs",
+        "ChangeBlendRenderer.xaml"
     ],
     "title": "Blend renderer"
 }

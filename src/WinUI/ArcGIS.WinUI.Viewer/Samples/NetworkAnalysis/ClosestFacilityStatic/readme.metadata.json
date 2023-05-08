@@ -27,8 +27,8 @@
         "Incident"
     ],
     "snippets": [
-        "ClosestFacilityStatic.xaml",
-        "ClosestFacilityStatic.xaml.cs"
+        "ClosestFacilityStatic.xaml.cs",
+        "ClosestFacilityStatic.xaml"
     ],
     "title": "Find closest facility to multiple incidents (service)"
 }

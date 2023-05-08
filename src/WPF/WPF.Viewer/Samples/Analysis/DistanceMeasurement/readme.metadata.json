@@ -22,8 +22,8 @@
         "LocationDistanceMeasurement.MeasurementChanged"
     ],
     "snippets": [
-        "DistanceMeasurement.xaml",
-        "DistanceMeasurement.xaml.cs"
+        "DistanceMeasurement.xaml.cs",
+        "DistanceMeasurement.xaml"
     ],
     "title": "Distance measurement analysis"
 }

@@ -21,8 +21,8 @@
         "MapView"
     ],
     "snippets": [
-        "MapRotation.xaml",
-        "MapRotation.xaml.cs"
+        "MapRotation.xaml.cs",
+        "MapRotation.xaml"
     ],
     "title": "Map rotation"
 }

@@ -21,8 +21,8 @@
         "SceneView"
     ],
     "snippets": [
-        "OpenMobileScenePackage.xaml",
-        "OpenMobileScenePackage.xaml.cs"
+        "OpenMobileScenePackage.xaml.cs",
+        "OpenMobileScenePackage.xaml"
     ],
     "title": "Open mobile scene package"
 }

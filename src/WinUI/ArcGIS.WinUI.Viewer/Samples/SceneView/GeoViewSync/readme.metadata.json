@@ -34,8 +34,8 @@
         "SetViewPoint"
     ],
     "snippets": [
-        "GeoViewSync.xaml",
-        "GeoViewSync.xaml.cs"
+        "GeoViewSync.xaml.cs",
+        "GeoViewSync.xaml"
     ],
     "title": "GeoView viewpoint synchronization"
 }

@@ -23,8 +23,8 @@
         "SimpleRenderer"
     ],
     "snippets": [
-        "CreateFeatureCollectionLayer.xaml",
-        "CreateFeatureCollectionLayer.xaml.cs"
+        "CreateFeatureCollectionLayer.xaml.cs",
+        "CreateFeatureCollectionLayer.xaml"
     ],
     "title": "Feature collection layer"
 }

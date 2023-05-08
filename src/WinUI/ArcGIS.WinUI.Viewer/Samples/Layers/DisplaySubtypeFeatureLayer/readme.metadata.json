@@ -28,8 +28,8 @@
         "SubtypeSublayer"
     ],
     "snippets": [
-        "DisplaySubtypeFeatureLayer.xaml",
-        "DisplaySubtypeFeatureLayer.xaml.cs"
+        "DisplaySubtypeFeatureLayer.xaml.cs",
+        "DisplaySubtypeFeatureLayer.xaml"
     ],
     "title": "Display subtype feature layer"
 }

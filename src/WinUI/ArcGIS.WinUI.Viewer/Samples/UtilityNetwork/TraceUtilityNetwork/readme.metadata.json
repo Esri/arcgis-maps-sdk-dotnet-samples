@@ -41,8 +41,8 @@
         "UtilityTraversability"
     ],
     "snippets": [
-        "TraceUtilityNetwork.xaml",
-        "TraceUtilityNetwork.xaml.cs"
+        "TraceUtilityNetwork.xaml.cs",
+        "TraceUtilityNetwork.xaml"
     ],
     "title": "Trace utility network"
 }

@@ -29,8 +29,8 @@
         "SimpleMarkerSymbol"
     ],
     "snippets": [
-        "AddGraphicsWithSymbols.xaml",
-        "AddGraphicsWithSymbols.xaml.cs"
+        "AddGraphicsWithSymbols.xaml.cs",
+        "AddGraphicsWithSymbols.xaml"
     ],
     "title": "Add graphics with symbols"
 }

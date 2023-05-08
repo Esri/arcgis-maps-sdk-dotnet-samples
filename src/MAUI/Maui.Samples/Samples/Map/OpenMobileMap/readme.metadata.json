@@ -20,8 +20,8 @@
         "MobileMapPackage"
     ],
     "snippets": [
-        "OpenMobileMap.xaml",
-        "OpenMobileMap.xaml.cs"
+        "OpenMobileMap.xaml.cs",
+        "OpenMobileMap.xaml"
     ],
     "title": "Open mobile map package"
 }

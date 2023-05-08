@@ -27,8 +27,8 @@
         "PortalItem"
     ],
     "snippets": [
-        "QueryFeaturesWithArcadeExpression.xaml",
-        "QueryFeaturesWithArcadeExpression.xaml.cs"
+        "QueryFeaturesWithArcadeExpression.xaml.cs",
+        "QueryFeaturesWithArcadeExpression.xaml"
     ],
     "title": "Query features with Arcade expression"
 }

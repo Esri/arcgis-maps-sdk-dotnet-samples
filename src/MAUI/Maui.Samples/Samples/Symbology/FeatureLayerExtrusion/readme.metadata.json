@@ -28,8 +28,8 @@
         "SimpleRenderer"
     ],
     "snippets": [
-        "FeatureLayerExtrusion.xaml",
-        "FeatureLayerExtrusion.xaml.cs"
+        "FeatureLayerExtrusion.xaml.cs",
+        "FeatureLayerExtrusion.xaml"
     ],
     "title": "Feature layer extrusion"
 }

@@ -26,8 +26,8 @@
         "Surface.ElevationExaggeration"
     ],
     "snippets": [
-        "TerrainExaggeration.xaml",
-        "TerrainExaggeration.xaml.cs"
+        "TerrainExaggeration.xaml.cs",
+        "TerrainExaggeration.xaml"
     ],
     "title": "Terrain exaggeration"
 }

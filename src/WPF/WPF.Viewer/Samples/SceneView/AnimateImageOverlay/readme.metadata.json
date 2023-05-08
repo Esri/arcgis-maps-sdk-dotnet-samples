@@ -28,8 +28,8 @@
         "SceneView"
     ],
     "snippets": [
-        "AnimateImageOverlay.xaml",
-        "AnimateImageOverlay.xaml.cs"
+        "AnimateImageOverlay.xaml.cs",
+        "AnimateImageOverlay.xaml"
     ],
     "title": "Animate images with image overlay"
 }

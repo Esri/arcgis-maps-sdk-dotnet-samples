@@ -19,8 +19,8 @@
         "ArcGISMapImageLayer"
     ],
     "snippets": [
-        "ChangeSublayerVisibility.xaml",
-        "ChangeSublayerVisibility.xaml.cs"
+        "ChangeSublayerVisibility.xaml.cs",
+        "ChangeSublayerVisibility.xaml"
     ],
     "title": "Map image layer sublayer visibility"
 }

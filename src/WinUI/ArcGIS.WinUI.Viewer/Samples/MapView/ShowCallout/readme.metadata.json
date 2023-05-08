@@ -28,8 +28,8 @@
         "MapView.ShowCalloutAt"
     ],
     "snippets": [
-        "ShowCallout.xaml",
-        "ShowCallout.xaml.cs"
+        "ShowCallout.xaml.cs",
+        "ShowCallout.xaml"
     ],
     "title": "Show callout"
 }

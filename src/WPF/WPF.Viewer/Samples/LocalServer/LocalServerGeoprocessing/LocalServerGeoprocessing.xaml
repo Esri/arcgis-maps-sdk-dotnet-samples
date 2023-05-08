@@ -4,63 +4,96 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="3"
-                           FontWeight="SemiBold"
-                           Text="Use the slider to select a contour interval (height difference between contour lines). Use the buttons to update or clear the contours."
-                           TextWrapping="Wrap" />
-                <ProgressBar x:Name="MyLoadingIndicator"
+        <StackPanel>
+            <Border Style="{StaticResource BorderStyle}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0" Text="Set Local Server TempPath:" />
+                    <TextBox x:Name="tempPathBox"
                              Grid.Row="1"
-                             Grid.Column="0"
-                             Grid.ColumnSpan="3"
-                             Height="15"
-                             Margin="0,5,0,0"
-                             IsIndeterminate="True" />
-                <Slider x:Name="MyContourSlider"
-                        Grid.Row="2"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="0,5,0,0"
-                        VerticalAlignment="Center"
-                        Maximum="350"
-                        Minimum="50" />
-                <TextBlock x:Name="MyContourDepthLabel"
-                           Grid.Row="2"
-                           Grid.Column="2"
-                           Margin="0,5,0,0"
-                           VerticalAlignment="Center"
-                           Text="{Binding Value, ElementName=MyContourSlider, StringFormat=N2}"
-                           TextAlignment="Center" />
-                <Button x:Name="MyUpdateContourButton"
-                        Grid.Row="3"
-                        Grid.Column="0"
-                        Margin="0,5,5,0"
-                        Click="MyUpdateContourButton_OnClick"
-                        Content="Generate"
-                        IsEnabled="False" />
-                <Button x:Name="MyResetButton"
-                        Grid.Row="3"
-                        Grid.Column="1"
-                        Grid.ColumnSpan="2"
-                        Margin="5,5,0,0"
-                        Click="MyResetButton_OnClick"
-                        Content="Reset"
-                        IsEnabled="False" />
-            </Grid>
-        </Border>
+                             Grid.ColumnSpan="2" />
+                    <Button Grid.Row="2"
+                            Grid.Column="0"
+                            Margin="0,5,5,0"
+                            Click="setTempPathButton_Click"
+                            Content="Set" />
+                    <Button Grid.Row="2"
+                            Grid.Column="1"
+                            Margin="5,5,0,0"
+                            Click="defaultTempPathButton_Click"
+                            Content="Default" />
+                    <TextBlock x:Name="currentPath"
+                               Grid.Row="3"
+                               Text="Current path:" />
+                </Grid>
+            </Border>
+            <Border Style="{StaticResource BorderStyle}" Margin="30, -25">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Row="0"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="3"
+                               FontWeight="SemiBold"
+                               Text="Use the slider to select a contour interval (height difference between contour lines). Use the buttons to update or clear the contours."
+                               TextWrapping="Wrap" />
+                    <ProgressBar x:Name="MyLoadingIndicator"
+                                 Grid.Row="1"
+                                 Grid.Column="0"
+                                 Grid.ColumnSpan="3"
+                                 Height="15"
+                                 Margin="0,5,0,0"
+                                 IsIndeterminate="True" />
+                    <Slider x:Name="MyContourSlider"
+                            Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            Margin="0,5,0,0"
+                            VerticalAlignment="Center"
+                            Maximum="350"
+                            Minimum="50" />
+                    <TextBlock x:Name="MyContourDepthLabel"
+                               Grid.Row="2"
+                               Grid.Column="2"
+                               Margin="0,5,0,0"
+                               VerticalAlignment="Center"
+                               Text="{Binding Value, ElementName=MyContourSlider, StringFormat=N2}"
+                               TextAlignment="Center" />
+                    <Button x:Name="MyUpdateContourButton"
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Margin="0,5,5,0"
+                            Click="MyUpdateContourButton_OnClick"
+                            Content="Generate"
+                            IsEnabled="False" />
+                    <Button x:Name="MyResetButton"
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Grid.ColumnSpan="2"
+                            Margin="5,5,0,0"
+                            Click="MyResetButton_OnClick"
+                            Content="Reset"
+                            IsEnabled="False" />
+                </Grid>
+            </Border>
+        </StackPanel>
     </Grid>
 </UserControl>

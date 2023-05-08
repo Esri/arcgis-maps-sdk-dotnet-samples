@@ -26,16 +26,16 @@ case "${1}" in
 
     # Loop through the staged files and and run python script on them
     for file in `git diff-index --cached --name-only HEAD`; do
-      RESULT=`python3 "${script_path}"/../tools/check_api_key.py "${PWD}"/"${file}"`
+      RESULT=`python3 "${script_path}"/../tools/githook_scripts/check_api_key.py "${PWD}"/"${file}"`
       if [[ $RESULT != 0 ]]; then
         echo "${file} contains API key on line ${RESULT}."
         ((api_key_errors+=1))
       fi
     done
 
-    RESULT=`python3 "${script_path}"/../tools/check_file_casing.py "${PWD}"/"${file}"`
-    if [[ $RESULT != 0]]; then 
-     echo "${RESULT}."
+    CASING_RESULT=`python3 "${script_path}"/../tools/githook_scripts/check_file_casing.py "${PWD}"/"${file}"`
+    if [[ $CASING_RESULT != 0 ]]; then 
+     echo "${CASING_RESULT}."
         ((file_casing_errors+=1))
       fi
 

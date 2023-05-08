@@ -59,6 +59,7 @@ namespace ArcGIS.WPF.Samples.LocalServerFeatureLayer
                 string tempDataPath = Path.Combine(tempDataPathRoot, "EsriSamples", "AppData");
                 Directory.CreateDirectory(tempDataPath); // CreateDirectory won't overwrite if it already exists.
                 LocalServer.Instance.AppDataPath = tempDataPath;
+                currentPath.Text = $"Current path: {LocalServer.Instance.AppDataPath}";
 
                 // Start the local server instance
                 await LocalServer.Instance.StartAsync();
@@ -72,6 +73,11 @@ namespace ArcGIS.WPF.Samples.LocalServerFeatureLayer
                 return;
             }
 
+            await LoadFeatureService();
+        }
+
+        private async Task LoadFeatureService()
+        {
             // Load the sample data and get the path
             string myfeatureServicePath = GetFeatureLayerPath();
 
@@ -127,6 +133,40 @@ namespace ArcGIS.WPF.Samples.LocalServerFeatureLayer
         private static string GetFeatureLayerPath()
         {
             return DataManager.GetDataFolder("92ca5cdb3ff1461384bf80dc008e297b", "PointsOfInterest.mpkx");
+        }
+
+        private async void defaultTempPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Resets the app when switching from a custom app data path to default.
+            await Initialize();
+        }
+
+        private async void setTempPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Local Server must be stopped to change the data path.
+                await LocalServer.Instance.StopAsync();
+
+                // Set the data path to content of the TextBox input by the user.
+                string userTempDataPath = tempPathBox.Text;
+                Directory.CreateDirectory(userTempDataPath); // CreateDirectory won't overwrite if it already exists.
+                LocalServer.Instance.AppDataPath = userTempDataPath;
+                currentPath.Text = $"Current path: {LocalServer.Instance.AppDataPath}";
+
+                // Start the local server instance
+                await LocalServer.Instance.StartAsync();
+            }
+            catch (Exception ex)
+            {
+                var localServerTypeInfo = typeof(LocalMapService).GetTypeInfo();
+                var localServerVersion = FileVersionInfo.GetVersionInfo(localServerTypeInfo.Assembly.Location);
+
+                MessageBox.Show($"Please ensure that local server {localServerVersion.FileVersion} is installed prior to using the sample. The download link is in the description. Message: {ex.Message}", "Local Server failed to start");
+                return;
+            }
+
+            await LoadFeatureService();
         }
     }
 }

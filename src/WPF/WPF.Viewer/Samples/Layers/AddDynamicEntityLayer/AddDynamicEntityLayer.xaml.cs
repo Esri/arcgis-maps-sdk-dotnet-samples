@@ -39,10 +39,10 @@ namespace ArcGIS.WPF.Samples.AddDynamicEntityLayer
         public AddDynamicEntityLayer()
         {
             InitializeComponent();
-            _ = Initialize();
+            Initialize();
         }
 
-        private async Task Initialize()
+        private void Initialize()
         {
             MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGrayBase);
 

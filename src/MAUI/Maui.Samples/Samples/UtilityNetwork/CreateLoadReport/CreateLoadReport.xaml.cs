@@ -101,7 +101,7 @@ namespace ArcGIS.Samples.CreateLoadReport
                 UtilityTerminal terminal = assetType?.TerminalConfiguration?.Terminals?.FirstOrDefault(t => t.Name == TerminalName);
                 Guid globalId = Guid.Parse(GlobalId);
 
-                if (assetType != null && globalId != null && terminal != null)
+                if (assetType != null && terminal != null)
                 {
                     var startingLocation = _utilityNetwork.CreateElement(assetType, globalId, terminal);
 

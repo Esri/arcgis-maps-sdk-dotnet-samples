@@ -36,6 +36,9 @@ namespace ArcGIS.WPF.Samples.LocalServerServices
         // Generic reference to the service selected in the UI
         private LocalService _selectedService;
 
+        // Generic reference to the current data path
+        private string _tempDataPath;
+
         public LocalServerServices()
         {
             InitializeComponent();
@@ -204,6 +207,9 @@ namespace ArcGIS.WPF.Samples.LocalServerServices
 
         private async void StartServerButtonClicked(object sender, RoutedEventArgs e)
         {
+            setTempPathButton.IsEnabled = false;
+            defaultTempPathButton.IsEnabled = false;
+
             try
             {
                 // LocalServer must not be running when setting the data path.
@@ -214,10 +220,8 @@ namespace ArcGIS.WPF.Samples.LocalServerServices
 
                 // Set the local data path - must be done before starting. On most systems, this will be C:\EsriSamples\AppData.
                 // This path should be kept short to avoid Windows path length limitations.
-                string tempDataPathRoot = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.Windows)).FullName;
-                string tempDataPath = Path.Combine(tempDataPathRoot, "EsriSamples", "AppData");
-                Directory.CreateDirectory(tempDataPath); // CreateDirectory won't overwrite if it already exists.
-                LocalServer.Instance.AppDataPath = tempDataPath;
+                Directory.CreateDirectory(_tempDataPath); // CreateDirectory won't overwrite if it already exists.
+                LocalServer.Instance.AppDataPath = _tempDataPath;
 
                 // Start the server
                 await LocalServer.Instance.StartAsync();
@@ -245,6 +249,8 @@ namespace ArcGIS.WPF.Samples.LocalServerServices
             ServiceStopButton.IsEnabled = false;
             LocalServerStartButton.IsEnabled = true;
             LocalServerStopButton.IsEnabled = false;
+            setTempPathButton.IsEnabled = true;
+            defaultTempPathButton.IsEnabled = true;
 
             try
             {
@@ -284,6 +290,35 @@ namespace ArcGIS.WPF.Samples.LocalServerServices
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Couldn't navigate to service");
+            }
+        }
+
+        private void setTempPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Set the local data path to content of tempDataPath box input by user
+                _tempDataPath = tempPathBox.Text;
+                currentPath.Text = $"Current path: {_tempDataPath}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
+        }
+
+        private void defaultTempPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Set the local data path to default
+                string tempDataPathRoot = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.Windows)).FullName;
+                _tempDataPath = Path.Combine(tempDataPathRoot, "EsriSamples", "AppData");
+                currentPath.Text = $"Current path: {_tempDataPath}";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
             }
         }
     }

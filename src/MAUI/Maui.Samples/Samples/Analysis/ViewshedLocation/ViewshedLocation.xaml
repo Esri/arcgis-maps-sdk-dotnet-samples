@@ -3,134 +3,133 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <Label Grid.Row="0"
-               Grid.Column="0"
-               HorizontalTextAlignment="End">
-            Heading
-        </Label>
-        <Label Grid.Row="1"
-               Grid.Column="0"
-               HorizontalTextAlignment="End">
-            Pitch
-        </Label>
-        <Label Grid.Row="2"
-               Grid.Column="0"
-               HorizontalTextAlignment="End">
-            Horizontal Angle
-        </Label>
-        <Label Grid.Row="3"
-               Grid.Column="0"
-               HorizontalTextAlignment="End">
-            Vertical Angle
-        </Label>
-        <Label Grid.Row="4"
-               Grid.Column="0"
-               HorizontalTextAlignment="End">
-            Minimum Distance
-        </Label>
-        <Label Grid.Row="5"
-               Grid.Column="0"
-               HorizontalTextAlignment="End">
-            Maximum Distance
-        </Label>
-        <Label Grid.Row="6"
-               Grid.Column="0"
-               HorizontalTextAlignment="End">
-            Frustum Visibility
-        </Label>
-        <Label Grid.Row="7"
-               Grid.Column="0"
-               HorizontalTextAlignment="End">
-            Analysis Visibility
-        </Label>
-
-        <Slider x:Name="HeadingSlider"
-                Grid.Row="0"
-                Grid.Column="1"
-                Maximum="360"
-                MaximumTrackColor="CadetBlue"
-                MinimumTrackColor="CadetBlue"
-                ValueChanged="HandleSettingsChange"
-                Value="0" />
-        <Slider x:Name="PitchSlider"
-                Grid.Row="1"
-                Grid.Column="1"
-                Maximum="180"
-                MaximumTrackColor="CadetBlue"
-                MinimumTrackColor="CadetBlue"
-                ValueChanged="HandleSettingsChange"
-                Value="60" />
-        <Slider x:Name="HorizontalAngleSlider"
-                Grid.Row="2"
-                Grid.Column="1"
-                Maximum="120"
-                MaximumTrackColor="CadetBlue"
-                Minimum="1"
-                MinimumTrackColor="CadetBlue"
-                ValueChanged="HandleSettingsChange"
-                Value="75" />
-        <Slider x:Name="VerticalAngleSlider"
-                Grid.Row="3"
-                Grid.Column="1"
-                Maximum="120"
-                MaximumTrackColor="CadetBlue"
-                Minimum="1"
-                MinimumTrackColor="CadetBlue"
-                ValueChanged="HandleSettingsChange"
-                Value="90" />
-        <Slider x:Name="MinimumDistanceSlider"
-                Grid.Row="4"
-                Grid.Column="1"
-                Maximum="8999"
-                MaximumTrackColor="CadetBlue"
-                Minimum="5"
-                MinimumTrackColor="CadetBlue"
-                ValueChanged="HandleSettingsChange"
-                Value="5" />
-        <Slider x:Name="MaximumDistanceSlider"
-                Grid.Row="5"
-                Grid.Column="1"
-                Maximum="9999"
-                MaximumTrackColor="CadetBlue"
-                MinimumTrackColor="CadetBlue"
-                ValueChanged="HandleSettingsChange"
-                Value="1500" />
-        <Switch x:Name="FrustumVisibilityCheck"
-                Grid.Row="6"
-                Grid.Column="1"
-                Toggled="HandleSettingsChange" />
-        <Switch x:Name="AnalysisVisibilityCheck"
-                Grid.Row="7"
-                Grid.Column="1"
-                IsToggled="True"
-                Toggled="HandleSettingsChange" />
-
-        <Label Grid.Row="8"
-               Grid.Column="0"
-               Grid.ColumnSpan="2"
-               TextColor="Red">
-            Click to change the viewshed location.
-        </Label>
-        <esriUI:SceneView x:Name="MySceneView"
-                          Grid.Row="9"
-                          Grid.Column="0"
-                          Grid.ColumnSpan="2" />
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid ColumnSpacing="5"
+                  RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto"
+                  RowSpacing="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="{OnPlatform Default=*, iOS=150}" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
+                    Heading
+                </Label>
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
+                    Pitch
+                </Label>
+                <Label Grid.Row="2"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
+                    Horizontal Angle
+                </Label>
+                <Label Grid.Row="3"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
+                    Vertical Angle
+                </Label>
+                <Label Grid.Row="4"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
+                    Minimum Distance
+                </Label>
+                <Label Grid.Row="5"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
+                    Maximum Distance
+                </Label>
+                <Label Grid.Row="6"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
+                    Frustum Visibility
+                </Label>
+                <Label Grid.Row="7"
+                       Grid.Column="0"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center">
+                    Analysis Visibility
+                </Label>
+                <Slider x:Name="HeadingSlider"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Maximum="360"
+                        MaximumTrackColor="CadetBlue"
+                        MinimumTrackColor="CadetBlue"
+                        ValueChanged="HandleSettingsChange"
+                        Value="0" />
+                <Slider x:Name="PitchSlider"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Maximum="180"
+                        MaximumTrackColor="CadetBlue"
+                        MinimumTrackColor="CadetBlue"
+                        ValueChanged="HandleSettingsChange"
+                        Value="60" />
+                <Slider x:Name="HorizontalAngleSlider"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Maximum="120"
+                        MaximumTrackColor="CadetBlue"
+                        Minimum="1"
+                        MinimumTrackColor="CadetBlue"
+                        ValueChanged="HandleSettingsChange"
+                        Value="75" />
+                <Slider x:Name="VerticalAngleSlider"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Maximum="120"
+                        MaximumTrackColor="CadetBlue"
+                        Minimum="1"
+                        MinimumTrackColor="CadetBlue"
+                        ValueChanged="HandleSettingsChange"
+                        Value="90" />
+                <Slider x:Name="MinimumDistanceSlider"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Maximum="8999"
+                        MaximumTrackColor="CadetBlue"
+                        Minimum="5"
+                        MinimumTrackColor="CadetBlue"
+                        ValueChanged="HandleSettingsChange"
+                        Value="5" />
+                <Slider x:Name="MaximumDistanceSlider"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Maximum="9999"
+                        MaximumTrackColor="CadetBlue"
+                        MinimumTrackColor="CadetBlue"
+                        ValueChanged="HandleSettingsChange"
+                        Value="1500" />
+                <Switch x:Name="FrustumVisibilityCheck"
+                        Grid.Row="6"
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        Toggled="HandleSettingsChange" />
+                <Switch x:Name="AnalysisVisibilityCheck"
+                        Grid.Row="7"
+                        Grid.Column="1"
+                        HorizontalOptions="Start"
+                        IsToggled="True"
+                        Toggled="HandleSettingsChange" />
+                <Label Grid.Row="8"
+                       Grid.Column="0"
+                       Grid.ColumnSpan="2"
+                       HorizontalOptions="Center">
+                    Tap scene to change viewshed location.
+                </Label>
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

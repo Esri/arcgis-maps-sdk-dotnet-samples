@@ -35,7 +35,7 @@ namespace ArcGIS.Samples.AddDynamicEntityLayer
         public AddDynamicEntityLayer()
         {
             InitializeComponent();
-            Initialize();   
+            Initialize();
         }
 
         private void Initialize()

@@ -7,11 +7,13 @@
 export PATH=/usr/local/bin:$PATH
 
 # variables
-errors=0
+api_key_errors=0
+file_casing_errors=0
 
 case "${1}" in
   --about)
     echo "Run check_api_key.py script to check if an API key is in the staged files."
+    echo "Run check_file_casings.py script to ensure .xaml.cs and .xaml files are case matching."
     ;;
   *)
 
@@ -27,15 +29,26 @@ case "${1}" in
       RESULT=`python3 "${script_path}"/../tools/check_api_key.py "${PWD}"/"${file}"`
       if [[ $RESULT != 0 ]]; then
         echo "${file} contains API key on line ${RESULT}."
-        ((errors+=1))
+        ((api_key_errors+=1))
       fi
     done
 
-    if [[ $errors != 0 ]]; then
+    RESULT=`python3 "${script_path}"/../tools/check_file_casing.py "${PWD}"/"${file}"`
+    if [[ $RESULT != 0]]; then 
+     echo "${RESULT}."
+        ((file_casing_errors+=1))
+      fi
+
+    if [[ $api_key_errors != 0 ]]; then
       echo "Commit blocked due to ${errors} errors. Please remove the API key(s) before committing or commit with argument '-n' to bypass pre-commit hooks."
       exit 1
     fi
-    exit ${errors}
+
+    if [[ $file_casing_errors != 0 ]]; then
+      echo "Commit blocked due to ${errors} errors. Please address mismatching file casing errors before committing or commit with argument '-n' to bypass pre-commit hooks."
+      exit 1
+    fi
+    exit 0
     ;;
 esac
 }

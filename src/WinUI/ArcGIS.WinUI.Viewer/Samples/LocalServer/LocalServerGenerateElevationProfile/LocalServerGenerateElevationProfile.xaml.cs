@@ -87,12 +87,6 @@ namespace ArcGIS.WinUI.Samples.LocalServerGenerateElevationProfile
                 // Start the local server instance.
                 await LocalServer.Instance.StartAsync();
 
-                // Initialize and start a local geoprocessing service instance using our local geoprocessing package.
-                _localGPService = new LocalGeoprocessingService(_geoprocessingPackagePath, GeoprocessingServiceType.AsynchronousSubmitWithMapServiceResult);
-                await _localGPService.StartAsync();
-
-                // Initialize a geoprocessing task using the local geoprocessing service.
-                _gpTask = await GeoprocessingTask.CreateAsync(new Uri(_localGPService.Url + "/CreateElevationProfileModel"));
             }
             catch (Exception ex)
             {
@@ -103,6 +97,31 @@ namespace ArcGIS.WinUI.Samples.LocalServerGenerateElevationProfile
                 return;
             }
 
+            await CreateGeoprocessingService();
+
+        }
+
+        private async Task CreateGeoprocessingService()
+        {
+            try
+            {
+                // Initialize and start a local geoprocessing service instance using our local geoprocessing package.
+                _localGPService = new LocalGeoprocessingService(_geoprocessingPackagePath, GeoprocessingServiceType.AsynchronousSubmitWithMapServiceResult);
+                await _localGPService.StartAsync();
+
+                // Initialize a geoprocessing task using the local geoprocessing service.
+                _gpTask = await GeoprocessingTask.CreateAsync(new Uri(_localGPService.Url + "/CreateElevationProfileModel"));
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
+            }
+
+            await SetupScene();
+        }
+
+        private async Task SetupScene()
+        {
             // Create a scene with a topographic basemap style.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISHillshadeDark);
 
@@ -596,6 +615,40 @@ namespace ArcGIS.WinUI.Samples.LocalServerGenerateElevationProfile
                 MyDrawPolylineButton.Visibility = Visibility.Visible;
                 MyClearResultsButton.Visibility = Visibility.Visible;
             }
+        }
+
+        private async void setTempPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Local Server must be stopped to change the data path.
+                await LocalServer.Instance.StopAsync();
+
+                // Set the data path to content of the TextBox input by the user.
+                string userTempDataPath = tempPathBox.Text;
+                Directory.CreateDirectory(userTempDataPath); // CreateDirectory won't overwrite if it already exists.
+                LocalServer.Instance.AppDataPath = userTempDataPath;
+                currentPath.Text = $"Current path: {LocalServer.Instance.AppDataPath}";
+
+                // Start the local server instance
+                await LocalServer.Instance.StartAsync();
+            }
+            catch (Exception ex)
+            {
+                var localServerTypeInfo = typeof(LocalMapService).GetTypeInfo();
+                var localServerVersion = FileVersionInfo.GetVersionInfo(localServerTypeInfo.Assembly.Location);
+
+                await new MessageDialog2($"Please ensure that local server {localServerVersion.FileVersion} is installed prior to using the sample. The download link is in the description. Message: {ex.Message}", "Local Server failed to start").ShowAsync();
+                return;
+            }
+
+            await CreateGeoprocessingService();
+        }
+
+        private async void defaultTempPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Resets the app when switching from a custom app data path to default.
+            await Initialize();
         }
     }
 }

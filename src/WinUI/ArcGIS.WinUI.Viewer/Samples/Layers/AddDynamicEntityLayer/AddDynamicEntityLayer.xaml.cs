@@ -138,7 +138,7 @@ namespace ArcGIS.WinUI.Samples.AddDynamicEntityLayer
             }
         }
 
-        private void PurgeClick(object sender, RoutedEventArgs e)
+        private void PurgeButton_Click(object sender, RoutedEventArgs e)
         {
             _dynamicEntityDataSource?.PurgeAllAsync();
         }
@@ -151,7 +151,7 @@ namespace ArcGIS.WinUI.Samples.AddDynamicEntityLayer
             }
         }
 
-        private void ConnectionButtonClick(object sender, RoutedEventArgs e)
+        private void ConnectionButton_Click(object sender, RoutedEventArgs e)
         {
             if (_dynamicEntityDataSource.ConnectionStatus == ConnectionStatus.Connected)
             {

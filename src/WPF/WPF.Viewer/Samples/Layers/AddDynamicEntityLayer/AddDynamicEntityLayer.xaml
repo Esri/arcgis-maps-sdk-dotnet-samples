@@ -9,7 +9,7 @@
                 <Label Name="ConnectionStatusLabel" />
                 <Button x:Name="ConnectionButton"
                         Margin="5"
-                        Click="ConnectionButtonClick"
+                        Click="ConnectionButton_Click"
                         IsEnabled="False" />
                 <CheckBox Margin="5"
                           Checked="LineVisibilityCheckbox_Checked"
@@ -41,7 +41,7 @@
                             Value="5" />
                 </Grid>
                 <Button Margin="5"
-                        Click="PurgeClick"
+                        Click="PurgeButton_Click"
                         Content="Purge all observations" />
             </StackPanel>
         </Border>

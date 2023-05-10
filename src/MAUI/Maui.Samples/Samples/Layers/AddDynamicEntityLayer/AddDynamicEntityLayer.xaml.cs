@@ -134,7 +134,7 @@ namespace ArcGIS.Samples.AddDynamicEntityLayer
             }
         }
 
-        private void PurgeClick(object sender, EventArgs e)
+        private void PurgeButton_Clicked(object sender, EventArgs e)
         {
             _dynamicEntityDataSource?.PurgeAllAsync();
         }
@@ -144,11 +144,11 @@ namespace ArcGIS.Samples.AddDynamicEntityLayer
             if (_dynamicEntityLayer != null)
             {
                 _dynamicEntityLayer.TrackDisplayProperties.MaximumObservations = (int)e.NewValue;
-                previousObservationsLabel.Text = String.Format("Previous observations per track: {0}", Math.Round(e.NewValue).ToString());
+                PreviousObservationsLabel.Text = String.Format("Previous observations per track: {0}", Math.Round(e.NewValue).ToString());
             }
         }
 
-        private void ConnectionButtonClick(object sender, EventArgs e)
+        private void ConnectionButton_Clicked(object sender, EventArgs e)
         {
             if (_dynamicEntityDataSource.ConnectionStatus == ConnectionStatus.Connected)
             {

@@ -26,7 +26,6 @@ namespace ArcGIS.WinUI.Samples.AddDynamicEntityLayer
         description: "Display data from an ArcGIS stream service using a dynamic entity layer.",
         instructions: "Use the controls to connect to or disconnect from the stream service, modify display properties in the dynamic entity layer, and purge all observations from the application.",
         tags: new[] { "data", "dynamic", "entity", "live", "purge", "real-time", "service", "stream", "track" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class AddDynamicEntityLayer
     {
         // This envelope is a limited region around Sandy, Utah. It will be the extent used by the `DynamicEntityFilter`.

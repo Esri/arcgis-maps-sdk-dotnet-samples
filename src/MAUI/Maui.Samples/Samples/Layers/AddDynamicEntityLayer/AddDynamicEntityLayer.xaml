@@ -14,15 +14,7 @@
                         Margin="5"
                         Clicked="ConnectionButton_Clicked"
                         IsEnabled="False" />
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
+                <Grid ColumnDefinitions="auto,auto" RowDefinitions="auto, auto">
                     <CheckBox Grid.Row="0"
                               Grid.Column="0"
                               Margin="5"
@@ -47,6 +39,7 @@
                         Grid.Column="1"
                         Maximum="16"
                         Minimum="1"
+                        MaximumWidthRequest="250"
                         ValueChanged="Slider_ValueChanged"
                         VerticalOptions="Center"
                         Value="5" />

@@ -8,8 +8,10 @@
         <VerticalStackLayout Spacing="5">
             <Label Text="Add phases from the dropdown list, then run report." />
             <HorizontalStackLayout Spacing="5">
-                <Picker x:Name="PhasesList" ItemDisplayBinding="{Binding Name}" WidthRequest="150" />
-                <Button Clicked="OnAddPhase" Text="Add"/>
+                <Picker x:Name="PhasesList"
+                        ItemDisplayBinding="{Binding Name}"
+                        WidthRequest="150" />
+                <Button Clicked="OnAddPhase" Text="Add" />
             </HorizontalStackLayout>
             <Label x:Name="Phases"
                    BackgroundColor="{AppThemeBinding Dark=Gray}"

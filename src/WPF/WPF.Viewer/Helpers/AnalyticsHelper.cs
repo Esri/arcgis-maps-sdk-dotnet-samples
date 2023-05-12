@@ -6,6 +6,7 @@ using System.IO;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace ArcGIS.Helpers
 {
@@ -43,7 +44,7 @@ namespace ArcGIS.Helpers
         /// </summary>
         /// <param name="eventName"></param>
         /// <param name="eventData"></param>
-        public static void TrackEvent(string eventName, IDictionary<string, string> eventData = null)
+        public static async Task TrackEvent(string eventName, IDictionary<string, string> eventData = null)
         {
             if (!AnalyticsEnabled) return;
 
@@ -78,7 +79,7 @@ namespace ArcGIS.Helpers
                 var uri = new Uri("https://google-analytics.com/mp/collect?api_secret=" + _api_secret + "&measurement_id=" + _measurement_id);
 
                 // Send HTTP Request.
-                HttpResponseMessage response = _httpClient.PostAsync(uri, content).Result;
+                HttpResponseMessage response = await _httpClient.PostAsync(uri, content);
             }
             catch
             {

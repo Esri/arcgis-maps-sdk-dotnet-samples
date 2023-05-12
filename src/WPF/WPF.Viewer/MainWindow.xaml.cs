@@ -63,7 +63,7 @@ namespace ArcGIS.Samples.Desktop
 #if ENABLE_ANALYTICS
                 // Check analytics settings
                 AnalyticsHelper.ReadSettingsFromFile();
-                AnalyticsHelper.TrackEvent("sample_viewer_opened");
+                _ = AnalyticsHelper.TrackEvent("sample_viewer_opened");
 #endif
             }
             catch (Exception ex)
@@ -136,7 +136,7 @@ namespace ArcGIS.Samples.Desktop
                 };
 
 #if ENABLE_ANALYTICS
-                AnalyticsHelper.TrackEvent("category_selected", eventData);
+                _ = AnalyticsHelper.TrackEvent("category_selected", eventData);
 #endif
             }
             else if (sample != null)
@@ -162,7 +162,7 @@ namespace ArcGIS.Samples.Desktop
             };
 
 #if ENABLE_ANALYTICS
-            AnalyticsHelper.TrackEvent("sample_opened", eventData);
+            _ = AnalyticsHelper.TrackEvent("sample_opened", eventData);
 #endif
 
             // Restore API key if leaving named user sample.
@@ -309,7 +309,7 @@ namespace ArcGIS.Samples.Desktop
             };
 
 #if ENABLE_ANALYTICS
-            AnalyticsHelper.TrackEvent("tab_selected", eventData);
+            _ = AnalyticsHelper.TrackEvent("tab_selected", eventData);
 #endif
         }
 
@@ -323,7 +323,7 @@ namespace ArcGIS.Samples.Desktop
             };
 
 #if ENABLE_ANALYTICS
-            AnalyticsHelper.TrackEvent("tab_selected", eventData);
+            _ = AnalyticsHelper.TrackEvent("tab_selected", eventData);
 #endif
 
         }
@@ -338,7 +338,7 @@ namespace ArcGIS.Samples.Desktop
             };
 
 #if ENABLE_ANALYTICS
-            AnalyticsHelper.TrackEvent("tab_selected", eventData);
+            _ = AnalyticsHelper.TrackEvent("tab_selected", eventData);
 #endif
         }
 
@@ -406,7 +406,7 @@ namespace ArcGIS.Samples.Desktop
             }
 
 #if ENABLE_ANALYTICS
-            AnalyticsHelper.TrackEvent("search_text", eventData);
+            _ = AnalyticsHelper.TrackEvent("search_text", eventData);
 #endif
         }
 

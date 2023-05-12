@@ -8,8 +8,10 @@
 // language governing permissions and limitations under the License.
 
 using ArcGIS.Samples.Managers;
+using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.Geocoding;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
@@ -24,6 +26,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace ArcGIS.WPF.Samples.MobileMapSearchAndRoute
 {
@@ -34,11 +38,10 @@ namespace ArcGIS.WPF.Samples.MobileMapSearchAndRoute
         instructions: "A list of maps from a mobile map package will be displayed. If the map contains transportation networks, the list item will have a navigation icon. Click on a map in the list to open it. If a locator task is available, click on the map to reverse geocode the location's address. If transportation networks are available, a route will be calculated between geocode locations.",
         tags: new[] { "disconnected", "field mobility", "geocode", "network", "network analysis", "offline", "routing", "search", "transportation" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("260eb6535c824209964cf281766ebe43")]
-    [ArcGIS.Samples.Shared.Attributes.ClassFile("Converters\\ItemToImageSourceConverter.cs", "Converters\\NullToVisibilityConverter.cs")]
     public partial class MobileMapSearchAndRoute
     {
         // Hold references to map resources for easy access.
-        public ObservableCollection<Map> Maps { get; set; }
+        public ObservableCollection<MapViewModel> Maps { get; set; }
 
         private LocatorTask _packageLocator;
         private TransportationNetworkDataset _networkDataset;
@@ -53,7 +56,7 @@ namespace ArcGIS.WPF.Samples.MobileMapSearchAndRoute
 
         public MobileMapSearchAndRoute()
         {
-            Maps = new ObservableCollection<Map>();
+            Maps = new ObservableCollection<MapViewModel>();
             InitializeComponent();
             DataContext = this;
             _ = Initialize();
@@ -71,7 +74,7 @@ namespace ArcGIS.WPF.Samples.MobileMapSearchAndRoute
             foreach (Map map in package.Maps)
             {
                 await map.LoadAsync();
-                Maps.Add(map);
+                Maps.Add(new MapViewModel(map));
             }
 
             // Get the locator task from the package.
@@ -201,7 +204,9 @@ namespace ArcGIS.WPF.Samples.MobileMapSearchAndRoute
             try
             {
                 // Get the selected map.
-                Map selectedMap = e.AddedItems[0] as Map;
+                MapViewModel selectedMapViewModel = e.AddedItems[0] as MapViewModel;
+
+                Map selectedMap = selectedMapViewModel.Map;
 
                 // Show the map in the view.
                 MyMapView.Map = selectedMap;
@@ -235,6 +240,55 @@ namespace ArcGIS.WPF.Samples.MobileMapSearchAndRoute
             pinSymbol.LeaderOffsetX = 30;
             pinSymbol.OffsetY = 14;
             return new Graphic(point, pinSymbol);
+        }
+    }
+
+    public class MapViewModel 
+    {
+        public string Title { get; private set; }
+        public Visibility Visibility { get; private set; }
+        public ImageSource ImageSource { get; private set; }
+        public Map Map { get; private set; }
+
+        public Task Initialization { get; private set; }
+
+        public MapViewModel(Map map)
+        {
+            Initialization = InitializationAsync(map);
+            Initialize(map);
+        }
+
+        private void Initialize(Map map) 
+        {
+            Title = map.Item.Title;
+            Map = map;
+            Visibility = map.TransportationNetworks.Count < 1 ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private async Task InitializationAsync(Map map)
+        {
+            await SetImageSourceFromItem(map.Item);
+        }
+
+        private async Task SetImageSourceFromItem(Item mapItem) 
+        {
+            if (mapItem != null)
+            {
+                if (mapItem.ThumbnailUri != null)
+                {
+                    // Sometimes image URIs have a . appended to them, trim this character.
+                    ImageSource = new BitmapImage(new Uri(mapItem.ThumbnailUri.OriginalString.TrimEnd('.')));
+                }
+
+                if (mapItem.Thumbnail != null &&
+                    mapItem.Thumbnail.LoadStatus == LoadStatus.Loaded &&
+                    mapItem.Thumbnail.Width > 0)
+                {
+                    ImageSource = await mapItem.Thumbnail.ToImageSourceAsync();
+                }
+            }
+
+            ImageSource = new BitmapImage(new Uri("/Resources/files-48.png"));
         }
     }
 }

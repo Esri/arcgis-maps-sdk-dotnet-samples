@@ -23,8 +23,8 @@ case "${1}" in
     script_path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" ; pwd -P )
 
     # Loop through the staged files and and run python script on them
-    for file in `git diff --name-only HEAD`; do
-      RESULT=`python3 "${script_path}"/../../tools/githook_scripts/check_api_key.py "${PWD}"/"../../${file}"`
+    for file in `git diff-index --cached --name-only HEAD`; do
+      RESULT=`python3 "${script_path}"/../../tools/githook_scripts/check_api_key.py "${PWD}"/"${file}"`
       if [[ $RESULT != 0 ]]; then
         echo "${file} contains API key on line ${RESULT}."
         ((api_key_errors+=1))

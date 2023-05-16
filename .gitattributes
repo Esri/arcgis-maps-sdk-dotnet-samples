@@ -1,2 +1,0 @@
-# use lf for shell scripts so windows can invoke cygwin or the WSL2 on them
-*.sh text eol=lf

@@ -218,7 +218,7 @@ namespace ArcGIS.WPF.Samples.MobileMapSearchAndRoute
 
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
-            // Get current assembly that contains the image.
+            // Get current assembly that contains the image. AAPK
             Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
             // Get image as a stream from the resources.

@@ -1,9 +1,0 @@
-#!/bin/sh
-
-FILES=$(git diff --cached --name-only --diff-filter=ACM "*.cs")
-echo "files: ${Files}"
-if [ -n "$FILES" ]
-then
-    dotnet format ./path/to/project.sln --include $FILES
-    echo "$FILES" | xargs git add
-fi

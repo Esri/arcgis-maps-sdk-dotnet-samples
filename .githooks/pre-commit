@@ -1,6 +1,5 @@
 #!/bin/sh
 
 for file in "${BASH_SOURCE[0]}.d"/*; do
-    echo "##### GITHOOK: ${file}"
     "$file" || exit $?
 done

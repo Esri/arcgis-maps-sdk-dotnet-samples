@@ -1,13 +1,5 @@
 #!/bin/sh
 
-cd "$(dirname "$0")/pre-commit.d"
-
-for hook in *; do
-    RESULT=`bash -c $hook`
-    if [ $RESULT != 0 ]; then
-        echo "pre-commit.d/$hook returned non-zero: $RESULT, abort commit"
-        exit $RESULT
-    fi
+for file in "${BASH_SOURCE[0]}.d"/*; do
+    "$file" || exit $?
 done
-
-exit 0

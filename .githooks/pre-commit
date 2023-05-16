@@ -1,54 +1,14 @@
-#!/bin/sh
-{
-# Uncomment set -xv for debugging
-# set -xv
+#!/bin/bash
 
-# export PATH to access to python3 in SourceTree
-export PATH=/usr/local/bin:$PATH
+cd "$(dirname "$0")/pre-commit.d"
 
-# variables
-api_key_errors=0
-file_casing_errors=0
-
-case "${1}" in
-  --about)
-    echo "Run check_api_key.py script to check if an API key is in the staged files."
-    echo "Run check_file_casings.py script to ensure .xaml.cs and .xaml files are case matching."
-    ;;
-  *)
-
-    GIT_REPOS=`git remote get-url --all origin`
-    if [[ $GIT_REPOS != *Esri/arcgis-maps-sdk-dotnet-samples.git ]]; then
-      exit 0
+for hook in *; do
+    bash $hook
+    RESULT=$?
+    if [ $RESULT != 0 ]; then
+        echo "pre-commit.d/$hook returned non-zero: $RESULT, abort commit"
+        exit $RESULT
     fi
-    # path to script, to access to python script
-    script_path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" ; pwd -P )
+done
 
-    # Loop through the staged files and and run python script on them
-    for file in `git diff-index --cached --name-only HEAD`; do
-      RESULT=`python3 "${script_path}"/../tools/githook_scripts/check_api_key.py "${PWD}"/"${file}"`
-      if [[ $RESULT != 0 ]]; then
-        echo "${file} contains API key on line ${RESULT}."
-        ((api_key_errors+=1))
-      fi
-    done
-
-    CASING_RESULT=`python3 "${script_path}"/../tools/githook_scripts/check_file_casing.py "${PWD}"/"${file}"`
-    if [[ $CASING_RESULT != 0 ]]; then 
-     echo "${CASING_RESULT}."
-        ((file_casing_errors+=1))
-      fi
-
-    if [[ $api_key_errors != 0 ]]; then
-      echo "Commit blocked due to ${errors} errors. Please remove the API key(s) before committing or commit with argument '-n' to bypass pre-commit hooks."
-      exit 1
-    fi
-
-    if [[ $file_casing_errors != 0 ]]; then
-      echo "Commit blocked due to ${errors} errors. Please address mismatching file casing errors before committing or commit with argument '-n' to bypass pre-commit hooks."
-      exit 1
-    fi
-    exit 0
-    ;;
-esac
-}
+exit 0

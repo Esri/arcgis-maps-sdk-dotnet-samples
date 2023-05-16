@@ -49,7 +49,6 @@ def read_file(args):
 
     # Check if file was passed
     if not args.input:
-        print("no file in input")
         print(0)
         return
 

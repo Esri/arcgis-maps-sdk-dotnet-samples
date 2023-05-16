@@ -58,6 +58,8 @@ namespace ArcGIS.WinUI.Samples.LocationDrivenGeotriggers
         {
             try
             {
+                // AAPK
+
                 // This sample uses a web map with a predefined tile basemap, feature styles, and labels.
                 MyMapView.Map = new Map(new Uri("https://www.arcgis.com/home/item.html?id=6ab0e91dc39e478cae4f408e1a36a308"));
                 await MyMapView.Map.LoadAsync();

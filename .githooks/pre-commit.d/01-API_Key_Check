@@ -8,7 +8,6 @@ export PATH=/usr/local/bin:$PATH
 
 # variables
 api_key_errors=0
-
 case "${1}" in
   --about)
     echo "Run check_api_key.py script to check if an API key is in the staged files."
@@ -19,13 +18,13 @@ case "${1}" in
     if [[ $GIT_REPOS != *Esri/arcgis-maps-sdk-dotnet-samples.git ]]; then
       exit 0
     fi
+
     # path to script, to access to python script
     script_path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" ; pwd -P )
 
     # Loop through the staged files and and run python script on them
-    for file in `git diff-index --cached --name-only HEAD`; do
-      echo "${file}"
-      RESULT=`python3 "${script_path}"/../../tools/githook_scripts/check_api_key.py "${PWD}"/"${file}"`
+    for file in `git diff --name-only HEAD`; do
+      RESULT=`python3 "${script_path}"/../../tools/githook_scripts/check_api_key.py "${PWD}"/"../../${file}"`
       if [[ $RESULT != 0 ]]; then
         echo "${file} contains API key on line ${RESULT}."
         ((api_key_errors+=1))

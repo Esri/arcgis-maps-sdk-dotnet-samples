@@ -22,11 +22,11 @@ case "${1}" in
     # path to script, to access to python script
     script_path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" ; pwd -P )
 
-    CASING_RESULT=`python3 "${script_path}"/../../tools/githook_scripts/check_file_casing.py "${PWD}"/"${file}"`
+    CASING_RESULT=`python3 "${script_path}"/../../tools/githook_scripts/check_file_casing.py "${PWD}"`
     if [[ $CASING_RESULT != 0 ]]; then 
      echo "${CASING_RESULT}."
         ((file_casing_errors+=1))
-      fi
+    fi
 
     if [[ $file_casing_errors != 0 ]]; then
       echo "Commit blocked due to ${errors} errors. Please address mismatching file casing errors before committing or commit with argument '-n' to bypass pre-commit hooks."

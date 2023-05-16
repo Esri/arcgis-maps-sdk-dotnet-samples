@@ -9,20 +9,10 @@ namespace ArcGIS.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             Item mapItem = value as Item;
-            if (mapItem != null)
+            if (mapItem?.ThumbnailUri != null)
             {
-                if (mapItem.ThumbnailUri != null)
-                {
-                    // Sometimes image URIs have a . appended to them...
-                    return ImageSource.FromUri(new Uri(mapItem.ThumbnailUri.OriginalString.TrimEnd('.')));
-                }
-
-                if (mapItem.Thumbnail != null &&
-                    mapItem.Thumbnail.LoadStatus == LoadStatus.Loaded &&
-                    mapItem.Thumbnail.Width > 0)
-                {
-                    return ImageSource.FromStream(() => mapItem.Thumbnail.GetEncodedBufferAsync().Result);
-                }
+                // Sometimes image URIs have a . appended to them...
+                return ImageSource.FromUri(new Uri(mapItem.ThumbnailUri.OriginalString.TrimEnd('.')));
             }
 
             return null;

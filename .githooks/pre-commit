@@ -1,5 +1,11 @@
 #!/bin/sh
 
+RESULT=`which python3`
+if [[ $RESULT == 0 ]]; then
+  echo "Python 3 is not installed, please ensure it is installed for the pre-commit hooks to run."
+  exit 1
+fi
+
 for file in "${BASH_SOURCE[0]}.d"/*; do
     "$file" || exit $?
 done

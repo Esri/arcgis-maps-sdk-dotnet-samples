@@ -221,7 +221,7 @@ namespace ArcGIS.WPF.Samples.MobileMapSearchAndRoute
             // Get current assembly that contains the image.
             Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
-            // Get image as a stream from the resources.
+            // Get image as a stream from the resources. test
             // Picture is defined as EmbeddedResource and DoNotCopy.
             Stream resourceStream = currentAssembly.GetManifestResourceStream(
                 "ArcGIS.Resources.PictureMarkerSymbols.pin_star_blue.png");

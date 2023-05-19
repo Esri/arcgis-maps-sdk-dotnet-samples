@@ -32,6 +32,9 @@ namespace ArcGIS.WPF.Samples.PlayKmlTours
         // The KML tour controller provides player controls for KML tours.
         private readonly KmlTourController _tourController = new KmlTourController();
 
+        // Keep track of play/pause status.
+        private bool _tourPlaying;
+
         public PlayKmlTours()
         {
             InitializeComponent();
@@ -141,6 +144,7 @@ namespace ArcGIS.WPF.Samples.PlayKmlTours
                     PlayPauseButton.IsEnabled = true;
                     ResetButton.IsEnabled = false;
                     PlayPauseButton.Content = "Play";
+                    _tourPlaying = false;
 
                     // Return to the initial viewpoint to visually indicate the tour being over.
                     MySceneView.SetViewpointAsync(MySceneView.Scene.InitialViewpoint);
@@ -150,15 +154,18 @@ namespace ArcGIS.WPF.Samples.PlayKmlTours
                     PlayPauseButton.IsEnabled = true;
                     ResetButton.IsEnabled = false;
                     PlayPauseButton.Content = "Play";
+                    _tourPlaying = false;
                     break;
 
                 case KmlTourStatus.Playing:
                     ResetButton.IsEnabled = true;
                     PlayPauseButton.Content = "Pause";
+                    _tourPlaying = true;
                     break;
 
                 case KmlTourStatus.Paused:
                     PlayPauseButton.Content = "Play";
+                    _tourPlaying = false;
                     break;
             }
         }
@@ -166,13 +173,13 @@ namespace ArcGIS.WPF.Samples.PlayKmlTours
         // Play and pause the tour when the button is pressed.
         private void PlayPause_Click(object sender, RoutedEventArgs e)
         {
-            if (PlayPauseButton.Content.ToString() == "Play")
+            if(_tourPlaying)
             {
-                _tourController?.Play();
+                _tourController?.Pause();
             }
             else
             {
-                _tourController?.Pause();
+                _tourController?.Play();
             }
         }
 

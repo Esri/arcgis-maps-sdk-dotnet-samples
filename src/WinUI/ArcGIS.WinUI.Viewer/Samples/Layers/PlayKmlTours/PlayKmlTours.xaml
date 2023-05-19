@@ -6,7 +6,7 @@
         <esriUI:SceneView x:Name="MySceneView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel Orientation="Vertical" Spacing="5">
-                <TextBlock Margin="0,0,0,5" Text="Contains audio. 🎧" />
+                <TextBlock Margin="0,0,0,5" Text="Use the buttons to control the tour. Contains audio. 🎧" />
                 <Grid ColumnSpacing="5">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />

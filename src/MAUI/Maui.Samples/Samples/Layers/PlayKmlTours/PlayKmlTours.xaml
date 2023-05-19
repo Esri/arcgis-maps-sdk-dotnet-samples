@@ -7,7 +7,7 @@
         <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <VerticalStackLayout Padding="5" Spacing="5">
-                <Label Margin="0,0,0,5" Text="Contains audio. 🎧" />
+                <Label Margin="0,0,0,5" Text="Use the buttons to control the tour. Contains audio. 🎧" />
                 <Grid ColumnDefinitions="auto, auto" ColumnSpacing="5">
                     <Button x:Name="PlayPauseButton"
                             Clicked="PlayPause_Clicked"

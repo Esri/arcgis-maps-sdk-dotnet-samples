@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.Helpers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Portal;
@@ -21,7 +20,7 @@ namespace ArcGIS.Samples.OAuth
         instructions: "When you run the sample, the app will load a web map which contains premium content. You will be challenged for an ArcGIS Online login to view the private layers. Enter a user name and password for an ArcGIS Online named user account (such as your ArcGIS for Developers account). If you authenticate successfully, the traffic layer will display, otherwise the map will contain only the public basemap layer.",
         tags: new[] { "OAuth", "OAuth2", "authentication", "cloud", "credential", "portal", "security" })]
     [ArcGIS.Samples.Shared.Attributes.ClassFile("Helpers/ArcGISLoginPrompt.cs")]
-    public partial class OAuth : ContentPage, IDisposable
+    public partial class OAuth : ContentPage
     {
         // - The URL of the portal to authenticate with
         private const string ServerUrl = "https://www.arcgis.com/sharing/rest";
@@ -60,12 +59,6 @@ namespace ArcGIS.Samples.OAuth
             {
                 await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
-        }
-
-        public void Dispose()
-        {
-            // Re-enable the API key in the viewer when exiting this sample.
-            ApiKeyManager.EnableKey();
         }
     }
 }

@@ -29,16 +29,15 @@ namespace ArcGIS.Helpers
                 // Set the currently selected sample.
                 SampleManager.Current.SelectedSample = sampleInfo;
 
-                // Restore API key if leaving named user sample.
-                if (_namedUserSamples.Contains(SampleManager.Current?.SelectedSample?.FormalName))
-                {
-                    ApiKeyManager.EnableKey();
-                }
-
                 // Remove API key if opening named user sample.
                 if (_namedUserSamples.Contains(sampleInfo.FormalName))
                 {
                     ApiKeyManager.DisableKey();
+                }
+                else
+                {
+                    // Ensure the API key is enabled if the sample that is being opened is not a named user sample.
+                    ApiKeyManager.EnableKey();
                 }
 
                 // Clear any existing credentials from AuthenticationManager.

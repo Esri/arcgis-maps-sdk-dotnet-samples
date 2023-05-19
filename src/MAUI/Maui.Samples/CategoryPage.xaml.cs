@@ -1,5 +1,6 @@
 using ArcGIS.Helpers;
 using ArcGIS.Samples.Managers;
+using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.Samples.Shared.Models;
 using ArcGIS.ViewModels;
 using CommunityToolkit.Maui.Views;
@@ -90,6 +91,16 @@ public partial class CategoryPage : ContentPage
         }
 
         SetBindingContext();
-        
+    }
+
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+
+        // Ensure we enable the API key when we navigate here at any time. 
+        if (ApiKeyManager.KeyDisabled)
+        {
+            ApiKeyManager.EnableKey();
+        }
     }
 }

@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.Helpers;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
@@ -169,12 +168,6 @@ namespace ArcGIS.Samples.SearchPortalMaps
         private void ListCloseClicked(object sender, EventArgs e)
         {
             MapsListBorder.IsVisible = false;
-        }
-
-        public void Dispose()
-        {
-            // Re-enable the API key in the viewer when exiting this sample.
-            ApiKeyManager.EnableKey();
         }
     }
 }

@@ -27,8 +27,8 @@
         "KmlPlacemark.BalloonContent"
     ],
     "snippets": [
-        "IdentifyKmlFeatures.xaml",
-        "IdentifyKmlFeatures.xaml.cs"
+        "IdentifyKmlFeatures.xaml.cs",
+        "IdentifyKmlFeatures.xaml"
     ],
     "title": "Identify KML features"
 }

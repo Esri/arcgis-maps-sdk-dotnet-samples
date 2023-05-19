@@ -43,7 +43,8 @@
             <ComboBox x:Name="MissionSelectionBox"
                       Width="100"
                       Height="25"
-                      VerticalAlignment="Top" />
+                      VerticalAlignment="Top"
+                      HorizontalContentAlignment="Center" />
             <Button x:Name="MissionPlayPause"
                     Width="50"
                     Height="25"
@@ -60,7 +61,8 @@
                     Maximum="1"
                     Minimum="0"
                     ValueChanged="MissionProgressOnSeek" />
-            <Button Width="100"
+            <Button x:Name="CameraControlButton"
+                    Width="100"
                     Height="25"
                     VerticalAlignment="Top"
                     Click="ToggleFollowPlane"

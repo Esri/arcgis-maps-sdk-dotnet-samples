@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "Query data using a time extent. ",
+    "description": "Query data using a time extent.",
     "formal_name": "TimeBasedQuery",
     "ignore": false,
     "images": [
@@ -21,8 +21,8 @@
         "TimeExtent"
     ],
     "snippets": [
-        "TimeBasedQuery.xaml",
-        "TimeBasedQuery.xaml.cs"
+        "TimeBasedQuery.xaml.cs",
+        "TimeBasedQuery.xaml"
     ],
     "title": "Time-based query"
 }

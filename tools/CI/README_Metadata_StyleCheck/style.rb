@@ -5,4 +5,5 @@ rule 'MD009', :br_spaces => 2  # Allows an exception for 2 trailing spaces used 
 rule 'MD029', :style => :ordered  # Ordered list item prefix is incremental, rather than all ones
 exclude_rule 'MD013'  # Not limiting line length
 exclude_rule 'MD007'  # Not limiting unordered list indentation, tab, 2 or 4 spaces are all fine
+exclude_rule 'MD033'  # We need to use angled brackets in-line for our API references
 exclude_rule 'MD034'  # Not using angle brackets around URLs

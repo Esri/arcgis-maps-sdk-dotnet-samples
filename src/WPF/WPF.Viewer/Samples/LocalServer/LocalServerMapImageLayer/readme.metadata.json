@@ -26,8 +26,8 @@
         "LocalServerStatus"
     ],
     "snippets": [
-        "LocalServerMapImageLayer.xaml",
-        "LocalServerMapImageLayer.xaml.cs"
+        "LocalServerMapImageLayer.xaml.cs",
+        "LocalServerMapImageLayer.xaml"
     ],
     "title": "Local Server map image layer"
 }

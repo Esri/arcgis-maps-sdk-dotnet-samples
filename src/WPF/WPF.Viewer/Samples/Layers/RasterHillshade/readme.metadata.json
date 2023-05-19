@@ -27,8 +27,8 @@
         "RasterLayer"
     ],
     "snippets": [
-        "RasterHillshade.xaml",
-        "RasterHillshade.xaml.cs"
+        "RasterHillshade.xaml.cs",
+        "RasterHillshade.xaml"
     ],
     "title": "Hillshade renderer"
 }

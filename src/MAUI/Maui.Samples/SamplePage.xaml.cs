@@ -30,6 +30,7 @@ namespace ArcGIS
     {
         private ContentPage _sample;
         private Assembly _assembly;
+        private int _lastViewedFileIndex = 0;
 
         public ObservableCollection<SourceCodeFile> SourceFiles { get; } = new ObservableCollection<SourceCodeFile>();
 
@@ -81,6 +82,7 @@ namespace ArcGIS
 
             LoadSampleData(sampleInfo);
         }
+
         private async void LoadSampleData(SampleInfo sampleInfo)
         { 
             // Set up the description page.
@@ -102,10 +104,6 @@ namespace ArcGIS
             {
                 LoadSourceCode(sampleInfo);
 
-                if (SourceFiles.Any())
-                {
-                    SelectFile(SourceFiles[0].Name);
-                }
                 SourceCodeView.Navigating += Webview_Navigating;
             }
             catch (Exception ex)
@@ -168,7 +166,6 @@ namespace ArcGIS
                 category = $"{category.Split(" ")[0]}{category.Split(" ")[1][0].ToString().ToUpper()}{category.Split(" ")[1].Substring(1)}";
             }
 
-            var manifestResourceNames = _assembly.GetManifestResourceNames();
             using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync($"Samples/{category}/{sampleInfo.FormalName}/readme.md").ConfigureAwait(false);
             StreamReader r = new StreamReader(fileStream);
             var readmeContent = r.ReadToEnd();
@@ -185,7 +182,6 @@ namespace ArcGIS
 #endif
 
             // Convert the image into a string of bytes to embed into the html.
-            var resources = _assembly.GetManifestResourceNames();
             var sourceStream = await LoadImageStreamAsync(sampleInfo.SampleImageName);
             if (sourceStream is not null)
             {
@@ -217,6 +213,7 @@ namespace ArcGIS
 
             return fullContent;
         }
+
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         public static async Task<Stream> LoadImageStreamAsync(string file)
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
@@ -229,6 +226,7 @@ namespace ArcGIS
             var resources = context.Resources;
 
             var resourceId = context.GetDrawableId(file);
+
             if (resourceId > 0)
             {
                 var imageUri = new Android.Net.Uri.Builder()
@@ -253,19 +251,15 @@ namespace ArcGIS
 #endif
             return null;
         }
-        private async Task<byte[]> ConvertImageSourceToBytesAsync(ImageSource imageSource)
-        {
-            Stream stream = await ((StreamImageSource)imageSource).Stream(CancellationToken.None);
-            byte[] bytesAvailable = new byte[stream.Length];
-            stream.Read(bytesAvailable, 0, bytesAvailable.Length);
-
-            return bytesAvailable;
-        }
 
         private void LoadSourceCode(SampleInfo sampleInfo)
         {
             // Get all files in the samples folder.
-            var fileNames = _assembly.GetManifestResourceNames().Where(name => name.Contains($"{sampleInfo.FormalName}.cs") || name.Contains($"{sampleInfo.FormalName}.xaml"));
+            var fileNames = new List<string>
+            {
+                $"Samples/{sampleInfo.Category}/{sampleInfo.FormalName}/{sampleInfo.FormalName}.xaml.cs",
+                $"Samples/{sampleInfo.Category}/{sampleInfo.FormalName}/{sampleInfo.FormalName}.xaml",
+            };
 
             // Add every .cs and .xaml file in the directory of the sample.
             foreach (string filepath in fileNames.OrderByDescending(x => x))
@@ -281,11 +275,15 @@ namespace ArcGIS
                     // Don't add source files already found in the directory.
                     if (!SourceFiles.Any(f => f.Name == additionalPath))
                     {
-                        var embeddedResourcePath = additionalPath.Replace('\\', '.');
-                        var embeddedName = _assembly.GetManifestResourceNames().Single(name => name.Contains(embeddedResourcePath));
-
-                        // Add class files to the front of the list, they are usually critical to the sample.
-                        SourceFiles.Insert(0, new SourceCodeFile(embeddedName));
+                        if (!additionalPath.Contains('/'))
+                        {
+                            string fullPath = $"Samples/{sampleInfo.Category}/{sampleInfo.FormalName}/{additionalPath}";
+                            SourceFiles.Add(new SourceCodeFile(fullPath));
+                        }
+                        else
+                        {
+                            SourceFiles.Add(new SourceCodeFile(additionalPath));
+                        }
                     }
                 }
             }
@@ -322,6 +320,11 @@ namespace ArcGIS
 
         private void SourceButton_Clicked(object sender, EventArgs e)
         {
+            if (SourceFiles.Any())
+            {
+                SelectFile(SourceFiles[_lastViewedFileIndex].Name);
+            }
+
             SourceCodePage.IsVisible = true;
             SampleDetailPage.IsVisible = SampleContentPage.IsVisible = false;
         }
@@ -330,11 +333,14 @@ namespace ArcGIS
         {
             try
             {
-                string[] fileList = SourceFiles.Select(s => s.Name).ToArray();
+                string[] fileList = SourceFiles.Select(s => s.Name.Split('/').Last()).ToArray();
                 string result = await Application.Current.MainPage.DisplayActionSheet("Choose file:", "Cancel", null, fileList);
+
+                _lastViewedFileIndex = fileList.ToList().IndexOf(result);
+
                 if (fileList.Contains(result))
                 {
-                    SelectFile(result);
+                    SelectFile(SourceFiles.FirstOrDefault(s => s.Name.Split("/").Last().Equals(result)).Name);
                 }
             }
             // No need to handle any cancellation.
@@ -399,9 +405,10 @@ namespace ArcGIS
         {
             SourceCodeView.Source = new HtmlWebViewSource()
             {
-                Html = SourceFiles.Single(s => s.Name == fileName).HtmlContent,
+                Html = SourceFiles.FirstOrDefault(s => s.Name == fileName).HtmlContent,
             };
-            CurrentFileLabel.Text = fileName;
+
+            CurrentFileLabel.Text = fileName.Split('/').Last();
         }
     }
 
@@ -439,29 +446,37 @@ namespace ArcGIS
 
         public string HtmlContent
         {
-            get
-            {
-                if (_fullContent == null)
-                {
-                    LoadContent();
-                }
-
-                return _fullContent;
-            }
+            get { return _fullContent; }
         }
 
         public SourceCodeFile(string embeddedResourceFilePath)
         {
             _path = embeddedResourceFilePath;
-        }
 
-        private void LoadContent()
+            _ = LoadContent();
+        }
+        private async Task LoadContent()
         {
             try
             {
+                string baseContent = string.Empty;
                 var assembly = Assembly.GetExecutingAssembly();
-                string baseContent = new StreamReader(assembly.GetManifestResourceStream(_path)).ReadToEnd();
-
+#if __ANDROID__
+                if (_path.EndsWith(".xaml"))
+                {
+                    var fileName = _path.Split('/').Last();
+                    var xamlPath = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{fileName}"));
+                    baseContent = new StreamReader(assembly.GetManifestResourceStream(xamlPath)).ReadToEnd();
+                }
+                else
+                {
+                    using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync(_path).ConfigureAwait(false);
+                    baseContent = new StreamReader(fileStream).ReadToEnd();
+                }
+#else
+                using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync(_path).ConfigureAwait(false);
+                baseContent = new StreamReader(fileStream).ReadToEnd();
+#endif
                 // > and < characters will be incorrectly parsed by the html.
                 baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");
 

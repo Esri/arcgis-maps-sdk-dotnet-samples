@@ -28,8 +28,8 @@
         "NmeaSatelliteInfo"
     ],
     "snippets": [
-        "LocationWithNMEA.xaml",
-        "LocationWithNMEA.xaml.cs"
+        "LocationWithNMEA.xaml.cs",
+        "LocationWithNMEA.xaml"
     ],
     "title": "Display device location with NMEA data sources"
 }

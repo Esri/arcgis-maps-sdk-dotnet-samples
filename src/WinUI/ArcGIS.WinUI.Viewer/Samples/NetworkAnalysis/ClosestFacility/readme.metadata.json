@@ -28,8 +28,8 @@
         "MapView"
     ],
     "snippets": [
-        "ClosestFacility.xaml",
-        "ClosestFacility.xaml.cs"
+        "ClosestFacility.xaml.cs",
+        "ClosestFacility.xaml"
     ],
     "title": "Find closest facility to an incident (interactive)"
 }

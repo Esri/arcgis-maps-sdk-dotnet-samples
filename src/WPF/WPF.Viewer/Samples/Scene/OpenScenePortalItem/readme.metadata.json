@@ -21,8 +21,8 @@
         "SceneView"
     ],
     "snippets": [
-        "OpenScenePortalItem.xaml",
-        "OpenScenePortalItem.xaml.cs"
+        "OpenScenePortalItem.xaml.cs",
+        "OpenScenePortalItem.xaml"
     ],
     "title": "Open scene (portal item)"
 }

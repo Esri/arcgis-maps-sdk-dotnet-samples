@@ -24,8 +24,8 @@
         "GeoprocessingTask"
     ],
     "snippets": [
-        "AnalyzeHotspots.xaml",
-        "AnalyzeHotspots.xaml.cs"
+        "AnalyzeHotspots.xaml.cs",
+        "AnalyzeHotspots.xaml"
     ],
     "title": "Analyze hotspots"
 }

@@ -24,8 +24,8 @@
         "MapView.OperationalLayers"
     ],
     "snippets": [
-        "ManageOperationalLayers.xaml",
-        "ManageOperationalLayers.xaml.cs"
+        "ManageOperationalLayers.xaml.cs",
+        "ManageOperationalLayers.xaml"
     ],
     "title": "Manage operational layers"
 }

@@ -29,8 +29,8 @@
         "ReverseGeocodeParameters"
     ],
     "snippets": [
-        "OfflineGeocode.xaml",
-        "OfflineGeocode.xaml.cs"
+        "OfflineGeocode.xaml.cs",
+        "OfflineGeocode.xaml"
     ],
     "title": "Offline geocode"
 }

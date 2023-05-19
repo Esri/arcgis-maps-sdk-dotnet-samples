@@ -28,8 +28,8 @@
         "RuntimeImage.ToImageSourceAsync"
     ],
     "snippets": [
-        "TakeScreenshot.xaml",
-        "TakeScreenshot.xaml.cs"
+        "TakeScreenshot.xaml.cs",
+        "TakeScreenshot.xaml"
     ],
     "title": "Take screenshot"
 }

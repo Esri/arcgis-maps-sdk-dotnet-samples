@@ -27,8 +27,8 @@
         "SceneView"
     ],
     "snippets": [
-        "ViewshedCamera.xaml",
-        "ViewshedCamera.xaml.cs"
+        "ViewshedCamera.xaml.cs",
+        "ViewshedCamera.xaml"
     ],
     "title": "Viewshed for camera"
 }

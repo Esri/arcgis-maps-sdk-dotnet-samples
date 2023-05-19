@@ -23,8 +23,8 @@
         "ProximityResult"
     ],
     "snippets": [
-        "NearestVertex.xaml",
-        "NearestVertex.xaml.cs"
+        "NearestVertex.xaml.cs",
+        "NearestVertex.xaml"
     ],
     "title": "Nearest vertex"
 }

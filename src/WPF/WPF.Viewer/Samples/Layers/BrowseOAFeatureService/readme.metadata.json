@@ -27,8 +27,8 @@
         "OgcFeatureServiceInfo"
     ],
     "snippets": [
-        "BrowseOAFeatureService.xaml",
-        "BrowseOAFeatureService.xaml.cs"
+        "BrowseOAFeatureService.xaml.cs",
+        "BrowseOAFeatureService.xaml"
     ],
     "title": "Browse OGC API feature service"
 }

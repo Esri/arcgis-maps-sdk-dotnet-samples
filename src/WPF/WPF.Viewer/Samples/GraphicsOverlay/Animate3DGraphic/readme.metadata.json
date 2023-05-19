@@ -39,8 +39,8 @@
         "SurfacePlacement"
     ],
     "snippets": [
-        "Animate3DGraphic.xaml",
-        "Animate3DGraphic.xaml.cs"
+        "Animate3DGraphic.xaml.cs",
+        "Animate3DGraphic.xaml"
     ],
     "title": "Animate 3D graphic"
 }

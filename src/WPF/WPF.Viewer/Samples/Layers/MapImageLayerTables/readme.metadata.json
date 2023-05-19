@@ -28,8 +28,8 @@
         "ServiceFeatureTable"
     ],
     "snippets": [
-        "MapImageLayerTables.xaml",
-        "MapImageLayerTables.xaml.cs"
+        "MapImageLayerTables.xaml.cs",
+        "MapImageLayerTables.xaml"
     ],
     "title": "Map image layer tables"
 }

@@ -22,8 +22,8 @@
         "WmsSublayerInfo"
     ],
     "snippets": [
-        "StyleWmsLayer.xaml",
-        "StyleWmsLayer.xaml.cs"
+        "StyleWmsLayer.xaml.cs",
+        "StyleWmsLayer.xaml"
     ],
     "title": "Style WMS layers"
 }

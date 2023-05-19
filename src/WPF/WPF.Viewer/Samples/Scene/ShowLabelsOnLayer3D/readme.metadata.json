@@ -23,8 +23,8 @@
         "SceneView"
     ],
     "snippets": [
-        "ShowLabelsOnLayer3D.xaml",
-        "ShowLabelsOnLayer3D.xaml.cs"
+        "ShowLabelsOnLayer3D.xaml.cs",
+        "ShowLabelsOnLayer3D.xaml"
     ],
     "title": "Show labels on layer 3D"
 }

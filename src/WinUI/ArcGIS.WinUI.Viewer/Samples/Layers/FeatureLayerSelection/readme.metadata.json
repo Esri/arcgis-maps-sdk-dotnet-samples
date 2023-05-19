@@ -23,8 +23,8 @@
         "ServiceFeatureTable"
     ],
     "snippets": [
-        "FeatureLayerSelection.xaml",
-        "FeatureLayerSelection.xaml.cs"
+        "FeatureLayerSelection.xaml.cs",
+        "FeatureLayerSelection.xaml"
     ],
     "title": "Feature layer selection"
 }

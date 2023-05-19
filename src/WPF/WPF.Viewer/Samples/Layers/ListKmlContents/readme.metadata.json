@@ -30,8 +30,8 @@
         "KmlScreenOverlay"
     ],
     "snippets": [
-        "ListKmlContents.xaml",
-        "ListKmlContents.xaml.cs"
+        "ListKmlContents.xaml.cs",
+        "ListKmlContents.xaml"
     ],
     "title": "List KML contents"
 }

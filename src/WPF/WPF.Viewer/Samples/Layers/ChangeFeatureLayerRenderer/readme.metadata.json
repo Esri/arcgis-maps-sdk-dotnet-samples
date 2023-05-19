@@ -21,8 +21,8 @@
         "SimpleRenderer"
     ],
     "snippets": [
-        "ChangeFeatureLayerRenderer.xaml",
-        "ChangeFeatureLayerRenderer.xaml.cs"
+        "ChangeFeatureLayerRenderer.xaml.cs",
+        "ChangeFeatureLayerRenderer.xaml"
     ],
     "title": "Change feature layer renderer"
 }

@@ -24,8 +24,8 @@
         "MapView"
     ],
     "snippets": [
-        "ArcGISTiledLayerUrl.xaml",
-        "ArcGISTiledLayerUrl.xaml.cs"
+        "ArcGISTiledLayerUrl.xaml.cs",
+        "ArcGISTiledLayerUrl.xaml"
     ],
     "title": "ArcGIS tiled layer"
 }

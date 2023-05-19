@@ -14,8 +14,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -27,7 +25,6 @@ namespace ArcGIS.WPF.Samples.AddDynamicEntityLayer
         description: "Display data from an ArcGIS stream service using a dynamic entity layer.",
         instructions: "Use the controls to connect to or disconnect from the stream service, modify display properties in the dynamic entity layer, and purge all observations from the application.",
         tags: new[] { "data", "dynamic", "entity", "live", "purge", "real-time", "service", "stream", "track" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class AddDynamicEntityLayer
     {
         // This envelope is a limited region around Sandy, Utah. It will be the extent used by the `DynamicEntityFilter`.
@@ -39,10 +36,10 @@ namespace ArcGIS.WPF.Samples.AddDynamicEntityLayer
         public AddDynamicEntityLayer()
         {
             InitializeComponent();
-            _ = Initialize();
+            Initialize();
         }
 
-        private async Task Initialize()
+        private void Initialize()
         {
             MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGrayBase);
 
@@ -139,7 +136,7 @@ namespace ArcGIS.WPF.Samples.AddDynamicEntityLayer
             }
         }
 
-        private void PurgeClick(object sender, RoutedEventArgs e)
+        private void PurgeButton_Click(object sender, RoutedEventArgs e)
         {
             _dynamicEntityDataSource?.PurgeAllAsync();
         }
@@ -152,7 +149,7 @@ namespace ArcGIS.WPF.Samples.AddDynamicEntityLayer
             }
         }
 
-        private void ConnectionButtonClick(object sender, RoutedEventArgs e)
+        private void ConnectionButton_Click(object sender, RoutedEventArgs e)
         {
             if (_dynamicEntityDataSource.ConnectionStatus == ConnectionStatus.Connected)
             {

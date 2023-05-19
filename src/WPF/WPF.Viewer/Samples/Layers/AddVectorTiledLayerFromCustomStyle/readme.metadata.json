@@ -26,8 +26,8 @@
         "VectorTilesTask"
     ],
     "snippets": [
-        "AddVectorTiledLayerFromCustomStyle.xaml",
-        "AddVectorTiledLayerFromCustomStyle.xaml.cs"
+        "AddVectorTiledLayerFromCustomStyle.xaml.cs",
+        "AddVectorTiledLayerFromCustomStyle.xaml"
     ],
     "title": "Add vector tiled layer from custom style"
 }

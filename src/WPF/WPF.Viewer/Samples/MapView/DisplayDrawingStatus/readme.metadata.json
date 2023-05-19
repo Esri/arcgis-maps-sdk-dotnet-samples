@@ -24,8 +24,8 @@
         "MapView"
     ],
     "snippets": [
-        "DisplayDrawingStatus.xaml",
-        "DisplayDrawingStatus.xaml.cs"
+        "DisplayDrawingStatus.xaml.cs",
+        "DisplayDrawingStatus.xaml"
     ],
     "title": "Display draw status"
 }

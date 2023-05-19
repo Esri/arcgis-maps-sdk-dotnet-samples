@@ -22,8 +22,8 @@
         "SceneView"
     ],
     "snippets": [
-        "GetElevationAtPoint.xaml",
-        "GetElevationAtPoint.xaml.cs"
+        "GetElevationAtPoint.xaml.cs",
+        "GetElevationAtPoint.xaml"
     ],
     "title": "Get elevation at a point"
 }

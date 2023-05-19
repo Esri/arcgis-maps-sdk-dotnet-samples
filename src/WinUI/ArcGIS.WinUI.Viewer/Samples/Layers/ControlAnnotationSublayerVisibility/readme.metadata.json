@@ -25,8 +25,8 @@
         "LayerContent"
     ],
     "snippets": [
-        "ControlAnnotationSublayerVisibility.xaml",
-        "ControlAnnotationSublayerVisibility.xaml.cs"
+        "ControlAnnotationSublayerVisibility.xaml.cs",
+        "ControlAnnotationSublayerVisibility.xaml"
     ],
     "title": "Control annotation sublayer visibility"
 }

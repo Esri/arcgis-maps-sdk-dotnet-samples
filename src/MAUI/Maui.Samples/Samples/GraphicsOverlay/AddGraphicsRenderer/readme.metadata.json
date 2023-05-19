@@ -40,8 +40,8 @@
         "SimpleRenderer"
     ],
     "snippets": [
-        "AddGraphicsRenderer.xaml",
-        "AddGraphicsRenderer.xaml.cs"
+        "AddGraphicsRenderer.xaml.cs",
+        "AddGraphicsRenderer.xaml"
     ],
     "title": "Add graphics with renderer"
 }

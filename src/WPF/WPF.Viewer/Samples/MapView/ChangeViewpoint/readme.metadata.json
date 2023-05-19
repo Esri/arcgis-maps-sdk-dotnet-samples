@@ -27,8 +27,8 @@
         "Viewpoint"
     ],
     "snippets": [
-        "ChangeViewpoint.xaml",
-        "ChangeViewpoint.xaml.cs"
+        "ChangeViewpoint.xaml.cs",
+        "ChangeViewpoint.xaml"
     ],
     "title": "Change viewpoint"
 }

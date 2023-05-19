@@ -23,8 +23,8 @@
         "GraphicsOverlay"
     ],
     "snippets": [
-        "ClipGeometry.xaml",
-        "ClipGeometry.xaml.cs"
+        "ClipGeometry.xaml.cs",
+        "ClipGeometry.xaml"
     ],
     "title": "Clip geometry"
 }

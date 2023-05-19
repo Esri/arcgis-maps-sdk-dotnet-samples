@@ -29,8 +29,8 @@
         "UpdateFeatureAsync"
     ],
     "snippets": [
-        "EditFeatureAttachments.xaml",
-        "EditFeatureAttachments.xaml.cs"
+        "EditFeatureAttachments.xaml.cs",
+        "EditFeatureAttachments.xaml"
     ],
     "title": "Edit feature attachments"
 }

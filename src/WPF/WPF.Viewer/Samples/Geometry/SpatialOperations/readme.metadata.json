@@ -31,8 +31,8 @@
         "GraphicsOverlay"
     ],
     "snippets": [
-        "SpatialOperations.xaml",
-        "SpatialOperations.xaml.cs"
+        "SpatialOperations.xaml.cs",
+        "SpatialOperations.xaml"
     ],
     "title": "Perform spatial operations"
 }

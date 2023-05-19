@@ -21,8 +21,8 @@
         "PortalItem"
     ],
     "snippets": [
-        "OpenMapURL.xaml",
-        "OpenMapURL.xaml.cs"
+        "OpenMapURL.xaml.cs",
+        "OpenMapURL.xaml"
     ],
     "title": "Open map URL"
 }

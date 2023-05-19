@@ -27,8 +27,8 @@
         "OpenStreetMapLayer"
     ],
     "snippets": [
-        "OpenStreetMapLayer.xaml",
-        "OpenStreetMapLayer.xaml.cs"
+        "OpenStreetMapLayer.xaml.cs",
+        "OpenStreetMapLayer.xaml"
     ],
     "title": "OpenStreetMap layer"
 }

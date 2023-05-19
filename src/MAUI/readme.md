@@ -137,9 +137,9 @@
 * [Show labels on layers](Maui.Samples/Samples/Layers/ShowLabelsOnLayer) - Display custom labels on a feature layer.
 * [Stretch renderer](Maui.Samples/Samples/Layers/ChangeStretchRenderer) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.
 * [Style WMS layers](Maui.Samples/Samples/Layers/StyleWmsLayer) - Change the style of a Web Map Service (WMS) layer.
-* [Time-based query](Maui.Samples/Samples/Layers/TimeBasedQuery) - Query data using a time extent. 
+* [Time-based query](Maui.Samples/Samples/Layers/TimeBasedQuery) - Query data using a time extent.
 * [WMS layer (URL)](Maui.Samples/Samples/Layers/WMSLayerUrl) - Display a WMS layer using a WMS service URL.
-* [WMS service catalog](Maui.Samples/Samples/Layers/WmsServiceCatalog) - Connect to a WMS service and show the available layers and sublayers. 
+* [WMS service catalog](Maui.Samples/Samples/Layers/WmsServiceCatalog) - Connect to a WMS service and show the available layers and sublayers.
 * [WMTS layer](Maui.Samples/Samples/Layers/WMTSLayer) - Display a layer from a Web Map Tile Service.
 * [Web tiled layer](Maui.Samples/Samples/Layers/LoadWebTiledLayer) - Display a tiled web layer.
 
@@ -158,7 +158,7 @@
 * [Change basemap](Maui.Samples/Samples/Map/ChangeBasemap) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
 * [Create and save map](Maui.Samples/Samples/Map/AuthorMap) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
 * [Display map](Maui.Samples/Samples/Map/DisplayMap) - Display a map with an imagery basemap.
-* [Display overview map](Maui.Samples/Samples/Map/DisplayOverviewMap) - Include an overview or inset map as an additional map view to show the wider context of the primary view. 
+* [Display overview map](Maui.Samples/Samples/Map/DisplayOverviewMap) - Include an overview or inset map as an additional map view to show the wider context of the primary view.
 * [Download preplanned map area](Maui.Samples/Samples/Map/DownloadPreplannedMap) - Take a map offline using a preplanned map area.
 * [Generate offline map](Maui.Samples/Samples/Map/GenerateOfflineMap) - Take a web map offline.
 * [Generate offline map (overrides)](Maui.Samples/Samples/Map/GenerateOfflineMapWithOverrides) - Take a web map offline with additional options for each layer.

@@ -3,7 +3,7 @@ using Microsoft.UI.Xaml.Data;
 using System;
 using System.Collections;
 
-namespace ArcGIS.WinUI.Samples.MobileMapSearchAndRoute
+namespace ArcGIS.WinUI.Viewer.Converters
 {
     public class NullOrEmptyToVisibilityConverter : IValueConverter
     {

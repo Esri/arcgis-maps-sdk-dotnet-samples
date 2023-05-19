@@ -25,8 +25,8 @@
         "GeodatabaseSyncTask"
     ],
     "snippets": [
-        "GenerateGeodatabaseReplica.xaml",
-        "GenerateGeodatabaseReplica.xaml.cs"
+        "GenerateGeodatabaseReplica.xaml.cs",
+        "GenerateGeodatabaseReplica.xaml"
     ],
     "title": "Generate geodatabase replica from feature service"
 }

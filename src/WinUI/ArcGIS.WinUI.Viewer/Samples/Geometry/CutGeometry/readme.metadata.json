@@ -21,8 +21,8 @@
         "Polyline"
     ],
     "snippets": [
-        "CutGeometry.xaml",
-        "CutGeometry.xaml.cs"
+        "CutGeometry.xaml.cs",
+        "CutGeometry.xaml"
     ],
     "title": "Cut geometry"
 }

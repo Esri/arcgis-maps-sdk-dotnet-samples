@@ -28,8 +28,8 @@
         "TextSymbol"
     ],
     "snippets": [
-        "ShowLabelsOnLayer.xaml",
-        "ShowLabelsOnLayer.xaml.cs"
+        "ShowLabelsOnLayer.xaml.cs",
+        "ShowLabelsOnLayer.xaml"
     ],
     "title": "Show labels on layers"
 }

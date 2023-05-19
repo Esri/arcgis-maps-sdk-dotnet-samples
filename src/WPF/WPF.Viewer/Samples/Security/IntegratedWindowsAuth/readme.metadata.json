@@ -21,8 +21,8 @@
         "ArcGISPortal"
     ],
     "snippets": [
-        "IntegratedWindowsAuth.xaml",
-        "IntegratedWindowsAuth.xaml.cs"
+        "IntegratedWindowsAuth.xaml.cs",
+        "IntegratedWindowsAuth.xaml"
     ],
     "title": "Integrated Windows Authentication"
 }

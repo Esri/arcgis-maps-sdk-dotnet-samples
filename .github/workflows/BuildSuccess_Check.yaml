@@ -1,0 +1,73 @@
+# The name of the job, which will be displayed for the status check in PR.
+name: Build success check
+
+# Controls when the action will run.
+# Below triggers the workflow on pull requests to `main`.
+on:
+  pull_request:
+    branches:
+      - main
+
+# A workflow run is made up of one or more jobs that can run sequentially or
+# in parallel.
+
+jobs:
+# MAUI Build
+  build-maui:
+    runs-on: windows-latest
+    name: MAUI Build
+    steps:
+    - name: Clone .NET Samples
+      uses: actions/checkout@v1
+  
+    - name: Setup Visual Studio Command Prompt
+      uses: microsoft/setup-msbuild@v1.0.2
+    - name: Build MAUI
+      run: |
+        msbuild /restore /t:Build src/MAUI/ArcGIS.Samples.MAUI.sln /p:Configuration=Release
+
+# WPF .NET Build
+  build-wpf:
+    runs-on: windows-latest
+    name: WPF .NET Build
+    steps:
+    - name: Clone .NET Samples
+      uses: actions/checkout@v1
+    
+    - name: Setup Visual Studio Command Prompt
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Build WPF .NET
+      run: |
+        msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.Net.sln /p:Configuration=Release
+
+
+# WPF .NET Framework Build
+  build-wpf-framework:
+    runs-on: windows-latest
+    name: WPF .NET Framework Build
+    steps:
+    - name: Clone .NET Samples
+      uses: actions/checkout@v1
+    
+    - name: Setup Visual Studio Command Prompt
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Build WPF .NETFramework
+      run: |
+        msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.NetFramework.sln /p:Configuration=Release
+
+# WinUI Build
+  build-winUI:
+    runs-on: windows-latest
+    name: WinUI Build
+    steps:
+    - name: Clone .NET Samples
+      uses: actions/checkout@v1
+    
+    - name: Setup Visual Studio Command Prompt
+      uses: microsoft/setup-msbuild@v1.0.2
+
+    - name: Build WinUI
+      run: |
+        msbuild /restore /t:Build src/WinUI/ArcGIS.WinUI.Viewer.sln /p:Configuration=Release

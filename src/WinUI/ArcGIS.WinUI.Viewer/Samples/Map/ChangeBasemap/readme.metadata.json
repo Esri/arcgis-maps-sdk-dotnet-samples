@@ -20,8 +20,8 @@
         "MapView"
     ],
     "snippets": [
-        "ChangeBasemap.xaml",
-        "ChangeBasemap.xaml.cs"
+        "ChangeBasemap.xaml.cs",
+        "ChangeBasemap.xaml"
     ],
     "title": "Change basemap"
 }

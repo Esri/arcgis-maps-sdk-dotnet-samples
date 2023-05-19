@@ -27,8 +27,8 @@
         "KmlNetworkLinkControlMessageEventArgs"
     ],
     "snippets": [
-        "DisplayKmlNetworkLinks.xaml",
-        "DisplayKmlNetworkLinks.xaml.cs"
+        "DisplayKmlNetworkLinks.xaml.cs",
+        "DisplayKmlNetworkLinks.xaml"
     ],
     "title": "Display KML network links"
 }

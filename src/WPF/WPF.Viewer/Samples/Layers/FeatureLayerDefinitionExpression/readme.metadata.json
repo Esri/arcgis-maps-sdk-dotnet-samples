@@ -26,8 +26,8 @@
         "ServiceFeatureTable"
     ],
     "snippets": [
-        "FeatureLayerDefinitionExpression.xaml",
-        "FeatureLayerDefinitionExpression.xaml.cs"
+        "FeatureLayerDefinitionExpression.xaml.cs",
+        "FeatureLayerDefinitionExpression.xaml"
     ],
     "title": "Filter by definition expression or display filter"
 }

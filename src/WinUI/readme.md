@@ -137,9 +137,9 @@
 * [Show labels on layers](ArcGIS.WinUI.Viewer/Samples/Layers/ShowLabelsOnLayer) - Display custom labels on a feature layer.
 * [Stretch renderer](ArcGIS.WinUI.Viewer/Samples/Layers/ChangeStretchRenderer) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.
 * [Style WMS layers](ArcGIS.WinUI.Viewer/Samples/Layers/StyleWmsLayer) - Change the style of a Web Map Service (WMS) layer.
-* [Time-based query](ArcGIS.WinUI.Viewer/Samples/Layers/TimeBasedQuery) - Query data using a time extent. 
+* [Time-based query](ArcGIS.WinUI.Viewer/Samples/Layers/TimeBasedQuery) - Query data using a time extent.
 * [WMS layer (URL)](ArcGIS.WinUI.Viewer/Samples/Layers/WMSLayerUrl) - Display a WMS layer using a WMS service URL.
-* [WMS service catalog](ArcGIS.WinUI.Viewer/Samples/Layers/WmsServiceCatalog) - Connect to a WMS service and show the available layers and sublayers. 
+* [WMS service catalog](ArcGIS.WinUI.Viewer/Samples/Layers/WmsServiceCatalog) - Connect to a WMS service and show the available layers and sublayers.
 * [WMTS layer](ArcGIS.WinUI.Viewer/Samples/Layers/WMTSLayer) - Display a layer from a Web Map Tile Service.
 * [Web tiled layer](ArcGIS.WinUI.Viewer/Samples/Layers/LoadWebTiledLayer) - Display a tiled web layer.
 

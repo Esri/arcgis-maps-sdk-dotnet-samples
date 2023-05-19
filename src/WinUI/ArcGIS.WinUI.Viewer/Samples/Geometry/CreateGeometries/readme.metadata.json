@@ -27,8 +27,8 @@
         "Polyline"
     ],
     "snippets": [
-        "CreateGeometries.xaml",
-        "CreateGeometries.xaml.cs"
+        "CreateGeometries.xaml.cs",
+        "CreateGeometries.xaml"
     ],
     "title": "Create geometries"
 }

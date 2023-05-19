@@ -23,8 +23,8 @@
         "TimeExtent"
     ],
     "snippets": [
-        "ChangeTimeExtent.xaml",
-        "ChangeTimeExtent.xaml.cs"
+        "ChangeTimeExtent.xaml.cs",
+        "ChangeTimeExtent.xaml"
     ],
     "title": "Change time extent"
 }

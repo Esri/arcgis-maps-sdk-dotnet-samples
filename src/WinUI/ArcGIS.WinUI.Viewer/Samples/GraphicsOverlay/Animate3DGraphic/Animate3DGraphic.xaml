@@ -31,7 +31,8 @@
                     Orientation="Horizontal">
             <ComboBox x:Name="MissionSelectionBox"
                       MinWidth="150"
-                      VerticalAlignment="Top" />
+                      VerticalAlignment="Top"
+                      HorizontalContentAlignment="Center" />
             <Button x:Name="MissionPlayPause"
                     MinWidth="75"
                     Margin="5,0,0,0"
@@ -50,7 +51,8 @@
                     Minimum="0"
                     StepFrequency=".01"
                     ValueChanged="MissionProgressOnSeek" />
-            <Button MinWidth="100"
+            <Button x:Name="CameraControlButton"
+                    MinWidth="100"
                     Margin="5,0,0,0"
                     VerticalAlignment="Top"
                     Click="ToggleFollowPlane"

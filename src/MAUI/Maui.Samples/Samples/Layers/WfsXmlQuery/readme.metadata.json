@@ -26,8 +26,8 @@
         "WfsFeatureTable.PopulateFromServiceAsync"
     ],
     "snippets": [
-        "WfsXmlQuery.xaml",
-        "WfsXmlQuery.xaml.cs"
+        "WfsXmlQuery.xaml.cs",
+        "WfsXmlQuery.xaml"
     ],
     "title": "Load WFS with XML query"
 }

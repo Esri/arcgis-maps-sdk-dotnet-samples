@@ -18,7 +18,6 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Data;
 using WinMedia = System.Windows.Media;
 
 namespace ArcGIS.WPF.Samples.SymbolsFromMobileStyle
@@ -30,6 +29,7 @@ namespace ArcGIS.WPF.Samples.SymbolsFromMobileStyle
         instructions: "Select a symbol and a color from each of the category lists to create an emoji. A preview of the symbol is updated as selections are made. The size of the symbol can be set using the slider. Click the map to create a point graphic using the customized emoji symbol, and click \"Reset\" to clear all graphics from the display.",
         tags: new[] { "advanced symbology", "mobile style", "multilayer", "stylx" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("1bd036f221f54a99abc9e46ff3511cbf")]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("Converters\\ColorToSolidBrushConverter.cs")]
     public partial class SymbolsFromMobileStyle
     {
         // A variable for the symbol style object.
@@ -280,28 +280,6 @@ namespace ArcGIS.WPF.Samples.SymbolsFromMobileStyle
             Name = name;
             ImageSrc = source;
             Key = key;
-        }
-    }
-
-    // A class that converts a System.Drawing.Color object to a solid brush for setting background color for UI controls.
-    public class ColorToSolidBrushConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            // Get the input value as a System.Drawing.Color.
-            Color inColor = (Color)value;
-
-            // Convert the input System.Drawing.Color to a System.Windows.Media.Color.
-            WinMedia.Color outColor = WinMedia.Color.FromArgb(inColor.A, inColor.R, inColor.G, inColor.B);
-
-            // Create a solid color brush using the color and return it.
-            WinMedia.SolidColorBrush brush = new WinMedia.SolidColorBrush(outColor);
-            return brush;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            throw new NotImplementedException();
         }
     }
 }

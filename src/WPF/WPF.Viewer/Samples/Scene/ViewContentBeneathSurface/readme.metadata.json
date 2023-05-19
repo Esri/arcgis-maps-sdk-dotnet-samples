@@ -21,8 +21,8 @@
         "Surface.NavigationConstraint"
     ],
     "snippets": [
-        "ViewContentBeneathSurface.xaml",
-        "ViewContentBeneathSurface.xaml.cs"
+        "ViewContentBeneathSurface.xaml.cs",
+        "ViewContentBeneathSurface.xaml"
     ],
     "title": "View content beneath terrain surface"
 }

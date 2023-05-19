@@ -20,8 +20,8 @@
         "MapView"
     ],
     "snippets": [
-        "DisplayMap.xaml",
-        "DisplayMap.xaml.cs"
+        "DisplayMap.xaml.cs",
+        "DisplayMap.xaml"
     ],
     "title": "Display map"
 }

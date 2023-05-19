@@ -19,8 +19,8 @@
         "RasterLayer"
     ],
     "snippets": [
-        "RasterLayerImageServiceRaster.xaml",
-        "RasterLayerImageServiceRaster.xaml.cs"
+        "RasterLayerImageServiceRaster.xaml.cs",
+        "RasterLayerImageServiceRaster.xaml"
     ],
     "title": "Raster layer (service)"
 }

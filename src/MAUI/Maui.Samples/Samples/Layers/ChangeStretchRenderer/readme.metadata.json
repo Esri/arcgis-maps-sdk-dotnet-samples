@@ -37,8 +37,8 @@
         "StretchRenderer"
     ],
     "snippets": [
-        "ChangeStretchRenderer.xaml",
-        "ChangeStretchRenderer.xaml.cs"
+        "ChangeStretchRenderer.xaml.cs",
+        "ChangeStretchRenderer.xaml"
     ],
     "title": "Stretch renderer"
 }

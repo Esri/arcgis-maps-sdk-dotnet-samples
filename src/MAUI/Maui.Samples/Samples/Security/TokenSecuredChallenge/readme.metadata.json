@@ -22,10 +22,11 @@
         "TokenCredential"
     ],
     "snippets": [
-        "LoginPage.xaml",
-        "LoginPage.xaml.cs",
+        "TokenSecuredChallenge.xaml.cs",
         "TokenSecuredChallenge.xaml",
-        "TokenSecuredChallenge.xaml.cs"
+        "LoginPage.xaml.cs",
+        "LoginPage.xaml",
+        "../../../Converters/LoadStatusToColorConverter.cs"
     ],
     "title": "ArcGIS token challenge"
 }

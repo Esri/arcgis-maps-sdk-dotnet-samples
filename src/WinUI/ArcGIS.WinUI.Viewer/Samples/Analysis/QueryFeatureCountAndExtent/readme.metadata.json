@@ -29,8 +29,8 @@
         "QueryParameters.WhereClause"
     ],
     "snippets": [
-        "QueryFeatureCountAndExtent.xaml",
-        "QueryFeatureCountAndExtent.xaml.cs"
+        "QueryFeatureCountAndExtent.xaml.cs",
+        "QueryFeatureCountAndExtent.xaml"
     ],
     "title": "Query feature count and extent"
 }

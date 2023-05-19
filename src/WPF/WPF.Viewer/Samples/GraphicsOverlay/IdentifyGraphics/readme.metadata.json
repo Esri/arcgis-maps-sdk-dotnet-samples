@@ -20,8 +20,8 @@
         "MapView"
     ],
     "snippets": [
-        "IdentifyGraphics.xaml",
-        "IdentifyGraphics.xaml.cs"
+        "IdentifyGraphics.xaml.cs",
+        "IdentifyGraphics.xaml"
     ],
     "title": "Identify graphics"
 }

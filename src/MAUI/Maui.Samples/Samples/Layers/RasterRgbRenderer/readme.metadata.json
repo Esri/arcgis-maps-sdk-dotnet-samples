@@ -34,8 +34,8 @@
         "StretchParameters"
     ],
     "snippets": [
-        "RasterRgbRenderer.xaml",
-        "RasterRgbRenderer.xaml.cs"
+        "RasterRgbRenderer.xaml.cs",
+        "RasterRgbRenderer.xaml"
     ],
     "title": "RGB renderer"
 }

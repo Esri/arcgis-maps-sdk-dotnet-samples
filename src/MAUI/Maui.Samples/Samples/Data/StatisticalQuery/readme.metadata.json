@@ -36,8 +36,8 @@
         "StatisticsQueryResult"
     ],
     "snippets": [
-        "StatisticalQuery.xaml",
-        "StatisticalQuery.xaml.cs"
+        "StatisticalQuery.xaml.cs",
+        "StatisticalQuery.xaml"
     ],
     "title": "Statistical query"
 }

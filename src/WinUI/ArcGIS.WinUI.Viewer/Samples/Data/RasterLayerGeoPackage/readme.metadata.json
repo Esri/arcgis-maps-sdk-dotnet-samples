@@ -29,8 +29,8 @@
         "RasterLayer"
     ],
     "snippets": [
-        "RasterLayerGeoPackage.xaml",
-        "RasterLayerGeoPackage.xaml.cs"
+        "RasterLayerGeoPackage.xaml.cs",
+        "RasterLayerGeoPackage.xaml"
     ],
     "title": "Raster layer (GeoPackage)"
 }

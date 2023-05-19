@@ -34,8 +34,8 @@
         "SimpleMarkerSceneSymbol.Style"
     ],
     "snippets": [
-        "SceneSymbols.xaml",
-        "SceneSymbols.xaml.cs"
+        "SceneSymbols.xaml.cs",
+        "SceneSymbols.xaml"
     ],
     "title": "Scene symbols"
 }

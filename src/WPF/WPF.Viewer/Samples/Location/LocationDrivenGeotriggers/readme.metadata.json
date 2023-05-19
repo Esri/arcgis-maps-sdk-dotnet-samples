@@ -38,8 +38,8 @@
         "SimulatedLocationDataSource"
     ],
     "snippets": [
-        "LocationDrivenGeotriggers.xaml",
-        "LocationDrivenGeotriggers.xaml.cs"
+        "LocationDrivenGeotriggers.xaml.cs",
+        "LocationDrivenGeotriggers.xaml"
     ],
     "title": "Set up location-driven Geotriggers"
 }

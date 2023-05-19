@@ -93,7 +93,7 @@ namespace ArcGIS.Samples.CreateLoadReport
                 ReportView.ItemsSource = _phaseSummaries;
                 Phases.Text = $"Phases: {string.Join(", ", _phases)}";
                 _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
-                
+
                 // Create default starting location.
                 UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(NetworkSourceName);
                 UtilityAssetGroup assetGroup = networkSource?.GetAssetGroup(AssetGroupName);
@@ -101,7 +101,7 @@ namespace ArcGIS.Samples.CreateLoadReport
                 UtilityTerminal terminal = assetType?.TerminalConfiguration?.Terminals?.FirstOrDefault(t => t.Name == TerminalName);
                 Guid globalId = Guid.Parse(GlobalId);
 
-                if (assetType != null && globalId != null && terminal != null)
+                if (assetType != null && terminal != null)
                 {
                     var startingLocation = _utilityNetwork.CreateElement(assetType, globalId, terminal);
 

@@ -24,8 +24,8 @@
         "SceneView"
     ],
     "snippets": [
-        "ChooseCameraController.xaml",
-        "ChooseCameraController.xaml.cs"
+        "ChooseCameraController.xaml.cs",
+        "ChooseCameraController.xaml"
     ],
     "title": "Choose camera controller"
 }

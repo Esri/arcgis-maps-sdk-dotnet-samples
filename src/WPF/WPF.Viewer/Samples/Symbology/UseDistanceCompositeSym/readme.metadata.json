@@ -23,8 +23,8 @@
         "RangeCollection"
     ],
     "snippets": [
-        "UseDistanceCompositeSym.xaml",
-        "UseDistanceCompositeSym.xaml.cs"
+        "UseDistanceCompositeSym.xaml.cs",
+        "UseDistanceCompositeSym.xaml"
     ],
     "title": "Distance composite scene symbol"
 }

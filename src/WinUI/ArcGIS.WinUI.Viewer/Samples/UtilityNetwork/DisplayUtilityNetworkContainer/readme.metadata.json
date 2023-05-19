@@ -26,8 +26,8 @@
         "UtilityNetworkDefinition"
     ],
     "snippets": [
-        "DisplayUtilityNetworkContainer.xaml",
-        "DisplayUtilityNetworkContainer.xaml.cs"
+        "DisplayUtilityNetworkContainer.xaml.cs",
+        "DisplayUtilityNetworkContainer.xaml"
     ],
     "title": "Display content of utility network container"
 }

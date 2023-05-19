@@ -26,8 +26,8 @@
         "Geodatabase"
     ],
     "snippets": [
-        "EditFeatureLinkedAnnotation.xaml",
-        "EditFeatureLinkedAnnotation.xaml.cs"
+        "EditFeatureLinkedAnnotation.xaml.cs",
+        "EditFeatureLinkedAnnotation.xaml"
     ],
     "title": "Edit features with feature-linked annotation"
 }

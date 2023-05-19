@@ -7,7 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.Helpers;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
@@ -21,7 +20,7 @@ namespace ArcGIS.Samples.SearchPortalMaps
         description: "Find webmap portal items by using a search term.",
         instructions: "Enter search terms into the search bar. Once the search is complete, a list is populated with the resultant webmaps. Tap on a webmap to set it to the map view. Scrolling to the bottom of the webmap recycler view will get more results.",
         tags: new[] { "keyword", "query", "search", "webmap" })]
-    [ArcGIS.Samples.Shared.Attributes.ClassFile("Helpers\\ArcGISLoginPrompt.cs")]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("Helpers/ArcGISLoginPrompt.cs")]
     public partial class SearchPortalMaps : ContentPage
     {
         private const string ArcGISOnlineUrl = "https://www.arcgis.com/sharing/rest";
@@ -169,12 +168,6 @@ namespace ArcGIS.Samples.SearchPortalMaps
         private void ListCloseClicked(object sender, EventArgs e)
         {
             MapsListBorder.IsVisible = false;
-        }
-
-        public void Dispose()
-        {
-            // Re-enable the API key in the viewer when exiting this sample.
-            ApiKeyManager.EnableKey();
         }
     }
 }

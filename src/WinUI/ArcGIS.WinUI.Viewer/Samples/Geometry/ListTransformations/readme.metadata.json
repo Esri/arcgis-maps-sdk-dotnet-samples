@@ -26,8 +26,8 @@
         "TransformationCatalog"
     ],
     "snippets": [
-        "ListTransformations.xaml",
-        "ListTransformations.xaml.cs"
+        "ListTransformations.xaml.cs",
+        "ListTransformations.xaml"
     ],
     "title": "List transformations by suitability"
 }

@@ -32,8 +32,8 @@
         "MapView"
     ],
     "snippets": [
-        "SetInitialMapLocation.xaml",
-        "SetInitialMapLocation.xaml.cs"
+        "SetInitialMapLocation.xaml.cs",
+        "SetInitialMapLocation.xaml"
     ],
     "title": "Set initial map location"
 }

@@ -60,8 +60,9 @@ namespace ArcGIS.Samples.Shared.Models
 
         public string Instructions { get; set; }
 
-        public bool IsFavorite { get; set; }
 
+#if !(WinUI || WINDOWS_UWP)
+        public bool IsFavorite { get; set; }
 
         public bool ShowFavoriteIcon
         {
@@ -78,6 +79,7 @@ namespace ArcGIS.Samples.Shared.Models
                 return isMobile || SampleManager.Current.IsSampleFavorited(FormalName);
             }
         }
+#endif
 
         /// <summary>
         /// A list of offline data items that should be downloaded

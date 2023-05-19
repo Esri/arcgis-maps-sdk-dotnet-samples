@@ -1,0 +1,38 @@
+#!/bin/sh
+{
+# Uncomment set -xv for debugging
+# set -xv
+
+# export PATH to access to python3 in SourceTree
+export PATH=/usr/local/bin:$PATH
+
+# variables
+file_casing_errors=0
+
+case "${1}" in
+  --about)
+    echo "Run check_file_casings.py script to ensure .xaml.cs and .xaml files are case matching."
+    ;;
+  *)
+
+    GIT_REPOS=`git remote get-url --all origin`
+    if [[ $GIT_REPOS != *Esri/arcgis-maps-sdk-dotnet-samples.git ]]; then
+      exit 0
+    fi
+    # path to script, to access to python script
+    script_path=$( cd "$( dirname "${BASH_SOURCE[0]}" )" ; pwd -P )
+
+    CASING_RESULT=`python3 "${script_path}"/../../tools/githook_scripts/check_file_casing.py "${PWD}"`
+    if [[ $CASING_RESULT != 0 ]]; then 
+     echo "${CASING_RESULT}."
+        ((file_casing_errors+=1))
+    fi
+
+    if [[ $file_casing_errors != 0 ]]; then
+      echo "Commit blocked due to ${errors} errors. Please address mismatching file casing errors before committing or commit with argument '-n' to bypass pre-commit hooks."
+      exit 1
+    fi
+    exit 0
+    ;;
+esac
+}

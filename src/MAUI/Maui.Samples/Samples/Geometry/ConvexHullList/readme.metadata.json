@@ -23,8 +23,8 @@
         "GraphicsOverlay"
     ],
     "snippets": [
-        "ConvexHullList.xaml",
-        "ConvexHullList.xaml.cs"
+        "ConvexHullList.xaml.cs",
+        "ConvexHullList.xaml"
     ],
     "title": "Convex hull list"
 }

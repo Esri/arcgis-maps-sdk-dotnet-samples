@@ -29,8 +29,8 @@
         "TimeExtent"
     ],
     "snippets": [
-        "QueryCQLFilters.xaml",
-        "QueryCQLFilters.xaml.cs"
+        "QueryCQLFilters.xaml.cs",
+        "QueryCQLFilters.xaml"
     ],
     "title": "Query with CQL filters"
 }

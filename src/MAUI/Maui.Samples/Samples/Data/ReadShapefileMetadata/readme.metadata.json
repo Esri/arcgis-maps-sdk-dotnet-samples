@@ -35,8 +35,8 @@
         "ShapefileInfo.Thumbnail"
     ],
     "snippets": [
-        "ReadShapefileMetadata.xaml",
-        "ReadShapefileMetadata.xaml.cs"
+        "ReadShapefileMetadata.xaml.cs",
+        "ReadShapefileMetadata.xaml"
     ],
     "title": "Read shapefile metadata"
 }

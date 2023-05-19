@@ -20,8 +20,8 @@
         "ArcGISMapImageLayer"
     ],
     "snippets": [
-        "ArcGISMapImageLayerUrl.xaml",
-        "ArcGISMapImageLayerUrl.xaml.cs"
+        "ArcGISMapImageLayerUrl.xaml.cs",
+        "ArcGISMapImageLayerUrl.xaml"
     ],
     "title": "ArcGIS map image layer"
 }

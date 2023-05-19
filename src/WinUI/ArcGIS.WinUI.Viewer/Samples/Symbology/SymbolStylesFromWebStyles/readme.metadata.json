@@ -24,8 +24,8 @@
         "UniqueValueRenderer"
     ],
     "snippets": [
-        "SymbolStylesFromWebStyles.xaml",
-        "SymbolStylesFromWebStyles.xaml.cs"
+        "SymbolStylesFromWebStyles.xaml.cs",
+        "SymbolStylesFromWebStyles.xaml"
     ],
     "title": "Create symbol styles from web styles"
 }

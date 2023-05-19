@@ -30,8 +30,8 @@
         "PortalItem"
     ],
     "snippets": [
-        "BrowseBuildingFloors.xaml",
-        "BrowseBuildingFloors.xaml.cs"
+        "BrowseBuildingFloors.xaml.cs",
+        "BrowseBuildingFloors.xaml"
     ],
     "title": "Browse building floors"
 }

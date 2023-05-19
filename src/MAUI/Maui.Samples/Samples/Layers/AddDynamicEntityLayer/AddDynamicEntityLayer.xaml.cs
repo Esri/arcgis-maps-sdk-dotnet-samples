@@ -23,7 +23,6 @@ namespace ArcGIS.Samples.AddDynamicEntityLayer
         description: "Display data from an ArcGIS stream service using a dynamic entity layer.",
         instructions: "Use the controls to connect to or disconnect from the stream service, modify display properties in the dynamic entity layer, and purge all observations from the application.",
         tags: new[] { "data", "dynamic", "entity", "live", "purge", "real-time", "service", "stream", "track" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class AddDynamicEntityLayer
     {
         // This envelope is a limited region around Sandy, Utah. It will be the extent used by the `DynamicEntityFilter`.
@@ -35,10 +34,10 @@ namespace ArcGIS.Samples.AddDynamicEntityLayer
         public AddDynamicEntityLayer()
         {
             InitializeComponent();
-            _ = Initialize();
+            Initialize();
         }
 
-        private async Task Initialize()
+        private void Initialize()
         {
             MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGrayBase);
 
@@ -135,7 +134,7 @@ namespace ArcGIS.Samples.AddDynamicEntityLayer
             }
         }
 
-        private void PurgeClick(object sender, EventArgs e)
+        private void PurgeButton_Clicked(object sender, EventArgs e)
         {
             _dynamicEntityDataSource?.PurgeAllAsync();
         }
@@ -145,11 +144,11 @@ namespace ArcGIS.Samples.AddDynamicEntityLayer
             if (_dynamicEntityLayer != null)
             {
                 _dynamicEntityLayer.TrackDisplayProperties.MaximumObservations = (int)e.NewValue;
-                previousObservationsLabel.Text = String.Format("Previous observations per track: {0}", Math.Round(e.NewValue).ToString());
+                PreviousObservationsLabel.Text = String.Format("Previous observations per track: {0}", Math.Round(e.NewValue).ToString());
             }
         }
 
-        private void ConnectionButtonClick(object sender, EventArgs e)
+        private void ConnectionButton_Clicked(object sender, EventArgs e)
         {
             if (_dynamicEntityDataSource.ConnectionStatus == ConnectionStatus.Connected)
             {

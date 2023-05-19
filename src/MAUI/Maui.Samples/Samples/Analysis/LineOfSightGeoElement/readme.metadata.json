@@ -24,8 +24,8 @@
         "LineOfSight.TargetVisibility"
     ],
     "snippets": [
-        "LineOfSightGeoElement.xaml",
-        "LineOfSightGeoElement.xaml.cs"
+        "LineOfSightGeoElement.xaml.cs",
+        "LineOfSightGeoElement.xaml"
     ],
     "title": "Line of sight (geoelement)"
 }

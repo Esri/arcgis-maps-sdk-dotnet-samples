@@ -1,10 +1,10 @@
 ﻿<UserControl x:Class="ArcGIS.WPF.Samples.SymbolsFromMobileStyle.SymbolsFromMobileStyle"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:local="clr-namespace:ArcGIS.WPF.Samples.SymbolsFromMobileStyle">
+             xmlns:converters="clr-namespace:ArcGIS.WPF.Viewer.Converters"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <UserControl.Resources>
-        <local:ColorToSolidBrushConverter x:Key="ColorToBrushConverter" />
+        <converters:ColorToSolidBrushConverter x:Key="ColorToBrushConverter" />
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />

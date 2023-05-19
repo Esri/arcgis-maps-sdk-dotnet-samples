@@ -30,8 +30,8 @@
         "Surface"
     ],
     "snippets": [
-        "SurfacePlacements.xaml",
-        "SurfacePlacements.xaml.cs"
+        "SurfacePlacements.xaml.cs",
+        "SurfacePlacements.xaml"
     ],
     "title": "Surface placement"
 }

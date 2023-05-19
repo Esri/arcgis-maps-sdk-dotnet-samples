@@ -24,8 +24,8 @@
         "WebTiledLayer"
     ],
     "snippets": [
-        "LoadWebTiledLayer.xaml",
-        "LoadWebTiledLayer.xaml.cs"
+        "LoadWebTiledLayer.xaml.cs",
+        "LoadWebTiledLayer.xaml"
     ],
     "title": "Web tiled layer"
 }

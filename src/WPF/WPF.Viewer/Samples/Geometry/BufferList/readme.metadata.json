@@ -22,8 +22,8 @@
         "SpatialReference"
     ],
     "snippets": [
-        "BufferList.xaml",
-        "BufferList.xaml.cs"
+        "BufferList.xaml.cs",
+        "BufferList.xaml"
     ],
     "title": "Buffer list"
 }

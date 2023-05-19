@@ -26,8 +26,8 @@
         "KmlLayer"
     ],
     "snippets": [
-        "EditKmlGroundOverlay.xaml",
-        "EditKmlGroundOverlay.xaml.cs"
+        "EditKmlGroundOverlay.xaml.cs",
+        "EditKmlGroundOverlay.xaml"
     ],
     "title": "Edit KML ground overlay"
 }

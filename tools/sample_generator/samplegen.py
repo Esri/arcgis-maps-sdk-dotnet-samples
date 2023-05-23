@@ -49,6 +49,8 @@ def build_csproj_line(category_list, sample_name, platform, entry_type):
     filename = ""
     if (entry_type == "screenshot"):
         filename = sample_name + ".jpg"
+        if (platform == "MAUI"):
+            filename = filename.lower()
     elif (entry_type == "code" and platform in ["MAUI", "WPF"]):
         filename = sample_name + ".xaml.cs"
     elif (entry_type == "code"):
@@ -128,7 +130,10 @@ def orchestrate_file_copy(platforms, root, category_list, sample_name, replaceme
         perform_copy_rewrite(source, dest, replacements)
         # copy the image
         source = os.path.join(template_root, "sample_name.jpg")
-        dest = os.path.join(dest_root, sample_name + '.jpg')
+        if(platform == "MAUI"):
+            dest = os.path.join(dest_root, sample_name.lower() + '.jpg')
+        else:
+            dest = os.path.join(dest_root, sample_name + '.jpg')
         shutil.copyfile(source, dest)
         # copy the readme
         source = os.path.join(template_root, "readme.md")
@@ -138,6 +143,15 @@ def orchestrate_file_copy(platforms, root, category_list, sample_name, replaceme
         source = os.path.join(template_root, "readme.metadata.json")
         dest = os.path.join(dest_root, "readme.metadata.json")
         perform_copy_rewrite(source, dest, replacements)
+        if(platform == "MAUI"):
+            lowercase_screenshot_name = sample_name.lower() + ".jpg"
+            uppercase_screenshot_name = sample_name + ".jpg"
+            contents = ""
+            with open(dest, 'r+') as fd:
+                contents = fd.read()
+                contents = contents.replace(uppercase_screenshot_name, lowercase_screenshot_name)
+            with open(dest, 'w') as fd:
+                fd.write(contents)
 
 def ensure_category_present(platforms, root, category_list):
     '''
@@ -246,7 +260,11 @@ def new_sample_main(full_directory):
 
 def copy_with_rename(platforms, root, old_cat, new_cat, old_name, new_name, Replacements):
     for platform in platforms:
-        file_list = [old_name + '.jpg', old_name + ".cs", old_name + ".xaml.cs", old_name + ".xaml", "readme.md", "readme.metadata.json"]
+        file_list = [old_name + ".cs", old_name + ".xaml.cs", old_name + ".xaml", "readme.md", "readme.metadata.json"]
+        screenshot_file = old_name + ".jpg"
+        if (platform == "MAUI"):
+            screenshot_file = screenshot_file.lower()
+        file_list.append(screenshot_file)
         for filename in file_list:
             plat_root = get_platform_root(platform, root)
             old_path = os.path.join(plat_root, "Samples", old_cat.title().replace(' ', ''), old_name, filename)
@@ -257,9 +275,13 @@ def copy_with_rename(platforms, root, old_cat, new_cat, old_name, new_name, Repl
             with open(old_path, 'r+') as fd:
                 if not filename.endswith(".jpg"):
                     old_content = fd.read().replace(old_name, new_name)
+                    if (platform == "MAUI" and (filename.endswith(".json") or filename.endswith(".md"))):
+                        old_content = old_content.replace(old_name.lower() + ".jpg", new_name.lower() + ".jpg")
                     with open(new_path, 'w') as fd:
                         fd.write(old_content)
                 else:
+                    if (platform == "MAUI"):
+                         new_path = os.path.join(plat_root, "Samples", new_cat.title().replace(' ', ''), new_name, new_name.lower() + ".jpg")
                     shutil.copyfile(old_path, new_path)
             # remove the copied file
             os.remove(old_path)

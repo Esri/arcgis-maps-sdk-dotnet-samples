@@ -1,0 +1,19 @@
+{
+    "category": "GraphicsOverlay",
+    "description": "Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.",
+    "formal_name": "CreateAndEditGeometries",
+    "ignore": false,
+    "images": [
+        "createandeditgeometries.jpg"
+    ],
+    "keywords": [
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/CreateAndEditGeometries.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Create and edit geometries"
+}

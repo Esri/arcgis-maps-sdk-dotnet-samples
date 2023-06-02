@@ -18,10 +18,11 @@ using Color = System.Drawing.Color;
 namespace ArcGIS.Samples.CreateAndEditGeometries
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Create and edit geometries",
-        "GraphicsOverlay",
-        "Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.",
-        "")]
+        name: "Create and edit geometries",
+        category: "GraphicsOverlay",
+        description: "Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.",
+        instructions: "To create a new geometry, press the button appropriate for the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry. To edit an existing geometry, tap the geometry to be edited in the map to select it and then edit the geometry by tapping and dragging elements of the geometry. If creating or editing polyline or polygon geometries, choose the desired creation/editing tool (i.e. `VertexTool` or `FreehandTool`).",
+        tags: new[] { "draw", "edit", "freehand", "geometry editor", "sketch", "vertex" })]
     public partial class CreateAndEditGeometries
     {
         private GeometryEditor _geometryEditor;
@@ -356,9 +357,7 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
                     IdentifyGraphicsOverlayResult idResult = results.FirstOrDefault();
                     if (idResult != null && idResult.Graphics.Count > 0)
                     {
-                        _selectedGraphic = idResult.Graphics.FirstOrDefault(g => g.Geometry is MapPoint or Multipoint) ??
-                            idResult.Graphics.FirstOrDefault(g => g.Geometry is Polyline) ??
-                            idResult.Graphics.First();
+                        _selectedGraphic = idResult.Graphics.FirstOrDefault();
                         _selectedGraphic.IsSelected = true;
 
                         GeometryType geometryType = _selectedGraphic.Geometry.GeometryType;

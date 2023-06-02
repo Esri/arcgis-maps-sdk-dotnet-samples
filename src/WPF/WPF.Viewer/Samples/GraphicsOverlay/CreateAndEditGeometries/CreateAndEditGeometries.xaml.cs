@@ -29,7 +29,8 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
         name: "Create and edit geometries",
         category: "GraphicsOverlay",
         description: "Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.",
-        "")]
+        instructions: "To create a new geometry, press the button appropriate for the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry. To edit an existing geometry, tap the geometry to be edited in the map to select it and then edit the geometry by tapping and dragging elements of the geometry. If creating or editing polyline or polygon geometries, choose the desired creation/editing tool (i.e. `VertexTool` or `FreehandTool`).",
+        tags: new[] { "draw", "edit", "freehand", "geometry editor", "sketch", "vertex" })]
     public partial class CreateAndEditGeometries
     {
         private GeometryEditor _geometryEditor;

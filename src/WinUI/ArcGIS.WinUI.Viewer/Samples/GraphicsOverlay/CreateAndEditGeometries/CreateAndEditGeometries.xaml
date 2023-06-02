@@ -1,10 +1,224 @@
-<UserControl 
-    x:Class="ArcGIS.WinUI.Samples.CreateAndEditGeometries.CreateAndEditGeometries"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:esri="using:Esri.ArcGISRuntime"
-    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+<UserControl x:Class="ArcGIS.WinUI.Samples.CreateAndEditGeometries.CreateAndEditGeometries"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <UserControl.Resources>
+        <FontFamily x:Key="Calcite">/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24</FontFamily>
+    </UserControl.Resources>
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+        <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Border Grid.Column="1"
+                Margin="10"
+                Padding="10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="100" />
+                    <ColumnDefinition Width="100" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.ColumnSpan="2"
+                           HorizontalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Text="Create" />
+                <Button x:Name="PointButton"
+                        Grid.Row="1"
+                        HorizontalAlignment="Stretch"
+                        Click="PointButton_Click">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="{StaticResource Calcite}"
+                                           FontSize="40"
+                                           Text="&#xe21c;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Point" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button x:Name="MultipointButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        HorizontalAlignment="Stretch"
+                        Click="MultipointButton_Click">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Left"
+                                           FontFamily="{StaticResource Calcite}"
+                                           FontSize="20"
+                                           Text="&#xe21c;" />
+                                <TextBlock HorizontalAlignment="Right"
+                                           FontFamily="{StaticResource Calcite}"
+                                           FontSize="20"
+                                           Text="&#xe21c;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Multipoint" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button x:Name="PolylineButton"
+                        Grid.Row="2"
+                        HorizontalAlignment="Stretch"
+                        Click="PolylineButton_Click">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="{StaticResource Calcite}"
+                                           FontSize="40"
+                                           Text="&#xe1a8;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Polyline" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button x:Name="PolygonButton"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        HorizontalAlignment="Stretch"
+                        Click="PolygonButton_Click">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="{StaticResource Calcite}"
+                                           FontSize="40"
+                                           Text="&#xe220;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Polygon" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <ComboBox x:Name="ToolComboBox"
+                          Grid.Row="3"
+                          Grid.ColumnSpan="2"
+                          HorizontalAlignment="Stretch"
+                          SelectionChanged="ToolComboBox_SelectionChanged" />
+                <TextBlock Grid.Row="4"
+                           Grid.ColumnSpan="2"
+                           HorizontalAlignment="Center"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Text="Edit" />
+                <Button Grid.Row="5"
+                        HorizontalAlignment="Stretch"
+                        Click="UndoButton_Click"
+                        IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="{StaticResource Calcite}"
+                                           FontSize="40"
+                                           Text="&#xe2d6;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Undo" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button Grid.Row="5"
+                        Grid.Column="2"
+                        HorizontalAlignment="Stretch"
+                        Click="RedoButton_Click"
+                        IsEnabled="{Binding GeometryEditor.CanRedo, ElementName=MyMapView}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="{StaticResource Calcite}"
+                                           FontSize="40"
+                                           Text="&#xe23e;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Redo" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button Grid.Row="6"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Stretch"
+                        Click="DeleteSelectedButton_Click"
+                        IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="{StaticResource Calcite}"
+                                           FontSize="40"
+                                           Text="&#xe0e8;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Delete selected element" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button x:Name="SaveButton"
+                        Grid.Row="7"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Stretch"
+                        Click="SaveButton_Click"
+                        IsEnabled="False">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="{StaticResource Calcite}"
+                                           FontSize="40"
+                                           Text="&#xe06f;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Stop and save edits" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button Grid.Row="8"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Stretch"
+                        Click="DiscardButton_Click"
+                        IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="{StaticResource Calcite}"
+                                           FontSize="40"
+                                           Text="&#xe080;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Stop and discard edits" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button x:Name="DeleteAllButton"
+                        Grid.Row="9"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Stretch"
+                        Click="DeleteAllButton_Click">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="{StaticResource Calcite}"
+                                           FontSize="40"
+                                           Text="&#xe2d0;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Delete all geometries" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

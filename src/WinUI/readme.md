@@ -67,7 +67,6 @@
 * [Dictionary renderer with graphics overlay](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/DictionaryRendererGraphicsOverlay) - Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.
 * [Identify graphics](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/IdentifyGraphics) - Display an alert message when a graphic is clicked.
 * [Scene properties expressions](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/ScenePropertiesExpressions) - Update the orientation of a graphic using expressions based on its attributes.
-* [Sketch on map](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/SketchOnMap) - Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.
 * [Surface placement](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/SurfacePlacements) - Position graphics relative to a surface using different surface placement modes.
 
 ## Hydrography

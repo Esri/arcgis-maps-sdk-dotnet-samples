@@ -3,6 +3,209 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Border Grid.Column="1"
+                Margin="10"
+                Padding="10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="White">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="75" />
+                    <ColumnDefinition Width="75" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.ColumnSpan="2"
+                       HorizontalAlignment="Center"
+                       Content="Create"
+                       FontSize="20"
+                       FontWeight="Bold" />
+                <Button x:Name="PointButton"
+                        Grid.Row="1"
+                        Click="PointButton_Click">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                           FontSize="40"
+                                           Text="&#xe21c;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Point" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button x:Name="MultipointButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Click="MultipointButton_Click">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Left"
+                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                           FontSize="20"
+                                           Text="&#xe21c;" />
+                                <TextBlock HorizontalAlignment="Right"
+                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                           FontSize="20"
+                                           Text="&#xe21c;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Multipoint" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button x:Name="PolylineButton"
+                        Grid.Row="2"
+                        Click="PolylineButton_Click">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                           FontSize="40"
+                                           Text="&#xe1a8;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Polyline" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button x:Name="PolygonButton"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Click="PolygonButton_Click">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                           FontSize="40"
+                                           Text="&#xe220;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Polygon" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <ComboBox x:Name="ToolComboBox"
+                          Grid.Row="3"
+                          Grid.ColumnSpan="2"
+                          SelectionChanged="ToolComboBox_SelectionChanged" />
+                <Label Grid.Row="4"
+                       Grid.ColumnSpan="2"
+                       HorizontalAlignment="Center"
+                       Content="Edit"
+                       FontSize="20"
+                       FontWeight="Bold" />
+                <Button Grid.Row="5"
+                        Click="UndoButton_Click"
+                        IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                           FontSize="40"
+                                           Text="&#xe2d6;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Undo" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+
+                <Button Grid.Row="5"
+                        Grid.Column="2"
+                        Click="RedoButton_Click"
+                        IsEnabled="{Binding GeometryEditor.CanRedo, ElementName=MyMapView}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                           FontSize="40"
+                                           Text="&#xe23e;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Redo" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button Grid.Row="6"
+                        Grid.ColumnSpan="2"
+                        Click="DeleteSelectedButton_Click"
+                        IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                           FontSize="40"
+                                           Text="&#xe0e8;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Delete selected element" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button x:Name="SaveButton"
+                        Grid.Row="7"
+                        Grid.ColumnSpan="2"
+                        Click="SaveButton_Click"
+                        IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                           FontSize="40"
+                                           Text="&#xe06f;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Stop and save edits" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button Grid.Row="8"
+                        Grid.ColumnSpan="2"
+                        Click="DiscardButton_Click"
+                        IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                           FontSize="40"
+                                           Text="&#xe080;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Stop and discard edits" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+                <Button x:Name="DeleteAllButton"
+                        Grid.Row="9"
+                        Grid.ColumnSpan="2"
+                        Click="DeleteAllButton_Click">
+                    <Button.ContentTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <TextBlock HorizontalAlignment="Center"
+                                           FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
+                                           FontSize="40"
+                                           Text="&#xe2d0;" />
+                                <TextBlock HorizontalAlignment="Center" Text="Delete all geometries" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </Button.ContentTemplate>
+                </Button>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

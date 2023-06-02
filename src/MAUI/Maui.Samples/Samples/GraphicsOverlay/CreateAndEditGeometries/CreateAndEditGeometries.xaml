@@ -9,8 +9,8 @@
               ColumnDefinitions="auto, auto"
               ColumnSpacing="5"
               HorizontalOptions="End"
-              RowSpacing="5"
               RowDefinitions="auto, auto, auto, auto, auto, auto"
+              RowSpacing="5"
               VerticalOptions="Start">
             <Button x:Name="PointButton"
                     Grid.Row="0"

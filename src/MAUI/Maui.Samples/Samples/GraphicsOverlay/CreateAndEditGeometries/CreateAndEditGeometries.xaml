@@ -4,6 +4,86 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+        <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Border>
+            <Grid Margin="5,5,5,5"
+                  ColumnDefinitions="auto, auto"
+                  ColumnSpacing="5"
+                  HorizontalOptions="End"
+                  RowDefinitions="auto, auto, auto, auto, auto, auto"
+                  VerticalOptions="Start">
+                <Button x:Name="PointButton"
+                        Grid.Row="0"
+                        Clicked="PointButton_Click"
+                        FontFamily="calcite-ui-icons-24"
+                        FontSize="40"
+                        Text="&#xe21c;" />
+                <Button x:Name="MultipointButton"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Clicked="MultipointButton_Click"
+                        FontFamily="calcite-ui-icons-24"
+                        FontSize="20"
+                        Text="&#xe21c;&#xe21c;" />
+                <Button x:Name="PolylineButton"
+                        Grid.Row="1"
+                        Clicked="PolylineButton_Click"
+                        FontFamily="calcite-ui-icons-24"
+                        FontSize="40"
+                        Text="&#xe1a8;" />
+                <Button x:Name="PolygonButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Clicked="PolygonButton_Click"
+                        FontFamily="calcite-ui-icons-24"
+                        FontSize="40"
+                        Text="&#xe220;" />
+                <Picker x:Name="ToolPicker"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        SelectedIndexChanged="ToolPicker_SelectedIndexChanged"
+                        WidthRequest="150" />
+                <Button Grid.Row="3"
+                        Clicked="UndoButton_Click"
+                        FontFamily="calcite-ui-icons-24"
+                        FontSize="40"
+                        IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                        Text="&#xe2d6;" />
+                <Button Grid.Row="3"
+                        Grid.Column="1"
+                        Clicked="RedoButton_Click"
+                        FontFamily="calcite-ui-icons-24"
+                        FontSize="40"
+                        IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}}"
+                        Text="&#xe23e;" />
+                <Button Grid.Row="4"
+                        Clicked="DeleteSelectedButton_Click"
+                        FontFamily="calcite-ui-icons-24"
+                        FontSize="40"
+                        IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
+                        Text="&#xe0e8;" />
+                <Button x:Name="SaveButton"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Clicked="SaveButton_Click"
+                        FontFamily="calcite-ui-icons-24"
+                        FontSize="40"
+                        IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                        Text="&#xe06f;" />
+                <Button Grid.Row="5"
+                        Clicked="DiscardButton_Click"
+                        FontFamily="calcite-ui-icons-24"
+                        FontSize="40"
+                        IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                        Text="&#xe080;" />
+                <Button x:Name="DeleteAllButton"
+                        Grid.Row="5"
+                        Grid.Column="1"
+                        Clicked="DeleteAllButton_Click"
+                        FontFamily="calcite-ui-icons-24"
+                        FontSize="40"
+                        Text="&#xe2d0;" />
+            </Grid>
+        </Border>
     </Grid>
 </ContentPage>

@@ -1,14 +1,9 @@
 ﻿<ContentPage x:Class="ArcGIS.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:ArcGIS.Converters"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
              xmlns:resources="clr-namespace:ArcGIS.Resources">
-    <ContentPage.Resources>
-        <converters:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
-        <converters:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
-    </ContentPage.Resources>
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
@@ -18,29 +13,16 @@
                            MaximumWidthRequest="300"
                            Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout." />
                     <ListView x:Name="MapListView"
-                              HeightRequest="150"
-                              ItemSelected="Map_Selected">
+                              Margin="0,5"
+                              HeightRequest="140"
+                              ItemSelected="Map_Selected"
+                              MaximumWidthRequest="400">
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="mapping:Map">
                                 <ViewCell>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="30" />
-                                            <ColumnDefinition Width="Auto" />
-                                            <ColumnDefinition Width="*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Image Grid.Column="0" Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
-                                        <Image Grid.Column="1"
-                                               Margin="5"
-                                               HeightRequest="25"
-                                               IsVisible="{Binding TransportationNetworks, Converter={StaticResource NullToVisibilityConverter}}"
-                                               Source="routingsymbol.png"
-                                               WidthRequest="25" />
-                                        <Label Grid.Column="2"
-                                               HorizontalTextAlignment="End"
-                                               Text="{Binding Item.Name}"
-                                               VerticalTextAlignment="Center" />
-                                    </Grid>
+                                    <Label HorizontalTextAlignment="Start"
+                                           Text="{Binding Item.Name}"
+                                           VerticalTextAlignment="Center" />
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>

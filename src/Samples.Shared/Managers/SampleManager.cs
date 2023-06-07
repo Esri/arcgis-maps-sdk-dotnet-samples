@@ -247,7 +247,7 @@ namespace ArcGIS.Samples.Managers
                     { "Sample", AllSamples.FirstOrDefault(s => s.FormalName.Equals(sampleName)).SampleName }
                 };
 
-                Helpers.AnalyticsHelper.TrackEvent("favorite_added", eventData);
+                _ = Helpers.AnalyticsHelper.TrackEvent("favorite_added", eventData);
 #endif
             }
 

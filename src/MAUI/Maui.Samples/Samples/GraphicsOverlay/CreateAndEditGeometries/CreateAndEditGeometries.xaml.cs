@@ -26,14 +26,15 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
     public partial class CreateAndEditGeometries
     {
         private GeometryEditor _geometryEditor;
-        private SimpleFillSymbol _fillSymbol;
-        private SimpleLineSymbol _lineSymbol;
-        private SimpleMarkerSymbol _pointSymbol, _multiPointSymbol;
-        private List<Button> _geometryButtons;
         private Graphic _selectedGraphic;
         private GraphicsOverlay _graphicsOverlay;
+
+        private SimpleFillSymbol _polygonSymbol;
+        private SimpleLineSymbol _polylineSymbol;
+        private SimpleMarkerSymbol _pointSymbol, _multiPointSymbol;
+
+        private Dictionary<GeometryType, Button> _geometryButtons;
         private Dictionary<string, GeometryEditorTool> _toolDictionary;
-        private bool _geometryCreated = true;
 
         public CreateAndEditGeometries()
         {
@@ -43,14 +44,11 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
 
         private void Initialize()
         {
-            // Create a map with standard imagery basemap style.
-            var map = new Map(BasemapStyle.ArcGISImageryStandard);
-
-            // Set the map to the map view.
-            MyMapView.Map = map;
-
-            // Set a viewpoint on the map view.
-            MyMapView.SetViewpoint(new Viewpoint(53.08230, -9.5920, 5000));
+            // Create a map for the map view and set an inital viewpoint.
+            MyMapView.Map = new Map(BasemapStyle.ArcGISImagery)
+            {
+                InitialViewpoint = new Viewpoint(53.08230, -9.5920, 5000)
+            };
 
             // Create a graphics overlay and add it to the map view.
             _graphicsOverlay = new GraphicsOverlay();
@@ -60,104 +58,41 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             _geometryEditor = new GeometryEditor();
             MyMapView.GeometryEditor = _geometryEditor;
 
-            // Create vertex and freehand tools for the geometry editor.
+            // Create vertex and freehand tools for the combo box.
             _toolDictionary = new Dictionary<string, GeometryEditorTool>()
             {
-                {"Vertex Tool", new VertexTool()}, {"Freehand Tool", new FreehandTool()}
+                { "Vertex Tool", new VertexTool() },
+                { "Freehand Tool", new FreehandTool() }
             };
             ToolPicker.ItemsSource = _toolDictionary.Keys.ToList();
 
             // Have the vertex tool selected by default.
             ToolPicker.SelectedIndex = 0;
 
-            // Create symbols for displaying new geometries.
-            // Orange-red square for points.
-            _pointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Square, Color.OrangeRed, 10);
-            // Yellow circle for multipoints.
-            _multiPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Yellow, 5);
-            // Thin blue line for polylines.
-            _lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 2);
-            // Black outline for polygons.
-            var polygonLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.Black, 1);
-            // Translucent red interior for polygons.
-            _fillSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.FromArgb(70, 255, 0, 0), polygonLineSymbol);
-
-            // Create geometry objects from JSON formatted strings.
-            var houseCoordinates = (MapPoint)Geometry.FromJson("{\r\n  \"x\": -9.59309629,\r\n  \"y\": 53.0830063,\r\n  \"spatialReference\":{\"wkid\":4326}\r\n}");
-            var outbuildingCoordinates = (Multipoint)Geometry.FromJson("{\r\n  \"points\":[[-9.59386587, 53.08289651], [-9.59370896, 53.08234917],\r\n    [-9.59330546, 53.082564], [-9.59341755, 53.08286662],\r\n    [-9.59326997, 53.08304595], [-9.59246485, 53.08294507],\r\n    [-9.59250034, 53.08286101], [-9.59241815, 53.08284607],\r\n    [-9.59286835, 53.08311506], [-9.59307943, 53.08234731]],\r\n  \"spatialReference\":{\"wkid\":4326}\r\n}");
-            var road1Coordinates = (Polyline)Geometry.FromJson("{\r\n  \"paths\":[[[-9.59486423, 53.08169453], [-9.5947812, 53.08175431],\r\n    [-9.59475464, 53.08189379], [-9.59494393, 53.08213622],\r\n    [-9.59464173, 53.08240521], [-9.59413694, 53.08260115],\r\n    [-9.59357903, 53.0829266], [-9.59335984, 53.08311589],\r\n    [-9.59318051, 53.08316903], [-9.59301779, 53.08322216],\r\n    [-9.59264252, 53.08370038], [-9.59250636, 53.08383986]]],\r\n  \"spatialReference\":{\"wkid\":4326}\r\n}");
-            var road2Coordinates = (Polyline)Geometry.FromJson("{\r\n  \"paths\":[[[-9.59400079, 53.08136244], [-9.59395761, 53.08149528],\r\n    [-9.59368862, 53.0817045], [-9.59358235, 53.08219267],\r\n    [-9.59331667, 53.08290335], [-9.59314398, 53.08314246],\r\n    [-9.5930676, 53.08330519], [-9.59303439, 53.08351109],\r\n    [-9.59301447, 53.08363728], [-9.59293809, 53.08387307]]],\r\n  \"spatialReference\":{\"wkid\":4326}\r\n}");
-            var boundaryCoordinates = (Polygon)Geometry.FromJson("{\r\n  \"rings\": [[[-9.59350122, 53.08320723], [-9.59345177, 53.08333534],\r\n    [-9.59309789, 53.08327198], [-9.59300344, 53.08317992],\r\n    [-9.59221827, 53.08304034], [-9.59220706, 53.08287782],\r\n    [-9.59229486, 53.08280871], [-9.59236398, 53.08268915],\r\n    [-9.59255263, 53.08256769], [-9.59265165, 53.08237906],\r\n    [-9.59287552, 53.08241478], [-9.59292812, 53.0823012],\r\n    [-9.5932294, 53.08235022], [-9.59342188, 53.08260009],\r\n    [-9.59354382, 53.08238728], [-9.59365852, 53.08203535],\r\n    [-9.59408443, 53.08210446], [-9.59448232, 53.08224456],\r\n    [-9.5943609, 53.08243697], [-9.59458319, 53.08245939],\r\n    [-9.59439639, 53.08264619], [-9.59433288, 53.0827975],\r\n    [-9.59404707, 53.08323649], [-9.59350122, 53.08320723]]],\r\n  \"spatialReference\":{\"wkid\":4326}\r\n}");
-
-            // Create example graphics from the geometries and symbols.
-            var pointGraphic = new Graphic(houseCoordinates) { Symbol = _pointSymbol };
-            var multiPointGraphic = new Graphic(outbuildingCoordinates) { Symbol = _multiPointSymbol };
-            var polyline1Graphic = new Graphic(road1Coordinates) { Symbol = _lineSymbol };
-            var polyline2Graphic = new Graphic(road2Coordinates) { Symbol = _lineSymbol };
-            var polygonGraphic = new Graphic(boundaryCoordinates) { Symbol = _fillSymbol };
-
-            // Add example graphics to the graphics overlay.
-            var graphics = new List<Graphic>() { pointGraphic, multiPointGraphic, polyline1Graphic, polyline2Graphic, polygonGraphic };
-            foreach (var graphic in graphics)
+            // Create a dictionary to lookup which geometry type corresponds with which button.
+            _geometryButtons = new Dictionary<GeometryType, Button>
             {
-                _graphicsOverlay.Graphics.Add(graphic);
-            }
-
-            // Create a list of geometry buttons for easy enable and disable.
-            _geometryButtons = new List<Button>
-            {
-                PointButton, MultipointButton, PolylineButton, PolygonButton
+                { GeometryType.Point, PointButton },
+                { GeometryType.Multipoint, MultipointButton },
+                { GeometryType.Polyline, PolylineButton },
+                { GeometryType.Polygon, PolygonButton }
             };
 
-            // Update the UI to reflect geometry editor property changes.
-            _geometryEditor.PropertyChanged += (s, e) =>
-            {
-                if (e.PropertyName == nameof(GeometryEditor.IsStarted))
-                {
-                    // Account for case where there are no graphics to delete and user discards edits.
-                    if (_geometryCreated)
-                    {
-                        // Enable or disable the button when there are graphics created and the geometry editor starts or stops.
-                        DeleteAllButton.IsEnabled = !_geometryEditor.IsStarted;
-                    }
-
-                    // Disable the save button after the geometry editor stops.
-                    if (!_geometryEditor.IsStarted)
-                    {
-                        SaveButton.IsEnabled = false;
-                    }
-                }
-                else if (e.PropertyName == nameof(GeometryEditor.Geometry))
-                {
-                    // Enable the save button when the user is editing and the geometry editor can undo.
-                    if (_selectedGraphic != null)
-                    {
-                        SaveButton.IsEnabled = _geometryEditor.CanUndo;
-                    }
-                    // Enable the save button when the user is creating a geometry and there is geometry to save.
-                    else if (_geometryEditor.Geometry != null)
-                    {
-                        SaveButton.IsEnabled = !_geometryEditor.Geometry.IsEmpty;
-                    }
-                }
-            };
+            CreateInitialGraphics();
         }
 
-        #region Create controls event handlers
+        #region Event handlers
 
         // Starts the geometry editor with the point geometry type.
         private void PointButton_Click(object sender, EventArgs e)
         {
             if (!_geometryEditor.IsStarted)
             {
-                // Ensure the geometry editor tool is set to the vertex tool.
-                ToolPicker.SelectedIndex = 0;
-
-                // Disable the picker as this is always a vertex tool when creating a point.
-                ToolPicker.IsEnabled = false;
-
                 // Disable buttons to reflect that the geometry editor has started.
                 DisableOtherGeometryButtons(PointButton);
+
+                // Disable the combo box as this is always a vertex tool when creating a point.
+                ToolPicker.IsEnabled = false;
 
                 _geometryEditor.Start(GeometryType.Point);
             }
@@ -168,14 +103,11 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
         {
             if (!_geometryEditor.IsStarted)
             {
-                // Ensure the geometry editor tool is set to the vertex tool.
-                ToolPicker.SelectedIndex = 0;
-
-                // Disable the picker as this is always a vertex tool when creating a multipoint.
-                ToolPicker.IsEnabled = false;
-
                 // Disable buttons to reflect that the geometry editor has started.
-                DisableOtherGeometryButtons(PointButton);
+                DisableOtherGeometryButtons(MultipointButton);
+
+                // Disable the combo box as this is always a vertex tool when creating a point.
+                ToolPicker.IsEnabled = false;
 
                 _geometryEditor.Start(GeometryType.Multipoint);
             }
@@ -186,8 +118,6 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
         {
             if (!_geometryEditor.IsStarted)
             {
-                ToolPicker.IsEnabled = true;
-
                 // Disable buttons to reflect that the geometry editor has started.
                 DisableOtherGeometryButtons(PointButton);
 
@@ -200,8 +130,6 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
         {
             if (!_geometryEditor.IsStarted)
             {
-                ToolPicker.IsEnabled = true;
-
                 // Disable buttons to reflect that the geometry editor has started.
                 DisableOtherGeometryButtons(PointButton);
 
@@ -212,7 +140,12 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
         // Set the geometry editor tool from the picker.
         private void ToolPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _geometryEditor.Tool = _toolDictionary[ToolPicker.SelectedItem.ToString()];
+            GeometryEditorTool tool = _toolDictionary[ToolPicker.SelectedItem.ToString()];
+            _geometryEditor.Tool = tool;
+
+            // Account for case when vertex tool is selected and geometry editor is started with a polyline or polygon geometry type.
+            // Ensure point and multipoint buttons are only enabled when the selected tool is a vertex tool.
+            PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && tool is VertexTool;
         }
 
         #endregion Create controls event handlers
@@ -240,171 +173,183 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
         // Update an existing graphic or create a new graphic.
         private void SaveButton_Click(object sender, EventArgs e)
         {
+            Geometry geometry = _geometryEditor.Stop();
+
             if (_selectedGraphic != null)
             {
                 // Update the geometry of the graphic being edited and make it visible again.
-                _selectedGraphic.Geometry = _geometryEditor.Stop();
-                _selectedGraphic.IsVisible = true;
-
-                // Reset the selected graphic.
-                _selectedGraphic.IsSelected = false;
-                _selectedGraphic = null;
+                _selectedGraphic.Geometry = geometry;
             }
             else
             {
-                _geometryCreated = true;
-
-                // Get the geometry from the geometry editor and create a new graphic for it.
-                Geometry geometry = _geometryEditor.Stop();
-                var graphic = new Graphic(geometry);
-
-                // Set the graphic style based on geometry type.
-                switch (geometry.GeometryType)
-                {
-                    case GeometryType.Point:
-                        graphic.Symbol = _pointSymbol;
-                        break;
-
-                    case GeometryType.Multipoint:
-                        graphic.Symbol = _multiPointSymbol;
-                        break;
-
-                    case GeometryType.Polyline:
-                        graphic.Symbol = _lineSymbol;
-                        break;
-
-                    case GeometryType.Polygon:
-                        graphic.Symbol = _fillSymbol;
-                        break;
-                }
-
-                _graphicsOverlay.Graphics.Add(graphic);
+                // Create a new graphic based on the geometry and add it to the graphics overlay.
+                _graphicsOverlay.Graphics.Add(new Graphic(geometry, GetSymbol(geometry.GeometryType)));
             }
 
-            // Allow the creation of new graphics.
-            EnableGeometryButtons();
-            ToolPicker.IsEnabled = true;
+            ResetFromEditingSession();
         }
 
         // Stop the geometry editor without saving the geometry stored within.
         private void DiscardButton_Click(object sender, EventArgs e)
         {
-            if (_selectedGraphic != null)
-            {
-                // Make visisble the pre-existing graphic when editing.
-                _selectedGraphic.IsVisible = true;
-                _selectedGraphic.IsSelected = false;
-                _selectedGraphic = null;
-
-                _geometryEditor.ClearSelection();
-            }
-
             _geometryEditor.Stop();
-
-            // Allow for the creation of new graphics.
-            EnableGeometryButtons();
-            ToolPicker.IsEnabled = true;
+            ResetFromEditingSession();
         }
 
         // Remove all graphics from the graphics overlay.
         private void DeleteAllButton_Click(object sender, EventArgs e)
         {
             _graphicsOverlay.Graphics.Clear();
+        }
 
-            // Disable the delete all button as there are no graphics to delete.
-            DeleteAllButton.IsEnabled = false;
-            _geometryCreated = false;
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
+        {
+            // Return immediately when in an editing session.
+            if (_geometryEditor.IsStarted) return;
 
-            // Allow for the creation of new graphics.
-            EnableGeometryButtons();
-            ToolPicker.IsEnabled = true;
+            try
+            {
+                // Identify graphics in the graphics overlay using the mouse point.
+                IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 5, false);
+
+                // Try to get the first graphic from the first result.
+                _selectedGraphic = results.FirstOrDefault()?.Graphics?.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                // Report exceptions.
+                await Application.Current.MainPage.DisplayAlert("Error editing", ex.Message, "OK");
+
+                ResetFromEditingSession();
+                return;
+            }
+
+            // Return since no graphic was selected.
+            if (_selectedGraphic == null) return;
+
+            _selectedGraphic.IsSelected = true;
+
+            // Configure the UI depending on the geometry type.
+            GeometryType geometryType = _selectedGraphic.Geometry.GeometryType;
+            if (geometryType == GeometryType.Point || geometryType == GeometryType.Multipoint)
+            {
+                ToolPicker.SelectedIndex = 0;
+            }
+            DisableOtherGeometryButtons(_geometryButtons[geometryType]);
+
+            // Hide the selected graphic and start an editing session with a copy of it.
+            _geometryEditor.Start(_selectedGraphic.Geometry);
+            _selectedGraphic.IsVisible = false;
         }
 
         #endregion Edit controls event handlers
 
-        #region Enable and disable geometry buttons methods
+        #region Helper methods
 
-        // Ensure all geometry buttons are enabled.
-        private void EnableGeometryButtons()
+        private void CreateInitialGraphics()
         {
-            foreach (var button in _geometryButtons)
+            // Create symbols for displaying new geometries.
+            _pointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Square, Color.OrangeRed, 10);
+            _multiPointSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Color.Yellow, 5);
+            _polylineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, Color.Blue, 2);
+            var polygonLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.Black, 1);
+            _polygonSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.FromArgb(70, 255, 0, 0), polygonLineSymbol);
+
+            // Create geometry objects from JSON formatted strings.
+            var houseCoordinates = (MapPoint)Geometry.FromJson
+                (@"{""x"": -9.59309629, ""y"": 53.0830063,
+                ""spatialReference"":{""wkid"":4326}}");
+            var outbuildingCoordinates = (Multipoint)Geometry.FromJson
+                (@"{""points"":[[-9.59386587, 53.08289651], [-9.59370896, 53.08234917],
+                [-9.59330546, 53.082564], [-9.59341755, 53.08286662],
+                [-9.59326997, 53.08304595], [-9.59246485, 53.08294507],
+                [-9.59250034, 53.08286101], [-9.59241815, 53.08284607],
+                [-9.59286835, 53.08311506], [-9.59307943, 53.08234731]],
+                ""spatialReference"":{""wkid"":4326}}");
+            var road1Coordinates = (Polyline)Geometry.FromJson
+                (@"{""paths"":[[[-9.59486423, 53.08169453], [-9.5947812, 53.08175431],
+                [-9.59475464, 53.08189379], [-9.59494393, 53.08213622],
+                [-9.59464173, 53.08240521], [-9.59413694, 53.08260115],
+                [-9.59357903, 53.0829266], [-9.59335984, 53.08311589],
+                [-9.59318051, 53.08316903], [-9.59301779, 53.08322216],
+                [-9.59264252, 53.08370038], [-9.59250636, 53.08383986]]],
+                ""spatialReference"":{""wkid"":4326}}");
+            var road2Coordinates = (Polyline)Geometry.FromJson
+                (@"{""paths"":[[[-9.59400079, 53.08136244], [-9.59395761, 53.08149528],
+                [-9.59368862, 53.0817045], [-9.59358235, 53.08219267],
+                [-9.59331667, 53.08290335], [-9.59314398, 53.08314246],
+                [-9.5930676, 53.08330519], [-9.59303439, 53.08351109],
+                [-9.59301447, 53.08363728], [-9.59293809, 53.08387307]]],
+                ""spatialReference"":{""wkid"":4326}}");
+            var boundaryCoordinates = (Polygon)Geometry.FromJson
+                (@"{ ""rings"": [[[-9.59350122, 53.08320723], [-9.59345177, 53.08333534],
+                [-9.59309789, 53.08327198], [-9.59300344, 53.08317992],
+                [-9.59221827, 53.08304034], [-9.59220706, 53.08287782],
+                [-9.59229486, 53.08280871], [-9.59236398, 53.08268915],
+                [-9.59255263, 53.08256769], [-9.59265165, 53.08237906],
+                [-9.59287552, 53.08241478], [-9.59292812, 53.0823012],
+                [-9.5932294, 53.08235022], [-9.59342188, 53.08260009],
+                [-9.59354382, 53.08238728], [-9.59365852, 53.08203535],
+                [-9.59408443, 53.08210446], [-9.59448232, 53.08224456],
+                [-9.5943609, 53.08243697], [-9.59458319, 53.08245939],
+                [-9.59439639, 53.08264619], [-9.59433288, 53.0827975],
+                [-9.59404707, 53.08323649], [-9.59350122, 53.08320723]]],
+                ""spatialReference"":{""wkid"":4326}}");
+
+            // Add new example graphics from the geometries and symbols to the graphics overlay.
+            _graphicsOverlay.Graphics.Add(new Graphic(houseCoordinates) { Symbol = _pointSymbol });
+            _graphicsOverlay.Graphics.Add(new Graphic(outbuildingCoordinates) { Symbol = _multiPointSymbol });
+            _graphicsOverlay.Graphics.Add(new Graphic(road1Coordinates) { Symbol = _polylineSymbol });
+            _graphicsOverlay.Graphics.Add(new Graphic(road2Coordinates) { Symbol = _polylineSymbol });
+            _graphicsOverlay.Graphics.Add(new Graphic(boundaryCoordinates) { Symbol = _polygonSymbol });
+        }
+
+        // Reset the UI after the editor stops.
+        private void ResetFromEditingSession()
+        {
+            // Reset the selected graphic.
+            if (_selectedGraphic != null)
             {
-                button.IsEnabled = true;
+                _selectedGraphic.IsSelected = false;
+                _selectedGraphic.IsVisible = true;
             }
+            _selectedGraphic = null;
+
+            // Point and multipoint sessions do not support the vertex tool.
+            PointButton.IsEnabled = MultipointButton.IsEnabled = _geometryEditor.Tool is VertexTool;
+            PolylineButton.IsEnabled = PolygonButton.IsEnabled = true;
+            ToolPicker.IsEnabled = true;
+        }
+
+        // Return the graphic style based on geometry type.
+        private Symbol GetSymbol(GeometryType geometryType)
+        {
+            switch (geometryType)
+            {
+                case GeometryType.Point:
+                    return _pointSymbol;
+
+                case GeometryType.Multipoint:
+                    return _multiPointSymbol;
+
+                case GeometryType.Polyline:
+                    return _polylineSymbol;
+
+                case GeometryType.Polygon:
+                    return _polygonSymbol;
+            }
+            return null;
         }
 
         // Disable all geometry buttons besides the one that was just clicked.
         private void DisableOtherGeometryButtons(Button keepEnabled)
         {
-            foreach (var button in _geometryButtons.Where(value => value != keepEnabled))
+            foreach (Button button in _geometryButtons.Values)
             {
-                button.IsEnabled = false;
+                button.IsEnabled = button == keepEnabled;
             }
         }
 
-        #endregion Enable and disable geometry buttons methods
-
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
-        {
-            try
-            {
-                if (!_geometryEditor.IsStarted)
-                {
-                    // Identify graphics in the graphics overlay using the mouse point.
-                    IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 2, false);
-
-                    // Get the first graphic if results were found.
-                    IdentifyGraphicsOverlayResult idResult = results.FirstOrDefault();
-                    if (idResult != null && idResult.Graphics.Count > 0)
-                    {
-                        _selectedGraphic = idResult.Graphics.FirstOrDefault();
-                        _selectedGraphic.IsSelected = true;
-
-                        GeometryType geometryType = _selectedGraphic.Geometry.GeometryType;
-
-                        // Configure the UI depending on the geometry type.
-                        if (geometryType == GeometryType.Point || geometryType == GeometryType.Multipoint)
-                        {
-                            ToolPicker.SelectedIndex = 0;
-                            ToolPicker.IsEnabled = false;
-                        }
-                        else
-                        {
-                            ToolPicker.IsEnabled = true;
-                        }
-                        switch (geometryType)
-                        {
-                            case GeometryType.Point:
-                                DisableOtherGeometryButtons(PointButton);
-                                break;
-
-                            case GeometryType.Multipoint:
-                                DisableOtherGeometryButtons(MultipointButton);
-                                break;
-
-                            case GeometryType.Polyline:
-                                DisableOtherGeometryButtons(PolylineButton);
-                                break;
-
-                            case GeometryType.Polygon:
-                                DisableOtherGeometryButtons(PolygonButton);
-                                break;
-                        }
-
-                        // Hide the selected graphic and start an editing session with a copy of it.
-                        _geometryEditor.Start(_selectedGraphic.Geometry);
-                        _selectedGraphic.IsVisible = false;
-                    }
-                    else
-                    {
-                        _selectedGraphic = null;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
-            }
-        }
+        #endregion Helper methods
     }
 }

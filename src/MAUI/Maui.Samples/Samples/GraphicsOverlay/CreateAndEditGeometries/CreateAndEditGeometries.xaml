@@ -2,7 +2,17 @@
 <ContentPage x:Class="ArcGIS.Samples.CreateAndEditGeometries.CreateAndEditGeometries"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+    <ContentPage.Resources>
+        <Style x:Key="IconStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="calcite-ui-icons-24" />
+                <Setter Property="FontSize" Value="30" />
+            </Style.Setters>
+        </Style>
+        <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    </ContentPage.Resources>
     <Grid>
         <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Grid Margin="5,5,5,5"
@@ -15,28 +25,25 @@
             <Button x:Name="PointButton"
                     Grid.Row="0"
                     Clicked="PointButton_Click"
-                    FontFamily="calcite-ui-icons-24"
-                    FontSize="40"
+                    Style="{StaticResource IconStyle}"
                     Text="&#xe21c;" />
             <Button x:Name="MultipointButton"
                     Grid.Row="0"
                     Grid.Column="1"
+                    FontSize="15"
                     Clicked="MultipointButton_Click"
-                    FontFamily="calcite-ui-icons-24"
-                    FontSize="20"
+                    Style="{StaticResource IconStyle}"
                     Text="&#xe21c;&#xe21c;" />
             <Button x:Name="PolylineButton"
                     Grid.Row="1"
                     Clicked="PolylineButton_Click"
-                    FontFamily="calcite-ui-icons-24"
-                    FontSize="40"
+                    Style="{StaticResource IconStyle}"
                     Text="&#xe1a8;" />
             <Button x:Name="PolygonButton"
                     Grid.Row="1"
                     Grid.Column="1"
                     Clicked="PolygonButton_Click"
-                    FontFamily="calcite-ui-icons-24"
-                    FontSize="40"
+                    Style="{StaticResource IconStyle}"
                     Text="&#xe220;" />
             <Picker x:Name="ToolPicker"
                     Grid.Row="2"
@@ -45,43 +52,38 @@
                     WidthRequest="150" />
             <Button Grid.Row="3"
                     Clicked="UndoButton_Click"
-                    FontFamily="calcite-ui-icons-24"
-                    FontSize="40"
                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                    Style="{StaticResource IconStyle}"
                     Text="&#xe2d6;" />
             <Button Grid.Row="3"
                     Grid.Column="1"
                     Clicked="RedoButton_Click"
-                    FontFamily="calcite-ui-icons-24"
-                    FontSize="40"
                     IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}}"
+                    Style="{StaticResource IconStyle}"
                     Text="&#xe23e;" />
             <Button Grid.Row="4"
                     Clicked="DeleteSelectedButton_Click"
-                    FontFamily="calcite-ui-icons-24"
-                    FontSize="40"
                     IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
+                    Style="{StaticResource IconStyle}"
                     Text="&#xe0e8;" />
             <Button x:Name="SaveButton"
                     Grid.Row="4"
                     Grid.Column="1"
                     Clicked="SaveButton_Click"
-                    FontFamily="calcite-ui-icons-24"
-                    FontSize="40"
                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                    Style="{StaticResource IconStyle}"
                     Text="&#xe06f;" />
             <Button Grid.Row="5"
                     Clicked="DiscardButton_Click"
-                    FontFamily="calcite-ui-icons-24"
-                    FontSize="40"
                     IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                    Style="{StaticResource IconStyle}"
                     Text="&#xe080;" />
             <Button x:Name="DeleteAllButton"
                     Grid.Row="5"
                     Grid.Column="1"
                     Clicked="DeleteAllButton_Click"
-                    FontFamily="calcite-ui-icons-24"
-                    FontSize="40"
+                    IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
+                    Style="{StaticResource IconStyle}"
                     Text="&#xe2d0;" />
         </Grid>
     </Grid>

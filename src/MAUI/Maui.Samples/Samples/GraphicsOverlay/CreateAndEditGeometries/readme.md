@@ -44,7 +44,7 @@ Use the control panel to undo or redo changes made to the geometry, delete a sel
 
 ## Additional information
 
-The sample opens with the ArcGIS Imagery basemap centered on the island of Inis Meáin (Aran Islands) in Ireland. Inis Meáin comprises a landscape of interlinked stone walls, roads, buildings, archaeological sites, and geological features, producing complex geometrical relationships.
+The sample opens with the ArcGIS Imagery basemap centered on the island of Inis Meain (Aran Islands) in Ireland. Inis Meáin comprises a landscape of interlinked stone walls, roads, buildings, archaeological sites, and geological features, producing complex geometrical relationships.
 
 ## Tags
 

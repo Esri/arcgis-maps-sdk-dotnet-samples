@@ -36,6 +36,46 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
         private Dictionary<GeometryType, Button> _geometryButtons;
         private Dictionary<string, GeometryEditorTool> _toolDictionary;
 
+        // Json formatted strings for initial geometries.
+        private readonly string _houseCoordinatesJson = @"{""x"": -9.59309629, ""y"": 53.0830063,
+            ""spatialReference"":{""wkid"":4326}}";
+
+        private readonly string _outbuildingCoordinatesJson = @"{""points"":[[-9.59386587, 53.08289651], [-9.59370896, 53.08234917],
+                [-9.59330546, 53.082564], [-9.59341755, 53.08286662],
+                [-9.59326997, 53.08304595], [-9.59246485, 53.08294507],
+                [-9.59250034, 53.08286101], [-9.59241815, 53.08284607],
+                [-9.59286835, 53.08311506], [-9.59307943, 53.08234731]],
+                ""spatialReference"":{""wkid"":4326}}";
+
+        private readonly string _road1CoordinatesJson = @"{""paths"":[[[-9.59486423, 53.08169453], [-9.5947812, 53.08175431],
+                [-9.59475464, 53.08189379], [-9.59494393, 53.08213622],
+                [-9.59464173, 53.08240521], [-9.59413694, 53.08260115],
+                [-9.59357903, 53.0829266], [-9.59335984, 53.08311589],
+                [-9.59318051, 53.08316903], [-9.59301779, 53.08322216],
+                [-9.59264252, 53.08370038], [-9.59250636, 53.08383986]]],
+                ""spatialReference"":{""wkid"":4326}}";
+
+        private readonly string _road2CoordinatesJson = @"{""paths"":[[[-9.59400079, 53.08136244], [-9.59395761, 53.08149528],
+                [-9.59368862, 53.0817045], [-9.59358235, 53.08219267],
+                [-9.59331667, 53.08290335], [-9.59314398, 53.08314246],
+                [-9.5930676, 53.08330519], [-9.59303439, 53.08351109],
+                [-9.59301447, 53.08363728], [-9.59293809, 53.08387307]]],
+                ""spatialReference"":{""wkid"":4326}}";
+
+        private readonly string _boundaryCoordinatesJson = @"{ ""rings"": [[[-9.59350122, 53.08320723], [-9.59345177, 53.08333534],
+                [-9.59309789, 53.08327198], [-9.59300344, 53.08317992],
+                [-9.59221827, 53.08304034], [-9.59220706, 53.08287782],
+                [-9.59229486, 53.08280871], [-9.59236398, 53.08268915],
+                [-9.59255263, 53.08256769], [-9.59265165, 53.08237906],
+                [-9.59287552, 53.08241478], [-9.59292812, 53.0823012],
+                [-9.5932294, 53.08235022], [-9.59342188, 53.08260009],
+                [-9.59354382, 53.08238728], [-9.59365852, 53.08203535],
+                [-9.59408443, 53.08210446], [-9.59448232, 53.08224456],
+                [-9.5943609, 53.08243697], [-9.59458319, 53.08245939],
+                [-9.59439639, 53.08264619], [-9.59433288, 53.0827975],
+                [-9.59404707, 53.08323649], [-9.59350122, 53.08320723]]],
+                ""spatialReference"":{""wkid"":4326}}";
+
         public CreateAndEditGeometries()
         {
             InitializeComponent();
@@ -148,7 +188,7 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && tool is VertexTool;
         }
 
-        #endregion Create controls event handlers
+        #endregion Event handlers
 
         #region Edit controls event handlers
 
@@ -175,15 +215,18 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
         {
             Geometry geometry = _geometryEditor.Stop();
 
-            if (_selectedGraphic != null)
+            if (geometry != null)
             {
-                // Update the geometry of the graphic being edited and make it visible again.
-                _selectedGraphic.Geometry = geometry;
-            }
-            else
-            {
-                // Create a new graphic based on the geometry and add it to the graphics overlay.
-                _graphicsOverlay.Graphics.Add(new Graphic(geometry, GetSymbol(geometry.GeometryType)));
+                if (_selectedGraphic != null)
+                {
+                    // Update the geometry of the graphic being edited and make it visible again.
+                    _selectedGraphic.Geometry = geometry;
+                }
+                else
+                {
+                    // Create a new graphic based on the geometry and add it to the graphics overlay.
+                    _graphicsOverlay.Graphics.Add(new Graphic(geometry, GetSymbol(geometry.GeometryType)));
+                }
             }
 
             ResetFromEditingSession();
@@ -255,46 +298,12 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             var polygonLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, Color.Black, 1);
             _polygonSymbol = new SimpleFillSymbol(SimpleFillSymbolStyle.Solid, Color.FromArgb(70, 255, 0, 0), polygonLineSymbol);
 
-            // Create geometry objects from JSON formatted strings.
-            var houseCoordinates = (MapPoint)Geometry.FromJson
-                (@"{""x"": -9.59309629, ""y"": 53.0830063,
-                ""spatialReference"":{""wkid"":4326}}");
-            var outbuildingCoordinates = (Multipoint)Geometry.FromJson
-                (@"{""points"":[[-9.59386587, 53.08289651], [-9.59370896, 53.08234917],
-                [-9.59330546, 53.082564], [-9.59341755, 53.08286662],
-                [-9.59326997, 53.08304595], [-9.59246485, 53.08294507],
-                [-9.59250034, 53.08286101], [-9.59241815, 53.08284607],
-                [-9.59286835, 53.08311506], [-9.59307943, 53.08234731]],
-                ""spatialReference"":{""wkid"":4326}}");
-            var road1Coordinates = (Polyline)Geometry.FromJson
-                (@"{""paths"":[[[-9.59486423, 53.08169453], [-9.5947812, 53.08175431],
-                [-9.59475464, 53.08189379], [-9.59494393, 53.08213622],
-                [-9.59464173, 53.08240521], [-9.59413694, 53.08260115],
-                [-9.59357903, 53.0829266], [-9.59335984, 53.08311589],
-                [-9.59318051, 53.08316903], [-9.59301779, 53.08322216],
-                [-9.59264252, 53.08370038], [-9.59250636, 53.08383986]]],
-                ""spatialReference"":{""wkid"":4326}}");
-            var road2Coordinates = (Polyline)Geometry.FromJson
-                (@"{""paths"":[[[-9.59400079, 53.08136244], [-9.59395761, 53.08149528],
-                [-9.59368862, 53.0817045], [-9.59358235, 53.08219267],
-                [-9.59331667, 53.08290335], [-9.59314398, 53.08314246],
-                [-9.5930676, 53.08330519], [-9.59303439, 53.08351109],
-                [-9.59301447, 53.08363728], [-9.59293809, 53.08387307]]],
-                ""spatialReference"":{""wkid"":4326}}");
-            var boundaryCoordinates = (Polygon)Geometry.FromJson
-                (@"{ ""rings"": [[[-9.59350122, 53.08320723], [-9.59345177, 53.08333534],
-                [-9.59309789, 53.08327198], [-9.59300344, 53.08317992],
-                [-9.59221827, 53.08304034], [-9.59220706, 53.08287782],
-                [-9.59229486, 53.08280871], [-9.59236398, 53.08268915],
-                [-9.59255263, 53.08256769], [-9.59265165, 53.08237906],
-                [-9.59287552, 53.08241478], [-9.59292812, 53.0823012],
-                [-9.5932294, 53.08235022], [-9.59342188, 53.08260009],
-                [-9.59354382, 53.08238728], [-9.59365852, 53.08203535],
-                [-9.59408443, 53.08210446], [-9.59448232, 53.08224456],
-                [-9.5943609, 53.08243697], [-9.59458319, 53.08245939],
-                [-9.59439639, 53.08264619], [-9.59433288, 53.0827975],
-                [-9.59404707, 53.08323649], [-9.59350122, 53.08320723]]],
-                ""spatialReference"":{""wkid"":4326}}");
+            // Create geometries from Json formatted strings.
+            var houseCoordinates = (MapPoint)Geometry.FromJson(_houseCoordinatesJson);
+            var outbuildingCoordinates = (Multipoint)Geometry.FromJson(_outbuildingCoordinatesJson);
+            var road1Coordinates = (Polyline)Geometry.FromJson(_road1CoordinatesJson);
+            var road2Coordinates = (Polyline)Geometry.FromJson(_road2CoordinatesJson);
+            var boundaryCoordinates = (Polygon)Geometry.FromJson(_boundaryCoordinatesJson);
 
             // Add new example graphics from the geometries and symbols to the graphics overlay.
             _graphicsOverlay.Graphics.Add(new Graphic(houseCoordinates) { Symbol = _pointSymbol });

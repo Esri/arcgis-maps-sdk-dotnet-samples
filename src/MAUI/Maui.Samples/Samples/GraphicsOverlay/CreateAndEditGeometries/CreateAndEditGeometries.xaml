@@ -2,8 +2,8 @@
 <ContentPage x:Class="ArcGIS.Samples.CreateAndEditGeometries.CreateAndEditGeometries"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
+             xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <ContentPage.Resources>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
@@ -30,8 +30,8 @@
             <Button x:Name="MultipointButton"
                     Grid.Row="0"
                     Grid.Column="1"
-                    FontSize="15"
                     Clicked="MultipointButton_Click"
+                    FontSize="15"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe21c;&#xe21c;" />
             <Button x:Name="PolylineButton"

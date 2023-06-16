@@ -2,7 +2,7 @@
 
 Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.
 
-![CreateAndEditGeometries](CreateAndEditGeometries.png)
+![CreateAndEditGeometries](CreateAndEditGeometries.jpg)
 
 ## Use case
 

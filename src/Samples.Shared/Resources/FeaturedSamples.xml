@@ -1,14 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <FeaturedSamples>
 	<Categories>
+		<Category name="Analysis">
+			<Sample>DistanceMeasurement</Sample>
+        </Category>
 		<Category name="Data">
-			<Sample>CreateFeatures</Sample>
+			<Sample>ManageFeatures</Sample>
 		</Category>
 		<Category name="Layers">
-			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>
 			<Sample>AddDynamicEntityLayer</Sample>
+			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>
 			<Sample>DisplayRouteLayer</Sample>
 		</Category>
+		<Category name="Map">
+			<Sample>BrowseBuildingFloors</Sample>
+			<Sample>ChangeBasemap</Sample>
+			<Sample>DisplayMap</Sample>
+			<Sample>DisplayOverviewMap</Sample>
+        </Category>
 		<Category name="Scene">
 			<Sample>ShowLabelsOnLayer3D</Sample>
 		</Category>

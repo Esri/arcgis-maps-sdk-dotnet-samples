@@ -1,6 +1,6 @@
 {
     "category": "Location",
-    "description": "Display your current position on the map, as well as switch between different types of auto pan Modes.",
+    "description": "Display your current position on the map, as well as switch between different types of auto pan modes.",
     "formal_name": "DisplayDeviceLocation",
     "ignore": false,
     "images": [

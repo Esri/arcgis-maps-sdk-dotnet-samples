@@ -1,6 +1,6 @@
 # Display device location with autopan modes
 
-Display your current position on the map, as well as switch between different types of auto pan Modes.
+Display your current position on the map, as well as switch between different types of auto pan modes.
 
 ![Image of display device location with autopan modes](DisplayDeviceLocation.jpg)
 
@@ -10,7 +10,7 @@ When using a map within a GIS, it may be helpful for a user to know their own lo
 
 ## How to use the sample
 
-Select an autopan mode, then use the buttons to start and stop location display.
+Select an autopan mode, then use the button to start and stop location display.
 
 ## How it works
 

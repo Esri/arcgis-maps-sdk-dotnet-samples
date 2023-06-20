@@ -15,18 +15,18 @@ using System.Windows;
 namespace ArcGIS.WPF.Samples.DisplayDeviceLocation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Display device location with autopan modes",
+        name: "Display device location with auto pan modes",
         category: "Location",
         description: "Display your current position on the map, as well as switch between different types of auto pan Modes.",
-        instructions: "Select an autopan mode, then use the buttons to start and stop location display.",
+        instructions: "Select an auto pan mode, then use the buttons to start and stop location display.",
         tags: new[] { "GPS", "compass", "location", "map", "mobile", "navigation" })]
     public partial class DisplayDeviceLocation
     {
-        // Dictionary to store the different autopan modes.
+        // Dictionary to store the different auto pan modes.
         private readonly Dictionary<string, LocationDisplayAutoPanMode> _autoPanModes =
             new Dictionary<string, LocationDisplayAutoPanMode>
         {
-            { "Autopan Off", LocationDisplayAutoPanMode.Off },
+            { "AutoPan Off", LocationDisplayAutoPanMode.Off },
             { "Re-Center", LocationDisplayAutoPanMode.Recenter },
             { "Navigation", LocationDisplayAutoPanMode.Navigation },
             { "Compass", LocationDisplayAutoPanMode.CompassNavigation }
@@ -35,8 +35,6 @@ namespace ArcGIS.WPF.Samples.DisplayDeviceLocation
         public DisplayDeviceLocation()
         {
             InitializeComponent();
-
-            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -45,20 +43,29 @@ namespace ArcGIS.WPF.Samples.DisplayDeviceLocation
             // Add event handler for when this sample is unloaded.
             Unloaded += SampleUnloaded;
 
-            // Create new Map with basemap
+            // Create new Map with basemap.
             Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
-            // Provide used Map to the MapView
+            // Provide used Map to the MapView.
             MyMapView.Map = myMap;
 
-            // Set navigation types as items source and set default value
-            AutopanModeComboBox.ItemsSource = _autoPanModes.Keys;
+            // Set navigation types as items source and set default value.
+            AutoPanModeComboBox.ItemsSource = _autoPanModes.Keys;
+
+            // Update the UI when the user pans the view, changing the location mode.
+            MyMapView.LocationDisplay.AutoPanModeChanged += (sender, args) =>
+            {
+                if (MyMapView.LocationDisplay.AutoPanMode == LocationDisplayAutoPanMode.Off)
+                {
+                    AutoPanModeComboBox.SelectedItem = "AutoPan Off";
+                }
+            };
         }
 
-        private void AutopanModeComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void AutoPanModeComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            // Change the autopan mode based on the new selection.
-            MyMapView.LocationDisplay.AutoPanMode = _autoPanModes[AutopanModeComboBox.SelectedItem.ToString()];
+            // Change the auto pan mode based on the new selection.
+            MyMapView.LocationDisplay.AutoPanMode = _autoPanModes[AutoPanModeComboBox.SelectedItem.ToString()];
         }
 
         private void StartStopButton_Click(object sender, RoutedEventArgs e)

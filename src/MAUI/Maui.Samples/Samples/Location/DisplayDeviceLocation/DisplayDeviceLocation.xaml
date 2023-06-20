@@ -7,10 +7,10 @@
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="200">
             <StackLayout Spacing="5">
-                <Label Text="Select an autopan mode:" />
-                <Picker x:Name="AutopanModePicker"
+                <Label Text="Select an auto pan mode:" />
+                <Picker x:Name="AutoPanModePicker"
                         HorizontalTextAlignment="Center"
-                        SelectedIndexChanged="AutopanModePicker_SelectedIndexChanged"
+                        SelectedIndexChanged="AutoPanModePicker_SelectedIndexChanged"
                         WidthRequest="150" />
                 <Button x:Name="StartStopButton"
                         Clicked="StartStopButton_Clicked"

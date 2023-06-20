@@ -14,17 +14,17 @@ using System.Diagnostics;
 namespace ArcGIS.Samples.DisplayDeviceLocation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Display device location with autopan modes",
+        name: "Display device location with auto pan modes",
         category: "Location",
         description: "Display your current position on the map, as well as switch between different types of auto pan Modes.",
-        instructions: "Select an autopan mode, then use the buttons to start and stop location display.",
+        instructions: "Select an auto pan mode, then use the buttons to start and stop location display.",
         tags: new[] { "GPS", "compass", "location", "map", "mobile", "navigation" })]
     public partial class DisplayDeviceLocation : ContentPage, IDisposable
     {
-        // Dictionary to store the different autopan modes.
+        // Dictionary to store the different auto pan modes.
         private readonly Dictionary<string, LocationDisplayAutoPanMode> _autoPanModes = new()
         {
-            { "Autopan Off", LocationDisplayAutoPanMode.Off },
+            { "AutoPan Off", LocationDisplayAutoPanMode.Off },
             { "Re-Center", LocationDisplayAutoPanMode.Recenter },
             { "Navigation", LocationDisplayAutoPanMode.Navigation },
             { "Compass", LocationDisplayAutoPanMode.CompassNavigation }
@@ -44,8 +44,8 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
             // Assign the map to the MapView.
             MyMapView.Map = myMap;
 
-            // Populate the picker with different autopan modes.
-            AutopanModePicker.ItemsSource = _autoPanModes.Keys.ToList();
+            // Populate the picker with different auto pan modes.
+            AutoPanModePicker.ItemsSource = _autoPanModes.Keys.ToList();
         }
 
         private async Task StartDeviceLocationTask()
@@ -64,6 +64,15 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
 
                 // Start the location display if permission is granted.
                 MyMapView.LocationDisplay.IsEnabled = status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted;
+
+                // Update the UI when the user pans the view, changing the location mode.
+                MyMapView.LocationDisplay.AutoPanModeChanged += (sender, args) =>
+                {
+                    if (MyMapView.LocationDisplay.AutoPanMode == LocationDisplayAutoPanMode.Off)
+                    {
+                        AutoPanModePicker.SelectedItem = "AutoPan Off";
+                    }
+                };
             }
             catch (Exception ex)
             {
@@ -72,10 +81,10 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
             }
         }
 
-        private void AutopanModePicker_SelectedIndexChanged(object sender, EventArgs e)
+        private void AutoPanModePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Change the autopan mode based on the new selection.
-            MyMapView.LocationDisplay.AutoPanMode = _autoPanModes[AutopanModePicker.SelectedItem.ToString()];
+            // Change the auto pan mode based on the new selection.
+            MyMapView.LocationDisplay.AutoPanMode = _autoPanModes[AutoPanModePicker.SelectedItem.ToString()];
         }
 
         private void StartStopButton_Clicked(object sender, EventArgs e)

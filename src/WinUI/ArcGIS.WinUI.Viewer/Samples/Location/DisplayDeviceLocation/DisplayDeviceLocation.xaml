@@ -8,12 +8,12 @@
             <StackPanel Spacing="5">
                 <TextBlock Margin="0,0,0,5"
                            FontWeight="SemiBold"
-                           Text="Select an autopan mode:"
+                           Text="Select an auto pan mode:"
                            TextAlignment="Center" />
-                <ComboBox x:Name="AutopanModeComboBox"
+                <ComboBox x:Name="AutoPanModeComboBox"
                           HorizontalAlignment="Stretch"
                           HorizontalContentAlignment="Center"
-                          SelectionChanged="AutopanModeComboBox_SelectionChanged" />
+                          SelectionChanged="AutoPanModeComboBox_SelectionChanged" />
                 <Button x:Name="StartStopButton"
                         Margin="5,5,0,0"
                         HorizontalAlignment="Stretch"

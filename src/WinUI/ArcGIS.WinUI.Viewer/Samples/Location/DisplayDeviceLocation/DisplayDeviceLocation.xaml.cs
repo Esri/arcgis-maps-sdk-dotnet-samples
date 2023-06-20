@@ -16,17 +16,17 @@ using System.Collections.Generic;
 namespace ArcGIS.WinUI.Samples.DisplayDeviceLocation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Display device location with autopan modes",
+        name: "Display device location with auto pan modes",
         category: "Location",
         description: "Display your current position on the map, as well as switch between different types of auto pan Modes.",
-        instructions: "Select an autopan mode, then use the buttons to start and stop location display.",
+        instructions: "Select an auto pan mode, then use the buttons to start and stop location display.",
         tags: new[] { "GPS", "compass", "location", "map", "mobile", "navigation" })]
     public partial class DisplayDeviceLocation
     {
-        // Dictionary to store the different autopan modes.
+        // Dictionary to store the different auto pan modes.
         private readonly Dictionary<string, LocationDisplayAutoPanMode> _autoPanModes = new()
         {
-            { "Autopan Off", LocationDisplayAutoPanMode.Off },
+            { "AutoPan Off", LocationDisplayAutoPanMode.Off },
             { "Re-Center", LocationDisplayAutoPanMode.Recenter },
             { "Navigation", LocationDisplayAutoPanMode.Navigation },
             { "Compass", LocationDisplayAutoPanMode.CompassNavigation }
@@ -35,8 +35,6 @@ namespace ArcGIS.WinUI.Samples.DisplayDeviceLocation
         public DisplayDeviceLocation()
         {
             InitializeComponent();
-
-            // Setup the control references and execute initialization.
             Initialize();
         }
 
@@ -48,14 +46,23 @@ namespace ArcGIS.WinUI.Samples.DisplayDeviceLocation
             // Assign the map to the MapView.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImageryStandard);
 
-            // Populate the combo box with autopan modes.
-            AutopanModeComboBox.ItemsSource = _autoPanModes.Keys;
+            // Populate the combo box with auto pan modes.
+            AutoPanModeComboBox.ItemsSource = _autoPanModes.Keys;
+
+            // Update the UI when the user pans the view, changing the location mode.
+            MyMapView.LocationDisplay.AutoPanModeChanged += (sender, args) =>
+            {
+                if (MyMapView.LocationDisplay.AutoPanMode == LocationDisplayAutoPanMode.Off)
+                {
+                    AutoPanModeComboBox.SelectedItem = "AutoPan Off";
+                }
+            };
         }
 
-        private void AutopanModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void AutoPanModeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Change the autopan mode based on the new selection.
-            MyMapView.LocationDisplay.AutoPanMode = _autoPanModes[AutopanModeComboBox.SelectedItem.ToString()];
+            // Change the auto pan mode based on the new selection.
+            MyMapView.LocationDisplay.AutoPanMode = _autoPanModes[AutoPanModeComboBox.SelectedItem.ToString()];
         }
 
         private void StartStopButton_Clicked(object sender, RoutedEventArgs e)

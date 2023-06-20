@@ -14,10 +14,10 @@ using System.Diagnostics;
 namespace ArcGIS.Samples.DisplayDeviceLocation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Display device location with auto pan modes",
+        name: "Display device location with autopan modes",
         category: "Location",
         description: "Display your current position on the map, as well as switch between different types of auto pan Modes.",
-        instructions: "Select an auto pan mode, then use the buttons to start and stop location display.",
+        instructions: "Select an autopan mode, then use the buttons to start and stop location display.",
         tags: new[] { "GPS", "compass", "location", "map", "mobile", "navigation" })]
     public partial class DisplayDeviceLocation : ContentPage, IDisposable
     {

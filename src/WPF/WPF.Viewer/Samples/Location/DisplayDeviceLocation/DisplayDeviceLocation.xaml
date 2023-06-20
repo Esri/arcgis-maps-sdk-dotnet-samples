@@ -4,41 +4,21 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Margin="0,0,0,5"
+        <Border Width="200" Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock Margin="0,0,0,5"
                            FontWeight="Bold"
-                           Text="Select autopan mode."
+                           Text="Select autopan mode:"
                            TextAlignment="Center"
                            TextWrapping="Wrap" />
-                <ComboBox x:Name="ModeChooser"
-                          Grid.Row="1"
-                          Grid.Column="0"
-                          Grid.ColumnSpan="2"
-                          SelectionChanged="OnModeChooserSelectionChanged" />
-                <Button Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,5,5,0"
-                        Click="OnStartButtonClicked"
+                <ComboBox x:Name="AutopanModeComboBox"
+                          Margin="0,0,0,5"
+                          SelectionChanged="AutopanModeComboBox_SelectionChanged" />
+                <Button x:Name="StartStopButton"
+                        Margin="0,0,0,5"
+                        Click="StartStopButton_Click"
                         Content="Start" />
-                <Button Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="5,5,0,0"
-                        Click="OnStopButtonClicked"
-                        Content="Stop" />
-            </Grid>
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>

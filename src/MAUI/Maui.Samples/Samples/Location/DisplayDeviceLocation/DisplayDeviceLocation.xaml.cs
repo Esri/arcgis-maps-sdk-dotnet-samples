@@ -21,6 +21,15 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
         tags: new[] { "GPS", "compass", "location", "map", "mobile", "navigation" })]
     public partial class DisplayDeviceLocation : ContentPage, IDisposable
     {
+        // Dictionary to store the different autopan modes.
+        private readonly Dictionary<string, LocationDisplayAutoPanMode> _autoPanModes = new()
+        {
+            { "Autopan Off", LocationDisplayAutoPanMode.Off },
+            { "Re-Center", LocationDisplayAutoPanMode.Recenter },
+            { "Navigation", LocationDisplayAutoPanMode.Navigation },
+            { "Compass", LocationDisplayAutoPanMode.CompassNavigation }
+        };
+
         public DisplayDeviceLocation()
         {
             InitializeComponent();
@@ -34,6 +43,9 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
 
             // Assign the map to the MapView.
             MyMapView.Map = myMap;
+
+            // Populate the picker with different autopan modes.
+            AutopanModePicker.ItemsSource = _autoPanModes.Keys.ToList();
         }
 
         private async Task StartDeviceLocationTask()
@@ -50,12 +62,8 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
                     status = await Microsoft.Maui.ApplicationModel.Permissions.RequestAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
                 }
 
-                // Start the location display once permission is granted.
-                if (status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
-                {
-                    await MyMapView.LocationDisplay.DataSource.StartAsync();
-                    MyMapView.LocationDisplay.IsEnabled = true;
-                }
+                // Start the location display if permission is granted.
+                MyMapView.LocationDisplay.IsEnabled = status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted;
             }
             catch (Exception ex)
             {
@@ -64,46 +72,31 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
             }
         }
 
-        private void OnStopClicked(object sender, EventArgs e)
+        private void AutopanModePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MyMapView.LocationDisplay.IsEnabled = false;
-            StopButton.IsEnabled = false;
+            // Change the autopan mode based on the new selection.
+            MyMapView.LocationDisplay.AutoPanMode = _autoPanModes[AutopanModePicker.SelectedItem.ToString()];
+        }
+
+        private void StartStopButton_Clicked(object sender, EventArgs e)
+        {
+            // Enable or disable the location display.
+            if (MyMapView.LocationDisplay.IsEnabled)
+            {
+                MyMapView.LocationDisplay.IsEnabled = false;
+                StartStopButton.Text = "Start";
+            }
+            else
+            {
+                _ = StartDeviceLocationTask();
+                StartStopButton.Text = "Stop";
+            }
         }
 
         public void Dispose()
         {
             // Stop the location data source.
             MyMapView.LocationDisplay?.DataSource?.StopAsync();
-        }
-
-        private void RecenterButton_Clicked(object sender, EventArgs e)
-        {
-            // Starts location display with auto pan mode set to Re-Center.
-            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-
-            _ = StartDeviceLocationTask();
-        }
-
-        private void NavigationButton_Clicked(object sender, EventArgs e)
-        {
-            // Starts location display with auto pan mode set to Navigation.
-            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
-
-            _ = StartDeviceLocationTask();
-        }
-
-        private void CompassNavigationButton_Clicked(object sender, EventArgs e)
-        {
-            // Starts location display with auto pan mode set to Compass Navigation.
-            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.CompassNavigation;
-
-            _ = StartDeviceLocationTask();
-        }
-
-        private void ShowDeviceLocationButtons_Clicked(object sender, EventArgs e)
-        {
-            // Show/Hide the device location buttons.
-            DeviceLocationButtonsGrid.IsVisible = !DeviceLocationButtonsGrid.IsVisible;
         }
     }
 }

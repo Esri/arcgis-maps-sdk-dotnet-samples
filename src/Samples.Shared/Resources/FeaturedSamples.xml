@@ -10,7 +10,7 @@
 			<Sample>QueryFeaturesWithArcadeExpression</Sample>
 		</Category>
 		<Category name="GraphicsOverlay">
-			<Sample>SketchOnMap</Sample>
+			<Sample>CreateAndEditGeometries</Sample>
 		</Category>
 		<Category name="Layers">
 			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>

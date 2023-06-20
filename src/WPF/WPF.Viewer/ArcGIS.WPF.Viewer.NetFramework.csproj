@@ -135,23 +135,6 @@
     <Content Include="Samples\*\*\*.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\arrow.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\brush.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\circle.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\clear.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\edit.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\ellipse.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\freehand-polyline.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\multipoint.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\point.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\polygon.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\polyline.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\rectangle.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\redo.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\save.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\trash-can-outline.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\triangle.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\undo.png" />
     <Page Include="Samples\**\*.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
@@ -299,10 +282,10 @@
   </ItemGroup>
   <!-- Packages -->
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.1.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.2.0" />
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="200.1.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.1.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="200.2.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.2.0" />
     <PackageReference Include="Markdig" Version="0.30.2" />
     <PackageReference Include="System.Text.Json">
       <Version>7.0.1</Version>

@@ -23,7 +23,8 @@ namespace ArcGIS.WPF.Samples.DisplayDeviceLocation
     public partial class DisplayDeviceLocation
     {
         // Dictionary to store the different autopan modes.
-        private readonly Dictionary<string, LocationDisplayAutoPanMode> _autoPanModes = new()
+        private readonly Dictionary<string, LocationDisplayAutoPanMode> _autoPanModes =
+            new Dictionary<string, LocationDisplayAutoPanMode>
         {
             { "Autopan Off", LocationDisplayAutoPanMode.Off },
             { "Re-Center", LocationDisplayAutoPanMode.Recenter },

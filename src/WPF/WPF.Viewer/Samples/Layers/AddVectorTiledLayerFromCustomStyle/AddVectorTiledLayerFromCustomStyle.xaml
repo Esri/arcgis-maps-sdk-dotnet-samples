@@ -11,14 +11,7 @@
                            FontWeight="SemiBold"
                            Text="Select style:"
                            TextWrapping="Wrap" />
-                <ComboBox x:Name="StyleChooser" SelectionChanged="StyleChooserSelectionChanged">
-                    <ComboBoxItem Content="Default" />
-                    <ComboBoxItem Content="Style 1" />
-                    <ComboBoxItem Content="Style 2" />
-                    <ComboBoxItem Content="Style 3" />
-                    <ComboBoxItem Content="Offline custom style - Light" />
-                    <ComboBoxItem Content="Offline custom style - Dark" />
-                </ComboBox>
+                <ComboBox x:Name="StyleChooser" SelectionChanged="StyleChooserSelectionChanged" />
             </StackPanel>
         </Border>
     </Grid>

@@ -24,22 +24,17 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
     public partial class AddVectorTiledLayerFromCustomStyle
     {
         // ArcGIS Online portal item strings.
-        private readonly string[] _onlineItemIDs =
+        private readonly string[] _portalItemIDs =
         {
             "1349bfa0ed08485d8a92c442a3850b06",
             "bd8ac41667014d98b933e97713ba8377",
             "02f85ec376084c508b9c8e5a311724fa",
             "1bf0cc4a4380468fbbff107e100f65a5",
-        };
 
-        private readonly string[] _offlineItemIDs =
-        {
+            // Offline custom style vector tiled layer will be created once a VTPK is exported.
             "e01262ef2a4f4d91897d9bbd3a9b1075",
             "ce8a34e5d4ca4fa193a097511daa8855"
         };
-
-        // Items to fill the ActionDisplaySheet for switching custom styles.
-        private readonly string[] styles = { "Default", "Style 1", "Style 2", "Style 3", "Offline custom style - Light", "Offline custom style - Dark" };
 
         // Path to Dodge City vector tile package.
         private readonly string _localVectorPackagePath = DataManager.GetDataFolder("f4b742a57af344988b02227e2824ca5f", "dodge_city.vtpk");
@@ -66,22 +61,28 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync();
 
                 // Store a list of all portal items.
-                foreach (string item in _onlineItemIDs)
+                foreach (string itemID in _portalItemIDs)
                 {
-                    PortalItem portalItem = await PortalItem.CreateAsync(portal, item);
-                    _vectorTiledLayers.Add(portalItem);
-                }
-                foreach (string item in _offlineItemIDs)
-                {
-                    PortalItem portalItem = await PortalItem.CreateAsync(portal, item);
+                    PortalItem portalItem = await PortalItem.CreateAsync(portal, itemID);
                     _vectorTiledLayers.Add(portalItem);
                 }
 
                 // Create a map using defaults.
-                MyMapView.Map = new Map(new Basemap(new ArcGISVectorTiledLayer(_vectorTiledLayers[0]))) { InitialViewpoint = _defaultViewpoint };
+                MyMapView.Map = new Map { InitialViewpoint = _defaultViewpoint };
 
-                // By default, the UI label will not reflect the default style.
-                ChosenStyle.Text = "Current style: Default";
+                // Populate the picker.
+                StyleChooser.ItemsSource = new string[]
+                {
+                    "Default",
+                    "Style 1",
+                    "Style 2",
+                    "Style 3",
+                    "Offline custom style - Light",
+                    "Offline custom style - Dark"
+                };
+
+                // Select the default style.
+                StyleChooser.SelectedIndex = 0;
 
                 // Export offline custom styles.
                 _lightStyleResourceCache = await ExportStyle(_vectorTiledLayers[4]);
@@ -94,37 +95,31 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
             }
         }
 
-        private void ButtonClick(object sender, EventArgs e)
+        private void StyleChooser_SelectedIndexChanged(object sender, EventArgs e)
         {
-            _ = StyleChooser();
+            // Get the style name and index of the selected item.
+            _ = ChangeStyle(StyleChooser.SelectedIndex, StyleChooser.SelectedItem.ToString());
         }
 
-        private async Task StyleChooser()
+        private async Task ChangeStyle(int styleIndex, string styleName)
         {
             try
             {
-                // Get the chosen style, determine that style's index, and update UI label.
-                string style = await Application.Current.MainPage.DisplayActionSheet("Select:", "Cancel", null, styles);
-
-                // Don't attempt to change the style if the user cancels or misclicks.
-                if (style is null || style.Equals("Cancel")) { return; }
-
-                int styleIndex = Array.IndexOf(styles, style);
-                ChosenStyle.Text = $"Current style: {style}";
-
                 // Check if the user selected an online or offline custom style.
                 // Create a new basemap with the appropriate style.
-                if (_onlineItemIDs.Contains(_vectorTiledLayers[styleIndex].ItemId))
+                if (styleName.Contains("Offline"))
                 {
-                    MyMapView.Map.Basemap = new Basemap(new ArcGISVectorTiledLayer(_vectorTiledLayers[styleIndex]));
-                    await MyMapView.SetViewpointAsync(_defaultViewpoint);
+                    // Determine which cache to use based on if the style selected is light or dark.
+                    ItemResourceCache cache = styleName.Contains("Light") ? _lightStyleResourceCache : _darkStyleResourceCache;
+
+                    MyMapView.Map.Basemap = new Basemap(new ArcGISVectorTiledLayer(new VectorTileCache(_localVectorPackagePath), cache));
+                    await MyMapView.SetViewpointAsync(_dodgeCityViewpoint);
+                    await cache.LoadAsync();
                 }
                 else
                 {
-                    // Determine which cache to use based on if the style selected is light (index 4) or dark.
-                    ItemResourceCache cache = styleIndex == 4 ? _lightStyleResourceCache : _darkStyleResourceCache;
-                    MyMapView.Map.Basemap = new Basemap(new ArcGISVectorTiledLayer(new VectorTileCache(_localVectorPackagePath), cache));
-                    await MyMapView.SetViewpointAsync(_dodgeCityViewpoint);
+                    MyMapView.Map.Basemap = new Basemap(new ArcGISVectorTiledLayer(_vectorTiledLayers[styleIndex]));
+                    await MyMapView.SetViewpointAsync(_defaultViewpoint);
                 }
             }
             catch (Exception ex)

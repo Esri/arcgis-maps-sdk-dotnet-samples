@@ -39,7 +39,7 @@ This sample uses a [stream service](https://realtimegis2016.esri.com:6443/arcgis
 
 ## Additional information
 
-More information about dynamic entities can be found in the [guide documentation](https://developers.arcgis.com/net/real-time/work-with-dynamic-entities/).
+More information about dynamic entities can be found in the [guide documentation](link goes here).
 
 ## Tags
 

@@ -13,7 +13,7 @@
                            TextWrapping="Wrap" />
                 <ComboBox x:Name="StyleChooser"
                           MinWidth="230"
-                          SelectionChanged="StyleChooserSelectionChanged" />
+                          SelectionChanged="StyleChooser_SelectionChanged" />
             </StackPanel>
         </Border>
     </Grid>

@@ -11,7 +11,7 @@
                            FontWeight="SemiBold"
                            Text="Select style:"
                            TextWrapping="Wrap" />
-                <ComboBox x:Name="StyleChooser" SelectionChanged="StyleChooserSelectionChanged" />
+                <ComboBox x:Name="StyleChooser" SelectionChanged="StyleChooser_SelectionChanged" />
             </StackPanel>
         </Border>
     </Grid>

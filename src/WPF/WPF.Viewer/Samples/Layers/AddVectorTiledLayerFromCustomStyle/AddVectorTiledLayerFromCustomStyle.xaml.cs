@@ -101,37 +101,37 @@ namespace ArcGIS.WPF.Samples.AddVectorTiledLayerFromCustomStyle
             }
         }
 
-        private void StyleChooserSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Get the style name and index of the selected item.
-            _ = ChangeStyle(StyleChooser.SelectedIndex, StyleChooser.SelectedItem.ToString());
-        }
-
-        private async Task ChangeStyle(int styleIndex, string styleName)
+        private async void StyleChooser_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
-                // Check if the user selected a offline custom style.
-                // Create a new basemap with the appropriate style.
-                if (styleName.Contains("Offline"))
-                {
-                    // Determine which cache to use based on if the style selected is light or dark.
-                    ItemResourceCache cache = styleName.Contains("Light") ? _lightStyleResourceCache : _darkStyleResourceCache;
-
-                    MyMapView.Map.Basemap = new Basemap(new ArcGISVectorTiledLayer(new VectorTileCache(_localVectorPackagePath), cache));
-                    await MyMapView.SetViewpointAsync(_dodgeCityViewpoint);
-                    await cache.LoadAsync();
-                }
-                else
-                {
-                    MyMapView.Map.Basemap = new Basemap(new ArcGISVectorTiledLayer(_vectorTiledLayers[styleIndex]));
-                    await MyMapView.SetViewpointAsync(_defaultViewpoint);
-                }
+                // Get the style name and index of the selected item.
+                await ChangeStyleAsync(StyleChooser.SelectedIndex, StyleChooser.SelectedItem.ToString());
             }
             catch (Exception ex)
             {
                 // Report exceptions.
                 MessageBox.Show("Error: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async Task ChangeStyleAsync(int styleIndex, string styleName)
+        {
+            // Check if the user selected a offline custom style.
+            // Create a new basemap with the appropriate style.
+            if (styleName.Contains("Offline"))
+            {
+                // Determine which cache to use based on if the style selected is light or dark.
+                ItemResourceCache cache = styleName.Contains("Light") ? _lightStyleResourceCache : _darkStyleResourceCache;
+
+                MyMapView.Map.Basemap = new Basemap(new ArcGISVectorTiledLayer(new VectorTileCache(_localVectorPackagePath), cache));
+                await MyMapView.SetViewpointAsync(_dodgeCityViewpoint);
+                await cache.LoadAsync();
+            }
+            else
+            {
+                MyMapView.Map.Basemap = new Basemap(new ArcGISVectorTiledLayer(_vectorTiledLayers[styleIndex]));
+                await MyMapView.SetViewpointAsync(_defaultViewpoint);
             }
         }
 

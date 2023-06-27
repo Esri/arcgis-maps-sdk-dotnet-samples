@@ -5,10 +5,13 @@
              xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esri:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border MaximumWidthRequest="300" Style="{DynamicResource EsriSampleControlPanel}">
+        <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="250">
             <VerticalStackLayout Padding="5" Spacing="5">
-                <Label x:Name="ChosenStyle" VerticalOptions="Center" />
-                <Button Clicked="ButtonClick" Text="Change style" />
+                <Label FontAttributes="Bold" Text="Select style:" />
+                <Picker x:Name="StyleChooser"
+                        HorizontalTextAlignment="Center"
+                        SelectedIndexChanged="StyleChooser_SelectedIndexChanged"
+                        WidthRequest="225" />
             </VerticalStackLayout>
         </Border>
     </Grid>

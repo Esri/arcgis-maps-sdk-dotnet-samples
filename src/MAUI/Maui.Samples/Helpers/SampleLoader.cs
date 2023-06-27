@@ -50,7 +50,7 @@ namespace ArcGIS.Helpers
                 AuthenticationManager.Current.ChallengeHandler = null;
 
                 // Load offline data before showing the sample.
-                if (sampleInfo.OfflineDataItems != null)
+                if (sampleInfo.OfflineDataItems != null && !await DataManager.HasSampleDataPresent(sampleInfo))
                 {
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 

@@ -10,11 +10,13 @@
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Managers;
 using CommunityToolkit.WinUI.UI.Controls;
+using Esri.ArcGISRuntime.UI.Controls;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Text.RegularExpressions;
 using Windows.System;
@@ -36,6 +38,8 @@ namespace ArcGIS.WinUI.Viewer
 
             // Load and show the sample.
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
+
+            (SampleContainer.Content as FrameworkElement).Unloaded += SamplePage_Unloaded;
 
             if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
             {
@@ -87,6 +91,36 @@ namespace ArcGIS.WinUI.Viewer
         private void SamplePage_Unloaded(object sender, RoutedEventArgs e)
         {
             DescriptionBlock.ImageResolving -= MarkDownBlock_ImageResolving;
+
+            // Explicit cleanup of the Map and SceneView instead of waiting for garbage collector can help when
+            // lots of geoviews are being opened and closed
+            foreach (var geoView in TreeWalker<GeoView>(sender as UIElement))
+            {
+                if (geoView is MapView mapView)
+                {
+                    mapView.Map = null;
+                    if (mapView.LocationDisplay != null) mapView.LocationDisplay.IsEnabled = false;
+                }
+                else if (geoView is SceneView sceneView) sceneView.Scene = null;
+            }
+        }
+
+        private static IEnumerable<T> TreeWalker<T>(UIElement root)
+        {
+            if (root is not null)
+            {
+                if (root is T t)
+                    yield return t;
+                else if (root is UIElement it)
+                {
+                    for (int i = 0; i < VisualTreeHelper.GetChildrenCount(it); i++)
+                    {
+                        var e = VisualTreeHelper.GetChild(it, 0);
+                        foreach (var obj in TreeWalker<T>(e as UIElement))
+                            yield return obj;
+                    }
+                }
+            }
         }
 
         private async void MarkdownText_LinkClicked(object sender, LinkClickedEventArgs e)

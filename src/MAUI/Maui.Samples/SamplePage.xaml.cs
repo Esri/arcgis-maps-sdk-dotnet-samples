@@ -17,6 +17,7 @@
 
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
+using Esri.ArcGISRuntime.Maui;
 using Microsoft.Maui.Platform;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -44,12 +45,7 @@ namespace ArcGIS
 
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
         {
-            this.NavigatedFrom += NavigatedFromEvent;
-
-#if IOS || MACCATALYST
-            // iOS / MacCatalyst lifecycle works differently, so we need to use the main page changing instead of the NavigatedFrom event for this.
-            Application.Current.MainPage.PropertyChanged += MainPagePropertyChanged;
-#endif
+            NavigatedFrom += SamplePage_NavigatedFrom;
 
             // Set the sample variable.
             _sample = sample;
@@ -129,29 +125,23 @@ namespace ArcGIS
             }
         }
 
-        private void MainPagePropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "CurrentPage")
-            {
-                TryDispose();
-            }
-        }
-
-        private void NavigatedFromEvent(object sender, NavigatedFromEventArgs e)
-        {
-            TryDispose();
-        }
-
-        private void TryDispose()
+        private void SamplePage_NavigatedFrom(object sender, NavigatedFromEventArgs e)
         {
             // Check that the navigation is backward from the sample and not forward into another page in the sample.
             if (!Application.Current.MainPage.Navigation.NavigationStack.OfType<SamplePage>().Any())
             {
                 // Explicit cleanup of the Map and SceneView instead of waiting for garbage collector can help when
                 // lots of geoviews are being opened and closed
-                foreach (var geoview in TreeWalker<Esri.ArcGISRuntime.Maui.GeoView>(_sample))
+                foreach (var geoView in TreeWalker<GeoView>(_sample))
                 {
-                    geoview.Handler?.DisconnectHandler();
+                    if (geoView is MapView mapView)
+                    {
+                        mapView.Map = null;
+                        if (mapView.LocationDisplay != null) mapView.LocationDisplay.IsEnabled = false;
+                    }
+                    else if (geoView is SceneView sceneView) sceneView.Scene = null;
+                    
+                    geoView.Handler?.DisconnectHandler();
                 }
 
                 if (_sample is IDisposable disposableSample) disposableSample.Dispose();

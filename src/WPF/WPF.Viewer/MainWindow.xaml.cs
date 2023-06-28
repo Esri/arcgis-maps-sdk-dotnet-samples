@@ -246,7 +246,7 @@ namespace ArcGIS.Samples.Desktop
 
         private static IEnumerable<T> TreeWalker<T>(UIElement root)
         {
-            if (root is not null)
+            if (root != null)
             {
                 if (root is T t)
                     yield return t;

@@ -31,6 +31,9 @@ namespace ArcGIS
         private ContentPage _sample;
         private Assembly _assembly;
         private int _lastViewedFileIndex = 0;
+        // single-instance webviews reused on each view, to avoid a memory leak in webview
+        static WebView DescriptionView = new WebView();
+        static WebView SourceCodeView = new WebView();
 
         public ObservableCollection<SourceCodeFile> SourceFiles { get; } = new ObservableCollection<SourceCodeFile>();
 
@@ -83,6 +86,22 @@ namespace ArcGIS
             LoadSampleData(sampleInfo);
         }
 
+        protected override void OnNavigatedTo(NavigatedToEventArgs args)
+        {
+            base.OnNavigatedTo(args);
+            SampleDetailPage.Content = DescriptionView;
+            SourceCodeViewContainer.Content = SourceCodeView;
+            DescriptionView.Navigating += Webview_Navigating;
+            SourceCodeView.Navigating += Webview_Navigating;
+        }
+        protected override void OnNavigatingFrom(NavigatingFromEventArgs args)
+        {
+            SampleDetailPage.Content = null;
+            SourceCodeViewContainer.Content = null;
+            DescriptionView.Navigating -= Webview_Navigating;
+            SourceCodeView.Navigating -= Webview_Navigating;
+            base.OnNavigatingFrom(args);
+        }
         private async void LoadSampleData(SampleInfo sampleInfo)
         { 
             // Set up the description page.
@@ -93,7 +112,6 @@ namespace ArcGIS
                 {
                     Html = htmlString
                 };
-                DescriptionView.Navigating += Webview_Navigating;
             }
             catch (Exception ex)
             {
@@ -104,7 +122,6 @@ namespace ArcGIS
             {
                 LoadSourceCode(sampleInfo);
 
-                SourceCodeView.Navigating += Webview_Navigating;
             }
             catch (Exception ex)
             {

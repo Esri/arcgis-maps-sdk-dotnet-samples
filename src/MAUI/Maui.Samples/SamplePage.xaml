@@ -19,7 +19,6 @@
     </ContentPage.ToolbarItems>
     <Grid>
         <Border x:Name="SampleDetailPage" IsVisible="false">
-            <WebView x:Name="DescriptionView" />
         </Border>
         <Border x:Name="SourceCodePage" IsVisible="false">
             <StackLayout>
@@ -34,7 +33,7 @@
                         Text=""
                         VerticalOptions="Center" />
                 </StackLayout>
-                <WebView x:Name="SourceCodeView" VerticalOptions="FillAndExpand" />
+                <Border x:Name="SourceCodeViewContainer" VerticalOptions="FillAndExpand" />
             </StackLayout>
         </Border>
         <Border

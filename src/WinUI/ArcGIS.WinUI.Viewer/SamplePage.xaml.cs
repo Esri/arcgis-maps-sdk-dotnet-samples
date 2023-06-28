@@ -39,8 +39,6 @@ namespace ArcGIS.WinUI.Viewer
             // Load and show the sample.
             SampleContainer.Content = SampleManager.Current.SampleToControl(SampleManager.Current.SelectedSample);
 
-            (SampleContainer.Content as FrameworkElement).Unloaded += SamplePage_Unloaded;
-
             if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
             {
                 KeyDown += ScreenshotKeyDown_Event;
@@ -94,7 +92,7 @@ namespace ArcGIS.WinUI.Viewer
 
             // Explicit cleanup of the Map and SceneView instead of waiting for garbage collector can help when
             // lots of geoviews are being opened and closed
-            foreach (var geoView in TreeWalker<GeoView>(sender as UIElement))
+            foreach (var geoView in TreeWalker<GeoView>(SampleContainer.Content as UIElement))
             {
                 if (geoView is MapView mapView)
                 {

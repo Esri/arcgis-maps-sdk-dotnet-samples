@@ -10,6 +10,7 @@
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
+using Esri.ArcGISRuntime.UI;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -75,6 +76,12 @@ namespace ArcGIS.Samples.PlayKmlTours
 
                 // Hide the status bar.
                 LoadingStatusBar.IsVisible = false;
+
+                // Create scene interaction options which will be disabled when the tour begins.
+                MySceneView.InteractionOptions = new SceneViewInteractionOptions
+                {
+                    IsEnabled = false
+                };
             }
             catch (Exception e)
             {
@@ -136,6 +143,7 @@ namespace ArcGIS.Samples.PlayKmlTours
                     ResetButton.IsEnabled = false;
                     PlayPauseButton.Text = "Play";
                     _tourPlaying = false;
+                    MySceneView.InteractionOptions.IsEnabled = true;
 
                     // Return to the initial viewpoint to visually indicate the tour being over.
                     MySceneView.SetViewpointAsync(MySceneView.Scene.InitialViewpoint);
@@ -146,6 +154,7 @@ namespace ArcGIS.Samples.PlayKmlTours
                     ResetButton.IsEnabled = false;
                     PlayPauseButton.Text = "Play";
                     _tourPlaying = false;
+                    MySceneView.InteractionOptions.IsEnabled = true;
                     break;
 
                 case KmlTourStatus.Playing:
@@ -153,6 +162,7 @@ namespace ArcGIS.Samples.PlayKmlTours
                     PlayPauseButton.IsEnabled = true;
                     PlayPauseButton.Text = "Pause";
                     _tourPlaying = true;
+                    MySceneView.InteractionOptions.IsEnabled = false;
                     break;
 
                 case KmlTourStatus.Paused:

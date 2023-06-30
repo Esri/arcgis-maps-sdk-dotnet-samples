@@ -113,7 +113,7 @@ namespace ArcGIS.WinUI.Viewer
                 {
                     for (int i = 0; i < VisualTreeHelper.GetChildrenCount(it); i++)
                     {
-                        var e = VisualTreeHelper.GetChild(it, 0);
+                        var e = VisualTreeHelper.GetChild(it, i);
                         foreach (var obj in TreeWalker<T>(e as UIElement))
                             yield return obj;
                     }

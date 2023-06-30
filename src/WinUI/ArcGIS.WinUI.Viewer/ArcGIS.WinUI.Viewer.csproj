@@ -58,8 +58,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.2.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="200.2.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.2.0-daily*" />
+    <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="200.2.0-daily*" />
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0" />
     <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0" />

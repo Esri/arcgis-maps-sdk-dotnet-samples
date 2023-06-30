@@ -154,7 +154,7 @@
 ## Location
 
 * [Display device location with NMEA data sources](WPF.Viewer/Samples/Location/LocationWithNMEA) - Parse NMEA sentences and use the results to show device location on the map.
-* [Display device location with autopan modes](WPF.Viewer/Samples/Location/DisplayDeviceLocation) - Display your current position on the map, as well as switch between different types of auto pan Modes.
+* [Display device location with autopan modes](WPF.Viewer/Samples/Location/DisplayDeviceLocation) - Display your current position on the map, as well as switch between different types of auto pan modes.
 * [Set up location-driven Geotriggers](WPF.Viewer/Samples/Location/LocationDrivenGeotriggers) - Create a notification every time a given location data source has entered and/or exited a set of features or graphics.
 * [Show location history](WPF.Viewer/Samples/Location/ShowLocationHistory) - Display your location history on the map.
 

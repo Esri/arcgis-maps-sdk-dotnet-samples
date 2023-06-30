@@ -4,43 +4,22 @@
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Row="0"
-                           Grid.Column="0"
-                           Grid.ColumnSpan="2"
-                           Margin="0,0,0,5"
+        <Border Width="200" Style="{StaticResource BorderStyle}">
+            <StackPanel Spacing="5">
+                <TextBlock Margin="0,0,0,5"
                            FontWeight="SemiBold"
-                           Text="Select autopan mode."
+                           Text="Select an auto pan mode:"
                            TextAlignment="Center" />
-                <ComboBox x:Name="LocationModes"
-                          Grid.Row="1"
-                          Grid.Column="0"
-                          Grid.ColumnSpan="2"
+                <ComboBox x:Name="AutoPanModeComboBox"
                           HorizontalAlignment="Stretch"
-                          SelectionChanged="LocationModes_SelectionChanged" />
-                <Button Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="0,5,5,0"
-                        HorizontalAlignment="Stretch"
-                        Click="OnStartClicked"
-                        Content="Start" />
-                <Button Grid.Row="2"
-                        Grid.Column="1"
+                          HorizontalContentAlignment="Center"
+                          SelectionChanged="AutoPanModeComboBox_SelectionChanged" />
+                <Button x:Name="StartStopButton"
                         Margin="5,5,0,0"
                         HorizontalAlignment="Stretch"
-                        Click="OnStopClicked"
-                        Content="Stop" />
-            </Grid>
+                        Click="StartStopButton_Clicked"
+                        Content="Start" />
+            </StackPanel>
         </Border>
     </Grid>
 </UserControl>

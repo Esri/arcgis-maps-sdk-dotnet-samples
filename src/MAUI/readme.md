@@ -146,7 +146,7 @@
 ## Location
 
 * [Display device location with NMEA data sources](Maui.Samples/Samples/Location/LocationWithNMEA) - Parse NMEA sentences and use the results to show device location on the map.
-* [Display device location with autopan modes](Maui.Samples/Samples/Location/DisplayDeviceLocation) - Display your current position on the map, as well as switch between different types of auto pan Modes.
+* [Display device location with autopan modes](Maui.Samples/Samples/Location/DisplayDeviceLocation) - Display your current position on the map, as well as switch between different types of auto pan modes.
 * [Set up location-driven Geotriggers](Maui.Samples/Samples/Location/LocationDrivenGeotriggers) - Create a notification every time a given location data source has entered and/or exited a set of features or graphics.
 * [Show device location using indoor positioning](Maui.Samples/Samples/Location/IndoorPositioning) - Show your device's real-time location while inside a building by using signals from indoor positioning beacons.
 * [Show location history](Maui.Samples/Samples/Location/ShowLocationHistory) - Display your location history on the map.

@@ -16,11 +16,20 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display device location with autopan modes",
         category: "Location",
-        description: "Display your current position on the map, as well as switch between different types of auto pan Modes.",
-        instructions: "Select an autopan mode, then use the buttons to start and stop location display.",
+        description: "Display your current position on the map, as well as switch between different types of auto pan modes.",
+        instructions: "Select an autopan mode, then use the button to start and stop location display.",
         tags: new[] { "GPS", "compass", "location", "map", "mobile", "navigation" })]
     public partial class DisplayDeviceLocation : ContentPage, IDisposable
     {
+        // Dictionary to store the different auto pan modes.
+        private readonly Dictionary<string, LocationDisplayAutoPanMode> _autoPanModes = new()
+        {
+            { "AutoPan Off", LocationDisplayAutoPanMode.Off },
+            { "Re-Center", LocationDisplayAutoPanMode.Recenter },
+            { "Navigation", LocationDisplayAutoPanMode.Navigation },
+            { "Compass", LocationDisplayAutoPanMode.CompassNavigation }
+        };
+
         public DisplayDeviceLocation()
         {
             InitializeComponent();
@@ -34,6 +43,9 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
 
             // Assign the map to the MapView.
             MyMapView.Map = myMap;
+
+            // Populate the picker with different auto pan modes.
+            AutoPanModePicker.ItemsSource = _autoPanModes.Keys.ToList();
         }
 
         private async Task StartDeviceLocationTask()
@@ -50,12 +62,17 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
                     status = await Microsoft.Maui.ApplicationModel.Permissions.RequestAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
                 }
 
-                // Start the location display once permission is granted.
-                if (status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
+                // Start the location display if permission is granted.
+                MyMapView.LocationDisplay.IsEnabled = status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted;
+
+                // Update the UI when the user pans the view, changing the location mode.
+                MyMapView.LocationDisplay.AutoPanModeChanged += (sender, args) =>
                 {
-                    await MyMapView.LocationDisplay.DataSource.StartAsync();
-                    MyMapView.LocationDisplay.IsEnabled = true;
-                }
+                    if (MyMapView.LocationDisplay.AutoPanMode == LocationDisplayAutoPanMode.Off)
+                    {
+                        AutoPanModePicker.SelectedItem = "AutoPan Off";
+                    }
+                };
             }
             catch (Exception ex)
             {
@@ -64,46 +81,31 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
             }
         }
 
-        private void OnStopClicked(object sender, EventArgs e)
+        private void AutoPanModePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MyMapView.LocationDisplay.IsEnabled = false;
-            StopButton.IsEnabled = false;
+            // Change the auto pan mode based on the new selection.
+            MyMapView.LocationDisplay.AutoPanMode = _autoPanModes[AutoPanModePicker.SelectedItem.ToString()];
+        }
+
+        private void StartStopButton_Clicked(object sender, EventArgs e)
+        {
+            // Enable or disable the location display.
+            if (MyMapView.LocationDisplay.IsEnabled)
+            {
+                MyMapView.LocationDisplay.IsEnabled = false;
+                StartStopButton.Text = "Start";
+            }
+            else
+            {
+                _ = StartDeviceLocationTask();
+                StartStopButton.Text = "Stop";
+            }
         }
 
         public void Dispose()
         {
             // Stop the location data source.
             MyMapView.LocationDisplay?.DataSource?.StopAsync();
-        }
-
-        private void RecenterButton_Clicked(object sender, EventArgs e)
-        {
-            // Starts location display with auto pan mode set to Re-Center.
-            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-
-            _ = StartDeviceLocationTask();
-        }
-
-        private void NavigationButton_Clicked(object sender, EventArgs e)
-        {
-            // Starts location display with auto pan mode set to Navigation.
-            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
-
-            _ = StartDeviceLocationTask();
-        }
-
-        private void CompassNavigationButton_Clicked(object sender, EventArgs e)
-        {
-            // Starts location display with auto pan mode set to Compass Navigation.
-            MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.CompassNavigation;
-
-            _ = StartDeviceLocationTask();
-        }
-
-        private void ShowDeviceLocationButtons_Clicked(object sender, EventArgs e)
-        {
-            // Show/Hide the device location buttons.
-            DeviceLocationButtonsGrid.IsVisible = !DeviceLocationButtonsGrid.IsVisible;
         }
     }
 }

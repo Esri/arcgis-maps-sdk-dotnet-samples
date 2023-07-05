@@ -10,6 +10,7 @@
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -84,6 +85,12 @@ namespace ArcGIS.WPF.Samples.PlayKmlTours
 
                 // Hide the status bar.
                 LoadingStatusBar.Visibility = Visibility.Collapsed;
+
+                // Create scene interaction options which will be disabled when the tour begins.
+                MySceneView.InteractionOptions = new SceneViewInteractionOptions
+                {
+                    IsEnabled = false
+                };
             }
             catch (Exception e)
             {
@@ -145,6 +152,7 @@ namespace ArcGIS.WPF.Samples.PlayKmlTours
                     ResetButton.IsEnabled = false;
                     PlayPauseButton.Content = "Play";
                     _tourPlaying = false;
+                    MySceneView.InteractionOptions.IsEnabled = true;
 
                     // Return to the initial viewpoint to visually indicate the tour being over.
                     MySceneView.SetViewpointAsync(MySceneView.Scene.InitialViewpoint);
@@ -155,12 +163,14 @@ namespace ArcGIS.WPF.Samples.PlayKmlTours
                     ResetButton.IsEnabled = false;
                     PlayPauseButton.Content = "Play";
                     _tourPlaying = false;
+                    MySceneView.InteractionOptions.IsEnabled = true;
                     break;
 
                 case KmlTourStatus.Playing:
                     ResetButton.IsEnabled = true;
                     PlayPauseButton.Content = "Pause";
                     _tourPlaying = true;
+                    MySceneView.InteractionOptions.IsEnabled = false;
                     break;
 
                 case KmlTourStatus.Paused:
@@ -173,7 +183,7 @@ namespace ArcGIS.WPF.Samples.PlayKmlTours
         // Play and pause the tour when the button is pressed.
         private void PlayPause_Click(object sender, RoutedEventArgs e)
         {
-            if(_tourPlaying)
+            if (_tourPlaying)
             {
                 _tourController?.Pause();
             }

@@ -128,24 +128,22 @@
     </MauiAsset>
   </ItemGroup>
   <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Maui" Version="5.0.0" />
-      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
-      <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.2.0-daily*" />
-      <PackageReference Include="Esri.ArcGISRuntime.Maui" Version="200.2.0-daily*" />
-      <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" Version="200.2.0-daily*" />
-      <PackageReference Include="Markdig" Version="0.30.4" />
-      <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+      <PackageReference Include="CommunityToolkit.Maui" />
+      <PackageReference Include="CommunityToolkit.Mvvm" />
+      <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
+      <PackageReference Include="Esri.ArcGISRuntime.Maui" />
+      <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" />
+      <PackageReference Include="Markdig" />
+      <PackageReference Include="System.Drawing.Common" />
   </ItemGroup>
 
   <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows10.0.19041.0'">
-    <PackageReference Include="WinUIEx" Version="1.8.0" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0" />
+    <PackageReference Include="WinUIEx" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
-    <PackageReference Include="Xamarin.AndroidX.AppCompat">
-      <Version>1.5.1.1</Version>
-    </PackageReference>
+    <PackageReference Include="Xamarin.AndroidX.AppCompat" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="ApiKeyView.xaml.cs">

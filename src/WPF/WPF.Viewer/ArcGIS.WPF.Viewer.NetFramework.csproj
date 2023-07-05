@@ -282,14 +282,12 @@
   </ItemGroup>
   <!-- Packages -->
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.2.0-daily*" />
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="200.2.0-daily*" />
-    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.2.0-daily*" />
-    <PackageReference Include="Markdig" Version="0.30.2" />
-    <PackageReference Include="System.Text.Json">
-      <Version>7.0.1</Version>
-    </PackageReference>
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" />
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" />
+    <PackageReference Include="Esri.ArcGISRuntime.WPF" />
+    <PackageReference Include="System.Text.Json"/>
+	<PackageReference Include="Markdig" VersionOverride="0.30.2"/>
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />

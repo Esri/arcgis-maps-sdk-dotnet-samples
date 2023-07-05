@@ -60,12 +60,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.2.0-daily*" />
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="200.2.0-daily*" />
-    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.2.0-daily*" />
-    <PackageReference Include="Markdig" Version="0.30.4" />
-    <PackageReference Include="System.Speech" Version="7.0.0" />
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" />
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" />
+    <PackageReference Include="Esri.ArcGISRuntime.WPF" />
+    <PackageReference Include="Markdig" />
+	<PackageReference Include="System.Speech" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Converters\*.cs">

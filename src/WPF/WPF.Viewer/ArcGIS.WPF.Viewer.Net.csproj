@@ -65,7 +65,7 @@
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" />
     <PackageReference Include="Esri.ArcGISRuntime.WPF" />
     <PackageReference Include="Markdig" />
-	<PackageReference Include="System.Speech" />
+    <PackageReference Include="System.Speech" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Converters\*.cs">

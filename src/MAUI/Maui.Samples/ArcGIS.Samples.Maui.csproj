@@ -128,13 +128,13 @@
     </MauiAsset>
   </ItemGroup>
   <ItemGroup>
-      <PackageReference Include="CommunityToolkit.Maui" />
-      <PackageReference Include="CommunityToolkit.Mvvm" />
-      <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
-      <PackageReference Include="Esri.ArcGISRuntime.Maui" />
-      <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" />
-      <PackageReference Include="Markdig" />
-      <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="CommunityToolkit.Maui" />
+    <PackageReference Include="CommunityToolkit.Mvvm" />
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
+    <PackageReference Include="Esri.ArcGISRuntime.Maui" />
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" />
+    <PackageReference Include="Markdig" />
+    <PackageReference Include="System.Drawing.Common" />
   </ItemGroup>
 
   <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->

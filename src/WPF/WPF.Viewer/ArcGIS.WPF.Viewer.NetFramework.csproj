@@ -287,7 +287,7 @@
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" />
     <PackageReference Include="Esri.ArcGISRuntime.WPF" />
     <PackageReference Include="System.Text.Json"/>
-	<PackageReference Include="Markdig" VersionOverride="0.30.2"/>
+    <PackageReference Include="Markdig" VersionOverride="0.30.2"/>
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />

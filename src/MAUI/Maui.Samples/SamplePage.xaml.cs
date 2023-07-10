@@ -17,6 +17,7 @@
 
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
+using Esri.ArcGISRuntime.Maui;
 using Microsoft.Maui.Platform;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -44,13 +45,6 @@ namespace ArcGIS
 
         public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
         {
-            this.NavigatedFrom += NavigatedFromEvent;
-
-#if IOS || MACCATALYST
-            // iOS / MacCatalyst lifecycle works differently, so we need to use the main page changing instead of the NavigatedFrom event for this.
-            Application.Current.MainPage.PropertyChanged += MainPagePropertyChanged;
-#endif
-
             // Set the sample variable.
             _sample = sample;
 
@@ -94,6 +88,7 @@ namespace ArcGIS
             DescriptionView.Navigating += Webview_Navigating;
             SourceCodeView.Navigating += Webview_Navigating;
         }
+
         protected override void OnNavigatingFrom(NavigatingFromEventArgs args)
         {
             SampleDetailPage.Content = null;
@@ -102,6 +97,33 @@ namespace ArcGIS
             SourceCodeView.Navigating -= Webview_Navigating;
             base.OnNavigatingFrom(args);
         }
+
+        protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
+        {
+            base.OnNavigatedFrom(args);
+
+            // Check that the navigation is backward from the sample and not forward into another page in the sample.
+            if (!Application.Current.MainPage.Navigation.NavigationStack.OfType<SamplePage>().Any())
+            {
+                // Explicit cleanup of the Map and SceneView instead of waiting for garbage collector can help when
+                // lots of geoviews are being opened and closed
+                foreach (var geoView in TreeWalker<GeoView>(_sample))
+                {
+                    if (geoView is MapView mapView)
+                    {
+                        mapView.Map = null;
+                        if (mapView.LocationDisplay != null) mapView.LocationDisplay.IsEnabled = false;
+                    }
+                    else if (geoView is SceneView sceneView) sceneView.Scene = null;
+
+                    geoView.Handler?.DisconnectHandler();
+                }
+
+                if (_sample is IDisposable disposableSample) disposableSample.Dispose();
+                if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
+            }
+        }
+
         private async void LoadSampleData(SampleInfo sampleInfo)
         { 
             // Set up the description page.
@@ -126,36 +148,6 @@ namespace ArcGIS
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-            }
-        }
-
-        private void MainPagePropertyChanged(object sender, PropertyChangedEventArgs e)
-        {
-            if (e.PropertyName == "CurrentPage")
-            {
-                TryDispose();
-            }
-        }
-
-        private void NavigatedFromEvent(object sender, NavigatedFromEventArgs e)
-        {
-            TryDispose();
-        }
-
-        private void TryDispose()
-        {
-            // Check that the navigation is backward from the sample and not forward into another page in the sample.
-            if (!Application.Current.MainPage.Navigation.NavigationStack.OfType<SamplePage>().Any())
-            {
-                // Explicit cleanup of the Map and SceneView instead of waiting for garbage collector can help when
-                // lots of geoviews are being opened and closed
-                foreach (var geoview in TreeWalker<Esri.ArcGISRuntime.Maui.GeoView>(_sample))
-                {
-                    geoview.Handler?.DisconnectHandler();
-                }
-
-                if (_sample is IDisposable disposableSample) disposableSample.Dispose();
-                if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
             }
         }
 

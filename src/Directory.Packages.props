@@ -12,6 +12,8 @@
     <PackageVersion Include="Esri.ArcGISRuntime.WinUI" Version="$(ArcGISMapsSDKVersion)" />
     <PackageVersion Include="Esri.ArcGISRuntime.Hydrography" Version="$(ArcGISMapsSDKVersion)" />
     <PackageVersion Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0" />
+    <PackageVersion Include="Esri.ArcGISRuntime.UWP" Version="200.0.0" />
+    <PackageVersion Include="Esri.ArcGISRuntime.Toolkit.UWP" Version="200.0.0" />
     <PackageVersion Include="Markdig" Version="0.30.4" />
     <PackageVersion Include="System.Text.Json" Version="7.0.1" />
     <PackageVersion Include="System.Speech" Version="7.0.0" />
@@ -25,5 +27,9 @@
     <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.5.1.1" />
     <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.2.221116.1" Condition="'$(UseMaui)'!='true'" />
     <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" Condition="'$(UseMaui)'!='true'" />
+    <PackageVersion Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.13"/>
+    <PackageVersion Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="6.1.1"/>
+    <PackageVersion Include="Microsoft.UI.Xaml" Version="2.5.0"/>
+    <PackageVersion Include="Monaco.Editor" Version="0.8.1-alpha"/>
   </ItemGroup>
 </Project>

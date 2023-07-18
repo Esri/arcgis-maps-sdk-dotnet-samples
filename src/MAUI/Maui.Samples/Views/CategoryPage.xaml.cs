@@ -1,9 +1,7 @@
-using ArcGIS.Helpers;
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Managers;
-using ArcGIS.Samples.Shared.Models;
 using ArcGIS.ViewModels;
-using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Messaging;
 
 namespace ArcGIS;
 
@@ -23,6 +21,8 @@ public partial class CategoryPage : ContentPage
         // Update the binding to show the samples.
         _viewModel = new CategoryViewModel();
         BindingContext = _viewModel;
+
+        WeakReferenceMessenger.Default.Register<string>(this, (message, category) => SampleScrollView.ScrollToAsync(SampleScrollView, ScrollToPosition.Start, false));
     }
 
     private async void SettingsClicked(object sender, EventArgs e)

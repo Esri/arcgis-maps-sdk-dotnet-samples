@@ -13,6 +13,7 @@
 			<Sample>CreateAndEditGeometries</Sample>
 		</Category>
 		<Category name="Layers">
+      <Sample>AddCustomDynamicEntityDataSource</Sample>
 			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>
 			<Sample>DisplayDimensions</Sample>
 			<Sample>ExportVectorTiles</Sample>

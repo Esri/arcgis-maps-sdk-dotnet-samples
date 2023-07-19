@@ -28,7 +28,7 @@
             </ViewCell>
         </DataTemplate>
     </ContentPage.Resources>
-    <Grid Style="{DynamicResource EsriSampleContainer}">
+    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <ScrollView HeightRequest="250">

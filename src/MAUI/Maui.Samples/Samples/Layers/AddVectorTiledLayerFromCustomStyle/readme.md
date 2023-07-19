@@ -16,16 +16,15 @@ Pan and zoom to explore the vector tile basemap.
 
 1. Create a `PortalItem` for each vector tiled layer.
 2. Create a `Map` and set the default `Viewpoint`.
-3. Update the `Basemap` and `Viewpoint` when a new style is selected.
-4. Export the light and dark offline custom styles.
-    i. Create a `ExportVectorTilesTask` using the portal item.
-    ii. Get the path for where the cache is being stored locally.
-    iii. Return with the cache if the path already exists.
-    iv. Else, create a `ExportVectorTilesJob` by having the task call `ExportStyleResourceCache` with the path as a parameter.
-    v. Start the job.
-    vi. When the job completes, store the result as a `ExportVectorTilesResult`.
-    vii. Return the result's item resource cache.
-5. Update the basemap upon a style selection change.
+3. Export the light and dark offline custom styles.  
+    i. Create a `ExportVectorTilesTask` using the portal item.  
+    ii. Get the path for where the cache is being stored locally.  
+    iii. Return with the cache if the path already exists.  
+    iv. Else, create a `ExportVectorTilesJob` by having the task call `ExportStyleResourceCache` with the path as a parameter.  
+    v. Start the job.  
+    vi. When the job completes, store the result as a `ExportVectorTilesResult`.  
+    vii. Return the result's item resource cache.  
+4. Update the `Basemap` and `Viewpoint` when a new style is selected.
 
 ## Relevant API
 

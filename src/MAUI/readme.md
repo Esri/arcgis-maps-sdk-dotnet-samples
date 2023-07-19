@@ -63,10 +63,10 @@
 * [Add graphics with renderer](Maui.Samples/Samples/GraphicsOverlay/AddGraphicsRenderer) - A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style. A renderer will only affect graphics that do not specify their own symbol style.
 * [Add graphics with symbols](Maui.Samples/Samples/GraphicsOverlay/AddGraphicsWithSymbols) - Use a symbol style to display a graphic on a graphics overlay.
 * [Animate 3D graphic](Maui.Samples/Samples/GraphicsOverlay/Animate3DGraphic) - An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.
+* [Create and edit geometries](Maui.Samples/Samples/GraphicsOverlay/CreateAndEditGeometries) - Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.
 * [Dictionary renderer with graphics overlay](Maui.Samples/Samples/GraphicsOverlay/DictionaryRendererGraphicsOverlay) - Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.
 * [Identify graphics](Maui.Samples/Samples/GraphicsOverlay/IdentifyGraphics) - Display an alert message when a graphic is clicked.
 * [Scene properties expressions](Maui.Samples/Samples/GraphicsOverlay/ScenePropertiesExpressions) - Update the orientation of a graphic using expressions based on its attributes.
-* [Sketch on map](Maui.Samples/Samples/GraphicsOverlay/SketchOnMap) - Use the Sketch Editor to edit or sketch a new point, line, or polygon geometry on to a map.
 * [Surface placement](Maui.Samples/Samples/GraphicsOverlay/SurfacePlacements) - Position graphics relative to a surface using different surface placement modes.
 
 ## Hydrography
@@ -146,7 +146,7 @@
 ## Location
 
 * [Display device location with NMEA data sources](Maui.Samples/Samples/Location/LocationWithNMEA) - Parse NMEA sentences and use the results to show device location on the map.
-* [Display device location with autopan modes](Maui.Samples/Samples/Location/DisplayDeviceLocation) - Display your current position on the map, as well as switch between different types of auto pan Modes.
+* [Display device location with autopan modes](Maui.Samples/Samples/Location/DisplayDeviceLocation) - Display your current position on the map, as well as switch between different types of auto pan modes.
 * [Set up location-driven Geotriggers](Maui.Samples/Samples/Location/LocationDrivenGeotriggers) - Create a notification every time a given location data source has entered and/or exited a set of features or graphics.
 * [Show device location using indoor positioning](Maui.Samples/Samples/Location/IndoorPositioning) - Show your device's real-time location while inside a building by using signals from indoor positioning beacons.
 * [Show location history](Maui.Samples/Samples/Location/ShowLocationHistory) - Display your location history on the map.

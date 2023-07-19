@@ -7,6 +7,9 @@
 		<Category name="Data">
 			<Sample>ManageFeatures</Sample>
 		</Category>
+		<Category name="GraphicsOverlay">
+			<Sample>CreateAndEditGeometries</Sample>
+		</Category>
 		<Category name="Layers">
 			<Sample>AddDynamicEntityLayer</Sample>
 			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>

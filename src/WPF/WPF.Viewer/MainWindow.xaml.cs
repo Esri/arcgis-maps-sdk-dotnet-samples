@@ -15,6 +15,7 @@ using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Security;
+using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -63,7 +64,7 @@ namespace ArcGIS.Samples.Desktop
 #if ENABLE_ANALYTICS
                 // Check analytics settings
                 AnalyticsHelper.ReadSettingsFromFile();
-                AnalyticsHelper.TrackEvent("sample_viewer_opened");
+                _ = AnalyticsHelper.TrackEvent("sample_viewer_opened");
 #endif
             }
             catch (Exception ex)
@@ -136,7 +137,7 @@ namespace ArcGIS.Samples.Desktop
                 };
 
 #if ENABLE_ANALYTICS
-                AnalyticsHelper.TrackEvent("category_selected", eventData);
+                _ = AnalyticsHelper.TrackEvent("category_selected", eventData);
 #endif
             }
             else if (sample != null)
@@ -162,7 +163,7 @@ namespace ArcGIS.Samples.Desktop
             };
 
 #if ENABLE_ANALYTICS
-            AnalyticsHelper.TrackEvent("sample_opened", eventData);
+            _ = AnalyticsHelper.TrackEvent("sample_opened", eventData);
 #endif
 
             // Restore API key if leaving named user sample.
@@ -205,6 +206,7 @@ namespace ArcGIS.Samples.Desktop
 
                 // Show the sample
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
+                (SampleContainer.Content as FrameworkElement).Unloaded += Sample_Unloaded;
                 SourceCodeContainer.LoadSourceCode();
 
                 // Set the color of the favorite button
@@ -225,6 +227,39 @@ namespace ArcGIS.Samples.Desktop
 
             SetScreenshotButttonVisibility();
             SetContainerDimensions();
+        }
+
+        private static void Sample_Unloaded(object sender, RoutedEventArgs e)
+        {
+            // Explicit cleanup of the Map and SceneView instead of waiting for garbage collector can help when
+            // lots of geoviews are being opened and closed
+            foreach (var geoView in TreeWalker<GeoView>(sender as UIElement))
+            {
+                if (geoView is MapView mapView)
+                {
+                    mapView.Map = null;
+                    if (mapView.LocationDisplay != null) mapView.LocationDisplay.IsEnabled = false;
+                }
+                else if (geoView is SceneView sceneView) sceneView.Scene = null;
+            }
+        }
+
+        private static IEnumerable<T> TreeWalker<T>(UIElement root)
+        {
+            if (root != null)
+            {
+                if (root is T t)
+                    yield return t;
+                else if (root is UIElement it)
+                {
+                    for (int i = 0; i < VisualTreeHelper.GetChildrenCount(it); i++)
+                    {
+                        var e = VisualTreeHelper.GetChild(it, i);
+                        foreach (var obj in TreeWalker<T>(e as UIElement))
+                            yield return obj;
+                    }
+                }
+            }
         }
 
         private static void ClearCredentials()
@@ -309,7 +344,7 @@ namespace ArcGIS.Samples.Desktop
             };
 
 #if ENABLE_ANALYTICS
-            AnalyticsHelper.TrackEvent("tab_selected", eventData);
+            _ = AnalyticsHelper.TrackEvent("tab_selected", eventData);
 #endif
         }
 
@@ -323,7 +358,7 @@ namespace ArcGIS.Samples.Desktop
             };
 
 #if ENABLE_ANALYTICS
-            AnalyticsHelper.TrackEvent("tab_selected", eventData);
+            _ = AnalyticsHelper.TrackEvent("tab_selected", eventData);
 #endif
 
         }
@@ -338,7 +373,7 @@ namespace ArcGIS.Samples.Desktop
             };
 
 #if ENABLE_ANALYTICS
-            AnalyticsHelper.TrackEvent("tab_selected", eventData);
+            _ = AnalyticsHelper.TrackEvent("tab_selected", eventData);
 #endif
         }
 
@@ -406,7 +441,7 @@ namespace ArcGIS.Samples.Desktop
             }
 
 #if ENABLE_ANALYTICS
-            AnalyticsHelper.TrackEvent("search_text", eventData);
+            _ = AnalyticsHelper.TrackEvent("search_text", eventData);
 #endif
         }
 

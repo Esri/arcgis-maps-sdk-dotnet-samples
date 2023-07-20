@@ -98,11 +98,15 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             _geometryEditor = new GeometryEditor();
             MyMapView.GeometryEditor = _geometryEditor;
 
-            // Create vertex and freehand tools for the combo box.
+            // Create geometry editor tools for the combo box.
             _toolDictionary = new Dictionary<string, GeometryEditorTool>()
             {
                 { "Vertex Tool", new VertexTool() },
-                { "Freehand Tool", new FreehandTool() }
+                { "Freehand Tool", new FreehandTool() },
+                { "Arrow Shape Tool", ShapeTool.Create(ShapeToolType.Arrow) },
+                { "Ellipse Shape Tool", ShapeTool.Create(ShapeToolType.Ellipse) },
+                { "Rectangle Shape Tool", ShapeTool.Create(ShapeToolType.Rectangle) },
+                { "Triangle Shape Tool", ShapeTool.Create(ShapeToolType.Triangle) }
             };
             ToolPicker.ItemsSource = _toolDictionary.Keys.ToList();
 
@@ -188,9 +192,18 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && tool is VertexTool;
         }
 
-        #endregion Event handlers
+        // Set the scale mode of the geometry editor.
+        private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        {
+            // Determine if shape tools should use uniform scaling.
+            GeometryEditorScaleMode shouldBeUniform = (sender as CheckBox).IsChecked ? GeometryEditorScaleMode.Uniform : GeometryEditorScaleMode.Stretch;
 
-        #region Edit controls event handlers
+            // Update all shape tools scaling options.
+            foreach (ShapeTool tool in _toolDictionary.Values.Where(v => v is ShapeTool))
+            {
+                tool.Configuration.ScaleMode = shouldBeUniform;
+            }
+        }
 
         // Undo the last change made to the geometry while editing is active.
         private void UndoButton_Click(object sender, EventArgs e)
@@ -285,7 +298,7 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             _selectedGraphic.IsVisible = false;
         }
 
-        #endregion Edit controls event handlers
+        #endregion Event handlers
 
         #region Helper methods
 

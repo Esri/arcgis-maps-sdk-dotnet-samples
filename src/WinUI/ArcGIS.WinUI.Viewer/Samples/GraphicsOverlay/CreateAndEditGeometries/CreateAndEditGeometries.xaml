@@ -29,6 +29,7 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="70" />
@@ -51,14 +52,14 @@
                     Click="PolylineButton_Click"
                     Content="&#xe1a8;"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Polyline" />
+                    ToolTipService.ToolTip="Polyline / no shape fill" />
             <Button x:Name="PolygonButton"
                     Grid.Row="1"
                     Grid.Column="2"
                     Click="PolygonButton_Click"
                     Content="&#xe220;"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Polygon" />
+                    ToolTipService.ToolTip="Polygon / shape fill" />
             <ComboBox x:Name="ToolComboBox"
                       Grid.Row="2"
                       Grid.ColumnSpan="2"
@@ -67,41 +68,49 @@
                       DisplayMemberPath="Key"
                       SelectionChanged="ToolComboBox_SelectionChanged"
                       ToolTipService.ToolTip="Tools" />
-            <Button Grid.Row="3"
+            <Border Grid.Row="3"
+                    Grid.ColumnSpan="2"
+                    Padding="3"
+                    Background="White">
+                <CheckBox Checked="CheckBox_CheckedChanged"
+                          Content="Uniform Scale"
+                          Unchecked="CheckBox_CheckedChanged" />
+            </Border>
+            <Button Grid.Row="4"
                     Click="UndoButton_Click"
                     Content="&#xe2d6;"
                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Undo" />
-            <Button Grid.Row="3"
+            <Button Grid.Row="4"
                     Grid.Column="2"
                     Click="RedoButton_Click"
                     Content="&#xe23e;"
                     IsEnabled="{Binding GeometryEditor.CanRedo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Redo" />
-            <Button Grid.Row="4"
+            <Button Grid.Row="5"
                     Click="DeleteSelectedButton_Click"
                     Content="&#xe0e8;"
                     IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Delete selected" />
             <Button x:Name="SaveButton"
-                    Grid.Row="4"
+                    Grid.Row="5"
                     Grid.Column="1"
                     Click="SaveButton_Click"
                     Content="&#xe06f;"
                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Save edits" />
-            <Button Grid.Row="5"
+            <Button Grid.Row="6"
                     Click="DiscardButton_Click"
                     Content="&#xe080;"
                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Discard edits" />
             <Button x:Name="DeleteAllButton"
-                    Grid.Row="5"
+                    Grid.Row="6"
                     Grid.Column="1"
                     Click="DeleteAllButton_Click"
                     Content="&#xe2d0;"

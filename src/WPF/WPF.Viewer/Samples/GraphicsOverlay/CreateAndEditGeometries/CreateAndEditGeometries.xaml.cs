@@ -42,6 +42,7 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
         private SimpleMarkerSymbol _pointSymbol, _multiPointSymbol;
 
         private Dictionary<GeometryType, Button> _geometryButtons;
+        private Dictionary<string, GeometryEditorTool> _toolDictionary;
 
         // Json formatted strings for initial geometries.
         private readonly string _houseCoordinatesJson = @"{""x"": -9.59309629, ""y"": 53.0830063,
@@ -106,10 +107,14 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
             MyMapView.GeometryEditor = _geometryEditor;
 
             // Create vertex and freehand tools for the combo box.
-            ToolComboBox.ItemsSource = new Dictionary<string, GeometryEditorTool>()
+            ToolComboBox.ItemsSource = _toolDictionary = new Dictionary<string, GeometryEditorTool>()
             {
                 { "Vertex Tool", new VertexTool() },
-                { "Freehand Tool", new FreehandTool() }
+                { "Freehand Tool", new FreehandTool() },
+                { "Arrow Shape Tool", ShapeTool.Create(ShapeToolType.Arrow) },
+                { "Ellipse Shape Tool", ShapeTool.Create(ShapeToolType.Ellipse) },
+                { "Rectangle Shape Tool", ShapeTool.Create(ShapeToolType.Rectangle) },
+                { "Triangle Shape Tool", ShapeTool.Create(ShapeToolType.Triangle) }
             };
 
             // Have the vertex tool selected by default.
@@ -186,18 +191,27 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
         // Set the geometry editor tool from the combo box.
         private void ToolComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            var keyValuePair = (KeyValuePair<string, GeometryEditorTool>)ToolComboBox.SelectedItem;
-            var tool = (GeometryEditorTool)keyValuePair.Value;
-            _geometryEditor.Tool = tool;
+            // Set the geometry editor tool based on the new selection.
+            _geometryEditor.Tool = ((KeyValuePair<string, GeometryEditorTool>)ToolComboBox.SelectedItem).Value as GeometryEditorTool;
 
             // Account for case when vertex tool is selected and geometry editor is started with a polyline or polygon geometry type.
             // Ensure point and multipoint buttons are only enabled when the selected tool is a vertex tool.
-            PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && tool is VertexTool;
+            PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && _geometryEditor.Tool is VertexTool;
         }
 
-        #endregion Event handlers
+        // Set the scale mode of the geometry editor.
+        private void CheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            // Determine if shape tools should use uniform scaling.
+            GeometryEditorScaleMode shouldBeUniform =
+                (sender as CheckBox).IsChecked == true ? GeometryEditorScaleMode.Uniform : GeometryEditorScaleMode.Stretch;
 
-        #region Edit controls event handlers
+            // Update all shape tools scaling options.
+            foreach (ShapeTool tool in _toolDictionary.Values.Where(v => v is ShapeTool))
+            {
+                tool.Configuration.ScaleMode = shouldBeUniform;
+            }
+        }
 
         // Undo the last change made to the geometry while editing is active.
         private void UndoButton_Click(object sender, RoutedEventArgs e)
@@ -291,7 +305,7 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
             _selectedGraphic.IsVisible = false;
         }
 
-        #endregion Edit controls event handlers
+        #endregion Event handlers
 
         #region Helper methods
 

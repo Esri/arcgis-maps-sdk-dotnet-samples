@@ -23,11 +23,11 @@ Use the control panel to undo or redo changes made to the geometry, delete a sel
         * Access the `MapView.IdentifyGraphicsOverlayAsync(...)`.
         * Find the desired graphic in the `results.FirstOrDefault()` list.
         * Access the geometry associated with the `Graphic` using `Graphic.Geometry` - this will be used in the `GeometryEditor.Start(Geometry)` method.
-
-3. Create `VertexTool` or `FreehandTool` objects which define how the user interacts with the view to create or edit geometries, setting `GeometryEditor.Tool`.
-4. Check to see if undo and redo are possible during an editing session using `GeometryEditor.CanUndo` and `GeometryEditor.CanRedo`. If it's possible, use `GeometryEditor.Undo()` and `GeometryEditor.Redo()`.
-5. Check whether the currently selected `GeometryEditorElement` can be deleted (`GeometryEditor.SelectedElement.CanDelete`). If the element can be deleted, delete using `GeometryEditor.DeleteSelectedElement()`.
-6. Call `GeometryEditor.Stop()` to finish the editing session and store the `Graphic`. The `GeometryEditor` does not automatically handle the visualization of a geometry output from an editing session. This must be done manually by propagating the geometry returned into a `Graphic` and adding it to the `GraphicsOverlay`.
+3. Create `VertexTool`, `FreehandTool`, or `ShapeTool` objects which define how the user interacts with the view to create or edit geometries, setting `GeometryEditor.Tool`.
+4. Edit a tool's InteractionConfiguration to set the GeometryEditorScaleMode to allow either uniform or stretch scale mode.
+5. Check to see if undo and redo are possible during an editing session using `GeometryEditor.CanUndo` and `GeometryEditor.CanRedo`. If it's possible, use `GeometryEditor.Undo()` and `GeometryEditor.Redo()`.
+6. Check whether the currently selected `GeometryEditorElement` can be deleted (`GeometryEditor.SelectedElement.CanDelete`). If the element can be deleted, delete using `GeometryEditor.DeleteSelectedElement()`.
+7. Call `GeometryEditor.Stop()` to finish the editing session and store the `Graphic`. The `GeometryEditor` does not automatically handle the visualization of a geometry output from an editing session. This must be done manually by propagating the geometry returned into a `Graphic` added to a `GraphicsOverlay`.
     * To create a new `Graphic` in the `GraphicsOverlay`:
         * Using `Graphic(Geometry)`, create a new Graphic with the geometry returned by the `GeometryEditor.Stop()` method.
         * Append the `Graphic` to the `GraphicsOverlay`(i.e. `GraphicsOverlay.Graphics.Add(Graphic)`).

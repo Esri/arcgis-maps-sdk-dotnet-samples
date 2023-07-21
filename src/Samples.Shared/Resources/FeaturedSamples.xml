@@ -2,49 +2,31 @@
 <FeaturedSamples>
 	<Categories>
 		<Category name="Analysis">
-			<Sample>QueryFeatureCountAndExtent</Sample>
-		</Category>
+			<Sample>DistanceMeasurement</Sample>
+        </Category>
 		<Category name="Data">
-			<Sample>AddFeaturesWithContingentValues</Sample>
-			<Sample>CreateMobileGeodatabase</Sample>
-			<Sample>QueryFeaturesWithArcadeExpression</Sample>
+			<Sample>ManageFeatures</Sample>
 		</Category>
 		<Category name="GraphicsOverlay">
 			<Sample>CreateAndEditGeometries</Sample>
 		</Category>
 		<Category name="Layers">
-      <Sample>AddCustomDynamicEntityDataSource</Sample>
+			<Sample>AddCustomDynamicEntityDataSource</Sample>
+			<Sample>AddDynamicEntityLayer</Sample>
 			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>
-			<Sample>DisplayDimensions</Sample>
-			<Sample>ExportVectorTiles</Sample>
-		</Category>
-		<Category name="LocalServer">
-			<Sample>LocalServerGenerateElevationProfile</Sample>
-		</Category>
-		<Category name="Location">
-			<Sample>IndoorPositioning</Sample>
-			<Sample>LocationDrivenGeotriggers</Sample>
+			<Sample>DisplayRouteLayer</Sample>
 		</Category>
 		<Category name="Map">
 			<Sample>BrowseBuildingFloors</Sample>
+			<Sample>ChangeBasemap</Sample>
+			<Sample>DisplayMap</Sample>
 			<Sample>DisplayOverviewMap</Sample>
-		</Category>
-		<Category name="MapView">
-			<Sample>FilterByTimeExtent</Sample>
-		</Category>
+        </Category>
 		<Category name="Scene">
 			<Sample>ShowLabelsOnLayer3D</Sample>
 		</Category>
-		<Category name="Security">
-			<Sample>IntegratedWindowsAuth</Sample>
-		</Category>"
-		<Category name="Symbology">
-			<Sample>RenderMultilayerSymbols</Sample>
-			<Sample>SymbolStylesFromWebStyles</Sample>
-			<Sample>UniqueValuesAlternateSymbols</Sample>
-		</Category>
 		<Category name="UtilityNetwork">
-			<Sample>DisplayUtilityNetworkContainer</Sample>
+			<Sample>CreateLoadReport</Sample>
 		</Category>
 	</Categories>
 </FeaturedSamples>

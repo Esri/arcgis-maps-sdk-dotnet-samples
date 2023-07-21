@@ -6,7 +6,7 @@ Display data from a custom dynamic entity data source using a dynamic entity lay
 
 ## Use case
 
-TODO: Add use case
+Using this API developers can connect their own feed as a custom `DynamicEntityDataSource` to leverage observations using a `DynamicEntityLayer`. An example of this is in a mobile situational awareness app where a custom `DynamicEntityDataSource` can connect to Peer to Peer feeds to visualize real time location tracks.
 
 ## How to use the sample
 

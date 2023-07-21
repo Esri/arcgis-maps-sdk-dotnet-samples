@@ -40,7 +40,7 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
             MyMapView.SetViewpoint(new Viewpoint(47.984036751327544, -123.65671327050406, 3000000));
 
             // Create a new custom file source.
-            // This takes the path to the desired data source and the field value that will be used as the entity id and the delay between each observation that is processed.
+            // This takes the path to the simulation file, field name that will be used as the entity id, and the delay between each observation that is processed.
             // In this example we are using a json file as our custom data source.
             // This field value should be a unique identifier for each entity.
             // Adjusting the value for the delay will change the speed at which the entities and their observations are displayed.

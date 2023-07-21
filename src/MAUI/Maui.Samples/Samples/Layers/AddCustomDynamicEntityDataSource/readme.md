@@ -14,27 +14,32 @@ Run the sample to view the map and the dynamic entity layer displaying the lates
 
 ## How it works
 
+Configure the custom data source:
+
 1. Create a custom data source implementation of a `DynamicDataSource`.
-	1a. Override `OnLoadAsync()` to specify the `DynamicEntityDataSourceInfo` for a given unique entity ID field and a list of `Field` objects matching the fields in the data source.
-	1b. Override `OnConnectAsync()` to begin processing observations from the custom data source.
-	1c. Loop through the observations and deserialize each observation into a `MapPoint` object and a `Dictionary<string, object>` containing the attributes.
-	1d. Use `AddObservation(mapPoint, attributes)` to add each observation to the custom data source.
-2. Create a `DynamicEntityLayer` using the custom data source implementation.
-3. Update values in the layer's `TrackDisplayProperties` to customize the layer's appearance.
-4. Set up the layer's `LabelDefinitions` to display labels for each dynamic entity.
-5. Configure a `GeoViewTapped` event handler on the `MapView` to select a dynamic entity and display the entity's attributes in a callout.
+2. Override `OnLoadAsync()` to specify the `DynamicEntityDataSourceInfo` for a given unique entity ID field and a list of `Field` objects matching the fields in the data source.
+3. Override `OnConnectAsync()` to begin processing observations from the custom data source.
+4. Loop through the observations and deserialize each observation into a `MapPoint` object and a `Dictionary<string, object>` containing the attributes.
+5. Use `AddObservation(mapPoint, attributes)` to add each observation to the custom data source.
+
+Configure the map view:
+
+1. Create a `DynamicEntityLayer` using the custom data source implementation.
+2. Update values in the layer's `TrackDisplayProperties` to customize the layer's appearance.
+3. Set up the layer's `LabelDefinitions` to display labels for each dynamic entity.
+4. Configure a `GeoViewTapped` event handler on the `MapView` to select a dynamic entity and display the entity's attributes in a callout.
 
 ## Relevant API
 
 * DynamicEntity
-* DynamicEntityLayer
 * DynamicEntityDataSource
-* TrackDisplayProperties
+* DynamicEntityLayer
 * LabelDefinition
+* TrackDisplayProperties
 
 ## About the data
 
-This sample uses a .json file containing observations of marine vessels in the Pacific North West. 
+This sample uses a .json file containing observations of marine vessels in the Pacific North West.
 
 ## Additional information
 
@@ -42,4 +47,4 @@ While this sample demonstrates the use of a .json file as a custom data source, 
 
 ## Tags
 
-data, dynamic, entity, live, real-time, stream, track, labeling, label
+data, dynamic, entity,  label, labeling, live, real-time, stream, track

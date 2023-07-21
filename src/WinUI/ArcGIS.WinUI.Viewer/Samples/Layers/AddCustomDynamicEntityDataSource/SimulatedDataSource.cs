@@ -20,9 +20,9 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
         private CancellationTokenSource? _cancellationTokenSource;
         private List<Field> _fields;
 
-        public SimulatedDataSource(string filePath, string entityIdField, TimeSpan delay)
+        public SimulatedDataSource(string fileName, string entityIdField, TimeSpan delay)
         {
-            FilePath = filePath;
+            FileName = fileName;
             EntityIdField = entityIdField;
             Delay = delay;
         }
@@ -30,7 +30,7 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
         #region Properties
 
         // Expose the file path, entity ID field, and delay length as properties.
-        public string FilePath { get; }
+        public string FileName { get; }
         public string EntityIdField { get; }
         public TimeSpan Delay { get; }
 

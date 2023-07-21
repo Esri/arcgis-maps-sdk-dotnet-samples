@@ -7,22 +7,16 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Mapping.Labeling;
+using Esri.ArcGISRuntime.RealTime;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
-using Esri.ArcGISRuntime.RealTime;
-using Esri.ArcGISRuntime.Mapping.Labeling;
 
 namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
 {
@@ -49,7 +43,7 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
             MyMapView.SetViewpoint(new Viewpoint(47.984036751327544, -123.65671327050406, 3000000));
 
             // Create a new custom file source.
-            // This takes the path to the desired data source and the field value that will be used as the entity id and the delay between each observation that is processed.
+            // This takes the path to the simulation file, field name that will be used as the entity id, and the delay between each observation that is processed.
             // In this example we are using a json file as our custom data source.
             // This field value should be a unique identifier for each entity.
             // Adjusting the value for the delay will change the speed at which the entities and their observations are displayed.

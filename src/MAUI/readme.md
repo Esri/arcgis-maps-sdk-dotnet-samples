@@ -78,6 +78,7 @@
 ## Layers
 
 * [Add a point scene layer](Maui.Samples/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
+* [Add custom dynamic entity data source](Maui.Samples/Samples/Layers/AddCustomDynamicEntityDataSource) - Display data from a custom dynamic entity data source using a dynamic entity layer.
 * [Add dynamic entity layer](Maui.Samples/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](Maui.Samples/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
 * [Add vector tiled layer from custom style](Maui.Samples/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - Load ArcGIS vector tiled layers using custom styles.

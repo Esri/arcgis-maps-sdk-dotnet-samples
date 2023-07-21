@@ -1,11 +1,16 @@
 ﻿using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.RealTime;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
-
-namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
+namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
 {
     public class SimulatedDataSource : DynamicEntityDataSource
     {
@@ -37,7 +42,8 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
             _fields = GetSchema();
 
             // Open the file for processing.
-            Stream stream = await FileSystem.OpenAppPackageFileAsync(FilePath);
+            string resourceStreamName = this.GetType().Assembly.GetManifestResourceNames().Single(str => str.EndsWith(FileName));
+            Stream stream = this.GetType().Assembly.GetManifestResourceStream(resourceStreamName);
             _streamReader = new StreamReader(stream);
 
             // Create a new DynamicEntityDataSourceInfo using the entity ID field and the fields derived from the attributes of each observation in the custom data source.

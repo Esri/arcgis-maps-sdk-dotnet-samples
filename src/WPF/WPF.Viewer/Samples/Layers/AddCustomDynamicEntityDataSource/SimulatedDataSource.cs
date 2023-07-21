@@ -1,11 +1,17 @@
 ﻿using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.RealTime;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Reflection;
 using System.Text.Json;
+using System.Threading;
+using System.Threading.Tasks;
 
-
-namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
+namespace ArcGIS.WPF.Samples.AddCustomDynamicEntityDataSource
 {
     public class SimulatedDataSource : DynamicEntityDataSource
     {
@@ -15,9 +21,9 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
         private CancellationTokenSource? _cancellationTokenSource;
         private List<Field> _fields;
 
-        public SimulatedDataSource(string filePath, string entityIdField, TimeSpan delay)
+        public SimulatedDataSource(string fileName, string entityIdField, TimeSpan delay)
         {
-            FilePath = filePath;
+            FileName = fileName;
             EntityIdField = entityIdField;
             Delay = delay;
         }
@@ -25,7 +31,7 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
         #region Properties
 
         // Expose the file path, entity ID field, and delay length as properties.
-        public string FilePath { get; }
+        public string FileName { get; }
         public string EntityIdField { get; }
         public TimeSpan Delay { get; }
 
@@ -37,7 +43,8 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
             _fields = GetSchema();
 
             // Open the file for processing.
-            Stream stream = await FileSystem.OpenAppPackageFileAsync(FilePath);
+            string resourceStreamName = this.GetType().Assembly.GetManifestResourceNames().Single(str => str.EndsWith(FileName));
+            Stream stream = this.GetType().Assembly.GetManifestResourceStream(resourceStreamName);
             _streamReader = new StreamReader(stream);
 
             // Create a new DynamicEntityDataSourceInfo using the entity ID field and the fields derived from the attributes of each observation in the custom data source.

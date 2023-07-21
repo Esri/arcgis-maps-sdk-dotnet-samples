@@ -22,6 +22,7 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
         "Layers",
         "Display data from a custom dynamic entity data source using a dynamic entity layer. ",
         "")]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("SimulatedDataSource.cs")]
     public partial class AddCustomDynamicEntityDataSource
     {
         public AddCustomDynamicEntityDataSource()
@@ -114,7 +115,7 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error identifying dynamic entity.", ex.Message, "Ok");
+                await DisplayAlert("Error identifying dynamic entity.", ex.ToString(), "Ok");
             }
         }
     }

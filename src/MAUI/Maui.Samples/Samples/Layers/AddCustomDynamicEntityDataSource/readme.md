@@ -1,1 +1,45 @@
-# Basic readme template
+# Add custom dynamic entity data source
+
+Display data from a custom dynamic entity data source using a dynamic entity layer.
+
+![Image of add custom dynamic entity data source](addcustomdynamicentitydatasource.jpg)
+
+## Use case
+
+TODO: Add use case
+
+## How to use the sample
+
+Run the sample to view the map and the dynamic entity layer displaying the latest observation from the custom data source. Tap on a dynamic entity to view its attributes in a callout.
+
+## How it works
+
+1. Create a custom data source implementation of a `DynamicDataSource`.
+	1a. Override `OnLoadAsync()` to specify the `DynamicEntityDataSourceInfo` for a given unique entity ID field and a list of `Field` objects matching the fields in the data source.
+	1b. Override `OnConnectAsync()` to begin processing observations from the custom data source.
+	1c. Loop through the observations and deserialize each observation into a `MapPoint` object and a `Dictionary<string, object>` containing the attributes.
+	1d. Use `AddObservation(mapPoint, attributes)` to add each observation to the custom data source.
+2. Create a `DynamicEntityLayer` using the custom data source implementation.
+3. Update values in the layer's `TrackDisplayProperties` to customize the layer's appearance.
+4. Set up the layer's `LabelDefinitions` to display labels for each dynamic entity.
+5. Configure a `GeoViewTapped` event handler on the `MapView` to select a dynamic entity and display the entity's attributes in a callout.
+
+## Relevant API
+
+* DynamicEntity
+* DynamicEntityLayer
+* DynamicEntityDataSource
+* TrackDisplayProperties
+* LabelDefinition
+
+## About the data
+
+This sample uses a .json file containing observations of marine vessels in the Pacific North West. 
+
+## Additional information
+
+While this sample demonstrates the use of a .json file as a custom data source, you can use any data source that contains observations which can be translated into `MapPoint` objects with associated `Dictionary<string, object>` attributes.
+
+## Tags
+
+data, dynamic, entity, live, real-time, stream, track, labeling, label

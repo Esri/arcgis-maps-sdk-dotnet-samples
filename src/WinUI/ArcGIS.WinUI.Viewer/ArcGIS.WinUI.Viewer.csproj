@@ -90,7 +90,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Samples\Layers\AddCustomDynamicEntityDataSource\AIS_MarineCadastre_SelectedVessels_v2.json" />
+    <EmbeddedResource Include="Samples\Layers\AddCustomDynamicEntityDataSource\AIS_MarineCadastre_SelectedVessels_CustomDataSource.json" />
   </ItemGroup>
 
   <ItemGroup>

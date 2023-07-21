@@ -23,7 +23,7 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
     [ArcGIS.Samples.Shared.Attributes.Sample(
         "Add custom dynamic entity data source",
         "Layers",
-        "Display data from a custom dynamic entity data source using a dynamic entity layer. ",
+        "Display data from a custom dynamic entity data source using a dynamic entity layer.",
         "")]
     [ArcGIS.Samples.Shared.Attributes.ClassFile("SimulatedDataSource.cs")]
     public partial class AddCustomDynamicEntityDataSource
@@ -47,7 +47,7 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
             // In this example we are using a json file as our custom data source.
             // This field value should be a unique identifier for each entity.
             // Adjusting the value for the delay will change the speed at which the entities and their observations are displayed.
-            var customSource = new SimulatedDataSource("AIS_MarineCadastre_SelectedVessels_v2.json", "MMSI", TimeSpan.FromMilliseconds(10));
+            var customSource = new SimulatedDataSource("AIS_MarineCadastre_SelectedVessels_CustomDataSource.json", "MMSI", TimeSpan.FromMilliseconds(10));
 
             // Create the dynamic entity layer using the custom data source.
             var dynamicEntityLayer = new DynamicEntityLayer(customSource);

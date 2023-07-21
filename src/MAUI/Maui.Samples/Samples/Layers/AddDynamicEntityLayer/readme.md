@@ -25,22 +25,15 @@ Use the controls to connect to or disconnect from the stream service, modify dis
 
 ## Relevant API
 
-* ArcGISStreamService
-* ConnectionStatus
 * DynamicEntity
-* DynamicEntityFilter
 * DynamicEntityLayer
-* DynamicEntityPurgeOptions
+* DynamicEntityDataSource
 * TrackDisplayProperties
 
 ## About the data
 
 This sample uses a [stream service](https://realtimegis2016.esri.com:6443/arcgis/rest/services/SandyVehicles/StreamServer) that simulates live data coming from snowplows near Sandy, Utah. There are multiple vehicle types and multiple agencies operating the snowplows.
 
-## Additional information
-
-More information about dynamic entities can be found in the [guide documentation](link goes here).
-
 ## Tags
 
-data, dynamic, entity, live, purge, real-time, service, stream, track
+data, dynamic, entity, live, real-time, stream, track

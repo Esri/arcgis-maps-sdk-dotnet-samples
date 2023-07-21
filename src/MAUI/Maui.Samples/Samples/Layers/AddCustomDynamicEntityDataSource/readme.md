@@ -47,4 +47,4 @@ While this sample demonstrates the use of a .json file as a custom data source, 
 
 ## Tags
 
-data, dynamic, entity,  label, labeling, live, real-time, stream, track
+data, dynamic, entity, label, labeling, live, real-time, stream, track

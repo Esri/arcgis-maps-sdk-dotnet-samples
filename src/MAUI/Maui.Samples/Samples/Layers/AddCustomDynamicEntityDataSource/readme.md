@@ -6,7 +6,7 @@ Display data from a custom dynamic entity data source using a dynamic entity lay
 
 ## Use case
 
-Using this API developers can connect their own feed as a custom `DynamicEntityDataSource` to leverage observations using a `DynamicEntityLayer`. An example of this is in a mobile situational awareness app where a custom `DynamicEntityDataSource` can connect to Peer to Peer feeds to visualize real time location tracks.
+Using this API developers can connect their own feed as a custom `DynamicEntityDataSource` to leverage observations using a `DynamicEntityLayer`. An example of this is in a mobile situational awareness app where a custom `DynamicEntityDataSource` can connect to peer-to-peer feeds to visualize real time location tracks.
 
 ## How to use the sample
 
@@ -20,7 +20,7 @@ Configure the custom data source:
 2. Override `OnLoadAsync()` to specify the `DynamicEntityDataSourceInfo` for a given unique entity ID field and a list of `Field` objects matching the fields in the data source.
 3. Override `OnConnectAsync()` to begin processing observations from the custom data source.
 4. Loop through the observations and deserialize each observation into a `MapPoint` object and a `Dictionary<string, object>` containing the attributes.
-5. Use `AddObservation(mapPoint, attributes)` to add each observation to the custom data source.
+5. Use `DynamicEntityDataSource.AddObservation(mapPoint, attributes)` to add each observation to the custom data source.
 
 Configure the map view:
 

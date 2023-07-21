@@ -40,7 +40,7 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
             MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
 
             // Set the initial viewpoint.
-            MyMapView.SetViewpoint(new Viewpoint(47.984036751327544, -123.65671327050406, 3000000));
+            MyMapView.SetViewpoint(new Viewpoint(47.984, -123.657, 3e6));
 
             // Create a new custom file source.
             // This takes the path to the simulation file, field name that will be used as the entity id, and the delay between each observation that is processed.

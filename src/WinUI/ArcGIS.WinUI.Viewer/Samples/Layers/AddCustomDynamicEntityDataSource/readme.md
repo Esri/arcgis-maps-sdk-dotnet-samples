@@ -6,7 +6,7 @@ Create a custom dynamic entity data source and display it using a dynamic entity
 
 ## Use case
 
-Using this API developers can connect their own feed as a custom `DynamicEntityDataSource` to leverage observations using a `DynamicEntityLayer`. An example of this is in a mobile situational awareness app where a custom `DynamicEntityDataSource` can connect to peer-to-peer feeds to visualize real time location tracks.
+Developers can create a custom `DynamicEntityDataSource` to be able to visualize data from a variety of different feeds as dynamic entities using a `DynamicEntityLayer`. An example of this is in a mobile situational awareness app, where a custom `DynamicEntityDataSource` can be used to connect to peer-to-peer feeds in order to visualize real-time location tracks from teammates in the field.
 
 ## How to use the sample
 
@@ -16,7 +16,7 @@ Run the sample to view the map and the dynamic entity layer displaying the lates
 
 Configure the custom data source:
 
-1. Create a custom data source implementation of a `DynamicDataSource`.
+1. Create a custom data source implementation of a `DynamicEntityDataSource`.
 2. Override `OnLoadAsync()` to specify the `DynamicEntityDataSourceInfo` for a given unique entity ID field and a list of `Field` objects matching the fields in the data source.
 3. Override `OnConnectAsync()` to begin processing observations from the custom data source.
 4. Loop through the observations and deserialize each observation into a `MapPoint` object and a `Dictionary<string, object>` containing the attributes.
@@ -43,7 +43,7 @@ This sample uses a .json file containing observations of marine vessels in the P
 
 ## Additional information
 
-While this sample demonstrates the use of a .json file as a custom data source, you can use any data source that contains observations which can be translated into `MapPoint` objects with associated `Dictionary<string, object>` attributes.
+In this sample, we iterate through features in a GeoJSON file to mimic messages coming from a real-time feed. You can create a custom dyamic entity data source to process any data that contains observations which can be translated into `MapPoint` objects with associated `Dictionary<string, object>` attributes.
 
 ## Tags
 

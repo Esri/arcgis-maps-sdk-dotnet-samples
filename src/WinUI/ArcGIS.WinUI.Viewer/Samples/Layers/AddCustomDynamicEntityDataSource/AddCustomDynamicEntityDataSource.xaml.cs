@@ -23,7 +23,7 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add custom dynamic entity data source",
         category: "Layers",
-        description: "Display data from a custom dynamic entity data source using a dynamic entity layer.",
+        description: "Create a custom dynamic entity data source and display it using a dynamic entity layer.",
         instructions: "Run the sample to view the map and the dynamic entity layer displaying the latest observation from the custom data source. Tap on a dynamic entity to view its attributes in a callout.",
         tags: new[] { "data", "dynamic", "entity", "label", "labeling", "live", "real-time", "stream", "track" })]
     public partial class AddCustomDynamicEntityDataSource

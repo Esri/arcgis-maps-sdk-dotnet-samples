@@ -1,6 +1,6 @@
 # Add custom dynamic entity data source
 
-Display data from a custom dynamic entity data source using a dynamic entity layer.
+Create a custom dynamic entity data source and display it using a dynamic entity layer.
 
 ![Image of add custom dynamic entity data source](AddCustomDynamicEntityDataSource.jpg)
 

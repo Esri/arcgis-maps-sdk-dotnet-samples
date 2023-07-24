@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "Display data from a custom dynamic entity data source using a dynamic entity layer.",
+    "description": "Create a custom dynamic entity data source and display it using a dynamic entity layer.",
     "formal_name": "AddCustomDynamicEntityDataSource",
     "ignore": false,
     "images": [

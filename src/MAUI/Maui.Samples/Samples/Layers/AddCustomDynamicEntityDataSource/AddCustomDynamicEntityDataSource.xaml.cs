@@ -35,7 +35,7 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
         private void Initialize()
         {
             // Create a new map with the navigation basemap style.
-            MyMapView.Map = new Map(BasemapStyle.ArcGISNavigation);
+            MyMapView.Map = new Map(BasemapStyle.ArcGISOceans);
 
             // Set the initial viewpoint.
             MyMapView.SetViewpoint(new Viewpoint(47.984, -123.657, 3e6));

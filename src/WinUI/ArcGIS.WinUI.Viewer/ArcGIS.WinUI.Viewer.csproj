@@ -58,15 +58,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.2.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.WinUI" Version="200.2.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0" />
-    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
-    <PackageReference Include="System.Security.Cryptography.ProtectedData" Version="7.0.0" />
-    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
-    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.1.2" />
-    <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.2.221116.1" />
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" />
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
+    <PackageReference Include="Esri.ArcGISRuntime.WinUI" />
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" />
+    <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="System.Security.Cryptography.ProtectedData" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" />
+    <PackageReference Include="Microsoft.WindowsAppSDK" />
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 
@@ -77,10 +77,6 @@
     <Compile Update="Helpers\ArcGISLoginPrompt.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Samples\GraphicsOverlay\SketchOnMap\resources\" />
   </ItemGroup>
 
   <ItemGroup>

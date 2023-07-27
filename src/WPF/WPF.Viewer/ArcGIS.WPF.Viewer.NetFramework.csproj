@@ -131,7 +131,7 @@
   </ItemGroup>
   <!-- Samples -->
   <ItemGroup>
-    <Compile Include="Samples\**\*.xaml.cs" DependentUpon="%(Filename)" />
+    <Compile Include="Samples\**\*.cs" DependentUpon="%(Filename)" />
     <Content Include="Samples\*\*\*.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -148,6 +148,7 @@
     <Content Include="Resources\hide-header.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <EmbeddedResource Include="Samples\Layers\AddCustomDynamicEntityDataSource\AIS_MarineCadastre_SelectedVessels_CustomDataSource.json" />
     <Resource Include="Resources\Fonts\calcite-ui-icons-24.ttf" />
     <Resource Include="Assets\**\*.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-256.ico" />

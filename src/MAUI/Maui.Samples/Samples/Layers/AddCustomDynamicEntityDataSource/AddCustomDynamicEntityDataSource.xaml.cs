@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.RealTime;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using System.Text;
 
 namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
 {
@@ -45,7 +46,7 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
             // In this example we are using a json file as our custom data source.
             // This field value should be a unique identifier for each entity.
             // Adjusting the value for the delay will change the speed at which the entities and their observations are displayed.
-            var customSource =  new SimulatedDataSource("AIS_MarineCadastre_SelectedVessels_CustomDataSource.json", "MMSI", TimeSpan.FromMilliseconds(10));
+            var customSource = new SimulatedDataSource("AIS_MarineCadastre_SelectedVessels_CustomDataSource.json", "MMSI", TimeSpan.FromMilliseconds(10));
 
             // Create the dynamic entity layer using the custom data source.
             var dynamicEntityLayer = new DynamicEntityLayer(customSource);
@@ -104,8 +105,26 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
                 var dynamicEntity = observation.GetDynamicEntity();
                 if (dynamicEntity is null) return;
 
+                // Build a string for observation attributes.
+                StringBuilder stringBuilder = new StringBuilder();
+                foreach (var attribute in new string[] { "VesselName", "CallSign", "COG", "SOG" })
+                {
+                    var value = dynamicEntity.Attributes[attribute].ToString();
+
+                    // Account for when an attribue has an empty value.
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        stringBuilder.AppendLine(attribute + ": " + value);
+
+                        // iOS doesn't support multiline callouts, so only show one attribute.
+#if __IOS__
+                        break;
+#endif
+                    }
+                }
+
                 // The standard callout takes care of moving when the dynamic entity changes.
-                var calloutDef = new CalloutDefinition(dynamicEntity);
+                var calloutDef = new CalloutDefinition(stringBuilder.ToString().TrimEnd());
                 if (layer.Renderer?.GetSymbol(dynamicEntity) is Symbol symbol)
                 {
                     await calloutDef.SetIconFromSymbolAsync(symbol);

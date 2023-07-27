@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.ArcGISServices;
@@ -17,6 +17,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
+using System.Text;
 
 namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
 {
@@ -106,8 +107,21 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
                 var dynamicEntity = observation.GetDynamicEntity();
                 if (dynamicEntity is null) return;
 
+                // Build a string for observation attributes.
+                var stringBuilder = new StringBuilder();
+                foreach (var attribute in new string[] { "VesselName", "CallSign", "COG", "SOG" })
+                {
+                    var value = dynamicEntity.Attributes[attribute].ToString();
+
+                    // Account for when an attribue has an empty value.
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        stringBuilder.AppendLine(attribute + ": " + value);
+                    }
+                }
+
                 // The standard callout takes care of moving when the dynamic entity changes.
-                var calloutDef = new CalloutDefinition(dynamicEntity);
+                var calloutDef = new CalloutDefinition(stringBuilder.ToString().TrimEnd());
                 if (layer.Renderer?.GetSymbol(dynamicEntity) is Symbol symbol)
                 {
                     await calloutDef.SetIconFromSymbolAsync(symbol);

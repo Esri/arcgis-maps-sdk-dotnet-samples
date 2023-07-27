@@ -17,6 +17,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Linq;
+using System.Text;
 using System.Windows;
 
 namespace ArcGIS.WPF.Samples.AddCustomDynamicEntityDataSource
@@ -107,8 +108,21 @@ namespace ArcGIS.WPF.Samples.AddCustomDynamicEntityDataSource
                 var dynamicEntity = observation.GetDynamicEntity();
                 if (dynamicEntity is null) return;
 
+                // Build a string for observation attributes.
+                var stringBuilder = new StringBuilder();
+                foreach (var attribute in new string[] { "VesselName", "CallSign", "COG", "SOG" })
+                {
+                    var value = dynamicEntity.Attributes[attribute].ToString();
+
+                    // Account for when an attribue has an empty value.
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        stringBuilder.AppendLine(attribute + ": " + value);
+                    }
+                }
+
                 // The standard callout takes care of moving when the dynamic entity changes.
-                var calloutDef = new CalloutDefinition(dynamicEntity);
+                var calloutDef = new CalloutDefinition(stringBuilder.ToString().TrimEnd());
                 if (layer.Renderer?.GetSymbol(dynamicEntity) is Symbol symbol)
                 {
                     await calloutDef.SetIconFromSymbolAsync(symbol);

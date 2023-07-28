@@ -12,7 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.GeometryEditor;
+using Esri.ArcGISRuntime.UI.Editing;
 using Color = System.Drawing.Color;
 
 namespace ArcGIS.Samples.CreateAndEditGeometries

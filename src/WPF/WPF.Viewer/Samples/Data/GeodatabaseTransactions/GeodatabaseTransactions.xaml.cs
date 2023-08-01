@@ -266,7 +266,7 @@ namespace ArcGIS.WPF.Samples.GeodatabaseTransactions
                 Feature newFeature = _editTable.CreateFeature();
 
                 // Create a random value for the 'type' attribute (integer between 1 and 7).
-                Random random = new(DateTime.Now.Millisecond);
+                Random random = new Random(DateTime.Now.Millisecond);
                 int featureType = random.Next(1, 7);
 
                 // Set the geometry with the point the user clicked and the 'type' with the random integer.

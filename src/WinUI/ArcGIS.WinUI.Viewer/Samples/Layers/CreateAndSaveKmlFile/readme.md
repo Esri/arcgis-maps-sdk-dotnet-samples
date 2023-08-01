@@ -27,8 +27,8 @@ Click on one of the buttons in the middle row to start adding a geometry. Click 
 
 ## Relevant API
 
-* GeometryEngine.Project
 * GeometryEditor
+* GeometryEngine.Project
 * KmlDataset
 * KmlDocument
 * KmlGeometry

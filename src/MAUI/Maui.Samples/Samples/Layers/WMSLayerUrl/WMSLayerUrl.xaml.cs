@@ -22,10 +22,10 @@ namespace ArcGIS.Samples.WMSLayerUrl
     {
         // Hold the URL to the WMS service showing U.S. weather radar.
         private readonly Uri _wmsUrl = new Uri(
-            "https://nowcoast.noaa.gov/arcgis/services/nowcoast/radar_meteo_imagery_nexrad_time/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+            "https://nowcoast.noaa.gov/geoserver/observations/weather_radar/wms?SERVICE=WMS&REQUEST=GetCapabilities");
 
         // Hold a list of uniquely-identifying WMS layer names to display.
-        private readonly List<string> _wmsLayerNames = new List<string> { "1" };
+        private readonly List<string> _wmsLayerNames = new List<string> { "conus_base_reflectivity_mosaic" };
 
         public WMSLayerUrl()
         {

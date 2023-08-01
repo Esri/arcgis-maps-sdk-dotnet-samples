@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Editing;
 
 namespace ArcGIS.Samples.FindServiceArea
 {
@@ -48,27 +49,27 @@ namespace ArcGIS.Samples.FindServiceArea
 
             // Create graphics overlays for all of the elements of the map.
             MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
+
+            MyMapView.GeoViewDoubleTapped += (s, e) =>
+            {
+                // Finish the currently drawn barrier.
+                if (MyMapView.GeometryEditor.IsStarted && _geometryType == GeometryType.Polyline)
+                {
+                    FinishBarrier();
+                }
+            };
         }
 
         private async void PlaceFacilityButton_Click(object sender, EventArgs e)
         {
             try
             {
-                if (MyMapView.GeometryEditor.IsStarted)
-                {
-                    MyMapView.GeometryEditor.Stop();
-                }
-
                 // Let the user tap on the map view using the point sketch mode.
                 _geometryType = GeometryType.Point;
 
                 // Start the geometry editor.
                 MyMapView.GeometryEditor.Start(_geometryType);
                 MyMapView.GeometryEditor.PropertyChanged += GeometryEditor_PropertyChanged;
-            }
-            catch (TaskCanceledException)
-            {
-                // Ignore this exception.
             }
             catch (Exception ex)
             {
@@ -80,7 +81,7 @@ namespace ArcGIS.Samples.FindServiceArea
 
         private void GeometryEditor_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Geometry")
+            if (e.PropertyName == nameof(GeometryEditor.Geometry))
             {
                 if (_geometryType == GeometryType.Point)
                 {
@@ -115,7 +116,7 @@ namespace ArcGIS.Samples.FindServiceArea
         private async void DrawBarrierButton_Click(object sender, EventArgs e)
         {
             // Finish drawing barriers if started.
-            if ((string)DrawBarrierButton.Text != "Draw barrier")
+            if (DrawBarrierButton.Text != "Draw barrier")
             {
                 if (MyMapView.GeometryEditor.IsStarted)
                 {
@@ -134,10 +135,6 @@ namespace ArcGIS.Samples.FindServiceArea
 
                 // Start the geometry editor.
                 MyMapView.GeometryEditor.Start(_geometryType);
-            }
-            catch (TaskCanceledException)
-            {
-                // Ignore this exception.
             }
             catch (Exception ex)
             {

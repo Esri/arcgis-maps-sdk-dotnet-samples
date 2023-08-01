@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
+using Esri.ArcGISRuntime.UI.Editing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
@@ -225,12 +226,6 @@ namespace ArcGIS.WinUI.Samples.GeodatabaseTransactions
 
             try
             {
-                // Cancel execution of the sketch task if it is already active.
-                if (MyMapView.GeometryEditor.IsStarted)
-                {
-                    MyMapView.GeometryEditor.Stop();
-                }
-
                 // Store the correct table to edit (for the button clicked).
                 if (addFeatureButton == AddBirdButton)
                 {
@@ -249,10 +244,6 @@ namespace ArcGIS.WinUI.Samples.GeodatabaseTransactions
 
                 MyMapView.GeometryEditor.PropertyChanged += GeometryEditor_PropertyChanged;
             }
-            catch (TaskCanceledException)
-            {
-                // Ignore if the edit was canceled.
-            }
             catch (Exception ex)
             {
                 // Report other exception messages.
@@ -263,7 +254,7 @@ namespace ArcGIS.WinUI.Samples.GeodatabaseTransactions
         private async void GeometryEditor_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             // Check if the user finished drawing a point on the map.
-            if (e.PropertyName == "Geometry")
+            if (e.PropertyName == nameof(GeometryEditor.Geometry))
             {
                 // Disconnect event handler to prevent multiple calls.
                 MyMapView.GeometryEditor.PropertyChanged -= GeometryEditor_PropertyChanged;

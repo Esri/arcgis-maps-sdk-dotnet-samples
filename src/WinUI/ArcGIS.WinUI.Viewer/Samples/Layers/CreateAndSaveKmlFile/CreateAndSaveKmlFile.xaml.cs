@@ -182,14 +182,27 @@ namespace ArcGIS.WinUI.Samples.CreateAndSaveKmlFile
                 // Get the user-drawn geometry.
                 Geometry geometry = MyMapView.GeometryEditor.Stop();
 
-                // Check to see if geometry has been drawn.
+                // Hold a reference for the new placemark geometry.
+                KmlGeometry kmlGeometry;
+
+                // Check to see if a geometry has been drawn.
                 if (!geometry.IsEmpty)
                 {
-                    // Project the geometry to WGS84 (WGS84 is required by the KML standard).
-                    Geometry projectedGeometry = geometry.Project(SpatialReferences.Wgs84);
 
-                    // Create a KmlGeometry using the new geometry.
-                    KmlGeometry kmlGeometry = new KmlGeometry(projectedGeometry, KmlAltitudeMode.ClampToGround);
+                    if (MyMapView.SpatialReference != null &&
+                        geometry.SpatialReference != MyMapView.SpatialReference)
+                    {
+                        // Project the geometry to WGS84 (WGS84 is required by the KML standard).
+                        Geometry projectedGeometry = geometry.Project(SpatialReferences.Wgs84);
+
+                        // Create a KmlGeometry using the projected geometry.
+                        kmlGeometry = new KmlGeometry(projectedGeometry, KmlAltitudeMode.ClampToGround);
+                    }
+                    else
+                    {
+                        // Create a KmlGeometry using the user-drawn geometry.
+                        kmlGeometry = new KmlGeometry(geometry, KmlAltitudeMode.ClampToGround);
+                    }
 
                     // Create a new placemark.
                     _currentPlacemark = new KmlPlacemark(kmlGeometry);

@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Editing;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,26 +54,26 @@ namespace ArcGIS.WPF.Samples.FindServiceArea
 
             // Create graphics overlays for all of the elements of the map.
             MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
+
+            MyMapView.GeoViewDoubleTapped += (s, e) =>
+            {
+                // Finish any barrier.
+                if (MyMapView.GeometryEditor.IsStarted && _geometryType == GeometryType.Polyline)
+                {
+                    FinishBarrier();
+                }
+            };
         }
 
         private void PlaceFacilityButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (MyMapView.GeometryEditor.IsStarted)
-                {
-                    MyMapView.GeometryEditor.Stop();
-                }
-
                 // Let the user tap on the map view using the point sketch mode.
                 _geometryType = GeometryType.Point;
                 
                 MyMapView.GeometryEditor.Start(_geometryType);
                 MyMapView.GeometryEditor.PropertyChanged += GeometryEditor_PropertyChanged;
-            }
-            catch (TaskCanceledException)
-            {
-                // Ignore this exception.
             }
             catch (Exception ex)
             {
@@ -83,7 +84,7 @@ namespace ArcGIS.WPF.Samples.FindServiceArea
 
         private void GeometryEditor_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "Geometry")
+            if (e.PropertyName == nameof(GeometryEditor.Geometry))
             {
                 if (_geometryType == GeometryType.Point)
                 {
@@ -136,10 +137,6 @@ namespace ArcGIS.WPF.Samples.FindServiceArea
                 _geometryType = GeometryType.Polyline;
 
                 MyMapView.GeometryEditor.Start(_geometryType);
-            }
-            catch (TaskCanceledException)
-            {
-                // Ignore this exception.
             }
             catch (Exception ex)
             {

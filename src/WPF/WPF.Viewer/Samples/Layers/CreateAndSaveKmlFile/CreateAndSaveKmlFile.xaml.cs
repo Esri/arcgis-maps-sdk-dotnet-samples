@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.UI;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Windows;
@@ -35,6 +36,7 @@ namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
         private KmlDataset _kmlDataset;
         private KmlLayer _kmlLayer;
         private KmlPlacemark _currentPlacemark;
+        private GeometryType _creationMode;
 
         public CreateAndSaveKmlFile()
         {
@@ -104,26 +106,23 @@ namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
                 CompleteButton.Visibility = Visibility.Visible;
                 SaveResetGrid.IsEnabled = false;
 
-                // Create variables for the sketch creation mode and color.
-                SketchCreationMode creationMode;
-
                 // Set the creation mode and UI based on which button called this method.
                 switch (((Button)sender).Name)
                 {
                     case nameof(PointButton):
-                        creationMode = SketchCreationMode.Point;
+                        _creationMode = GeometryType.Point;
                         InstructionsText.Text = "Tap to add a point.";
                         StyleText.Text = "Select an icon for the placemark.";
                         break;
 
                     case nameof(PolylineButton):
-                        creationMode = SketchCreationMode.Polyline;
+                        _creationMode = GeometryType.Polyline;
                         InstructionsText.Text = "Tap to add a vertex.";
                         StyleText.Text = "Select a color for the placemark.";
                         break;
 
                     case nameof(PolygonButton):
-                        creationMode = SketchCreationMode.Polygon;
+                        _creationMode = GeometryType.Polygon;
                         InstructionsText.Text = "Tap to add a vertex.";
                         StyleText.Text = "Select a color for the placemark.";
                         break;
@@ -132,42 +131,12 @@ namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
                         return;
                 }
 
-                // Get the user-drawn geometry.
-                Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, true);
-
-                // Project the geometry to WGS84 (WGS84 is required by the KML standard).
-                Geometry projectedGeometry = geometry.Project(SpatialReferences.Wgs84);
-
-                // Create a KmlGeometry using the new geometry.
-                KmlGeometry kmlGeometry = new KmlGeometry(projectedGeometry, KmlAltitudeMode.ClampToGround);
-
-                // Create a new placemark.
-                _currentPlacemark = new KmlPlacemark(kmlGeometry);
-
-                // Add the placemark to the KmlDocument.
-                _kmlDocument.ChildNodes.Add(_currentPlacemark);
-
-                // Enable the style editing UI.
-                StyleBorder.Visibility = Visibility.Visible;
-                MainUI.IsEnabled = false;
-
-                // Choose whether to enable the icon picker or color picker.
-                IconPicker.Visibility = creationMode == SketchCreationMode.Point ? Visibility.Visible : Visibility.Collapsed;
-                ColorPicker.Visibility = creationMode != SketchCreationMode.Point ? Visibility.Visible : Visibility.Collapsed;
+                // Start the geometry editor.
+                MyMapView.GeometryEditor.Start(_creationMode);
             }
             catch (ArgumentException)
             {
                 MessageBox.Show("Unsupported Geometry", "Error");
-            }
-            finally
-            {
-                // Reset the UI.
-                ShapesPanel.Visibility = Visibility.Visible;
-                CompleteButton.Visibility = Visibility.Collapsed;
-                InstructionsText.Text = "Select the type of feature you would like to add.";
-
-                // Enable the save and reset buttons.
-                SaveResetGrid.IsEnabled = true;
             }
         }
 
@@ -213,11 +182,46 @@ namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
         {
             try
             {
-                // Finish the sketch.
-                MyMapView.SketchEditor.CompleteCommand.Execute(null);
+                // Get the user-drawn geometry.
+                Geometry geometry = MyMapView.GeometryEditor.Stop();
+
+                // Check to see if a geometry has been drawn.
+                if (!geometry.IsEmpty)
+                {
+                    // Project the geometry to WGS84 (WGS84 is required by the KML standard).
+                    Geometry projectedGeometry = geometry.Project(SpatialReferences.Wgs84);
+
+                    // Create a KmlGeometry using the new geometry.
+                    KmlGeometry kmlGeometry = new KmlGeometry(projectedGeometry, KmlAltitudeMode.ClampToGround);
+
+                    // Create a new placemark.
+                    _currentPlacemark = new KmlPlacemark(kmlGeometry);
+
+                    // Add the placemark to the KmlDocument.
+                    _kmlDocument.ChildNodes.Add(_currentPlacemark);
+
+                    // Enable the style editing UI.
+                    StyleBorder.Visibility = Visibility.Visible;
+                    MainUI.IsEnabled = false;
+
+                    // Choose whether to enable the icon picker or color picker.
+                    IconPicker.Visibility = _creationMode == GeometryType.Point ? Visibility.Visible : Visibility.Collapsed;
+                    ColorPicker.Visibility = _creationMode != GeometryType.Point ? Visibility.Visible : Visibility.Collapsed;
+                }
             }
-            catch (ArgumentException)
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            { 
+                // Reset the UI.
+                ShapesPanel.Visibility = Visibility.Visible;
+                CompleteButton.Visibility = Visibility.Collapsed;
+                InstructionsText.Text = "Select the type of feature you would like to add.";
+
+                // Enable the save and reset buttons.
+                SaveResetGrid.IsEnabled = true;
             }
         }
 

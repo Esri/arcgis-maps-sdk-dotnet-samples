@@ -27,6 +27,7 @@ When the sample loads, a feature service is taken offline as a geodatabase. When
 * Geodatabase.CommitTransaction
 * Geodatabase.IsInTransaction
 * Geodatabase.RollbackTransaction
+* GeometryEditor
 
 ## About the data
 
@@ -34,4 +35,4 @@ The sample uses a publicly-editable, sync-enabled [feature service](https://samp
 
 ## Tags
 
-commit, database, geodatabase, transact, transactions
+commit, database, geodatabase, geometry editor, transact, transactions

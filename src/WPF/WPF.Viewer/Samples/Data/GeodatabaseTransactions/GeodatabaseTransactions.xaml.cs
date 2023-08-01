@@ -24,7 +24,7 @@ namespace ArcGIS.WPF.Samples.GeodatabaseTransactions
         category: "Data",
         description: "Use transactions to manage how changes are committed to a geodatabase.",
         instructions: "When the sample loads, a feature service is taken offline as a geodatabase. When the geodatabase is ready, you can add multiple types of features. To apply edits directly, uncheck the 'Require a transaction for edits' checkbox. When using transactions, use the buttons to start editing and stop editing. When you stop editing, you can choose to commit the changes or roll them back. At any point, you can synchronize the local geodatabase with the feature service.",
-        tags: new[] { "commit", "database", "geodatabase", "transact", "transactions" })]
+        tags: new[] { "commit", "database", "geodatabase", "geometry editor", "transact", "transactions" })]
     public partial class GeodatabaseTransactions
     {
         // URL for the editable feature service.
@@ -235,7 +235,7 @@ namespace ArcGIS.WPF.Samples.GeodatabaseTransactions
                 // Inform the user which table is being edited.
                 MessageTextBlock.Text = "Click the map to add a new feature to the geodatabase table '" + _editTable.TableName + "'";
 
-                // Use the sketch editor to allow the user to draw a point on the map.
+                // Use the geometry editor to allow the user to draw a point on the map.
                 MyMapView.GeometryEditor.Start(GeometryType.Point);
 
                 MyMapView.GeometryEditor.PropertyChanged += GeometryEditor_PropertyChanged;                
@@ -266,7 +266,7 @@ namespace ArcGIS.WPF.Samples.GeodatabaseTransactions
                 Feature newFeature = _editTable.CreateFeature();
 
                 // Create a random value for the 'type' attribute (integer between 1 and 7).
-                Random random = new Random(DateTime.Now.Millisecond);
+                Random random = new(DateTime.Now.Millisecond);
                 int featureType = random.Next(1, 7);
 
                 // Set the geometry with the point the user clicked and the 'type' with the random integer.

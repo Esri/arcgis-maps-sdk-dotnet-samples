@@ -10,7 +10,6 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
-using Esri.ArcGISRuntime.UI;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
@@ -28,7 +27,7 @@ namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
         category: "Layers",
         description: "Construct a KML document and save it as a KMZ file.",
         instructions: "Click on one of the buttons in the middle row to start adding a geometry. Click on the map view to place vertices. Click the \"Complete Sketch\" button to add the geometry to the KML document as a new KML placemark. Use the style interface to edit the style of the placemark. If you do not wish to set a style, click the \"Don't Apply Style\" button. When you are finished adding KML nodes, click on the \"Save KMZ file\" button to save the active KML document as a .kmz file on your system. Use the \"Reset\" button to clear the current KML document and start a new one.",
-        tags: new[] { "KML", "KMZ", "Keyhole", "OGC" })]
+        tags: new[] { "KML", "KMZ", "Keyhole", "OGC", "geometry editor" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class CreateAndSaveKmlFile
     {
@@ -36,7 +35,7 @@ namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
         private KmlDataset _kmlDataset;
         private KmlLayer _kmlLayer;
         private KmlPlacemark _currentPlacemark;
-        private GeometryType _creationMode;
+        private GeometryType _geometryType;
 
         public CreateAndSaveKmlFile()
         {
@@ -97,7 +96,7 @@ namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
             MyMapView.Map.OperationalLayers.Add(_kmlLayer);
         }
 
-        private async void Edit_Click(object sender, RoutedEventArgs e)
+        private void Edit_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -110,19 +109,19 @@ namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
                 switch (((Button)sender).Name)
                 {
                     case nameof(PointButton):
-                        _creationMode = GeometryType.Point;
+                        _geometryType = GeometryType.Point;
                         InstructionsText.Text = "Tap to add a point.";
                         StyleText.Text = "Select an icon for the placemark.";
                         break;
 
                     case nameof(PolylineButton):
-                        _creationMode = GeometryType.Polyline;
+                        _geometryType = GeometryType.Polyline;
                         InstructionsText.Text = "Tap to add a vertex.";
                         StyleText.Text = "Select a color for the placemark.";
                         break;
 
                     case nameof(PolygonButton):
-                        _creationMode = GeometryType.Polygon;
+                        _geometryType = GeometryType.Polygon;
                         InstructionsText.Text = "Tap to add a vertex.";
                         StyleText.Text = "Select a color for the placemark.";
                         break;
@@ -132,7 +131,7 @@ namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
                 }
 
                 // Start the geometry editor.
-                MyMapView.GeometryEditor.Start(_creationMode);
+                MyMapView.GeometryEditor.Start(_geometryType);
             }
             catch (ArgumentException)
             {
@@ -205,8 +204,8 @@ namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
                     MainUI.IsEnabled = false;
 
                     // Choose whether to enable the icon picker or color picker.
-                    IconPicker.Visibility = _creationMode == GeometryType.Point ? Visibility.Visible : Visibility.Collapsed;
-                    ColorPicker.Visibility = _creationMode != GeometryType.Point ? Visibility.Visible : Visibility.Collapsed;
+                    IconPicker.Visibility = _geometryType == GeometryType.Point ? Visibility.Visible : Visibility.Collapsed;
+                    ColorPicker.Visibility = _geometryType != GeometryType.Point ? Visibility.Visible : Visibility.Collapsed;
                 }
             }
             catch (Exception ex)
@@ -214,7 +213,7 @@ namespace ArcGIS.WPF.Samples.CreateAndSaveKmlFile
                 Debug.WriteLine(ex.Message);
             }
             finally
-            { 
+            {
                 // Reset the UI.
                 ShapesPanel.Visibility = Visibility.Visible;
                 CompleteButton.Visibility = Visibility.Collapsed;

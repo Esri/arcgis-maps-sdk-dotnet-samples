@@ -25,13 +25,15 @@ namespace ArcGIS.WPF.Samples.FindServiceArea
         category: "Network analysis",
         description: "Find the service area within a network from a given point.",
         instructions: "In order to find any service areas at least one facility needs to be added to the map view.",
-        tags: new[] { "barriers", "facilities", "impedance", "logistics", "routing" })]
+        tags: new[] { "barriers", "facilities", "geometry editor", "impedance", "logistics", "routing" })]
     public partial class FindServiceArea
     {
         // Uri for the service area around San Diego.
         private Uri _serviceAreaUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ServiceArea");
 
-        private GeometryType _creationMode;
+        // Hold a reference to the geometry type used in the geometry editor.
+        private GeometryType _geometryType;
+
         public FindServiceArea()
         {
             InitializeComponent();
@@ -63,10 +65,10 @@ namespace ArcGIS.WPF.Samples.FindServiceArea
                 }
 
                 // Let the user tap on the map view using the point sketch mode.
-                _creationMode = GeometryType.Point;
+                _geometryType = GeometryType.Point;
                 
-                MyMapView.GeometryEditor.Start(_creationMode);
-                MyMapView.GeometryEditor.PropertyChanged += GeometryEditor_PropertyChanged; ;
+                MyMapView.GeometryEditor.Start(_geometryType);
+                MyMapView.GeometryEditor.PropertyChanged += GeometryEditor_PropertyChanged;
             }
             catch (TaskCanceledException)
             {
@@ -83,7 +85,7 @@ namespace ArcGIS.WPF.Samples.FindServiceArea
         {
             if (e.PropertyName == "Geometry")
             {
-                if (_creationMode == GeometryType.Point)
+                if (_geometryType == GeometryType.Point)
                 {
                     // Disconnect event handler to prevent multiple calls.
                     MyMapView.GeometryEditor.PropertyChanged -= GeometryEditor_PropertyChanged;
@@ -131,9 +133,9 @@ namespace ArcGIS.WPF.Samples.FindServiceArea
                 DrawBarrierButton.Content = "Finish barrier";
 
                 // Let the user draw on the map view using the polyline sketch mode.
-                _creationMode = GeometryType.Polyline;
+                _geometryType = GeometryType.Polyline;
 
-                MyMapView.GeometryEditor.Start(_creationMode);
+                MyMapView.GeometryEditor.Start(_geometryType);
             }
             catch (TaskCanceledException)
             {

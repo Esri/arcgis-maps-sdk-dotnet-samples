@@ -10,13 +10,15 @@
         "KML",
         "KMZ",
         "Keyhole",
-        "OGC"
+        "OGC",
+        "geometry editor"
     ],
     "offline_data": [],
     "redirect_from": [
         "/net/latest/winui/sample-code/createandsavekmlfile.htm"
     ],
     "relevant_apis": [
+        "GeometryEditor",
         "GeometryEngine.Project",
         "KmlDataset",
         "KmlDocument",
@@ -24,8 +26,7 @@
         "KmlLayer",
         "KmlNode.SaveAsASync",
         "KmlPlacemark",
-        "KmlStyle",
-        "SketchEditor"
+        "KmlStyle"
     ],
     "snippets": [
         "CreateAndSaveKmlFile.xaml.cs",

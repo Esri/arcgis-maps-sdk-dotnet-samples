@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
@@ -28,8 +29,12 @@ namespace ArcGIS.WPF.Samples.AddCustomDynamicEntityDataSource
         description: "Create a custom dynamic entity data source and display it using a dynamic entity layer.",
         instructions: "Run the sample to view the map and the dynamic entity layer displaying the latest observation from the custom data source. Tap on a dynamic entity to view its attributes in a callout.",
         tags: new[] { "data", "dynamic", "entity", "label", "labeling", "live", "real-time", "stream", "track" })]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("a8a942c228af4fac96baa78ad60f511f")]
     public partial class AddCustomDynamicEntityDataSource
     {
+        // Path to AIS Traffic Data json file.
+        private readonly string _localJsonFile = DataManager.GetDataFolder("a8a942c228af4fac96baa78ad60f511f", "AIS_MarineCadastre_SelectedVessels_CustomDataSource.json");
+
         public AddCustomDynamicEntityDataSource()
         {
             InitializeComponent();
@@ -49,7 +54,7 @@ namespace ArcGIS.WPF.Samples.AddCustomDynamicEntityDataSource
             // In this example we are using a json file as our custom data source.
             // This field value should be a unique identifier for each entity.
             // Adjusting the value for the delay will change the speed at which the entities and their observations are displayed.
-            var customSource = new SimulatedDataSource("AIS_MarineCadastre_SelectedVessels_CustomDataSource.json", "MMSI", TimeSpan.FromMilliseconds(10));
+            var customSource = new SimulatedDataSource(_localJsonFile, "MMSI", TimeSpan.FromMilliseconds(10));
 
             // Create the dynamic entity layer using the custom data source.
             var dynamicEntityLayer = new DynamicEntityLayer(customSource);

@@ -86,10 +86,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Samples\Layers\AddCustomDynamicEntityDataSource\AIS_MarineCadastre_SelectedVessels_CustomDataSource.json" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Page Update="ScreenshotTab.xaml">
       <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
     </Page>

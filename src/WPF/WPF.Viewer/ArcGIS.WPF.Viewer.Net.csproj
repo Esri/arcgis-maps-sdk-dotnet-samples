@@ -52,7 +52,6 @@
     <Content Remove="readme.md" />
     <None Remove="App.config" />
     <None Remove="Resources\github-markdown.css" />
-    <EmbeddedResource Include="Samples\Layers\AddCustomDynamicEntityDataSource\AIS_MarineCadastre_SelectedVessels_CustomDataSource.json" />
     <Compile Update="Samples\**\*.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>

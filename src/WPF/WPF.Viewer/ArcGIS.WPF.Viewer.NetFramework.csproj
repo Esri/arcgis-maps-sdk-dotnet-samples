@@ -148,7 +148,6 @@
     <Content Include="Resources\hide-header.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Samples\Layers\AddCustomDynamicEntityDataSource\AIS_MarineCadastre_SelectedVessels_CustomDataSource.json" />
     <Resource Include="Resources\Fonts\calcite-ui-icons-24.ttf" />
     <Resource Include="Assets\**\*.png" />
     <Resource Include="Assets\ApplicationIcons\windows-desktop-256.ico" />

@@ -24,9 +24,9 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
         private CancellationTokenSource? _cancellationTokenSource;
         private List<Field> _fields;
 
-        public SimulatedDataSource(string fileName, string entityIdField, TimeSpan delay)
+        public SimulatedDataSource(string filePath, string entityIdField, TimeSpan delay)
         {
-            FileName = fileName;
+            FilePath = filePath;
             EntityIdField = entityIdField;
             Delay = delay;
         }
@@ -34,7 +34,7 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
         #region Properties
 
         // Expose the file path, entity ID field, and delay length as properties.
-        public string FileName { get; }
+        public string FilePath { get; }
         public string EntityIdField { get; }
         public TimeSpan Delay { get; }
 
@@ -46,7 +46,7 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
             _fields = GetSchema();
 
             // Open the file for processing.
-            Stream stream = await FileSystem.OpenAppPackageFileAsync(FileName);
+            Stream stream = File.OpenRead(FilePath);
             _streamReader = new StreamReader(stream);
 
             // Create a new DynamicEntityDataSourceInfo using the entity ID field and the fields derived from the attributes of each observation in the custom data source.

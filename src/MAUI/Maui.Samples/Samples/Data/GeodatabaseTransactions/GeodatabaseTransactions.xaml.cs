@@ -157,7 +157,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
 
                     // Create a new feature layer to show the table in the map.
                     FeatureLayer layer = new FeatureLayer(table);
-                    Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => MyMapView.Map.OperationalLayers.Add(layer));
+                    Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => MyMapView.Map?.OperationalLayers.Add(layer));
                 }
                 catch (Exception e)
                 {
@@ -200,7 +200,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
             string folder = string.Empty;
 #if WINDOWS
             folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#elif IOS || ANDROID
+#elif IOS || ANDROID || MACCATALYST
             folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
 #endif
             // Set the final path.

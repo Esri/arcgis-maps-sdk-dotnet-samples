@@ -17,7 +17,6 @@ using Microsoft.UI.Xaml;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ArcGIS.WinUI.Samples.FindServiceArea
 {
@@ -85,35 +84,32 @@ namespace ArcGIS.WinUI.Samples.FindServiceArea
 
         private void GeometryEditor_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == nameof(GeometryEditor.Geometry))
+            if (e.PropertyName == nameof(GeometryEditor.Geometry) && _geometryType == GeometryType.Point)
             {
-                if (_geometryType == GeometryType.Point)
+                // Disconnect event handler to prevent multiple calls.
+                MyMapView.GeometryEditor.PropertyChanged -= GeometryEditor_PropertyChanged;
+
+                // Get the active geometry.
+                Geometry geometry = MyMapView.GeometryEditor.Geometry;
+
+                // Symbology for a facility.
+                PictureMarkerSymbol facilitySymbol = new PictureMarkerSymbol(new Uri("https://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
                 {
-                    // Disconnect event handler to prevent multiple calls.
-                    MyMapView.GeometryEditor.PropertyChanged -= GeometryEditor_PropertyChanged;
+                    Height = 30,
+                    Width = 30
+                };
 
-                    // Get the active geometry.
-                    Geometry geometry = MyMapView.GeometryEditor.Geometry;
+                // Create a graphic for the facility.
+                Graphic facilityGraphic = new Graphic(geometry, new Dictionary<string, object>() { { "Type", "Facility" } }, facilitySymbol)
+                {
+                    ZIndex = 2
+                };
 
-                    // Symbology for a facility.
-                    PictureMarkerSymbol facilitySymbol = new PictureMarkerSymbol(new Uri("https://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
-                    {
-                        Height = 30,
-                        Width = 30
-                    };
+                // Add the graphic to the graphics overlay.
+                MyMapView.GraphicsOverlays[0].Graphics.Add(facilityGraphic);
 
-                    // Create a graphic for the facility.
-                    Graphic facilityGraphic = new Graphic(geometry, new Dictionary<string, object>() { { "Type", "Facility" } }, facilitySymbol)
-                    {
-                        ZIndex = 2
-                    };
-
-                    // Add the graphic to the graphics overlay.
-                    MyMapView.GraphicsOverlays[0].Graphics.Add(facilityGraphic);
-
-                    // Stop the geometry editor to clear the active geometry.
-                    MyMapView.GeometryEditor.Stop();
-                }
+                // Stop the geometry editor to clear the active geometry.
+                MyMapView.GeometryEditor.Stop();
             }
         }
 
@@ -164,6 +160,9 @@ namespace ArcGIS.WinUI.Samples.FindServiceArea
 
                 // Add a graphic from the polyline the user drew.
                 MyMapView.GraphicsOverlays[0].Graphics.Add(barrierGraphic);
+
+                // Update button text.
+                DrawBarrierButton.Content = "Draw barrier";
             }
         }
 
@@ -172,8 +171,7 @@ namespace ArcGIS.WinUI.Samples.FindServiceArea
             // Finish any drawings.
             if (MyMapView.GeometryEditor.IsStarted)
             {
-                MyMapView.GeometryEditor.Stop();
-                DrawBarrierButton.Content = "Draw barrier";
+                FinishBarrier();
             }
 
             // Use a local variable for the graphics overlay.

@@ -10,6 +10,7 @@
         "commit",
         "database",
         "geodatabase",
+        "geometry editor",
         "transact",
         "transactions"
     ],
@@ -22,7 +23,8 @@
         "Geodatabase.BeginTransaction",
         "Geodatabase.CommitTransaction",
         "Geodatabase.IsInTransaction",
-        "Geodatabase.RollbackTransaction"
+        "Geodatabase.RollbackTransaction",
+        "GeometryEditor"
     ],
     "snippets": [
         "GeodatabaseTransactions.xaml.cs",

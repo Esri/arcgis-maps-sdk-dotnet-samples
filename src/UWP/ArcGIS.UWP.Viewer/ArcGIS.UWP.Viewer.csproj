@@ -1853,13 +1853,13 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography">
-      <Version>200.0.0</Version>
+      <Version>200.1.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.UWP">
-      <Version>200.0.0</Version>
+      <Version>200.1.0</Version>
     </PackageReference>
     <PackageReference Include="Esri.ArcGISRuntime.UWP">
-      <Version>200.0.0</Version>
+      <Version>200.1.0</Version>
     </PackageReference>
     <PackageReference Include="Markdig">
       <Version>0.30.2</Version>

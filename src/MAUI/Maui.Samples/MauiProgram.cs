@@ -7,6 +7,9 @@ public static class MauiProgram
 {
     public static MauiApp CreateMauiApp()
     {
+#if __ANDROID__
+   Esri.ArcGISRuntime.UI.Controls.SceneView.MemoryLimit = 2 * 1073741824L; // 2Gb
+#endif
         var builder = MauiApp.CreateBuilder();
         builder
             .UseMauiApp<App>()

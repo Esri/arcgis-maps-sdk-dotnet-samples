@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.DisplayPointsUsingClusteringFeatureReduction.DisplayPointsUsingClusteringFeatureReduction"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Border Width="auto" Style="{StaticResource BorderStyle}">
+            <CheckBox Checked="CheckBox_CheckChanged"
+                      Content="Feature clustering"
+                      Unchecked="CheckBox_CheckChanged" />
+        </Border>
+    </Grid>
+</UserControl>

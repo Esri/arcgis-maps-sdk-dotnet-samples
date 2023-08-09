@@ -23,11 +23,11 @@ Pan and zoom the map to view how clustering is dynamically updated. Toggle clust
 
 ## Relevant API
 
-- AggregateGeoElement
-- FeatureLayer
-- FeatureReduction
-- GeoElement
-- IdentifyLayerResult
+* AggregateGeoElement
+* FeatureLayer
+* FeatureReduction
+* GeoElement
+* IdentifyLayerResult
 
 ## About the data
 

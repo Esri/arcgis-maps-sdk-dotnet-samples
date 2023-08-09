@@ -2,8 +2,33 @@
 <ContentPage x:Class="ArcGIS.Samples.DisplayPointsUsingClusteringFeatureReduction.DisplayPointsUsingClusteringFeatureReduction"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:esriTK="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui">
+    <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
+        <esri:MapView x:Name="MyMapView"
+                      GeoViewTapped="MyMapView_GeoViewTapped"
+                      Style="{DynamicResource EsriSampleGeoView}" />
+        <Border MaximumWidthRequest="200" Style="{DynamicResource EsriSampleControlPanel}">
+            <HorizontalStackLayout>
+                <CheckBox CheckedChanged="CheckBox_CheckChanged" IsChecked="True" />
+                <Label Text="Feature clustering" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </Border>
+        <Grid x:Name="PopupBackground"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
+              Background="#AA333333"
+              IsVisible="false">
+            <Border Background="{AppThemeBinding Light=#dfdfdf,
+                                                 Dark=#303030}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                <esriTK:PopupViewer x:Name="PopupViewer"
+                                    Margin="5"
+                                    Padding="5"
+                                    MaximumHeightRequest="400"
+                                    MaximumWidthRequest="400" />
+            </Border>
+        </Grid>
     </Grid>
 </ContentPage>

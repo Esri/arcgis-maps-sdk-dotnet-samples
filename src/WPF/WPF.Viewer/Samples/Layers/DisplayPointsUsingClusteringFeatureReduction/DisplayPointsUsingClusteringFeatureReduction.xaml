@@ -20,8 +20,8 @@
                 <esri:PopupViewer x:Name="PopupViewer"
                                   MaxWidth="400"
                                   MaxHeight="400"
-                                  Padding="5"
-                                  Margin="5" />
+                                  Margin="5"
+                                  Padding="5" />
             </Border>
         </Grid>
     </Grid>

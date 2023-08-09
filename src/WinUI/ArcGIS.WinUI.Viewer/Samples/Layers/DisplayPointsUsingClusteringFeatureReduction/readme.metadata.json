@@ -7,13 +7,29 @@
         "DisplayPointsUsingClusteringFeatureReduction.jpg"
     ],
     "keywords": [
+        "aggregate",
+        "bin",
+        "cluster",
+        "group",
+        "merge",
+        "normalize",
+        "reduce",
+        "summarize"
     ],
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/DisplayPointsUsingClusteringFeatureReduction.htm"
+        "/net/latest/winui/sample-code/displaypointsusingclusteringfeaturereduction.htm"
     ],
     "relevant_apis": [
+        "AggregateGeoElement",
+        "FeatureLayer",
+        "FeatureReduction",
+        "GeoElement",
+        "IdentifyLayerResult"
     ],
     "snippets": [
+        "DisplayPointsUsingClusteringFeatureReduction.xaml.cs",
+        "DisplayPointsUsingClusteringFeatureReduction.xaml"
     ],
     "title": "Display points using clustering feature reduction"
 }

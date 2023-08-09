@@ -104,6 +104,7 @@
 * [Display annotation](WPF.Viewer/Samples/Layers/DisplayAnnotation) - Display annotation from a feature service URL.
 * [Display dimensions](WPF.Viewer/Samples/Layers/DisplayDimensions) - Display dimension features from a mobile map package.
 * [Display feature layers](WPF.Viewer/Samples/Layers/DisplayFeatureLayers) - Display feature layers from various data sources.
+* [Display points using clustering feature reduction](WPF.Viewer/Samples/Layers/DisplayPointsUsingClusteringFeatureReduction) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display route layer](WPF.Viewer/Samples/Layers/DisplayRouteLayer) - Display a route layer and its directions using a feature collection.
 * [Display subtype feature layer](WPF.Viewer/Samples/Layers/DisplaySubtypeFeatureLayer) - Displays a composite layer of all the subtype values in a feature class.
 * [Edit KML ground overlay](WPF.Viewer/Samples/Layers/EditKmlGroundOverlay) - Edit the values of a KML ground overlay.

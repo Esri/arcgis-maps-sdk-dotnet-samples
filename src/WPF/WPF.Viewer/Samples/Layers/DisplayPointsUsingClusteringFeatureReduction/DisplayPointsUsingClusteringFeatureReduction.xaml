@@ -7,7 +7,22 @@
         <Border Width="auto" Style="{StaticResource BorderStyle}">
             <CheckBox Checked="CheckBox_CheckChanged"
                       Content="Feature clustering"
+                      IsChecked="True"
                       Unchecked="CheckBox_CheckChanged" />
         </Border>
+        <Grid x:Name="PopupBackground"
+              Background="#AA333333"
+              MouseLeftButtonDown="PopupBackground_MouseLeftButtonDown"
+              Visibility="Collapsed">
+            <Border HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="White">
+                <esri:PopupViewer x:Name="PopupViewer"
+                                  MaxWidth="400"
+                                  MaxHeight="400"
+                                  Padding="5"
+                                  Margin="5" />
+            </Border>
+        </Grid>
     </Grid>
 </UserControl>

@@ -8,24 +8,13 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
+using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Reduction;
 
 namespace ArcGIS.WPF.Samples.DisplayPointsUsingClusteringFeatureReduction
 {
@@ -37,7 +26,8 @@ namespace ArcGIS.WPF.Samples.DisplayPointsUsingClusteringFeatureReduction
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayPointsUsingClusteringFeatureReduction
     {
-        FeatureLayer _layer;
+        private FeatureLayer _layer;
+
         public DisplayPointsUsingClusteringFeatureReduction()
         {
             InitializeComponent();
@@ -52,7 +42,7 @@ namespace ArcGIS.WPF.Samples.DisplayPointsUsingClusteringFeatureReduction
 
             // Create a new map from the web map.
             MyMapView.Map = new Map(portalItem);
-            
+
             // Get the power plant feature layer once the map has finished loading.
             await MyMapView.Map.LoadAsync();
             _layer = (FeatureLayer)MyMapView.Map.OperationalLayers.First();
@@ -60,27 +50,31 @@ namespace ArcGIS.WPF.Samples.DisplayPointsUsingClusteringFeatureReduction
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            MyMapView.DismissCallout();
-
             // Identify the tapped observation.
-            IdentifyLayerResult results = await MyMapView.IdentifyLayerAsync(_layer, e.Position, 3, false);
-            if (results.GeoElements.Count == 0) return;
+            IdentifyLayerResult results = await MyMapView.IdentifyLayerAsync(_layer, e.Position, 3, true);
 
-            var geoelement = results.GeoElements.FirstOrDefault();
-            if (geoelement.GetType() == typeof(AggregateGeoElement))
-            {
-                
-            }
-            else
-            {
-                // ArcGISFeature
-            }
+            // Return if no popups are found.
+            if (results.Popups.Count == 0) return;
+
+            // Set the popup and make it visible.
+            PopupViewer.Popup = results.Popups.FirstOrDefault();
+            PopupBackground.Visibility = Visibility.Visible;
         }
 
-        // Enable feature reduction if the checkbox has been checked, disable otherwise.
+        // Enable clustering feature reduction if the checkbox has been checked, disable otherwise.
         private void CheckBox_CheckChanged(object sender, RoutedEventArgs e)
         {
+            // This event is raised when sample is initially loaded when layer is null.
+            if (_layer == null) return;
+
             _layer.FeatureReduction.IsEnabled = (bool)(sender as CheckBox).IsChecked;
+        }
+
+        // Hide and nullify the opened popup when user left clicks.
+        private void PopupBackground_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            PopupBackground.Visibility = Visibility.Collapsed;
+            PopupViewer.Popup = null;
         }
     }
 }

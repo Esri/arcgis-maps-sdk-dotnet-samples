@@ -196,7 +196,7 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
         private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             // Determine the newly selected scale mode.
-            GeometryEditorScaleMode scaleMode = 
+            GeometryEditorScaleMode scaleMode =
                 (sender as CheckBox).IsChecked ? GeometryEditorScaleMode.Uniform : GeometryEditorScaleMode.Stretch;
 
             // Update the scale mode for every tool.

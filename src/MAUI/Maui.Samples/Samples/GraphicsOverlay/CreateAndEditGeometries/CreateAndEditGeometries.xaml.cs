@@ -210,9 +210,9 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
                 {
                     vertexTool.Configuration.ScaleMode = scaleMode;
                 }
-                else
+                else if (tool is ShapeTool shapeTool)
                 {
-                    (tool as ShapeTool).Configuration.ScaleMode = scaleMode;
+                    shapeTool.Configuration.ScaleMode = scaleMode;
                 }
             }
         }

@@ -199,17 +199,28 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
             PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && _geometryEditor.Tool is VertexTool;
         }
 
-        // Set the scale mode of the geometry editor.
+        // Set the scale mode for every geometry editor tool.
         private void CheckBox_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            // Determine if shape tools should use uniform scaling.
-            GeometryEditorScaleMode shouldBeUniform =
+            // Determine the newly selected scale mode.
+            GeometryEditorScaleMode scaleMode =
                 (sender as CheckBox).IsChecked == true ? GeometryEditorScaleMode.Uniform : GeometryEditorScaleMode.Stretch;
 
-            // Update all shape tools scaling options.
-            foreach (ShapeTool tool in _toolDictionary.Values.Where(v => v is ShapeTool))
+            // Update the scale mode for every tool.
+            foreach (GeometryEditorTool tool in _toolDictionary.Values)
             {
-                tool.Configuration.ScaleMode = shouldBeUniform;
+                if (tool is FreehandTool freehandTool)
+                {
+                    freehandTool.Configuration.ScaleMode = scaleMode;
+                }
+                else if (tool is VertexTool vertexTool)
+                {
+                    vertexTool.Configuration.ScaleMode = scaleMode;
+                }
+                else
+                {
+                    (tool as ShapeTool).Configuration.ScaleMode = scaleMode;
+                }
             }
         }
 

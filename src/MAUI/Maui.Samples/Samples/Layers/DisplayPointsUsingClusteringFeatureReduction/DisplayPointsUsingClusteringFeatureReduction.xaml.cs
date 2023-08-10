@@ -73,7 +73,7 @@ namespace ArcGIS.Samples.DisplayPointsUsingClusteringFeatureReduction
             // This event is raised when sample is initially loaded when layer is null.
             if (_layer == null) return;
 
-            _layer.FeatureReduction.IsEnabled = (bool)(sender as CheckBox).IsChecked;
+            _layer.FeatureReduction.IsEnabled = (sender as CheckBox).IsChecked;
         }
     }
 }

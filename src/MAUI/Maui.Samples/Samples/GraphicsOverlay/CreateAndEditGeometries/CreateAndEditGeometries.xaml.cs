@@ -304,12 +304,12 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             GeometryType geometryType = _selectedGraphic.Geometry.GeometryType;
             if (geometryType == GeometryType.Point)
             {
-                ToolComboBox.SelectedIndex = 0;
+                ToolPicker.SelectedIndex = 0;
                 UniformScaleCheckBox.IsEnabled = false;
             }
             if (geometryType == GeometryType.Multipoint)
             {
-                ToolComboBox.SelectedIndex = 0;
+                ToolPicker.SelectedIndex = 0;
             }
             DisableOtherGeometryButtons(_geometryButtons[geometryType]);
 

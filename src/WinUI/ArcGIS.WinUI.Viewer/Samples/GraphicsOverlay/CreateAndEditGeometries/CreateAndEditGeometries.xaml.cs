@@ -145,6 +145,9 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
                 // Disable the combo box as this is always a vertex tool when creating a point.
                 ToolComboBox.IsEnabled = false;
 
+                // Disable scale checkbox since points don't scale.
+                UniformScaleCheckBox.IsEnabled = false;
+
                 _geometryEditor.Start(GeometryType.Point);
             }
         }
@@ -199,17 +202,28 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
             PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && _geometryEditor.Tool is VertexTool;
         }
 
-        // Set the scale mode of the geometry editor.
+        // Set the scale mode for every geometry editor tool.
         private void CheckBox_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            // Determine if shape tools should use uniform scaling.
-            GeometryEditorScaleMode shouldBeUniform =
-                (sender as CheckBox).IsChecked == true ? GeometryEditorScaleMode.Uniform : GeometryEditorScaleMode.Stretch;
+            // Determine the newly selected scale mode.
+            GeometryEditorScaleMode scaleMode =
+                UniformScaleCheckBox.IsChecked == true ? GeometryEditorScaleMode.Uniform : GeometryEditorScaleMode.Stretch;
 
-            // Update all shape tools scaling options.
-            foreach (ShapeTool tool in _toolDictionary.Values.Where(v => v is ShapeTool))
+            // Update the scale mode for every tool.
+            foreach (GeometryEditorTool tool in _toolDictionary.Values)
             {
-                tool.Configuration.ScaleMode = shouldBeUniform;
+                if (tool is FreehandTool freehandTool)
+                {
+                    freehandTool.Configuration.ScaleMode = scaleMode;
+                }
+                else if (tool is VertexTool vertexTool)
+                {
+                    vertexTool.Configuration.ScaleMode = scaleMode;
+                }
+                else if (tool is ShapeTool shapeTool)
+                {
+                    shapeTool.Configuration.ScaleMode = scaleMode;
+                }
             }
         }
 
@@ -295,7 +309,12 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
 
             // Configure the UI depending on the geometry type.
             GeometryType geometryType = _selectedGraphic.Geometry.GeometryType;
-            if (geometryType == GeometryType.Point || geometryType == GeometryType.Multipoint)
+            if (geometryType == GeometryType.Point)
+            {
+                ToolComboBox.SelectedIndex = 0;
+                UniformScaleCheckBox.IsEnabled = false;
+            }
+            if (geometryType == GeometryType.Multipoint)
             {
                 ToolComboBox.SelectedIndex = 0;
             }
@@ -349,6 +368,8 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
             PointButton.IsEnabled = MultipointButton.IsEnabled = _geometryEditor.Tool is VertexTool;
             PolylineButton.IsEnabled = PolygonButton.IsEnabled = true;
             ToolComboBox.IsEnabled = true;
+
+            UniformScaleCheckBox.IsEnabled = true;
         }
 
         // Return the graphic style based on geometry type.

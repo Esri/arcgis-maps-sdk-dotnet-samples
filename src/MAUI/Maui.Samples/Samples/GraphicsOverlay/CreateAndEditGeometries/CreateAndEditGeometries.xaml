@@ -63,7 +63,7 @@
                                    Padding="1"
                                    Background="{AppThemeBinding Light={StaticResource White},
                                                                 Dark={StaticResource Dark}}">
-                <CheckBox CheckedChanged="CheckBox_CheckedChanged" />
+                <CheckBox x:Name="UniformScaleCheckBox" CheckedChanged="CheckBox_CheckedChanged" />
                 <Label Text="Uniform Scale" VerticalOptions="Center" />
             </HorizontalStackLayout>
             <Button Grid.Row="4"

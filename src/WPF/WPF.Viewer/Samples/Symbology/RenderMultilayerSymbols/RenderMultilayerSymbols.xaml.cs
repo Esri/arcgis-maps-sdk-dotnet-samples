@@ -15,6 +15,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace ArcGIS.WPF.Samples.RenderMultilayerSymbols
@@ -197,9 +198,12 @@ namespace ArcGIS.WPF.Samples.RenderMultilayerSymbols
             // Get current assembly that contains the image.
             Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
+            // Get the resource name of the blue pin image
+            string resourceStreamName = this.GetType().Assembly.GetManifestResourceNames().Single(str => str.EndsWith("pin_star_blue.png"));
+
             // Get image as a stream from the resources.
             // Picture is defined as EmbeddedResource.
-            using (var stream = currentAssembly.GetManifestResourceStream("ArcGIS.Resources.PictureMarkerSymbols.pin_star_blue.png"))
+            using (var stream = currentAssembly.GetManifestResourceStream(resourceStreamName))
             {
                 using (var mem = new MemoryStream())
                 {

@@ -26,8 +26,8 @@
                 <esriTK:PopupViewer x:Name="PopupViewer"
                                     Margin="5"
                                     Padding="5"
-                                    MaximumHeightRequest="400"
-                                    MaximumWidthRequest="400" />
+                                    HeightRequest="250"
+                                    WidthRequest="250" />
             </Border>
         </Grid>
     </Grid>

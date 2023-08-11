@@ -138,6 +138,9 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
                 // Disable the combo box as this is always a vertex tool when creating a point.
                 ToolPicker.IsEnabled = false;
 
+                // Disable scale checkbox since points don't scale.
+                UniformScaleCheckBox.IsEnabled = false;
+
                 _geometryEditor.Start(GeometryType.Point);
             }
         }
@@ -197,7 +200,7 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
         {
             // Determine the newly selected scale mode.
             GeometryEditorScaleMode scaleMode =
-                (sender as CheckBox).IsChecked ? GeometryEditorScaleMode.Uniform : GeometryEditorScaleMode.Stretch;
+                UniformScaleCheckBox.IsChecked ? GeometryEditorScaleMode.Uniform : GeometryEditorScaleMode.Stretch;
 
             // Update the scale mode for every tool.
             foreach (GeometryEditorTool tool in _toolDictionary.Values)
@@ -299,9 +302,14 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
 
             // Configure the UI depending on the geometry type.
             GeometryType geometryType = _selectedGraphic.Geometry.GeometryType;
-            if (geometryType == GeometryType.Point || geometryType == GeometryType.Multipoint)
+            if (geometryType == GeometryType.Point)
             {
-                ToolPicker.SelectedIndex = 0;
+                ToolComboBox.SelectedIndex = 0;
+                UniformScaleCheckBox.IsEnabled = false;
+            }
+            if (geometryType == GeometryType.Multipoint)
+            {
+                ToolComboBox.SelectedIndex = 0;
             }
             DisableOtherGeometryButtons(_geometryButtons[geometryType]);
 
@@ -353,6 +361,8 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             PointButton.IsEnabled = MultipointButton.IsEnabled = _geometryEditor.Tool is VertexTool;
             PolylineButton.IsEnabled = PolygonButton.IsEnabled = true;
             ToolPicker.IsEnabled = true;
+
+            UniformScaleCheckBox.IsEnabled = true;
         }
 
         // Return the graphic style based on geometry type.

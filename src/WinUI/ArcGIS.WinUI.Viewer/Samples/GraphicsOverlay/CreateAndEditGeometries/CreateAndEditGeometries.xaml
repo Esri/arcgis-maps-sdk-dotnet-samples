@@ -72,7 +72,8 @@
                     Grid.ColumnSpan="2"
                     Padding="3"
                     Background="White">
-                <CheckBox Checked="CheckBox_CheckedChanged"
+                <CheckBox x:Name="UniformScaleCheckBox"
+                          Checked="CheckBox_CheckedChanged"
                           Content="Uniform Scale"
                           Unchecked="CheckBox_CheckedChanged" />
             </Border>

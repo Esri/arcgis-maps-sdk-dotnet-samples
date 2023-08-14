@@ -137,13 +137,16 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
                 ExportVectorTilesTask exportTask = await ExportVectorTilesTask.CreateAsync(vectorTiledLayer.Url);
 
                 // Get the item resource path for the basemap styling.
-                string itemResourcePath = Path.Combine(Path.GetTempPath(), vectorTiledLayer.ItemId + "_styleItemResources");
+                string itemResourceCachePath = Path.Combine(Path.GetTempPath(), vectorTiledLayer.ItemId + "_styleItemResources");
 
                 // If cache has been created previously, return.
-                if (Directory.Exists(itemResourcePath)) { return new ItemResourceCache(itemResourcePath); }
+                if (Directory.Exists(itemResourceCachePath) && (Directory.GetFiles(itemResourceCachePath).Length != 0))
+                {
+                    return new ItemResourceCache(itemResourceCachePath);
+                }
 
                 // Create the export job and start it.
-                ExportVectorTilesJob job = exportTask.ExportStyleResourceCache(itemResourcePath);
+                ExportVectorTilesJob job = exportTask.ExportStyleResourceCache(itemResourceCachePath);
                 job.Start();
 
                 // Wait for the job to complete.

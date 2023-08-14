@@ -166,7 +166,7 @@ namespace ArcGIS.WinUI.Samples.GeodatabaseTransactions
 
                     // Create a new feature layer to show the table in the map.
                     FeatureLayer layer = new FeatureLayer(table);
-                    DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () => MyMapView.Map.OperationalLayers.Add(layer));
+                    DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () => MyMapView.Map?.OperationalLayers.Add(layer));
                 }
                 catch (Exception e)
                 {

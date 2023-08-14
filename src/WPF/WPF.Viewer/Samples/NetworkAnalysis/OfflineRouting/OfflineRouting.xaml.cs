@@ -235,20 +235,26 @@ namespace ArcGIS.WPF.Samples.OfflineRouting
 
         private async Task<PictureMarkerSymbol> GetPictureMarker()
         {
+            // Hold a reference to the picture marker symbol.
+            PictureMarkerSymbol pinSymbol;
+
             // Get current assembly that contains the image.
             Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
-            // Get image as a stream from the resources.
-            // Picture is defined as EmbeddedResource and DoNotCopy.
-            Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGIS.Resources.PictureMarkerSymbols.pin_blue.png");
+            // Get the resource name of the blue pin image.
+            string resourceStreamName = this.GetType().Assembly.GetManifestResourceNames().Single(str => str.EndsWith("pin_blue.png"));
 
-            // Create new symbol using asynchronous factory method from stream.
-            PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
-            pinSymbol.Width = 50;
-            pinSymbol.Height = 50;
-            pinSymbol.LeaderOffsetX = 30;
-            pinSymbol.OffsetY = 14;
+            // Load the blue pin resource stream.
+            using (Stream resourceStream = this.GetType().Assembly.
+                       GetManifestResourceStream(resourceStreamName))
+            {
+                // Create new symbol using asynchronous factory method from stream.
+                pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
+                pinSymbol.Width = 50;
+                pinSymbol.Height = 50;
+                pinSymbol.LeaderOffsetX = 30;
+                pinSymbol.OffsetY = 14;
+            }
 
             return pinSymbol;
         }

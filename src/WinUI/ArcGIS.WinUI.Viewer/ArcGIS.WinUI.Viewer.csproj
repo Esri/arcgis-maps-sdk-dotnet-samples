@@ -67,6 +67,7 @@
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" />
     <PackageReference Include="Microsoft.WindowsAppSDK" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WinUI" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
 

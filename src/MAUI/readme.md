@@ -104,6 +104,7 @@
 * [Display annotation](Maui.Samples/Samples/Layers/DisplayAnnotation) - Display annotation from a feature service URL.
 * [Display dimensions](Maui.Samples/Samples/Layers/DisplayDimensions) - Display dimension features from a mobile map package.
 * [Display feature layers](Maui.Samples/Samples/Layers/DisplayFeatureLayers) - Display feature layers from various data sources.
+* [Display points using clustering feature reduction](Maui.Samples/Samples/Layers/DisplayPointsUsingClusteringFeatureReduction) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display route layer](Maui.Samples/Samples/Layers/DisplayRouteLayer) - Display a route layer and its directions using a feature collection.
 * [Display subtype feature layer](Maui.Samples/Samples/Layers/DisplaySubtypeFeatureLayer) - Displays a composite layer of all the subtype values in a feature class.
 * [Edit KML ground overlay](Maui.Samples/Samples/Layers/EditKmlGroundOverlay) - Edit the values of a KML ground overlay.

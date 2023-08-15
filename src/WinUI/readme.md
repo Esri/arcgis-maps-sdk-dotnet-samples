@@ -104,6 +104,7 @@
 * [Display annotation](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayAnnotation) - Display annotation from a feature service URL.
 * [Display dimensions](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayDimensions) - Display dimension features from a mobile map package.
 * [Display feature layers](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayFeatureLayers) - Display feature layers from various data sources.
+* [Display points using clustering feature reduction](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayPointsUsingClusteringFeatureReduction) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display route layer](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayRouteLayer) - Display a route layer and its directions using a feature collection.
 * [Display subtype feature layer](ArcGIS.WinUI.Viewer/Samples/Layers/DisplaySubtypeFeatureLayer) - Displays a composite layer of all the subtype values in a feature class.
 * [Edit KML ground overlay](ArcGIS.WinUI.Viewer/Samples/Layers/EditKmlGroundOverlay) - Edit the values of a KML ground overlay.

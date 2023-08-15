@@ -4,52 +4,39 @@
     <Category name="Analysis">
       <Sample>DistanceMeasurement</Sample>
       <Sample>LineOfSightGeoElement</Sample>
-      <Sample>LineOfSightLocation</Sample>
-      <Sample>ViewshedCamera</Sample>
-      <Sample>ViewshedGeoElement</Sample>
       <Sample>ViewshedLocation</Sample>
     </Category>
     <Category name="GraphicsOverlay">
+      <Sample>Animate3DGraphic</Sample>
       <Sample>ScenePropertiesExpressions</Sample>
+      <Sample>CreateAndEditGeometries</Sample>
       <Sample>SurfacePlacements</Sample>
     </Category>
     <Category name="Hydrography">
       <Sample>ChangeEncDisplaySettings</Sample>
-      <Sample>SelectEncFeatures</Sample>
     </Category>
     <Category name="Layers">
-      <Sample>AddAnIntegratedMeshLayer</Sample>
-      <Sample>AddPointSceneLayer</Sample>
-      <Sample>AddVectorTiledLayerFromCustomStyle</Sample>
-      <Sample>ApplyMosaicRule</Sample>
-      <Sample>DisplayScene</Sample>
-      <Sample>DisplayKml</Sample>
-      <Sample>FeatureCollectionLayerFromPortal</Sample>
-      <Sample>FeatureLayerRenderingModeMap</Sample>
-      <Sample>FeatureLayerRenderingModeScene</Sample>
-      <Sample>FeatureLayerSelection</Sample>
+      <Sample>ChangeStretchRenderer</Sample>
+      <Sample>ExportVectorTiles</Sample>
+      <Sample>PlayKmlTours</Sample>
       <Sample>SceneLayerSelection</Sample>
-      <Sample>SceneLayerUrl</Sample>
-      <Sample>ShowLabelsOnLayers</Sample>
+      <Sample>ShowLabelsOnLayer</Sample>
     </Category>
     <Category name="Map">
-      <Sample>DisplayMap</Sample>
-      <Sample>MobileMapSearchAndRoute</Sample>
+      <Sample>GenerateOfflineMap</Sample>
+    </Category>
+    <Category name="MapView">
+      <Sample>IdentifyLayers</Sample>
+      <Sample>ShowCallout</Sample>
+      <Sample>ShowMagnifier</Sample>
+      <Sample>TakeScreenshot</Sample>
     </Category>
     <Category name="Scene">
       <Sample>ChangeAtmosphereEffect</Sample>
-      <Sample>GetElevationAtPoint</Sample>
-      <Sample>OpenMobileScenePackage</Sample>
-      <Sample>OpenScenePortalItem</Sample>
       <Sample>ViewContentBeneathSurface</Sample>
     </Category>
     <Category name="SceneView">
       <Sample>AnimateImageOverlay</Sample>
-    </Category>
-    <Category name="Symbology">
-      <Sample>CustomDictionaryStyle</Sample>
-      <Sample>SceneSymbols</Sample>
-      <Sample>UseDistanceCompositeSym</Sample>
     </Category>
   </Categories>
 </FeaturedSamples>

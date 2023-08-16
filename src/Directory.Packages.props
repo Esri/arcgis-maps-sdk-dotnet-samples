@@ -1,0 +1,36 @@
+<Project>
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <ArcGISMapsSDKVersion>200.2.0</ArcGISMapsSDKVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageVersion Include="Esri.ArcGISRuntime" Version="$(ArcGISMapsSDKVersion)" />
+    <PackageVersion Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="$(ArcGISMapsSDKVersion)" />
+    <PackageVersion Include="Esri.ArcGISRuntime.WPF" Version="$(ArcGISMapsSDKVersion)" />
+    <PackageVersion Include="Esri.ArcGISRuntime.Maui" Version="$(ArcGISMapsSDKVersion)" />
+    <PackageVersion Include="Esri.ArcGISRuntime.Toolkit.Maui" Version="$(ArcGISMapsSDKVersion)" />
+    <PackageVersion Include="Esri.ArcGISRuntime.WinUI" Version="$(ArcGISMapsSDKVersion)" />
+    <PackageVersion Include="Esri.ArcGISRuntime.Hydrography" Version="$(ArcGISMapsSDKVersion)" />
+    <PackageVersion Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0" />
+    <PackageVersion Include="Esri.ArcGISRuntime.UWP" Version="$(ArcGISMapsSDKVersion)" />
+    <PackageVersion Include="Esri.ArcGISRuntime.Toolkit.UWP" Version="$(ArcGISMapsSDKVersion)" />
+    <PackageVersion Include="Esri.ArcGISRuntime.Toolkit.WinUI" Version="$(ArcGISMapsSDKVersion)" />
+    <PackageVersion Include="Markdig" Version="0.30.4" />
+    <PackageVersion Include="System.Text.Json" Version="7.0.1" />
+    <PackageVersion Include="System.Speech" Version="7.0.0" />
+    <PackageVersion Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="7.0.0" />
+    <PackageVersion Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
+    <PackageVersion Include="CommunityToolkit.WinUI.UI.Controls.Markdown" Version="7.1.2" />
+    <PackageVersion Include="CommunityToolkit.Maui" Version="5.0.0" />
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageVersion Include="WinUIEx" Version="1.8.0" />
+    <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.5.1.1" />
+    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.2.221116.1" Condition="'$(UseMaui)'!='true'" />
+    <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" Condition="'$(UseMaui)'!='true'" />
+    <PackageVersion Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.13"/>
+    <PackageVersion Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="6.1.1"/>
+    <PackageVersion Include="Microsoft.UI.Xaml" Version="2.5.0"/>
+    <PackageVersion Include="Monaco.Editor" Version="0.8.1-alpha"/>
+  </ItemGroup>
+</Project>

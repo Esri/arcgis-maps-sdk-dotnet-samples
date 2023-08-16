@@ -52,23 +52,6 @@
     <Content Remove="readme.md" />
     <None Remove="App.config" />
     <None Remove="Resources\github-markdown.css" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\arrow.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\brush.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\circle.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\clear.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\edit.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\ellipse.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\freehand-polyline.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\multipoint.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\point.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\polygon.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\polyline.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\rectangle.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\redo.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\save.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\trash-can-outline.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\triangle.png" />
-    <None Remove="Samples\GraphicsOverlay\SketchOnMap\resources\undo.png" />
     <Compile Update="Samples\**\*.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
@@ -77,31 +60,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" Version="200.1.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" Version="100.15.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="200.1.0" />
-    <PackageReference Include="Esri.ArcGISRuntime.WPF" Version="200.1.0" />
-    <PackageReference Include="Markdig" Version="0.30.4" />
-    <PackageReference Include="System.Speech" Version="7.0.0" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\arrow.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\brush.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\circle.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\clear.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\edit.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\ellipse.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\freehand-polyline.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\multipoint.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\point.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\polygon.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\polyline.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\rectangle.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\redo.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\save.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\trash-can-outline.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\triangle.png" />
-    <Resource Include="Samples\GraphicsOverlay\SketchOnMap\resources\undo.png" />
+    <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" />
+    <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" />
+    <PackageReference Include="Esri.ArcGISRuntime.WPF" />
+    <PackageReference Include="Markdig" />
+    <PackageReference Include="System.Speech" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Converters\*.cs">

@@ -34,7 +34,6 @@ namespace ArcGIS.WPF.Samples.MobileMapSearchAndRoute
         instructions: "A list of maps from a mobile map package will be displayed. If the map contains transportation networks, the list item will have a navigation icon. Click on a map in the list to open it. If a locator task is available, click on the map to reverse geocode the location's address. If transportation networks are available, a route will be calculated between geocode locations.",
         tags: new[] { "disconnected", "field mobility", "geocode", "network", "network analysis", "offline", "routing", "search", "transportation" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("260eb6535c824209964cf281766ebe43")]
-    [ArcGIS.Samples.Shared.Attributes.ClassFile("Converters\\ItemToImageSourceConverter.cs", "Converters\\NullToVisibilityConverter.cs")]
     public partial class MobileMapSearchAndRoute
     {
         // Hold references to map resources for easy access.
@@ -218,22 +217,30 @@ namespace ArcGIS.WPF.Samples.MobileMapSearchAndRoute
 
         private async Task<Graphic> GraphicForPoint(MapPoint point)
         {
+            // Hold a reference to the picture marker symbol.
+            PictureMarkerSymbol pinSymbol;
+
             // Get current assembly that contains the image.
             Assembly currentAssembly = Assembly.GetExecutingAssembly();
 
-            // Get image as a stream from the resources.
-            // Picture is defined as EmbeddedResource and DoNotCopy.
-            Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGIS.Resources.PictureMarkerSymbols.pin_star_blue.png");
+            // Get the resource name of the blue pin star image
+            string resourceStreamName = this.GetType().Assembly.GetManifestResourceNames().Single(str => str.EndsWith("pin_star_blue.png"));
 
-            // Create new symbol using asynchronous factory method from stream.
-            PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
-            pinSymbol.Width = 60;
-            pinSymbol.Height = 60;
-            // The image is a pin; offset the image so that the pinpoint
-            //     is on the point rather than the image's true center.
-            pinSymbol.LeaderOffsetX = 30;
-            pinSymbol.OffsetY = 14;
+            // Load the resource stream
+            using (Stream resourceStream = this.GetType().Assembly.
+                       GetManifestResourceStream(resourceStreamName))
+            {
+
+                // Create new symbol using asynchronous factory method from stream.
+                pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
+                pinSymbol.Width = 60;
+                pinSymbol.Height = 60;
+                // The image is a pin; offset the image so that the pinpoint
+                //     is on the point rather than the image's true center.
+                pinSymbol.LeaderOffsetX = 30;
+                pinSymbol.OffsetY = 14;
+            }
+
             return new Graphic(point, pinSymbol);
         }
     }

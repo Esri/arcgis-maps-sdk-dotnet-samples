@@ -9,7 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using System;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace ArcGIS.WPF.Samples.DisplayDeviceLocation
@@ -17,19 +17,24 @@ namespace ArcGIS.WPF.Samples.DisplayDeviceLocation
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display device location with autopan modes",
         category: "Location",
-        description: "Display your current position on the map, as well as switch between different types of auto pan Modes.",
-        instructions: "Select an autopan mode, then use the buttons to start and stop location display.",
+        description: "Display your current position on the map, as well as switch between different types of auto pan modes.",
+        instructions: "Select an autopan mode, then use the button to start and stop location display.",
         tags: new[] { "GPS", "compass", "location", "map", "mobile", "navigation" })]
     public partial class DisplayDeviceLocation
     {
-        // String array to store the different device location options.
-        private string[] _navigationTypes = Enum.GetNames(typeof(LocationDisplayAutoPanMode));
+        // Dictionary to store the different auto pan modes.
+        private readonly Dictionary<string, LocationDisplayAutoPanMode> _autoPanModes =
+            new Dictionary<string, LocationDisplayAutoPanMode>
+        {
+            { "AutoPan Off", LocationDisplayAutoPanMode.Off },
+            { "Re-Center", LocationDisplayAutoPanMode.Recenter },
+            { "Navigation", LocationDisplayAutoPanMode.Navigation },
+            { "Compass", LocationDisplayAutoPanMode.CompassNavigation }
+        };
 
         public DisplayDeviceLocation()
         {
             InitializeComponent();
-
-            // Create the UI, setup the control references and execute initialization
             Initialize();
         }
 
@@ -38,81 +43,37 @@ namespace ArcGIS.WPF.Samples.DisplayDeviceLocation
             // Add event handler for when this sample is unloaded.
             Unloaded += SampleUnloaded;
 
-            // Create new Map with basemap
+            // Create new Map with basemap.
             Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
-            // Provide used Map to the MapView
+            // Provide used Map to the MapView.
             MyMapView.Map = myMap;
 
-            // Set navigation types as items source and set default value
-            ModeChooser.ItemsSource = _navigationTypes;
-            ModeChooser.SelectedIndex = 0;
+            // Set navigation types as items source and set default value.
+            AutoPanModeComboBox.ItemsSource = _autoPanModes.Keys;
 
-            // Update the UI when the user pans the view, changing the location mode
+            // Update the UI when the user pans the view, changing the location mode.
             MyMapView.LocationDisplay.AutoPanModeChanged += (sender, args) =>
             {
-                switch (MyMapView.LocationDisplay.AutoPanMode)
+                if (MyMapView.LocationDisplay.AutoPanMode == LocationDisplayAutoPanMode.Off)
                 {
-                    case LocationDisplayAutoPanMode.Off:
-                        ModeChooser.SelectedIndex = 0;
-                        break;
-
-                    case LocationDisplayAutoPanMode.Recenter:
-                        ModeChooser.SelectedIndex = 1;
-                        break;
-
-                    case LocationDisplayAutoPanMode.Navigation:
-                        ModeChooser.SelectedIndex = 2;
-                        break;
-
-                    case LocationDisplayAutoPanMode.CompassNavigation:
-                        ModeChooser.SelectedIndex = 3;
-                        break;
+                    AutoPanModeComboBox.SelectedItem = "AutoPan Off";
                 }
             };
         }
 
-        private void OnStartButtonClicked(object sender, RoutedEventArgs e)
+        private void AutoPanModeComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            MyMapView.LocationDisplay.IsEnabled = true;
+            // Change the auto pan mode based on the new selection.
+            MyMapView.LocationDisplay.AutoPanMode = _autoPanModes[AutoPanModeComboBox.SelectedItem.ToString()];
         }
 
-        private void OnStopButtonClicked(object sender, RoutedEventArgs e)
+        private void StartStopButton_Click(object sender, RoutedEventArgs e)
         {
-            MyMapView.LocationDisplay.IsEnabled = false;
-        }
+            // Enable or disable the location display.
+            MyMapView.LocationDisplay.IsEnabled = !MyMapView.LocationDisplay.IsEnabled;
 
-        private void OnModeChooserSelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            // Get index that is used to get the selected URL
-            int selectedIndex = ModeChooser.SelectedIndex;
-
-            switch (selectedIndex)
-            {
-                case 0:
-                    // Starts location display with auto pan mode set to Off
-                    MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Off;
-                    MyMapView.LocationDisplay.IsEnabled = true;
-                    break;
-
-                case 1:
-                    // Starts location display with auto pan mode set to Re-center
-                    MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Recenter;
-                    MyMapView.LocationDisplay.IsEnabled = true;
-                    break;
-
-                case 2:
-                    // Starts location display with auto pan mode set to Navigation
-                    MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
-                    MyMapView.LocationDisplay.IsEnabled = true;
-                    break;
-
-                case 3:
-                    // Starts location display with auto pan mode set to Compass Navigation
-                    MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.CompassNavigation;
-                    MyMapView.LocationDisplay.IsEnabled = true;
-                    break;
-            }
+            StartStopButton.Content = MyMapView.LocationDisplay.IsEnabled ? "Stop" : "Start";
         }
 
         private void SampleUnloaded(object sender, RoutedEventArgs e)

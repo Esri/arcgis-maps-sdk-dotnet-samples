@@ -122,6 +122,17 @@ namespace ArcGIS.Samples.Managers
             return EnsureSampleDataPresent(sample.OfflineDataItems, token, onProgress);
         }
 
+        public static async Task<bool> HasSampleDataPresent(SampleInfo info)
+        {
+            if (info.OfflineDataItems is null) return true;
+            foreach (string itemId in info.OfflineDataItems)
+            {
+                bool isDownloaded = await IsDataPresent(itemId);
+                if (!isDownloaded) return false;
+            }
+            return true;
+        }
+
         public static async Task EnsureSampleDataPresent(IEnumerable<string> itemIds, CancellationToken token, Action<ProgressInfo> onProgress = null)
         {
             // Return if there's nothing to do.

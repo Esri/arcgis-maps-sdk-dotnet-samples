@@ -3,42 +3,20 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid Style="{DynamicResource EsriSampleContainer}">
+    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5"
-                  MaximumWidthRequest="200"
-                  RowDefinitions="auto,auto"
-                  RowSpacing="5">
-                <Button x:Name="ShowDeviceLocationButtons"
-                        Grid.Row="0"
-                        Clicked="ShowDeviceLocationButtons_Clicked"
-                        Text="Show/Hide settings" />
-                <Grid x:Name="DeviceLocationButtonsGrid"
-                      Grid.Row="1"
-                      IsVisible="false"
-                      RowDefinitions="auto,auto,auto,auto,auto"
-                      RowSpacing="5">
-                    <Label Grid.Row="0" Text="Select navigation mode: " />
-                    <Button x:Name="RecenterButton"
-                            Grid.Row="1"
-                            Clicked="RecenterButton_Clicked"
-                            Text="Re-Center" />
-                    <Button x:Name="NavigationButton"
-                            Grid.Row="2"
-                            Clicked="NavigationButton_Clicked"
-                            Text="Navigation" />
-                    <Button x:Name="CompassNavigationButton"
-                            Grid.Row="3"
-                            Clicked="CompassNavigationButton_Clicked"
-                            Text="Compass" />
-                    <Button x:Name="StopButton"
-                            Grid.Row="4"
-                            Clicked="OnStopClicked"
-                            IsEnabled="False"
-                            Text="Stop" />
-                </Grid>
-            </Grid>
+        <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="200">
+            <StackLayout Spacing="5">
+                <Label Text="Select an auto pan mode:" />
+                <Picker x:Name="AutoPanModePicker"
+                        HorizontalTextAlignment="Center"
+                        SelectedIndexChanged="AutoPanModePicker_SelectedIndexChanged"
+                        WidthRequest="150" />
+                <Button x:Name="StartStopButton"
+                        Clicked="StartStopButton_Clicked"
+                        Text="Start"
+                        WidthRequest="150" />
+            </StackLayout>
         </Border>
     </Grid>
 </ContentPage>

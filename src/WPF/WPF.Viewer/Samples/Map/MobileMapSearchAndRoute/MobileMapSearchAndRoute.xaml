@@ -1,12 +1,7 @@
 ﻿<UserControl x:Class="ArcGIS.WPF.Samples.MobileMapSearchAndRoute.MobileMapSearchAndRoute"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:converters="clr-namespace:ArcGIS.WPF.Viewer.Converters"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
-    <UserControl.Resources>
-        <converters:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
-        <converters:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
-    </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
@@ -22,24 +17,11 @@
                     </ListBox.ItemContainerStyle>
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="esri:Map">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Image Grid.Column="0" Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
-                                <Image Grid.Column="1"
-                                       Width="50"
-                                       Height="50"
-                                       Margin="5"
-                                       Source="../../../Resources/routingSymbol.png"
-                                       Visibility="{Binding TransportationNetworks, Converter={StaticResource NullToVisibilityConverter}}" />
-                                <TextBlock Grid.Column="2"
-                                           VerticalAlignment="Center"
-                                           Text="{Binding Item.Title}"
-                                           TextAlignment="Right" />
-                            </Grid>
+                            <StackPanel>
+                                <TextBlock VerticalAlignment="Center"
+                                           Text="{Binding Item.Name}"
+                                           TextAlignment="Left" />
+                            </StackPanel>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>

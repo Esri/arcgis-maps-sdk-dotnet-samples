@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Tasks.NetworkAnalysis;
 using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Editing;
 
 namespace ArcGIS.Samples.FindServiceArea
 {
@@ -20,11 +21,14 @@ namespace ArcGIS.Samples.FindServiceArea
         category: "Network analysis",
         description: "Find the service area within a network from a given point.",
         instructions: "In order to find any service areas at least one facility needs to be added to the map view.",
-        tags: new[] { "barriers", "facilities", "impedance", "logistics", "routing" })]
+        tags: new[] { "barriers", "facilities", "geometry editor", "impedance", "logistics", "routing" })]
     public partial class FindServiceArea
     {
         // Uri for the service area around San Diego.
         private Uri _serviceAreaUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ServiceArea");
+
+        // Hold a reference to the geometry type used in the geometry editor.
+        private GeometryType _geometryType;
 
         public FindServiceArea()
         {
@@ -46,20 +50,12 @@ namespace ArcGIS.Samples.FindServiceArea
             // Create graphics overlays for all of the elements of the map.
             MyMapView.GraphicsOverlays.Add(new GraphicsOverlay());
 
-            // Add a new behavior for double taps on the MapView.
             MyMapView.GeoViewDoubleTapped += (s, e) =>
             {
-                // If the sketch editor complete command is enabled, a sketch is in progress.
-                if (MyMapView.SketchEditor.CompleteCommand.CanExecute(null))
+                // Finish the currently drawn barrier.
+                if (MyMapView.GeometryEditor.IsStarted && _geometryType == GeometryType.Polyline)
                 {
-                    // Set the event as handled.
-                    e.Handled = true;
-
-                    // Finish any drawing.
-                    MyMapView.SketchEditor.CompleteCommand.Execute(null);
-
-                    // Reset the UI.
-                    DrawBarrierButton.Text = "Draw barrier";
+                    FinishBarrier();
                 }
             };
         }
@@ -69,8 +65,29 @@ namespace ArcGIS.Samples.FindServiceArea
             try
             {
                 // Let the user tap on the map view using the point sketch mode.
-                SketchCreationMode creationMode = SketchCreationMode.Point;
-                Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, false);
+                _geometryType = GeometryType.Point;
+
+                // Start the geometry editor.
+                MyMapView.GeometryEditor.Start(_geometryType);
+                MyMapView.GeometryEditor.PropertyChanged += GeometryEditor_PropertyChanged;
+            }
+            catch (Exception ex)
+            {
+                // Report exceptions.
+                await Application.Current.MainPage.DisplayAlert("Error", "Error drawing facility:\n" + ex.Message, "OK");
+            }
+        }
+
+
+        private void GeometryEditor_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            if (e.PropertyName == nameof(GeometryEditor.Geometry) && _geometryType == GeometryType.Point)
+            {
+                // Disconnect event handler to prevent multiple calls.
+                MyMapView.GeometryEditor.PropertyChanged -= GeometryEditor_PropertyChanged;
+
+                // Get the active geometry.
+                Geometry geometry = MyMapView.GeometryEditor.Geometry;
 
                 // Symbology for a facility.
                 PictureMarkerSymbol facilitySymbol = new PictureMarkerSymbol(new Uri("https://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png"))
@@ -87,15 +104,9 @@ namespace ArcGIS.Samples.FindServiceArea
 
                 // Add the graphic to the graphics overlay.
                 MyMapView.GraphicsOverlays[0].Graphics.Add(facilityGraphic);
-            }
-            catch (TaskCanceledException)
-            {
-                // Ignore this exception.
-            }
-            catch (Exception ex)
-            {
-                // Report exceptions.
-                await Application.Current.MainPage.DisplayAlert("Error", "Error drawing facility:\n" + ex.Message, "OK");
+
+                // Stop the geometry editor to clear the active geometry.
+                MyMapView.GeometryEditor.Stop();
             }
         }
 
@@ -104,9 +115,10 @@ namespace ArcGIS.Samples.FindServiceArea
             // Finish drawing barriers if started.
             if (DrawBarrierButton.Text != "Draw barrier")
             {
-                if (MyMapView.SketchEditor.CompleteCommand.CanExecute(null))
-                    MyMapView.SketchEditor.CompleteCommand.Execute(null);
-
+                if (MyMapView.GeometryEditor.IsStarted)
+                {
+                    FinishBarrier();
+                }
                 DrawBarrierButton.Text = "Draw barrier";
                 return;
             }
@@ -116,24 +128,10 @@ namespace ArcGIS.Samples.FindServiceArea
                 DrawBarrierButton.Text = "Finish drawing";
 
                 // Let the user draw on the map view using the polyline sketch mode.
-                SketchCreationMode creationMode = SketchCreationMode.Polyline;
-                Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, false);
+                _geometryType = GeometryType.Polyline;
 
-                // Symbol for the barriers.
-                SimpleLineSymbol barrierSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 5.0f);
-
-                // Create the graphic to be used for barriers.
-                Graphic barrierGraphic = new Graphic(geometry, new Dictionary<string, object>() { { "Type", "Barrier" } }, barrierSymbol)
-                {
-                    ZIndex = 1
-                };
-
-                // Add a graphic from the polyline the user drew.
-                MyMapView.GraphicsOverlays[0].Graphics.Add(barrierGraphic);
-            }
-            catch (TaskCanceledException)
-            {
-                // Ignore this exception.
+                // Start the geometry editor.
+                MyMapView.GeometryEditor.Start(_geometryType);
             }
             catch (Exception ex)
             {
@@ -142,14 +140,35 @@ namespace ArcGIS.Samples.FindServiceArea
             }
         }
 
+        private void FinishBarrier()
+        {
+            Geometry geometry = MyMapView.GeometryEditor.Stop();
+
+            if (!geometry.IsEmpty)
+            {
+                // Symbol for the barriers.
+                SimpleLineSymbol barrierSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 5.0f);
+
+                // Create the graphic to be used for barriers.
+                Graphic barrierGraphic = new Graphic(geometry, new Dictionary<string, object> { { "Type", "Barrier" } }, barrierSymbol)
+                {
+                    ZIndex = 1
+                };
+
+                // Add a graphic from the polyline the user drew.
+                MyMapView.GraphicsOverlays[0].Graphics.Add(barrierGraphic);
+
+                // Update button text.
+                DrawBarrierButton.Text = "Draw barrier";
+            }
+        }
+
         private async void ShowServiceAreasButton_Click(object sender, EventArgs e)
         {
-            // Finish any drawing in progress.
-            if (MyMapView.SketchEditor.CompleteCommand.CanExecute(null))
+            // Finish any drawings.
+            if (MyMapView.GeometryEditor.IsStarted)
             {
-                MyMapView.SketchEditor.CompleteCommand.Execute(null);
-
-                DrawBarrierButton.Text = "Draw barrier";
+                FinishBarrier();
             }
 
             // Use a local variable for the graphics overlay.

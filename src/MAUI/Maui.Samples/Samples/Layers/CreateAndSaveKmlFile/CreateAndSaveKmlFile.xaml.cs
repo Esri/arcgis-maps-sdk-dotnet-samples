@@ -29,7 +29,7 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
         category: "Layers",
         description: "Construct a KML document and save it as a KMZ file.",
         instructions: "Tap on one of the buttons in the middle row to start adding a geometry. Tap on the map view to place vertices. Tap the \"Complete Sketch\" button to add the geometry to the KML document as a new KML placemark. Use the style interface to edit the style of the placemark. If you do not wish to set a style, tap the \"Don't Apply Style\" button. When you are finished adding KML nodes, tap on the \"Save KMZ file\" button to save the active KML document as a .kmz file on your system. Use the \"Reset\" button to clear the current KML document and start a new one.",
-        tags: new[] { "KML", "KMZ", "Keyhole", "OGC" })]
+        tags: new[] { "KML", "KMZ", "Keyhole", "OGC", "geometry editor" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     [ArcGIS.Samples.Shared.Attributes.ClassFile("Converters/ImageConverter.cs", "Converters/ColorConverter.cs")]
     public partial class CreateAndSaveKmlFile : ContentPage
@@ -38,6 +38,7 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
         private KmlDataset _kmlDataset;
         private KmlLayer _kmlLayer;
         private KmlPlacemark _currentPlacemark;
+        private GeometryType _geometryType;
 
         public CreateAndSaveKmlFile()
         {
@@ -103,24 +104,21 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
                 CompleteButton.IsVisible = true;
                 SaveResetGrid.IsEnabled = false;
 
-                // Create variables for the sketch creation mode and color.
-                SketchCreationMode creationMode;
-
                 // Set the creation mode and UI based on which button called this method.
                 switch (((Button)sender).Text)
                 {
                     case "Point":
-                        creationMode = SketchCreationMode.Point;
+                        _geometryType = GeometryType.Point;
                         Status.Text = "Tap to add a point.";
                         break;
 
                     case "Polyline":
-                        creationMode = SketchCreationMode.Polyline;
+                        _geometryType = GeometryType.Polyline;
                         Status.Text = "Tap to add a vertex.";
                         break;
 
                     case "Polygon":
-                        creationMode = SketchCreationMode.Polygon;
+                        _geometryType = GeometryType.Polygon;
                         Status.Text = "Tap to add a vertex.";
                         break;
 
@@ -128,42 +126,12 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
                         return;
                 }
 
-                // Get the user-drawn geometry.
-                Geometry geometry = await MyMapView.SketchEditor.StartAsync(creationMode, true);
-
-                // Project the geometry to WGS84 (WGS84 is required by the KML standard).
-                Geometry projectedGeometry = geometry.Project(SpatialReferences.Wgs84);
-
-                // Create a KmlGeometry using the new geometry.
-                KmlGeometry kmlGeometry = new KmlGeometry(projectedGeometry, KmlAltitudeMode.ClampToGround);
-
-                // Create a new placemark.
-                _currentPlacemark = new KmlPlacemark(kmlGeometry);
-
-                // Add the placemark to the KmlDocument.
-                _kmlDocument.ChildNodes.Add(_currentPlacemark);
-
-                // Choose whether to enable the icon picker or color picker.
-                IconPicker.IsVisible = creationMode == SketchCreationMode.Point;
-                ColorPicker.IsVisible = creationMode != SketchCreationMode.Point;
-
-                // Enable the style editing UI.
-                StyleUI.IsVisible = true;
-                MainUI.IsVisible = false;
+                // Start the geometry editor.
+                MyMapView.GeometryEditor.Start(_geometryType);
             }
             catch (ArgumentException)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Unsupported Geometry", "OK");
-            }
-            finally
-            {
-                // Reset the UI.
-                ShapeGrid.IsVisible = true;
-                CompleteButton.IsVisible = false;
-                Status.Text = "Select the type of feature you would like to add.";
-
-                // Enable the save and reset buttons.
-                SaveResetGrid.IsEnabled = true;
             }
         }
 
@@ -218,11 +186,59 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
         {
             try
             {
-                // Finish the sketch.
-                MyMapView.SketchEditor.CompleteCommand.Execute(null);
+                // Get the user-drawn geometry.
+                Geometry geometry = MyMapView.GeometryEditor.Stop();
+
+                // Hold a reference for the new placemark geometry.
+                KmlGeometry kmlGeometry;
+
+                // Check to see if a geometry has been drawn.
+                if (!geometry.IsEmpty)
+                {
+
+                    if (MyMapView.SpatialReference != null &&
+                        geometry.SpatialReference != MyMapView.SpatialReference)
+                    {
+                        // Project the geometry to WGS84 (WGS84 is required by the KML standard).
+                        Geometry projectedGeometry = geometry.Project(SpatialReferences.Wgs84);
+
+                        // Create a KmlGeometry using the projected geometry.
+                        kmlGeometry = new KmlGeometry(projectedGeometry, KmlAltitudeMode.ClampToGround);
+                    }
+                    else
+                    {
+                        // Create a KmlGeometry using the user-drawn geometry.
+                        kmlGeometry = new KmlGeometry(geometry, KmlAltitudeMode.ClampToGround);
+                    }
+
+                    // Create a new placemark.
+                    _currentPlacemark = new KmlPlacemark(kmlGeometry);
+
+                    // Add the placemark to the KmlDocument.
+                    _kmlDocument.ChildNodes.Add(_currentPlacemark);
+
+                    // Choose whether to enable the icon picker or color picker.
+                    IconPicker.IsVisible = _geometryType == GeometryType.Point;
+                    ColorPicker.IsVisible = _geometryType != GeometryType.Point;
+
+                    // Enable the style editing UI.
+                    StyleUI.IsVisible = true;
+                    MainUI.IsVisible = false;
+                }
             }
-            catch (ArgumentException)
+            catch (Exception ex)
             {
+                Debug.WriteLine(ex.Message);
+            }
+            finally
+            {
+                // Reset the UI.
+                ShapeGrid.IsVisible = true;
+                CompleteButton.IsVisible = false;
+                Status.Text = "Select the type of feature you would like to add.";
+
+                // Enable the save and reset buttons.
+                SaveResetGrid.IsEnabled = true;
             }
         }
 

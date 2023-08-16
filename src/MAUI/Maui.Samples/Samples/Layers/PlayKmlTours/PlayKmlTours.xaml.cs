@@ -10,6 +10,7 @@
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
+using Esri.ArcGISRuntime.UI;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -19,13 +20,16 @@ namespace ArcGIS.Samples.PlayKmlTours
         name: "Play KML tour",
         category: "Layers",
         description: "Play tours in KML files.",
-        instructions: "The sample will load the KMZ file from ArcGIS Online. When a tour is found, the _Play_ button will be enabled. Use _Play_ and _Pause_ to control the tour. When you're ready to show the tour, use the reset button to return the tour to the unplayed state.",
+        instructions: "The sample will load the KMZ file from ArcGIS Online. When a tour is found, the _Play_ button will be enabled. Use _Play_ and _Pause_ to control the tour. Use the _Reset_ button to return the tour to the unplayed state.",
         tags: new[] { "KML", "animation", "interactive", "narration", "pause", "play", "story", "tour" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("f10b1d37fdd645c9bc9b189fb546307c")]
     public partial class PlayKmlTours : ContentPage, IDisposable
     {
         // The KML tour controller provides player controls for KML tours.
         private readonly KmlTourController _tourController = new KmlTourController();
+
+        // Keep track of play/pause status.
+        private bool _tourPlaying;
 
         public PlayKmlTours()
         {
@@ -68,10 +72,16 @@ namespace ArcGIS.Samples.PlayKmlTours
                 _tourController.Tour.PropertyChanged += Tour_PropertyChanged;
 
                 // Enable the play button.
-                PlayButton.IsEnabled = true;
+                PlayPauseButton.IsEnabled = true;
 
                 // Hide the status bar.
                 LoadingStatusBar.IsVisible = false;
+
+                // Create scene interaction options which will be disabled when the tour begins.
+                MySceneView.InteractionOptions = new SceneViewInteractionOptions
+                {
+                    IsEnabled = false
+                };
             }
             catch (Exception e)
             {
@@ -129,33 +139,59 @@ namespace ArcGIS.Samples.PlayKmlTours
             switch (_tourController.Tour.TourStatus)
             {
                 case KmlTourStatus.Completed:
-                case KmlTourStatus.Initialized:
-                    PlayButton.IsEnabled = true;
-                    PauseButton.IsEnabled = false;
+                    PlayPauseButton.IsEnabled = true;
+                    ResetButton.IsEnabled = false;
+                    PlayPauseButton.Text = "Play";
+                    _tourPlaying = false;
+                    MySceneView.InteractionOptions.IsEnabled = true;
+
+                    // Return to the initial viewpoint to visually indicate the tour being over.
+                    MySceneView.SetViewpointAsync(MySceneView.Scene.InitialViewpoint);
                     break;
 
-                case KmlTourStatus.Paused:
-                    PlayButton.IsEnabled = true;
-                    PauseButton.IsEnabled = false;
-                    ResetButton.IsEnabled = true;
+                case KmlTourStatus.Initialized:
+                    PlayPauseButton.IsEnabled = true;
+                    ResetButton.IsEnabled = false;
+                    PlayPauseButton.Text = "Play";
+                    _tourPlaying = false;
+                    MySceneView.InteractionOptions.IsEnabled = true;
                     break;
 
                 case KmlTourStatus.Playing:
                     ResetButton.IsEnabled = true;
-                    PlayButton.IsEnabled = false;
-                    PauseButton.IsEnabled = true;
+                    PlayPauseButton.IsEnabled = true;
+                    PlayPauseButton.Text = "Pause";
+                    _tourPlaying = true;
+                    MySceneView.InteractionOptions.IsEnabled = false;
+                    break;
+
+                case KmlTourStatus.Paused:
+                    PlayPauseButton.Text = "Play";
+                    _tourPlaying = false;
                     break;
             }
         }
 
-        // Play the tour when the button is pressed.
-        private void Play_Clicked(object sender, EventArgs e) => _tourController?.Play();
-
-        // Pause the tour when the button is pressed.
-        private void Pause_Clicked(object sender, EventArgs e) => _tourController?.Pause();
+        // Play and pause the tour when the button is pressed.
+        private void PlayPause_Clicked(object sender, EventArgs e)
+        {
+            if (_tourPlaying)
+            {
+                _tourController?.Pause();
+            }
+            else
+            {
+                _tourController?.Play();
+            }
+        }
 
         // Reset the tour when the button is pressed.
-        private void Reset_Clicked(object sender, EventArgs e) => _tourController?.Reset();
+        private void Reset_Clicked(object sender, EventArgs e)
+        {
+            _tourController?.Reset();
+            MySceneView.SetViewpoint(MySceneView.Scene.InitialViewpoint);
+            PlayPauseButton.Text = "Play";
+        }
 
         public void Dispose()
         {

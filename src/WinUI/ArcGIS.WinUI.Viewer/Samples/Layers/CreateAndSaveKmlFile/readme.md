@@ -17,7 +17,7 @@ Click on one of the buttons in the middle row to start adding a geometry. Click 
 1. Create a `KmlDocument`
 2. Create a `KmlDataset` using the `KmlDocument`.
 3. Create a `KmlLayer` using the `KmlDataset` and add it to `Map.OperationalLayers`.
-4. Create `Geometry` using `SketchEditor`.
+4. Create `Geometry` using `GeometryEditor`.
 5. Project that `Geometry` to WGS84 using `GeometryEngine.Project`.
 6. Create a `KmlGeometry` object using that projected `Geometry`.
 7. Create a `KmlPlacemark` using the `KmlGeometry`.
@@ -27,6 +27,7 @@ Click on one of the buttons in the middle row to start adding a geometry. Click 
 
 ## Relevant API
 
+* GeometryEditor
 * GeometryEngine.Project
 * KmlDataset
 * KmlDocument
@@ -35,8 +36,7 @@ Click on one of the buttons in the middle row to start adding a geometry. Click 
 * KmlNode.SaveAsASync
 * KmlPlacemark
 * KmlStyle
-* SketchEditor
 
 ## Tags
 
-Keyhole, KML, KMZ, OGC
+geometry editor, Keyhole, KML, KMZ, OGC

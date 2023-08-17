@@ -12,6 +12,19 @@ mkdir %WORKSPACE%\output
 
 echo "Setting up Nuget config file"
 
+ECHO SEARCHING FOR VISUAL STUDIO...
+"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -version [17.0,18.0) -prerelease -requires Microsoft.Component.MSBuild -products * -property InstallationPath > %TEMP%\vsinstalldir.txt
+SET /p _VSINSTALLDIR=<%TEMP%\vsinstalldir.txt
+DEL %TEMP%\vsinstalldir.txt	
+IF "%_VSINSTALLDIR%"=="" (
+  ECHO ERROR: VISUAL STUDIO NOT FOUND
+  SET ERRORLEVEL=1
+  GOTO Quit
+)
+IF "%VSINSTALLDIR%"=="" (
+  CALL "%_VSINSTALLDIR%\Common7\Tools\VsDevCmd.bat"
+)  
+
 IF '%RELEASE_VERSION%' == '' (
   SET RELEASE_VERSION=200.2.0
 )
@@ -20,7 +33,7 @@ IF "%BUILD_NUM%"=="" (
   echo "BUILD_NUM was not set..pulling info from daily_win_DotNet_API_OK txt file"
 )
 
-SET WORKSPACE=%~dp0..\..\..\..\..
+SET WORKSPACE=%~dp0..
 Set BuildOutDir=%WORKSPACE%\output
 mkdir %WORKSPACE%\output\.NugetPackageCache
 
@@ -40,7 +53,17 @@ SET NUGETVERSION=%RELEASE_VERSION%
 
 echo "Starting WPF .NET Build"
 
-msbuild /restore /t:reBuild /p:Platform=AnyCPU;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.NET.csproj" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
+msbuild /restore /t:reBuild /p:Platform=AnyCPU;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
+
+msbuild /restore /t:reBuild /p:Platform=AnyCPU;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.NetFramework.csproj" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
+
+msbuild /restore /t:reBuild /p:Platform=x86;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\WinUI\ArcGIS.WinUI.Viewer\ArcGIS.WinUI.Viewer.csproj" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
+
+msbuild /restore /t:reBuild /p:Platform=x86;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\UWP\ArcGIS.UWP.Viewer\ArcGIS.UWP.Viewer.csproj" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
+
+msbuild /restore /t:reBuild /p:TargetFrameworks=net7.0-windows10.0.19041.0 /p:Platform=AnyCPU;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\MAUI\MAUI.Samples\ArcGIS.Samples.MAUI.csproj" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
+
+
 
 IF %ERRORLEVEL% NEQ 0 (
     ECHO "Build has failed..exiting.."
@@ -49,4 +72,5 @@ IF %ERRORLEVEL% NEQ 0 (
 
 echo "Process completed"
 :Quit
-EXIT /B %ERRORLEVEL%
+pause
+@REM EXIT /B %ERRORLEVEL%

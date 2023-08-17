@@ -3,7 +3,7 @@ cls
 
 echo "Starting Build Checks"
 cd %~dp0
-SET Samples_dir="%~dp0..\src"
+SET Samples_dir=%~dp0..\src
 
 :: remove output folder if exists. Since we wipe out the workspace we don't have to remove the output folder. Removing just to be safe. 
 :: and just need to create

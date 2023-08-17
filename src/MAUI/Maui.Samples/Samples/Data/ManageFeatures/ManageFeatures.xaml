@@ -3,27 +3,28 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto">
-        <esriUI:MapView x:Name="MyMapView"
-                        Style="{DynamicResource EsriSampleGeoView}" />
+    <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <StackLayout Padding="5"
-                         Spacing="5">
-                <Label Text="Select a feature management operation:"
-                       MinimumWidthRequest="200" />
-                <Picker x:Name="MethodPicker"
-                        SelectedIndexChanged="OnComboBoxSelectionChanged"
+            <StackLayout Padding="5" Spacing="5">
+                <Label FontAttributes="Bold"
+                       MinimumWidthRequest="200"
+                       Text="Select a feature management operation:" />
+                <Picker x:Name="OperationPicker"
                         HorizontalOptions="Start"
-                        WidthRequest="250"
-                        IsEnabled="True" />
-                <Label x:Name="InstructionLabel" 
+                        HorizontalTextAlignment="Center"
+                        IsEnabled="True"
+                        SelectedIndexChanged="OperationPicker_SelectionChanged"
+                        WidthRequest="250" />
+                <Label x:Name="InstructionLabel"
                        HorizontalOptions="Start"
-                       MaximumWidthRequest="250"
-                       LineBreakMode="WordWrap" />
+                       LineBreakMode="WordWrap"
+                       MaximumWidthRequest="250" />
                 <Picker x:Name="DamageTypePicker"
                         HorizontalOptions="Start"
-                        WidthRequest="250"
-                        IsVisible="False" />
+                        HorizontalTextAlignment="Center"
+                        IsVisible="False"
+                        WidthRequest="250" />
                 <Button x:Name="DeleteButton"
                         Clicked="DeleteButton_Click"
                         IsVisible="False" />

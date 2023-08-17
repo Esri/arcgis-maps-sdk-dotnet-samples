@@ -10,8 +10,8 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Map = Esri.ArcGISRuntime.Mapping.Map;
 using GeoViewInputEventArgs = Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs;
+using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 namespace ArcGIS.Samples.ManageFeatures
 {
@@ -19,7 +19,7 @@ namespace ArcGIS.Samples.ManageFeatures
         name: "Manage features",
         category: "Data",
         description: "Manage a feature layer's features in four distinct ways.",
-        instructions: "Pick a function, then tap a location on the map to perform the function at that location. Available edit functions include, \"Create feature\", \"Delete feature\", \"Update attribute\", and \"Update geometry\".",
+        instructions: "Pick an operation, then tap a location on the map to perform the operation at that location. Available feature management operations include \"Create feature\", \"Delete feature\", \"Update attribute\", and \"Update geometry\".",
         tags: new[] { "amend", "attribute", "deletion", "details", "edit", "editing", "feature", "feature layer", "feature table", "information", "moving", "online service", "service", "updating", "value" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class ManageFeatures
@@ -41,8 +41,22 @@ namespace ArcGIS.Samples.ManageFeatures
 
         private Feature _tappedFeature;
 
-        // Create an items source list for the ComboBox.
-        private List<string> _methodList = new List<string> { "Create feature", "Delete feature", "Update attribute", "Update geometry" };
+        private readonly string[] _methodList = new string[]
+        {
+            "Create feature",
+            "Delete feature",
+            "Update attribute",
+            "Update geometry"
+        };
+
+        private readonly string[] _instructions = new string[]
+        {
+            "Tap on the map to create a new feature.",
+            "Tap an existing feature to delete it.",
+            "Tap an existing feature to edit its attribute.",
+            "Tap an existing feature to select it, tap the map to move it to a new position."
+        };
+
         public ManageFeatures()
         {
             InitializeComponent();
@@ -64,7 +78,7 @@ namespace ArcGIS.Samples.ManageFeatures
                 // Creating the feature table from the feature service will cause the service geodatabase to be null.
                 _damageFeatureTable = serviceGeodatabase.GetTable(0);
 
-                //// UPDATE ATTRIBUTES - When the table loads, use it to discover the domain of the typdamage field.
+                // Update attributes - when the table loads, use it to discover the domain of the typdamage field.
                 _damageFeatureTable.Loaded += DamageTable_Loaded;
 
                 // Create a feature layer to visualize the features in the table.
@@ -77,12 +91,11 @@ namespace ArcGIS.Samples.ManageFeatures
                 _ = MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
 
                 // Bind the list of method names to the ComboBox.
-                MethodPicker.ItemsSource = _methodList;
+                OperationPicker.ItemsSource = _methodList;
             }
             catch (Exception ex)
             {
-                //MessageBox.Show(ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
-                await DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -103,7 +116,7 @@ namespace ArcGIS.Samples.ManageFeatures
             });
         }
 
-        private async void OnComboBoxSelectionChanged(object sender, EventArgs e)
+        private void OperationPicker_SelectionChanged(object sender, EventArgs e)
         {
             // Clear all currently hooked GeoViewTapped events.
             MyMapView.GeoViewTapped -= MapView_Tapped_CreateFeature;
@@ -117,50 +130,31 @@ namespace ArcGIS.Samples.ManageFeatures
             DeleteButton.IsVisible = false;
             DamageTypePicker.IsVisible = false;
 
-            // Hold a variable for the Picker's selected value.
-            Picker picker = (Picker)sender;
+            // Store the Picker's selected item index.
+            var index = ((Picker)sender).SelectedIndex;
 
-            try
+            // Update the label with the new instruction.
+            InstructionLabel.Text = _instructions[index];
+
+            // Update the currently hooked GeoViewTapped event.
+            switch (index)
             {
-                if (picker.SelectedIndex == 0)
-                {
-                    // Update the label.
-                    InstructionLabel.Text = "Tap on the map to create a new feature.";
-
-                    // Update the currently hooked GeoViewTapped event.
+                case 0:
                     MyMapView.GeoViewTapped += MapView_Tapped_CreateFeature;
+                    break;
 
-                }
-                else if (picker.SelectedIndex == 1)
-                {
-                    // Update the label.
-                    InstructionLabel.Text = "Tap an existing feature to delete it.";
-
-                    // Update the currently hooked GeoViewTapped event.
+                case 1:
                     MyMapView.GeoViewTapped += MapView_Tapped_DeleteFeature;
-                }
-                else if (picker.SelectedIndex == 2)
-                {
-                    // Update the label.
-                    InstructionLabel.Text = "Tap an existing feature to edit its attribute.";
+                    break;
 
-                    // Update the currently hooked GeoViewTapped event.
+                case 2:
                     MyMapView.GeoViewTapped += MapView_Tapped_UpdateAttribute;
-                }
-                else if (picker.SelectedIndex == 3)
-                {
-                    // Update the label.
-                    InstructionLabel.Text = "Tap an existing feature to select it, tap the map to move it to a new position.";
+                    break;
 
-                    // Update the currently hooked GeoViewTapped event.
+                case 3:
                     MyMapView.GeoViewTapped += MapView_Tapped_UpdateGeometry;
-                }
+                    break;
             }
-            catch (Exception ex)
-            {
-                await DisplayAlert("Error", ex.ToString(), "OK");
-            }
-
         }
 
         private async void MapView_Tapped_CreateFeature(object sender, GeoViewInputEventArgs e)
@@ -192,7 +186,7 @@ namespace ArcGIS.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error adding feature", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -291,7 +285,7 @@ namespace ArcGIS.Samples.ManageFeatures
                 // Reset the instruction label and return if there are no results.
                 if (!identifyResult.GeoElements.Any())
                 {
-                    InstructionLabel.Text = "Tap an existing feature to edit its attribute.";
+                    InstructionLabel.Text = _instructions[2];
                     return;
                 }
 
@@ -302,14 +296,14 @@ namespace ArcGIS.Samples.ManageFeatures
                 _damageLayer.SelectFeature(_selectedFeature);
 
                 // Update instruction label.
-                InstructionLabel.Text = "Select damage type:";
+                InstructionLabel.Text += "Select damage type:";
 
                 // Update the UI for the selection.
                 UpdateUIForSelectedFeature();
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error selecting feature", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -357,7 +351,7 @@ namespace ArcGIS.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Failed to edit feature", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -402,7 +396,7 @@ namespace ArcGIS.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error when moving feature", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
             finally
             {
@@ -433,7 +427,7 @@ namespace ArcGIS.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Problem selecting feature", ex.ToString(), "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

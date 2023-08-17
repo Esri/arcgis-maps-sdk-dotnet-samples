@@ -12,6 +12,18 @@ mkdir %WORKSPACE%\output
 
 echo "Setting up Nuget config file"
 
+IF '%RELEASE_VERSION%' == '' (
+  SET RELEASE_VERSION=200.2.0
+)
+IF "%BUILD_NUM%"=="" (
+  SET /p BUILD_NUM=<\\runtime\windows\api_dotnet\%RELEASE_VERSION%\daily_windows_api_OK.txt
+  echo "BUILD_NUM was not set..pulling info from daily_win_DotNet_API_OK txt file"
+)
+
+SET WORKSPACE=%~dp0..\..\..\..\..
+Set BuildOutDir=%WORKSPACE%\output
+mkdir %WORKSPACE%\output\.NugetPackageCache
+
 SET NuGetExePath=%WORKSPACE%\nuget.exe
 IF NOT EXIST %NuGetExePath% (
   ECHO Downloading nuget.exe to %NuGetExePath%...

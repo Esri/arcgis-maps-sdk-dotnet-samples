@@ -33,7 +33,7 @@ IF "%BUILD_NUM%"=="" (
   echo "BUILD_NUM was not set..pulling info from daily_win_DotNet_API_OK txt file"
 )
 
-SET WORKSPACE=%~dp0..
+SET WORKSPACE=%~dp0..\..\..\..\..
 Set BuildOutDir=%WORKSPACE%\output
 mkdir %WORKSPACE%\output\.NugetPackageCache
 

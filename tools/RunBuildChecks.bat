@@ -51,25 +51,9 @@ ECHO ^<configuration^>^<packageSources^>^<clear /^>^</packageSources^>^</configu
 
 SET NUGETVERSION=%RELEASE_VERSION%
 
-echo "Starting WPF .NET Build"
+echo "Starting Build"
 
-msbuild /restore /t:reBuild /p:Platform=AnyCPU;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
-
-echo "Starting WPF .NET Framework Build"
-
-msbuild /restore /t:reBuild /p:Platform=AnyCPU;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.NetFramework.csproj" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
-
-echo "Starting WinUI Build"
-
-msbuild /restore /t:reBuild /p:Platform=x86;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\WinUI\ArcGIS.WinUI.Viewer\ArcGIS.WinUI.Viewer.csproj" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
-
-echo "Starting UWP Build"
-
-msbuild /restore /t:reBuild /p:Platform=x86;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\UWP\ArcGIS.UWP.Viewer\ArcGIS.UWP.Viewer.csproj" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
-
-echo "Starting MAUI WinUI Build"
-
-msbuild /restore /t:reBuild /p:TargetFrameworks=net7.0-windows10.0.19041.0 /p:Platform=AnyCPU;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\MAUI\MAUI.Samples\ArcGIS.Samples.MAUI.csproj" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
+msbuild /restore /t:reBuild /p:Platform=%PLATFORM%;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\%SAMPLES_PATH%" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
 
 IF %ERRORLEVEL% NEQ 0 (
     ECHO "Build has failed..exiting.."

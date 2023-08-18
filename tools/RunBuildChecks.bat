@@ -32,6 +32,9 @@ IF "%BUILD_NUM%"=="" (
   SET /p BUILD_NUM=<\\runtime\windows\api_dotnet\%RELEASE_VERSION%\daily_windows_api_OK.txt
   echo "BUILD_NUM was not set..pulling info from daily_win_DotNet_API_OK txt file"
 )
+IF "%CONFIGURATION%"=="" (
+  SET CONFIGURATION=Release
+)
 
 SET WORKSPACE=%~dp0..\..\..\..\..
 Set BuildOutDir=%WORKSPACE%\output
@@ -53,7 +56,7 @@ SET NUGETVERSION=%RELEASE_VERSION%
 
 echo "Starting Build"
 
-msbuild /restore /t:reBuild /p:Platform=%PLATFORM%;Configuration=Release;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\%SAMPLES_PATH%" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
+msbuild /restore /t:reBuild /p:Platform=%PLATFORM%;Configuration=%CONFIGURATION%;BuildUsingArcGISNuGetPackages=true;ArcGISNugetPackageVersion=%NUGETVERSION% "%Samples_dir%\%SAMPLES_PATH%" /p:OutDir=%BuildOutDir% /p:RestorePackagesPath=%BuildOutDir%\.NugetPackageCache /p:RestoreConfigFile=%BuildOutDir%\.NugetPackageCache\nuget.config
 
 IF %ERRORLEVEL% NEQ 0 (
     ECHO "Build has failed..exiting.."

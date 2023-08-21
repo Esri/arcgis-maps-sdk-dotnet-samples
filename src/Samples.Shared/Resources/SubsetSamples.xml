@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<FeaturedSamples>
+  <Categories>
+    <Category name="Analysis">
+      <Sample>DistanceMeasurement</Sample>
+      <Sample>LineOfSightGeoElement</Sample>
+      <Sample>ViewshedLocation</Sample>
+    </Category>
+    <Category name="GraphicsOverlay">
+      <Sample>Animate3DGraphic</Sample>
+      <Sample>ScenePropertiesExpressions</Sample>
+      <Sample>CreateAndEditGeometries</Sample>
+      <Sample>SurfacePlacements</Sample>
+    </Category>
+    <Category name="Hydrography">
+      <Sample>ChangeEncDisplaySettings</Sample>
+    </Category>
+    <Category name="Layers">
+      <Sample>ChangeStretchRenderer</Sample>
+      <Sample>ExportVectorTiles</Sample>
+      <Sample>PlayKmlTours</Sample>
+      <Sample>SceneLayerSelection</Sample>
+      <Sample>ShowLabelsOnLayer</Sample>
+    </Category>
+    <Category name="Map">
+      <Sample>GenerateOfflineMap</Sample>
+    </Category>
+    <Category name="MapView">
+      <Sample>IdentifyLayers</Sample>
+      <Sample>ShowCallout</Sample>
+      <Sample>ShowMagnifier</Sample>
+      <Sample>TakeScreenshot</Sample>
+    </Category>
+    <Category name="Scene">
+      <Sample>ChangeAtmosphereEffect</Sample>
+      <Sample>ViewContentBeneathSurface</Sample>
+    </Category>
+    <Category name="SceneView">
+      <Sample>AnimateImageOverlay</Sample>
+    </Category>
+  </Categories>
+</FeaturedSamples>

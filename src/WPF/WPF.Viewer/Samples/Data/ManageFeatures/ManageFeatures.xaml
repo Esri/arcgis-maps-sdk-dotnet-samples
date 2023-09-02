@@ -12,7 +12,7 @@
                           IsEditable="False"
                           IsEnabled="True"
                           SelectionChanged="OperationChooser_SelectionChanged" />
-                <Label x:Name="InstructionLabel" />
+                <TextBlock x:Name="Instructions" TextWrapping="Wrap" />
                 <ComboBox x:Name="DamageTypeChooser"
                           HorizontalContentAlignment="Center"
                           Visibility="Collapsed" />

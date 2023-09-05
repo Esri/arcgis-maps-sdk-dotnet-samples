@@ -40,6 +40,7 @@
 * [Clip geometry](ArcGIS.WinUI.Viewer/Samples/Geometry/ClipGeometry) - Clip a geometry with another geometry.
 * [Convex hull](ArcGIS.WinUI.Viewer/Samples/Geometry/ConvexHull) - Create a convex hull for a given set of points. The convex hull is a polygon with shortest perimeter that encloses a set of points. As a visual analogy, consider a set of points as nails in a board. The convex hull of the points would be like a rubber band stretched around the outermost nails.
 * [Convex hull list](ArcGIS.WinUI.Viewer/Samples/Geometry/ConvexHullList) - Generate convex hull polygon(s) from multiple input geometries.
+* [Create and edit geometries](ArcGIS.WinUI.Viewer/Samples/Geometry/CreateAndEditGeometries) - Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.
 * [Create geometries](ArcGIS.WinUI.Viewer/Samples/Geometry/CreateGeometries) - Create simple geometry types.
 * [Cut geometry](ArcGIS.WinUI.Viewer/Samples/Geometry/CutGeometry) - Cut a geometry along a polyline.
 * [Densify and generalize](ArcGIS.WinUI.Viewer/Samples/Geometry/DensifyAndGeneralize) - A multipart geometry can be densified by adding interpolated points at regular intervals. Generalizing multipart geometry simplifies it while preserving its general shape. Densifying a multipart geometry adds more vertices at regular intervals.
@@ -63,7 +64,6 @@
 * [Add graphics with renderer](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/AddGraphicsRenderer) - A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style. A renderer will only affect graphics that do not specify their own symbol style.
 * [Add graphics with symbols](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/AddGraphicsWithSymbols) - Use a symbol style to display a graphic on a graphics overlay.
 * [Animate 3D graphic](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/Animate3DGraphic) - An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.
-* [Create and edit geometries](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/CreateAndEditGeometries) - Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.
 * [Dictionary renderer with graphics overlay](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/DictionaryRendererGraphicsOverlay) - Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.
 * [Identify graphics](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/IdentifyGraphics) - Display an alert message when a graphic is clicked.
 * [Scene properties expressions](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/ScenePropertiesExpressions) - Update the orientation of a graphic using expressions based on its attributes.

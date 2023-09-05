@@ -12,22 +12,14 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.Editing;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using Button = System.Windows.Controls.Button;
 using Color = System.Drawing.Color;
-using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 
-namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
+namespace ArcGIS.Samples.CreateAndEditGeometries
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create and edit geometries",
-        category: "GraphicsOverlay",
+        category: "Geometry",
         description: "Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.",
         instructions: "To create a new geometry, press the button appropriate for the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry. To edit an existing geometry, tap the geometry to be edited in the map to select it and then edit the geometry by tapping and dragging elements of the geometry. If creating or editing polyline or polygon geometries, choose the desired creation/editing tool (i.e. `VertexTool` or `FreehandTool`).",
         tags: new[] { "draw", "edit", "freehand", "geometry editor", "sketch", "vertex" })]
@@ -106,8 +98,8 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
             _geometryEditor = new GeometryEditor();
             MyMapView.GeometryEditor = _geometryEditor;
 
-            // Create vertex and freehand tools for the combo box.
-            ToolComboBox.ItemsSource = _toolDictionary = new Dictionary<string, GeometryEditorTool>()
+            // Create geometry editor tools for the combo box.
+            _toolDictionary = new Dictionary<string, GeometryEditorTool>()
             {
                 { "Vertex Tool", new VertexTool() },
                 { "Freehand Tool", new FreehandTool() },
@@ -116,9 +108,10 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
                 { "Rectangle Shape Tool", ShapeTool.Create(ShapeToolType.Rectangle) },
                 { "Triangle Shape Tool", ShapeTool.Create(ShapeToolType.Triangle) }
             };
+            ToolPicker.ItemsSource = _toolDictionary.Keys.ToList();
 
             // Have the vertex tool selected by default.
-            ToolComboBox.SelectedIndex = 0;
+            ToolPicker.SelectedIndex = 0;
 
             // Create a dictionary to lookup which geometry type corresponds with which button.
             _geometryButtons = new Dictionary<GeometryType, Button>
@@ -135,7 +128,7 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
         #region Event handlers
 
         // Starts the geometry editor with the point geometry type.
-        private void PointButton_Click(object sender, RoutedEventArgs e)
+        private void PointButton_Click(object sender, EventArgs e)
         {
             if (!_geometryEditor.IsStarted)
             {
@@ -143,7 +136,7 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
                 DisableOtherGeometryButtons(PointButton);
 
                 // Disable the combo box as this is always a vertex tool when creating a point.
-                ToolComboBox.IsEnabled = false;
+                ToolPicker.IsEnabled = false;
 
                 // Disable scale checkbox since points don't scale.
                 UniformScaleCheckBox.IsEnabled = false;
@@ -153,7 +146,7 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
         }
 
         // Start the geometry editor with the multipoint geometry type.
-        private void MultipointButton_Click(object sender, RoutedEventArgs e)
+        private void MultipointButton_Click(object sender, EventArgs e)
         {
             if (!_geometryEditor.IsStarted)
             {
@@ -161,53 +154,53 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
                 DisableOtherGeometryButtons(MultipointButton);
 
                 // Disable the combo box as this is always a vertex tool when creating a point.
-                ToolComboBox.IsEnabled = false;
+                ToolPicker.IsEnabled = false;
 
                 _geometryEditor.Start(GeometryType.Multipoint);
             }
         }
 
         // Start the geometry editor with the polyline geometry type.
-        private void PolylineButton_Click(object sender, RoutedEventArgs e)
+        private void PolylineButton_Click(object sender, EventArgs e)
         {
             if (!_geometryEditor.IsStarted)
             {
                 // Disable buttons to reflect that the geometry editor has started.
-                DisableOtherGeometryButtons(PolylineButton);
+                DisableOtherGeometryButtons(PointButton);
 
                 _geometryEditor.Start(GeometryType.Polyline);
             }
         }
 
         // Start the geometry editor with the polygon geometry type.
-        private void PolygonButton_Click(object sender, RoutedEventArgs e)
+        private void PolygonButton_Click(object sender, EventArgs e)
         {
             if (!_geometryEditor.IsStarted)
             {
                 // Disable buttons to reflect that the geometry editor has started.
-                DisableOtherGeometryButtons(PolygonButton);
+                DisableOtherGeometryButtons(PointButton);
 
                 _geometryEditor.Start(GeometryType.Polygon);
             }
         }
 
-        // Set the geometry editor tool from the combo box.
-        private void ToolComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        // Set the geometry editor tool from the picker.
+        private void ToolPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Set the geometry editor tool based on the new selection.
-            _geometryEditor.Tool = ((KeyValuePair<string, GeometryEditorTool>)ToolComboBox.SelectedItem).Value as GeometryEditorTool;
+            GeometryEditorTool tool = _toolDictionary[ToolPicker.SelectedItem.ToString()];
+            _geometryEditor.Tool = tool;
 
             // Account for case when vertex tool is selected and geometry editor is started with a polyline or polygon geometry type.
             // Ensure point and multipoint buttons are only enabled when the selected tool is a vertex tool.
-            PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && _geometryEditor.Tool is VertexTool;
+            PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && tool is VertexTool;
         }
 
         // Set the scale mode for every geometry editor tool.
-        private void CheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        private void CheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             // Determine the newly selected scale mode.
             GeometryEditorScaleMode scaleMode =
-                UniformScaleCheckBox.IsChecked == true ? GeometryEditorScaleMode.Uniform : GeometryEditorScaleMode.Stretch;
+                UniformScaleCheckBox.IsChecked ? GeometryEditorScaleMode.Uniform : GeometryEditorScaleMode.Stretch;
 
             // Update the scale mode for every tool.
             foreach (GeometryEditorTool tool in _toolDictionary.Values)
@@ -228,25 +221,25 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
         }
 
         // Undo the last change made to the geometry while editing is active.
-        private void UndoButton_Click(object sender, RoutedEventArgs e)
+        private void UndoButton_Click(object sender, EventArgs e)
         {
             _geometryEditor.Undo();
         }
 
         // Redo the last change made to the geometry while editing is active.
-        private void RedoButton_Click(object sender, RoutedEventArgs e)
+        private void RedoButton_Click(object sender, EventArgs e)
         {
             _geometryEditor.Redo();
         }
 
         // Delete the currently selected element of the geometry editor.
-        private void DeleteSelectedButton_Click(object sender, RoutedEventArgs e)
+        private void DeleteSelectedButton_Click(object sender, EventArgs e)
         {
             _geometryEditor.DeleteSelectedElement();
         }
 
         // Update an existing graphic or create a new graphic.
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
             Geometry geometry = _geometryEditor.Stop();
 
@@ -267,20 +260,20 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
             ResetFromEditingSession();
         }
 
-        // Stops the geometry editor without saving the geometry stored within.
-        private void DiscardButton_Click(object sender, RoutedEventArgs e)
+        // Stop the geometry editor without saving the geometry stored within.
+        private void DiscardButton_Click(object sender, EventArgs e)
         {
             _geometryEditor.Stop();
             ResetFromEditingSession();
         }
 
-        // Removes all graphics from the graphics overlay.
-        private void DeleteAllButton_Click(object sender, RoutedEventArgs e)
+        // Remove all graphics from the graphics overlay.
+        private void DeleteAllButton_Click(object sender, EventArgs e)
         {
             _graphicsOverlay.Graphics.Clear();
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             // Return immediately when in an editing session.
             if (_geometryEditor.IsStarted) return;
@@ -296,9 +289,10 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
             catch (Exception ex)
             {
                 // Report exceptions.
-                MessageBox.Show("Error: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+                await Application.Current.MainPage.DisplayAlert("Error editing", ex.Message, "OK");
 
                 ResetFromEditingSession();
+                return;
             }
 
             // Return since no graphic was selected.
@@ -310,12 +304,12 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
             GeometryType geometryType = _selectedGraphic.Geometry.GeometryType;
             if (geometryType == GeometryType.Point)
             {
-                ToolComboBox.SelectedIndex = 0;
+                ToolPicker.SelectedIndex = 0;
                 UniformScaleCheckBox.IsEnabled = false;
             }
             if (geometryType == GeometryType.Multipoint)
             {
-                ToolComboBox.SelectedIndex = 0;
+                ToolPicker.SelectedIndex = 0;
             }
             DisableOtherGeometryButtons(_geometryButtons[geometryType]);
 
@@ -366,7 +360,7 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
             // Point and multipoint sessions do not support the vertex tool.
             PointButton.IsEnabled = MultipointButton.IsEnabled = _geometryEditor.Tool is VertexTool;
             PolylineButton.IsEnabled = PolygonButton.IsEnabled = true;
-            ToolComboBox.IsEnabled = true;
+            ToolPicker.IsEnabled = true;
 
             UniformScaleCheckBox.IsEnabled = true;
         }

@@ -1,4 +1,4 @@
-// Copyright 2023 Esri.
+﻿// Copyright 2023 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -14,20 +14,20 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.Editing;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows;
+using System.Windows.Controls;
+using Button = System.Windows.Controls.Button;
 using Color = System.Drawing.Color;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
-using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
 
-namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
+namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Create and edit geometries",
-        category: "GraphicsOverlay",
+        category: "Geometry",
         description: "Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.",
         instructions: "To create a new geometry, press the button appropriate for the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry. To edit an existing geometry, tap the geometry to be edited in the map to select it and then edit the geometry by tapping and dragging elements of the geometry. If creating or editing polyline or polygon geometries, choose the desired creation/editing tool (i.e. `VertexTool` or `FreehandTool`).",
         tags: new[] { "draw", "edit", "freehand", "geometry editor", "sketch", "vertex" })]
@@ -42,7 +42,7 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
         private SimpleMarkerSymbol _pointSymbol, _multiPointSymbol;
 
         private Dictionary<GeometryType, Button> _geometryButtons;
-        private Dictionary<string, object> _toolDictionary;
+        private Dictionary<string, GeometryEditorTool> _toolDictionary;
 
         // Json formatted strings for initial geometries.
         private readonly string _houseCoordinatesJson = @"{""x"": -1067898.59, ""y"": 6998366.62,
@@ -107,7 +107,7 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
             MyMapView.GeometryEditor = _geometryEditor;
 
             // Create vertex and freehand tools for the combo box.
-            ToolComboBox.ItemsSource = _toolDictionary = new Dictionary<string, object>()
+            ToolComboBox.ItemsSource = _toolDictionary = new Dictionary<string, GeometryEditorTool>()
             {
                 { "Vertex Tool", new VertexTool() },
                 { "Freehand Tool", new FreehandTool() },
@@ -195,7 +195,7 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
         private void ToolComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Set the geometry editor tool based on the new selection.
-            _geometryEditor.Tool = ((KeyValuePair<string, object>)ToolComboBox.SelectedItem).Value as GeometryEditorTool;
+            _geometryEditor.Tool = ((KeyValuePair<string, GeometryEditorTool>)ToolComboBox.SelectedItem).Value as GeometryEditorTool;
 
             // Account for case when vertex tool is selected and geometry editor is started with a polyline or polygon geometry type.
             // Ensure point and multipoint buttons are only enabled when the selected tool is a vertex tool.
@@ -267,7 +267,7 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
             ResetFromEditingSession();
         }
 
-        // Stop the geometry editor without saving the geometry stored within.
+        // Stops the geometry editor without saving the geometry stored within.
         private void DiscardButton_Click(object sender, RoutedEventArgs e)
         {
             _geometryEditor.Stop();
@@ -296,10 +296,9 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
             catch (Exception ex)
             {
                 // Report exceptions.
-                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
+                MessageBox.Show("Error: " + ex.Message, ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
 
                 ResetFromEditingSession();
-                return;
             }
 
             // Return since no graphic was selected.

@@ -2,7 +2,7 @@
 
 Filter 3D scene features out of a given geometry with a polygon filter.
 
-![](screenshot.png)
+![](filterfeaturesinscene.jpg)
 
 ## Use case
 

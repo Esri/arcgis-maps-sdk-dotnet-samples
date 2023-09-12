@@ -24,6 +24,7 @@
 			<Sample>DisplayOverviewMap</Sample>
         </Category>
 		<Category name="Scene">
+			<Sample>FilterFeaturesInScene</Sample>
 			<Sample>ShowLabelsOnLayer3D</Sample>
 		</Category>
 		<Category name="UtilityNetwork">

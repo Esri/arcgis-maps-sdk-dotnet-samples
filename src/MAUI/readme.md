@@ -212,6 +212,7 @@
 * [Change atmosphere effect](Maui.Samples/Samples/Scene/ChangeAtmosphereEffect) - Changes the appearance of the atmosphere in a scene.
 * [Create terrain from local tile package](Maui.Samples/Samples/Scene/CreateTerrainSurfaceTilePackage) - Set the terrain surface with elevation described by a local tile package.
 * [Create terrain surface from a local raster](Maui.Samples/Samples/Scene/CreateTerrainSurfaceRaster) - Set the terrain surface with elevation described by a raster file.
+* [Filter features in scene](Maui.Samples/Samples/Scene/FilterFeaturesInScene) - Filter 3D scene features out of a given geometry with a polygon filter.
 * [Get elevation at a point](Maui.Samples/Samples/Scene/GetElevationAtPoint) - Get the elevation for a given point on a surface in a scene.
 * [Open mobile scene package](Maui.Samples/Samples/Scene/OpenMobileScenePackage) - Opens and displays a scene from a Mobile Scene Package (.mspk).
 * [Open scene (portal item)](Maui.Samples/Samples/Scene/OpenScenePortalItem) - Open a web scene from a portal item.

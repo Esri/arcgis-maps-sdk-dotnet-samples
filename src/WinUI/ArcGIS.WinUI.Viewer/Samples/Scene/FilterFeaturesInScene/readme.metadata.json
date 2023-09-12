@@ -1,0 +1,34 @@
+{
+    "category": "Scene",
+    "description": "Filter 3D scene features out of a given geometry with a polygon filter.",
+    "formal_name": "FilterFeaturesInScene",
+    "ignore": false,
+    "images": [
+        "screenshot.png"
+    ],
+    "keywords": [
+        "3D",
+        "OSM",
+        "buildings",
+        "disjoint",
+        "exclude",
+        "extent",
+        "filter",
+        "hide",
+        "polygon"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/filterfeaturesinscene.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISSceneLayer",
+        "SceneLayerPolygonFilter",
+        "SceneLayerPolygonFilterSpatialRelationship"
+    ],
+    "snippets": [
+        "FilterFeaturesInScene.xaml.cs",
+        "FilterFeaturesInScene.xaml"
+    ],
+    "title": "Filter features in scene"
+}

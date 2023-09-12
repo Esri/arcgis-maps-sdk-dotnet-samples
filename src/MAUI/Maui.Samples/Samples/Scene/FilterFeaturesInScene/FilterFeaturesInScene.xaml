@@ -5,7 +5,7 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
         <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}" >
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Button x:Name="MyButton"
                     Clicked="MyButton_Click"
                     HorizontalOptions="CenterAndExpand" />

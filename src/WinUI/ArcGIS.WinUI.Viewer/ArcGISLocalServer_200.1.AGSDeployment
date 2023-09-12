@@ -4,11 +4,11 @@
   <!--This local server has support for ArcGIS Pro mpkx and gpkx packages. It is 64 bit only-->
   <Package id="Pro" name="ArcGIS Pro Compatible Server" enabled="false">
     <ChildPackages>
-      <!--Including Microsoft C and C++ libraries in the runtime deployment allows for XCopy style deployments.
+      <!--Including Microsoft C and C++ libraries in the runtime deployment allows for XCopy style deployments on Windows.
 Only include these if your setup is not installing the Microsoft redistribution package.-->
       <Package id="ProCRuntime" name="Microsoft C and C++ Runtime Libraries" enabled="false" />
       <!--Provides the ability to perform geoprocessing tasks via geoprocessing packages.-->
-      <!--Geoprocessing packages must be created with ArcGIS Maps SDK for Native Apps support enabled.-->
+      <!--Geoprocessing packages must be created with ArcGIS Runtime support enabled.-->
       <Package id="ProGeoProcessing" name="Geoprocessing" enabled="false">
         <ChildPackages>
           <!--Adds 3D Analyst geoprocessing tools.-->
@@ -33,8 +33,6 @@ Only include these if your setup is not installing the Microsoft redistribution 
           <!--Provides additional raster file data format support.-->
           <Package id="ProRaster" name="Raster" enabled="false">
             <ChildPackages>
-              <!--Provides support for ECW format Raster.-->
-              <Package id="ProECWRasters" name="ECW Rasters" enabled="false" />
               <!--Provides support for Raster Mosaic Layers.-->
               <Package id="ProMosaicRasters" name="Mosaic Rasters" enabled="false" />
             </ChildPackages>
@@ -45,9 +43,6 @@ Only include these if your setup is not installing the Microsoft redistribution 
           <!--SDE direct connect deployed. Specific database drivers also required.-->
           <Package id="ProSDE" name="SDE" enabled="false">
             <ChildPackages>
-              <!--Adds support for direct connect to geodatabases stored in Alitbase.-->
-              <!--Alitbase Drivers must be present on end users machine.-->
-              <Package id="ProAlitbase" name="Alitbase" enabled="false" />
               <!--Adds support for direct connect to geodatabases stored in Dameng.-->
               <!--Dameng Drivers must be present on end users machine.-->
               <Package id="ProDameng" name="Dameng" enabled="false" />

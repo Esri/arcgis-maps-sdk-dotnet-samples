@@ -32,7 +32,7 @@ This sample uses the [OpenStreetMap 3D Buildings](https://www.arcgis.com/home/it
 
 ## Additional information
 
-This sample uses `SceneLayerPolygonFilterSpatialRelationship.Disjoint` to hide all features within the extent of the given geometry. You can alternatively use the `SceneLayerPolygonFilterSpatialRelationship.Contains` enum to only show features within the extent of the geometry. 
+This sample uses `SceneLayerPolygonFilterSpatialRelationship.Disjoint` to hide all features within the extent of the given geometry. You can alternatively use the `SceneLayerPolygonFilterSpatialRelationship.Contains` enum to only show features within the extent of the geometry.
 
 You can also show or hide features in a scene layer using `ArcGISSceneLayer.SetFeatureVisible()` or `SetFeaturesVisible()` and pass in a feature or list of features and a boolean value to set their visibility.
 

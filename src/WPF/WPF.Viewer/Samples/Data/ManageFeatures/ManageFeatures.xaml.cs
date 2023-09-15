@@ -24,8 +24,8 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
         name: "Manage features",
         category: "Data",
         description: "Create, update, and delete features to manage a feature layer.",
-        instructions: "Pick an operation, then tap a location on the map to perform the operation at that location. Available feature management operations include \"Create feature\", \"Delete feature\", \"Update attribute\", and \"Update geometry\".",
-        tags: new[] { "amend", "attribute", "deletion", "details", "edit", "editing", "feature", "feature layer", "feature table", "information", "moving", "online service", "service", "updating", "value", "geodatabase", "create", "update", "delete" })]
+        instructions: "Pick an operation, then tap on the map to perform the operation at that location. Available feature management operations include: \"Create feature\", \"Delete feature\", \"Update attribute\", and \"Update geometry\".",
+        tags: new[] { "amend", "attribute", "create", "delete", "deletion", "details", "edit", "editing", "feature", "feature layer", "feature table", "geodatabase", "information", "moving", "online service", "service", "update", "updating", "value" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class ManageFeatures
     {
@@ -80,7 +80,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
                 var serviceGeodatabase = new ServiceGeodatabase(new Uri(FeatureServiceUrl));
                 await serviceGeodatabase.LoadAsync();
 
-                // Get the feature table from the service geodatabase, referring to the Damage Assessment feature service.
+                // Get the feature table from the service geodatabase referencing the Damage Assessment feature service.
                 // Creating the feature table from the feature service will cause the service geodatabase to be null.
                 _damageFeatureTable = serviceGeodatabase.GetTable(0);
 
@@ -133,7 +133,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
                 // Add the feature to the table.
                 await _damageFeatureTable.AddFeatureAsync(feature);
 
-                // Apply the edits to the service on the service geodatbase.
+                // Apply the edits to the service on the service geodatabase.
                 await _damageFeatureTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Update the feature to get the updated objectid - a temporary ID is used before the feature is added.
@@ -231,6 +231,7 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
                 if (identifyResult == null)
                 {
                     Instructions.Text = _instructions[2];
+                    DamageTypeChooser.Visibility = Visibility.Collapsed;
                     return;
                 }
 
@@ -381,8 +382,8 @@ namespace ArcGIS.WPF.Samples.ManageFeatures
             DamageTypeChooser.SelectedIndex = -1;
             MyMapView.DismissCallout();
 
-            // Store the ComboBox's selected item index.
-            int index = ((ComboBox)sender).SelectedIndex;
+            // Store the selected operation's item index.
+            int index = OperationChooser.SelectedIndex;
 
             // Update the label with the new instruction.
             Instructions.Text = _instructions[index];

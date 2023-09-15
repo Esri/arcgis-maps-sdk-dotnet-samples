@@ -16,7 +16,7 @@
                           IsEditable="False"
                           IsEnabled="True"
                           SelectionChanged="OperationChooser_SelectionChanged" />
-                <TextBlock x:Name="InstructionLabel"
+                <TextBlock x:Name="Instructions"
                            Padding="5"
                            TextWrapping="Wrap" />
                 <ComboBox x:Name="DamageTypeChooser"

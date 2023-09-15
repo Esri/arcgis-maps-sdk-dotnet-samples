@@ -22,7 +22,7 @@
 * [Generate geodatabase replica from feature service](ArcGIS.WinUI.Viewer/Samples/Data/GenerateGeodatabaseReplica) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](ArcGIS.WinUI.Viewer/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](ArcGIS.WinUI.Viewer/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
-* [Manage features](ArcGIS.WinUI.Viewer/Samples/Data/ManageFeatures) - Manage a feature layer's features in four distinct ways.
+* [Manage features](ArcGIS.WinUI.Viewer/Samples/Data/ManageFeatures) - Create, update, and delete features to manage a feature layer.
 * [Query features with Arcade expression](ArcGIS.WinUI.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
 * [Raster layer (GeoPackage)](ArcGIS.WinUI.Viewer/Samples/Data/RasterLayerGeoPackage) - Display a raster contained in a GeoPackage.
 * [Read GeoPackage](ArcGIS.WinUI.Viewer/Samples/Data/ReadGeoPackage) - Add rasters and feature tables from a GeoPackage to a map.

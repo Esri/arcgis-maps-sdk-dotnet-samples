@@ -143,7 +143,11 @@ namespace ArcGIS.Samples.ManageFeatures
                 IdentifyLayerResult identifyResult = await TrySelectFeature(e.Position);
 
                 // Do nothing if there are no results.
-                if (identifyResult == null) return;
+                if (identifyResult == null)
+                {
+                    DeleteButton.IsVisible = false;
+                    return;
+                }
 
                 // Otherwise, get the ID of the first result.
                 var featureId = (long)identifyResult.GeoElements[0].Attributes["objectid"];

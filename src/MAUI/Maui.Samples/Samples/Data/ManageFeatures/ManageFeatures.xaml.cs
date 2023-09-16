@@ -88,7 +88,7 @@ namespace ArcGIS.Samples.ManageFeatures
                 // Zoom to the United States.
                 _ = MyMapView.SetViewpointCenterAsync(new MapPoint(-10800000, 4500000, SpatialReferences.WebMercator), 3e7);
 
-                // Bind the list of method names to the ComboBox.
+                // Bind the list of method names to the Picker.
                 OperationPicker.ItemsSource = _methodList;
             }
             catch (Exception ex)
@@ -219,12 +219,12 @@ namespace ArcGIS.Samples.ManageFeatures
                 // Get the current value.
                 string currentAttributeValue = _selectedFeature.Attributes[AttributeFieldName].ToString();
 
-                // Update the ComboBox selection without triggering the event.
+                // Update the Picker selection without triggering the event.
                 DamageTypePicker.SelectedIndexChanged -= DamageType_Changed;
                 DamageTypePicker.SelectedItem = currentAttributeValue;
                 DamageTypePicker.SelectedIndexChanged += DamageType_Changed;
 
-                // Enable the ComboBox.
+                // Enable the Picker.
                 DamageTypePicker.IsVisible = true;
             }
             catch (Exception ex)
@@ -340,7 +340,7 @@ namespace ArcGIS.Samples.ManageFeatures
                 // Get the domain for the field.
                 var attributeDomain = (CodedValueDomain)typeDamageField.Domain;
 
-                // Update the ComboBox with the attribute values.
+                // Update the Picker with the attribute values.
                 DamageTypePicker.ItemsSource = attributeDomain.CodedValues.Select(codedValue => codedValue.Name).ToList();
             });
         }

@@ -8,7 +8,6 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout Padding="5" Spacing="5">
                 <Label FontAttributes="Bold"
-                       MinimumWidthRequest="200"
                        Text="Select a feature management operation:" />
                 <Picker x:Name="OperationPicker"
                         HorizontalOptions="Start"
@@ -18,8 +17,7 @@
                         WidthRequest="250" />
                 <Label x:Name="Instructions"
                        HorizontalOptions="Start"
-                       LineBreakMode="WordWrap"
-                       MaximumWidthRequest="250" />
+                       LineBreakMode="WordWrap" />
                 <Picker x:Name="DamageTypePicker"
                         HorizontalOptions="Start"
                         HorizontalTextAlignment="Center"

@@ -4,25 +4,19 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto">
+    <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border MinimumWidthRequest="400" Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5"
-                  RowDefinitions="auto,150"
-                  RowSpacing="5">
-                <Label Grid.Row="0"
-                       HorizontalTextAlignment="Center"
-                       Text="Select a WMS layer from the list for display:" />
-                <ListView x:Name="MyDisplayList"
-                          Grid.Row="1"
-                          ItemSelected="MyDisplayList_SelectionChanged">
+        <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="425">
+            <VerticalStackLayout>
+                <Label FontAttributes="Bold" Text="Select a WMS layer from the list for display:" />
+                <ListView x:Name="MyDisplayList" ItemSelected="MyDisplayList_SelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextCell Text="{Binding Name}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-            </Grid>
+            </VerticalStackLayout>
         </Border>
     </Grid>
 </ContentPage>

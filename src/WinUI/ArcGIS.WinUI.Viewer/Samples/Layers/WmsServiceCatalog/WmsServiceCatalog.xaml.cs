@@ -27,7 +27,7 @@ namespace ArcGIS.WinUI.Samples.WmsServiceCatalog
     {
         // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart.
         private readonly Uri _wmsUrl = new Uri(
-            "https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+            "https://nowcoast.noaa.gov/geoserver/observations/weather_radar/wms?SERVICE=WMS&REQUEST=GetCapabilities");
 
         // Hold a list of LayerDisplayVM; this is the ViewModel.
         private ObservableCollection<LayerDisplayVM> _viewModelList = new ObservableCollection<LayerDisplayVM>();
@@ -83,8 +83,9 @@ namespace ArcGIS.WinUI.Samples.WmsServiceCatalog
 
             // Get a list of selected LayerInfos.
             List<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info).ToList();
-			
-            // Only WMS layer infos without sub layers can be used to construct a WMS layer. Group layers that have sub layers must be excluded.
+
+            // Only WMS layer infos without sub layers can be used to construct a WMS layer.
+            // Group layers that have sub layers must be excluded.
             selectedLayers = selectedLayers.Where(info => info.LayerInfos.Count == 0).ToList();
 
             // Return if no layers selected.

@@ -45,7 +45,7 @@ namespace ArcGIS.WinUI.Samples.WmsServiceCatalog
             MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create the WMS Service.
-            WmsService service = new WmsService(_wmsUrl);
+            var service = new WmsService(_wmsUrl);
 
             try
             {
@@ -74,7 +74,7 @@ namespace ArcGIS.WinUI.Samples.WmsServiceCatalog
         }
 
         /// <summary>
-        /// Updates the map with the latest layer selection
+        /// Updates the map with the latest layer selection.
         /// </summary>
         private void UpdateMapDisplay(ObservableCollection<LayerDisplayVM> displayList)
         {
@@ -95,7 +95,7 @@ namespace ArcGIS.WinUI.Samples.WmsServiceCatalog
             }
 
             // Create a new WmsLayer from the selected layers.
-            WmsLayer myLayer = new WmsLayer(selectedLayers);
+            var myLayer = new WmsLayer(selectedLayers);
 
             // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(myLayer);
@@ -191,7 +191,7 @@ namespace ArcGIS.WinUI.Samples.WmsServiceCatalog
             foreach (WmsLayerInfo layer in root.Info.LayerInfos)
             {
                 // Create the view model for the sublayer.
-                LayerDisplayVM layerVM = new LayerDisplayVM(layer, root);
+                var layerVM = new LayerDisplayVM(layer, root);
 
                 // Add the sublayer to the root's sublayer collection.
                 root.Children.Add(layerVM);

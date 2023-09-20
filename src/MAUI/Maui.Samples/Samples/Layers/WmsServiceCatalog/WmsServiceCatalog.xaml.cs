@@ -42,7 +42,7 @@ namespace ArcGIS.Samples.WmsServiceCatalog
             MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create the WMS Service.
-            WmsService service = new WmsService(_wmsUrl);
+            var service = new WmsService(_wmsUrl);
 
             try
             {
@@ -92,7 +92,7 @@ namespace ArcGIS.Samples.WmsServiceCatalog
             }
 
             // Create a new WmsLayer from the selected layers.
-            WmsLayer myLayer = new WmsLayer(selectedLayers);
+            var myLayer = new WmsLayer(selectedLayers);
 
             try
             {
@@ -123,7 +123,7 @@ namespace ArcGIS.Samples.WmsServiceCatalog
             }
 
             // Hold a reference to the selected item.
-            LayerDisplayVM selectedItem = (LayerDisplayVM)e.SelectedItem;
+            var selectedItem = (LayerDisplayVM)e.SelectedItem;
 
             // Update the selection.
             selectedItem.Select();
@@ -197,7 +197,7 @@ namespace ArcGIS.Samples.WmsServiceCatalog
             foreach (WmsLayerInfo layer in root.Info.LayerInfos)
             {
                 // Create the view model for the sublayer.
-                LayerDisplayVM layerVM = new LayerDisplayVM(layer, root);
+                var layerVM = new LayerDisplayVM(layer, root);
 
                 // Add the sublayer to the root's sublayer collection.
                 root.Children.Add(layerVM);

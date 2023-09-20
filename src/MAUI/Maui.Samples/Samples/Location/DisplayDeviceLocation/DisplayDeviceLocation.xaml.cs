@@ -83,7 +83,7 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
             {
                 // Request access to device location.
                 // When deploying to Android, iOS, and MacCatalyst, a permission prompt may appear.
-                PermissionStatus status = await Permissions.CheckStatusAsync<Permissions.LocationWhenInUse>();
+                PermissionStatus status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
 
                 // Start the location display if access to device location has been authorized.
                 // Permission status will be restricted if the user approximates the device location.

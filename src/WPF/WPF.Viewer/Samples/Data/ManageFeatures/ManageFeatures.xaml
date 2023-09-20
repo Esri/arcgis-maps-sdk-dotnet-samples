@@ -6,14 +6,15 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{DynamicResource BorderStyle}">
             <StackPanel>
-                <Label Content="Select a feature management operation."
-                       FontWeight="SemiBold" />
-                <ComboBox x:Name="MethodPicker"
+                <Label Content="Select a feature management operation:" FontWeight="SemiBold" />
+                <ComboBox x:Name="OperationChooser"
+                          HorizontalContentAlignment="Center"
                           IsEditable="False"
                           IsEnabled="True"
-                          SelectionChanged="OnComboBoxSelectionChanged" />
-                <Label x:Name="InstructionLabel" />
-                <ComboBox x:Name="DamageTypeDropDown"
+                          SelectionChanged="OperationChooser_SelectionChanged" />
+                <TextBlock x:Name="Instructions" TextWrapping="Wrap" />
+                <ComboBox x:Name="DamageTypeChooser"
+                          HorizontalContentAlignment="Center"
                           Visibility="Collapsed" />
             </StackPanel>
         </Border>

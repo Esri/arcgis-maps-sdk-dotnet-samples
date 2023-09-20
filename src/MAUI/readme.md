@@ -22,7 +22,7 @@
 * [Generate geodatabase replica from feature service](Maui.Samples/Samples/Data/GenerateGeodatabaseReplica) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](Maui.Samples/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](Maui.Samples/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
-* [Manage features](Maui.Samples/Samples/Data/ManageFeatures) - Manage a feature layer's features in four distinct ways.
+* [Manage features](Maui.Samples/Samples/Data/ManageFeatures) - Create, update, and delete features to manage a feature layer.
 * [Query features with Arcade expression](Maui.Samples/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
 * [Raster layer (GeoPackage)](Maui.Samples/Samples/Data/RasterLayerGeoPackage) - Display a raster contained in a GeoPackage.
 * [Read GeoPackage](Maui.Samples/Samples/Data/ReadGeoPackage) - Add rasters and feature tables from a GeoPackage to a map.

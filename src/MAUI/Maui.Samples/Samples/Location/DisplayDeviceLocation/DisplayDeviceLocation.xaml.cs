@@ -87,13 +87,17 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
 
                 // Start the location display if access to device location has been authorized.
                 // Permission status will be restricted if the user approximates the device location.
-                MyMapView.LocationDisplay.IsEnabled =
-                    status == PermissionStatus.Granted || status == PermissionStatus.Restricted;
+                if (status == PermissionStatus.Granted || status == PermissionStatus.Restricted)
+                {
+                    await MyMapView.LocationDisplay.DataSource.StartAsync();
+                }
             }
             catch (Exception ex)
             {
+                // Note for MacCatalyst: while on ethernet, without an external GPS device connected,
+                // location will be unknown.
                 Debug.WriteLine(ex);
-                await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
+                await Application.Current.MainPage.DisplayAlert("Couldn't start location data source", ex.Message, "OK");
             }
         }
 

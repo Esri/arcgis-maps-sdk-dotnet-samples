@@ -10,10 +10,13 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Select a WMS layer from the list for display:" />
-                <ScrollViewer HorizontalScrollBarVisibility="Visible" HorizontalScrollMode="Enabled">
+                <TextBlock Grid.Row="0"
+                           FontWeight="Bold"
+                           Text="Select a WMS layer from the list for display:" />
+                <ScrollViewer Grid.Row="1"
+                              HorizontalScrollBarVisibility="Visible"
+                              HorizontalScrollMode="Enabled">
                     <ListBox x:Name="MyDisplayList"
-                             Grid.Row="1"
                              SelectionChanged="ListSelectionChanged"
                              SelectionMode="Single" />
                 </ScrollViewer>

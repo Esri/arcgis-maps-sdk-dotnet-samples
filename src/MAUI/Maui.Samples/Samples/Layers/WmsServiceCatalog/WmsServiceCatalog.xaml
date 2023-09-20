@@ -6,11 +6,12 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
+        <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="{OnPlatform WinUI=425}">
             <VerticalStackLayout>
                 <Label FontAttributes="Bold" Text="Select a WMS layer from the list for display:" />
                 <ListView x:Name="MyDisplayList"
-                          HeightRequest="200"
+                          HeightRequest="{OnPlatform iOS=200,
+                                                     MacCatalyst=200}"
                           ItemSelected="MyDisplayList_SelectionChanged">
                     <ListView.ItemTemplate>
                         <DataTemplate>

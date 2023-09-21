@@ -77,30 +77,6 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
             }
         }
 
-        private async Task DisplayDeviceLocationAsync()
-        {
-            try
-            {
-                // Request access to device location.
-                // When deploying to Android, iOS, and MacCatalyst, a permission prompt may appear.
-                PermissionStatus status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
-
-                // Start the location display if access to device location has been authorized.
-                // Permission status will be restricted if the user approximates the device location.
-                if (status == PermissionStatus.Granted || status == PermissionStatus.Restricted)
-                {
-                    await MyMapView.LocationDisplay.DataSource.StartAsync();
-                }
-            }
-            catch (Exception ex)
-            {
-                // Note for MacCatalyst: while on ethernet, without an external GPS device connected,
-                // location will be unknown.
-                Debug.WriteLine(ex);
-                await Application.Current.MainPage.DisplayAlert("Couldn't start location data source", ex.Message, "OK");
-            }
-        }
-
         private void AutoPanModePicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Change the auto pan mode based on the new selection.
@@ -109,21 +85,40 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
 
         private async void StartStopButton_Clicked(object sender, EventArgs e)
         {
-            // Enable or disable the location display.
-            if (MyMapView.LocationDisplay.IsEnabled)
+            try
             {
-                MyMapView.LocationDisplay.IsEnabled = false;
-            }
-            else
-            {
-                // Attempt to display device location on the map.
-                // Await before updating the button text to handle the case where the start button was pressed
-                // but location services weren't authorized.
-                await DisplayDeviceLocationAsync();
-            }
+                // Start or stop the location display data source.
+                if (MyMapView.LocationDisplay.IsEnabled)
+                {
+                    await MyMapView.LocationDisplay.DataSource.StopAsync();
+                }
+                else
+                {
+                    // Request access to device location.
+                    // When deploying to Android, iOS, and MacCatalyst, a permission prompt may appear.
+                    PermissionStatus status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
 
-            // Flip the button text if the LocationDisplay.IsEnabled property was changed.
-            StartStopButton.Text = MyMapView.LocationDisplay.IsEnabled ? "Stop" : "Start";
+                    // Start the location display if access to device location has been authorized.
+                    // Permission status will be restricted if the user approximates the device location.
+                    if (status == PermissionStatus.Granted || status == PermissionStatus.Restricted)
+                    {
+                        await MyMapView.LocationDisplay.DataSource.StartAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Note for MacCatalyst: while on ethernet, without an external GPS device connected,
+                // location will be unknown.
+                Debug.WriteLine(ex);
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+            finally
+            {
+                // Flip the button text if the LocationDisplay.IsEnabled property was changed.
+                // Button text won't change if start button was pressed but location access wasn't authorized.
+                StartStopButton.Text = MyMapView.LocationDisplay.IsEnabled ? "Stop" : "Start";
+            }
         }
 
         public void Dispose()

@@ -9,7 +9,10 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.Maui.ApplicationModel;
+using System.ComponentModel;
 using System.Diagnostics;
+using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 namespace ArcGIS.Samples.DisplayDeviceLocation
 {
@@ -39,33 +42,28 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
         private void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(BasemapStyle.ArcGISTopographic);
+            var myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Assign the map to the MapView.
             MyMapView.Map = myMap;
 
             // Populate the picker with different auto pan modes.
             AutoPanModePicker.ItemsSource = _autoPanModes.Keys.ToList();
+
+            // Keep listening to MapView property changed events until the location display has been initialized.
+            MyMapView.PropertyChanged += MyMapView_PropertyChanged;
         }
 
-        private async Task StartDeviceLocationTask()
+        private void MyMapView_PropertyChanged(object sender, PropertyChangedEventArgs e)
         {
-            try
+            // The map view's location display is initially null, so check for a location display property
+            // change before subscribing to auto pan mode change events.
+            if (e.PropertyName == nameof(LocationDisplay))
             {
-                // Check if location permission granted.
-                var status = Microsoft.Maui.ApplicationModel.PermissionStatus.Unknown;
-                status = await Microsoft.Maui.ApplicationModel.Permissions.CheckStatusAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
+                // Show in the UI that LocationDisplay.AutoPanMode is off by default.
+                AutoPanModePicker.SelectedItem = "AutoPan Off";
 
-                // Request location permission if not granted.
-                if (status != Microsoft.Maui.ApplicationModel.PermissionStatus.Granted)
-                {
-                    status = await Microsoft.Maui.ApplicationModel.Permissions.RequestAsync<Microsoft.Maui.ApplicationModel.Permissions.LocationWhenInUse>();
-                }
-
-                // Start the location display if permission is granted.
-                MyMapView.LocationDisplay.IsEnabled = status == Microsoft.Maui.ApplicationModel.PermissionStatus.Granted;
-
-                // Update the UI when the user pans the view, changing the location mode.
+                // Update the UI when the user pans the view, disabling the auto pan mode.
                 MyMapView.LocationDisplay.AutoPanModeChanged += (sender, args) =>
                 {
                     if (MyMapView.LocationDisplay.AutoPanMode == LocationDisplayAutoPanMode.Off)
@@ -73,11 +71,9 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
                         AutoPanModePicker.SelectedItem = "AutoPan Off";
                     }
                 };
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex);
-                await Application.Current.MainPage.DisplayAlert("Couldn't start location", ex.Message, "OK");
+
+                // No longer a need to listen for MapView property changes, just listen for auto pan mode changes.
+                MyMapView.PropertyChanged -= MyMapView_PropertyChanged;
             }
         }
 
@@ -87,18 +83,41 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
             MyMapView.LocationDisplay.AutoPanMode = _autoPanModes[AutoPanModePicker.SelectedItem.ToString()];
         }
 
-        private void StartStopButton_Clicked(object sender, EventArgs e)
+        private async void StartStopButton_Clicked(object sender, EventArgs e)
         {
-            // Enable or disable the location display.
-            if (MyMapView.LocationDisplay.IsEnabled)
+            try
             {
-                MyMapView.LocationDisplay.IsEnabled = false;
-                StartStopButton.Text = "Start";
+                // Start or stop the location display data source.
+                if (MyMapView.LocationDisplay.IsEnabled)
+                {
+                    await MyMapView.LocationDisplay.DataSource.StopAsync();
+                }
+                else
+                {
+                    // Request access to device location.
+                    // When deploying to Android, iOS, and MacCatalyst, a permission prompt may appear.
+                    PermissionStatus status = await Permissions.RequestAsync<Permissions.LocationWhenInUse>();
+
+                    // Start the location display if access to device location has been authorized.
+                    // Permission status will be restricted if the user approximates the device location.
+                    if (status == PermissionStatus.Granted || status == PermissionStatus.Restricted)
+                    {
+                        await MyMapView.LocationDisplay.DataSource.StartAsync();
+                    }
+                }
             }
-            else
+            catch (Exception ex)
             {
-                _ = StartDeviceLocationTask();
-                StartStopButton.Text = "Stop";
+                // Note for MacCatalyst: while on ethernet, without an external GPS device connected,
+                // location will be unknown.
+                Debug.WriteLine(ex);
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+            }
+            finally
+            {
+                // Flip the button text if the LocationDisplay.IsEnabled property was changed.
+                // Button text won't change if start button was pressed but location access wasn't authorized.
+                StartStopButton.Text = MyMapView.LocationDisplay.IsEnabled ? "Stop" : "Start";
             }
         }
 

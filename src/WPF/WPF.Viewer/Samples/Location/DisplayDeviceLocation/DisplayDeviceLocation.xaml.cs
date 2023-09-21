@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
+using System;
 using System.Collections.Generic;
 using System.Windows;
 
@@ -44,13 +45,16 @@ namespace ArcGIS.WPF.Samples.DisplayDeviceLocation
             Unloaded += SampleUnloaded;
 
             // Create new Map with basemap.
-            Map myMap = new Map(BasemapStyle.ArcGISImageryStandard);
+            var myMap = new Map(BasemapStyle.ArcGISImageryStandard);
 
             // Provide used Map to the MapView.
             MyMapView.Map = myMap;
 
             // Set navigation types as items source and set default value.
             AutoPanModeComboBox.ItemsSource = _autoPanModes.Keys;
+
+            // Show in the UI that LocationDisplay.AutoPanMode is off by default.
+            AutoPanModeComboBox.SelectedItem = "AutoPan Off";
 
             // Update the UI when the user pans the view, changing the location mode.
             MyMapView.LocationDisplay.AutoPanModeChanged += (sender, args) =>
@@ -68,12 +72,31 @@ namespace ArcGIS.WPF.Samples.DisplayDeviceLocation
             MyMapView.LocationDisplay.AutoPanMode = _autoPanModes[AutoPanModeComboBox.SelectedItem.ToString()];
         }
 
-        private void StartStopButton_Click(object sender, RoutedEventArgs e)
+        private async void StartStopButton_Click(object sender, RoutedEventArgs e)
         {
-            // Enable or disable the location display.
-            MyMapView.LocationDisplay.IsEnabled = !MyMapView.LocationDisplay.IsEnabled;
-
-            StartStopButton.Content = MyMapView.LocationDisplay.IsEnabled ? "Stop" : "Start";
+            // Try to start or stop the location display data source.
+            try
+            {
+                if (MyMapView.LocationDisplay.IsEnabled)
+                {
+                    await MyMapView.LocationDisplay.DataSource.StopAsync();
+                }
+                else
+                {
+                    await MyMapView.LocationDisplay.DataSource.StartAsync();
+                }
+            }
+            // An exception will be thrown on if location is turned off on your Windows device.
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error");
+            }
+            finally
+            {
+                // Flip the button text if the LocationDisplay.IsEnabled property was changed.
+                // Button text won't change if start button was pressed but location access wasn't authorized.
+                StartStopButton.Content = MyMapView.LocationDisplay.IsEnabled ? "Stop" : "Start";
+            }
         }
 
         private void SampleUnloaded(object sender, RoutedEventArgs e)

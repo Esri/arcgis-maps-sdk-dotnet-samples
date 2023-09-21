@@ -4,7 +4,7 @@
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
-        <Border Width="200" Style="{StaticResource BorderStyle}">
+        <Border Width="215" Style="{StaticResource BorderStyle}">
             <StackPanel Spacing="5">
                 <TextBlock Margin="0,0,0,5"
                            FontWeight="SemiBold"

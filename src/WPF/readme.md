@@ -219,6 +219,7 @@
 * [Change atmosphere effect](WPF.Viewer/Samples/Scene/ChangeAtmosphereEffect) - Changes the appearance of the atmosphere in a scene.
 * [Create terrain from local tile package](WPF.Viewer/Samples/Scene/CreateTerrainSurfaceTilePackage) - Set the terrain surface with elevation described by a local tile package.
 * [Create terrain surface from a local raster](WPF.Viewer/Samples/Scene/CreateTerrainSurfaceRaster) - Set the terrain surface with elevation described by a raster file.
+* [Filter features in scene](WPF.Viewer/Samples/Scene/FilterFeaturesInScene) - Filter 3D scene features out of a given geometry with a polygon filter.
 * [Get elevation at a point](WPF.Viewer/Samples/Scene/GetElevationAtPoint) - Get the elevation for a given point on a surface in a scene.
 * [Open mobile scene package](WPF.Viewer/Samples/Scene/OpenMobileScenePackage) - Opens and displays a scene from a Mobile Scene Package (.mspk).
 * [Open scene (portal item)](WPF.Viewer/Samples/Scene/OpenScenePortalItem) - Open a web scene from a portal item.

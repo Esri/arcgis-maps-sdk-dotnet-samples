@@ -28,18 +28,18 @@ namespace ArcGIS.WPF.Samples.WmsServiceCatalog
         tags: new[] { "OGC", "WMS", "catalog", "web map service" })]
     public partial class WmsServiceCatalog
     {
-        // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart
+        // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart.
         private readonly Uri _wmsUrl = new Uri(
-            "https://idpgis.ncep.noaa.gov/arcgis/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+            "https://nowcoast.noaa.gov/geoserver/observations/weather_radar/wms?SERVICE=WMS&REQUEST=GetCapabilities");
 
-        // Hold a list of LayerDisplayVM; this is the ViewModel
+        // Hold a list of LayerDisplayVM; this is the ViewModel.
         private readonly ObservableCollection<LayerDisplayVM> _viewModelList = new ObservableCollection<LayerDisplayVM>();
 
         public WmsServiceCatalog()
         {
             InitializeComponent();
 
-            // Execute initialization
+            // Execute initialization.
             _ = Initialize();
         }
 
@@ -49,7 +49,7 @@ namespace ArcGIS.WPF.Samples.WmsServiceCatalog
             MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Create the WMS Service.
-            WmsService service = new WmsService(_wmsUrl);
+            var service = new WmsService(_wmsUrl);
 
             try
             {
@@ -78,7 +78,7 @@ namespace ArcGIS.WPF.Samples.WmsServiceCatalog
         }
 
         /// <summary>
-        /// Updates the map with the latest layer selection
+        /// Updates the map with the latest layer selection.
         /// </summary>
         private void UpdateMapDisplay(ObservableCollection<LayerDisplayVM> displayList)
         {
@@ -87,8 +87,9 @@ namespace ArcGIS.WPF.Samples.WmsServiceCatalog
 
             // Get a list of selected LayerInfos.
             List<WmsLayerInfo> selectedLayers = displayList.Where(vm => vm.IsEnabled).Select(vm => vm.Info).ToList();
-			
-            // Only WMS layer infos without sub layers can be used to construct a WMS layer. Group layers that have sub layers must be excluded.
+
+            // Only WMS layer infos without sub layers can be used to construct a WMS layer.
+            // Group layers that have sub layers must be excluded.
             selectedLayers = selectedLayers.Where(info => info.LayerInfos.Count == 0).ToList();
 
             // Return if no layers are selected.
@@ -98,7 +99,7 @@ namespace ArcGIS.WPF.Samples.WmsServiceCatalog
             }
 
             // Create a new WmsLayer from the selected layers.
-            WmsLayer myLayer = new WmsLayer(selectedLayers);
+            var myLayer = new WmsLayer(selectedLayers);
 
             // Add the layer to the map.
             MyMapView.Map.OperationalLayers.Add(myLayer);
@@ -172,7 +173,7 @@ namespace ArcGIS.WPF.Samples.WmsServiceCatalog
             foreach (WmsLayerInfo layer in root.Info.LayerInfos)
             {
                 // Create the view model for the sublayer.
-                LayerDisplayVM layerVM = new LayerDisplayVM(layer, root);
+                var layerVM = new LayerDisplayVM(layer, root);
 
                 // Add the sublayer to the root's sublayer collection.
                 root.Children.Add(layerVM);

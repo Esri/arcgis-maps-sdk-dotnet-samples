@@ -7,14 +7,14 @@
     <RootNamespace>ArcGIS.WinUI.Viewer</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>x86;x64;ARM64</Platforms>
-    <RuntimeIdentifiers>win-x86;win-x64;win-arm64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
     <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
     <OutputPath>..\..\..\output\WinUI\$(Configuration)\$(Platform)\</OutputPath>
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <DefineConstants>$(DefineConstants);WinUI</DefineConstants>
-	<UseRidGraph>true</UseRidGraph>
+	  <UseRidGraph>true</UseRidGraph>
   </PropertyGroup>
 
   <ItemGroup>

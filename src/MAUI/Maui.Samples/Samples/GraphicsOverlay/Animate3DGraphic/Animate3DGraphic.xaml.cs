@@ -173,6 +173,9 @@ namespace ArcGIS.Samples.Animate3DGraphic
 
         private async Task ChangeMission(string mission)
         {
+            // Update mission title.
+            MissionTitle.Text = mission + " mission";
+
             // Stop animating the current mission
             _animationTimer = false;
 
@@ -195,11 +198,9 @@ namespace ArcGIS.Samples.Animate3DGraphic
             _frameCount = _missionData.Length;
             _keyframe = 0;
 
-            // Set the MissionPlayPause button back to the currently 'playing' state
-            MissionPlayPause.Text = "Pause";
-
-            // At the start of a new mission, follow the animated plane
-            FollowPlane(true);
+            // At the start of a new mission, play the animation, following the plane
+            PlaySwitch.IsToggled = true;
+            FollowSwitch.IsToggled = true;
             _animationTimer = true;
         }
 
@@ -286,32 +287,10 @@ namespace ArcGIS.Samples.Animate3DGraphic
             return DataManager.GetDataFolder("681d6f7694644709a7c830ec57a2d72b", "Bristol.dae");
         }
 
-        private void MissionPlayPlauseClick(object sender, EventArgs e)
-        {
-            // Get a reference to the button that sent the event
-            Button playButton = (Button)sender;
-
-            // Get the text of the button
-            string playtext = playButton.Text;
-
-            switch (playtext)
-            {
-                // Resume the animation
-                case "Play":
-                    playButton.Text = "Pause";
-                    _animationTimer = true;
-                    break;
-                // Stop the animation
-                case "Pause":
-                    playButton.Text = "Play";
-                    _animationTimer = false;
-                    break;
-            }
-        }
-
         private void MissionProgressOnSeek(object sender, EventArgs e)
         {
-            // Stop the animation
+            // Stop the animation if necessary
+            bool shouldRestart = _animationTimer;
             _animationTimer = false;
 
             // Get a reference to the slider that sent the event
@@ -323,34 +302,20 @@ namespace ArcGIS.Samples.Animate3DGraphic
             // Update the keyframe based on the progress
             _keyframe = (int)(missionProgress * _frameCount);
 
-            // Set the MissionPlayPause button back to the currently 'playing' state
-            MissionPlayPause.Text = "Pause";
-
             // Restart the animation
-            _animationTimer = true;
+            _animationTimer = shouldRestart;
         }
 
-        private void ToggleFollowPlane(object sender, EventArgs e)
+        private void FollowSwitch_Toggled(object sender, ToggledEventArgs e)
         {
-            // Get the current text of the button
-            FollowPlane(CameraControlButton.Text == "Follow");
+            // Setting the scene view's camera controller to null has the effect of resetting the value to the default
+            MySceneView.CameraController = FollowSwitch.IsToggled ? _orbitCameraController : null;
         }
 
-        private void FollowPlane(bool follow)
+        private void PlaySwitch_Toggled(object sender, ToggledEventArgs e)
         {
-            if (follow)
-            {
-                CameraControlButton.Text = "Don't follow";
-                MySceneView.CameraController = _orbitCameraController;
-            }
-            else
-            {
-                // Stop following
-                CameraControlButton.Text = "Follow";
-
-                // Setting the scene view's camera controller to null has the effect of resetting the value to the default
-                MySceneView.CameraController = null;
-            }
+            // Stop or play the animation
+            _animationTimer = PlaySwitch.IsToggled;
         }
 
         /// <summary>

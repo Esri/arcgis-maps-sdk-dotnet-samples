@@ -34,5 +34,6 @@
     <PackageVersion Include="Microsoft.Maui.Controls" Version="8.0.0-rc.1.9171" />
     <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.0-rc.1.9171" />
     <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.6.1.3"/>
+	<PackageVersion Include="Microsoft.Maui.Controls.Foldable" Version="7.0.58" />
   </ItemGroup>
 </Project>

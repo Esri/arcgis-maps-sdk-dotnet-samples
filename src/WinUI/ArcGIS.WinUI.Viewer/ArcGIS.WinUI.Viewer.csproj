@@ -14,7 +14,7 @@
     <UseWinUI>true</UseWinUI>
     <EnableMsixTooling>true</EnableMsixTooling>
     <DefineConstants>$(DefineConstants);WinUI</DefineConstants>
-	  <UseRidGraph>true</UseRidGraph>
+    <UseRidGraph>true</UseRidGraph>
   </PropertyGroup>
 
   <ItemGroup>

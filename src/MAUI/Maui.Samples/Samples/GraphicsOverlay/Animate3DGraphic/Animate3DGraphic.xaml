@@ -3,50 +3,43 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto">
+    <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
         <esriUI:SceneView x:Name="MySceneView"
                           AtmosphereEffect="Realistic"
                           Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="{OnPlatform MacCatalyst=375, WinUI=375}">
-            <StackLayout>
-                <StackLayout Orientation="Horizontal" Spacing="5">
-                    <Picker x:Name="MissionSelectionBox"
-                            HorizontalTextAlignment="Center"
-                            WidthRequest="150" />
-                    <Button x:Name="MissionPlayPause"
-                            Clicked="MissionPlayPlauseClick"
-                            Text="Pause"
-                            WidthRequest="75" />
-                    <Button x:Name="CameraControlButton"
-                            Clicked="ToggleFollowPlane"
-                            Text="Don't Follow"
-                            WidthRequest="110" />
-                </StackLayout>
-                <Label Text="Mission Progress:" />
-                <Slider x:Name="MissionProgressBar"
-                        Maximum="100"
-                        ValueChanged="MissionProgressOnSeek"
-                        WidthRequest="350" />
-                <Grid ColumnDefinitions="100,*">
-                    <StackLayout Orientation="Vertical">
-                        <Label>Altitude:</Label>
-                        <Label x:Name="AltitudeLabel" />
-                        <Label>Heading:</Label>
-                        <Label x:Name="HeadingLabel" />
-                        <Label>Pitch:</Label>
-                        <Label x:Name="PitchLabel" />
-                        <Label>Roll:</Label>
-                        <Label x:Name="RollLabel" />
-                    </StackLayout>
+        <Border x:Name="ControlPanel" HeightRequest="300" Style="{DynamicResource EsriSampleControlPanel}">
+            <ScrollView>
+                <StackLayout Margin="5"
+                             Padding="5"
+                             Spacing="5">
+                    <Label FontAttributes="Bold" Text="Select mission:" />
+                    <Picker x:Name="MissionSelectionBox" HorizontalTextAlignment="Center" />
+                    <Label FontAttributes="Bold" Text="Animate mission:" />
+                    <Switch x:Name="PlaySwitch"
+                            HorizontalOptions="Start"
+                            Toggled="PlaySwitch_Toggled" />
+                    <Label FontAttributes="Bold" Text="Follow plane:" />
+                    <Switch x:Name="FollowSwitch"
+                            HorizontalOptions="Start"
+                            Toggled="FollowSwitch_Toggled" />
+                    <Label FontAttributes="Bold" Text="Mission Progress:" />
+                    <Slider x:Name="MissionProgressBar"
+                            Maximum="100"
+                            ValueChanged="MissionProgressBar_ValueChanged" />
+                    <Label FontAttributes="Bold" Text="Altitude:" />
+                    <Label x:Name="AltitudeLabel" />
+                    <Label FontAttributes="Bold" Text="Heading:" />
+                    <Label x:Name="HeadingLabel" />
+                    <Label FontAttributes="Bold" Text="Pitch:" />
+                    <Label x:Name="PitchLabel" />
+                    <Label FontAttributes="Bold" Text="Roll:" />
+                    <Label x:Name="RollLabel" />
                     <esriUI:MapView x:Name="InsetMapView"
-                                    Grid.Column="1"
-                                    HeightRequest="150"
-                                    HorizontalOptions="End"
-                                    IsAttributionTextVisible="False"
-                                    VerticalOptions="Start"
-                                    WidthRequest="150" />
-                </Grid>
-            </StackLayout>
+                                    HeightRequest="200"
+                                    WidthRequest="300"
+                                    IsAttributionTextVisible="False" />
+                </StackLayout>
+            </ScrollView>
         </Border>
     </Grid>
 </ContentPage>

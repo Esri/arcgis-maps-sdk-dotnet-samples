@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <TargetFrameworks>net6.0-windows10.0.19041.0;net472</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
@@ -15,6 +15,7 @@
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
     <RuntimeIdentifiers>win10-x64;win10-x86;win10-arm64</RuntimeIdentifiers>
     <Platforms>AnyCPU;x64;x86;ARM64</Platforms>
+    <Platform Condition="'$(Configuration)'=='AnyCPU' AND '$(TargetFramework)'=='net472'">AnyCPU</Platform>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <DefineConstants>$(DefineConstants);TRACE;NET_CORE_3</DefineConstants>
     <NoWarn>1701;1702;CA1416</NoWarn>
@@ -66,6 +67,11 @@
     <PackageReference Include="Esri.ArcGISRuntime.WPF" />
     <PackageReference Include="Markdig" />
     <PackageReference Include="System.Speech" />
+  </ItemGroup>
+  <ItemGroup Condition="'$([MSBuild]::GetTargetFrameworkIdentifier($(TargetFramework)))'=='.NETFramework'">
+    <PackageReference Include="System.Text.Json" />
+    <Reference Include="System.Security"/>
+    <Reference Include="System.IO.Compression" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Converters\*.cs">

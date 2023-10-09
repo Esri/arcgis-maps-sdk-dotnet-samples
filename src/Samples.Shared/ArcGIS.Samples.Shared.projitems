@@ -22,9 +22,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\SearchableTreeNode.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\FeaturedSamples.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Resources\" />
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Resources\*.xml" />
   </ItemGroup>
 </Project>

@@ -15,10 +15,10 @@
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
     <RuntimeIdentifiers>win10-x64;win10-x86;win10-arm64</RuntimeIdentifiers>
     <Platforms>AnyCPU;x64;x86;ARM64</Platforms>
-    <Platform Condition="'$(Configuration)'=='AnyCPU' AND '$(TargetFramework)'=='net472'">AnyCPU</Platform>
     <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <DefineConstants>$(DefineConstants);TRACE;NET_CORE_3</DefineConstants>
     <NoWarn>1701;1702;CA1416</NoWarn>
+    <PlatformTarget Condition="'$(TargetFramework)'=='net472'">AnyCPU</PlatformTarget>
   </PropertyGroup>
 
   <ItemGroup>

@@ -14,9 +14,17 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Open PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: |
-            if ! git diff --quiet wbohr/sync-branch-test; then
-              echo "Git diff detected."
+            if ! git diff --quiet v.next; then
+              gh pr create \
+                --title "GitHub Action test" \
+                --body "This PR confirms that the action is working. This PR should be closed." \
+                --head "wbohr/sync-branch-test" \
+                --base "main"
+              echo "Diff detected, pull request opened."
             else
-              echo "No git diff detected."
+              echo "No diff detected."
             fi
+            

@@ -68,7 +68,7 @@
     <PackageReference Include="Markdig" />
     <PackageReference Include="System.Speech" />
   </ItemGroup>
-  <ItemGroup Condition="'$([MSBuild]::GetTargetFrameworkIdentifier($(TargetFramework)))'=='.NETFramework'">
+  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
     <PackageReference Include="System.Text.Json" />
     <Reference Include="System.Security"/>
     <Reference Include="System.IO.Compression" />

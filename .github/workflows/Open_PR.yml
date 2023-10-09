@@ -15,7 +15,7 @@ jobs:
         
       - name: Open PR
         run: |
-            if ! git diff --quiet v.next; then
+            if ! git diff --quiet wbohr/sync-branch-test; then
               echo "Git diff detected."
             else
               echo "No git diff detected."

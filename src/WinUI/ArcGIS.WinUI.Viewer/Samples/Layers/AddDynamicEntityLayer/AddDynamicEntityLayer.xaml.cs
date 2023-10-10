@@ -168,7 +168,6 @@ namespace ArcGIS.WinUI.Samples.AddDynamicEntityLayer
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
         {
-
             MyMapView.DismissCallout();
             if (e.Location is null) return;
             IdentifyLayerResult result;

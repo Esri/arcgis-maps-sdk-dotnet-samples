@@ -1,0 +1,30 @@
+name: Sync v.next with main
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync_branches:
+    runs-on: ubuntu-latest
+    steps:
+    
+      - name: Checkout code
+        uses: actions/checkout@v2
+        
+      - name: Open PR
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: |
+            if ! git diff --quiet v.next; then
+              gh pr create \
+                --title "[Automated] Sync v.next with main" \
+                --body "This PR was automaticaly opened to update v.next with the latest changes from main." \
+                --head "main" \
+                --base "v.next"
+              echo "Diff detected, pull request opened."
+            else
+              echo "No diff detected."
+            fi
+            

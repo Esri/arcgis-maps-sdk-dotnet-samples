@@ -22,8 +22,12 @@ jobs:
                 --title "[Automated] Sync v.next with main" \
                 --body "This PR was automaticaly opened to update v.next with the latest changes from main." \
                 --head "main" \
-                --base "v.next"
-              echo "Diff detected, pull request opened."
+                --base "v.next" || PR_ALREADY_OPEN=$?
+              if [ -n "$PR_ALREADY_OPEN" ]; then
+                echo "A PR is already open. Accounted for latest changes from main."
+              else
+                echo "Diff detected, PR opened."
+              fi
             else
               echo "No diff detected."
             fi

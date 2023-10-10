@@ -30,7 +30,7 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
     public partial class AddCustomDynamicEntityDataSource
     {
         // Path to AIS Traffic Data json file.
-        private readonly string _localJsonFile = DataManager.GetDataFolder("a8a942c228af4fac96baa78ad60f511f", "AIS_MarineCadastre_SelectedVessels_CustomDataSource.json");
+        private readonly string _localJsonFile = DataManager.GetDataFolder("a8a942c228af4fac96baa78ad60f511f", "AIS_MarineCadastre_SelectedVessels_CustomDataSource.jsonl");
 
         public AddCustomDynamicEntityDataSource()
         {

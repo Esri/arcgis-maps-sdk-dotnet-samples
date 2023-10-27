@@ -1,6 +1,6 @@
 {
     "category": "Data",
-    "description": "Manage a feature layer's features in four distinct ways.",
+    "description": "Create, update, and delete features to manage a feature layer.",
     "formal_name": "ManageFeatures",
     "ignore": false,
     "images": [
@@ -9,6 +9,8 @@
     "keywords": [
         "amend",
         "attribute",
+        "create",
+        "delete",
         "deletion",
         "details",
         "edit",
@@ -16,10 +18,12 @@
         "feature",
         "feature layer",
         "feature table",
+        "geodatabase",
         "information",
         "moving",
         "online service",
         "service",
+        "update",
         "updating",
         "value"
     ],

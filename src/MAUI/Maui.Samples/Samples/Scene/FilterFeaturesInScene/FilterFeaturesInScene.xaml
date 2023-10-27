@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.FilterFeaturesInScene.FilterFeaturesInScene"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
+        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Button x:Name="MyButton"
+                    Clicked="MyButton_Click"
+                    HorizontalOptions="CenterAndExpand" />
+        </Border>
+    </Grid>
+</ContentPage>

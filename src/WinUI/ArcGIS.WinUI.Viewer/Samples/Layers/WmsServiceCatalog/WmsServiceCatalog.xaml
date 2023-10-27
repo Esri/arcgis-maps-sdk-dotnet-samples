@@ -10,12 +10,16 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="Select a WMS layer from the list for display:" />
-                <!--  This is a workaround until a proper TreeView is a available for all supported UWP platforms.  -->
-                <ListBox x:Name="MyDisplayList"
-                         Grid.Row="1"
-                         SelectionChanged="ListSelectionChanged"
-                         SelectionMode="Single" />
+                <TextBlock Grid.Row="0"
+                           FontWeight="Bold"
+                           Text="Select a WMS layer from the list for display:" />
+                <ScrollViewer Grid.Row="1"
+                              HorizontalScrollBarVisibility="Visible"
+                              HorizontalScrollMode="Enabled">
+                    <ListBox x:Name="MyDisplayList"
+                             SelectionChanged="ListSelectionChanged"
+                             SelectionMode="Single" />
+                </ScrollViewer>
             </Grid>
         </Border>
     </Grid>

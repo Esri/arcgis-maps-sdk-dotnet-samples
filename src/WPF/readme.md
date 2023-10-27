@@ -22,7 +22,7 @@
 * [Generate geodatabase replica from feature service](WPF.Viewer/Samples/Data/GenerateGeodatabaseReplica) - Generate a local geodatabase from an online feature service.
 * [Geodatabase transactions](WPF.Viewer/Samples/Data/GeodatabaseTransactions) - Use transactions to manage how changes are committed to a geodatabase.
 * [List related features](WPF.Viewer/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
-* [Manage features](WPF.Viewer/Samples/Data/ManageFeatures) - Manage a feature layer's features in four distinct ways.
+* [Manage features](WPF.Viewer/Samples/Data/ManageFeatures) - Create, update, and delete features to manage a feature layer.
 * [Query features with Arcade expression](WPF.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
 * [Raster layer (GeoPackage)](WPF.Viewer/Samples/Data/RasterLayerGeoPackage) - Display a raster contained in a GeoPackage.
 * [Read GeoPackage](WPF.Viewer/Samples/Data/ReadGeoPackage) - Add rasters and feature tables from a GeoPackage to a map.
@@ -40,6 +40,7 @@
 * [Clip geometry](WPF.Viewer/Samples/Geometry/ClipGeometry) - Clip a geometry with another geometry.
 * [Convex hull](WPF.Viewer/Samples/Geometry/ConvexHull) - Create a convex hull for a given set of points. The convex hull is a polygon with shortest perimeter that encloses a set of points. As a visual analogy, consider a set of points as nails in a board. The convex hull of the points would be like a rubber band stretched around the outermost nails.
 * [Convex hull list](WPF.Viewer/Samples/Geometry/ConvexHullList) - Generate convex hull polygon(s) from multiple input geometries.
+* [Create and edit geometries](WPF.Viewer/Samples/Geometry/CreateAndEditGeometries) - Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.
 * [Create geometries](WPF.Viewer/Samples/Geometry/CreateGeometries) - Create simple geometry types.
 * [Cut geometry](WPF.Viewer/Samples/Geometry/CutGeometry) - Cut a geometry along a polyline.
 * [Densify and generalize](WPF.Viewer/Samples/Geometry/DensifyAndGeneralize) - A multipart geometry can be densified by adding interpolated points at regular intervals. Generalizing multipart geometry simplifies it while preserving its general shape. Densifying a multipart geometry adds more vertices at regular intervals.
@@ -63,7 +64,6 @@
 * [Add graphics with renderer](WPF.Viewer/Samples/GraphicsOverlay/AddGraphicsRenderer) - A renderer allows you to change the style of all graphics in a graphics overlay by referencing a single symbol style. A renderer will only affect graphics that do not specify their own symbol style.
 * [Add graphics with symbols](WPF.Viewer/Samples/GraphicsOverlay/AddGraphicsWithSymbols) - Use a symbol style to display a graphic on a graphics overlay.
 * [Animate 3D graphic](WPF.Viewer/Samples/GraphicsOverlay/Animate3DGraphic) - An `OrbitGeoElementCameraController` follows a graphic while the graphic's position and rotation are animated.
-* [Create and edit geometries](WPF.Viewer/Samples/GraphicsOverlay/CreateAndEditGeometries) - Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.
 * [Dictionary renderer with graphics overlay](WPF.Viewer/Samples/GraphicsOverlay/DictionaryRendererGraphicsOverlay) - Create graphics from an XML file with key-value pairs for each graphic, and display the military symbols using a MIL-STD-2525D web style in 2D.
 * [Identify graphics](WPF.Viewer/Samples/GraphicsOverlay/IdentifyGraphics) - Display an alert message when a graphic is clicked.
 * [Scene properties expressions](WPF.Viewer/Samples/GraphicsOverlay/ScenePropertiesExpressions) - Update the orientation of a graphic using expressions based on its attributes.
@@ -219,6 +219,7 @@
 * [Change atmosphere effect](WPF.Viewer/Samples/Scene/ChangeAtmosphereEffect) - Changes the appearance of the atmosphere in a scene.
 * [Create terrain from local tile package](WPF.Viewer/Samples/Scene/CreateTerrainSurfaceTilePackage) - Set the terrain surface with elevation described by a local tile package.
 * [Create terrain surface from a local raster](WPF.Viewer/Samples/Scene/CreateTerrainSurfaceRaster) - Set the terrain surface with elevation described by a raster file.
+* [Filter features in scene](WPF.Viewer/Samples/Scene/FilterFeaturesInScene) - Filter 3D scene features out of a given geometry with a polygon filter.
 * [Get elevation at a point](WPF.Viewer/Samples/Scene/GetElevationAtPoint) - Get the elevation for a given point on a surface in a scene.
 * [Open mobile scene package](WPF.Viewer/Samples/Scene/OpenMobileScenePackage) - Opens and displays a scene from a Mobile Scene Package (.mspk).
 * [Open scene (portal item)](WPF.Viewer/Samples/Scene/OpenScenePortalItem) - Open a web scene from a portal item.

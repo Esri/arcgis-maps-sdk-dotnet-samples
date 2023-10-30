@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: main
-          fetch-depth: 0
+          fetch-depth: 2
 
       # Cherry-pick the most recent commit from main into v.next.
       - name: Cherry-pick from main into v.next
@@ -34,7 +34,7 @@ jobs:
           SYNC_BRANCH="sync/$COMMIT_HASH"
 
           # Pull v.next and branch off with the cherry-picked commit.
-          git fetch origin v.next 
+          git fetch --depth=2 origin v.next 
           git switch v.next
           git branch $SYNC_BRANCH
           git switch $SYNC_BRANCH

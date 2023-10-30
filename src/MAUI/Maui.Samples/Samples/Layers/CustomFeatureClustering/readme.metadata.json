@@ -1,0 +1,19 @@
+{
+    "category": "Layers",
+    "description": "Add custom feature clustering to a web map or point feature layer to aggregate points into clusters.",
+    "formal_name": "CustomFeatureClustering",
+    "ignore": false,
+    "images": [
+        "customfeatureclustering.jpg"
+    ],
+    "keywords": [
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/CustomFeatureClustering.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Custom feature clustering"
+}

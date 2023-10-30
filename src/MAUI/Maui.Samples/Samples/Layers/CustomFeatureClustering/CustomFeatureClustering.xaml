@@ -1,0 +1,116 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.CustomFeatureClustering.CustomFeatureClustering"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriTK="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
+        <esriUI:MapView x:Name="MyMapView"
+                        GeoViewTapped="MyMapView_GeoViewTapped"
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <VerticalStackLayout>
+                <Picker x:Name="ClusteringPicker"
+                        SelectedIndexChanged="ClusteringPicker_SelectedIndexChanged"
+                        VerticalOptions="Center" />
+                <HorizontalStackLayout>
+                    <Label Text="Enable feature clustering" VerticalOptions="Center" />
+                    <CheckBox x:Name="EnableClusteringCheckBox"
+                              CheckedChanged="EnableClusteringCheckBox_CheckedChanged"
+                              IsChecked="false"
+                              VerticalOptions="Center" />
+                </HorizontalStackLayout>
+                <Grid x:Name="CustomFeatureClusteringOptions"
+                      Grid.RowDefinitions="auto,auto,auto,auto,auto,auto"
+                      IsVisible="false">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="140" />
+                        <ColumnDefinition Width="{OnPlatform Default=*, iOS=150}" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           BindingContext="{x:Reference RadiusSlider}"
+                           Text="{Binding Value, StringFormat='Radius: {0:F0}'}"
+                           VerticalOptions="Center" />
+                    <Slider x:Name="RadiusSlider"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Maximum="200"
+                            Minimum="60"
+                            ValueChanged="UpdateClusteringProperties"
+                            VerticalOptions="Center" />
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           BindingContext="{x:Reference MinSymbolSizeSlider}"
+                           Text="{Binding Value, StringFormat='MinSymbolSize: {0:F0}'}"
+                           VerticalOptions="Center" />
+                    <Slider x:Name="MinSymbolSizeSlider"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Maximum="120"
+                            Minimum="0"
+                            ValueChanged="UpdateClusteringProperties"
+                            VerticalOptions="Center" />
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           BindingContext="{x:Reference MaxSymbolSizeSlider}"
+                           Text="{Binding Value, StringFormat='MaxSymbolSize: {0:F0}'}"
+                           VerticalOptions="Center" />
+                    <Slider x:Name="MaxSymbolSizeSlider"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Maximum="120"
+                            Minimum="0"
+                            ValueChanged="UpdateClusteringProperties"
+                            VerticalOptions="Center" />
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           BindingContext="{x:Reference MaxScaleSlider}"
+                           Text="{Binding Value, StringFormat='MaxScale: {0:F0}'}"
+                           VerticalOptions="Center" />
+                    <Slider x:Name="MaxScaleSlider"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Maximum="150000"
+                            Minimum="0"
+                            ValueChanged="UpdateClusteringProperties"
+                            VerticalOptions="Center" />
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           Text="Display Labels" />
+                    <CheckBox x:Name="DisplayLabelsCheckBox"
+                              Grid.Row="4"
+                              Grid.Column="1"
+                              CheckedChanged="DisplayLabelsCheckBox_CheckedChanged"
+                              IsChecked="false"
+                              VerticalOptions="Center" />
+                    <Label Grid.Row="5"
+                           Grid.Column="0"
+                           Text="Enable Popups" />
+                    <CheckBox x:Name="EnablePopupsCheckBox"
+                              Grid.Row="5"
+                              Grid.Column="1"
+                              CheckedChanged="EnablePopupsCheckBox_CheckedChanged"
+                              IsChecked="false"
+                              VerticalOptions="Center" />
+                </Grid>
+                <Label BindingContext="{x:Reference MyMapView}" Text="{Binding Path=MapScale, Mode=OneWay, StringFormat='Current map scale: {0:n0}'}" />
+            </VerticalStackLayout>
+        </Border>
+        <Grid x:Name="PopupBackground"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
+              Background="#AA333333"
+              IsVisible="false">
+            <Border Background="{AppThemeBinding Light=#dfdfdf,
+                                                 Dark=#303030}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                <esriTK:PopupViewer x:Name="PopupViewer"
+                                    Margin="5"
+                                    Padding="5"
+                                    HeightRequest="250"
+                                    WidthRequest="350" />
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

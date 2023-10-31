@@ -14,6 +14,7 @@
 			<Sample>AddCustomDynamicEntityDataSource</Sample>
 			<Sample>AddDynamicEntityLayer</Sample>
 			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>
+      <Sample>CustomFeatureClustering</Sample>
 			<Sample>DisplayPointsUsingClusteringFeatureReduction</Sample>
 			<Sample>DisplayRouteLayer</Sample>
 		</Category>

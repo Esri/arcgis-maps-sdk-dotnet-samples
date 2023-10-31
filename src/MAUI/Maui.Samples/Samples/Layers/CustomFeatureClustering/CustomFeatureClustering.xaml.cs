@@ -24,11 +24,10 @@ namespace ArcGIS.Samples.CustomFeatureClustering
         "Layers",
         "Add custom feature clustering to a web map or point feature layer to aggregate points into clusters.",
         "")]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData("576b21169b1f40eb9e4e8b27defcb94c")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("b6a9b95b86ad4e97b3fe4429f45576f0")]
     public partial class CustomFeatureClustering
     {
-        private FeatureLayer _webMapLayer;
-        private FeatureReduction _honoredWebMapFeatureReduction;
+        private FeatureLayer _layer;
         private ClusteringFeatureReduction _customClusteringFeatureReduction;
 
         public CustomFeatureClustering()
@@ -40,21 +39,15 @@ namespace ArcGIS.Samples.CustomFeatureClustering
         private async Task Initialize()
         {
             var portal = await ArcGISPortal.CreateAsync();
-            PortalItem portalItem = await PortalItem.CreateAsync(portal, "576b21169b1f40eb9e4e8b27defcb94c");
+            PortalItem portalItem = await PortalItem.CreateAsync(portal, "b6a9b95b86ad4e97b3fe4429f45576f0");
 
             MyMapView.Map = new Map(portalItem);
 
+            await MyMapView.SetViewpointAsync(new Viewpoint(47.3786, 8.5342, 80000));
+
             await MyMapView.Map.LoadAsync();
 
-            _webMapLayer = MyMapView.Map.OperationalLayers.First() as FeatureLayer;
-
-            await _webMapLayer.FeatureTable.LoadAsync();
-
-            _webMapLayer.FeatureReduction.IsEnabled = false;
-            _honoredWebMapFeatureReduction = _webMapLayer.FeatureReduction;
-
-            ClusteringPicker.ItemsSource = new List<string> { "Honor web map clustering", "Custom feature clustering" };
-            ClusteringPicker.SelectedIndex = 0;
+            _layer = MyMapView.Map.OperationalLayers.First() as FeatureLayer;
 
             // Hide and nullify an opened popup when user taps screen.
             PopupBackground.GestureRecognizers.Add(new TapGestureRecognizer
@@ -69,53 +62,41 @@ namespace ArcGIS.Samples.CustomFeatureClustering
 
         private void CreateCustomFeatureReduction()
         {
+            // Define a class breaks renderer to apply to the custom feature reduction.
             ClassBreaksRenderer classBreaksRenderer = new ClassBreaksRenderer();
-            classBreaksRenderer.FieldName = "Max_Residential_Buildings";
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("1 to 10", "1 to 10", 1, 10, new SimpleMarkerSymbol() { Size = 10, Color = System.Drawing.Color.Yellow }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("10 to 20", "10 to 20", 10, 20, new SimpleMarkerSymbol() { Size = 20, Color = System.Drawing.Color.Orange }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("20 to 30", "20 to 30", 20, 30, new SimpleMarkerSymbol() { Size = 30, Color = System.Drawing.Color.Red }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("30 to 40", "30 to 40", 30, 40, new SimpleMarkerSymbol() { Size = 40, Color = System.Drawing.Color.Maroon }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("40 to 50", "40 to 50", 40, 50, new SimpleMarkerSymbol() { Size = 50, Color = System.Drawing.Color.MediumPurple }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("50 to 60", "50 to 60", 50, 60, new SimpleMarkerSymbol() { Size = 60, Color = System.Drawing.Color.Purple }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("60 to 70", "60 to 70", 60, 70, new SimpleMarkerSymbol() { Size = 70, Color = System.Drawing.Color.Blue }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("70 to 80", "70 to 80", 70, 80, new SimpleMarkerSymbol() { Size = 80, Color = System.Drawing.Color.Green }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("80 to 90", "80 to 90", 80, 90, new SimpleMarkerSymbol() { Size = 90, Color = System.Drawing.Color.Tan }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("90 to 100", "90 to 100", 90, 200, new SimpleMarkerSymbol() { Size = 100, Color = System.Drawing.Color.Magenta }));
 
-            classBreaksRenderer.DefaultSymbol = new SimpleMarkerSymbol() { Size = 30, Color = System.Drawing.Color.Pink };
+            // Define the field to use for the renderer. Note that this field name must match the field name given to an included AggregateField.
+            classBreaksRenderer.FieldName = "Building Height (Mode)";
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("0", "0", 0.0, 1.0, new SimpleMarkerSymbol() { Size = 10, Color = System.Drawing.Color.FromArgb(4, 251, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("1", "1", 1.0, 2.0, new SimpleMarkerSymbol() { Size = 20, Color = System.Drawing.Color.FromArgb(44, 211, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("2", "2", 2.0, 3.0, new SimpleMarkerSymbol() { Size = 30, Color = System.Drawing.Color.FromArgb(74, 181, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("3", "3", 3.0, 4.0, new SimpleMarkerSymbol() { Size = 40, Color = System.Drawing.Color.FromArgb(120, 135, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("4", "4", 4.0, 5.0, new SimpleMarkerSymbol() { Size = 50, Color = System.Drawing.Color.FromArgb(165, 90, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("5", "5", 5.0, 6.0, new SimpleMarkerSymbol() { Size = 60, Color = System.Drawing.Color.FromArgb(194, 61, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("6", "6", 6.0, 7.0, new SimpleMarkerSymbol() { Size = 70, Color = System.Drawing.Color.FromArgb(224, 31, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("7", "7", 7.0, 8.0, new SimpleMarkerSymbol() { Size = 80, Color = System.Drawing.Color.FromArgb(254, 1, 255) }));
+
+            classBreaksRenderer.DefaultSymbol = new SimpleMarkerSymbol() { Color = System.Drawing.Color.Pink };
             _customClusteringFeatureReduction = new ClusteringFeatureReduction(classBreaksRenderer);
-            _customClusteringFeatureReduction.AggregateFields.Add(new AggregateField("Max_Residential_Buildings", "Residential_Buildings", AggregateStatisticType.Max));
-            _customClusteringFeatureReduction.AggregateFields.Add(new AggregateField("Most_common_number_of_storeys", "Most_common_number_of_storeys", AggregateStatisticType.Mode));
-            _customClusteringFeatureReduction.IsEnabled = false;
+            _customClusteringFeatureReduction.AggregateFields.Add(new AggregateField("Residential Buildings (Sum)", "Residential_Buildings", AggregateStatisticType.Sum));
+            _customClusteringFeatureReduction.AggregateFields.Add(new AggregateField("Building Height (Mode)", "Most_common_number_of_storeys", AggregateStatisticType.Mode));
+            _customClusteringFeatureReduction.IsEnabled = true;
+
+            // Set the popup definition for the custom feature reduction.
             _customClusteringFeatureReduction.PopupDefinition = PopupDefinition.FromPopupSource(_customClusteringFeatureReduction);
+
+            // Default values for Max and Min symbol size are 70 and 12 respectively.
+            _customClusteringFeatureReduction.MinSymbolSize = 30;
+            _customClusteringFeatureReduction.MaxSymbolSize = 50;
+
+            // Set the feature reduction for the layer.
+            _layer.FeatureReduction = _customClusteringFeatureReduction;
+
+            // Set initial radius slider values.
+            RadiusSlider.Value = _customClusteringFeatureReduction.Radius;
         }
 
         #region EventHandlers
-        private void ClusteringPicker_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            string clusteringOption = (string)ClusteringPicker.SelectedItem;
-            switch (clusteringOption)
-            {
-                case "Custom feature clustering":
-
-                    if (_customClusteringFeatureReduction == null)
-                    {
-                        CreateCustomFeatureReduction();
-                    }
-
-                    _webMapLayer.FeatureReduction = _customClusteringFeatureReduction;
-                    MyMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
-                    break;
-                default:
-                    _webMapLayer.FeatureReduction = _honoredWebMapFeatureReduction;
-                    MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
-                    break;
-            }
-
-            EnableClusteringCheckBox.IsChecked = false;
-            CustomFeatureClusteringOptions.IsVisible = false;
-        }
-
         private void DisplayLabelsCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             if (DisplayLabelsCheckBox.IsChecked)
@@ -133,36 +114,31 @@ namespace ArcGIS.Samples.CustomFeatureClustering
             
         }
 
-        private void EnableClusteringCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            _webMapLayer.FeatureReduction.IsEnabled = EnableClusteringCheckBox.IsChecked;
-            CustomFeatureClusteringOptions.IsVisible = ClusteringPicker.SelectedIndex != 0;
-        }
-
         private void UpdateClusteringProperties(object sender, EventArgs e)
         {
-            ((ClusteringFeatureReduction)_webMapLayer.FeatureReduction).Radius = RadiusSlider.Value;
-            ((ClusteringFeatureReduction)_webMapLayer.FeatureReduction).MaxSymbolSize = MaxSymbolSizeSlider.Value;
-            ((ClusteringFeatureReduction)_webMapLayer.FeatureReduction).MinSymbolSize = MinSymbolSizeSlider.Value;
-            ((ClusteringFeatureReduction)_webMapLayer.FeatureReduction).MaxScale = MaxScaleSlider.Value;
-        }
-
-        private void EnablePopupsCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
-        {
-            ((ClusteringFeatureReduction)_webMapLayer.FeatureReduction).IsPopupEnabled = EnablePopupsCheckBox.IsChecked;
+            ((ClusteringFeatureReduction)_layer.FeatureReduction).Radius = RadiusSlider.Value;
+            ((ClusteringFeatureReduction)_layer.FeatureReduction).MaxScale = MaxScaleSlider.Value;
         }
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             // Identify the tapped observation.
-            IdentifyLayerResult results = await MyMapView.IdentifyLayerAsync(MyMapView.Map.OperationalLayers.First(), e.Position, 3, true);
+            IdentifyLayerResult result = await MyMapView.IdentifyLayerAsync(MyMapView.Map.OperationalLayers.First(), e.Position, 3, true);
 
             // Return if no observations were found.
-            if (results.Popups.Count == 0) return;
+            if (result.Popups.Count == 0) return;
 
             // Set the popup and make it visible.
-            PopupViewer.Popup = results.Popups.FirstOrDefault();
+            PopupViewer.Popup = result.Popups.FirstOrDefault();
             PopupBackground.IsVisible = true;
+        }
+
+        private void DrawClustersButton_Clicked(object sender, EventArgs e)
+        {
+            CreateCustomFeatureReduction();
+            CustomFeatureClusteringOptions.IsVisible = true;
+            MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+            DrawClustersButton.IsVisible = false;
         }
         #endregion
     }

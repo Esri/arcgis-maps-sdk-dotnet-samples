@@ -26,11 +26,11 @@
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.1.0" />
     <PackageVersion Include="WinUIEx" Version="1.8.0" />
     <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.5.1.1" />
-    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.2.221116.1" Condition="'$(UseMaui)'!='true'" />
+    <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.4.231008000" Condition="'$(UseMaui)'!='true'" />
     <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.755" Condition="'$(UseMaui)'!='true'" />
-    <PackageVersion Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.13"/>
-    <PackageVersion Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="6.1.1"/>
-    <PackageVersion Include="Microsoft.UI.Xaml" Version="2.5.0"/>
-    <PackageVersion Include="Monaco.Editor" Version="0.8.1-alpha"/>
+    <PackageVersion Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.13" />
+    <PackageVersion Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="6.1.1" />
+    <PackageVersion Include="Microsoft.UI.Xaml" Version="2.5.0" />
+    <PackageVersion Include="Monaco.Editor" Version="0.8.1-alpha" />
   </ItemGroup>
 </Project>

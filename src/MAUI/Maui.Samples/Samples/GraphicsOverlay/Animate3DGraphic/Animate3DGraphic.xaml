@@ -5,7 +5,7 @@
              xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:foldable="clr-namespace:Microsoft.Maui.Controls.Foldable;assembly=Microsoft.Maui.Controls.Foldable">
 
-    <foldable:TwoPaneView MinWideModeWidth="{OnIdiom Phone=400, Tablet=400, Desktop=900}" Pane1Length="{OnIdiom Phone=300, Default=400}">
+    <foldable:TwoPaneView MinWideModeWidth="{OnIdiom Phone=400, Tablet=900, Desktop=900}" Pane1Length="{OnIdiom Phone=300, Default=400}">
 
         <foldable:TwoPaneView.Pane1>
             <Border Margin="5"

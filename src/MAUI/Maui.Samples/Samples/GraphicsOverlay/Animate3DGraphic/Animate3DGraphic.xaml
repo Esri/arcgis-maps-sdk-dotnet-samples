@@ -5,16 +5,16 @@
              xmlns:esri="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:foldable="clr-namespace:Microsoft.Maui.Controls.Foldable;assembly=Microsoft.Maui.Controls.Foldable">
 
-    <foldable:TwoPaneView Pane1Length="{OnPlatform WinUI=400}"
-                          WideModeConfiguration="SinglePane"
-                          TallModeConfiguration="SinglePane">
+    <foldable:TwoPaneView MinWideModeWidth="{OnIdiom Phone=400, Tablet=400, Desktop=900}" Pane1Length="{OnIdiom Phone=300, Default=400}">
 
         <foldable:TwoPaneView.Pane1>
-            <Border>
+            <Border Margin="5"
+                    Padding="5"
+                    BackgroundColor="{AppThemeBinding Light=#dfdfdf,
+                                                      Dark=#303030}"
+                    StrokeThickness="0">
                 <ScrollView>
-                    <StackLayout Margin="5"
-                                 Padding="5"
-                                 Spacing="10">
+                    <StackLayout Spacing="10">
                         <Label x:Name="MissionTitle"
                                FontAttributes="Bold"
                                FontSize="Large" />
@@ -25,9 +25,13 @@
                                 Maximum="100"
                                 ValueChanged="MissionProgressOnSeek" />
                         <Label FontAttributes="Bold" Text="Play mission:" />
-                        <Switch x:Name="PlaySwitch" Toggled="PlaySwitch_Toggled" />
+                        <Switch x:Name="PlaySwitch"
+                                HorizontalOptions="Start"
+                                Toggled="PlaySwitch_Toggled" />
                         <Label FontAttributes="Bold" Text="Follow plane:" />
-                        <Switch x:Name="FollowSwitch" Toggled="FollowSwitch_Toggled" />
+                        <Switch x:Name="FollowSwitch"
+                                HorizontalOptions="Start"
+                                Toggled="FollowSwitch_Toggled" />
                         <Label FontAttributes="Bold">Altitude:</Label>
                         <Label x:Name="AltitudeLabel" />
                         <Label FontAttributes="Bold">Heading:</Label>
@@ -37,7 +41,8 @@
                         <Label FontAttributes="Bold">Roll:</Label>
                         <Label x:Name="RollLabel" />
                         <esri:MapView x:Name="InsetMapView"
-                                      HeightRequest="325"
+                                      HeightRequest="{OnIdiom Phone=200,
+                                                              Default=400}"
                                       IsAttributionTextVisible="False" />
                     </StackLayout>
                 </ScrollView>

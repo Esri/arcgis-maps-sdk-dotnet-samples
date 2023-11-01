@@ -8,11 +8,7 @@
     <foldable:TwoPaneView MinWideModeWidth="{OnIdiom Phone=400, Default=900}" Pane1Length="{OnIdiom Phone=300, Default=400}">
 
         <foldable:TwoPaneView.Pane1>
-            <Border Margin="5"
-                    Padding="5"
-                    BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                      Dark=#303030}"
-                    StrokeThickness="0">
+            <Border Style="{DynamicResource EsriSampleBorder}">
                 <ScrollView>
                     <StackLayout Spacing="10">
                         <Label x:Name="MissionTitle"

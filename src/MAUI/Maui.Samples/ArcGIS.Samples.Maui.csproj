@@ -143,7 +143,7 @@
     <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="Microsoft.Maui.Controls"/>
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility"/>
-	<PackageReference Include="Microsoft.Maui.Controls.Foldable"/>	  
+    <PackageReference Include="Microsoft.Maui.Controls.Foldable"/>	  
   </ItemGroup>
 
   <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->

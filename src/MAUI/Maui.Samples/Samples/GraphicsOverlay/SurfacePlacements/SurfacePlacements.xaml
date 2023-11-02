@@ -2,32 +2,45 @@
 <ContentPage x:Class="ArcGIS.Samples.SurfacePlacements.SurfacePlacements"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto">
-        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5"
-                  RowDefinitions="auto,auto,auto,auto"
-                  RowSpacing="5">
-                <Button x:Name="BillboardedButton"
-                        Grid.Row="0"
-                        Clicked="BillboardedClicked"
-                        IsEnabled="False"
-                        Text="Draped Billboarded" />
-                <Button x:Name="FlatButton"
-                        Grid.Row="1"
-                        Clicked="FlatClicked"
-                        Text="Draped Flat" />
-                <Slider x:Name="ZSlider"
-                        Grid.Row="2"
-                        Maximum="140"
-                        Minimum="0"
-                        ValueChanged="ZSlider_ValueChanged"
-                        Value="70" />
-                <Label x:Name="ValueLabel"
-                       Grid.Row="3"
-                       Text="Z Value: 70 meters" />
-            </Grid>
-        </Border>
-    </Grid>
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:foldable="clr-namespace:Microsoft.Maui.Controls.Foldable;assembly=Microsoft.Maui.Controls.Foldable">
+
+    <foldable:TwoPaneView MinWideModeWidth="{OnIdiom Phone=400, Default=99999}"
+                          Pane1Length="auto"
+                          Pane2Length="*">
+
+        <foldable:TwoPaneView.Pane1>
+            <Border Style="{DynamicResource EsriSampleBorder}">
+                <FlexLayout Wrap="Wrap">
+                    <Button x:Name="BillboardedButton"
+                            Margin="5,5,5,5"
+                            Clicked="BillboardedClicked"
+                            IsEnabled="False"
+                            MinimumWidthRequest="200"
+                            Text="Draped Billboarded" />
+                    <Button x:Name="FlatButton"
+                            Margin="5,5,5,5"
+                            Clicked="FlatClicked"
+                            MinimumWidthRequest="200"
+                            Text="Draped Flat" />
+                    <Slider x:Name="ZSlider"
+                            Margin="5,5,5,5"
+                            Maximum="140"
+                            WidthRequest="200"
+                            Minimum="0"
+                            MinimumWidthRequest="200"
+                            ValueChanged="ZSlider_ValueChanged"
+                            Value="70" />
+                    <Label x:Name="ValueLabel"
+                           Margin="5,5,5,5"
+                           Text="Z Value: 70 meters" />
+                </FlexLayout>
+            </Border>
+        </foldable:TwoPaneView.Pane1>
+
+        <foldable:TwoPaneView.Pane2>
+            <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        </foldable:TwoPaneView.Pane2>
+
+    </foldable:TwoPaneView>
 </ContentPage>

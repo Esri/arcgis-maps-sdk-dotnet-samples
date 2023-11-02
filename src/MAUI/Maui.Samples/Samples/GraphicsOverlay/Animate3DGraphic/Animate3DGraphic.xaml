@@ -28,17 +28,40 @@
                         <Switch x:Name="FollowSwitch"
                                 HorizontalOptions="Start"
                                 Toggled="FollowSwitch_Toggled" />
-                        <Label FontAttributes="Bold">Altitude:</Label>
-                        <Label x:Name="AltitudeLabel" />
-                        <Label FontAttributes="Bold">Heading:</Label>
-                        <Label x:Name="HeadingLabel" />
-                        <Label FontAttributes="Bold">Pitch:</Label>
-                        <Label x:Name="PitchLabel" />
-                        <Label FontAttributes="Bold">Roll:</Label>
-                        <Label x:Name="RollLabel" />
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span FontAttributes="Bold" Text="Altitude: " />
+                                    <Span x:Name="AltitudeLabel" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span FontAttributes="Bold" Text="Heading: " />
+                                    <Span x:Name="HeadingLabel" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span FontAttributes="Bold" Text="Pitch: " />
+                                    <Span x:Name="PitchLabel" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
+                        <Label>
+                            <Label.FormattedText>
+                                <FormattedString>
+                                    <Span FontAttributes="Bold" Text="Roll: " />
+                                    <Span x:Name="RollLabel" />
+                                </FormattedString>
+                            </Label.FormattedText>
+                        </Label>
                         <esri:MapView x:Name="InsetMapView"
-                                      HeightRequest="{OnIdiom Phone=200,
-                                                              Default=400}"
+                                      HeightRequest="200"
                                       IsAttributionTextVisible="False" />
                     </StackLayout>
                 </ScrollView>

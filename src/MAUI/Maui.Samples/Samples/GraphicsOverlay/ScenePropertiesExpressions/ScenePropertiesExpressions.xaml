@@ -14,11 +14,13 @@
                     <Label Text="Heading:" VerticalTextAlignment="Center" />
                     <Slider x:Name="HeadingSlider"
                             Maximum="360"
-                            Minimum="0" />
+                            Minimum="0"
+                            MinimumWidthRequest="250" />
                     <Label Text="Pitch:" VerticalTextAlignment="Center" />
                     <Slider x:Name="PitchSlider"
                             Maximum="90"
-                            Minimum="-90" />
+                            Minimum="-90"
+                            MinimumWidthRequest="250" />
                 </StackLayout>
             </Border>
         </foldable:TwoPaneView.Pane1>

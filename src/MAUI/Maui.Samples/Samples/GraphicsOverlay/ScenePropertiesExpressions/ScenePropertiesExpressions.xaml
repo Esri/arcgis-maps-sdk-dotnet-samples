@@ -3,33 +3,34 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:foldable="clr-namespace:Microsoft.Maui.Controls.Foldable;assembly=Microsoft.Maui.Controls.Foldable"
              xmlns:resources="clr-namespace:ArcGIS.Resources">
-    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto">
-        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid ColumnDefinitions="auto,*"
-                  ColumnSpacing="5"
-                  RowDefinitions="auto,auto"
-                  RowSpacing="5">
-                <Label Grid.Row="0"
-                       Grid.Column="0"
-                       Text="Heading:"
-                       VerticalTextAlignment="Center" />
-                <Slider x:Name="HeadingSlider"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Maximum="360"
-                        Minimum="0" />
-                <Label Grid.Row="1"
-                       Grid.Column="0"
-                       Text="Pitch:"
-                       VerticalTextAlignment="Center" />
-                <Slider x:Name="PitchSlider"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Maximum="90"
-                        Minimum="-90" />
-            </Grid>
-        </Border>
-    </Grid>
+
+    <foldable:TwoPaneView MinWideModeWidth="{OnIdiom Phone=400, Default=99999}" Pane1Length="auto">
+
+        <foldable:TwoPaneView.Pane1>
+            <Border Style="{DynamicResource EsriSampleBorder}">
+                <FlexLayout Wrap="Wrap">
+                    <Label Margin="5,5,5,5" Text="Heading:" />
+                    <Slider x:Name="HeadingSlider"
+                            Margin="5,5,5,5"
+                            Maximum="360"
+                            Minimum="0"
+                            WidthRequest="250" />
+                    <Label Margin="5,5,5,5" Text="Pitch:" />
+                    <Slider x:Name="PitchSlider"
+                            Margin="5,5,5,5"
+                            Maximum="90"
+                            Minimum="-90"
+                            WidthRequest="250" />
+                </FlexLayout>
+            </Border>
+        </foldable:TwoPaneView.Pane1>
+
+        <foldable:TwoPaneView.Pane2>
+            <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        </foldable:TwoPaneView.Pane2>
+
+    </foldable:TwoPaneView>
+
 </ContentPage>

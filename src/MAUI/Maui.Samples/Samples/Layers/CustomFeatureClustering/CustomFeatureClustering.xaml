@@ -11,7 +11,7 @@
                         Clicked="DrawClustersButton_Clicked"
                         Text="Draw clusters" />
                 <VerticalStackLayout x:Name="CustomFeatureClusteringOptions" IsVisible="False">
-                    <Label Margin="0,5"
+                    <Label Margin="0,0,0,10"
                            FontSize="Small"
                            Text="Clustering properties" />
                     <Grid Grid.RowDefinitions="auto,auto,auto,auto">
@@ -21,19 +21,22 @@
                         </Grid.ColumnDefinitions>
                         <Label Grid.Row="0"
                                Grid.Column="0"
-                               Text="Display Labels" />
+                               Text="Display Labels"
+                               VerticalOptions="Center" />
                         <CheckBox x:Name="DisplayLabelsCheckBox"
                                   Grid.Row="0"
                                   Grid.Column="1"
+                                  Background="Transparent"
                                   CheckedChanged="DisplayLabelsCheckBox_CheckedChanged"
+                                  HorizontalOptions="Start"
                                   IsChecked="false"
                                   VerticalOptions="Center" />
                         <Label Grid.Row="1"
                                Grid.Column="0"
-                               BindingContext="{x:Reference RadiusSlider}"
-                               Text="{Binding Value, StringFormat='Radius: {0:F0}'}"
+                               BindingContext="{x:Reference ClusterRadiusSlider}"
+                               Text="{Binding Value, StringFormat='Cluster radius: {0:F0}'}"
                                VerticalOptions="Center" />
-                        <Slider x:Name="RadiusSlider"
+                        <Slider x:Name="ClusterRadiusSlider"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 Maximum="85"

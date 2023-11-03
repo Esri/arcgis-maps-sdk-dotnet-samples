@@ -20,15 +20,16 @@ using Map = Esri.ArcGISRuntime.Mapping.Map;
 namespace ArcGIS.Samples.CustomFeatureClustering
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Custom feature clustering",
-        "Layers",
-        "Add custom feature clustering to a web map or point feature layer to aggregate points into clusters.",
-        "")]
+        name: "Custom feature clustering",
+        category: "Layers",
+        description: "Add client side custom feature reduction to a web map that does not have an existing defined feature reduction.",
+        instructions: "Tap the draw clusters button to enable clustering on the feature layer. Interact with the clustering properties to change the cluster radius, max scale and to enable cluster labels. Tap the map to see the cluster feature count and aggregate fields in the popup.",
+        tags: new[] { "aggregate", "bin", "cluster", "group", "merge", "normalize", "popupviewer", "reduce", "renderer", "summarize" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("b6a9b95b86ad4e97b3fe4429f45576f0")]
     public partial class CustomFeatureClustering
     {
         private FeatureLayer _layer;
-        private ClusteringFeatureReduction _customClusteringFeatureReduction;
+        private ClusteringFeatureReduction _clusteringFeatureReduction;
 
         public CustomFeatureClustering()
         {
@@ -38,16 +39,19 @@ namespace ArcGIS.Samples.CustomFeatureClustering
 
         private async Task Initialize()
         {
+            // Get the Zurich buildings web map from the default portal.
             var portal = await ArcGISPortal.CreateAsync();
             PortalItem portalItem = await PortalItem.CreateAsync(portal, "b6a9b95b86ad4e97b3fe4429f45576f0");
 
+            // Create a new map from the web map.
             MyMapView.Map = new Map(portalItem);
 
-            await MyMapView.SetViewpointAsync(new Viewpoint(47.3786, 8.5342, 80000));
-
+            // Get the Zurich buildings feature layer once the map has finished loading.
             await MyMapView.Map.LoadAsync();
+            _layer = (FeatureLayer)MyMapView.Map.OperationalLayers.First();
 
-            _layer = MyMapView.Map.OperationalLayers.First() as FeatureLayer;
+            // Set the initial viewpoint to Zurich, Switzerland.
+            await MyMapView.SetViewpointAsync(new Viewpoint(47.38, 8.53, 8e4));
 
             // Hide and nullify an opened popup when user taps screen.
             PopupBackground.GestureRecognizers.Add(new TapGestureRecognizer
@@ -62,38 +66,57 @@ namespace ArcGIS.Samples.CustomFeatureClustering
 
         private void CreateCustomFeatureReduction()
         {
-            // Define a class breaks renderer to apply to the custom feature reduction.
+            // Create a class breaks renderer to apply to the custom feature reduction.
             ClassBreaksRenderer classBreaksRenderer = new ClassBreaksRenderer();
 
-            // Define the field to use for the renderer. Note that this field name must match the field name given to an included AggregateField.
-            classBreaksRenderer.FieldName = "Building Height (Mode)";
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("0", "0", 0.0, 1.0, new SimpleMarkerSymbol() { Size = 10, Color = System.Drawing.Color.FromArgb(4, 251, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("1", "1", 1.0, 2.0, new SimpleMarkerSymbol() { Size = 20, Color = System.Drawing.Color.FromArgb(44, 211, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("2", "2", 2.0, 3.0, new SimpleMarkerSymbol() { Size = 30, Color = System.Drawing.Color.FromArgb(74, 181, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("3", "3", 3.0, 4.0, new SimpleMarkerSymbol() { Size = 40, Color = System.Drawing.Color.FromArgb(120, 135, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("4", "4", 4.0, 5.0, new SimpleMarkerSymbol() { Size = 50, Color = System.Drawing.Color.FromArgb(165, 90, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("5", "5", 5.0, 6.0, new SimpleMarkerSymbol() { Size = 60, Color = System.Drawing.Color.FromArgb(194, 61, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("6", "6", 6.0, 7.0, new SimpleMarkerSymbol() { Size = 70, Color = System.Drawing.Color.FromArgb(224, 31, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("7", "7", 7.0, 8.0, new SimpleMarkerSymbol() { Size = 80, Color = System.Drawing.Color.FromArgb(254, 1, 255) }));
+            // Define the field to use for the class breaks renderer.
+            // Note that this field name must match the name of an aggregate field contained in the clustering feature reduction's aggregate fields property. .
+            classBreaksRenderer.FieldName = "Average Building Height";
 
+            // Add a class break for each intended value range and define a symbol to display for features in that range.
+            // In this case, the average building height ranges from 0 to 8 storeys. For each cluster of features with a given average building height, a symbol is defined with a specified color.
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("0", "0", 0.0, 1.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(4, 251, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("1", "1", 1.0, 2.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(44, 211, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("2", "2", 2.0, 3.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(74, 181, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("3", "3", 3.0, 4.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(120, 135, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("4", "4", 4.0, 5.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(165, 90, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("5", "5", 5.0, 6.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(194, 61, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("6", "6", 6.0, 7.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(224, 31, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("7", "7", 7.0, 8.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(254, 1, 255) }));
+
+            // Define a default symbol to use for features that do not fall within any of the ranges defined by the class breaks.
             classBreaksRenderer.DefaultSymbol = new SimpleMarkerSymbol() { Color = System.Drawing.Color.Pink };
-            _customClusteringFeatureReduction = new ClusteringFeatureReduction(classBreaksRenderer);
-            _customClusteringFeatureReduction.AggregateFields.Add(new AggregateField("Residential Buildings (Sum)", "Residential_Buildings", AggregateStatisticType.Sum));
-            _customClusteringFeatureReduction.AggregateFields.Add(new AggregateField("Building Height (Mode)", "Most_common_number_of_storeys", AggregateStatisticType.Mode));
-            _customClusteringFeatureReduction.IsEnabled = true;
+            
+            // Create a new clustering feature reduction using the class breaks renderer.
+            _clusteringFeatureReduction = new ClusteringFeatureReduction(classBreaksRenderer);
+
+            // Set the feature reduction's aggregate fields. Note that the field names must match the names of fields in the feature layer's dataset.
+            // The aggregate fields summarize values based on the defined aggregate statistic type.
+            _clusteringFeatureReduction.AggregateFields.Add(new AggregateField("Total Residential Buildings", "Residential_Buildings", AggregateStatisticType.Sum));
+            _clusteringFeatureReduction.AggregateFields.Add(new AggregateField("Average Building Height", "Most_common_number_of_storeys", AggregateStatisticType.Mode));
+            
+            // Enable the feature reduction.
+            _clusteringFeatureReduction.IsEnabled = true;
 
             // Set the popup definition for the custom feature reduction.
-            _customClusteringFeatureReduction.PopupDefinition = PopupDefinition.FromPopupSource(_customClusteringFeatureReduction);
+            _clusteringFeatureReduction.PopupDefinition = PopupDefinition.FromPopupSource(_clusteringFeatureReduction);
 
-            // Default values for Max and Min symbol size are 70 and 12 respectively.
-            _customClusteringFeatureReduction.MinSymbolSize = 30;
-            _customClusteringFeatureReduction.MaxSymbolSize = 50;
+            // Set values for the feature reduction's cluster minimum and maximum symbol sizes.
+            // Note that the default values for Max and Min symbol size are 70 and 12 respectively.
+            _clusteringFeatureReduction.MinSymbolSize = 5;
+            _clusteringFeatureReduction.MaxSymbolSize = 90;
 
             // Set the feature reduction for the layer.
-            _layer.FeatureReduction = _customClusteringFeatureReduction;
+            _layer.FeatureReduction = _clusteringFeatureReduction;
 
-            // Set initial radius slider values.
-            RadiusSlider.Value = _customClusteringFeatureReduction.Radius;
+            // Set initial slider values.
+            // Note that the default value for cluster radius is 60.
+            // Increasing the cluster radius increases the number of features that are grouped together into a cluster.
+            ClusterRadiusSlider.Value = _clusteringFeatureReduction.Radius;
+
+            // Note that the default value for max scale is 0.
+            // The max scale value is the maximum scale at which clustering is applied.
+            MaxScaleSlider.Value = _clusteringFeatureReduction.MaxScale;
         }
 
         #region EventHandlers
@@ -101,22 +124,25 @@ namespace ArcGIS.Samples.CustomFeatureClustering
         {
             if (DisplayLabelsCheckBox.IsChecked)
             {
-                var expr = new SimpleLabelExpression("[cluster_count]");
-                var labelSymbol = new TextSymbol() { Color = System.Drawing.Color.Black, Size = 15d, FontWeight = Esri.ArcGISRuntime.Symbology.FontWeight.Bold };
-                var labelDef = new LabelDefinition(expr, labelSymbol) { Placement = LabelingPlacement.PointCenterCenter };
+                // Create a label definition with a simple label expression.
+                var simpleLabelExpression = new SimpleLabelExpression("[cluster_count]");
+                var textSymbol = new TextSymbol() { Color = System.Drawing.Color.Black, Size = 15d, FontWeight = Esri.ArcGISRuntime.Symbology.FontWeight.Bold };
+                var labelDefinition = new LabelDefinition(simpleLabelExpression, textSymbol) { Placement = LabelingPlacement.PointCenterCenter };
 
-                _customClusteringFeatureReduction.LabelDefinitions.Add(labelDef);
+                // Add the label definition to the feature reduction.
+                _clusteringFeatureReduction.LabelDefinitions.Add(labelDefinition);
             }
             else
             {
-                _customClusteringFeatureReduction.LabelDefinitions.Clear();
+                _clusteringFeatureReduction.LabelDefinitions.Clear();
             }
             
         }
 
         private void UpdateClusteringProperties(object sender, EventArgs e)
         {
-            ((ClusteringFeatureReduction)_layer.FeatureReduction).Radius = RadiusSlider.Value;
+            // Update the feature reduction's cluster radius and max scale properties.
+            ((ClusteringFeatureReduction)_layer.FeatureReduction).Radius = ClusterRadiusSlider.Value;
             ((ClusteringFeatureReduction)_layer.FeatureReduction).MaxScale = MaxScaleSlider.Value;
         }
 
@@ -135,9 +161,16 @@ namespace ArcGIS.Samples.CustomFeatureClustering
 
         private void DrawClustersButton_Clicked(object sender, EventArgs e)
         {
+            // Create a new clustering feature reduction.
             CreateCustomFeatureReduction();
+
+            // Show the feature reduction's clustering options.
             CustomFeatureClusteringOptions.IsVisible = true;
+
+            // Add an event handler for tap events on the map view.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
+
+            // Hide the draw clusters button.
             DrawClustersButton.IsVisible = false;
         }
         #endregion

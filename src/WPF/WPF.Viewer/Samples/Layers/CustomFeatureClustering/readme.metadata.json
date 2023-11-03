@@ -1,19 +1,39 @@
 {
     "category": "Layers",
-    "description": "Add custom feature clustering to a web map or point feature layer to aggregate points into clusters.",
+    "description": "Add client side custom feature reduction to a web map that does not have an existing defined feature reduction.",
     "formal_name": "CustomFeatureClustering",
     "ignore": false,
     "images": [
-        "CustomFeatureClustering.jpg"
+        "customfeatureclustering.jpg"
     ],
     "keywords": [
+        "aggregate",
+        "bin",
+        "cluster",
+        "group",
+        "merge",
+        "normalize",
+        "popupviewer",
+        "reduce",
+        "renderer",
+        "summarize"
     ],
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/CustomFeatureClustering.htm"
+        "/net/latest/wpf/sample-code/customfeatureclustering.htm"
     ],
     "relevant_apis": [
+        "AggregateGeoElement",
+        "ClassBreaksRenderer",
+        "FeatureLayer",
+        "FeatureReduction",
+        "GeoElement",
+        "IdentifyLayerResult",
+        "PopupViewer"
     ],
     "snippets": [
+        "CustomFeatureClustering.xaml.cs",
+        "CustomFeatureClustering.xaml"
     ],
     "title": "Custom feature clustering"
 }

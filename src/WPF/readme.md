@@ -95,6 +95,7 @@
 * [Control annotation sublayer visibility](WPF.Viewer/Samples/Layers/ControlAnnotationSublayerVisibility) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](WPF.Viewer/Samples/Layers/CreateAndSaveKmlFile) - Construct a KML document and save it as a KMZ file.
 * [Create feature collection layer (Portal item)](WPF.Viewer/Samples/Layers/FeatureCollectionLayerFromPortal) - Create a feature collection layer from a portal item.
+* [Custom feature clustering](WPF.Viewer/Samples/Layers/CustomFeatureClustering) - Add client side custom feature reduction to a web map that does not have an existing defined feature reduction.
 * [Dictionary renderer with feature layer](WPF.Viewer/Samples/Layers/FeatureLayerDictionaryRenderer) - Convert features into graphics to show them with mil2525d symbols.
 * [Display KML](WPF.Viewer/Samples/Layers/DisplayKml) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](WPF.Viewer/Samples/Layers/DisplayKmlNetworkLinks) - Display a file with a KML network link, including displaying any network link control messages at launch.

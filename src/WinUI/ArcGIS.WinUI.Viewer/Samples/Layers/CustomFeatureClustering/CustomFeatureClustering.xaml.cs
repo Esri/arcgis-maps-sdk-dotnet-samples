@@ -7,26 +7,20 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
-using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Mapping.Popups;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Reduction;
+using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.Toolkit.UI.Controls;
+using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArcGIS.WinUI.Samples.CustomFeatureClustering
 {
@@ -67,8 +61,8 @@ namespace ArcGIS.WinUI.Samples.CustomFeatureClustering
             // Hide and nullify an opened popup when user taps screen.
             PopupBackground.Tapped += (sender, args) =>
             {
-                    PopupBackground.Visibility = Visibility.Collapsed;
-                    PopupViewer.PopupManager = null;
+                PopupBackground.Visibility = Visibility.Collapsed;
+                PopupViewer.PopupManager = null;
             };
         }
 

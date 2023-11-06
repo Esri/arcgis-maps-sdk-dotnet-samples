@@ -30,7 +30,7 @@ namespace ArcGIS.WPF.Samples.CustomFeatureClustering
         description: "Add client side custom feature reduction to a web map that does not have an existing defined feature reduction.",
         instructions: "Tap the draw clusters button to enable clustering on the feature layer. Interact with the clustering properties to change the cluster radius, max scale and to enable cluster labels. Tap the map to see the cluster feature count and aggregate fields in the popup.",
         tags: new[] { "aggregate", "bin", "cluster", "group", "merge", "normalize", "popupviewer", "reduce", "renderer", "summarize" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData()]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("aa44e79a4836413c89908e1afdace2ea")]
     public partial class CustomFeatureClustering
     {
         private FeatureLayer _layer;
@@ -46,7 +46,7 @@ namespace ArcGIS.WPF.Samples.CustomFeatureClustering
         {
             // Get the Zurich buildings web map from the default portal.
             var portal = await ArcGISPortal.CreateAsync();
-            PortalItem portalItem = await PortalItem.CreateAsync(portal, "b6a9b95b86ad4e97b3fe4429f45576f0");
+            PortalItem portalItem = await PortalItem.CreateAsync(portal, "aa44e79a4836413c89908e1afdace2ea");
 
             // Create a new map from the web map.
             MyMapView.Map = new Map(portalItem);

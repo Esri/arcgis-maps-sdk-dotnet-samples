@@ -35,7 +35,7 @@ Tap the draw clusters button to enable clustering on the feature layer. Interact
 
 ## About the data
 
-This sample uses a [web map](https://www.arcgis.com/home/item.html?id=b6a9b95b86ad4e97b3fe4429f45576f0) that displays residential data for Zurich, Switzerland.
+This sample uses a [web map](https://www.arcgis.com/home/item.html?id=aa44e79a4836413c89908e1afdace2ea) that displays residential data for Zurich, Switzerland.
 
 ## Tags
 

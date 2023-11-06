@@ -39,4 +39,4 @@ This sample uses a [web map](https://www.arcgis.com/home/item.html?id=aa44e79a48
 
 ## Tags
 
-aggregate, bin, cluster, group, merge, normalize, popupviewer, reduce, renderer, summarize
+aggregate, bin, cluster, group, merge, normalize, popup, reduce, renderer, summarize

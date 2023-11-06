@@ -13,7 +13,7 @@
         "group",
         "merge",
         "normalize",
-        "popupviewer",
+        "popup",
         "reduce",
         "renderer",
         "summarize"

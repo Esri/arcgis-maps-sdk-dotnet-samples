@@ -29,7 +29,7 @@ namespace ArcGIS.WPF.Samples.CustomFeatureClustering
         category: "Layers",
         description: "Add client side custom feature reduction to a web map that does not have an existing defined feature reduction.",
         instructions: "Tap the draw clusters button to enable clustering on the feature layer. Interact with the clustering properties to change the cluster radius, max scale and to enable cluster labels. Tap the map to see the cluster feature count and aggregate fields in the popup.",
-        tags: new[] { "aggregate", "bin", "cluster", "group", "merge", "normalize", "popupviewer", "reduce", "renderer", "summarize" })]
+        tags: new[] { "aggregate", "bin", "cluster", "group", "merge", "normalize", "popup", "reduce", "renderer", "summarize" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("aa44e79a4836413c89908e1afdace2ea")]
     public partial class CustomFeatureClustering
     {

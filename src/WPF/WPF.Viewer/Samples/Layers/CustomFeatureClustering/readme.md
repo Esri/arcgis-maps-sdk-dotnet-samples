@@ -10,7 +10,7 @@ Feature clustering can be used to dynamically aggregate groups of points that ar
 
 ## How to use the sample
 
-Tap the draw clusters button to enable clustering on the feature layer. Interact with the clustering properties to change the cluster radius, max scale and to enable cluster labels. Tap the map to see the cluster feature count and aggregate fields in the popup.
+Tap the draw clusters button to enable clustering on the feature layer. Interact with the controls to customize clustering feature reduction properties. Tap the map to see the cluster feature count and aggregate fields in the popup.
 
 ## How it works
 

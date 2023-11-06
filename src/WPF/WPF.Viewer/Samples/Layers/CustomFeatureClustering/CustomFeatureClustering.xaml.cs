@@ -28,7 +28,7 @@ namespace ArcGIS.WPF.Samples.CustomFeatureClustering
         name: "Custom feature clustering",
         category: "Layers",
         description: "Add client side custom feature reduction to a web map that does not have an existing defined feature reduction.",
-        instructions: "Tap the draw clusters button to enable clustering on the feature layer. Interact with the clustering properties to change the cluster radius, max scale and to enable cluster labels. Tap the map to see the cluster feature count and aggregate fields in the popup.",
+        instructions: "Tap the draw clusters button to enable clustering on the feature layer. Interact with the controls to customize clustering feature reduction properties. Tap the map to see the cluster feature count and aggregate fields in the popup.",
         tags: new[] { "aggregate", "bin", "cluster", "group", "merge", "normalize", "popup", "reduce", "renderer", "summarize" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("aa44e79a4836413c89908e1afdace2ea")]
     public partial class CustomFeatureClustering
@@ -65,11 +65,12 @@ namespace ArcGIS.WPF.Samples.CustomFeatureClustering
             ClassBreaksRenderer classBreaksRenderer = new ClassBreaksRenderer();
 
             // Define the field to use for the class breaks renderer.
-            // Note that this field name must match the name of an aggregate field contained in the clustering feature reduction's aggregate fields property. .
+            // Note that this field name must match the name of an aggregate field contained in the clustering feature reduction's aggregate fields property.
             classBreaksRenderer.FieldName = "Average Building Height";
 
             // Add a class break for each intended value range and define a symbol to display for features in that range.
-            // In this case, the average building height ranges from 0 to 8 storeys. For each cluster of features with a given average building height, a symbol is defined with a specified color.
+            // In this case, the average building height ranges from 0 to 8 storeys.
+            // For each cluster of features with a given average building height, a symbol is defined with a specified color.
             classBreaksRenderer.ClassBreaks.Add(new ClassBreak("0", "0", 0.0, 1.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(4, 251, 255) }));
             classBreaksRenderer.ClassBreaks.Add(new ClassBreak("1", "1", 1.0, 2.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(44, 211, 255) }));
             classBreaksRenderer.ClassBreaks.Add(new ClassBreak("2", "2", 2.0, 3.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(74, 181, 255) }));

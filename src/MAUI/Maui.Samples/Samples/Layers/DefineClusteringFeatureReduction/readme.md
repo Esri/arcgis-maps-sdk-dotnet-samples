@@ -2,7 +2,7 @@
 
 Add client side custom feature reduction to a web map that does not have an existing defined feature reduction.
 
-![Image of custom feature clustering](CustomFeatureClustering.jpg)
+![Image of custom feature clustering](defineclusteringfeaturereduction.jpg)
 
 ## Use case
 

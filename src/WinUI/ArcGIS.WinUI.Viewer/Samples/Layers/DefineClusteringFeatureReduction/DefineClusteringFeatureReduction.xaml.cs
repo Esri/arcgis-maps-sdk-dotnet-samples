@@ -22,7 +22,7 @@ using Microsoft.UI.Xaml.Controls;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGIS.WinUI.Samples.CustomFeatureClustering
+namespace ArcGIS.WinUI.Samples.DefineClusteringFeatureReduction
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Custom feature clustering",
@@ -31,12 +31,12 @@ namespace ArcGIS.WinUI.Samples.CustomFeatureClustering
         instructions: "Tap the draw clusters button to enable clustering on the feature layer. Interact with the controls to customize clustering feature reduction properties. Tap the map to see the cluster feature count and aggregate fields in the popup.",
         tags: new[] { "aggregate", "bin", "cluster", "group", "merge", "normalize", "popup", "reduce", "renderer", "summarize" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("aa44e79a4836413c89908e1afdace2ea")]
-    public partial class CustomFeatureClustering
+    public partial class DefineClusteringFeatureReduction
     {
         private FeatureLayer _layer;
         private ClusteringFeatureReduction _clusteringFeatureReduction;
 
-        public CustomFeatureClustering()
+        public DefineClusteringFeatureReduction()
         {
             InitializeComponent();
             _ = Initialize();
@@ -170,7 +170,7 @@ namespace ArcGIS.WinUI.Samples.CustomFeatureClustering
             CreateCustomFeatureReduction();
 
             // Show the feature reduction's clustering options.
-            CustomFeatureClusteringOptions.Visibility = Visibility.Visible;
+            DefineClusteringFeatureReductionOptions.Visibility = Visibility.Visible;
 
             // Add an event handler for tap events on the map view.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;

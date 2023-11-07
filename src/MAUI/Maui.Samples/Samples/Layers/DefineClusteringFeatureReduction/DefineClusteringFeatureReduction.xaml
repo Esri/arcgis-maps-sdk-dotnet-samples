@@ -1,4 +1,4 @@
-﻿<ContentPage x:Class="ArcGIS.Samples.CustomFeatureClustering.CustomFeatureClustering"
+﻿<ContentPage x:Class="ArcGIS.Samples.DefineClusteringFeatureReduction.DefineClusteringFeatureReduction"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriTK="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui"
@@ -10,7 +10,7 @@
                 <Button x:Name="DrawClustersButton"
                         Clicked="DrawClustersButton_Clicked"
                         Text="Draw clusters" />
-                <VerticalStackLayout x:Name="CustomFeatureClusteringOptions" IsVisible="False">
+                <VerticalStackLayout x:Name="DefineClusteringFeatureReductionOptions" IsVisible="False">
                     <Label Margin="0,0,0,10"
                            FontSize="Small"
                            Text="Clustering properties" />

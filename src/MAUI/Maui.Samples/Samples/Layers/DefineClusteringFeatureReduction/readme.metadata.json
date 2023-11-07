@@ -1,10 +1,10 @@
 {
     "category": "Layers",
     "description": "Add client side custom feature reduction to a web map that does not have an existing defined feature reduction.",
-    "formal_name": "CustomFeatureClustering",
+    "formal_name": "DefineClusteringFeatureReduction",
     "ignore": false,
     "images": [
-        "CustomFeatureClustering.jpg"
+        "defineclusteringfeaturereduction.jpg"
     ],
     "keywords": [
         "aggregate",
@@ -20,7 +20,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/customfeatureclustering.htm"
+        "/net/latest/maui/sample-code/customfeatureclustering.htm"
     ],
     "relevant_apis": [
         "AggregateGeoElement",
@@ -32,8 +32,8 @@
         "PopupViewer"
     ],
     "snippets": [
-        "CustomFeatureClustering.xaml.cs",
-        "CustomFeatureClustering.xaml"
+        "DefineClusteringFeatureReduction.xaml.cs",
+        "DefineClusteringFeatureReduction.xaml"
     ],
     "title": "Custom feature clustering"
 }

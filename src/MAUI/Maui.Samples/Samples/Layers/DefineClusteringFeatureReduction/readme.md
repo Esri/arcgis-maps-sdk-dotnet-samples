@@ -20,8 +20,9 @@ Tap the `Draw clusters` button to set new feature reduction object on the featur
 4. Create a `ClusteringFeatureReduction` using the renderer.
 5. Add `AggregateField` objects to the feature reduction where the `FieldName` is the name of the field to aggregate and the `StatisticType` is the type of aggregation to perform.
 6. Define the `MinSymbolSize` and `MaxSymbolSize` for the feature reduction. If these are not defined they default to 12 and 70 respectively.
-7. Create a `LabelDefinition` with a `SimpleLabelExpression` and `TextSymbol` to define the cluster label.
-8. Configure a `GeoViewTapped` event handler on the `MapView` to display feature cluster information in a `PopupViewer`.
+7. Add the `ClusteringFeatureReduction` to the `FeatureLayer`.
+8. Create a `LabelDefinition` with a `SimpleLabelExpression` and `TextSymbol` to define the cluster label.
+9. Configure a `GeoViewTapped` event handler on the `MapView` to display feature cluster information in a `PopupViewer`.
 
 ## Relevant API
 

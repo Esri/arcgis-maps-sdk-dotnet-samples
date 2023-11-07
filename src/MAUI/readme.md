@@ -95,7 +95,7 @@
 * [Control annotation sublayer visibility](Maui.Samples/Samples/Layers/ControlAnnotationSublayerVisibility) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](Maui.Samples/Samples/Layers/CreateAndSaveKmlFile) - Construct a KML document and save it as a KMZ file.
 * [Create feature collection layer (Portal item)](Maui.Samples/Samples/Layers/FeatureCollectionLayerFromPortal) - Create a feature collection layer from a portal item.
-* [Custom feature clustering](Maui.Samples/Samples/Layers/CustomFeatureClustering) - Add client side custom feature reduction to a web map that does not have an existing defined feature reduction.
+* [Define clustering feature reduction](Maui.Samples/Samples/Layers/DefineClusteringFeatureReduction) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
 * [Dictionary renderer with feature layer](Maui.Samples/Samples/Layers/FeatureLayerDictionaryRenderer) - Convert features into graphics to show them with mil2525d symbols.
 * [Display KML](Maui.Samples/Samples/Layers/DisplayKml) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](Maui.Samples/Samples/Layers/DisplayKmlNetworkLinks) - Display a file with a KML network link, including displaying any network link control messages at launch.

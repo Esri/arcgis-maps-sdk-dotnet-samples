@@ -1,6 +1,6 @@
 {
     "category": "Layers",
-    "description": "Add client side custom feature reduction to a web map that does not have an existing defined feature reduction.",
+    "description": "Add client side feature reduction on a point feature layer that is not pre-configured with clustering.",
     "formal_name": "DefineClusteringFeatureReduction",
     "ignore": false,
     "images": [
@@ -20,7 +20,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/customfeatureclustering.htm"
+        "/net/latest/wpf/sample-code/defineclusteringfeaturereduction.htm"
     ],
     "relevant_apis": [
         "AggregateGeoElement",
@@ -35,5 +35,5 @@
         "DefineClusteringFeatureReduction.xaml.cs",
         "DefineClusteringFeatureReduction.xaml"
     ],
-    "title": "Custom feature clustering"
+    "title": "Define clustering feature reduction"
 }

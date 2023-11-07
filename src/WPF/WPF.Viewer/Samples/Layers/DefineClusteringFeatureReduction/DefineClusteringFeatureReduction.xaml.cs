@@ -25,10 +25,10 @@ using System.Windows.Controls;
 namespace ArcGIS.WPF.Samples.DefineClusteringFeatureReduction
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Custom feature clustering",
+        name: "Define clustering feature reduction",
         category: "Layers",
-        description: "Add client side custom feature reduction to a web map that does not have an existing defined feature reduction.",
-        instructions: "Tap the draw clusters button to enable clustering on the feature layer. Interact with the controls to customize clustering feature reduction properties. Tap the map to see the cluster feature count and aggregate fields in the popup.",
+        description: "Add client side feature reduction on a point feature layer that is not pre-configured with clustering.",
+        instructions: "Tap the `Draw clusters` button to set new feature reduction object on the feature layer. Interact with the controls to customize clustering feature reduction properties. Tap on any clustered aggregate geoelement to see the cluster feature count and aggregate fields in the popup.",
         tags: new[] { "aggregate", "bin", "cluster", "group", "merge", "normalize", "popup", "reduce", "renderer", "summarize" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("aa44e79a4836413c89908e1afdace2ea")]
     public partial class DefineClusteringFeatureReduction

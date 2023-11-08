@@ -3,10 +3,8 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
-        <esriUI:MapView x:Name="MyMapView"
-                        GeoViewTapped="MyMapView_GeoViewTapped"
-                        Style="{DynamicResource EsriSampleGeoView}" />
+    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border x:Name="MainUI"
                 Style="{DynamicResource EsriSampleControlPanel}"
                 VerticalOptions="Start">
@@ -40,8 +38,8 @@
                 <Slider x:Name="EntitiesSlider"
                         Grid.Column="1"
                         Maximum="16"
-                        MaximumWidthRequest="250"
                         Minimum="1"
+                        MaximumWidthRequest="250"
                         ValueChanged="Slider_ValueChanged"
                         VerticalOptions="Center"
                         Value="5" />

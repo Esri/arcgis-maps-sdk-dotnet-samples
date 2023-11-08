@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks Condition="'$(TargetFrameworks)'==''">net8.0-windows10.0.19041.0;net472</TargetFrameworks>
+    <TargetFrameworks Condition="'$(TargetFrameworks)'==''">net6.0-windows10.0.19041.0;net472</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
@@ -13,9 +13,9 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PublishTrimmed>false</PublishTrimmed>
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
-    <RuntimeIdentifiers>win-x64;win-x86;win-arm64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win10-x64;win10-x86;win10-arm64</RuntimeIdentifiers>
     <Platforms>AnyCPU;x64;x86;ARM64</Platforms>
-    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <SupportedOSPlatformVersion>10.0.17763.0</SupportedOSPlatformVersion>
     <DefineConstants>$(DefineConstants);TRACE;NET_CORE_3</DefineConstants>
     <NoWarn>1701;1702;CA1416</NoWarn>
     <PlatformTarget Condition="'$(TargetFramework)'=='net472'">AnyCPU</PlatformTarget>

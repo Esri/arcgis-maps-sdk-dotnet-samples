@@ -7,10 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-
-// Uncomment the following line to include the samples subset in the app.
-//#define INCLUDE_SAMPLES_SUBSET
-
 using ArcGIS.Samples.Shared.Attributes;
 using ArcGIS.Samples.Shared.Models;
 using System;
@@ -80,13 +76,10 @@ namespace ArcGIS.Samples.Managers
             // Create a tree from the list of all samples.
             FullTree = BuildFullTree(AllSamples);
 
-#if INCLUDE_SAMPLES_SUBSET
-            // Add a category for the samples subset.
-            FullTree.Items.Insert(0, GetSearchableTreeNodeFromFile("SubsetSamples.xml", "Subset", false));
-#else
-            // Add a category for featured samples.
-            FullTree.Items.Insert(0, GetSearchableTreeNodeFromFile("FeaturedSamples.xml", "Featured"));
-#endif
+            // Add a special category for featured samples.
+            IEnumerable<string> featuredSamples = GetFeaturedSamplesNames();
+            SearchableTreeNode featured = new SearchableTreeNode("Featured", AllSamples.Where(sample => featuredSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase)).OrderBy(sample => sample.SampleName));
+            FullTree.Items.Insert(0, featured);
 
 #if !(WinUI || WINDOWS_UWP)
             // Get favorite samples if they exist. This feature is only available on WPF.
@@ -95,40 +88,33 @@ namespace ArcGIS.Samples.Managers
         }
 
         /// <summary>
-        /// Get a list of sample names from a resource file.
+        /// Get a list of featured sample names from a resource file.
         /// </summary>
-        /// <returns>An searchable tree node containing the samples found in the resource file.</returns>
-        private SearchableTreeNode GetSearchableTreeNodeFromFile(string fileName, string searchableTreeNodeTitle, bool orderByName = true)
+        /// <returns>An enumerable containing the names of the featured samples.</returns>
+        public IEnumerable<string> GetFeaturedSamplesNames()
         {
             // Instantiate a null XElement to be populated by the resource file.
-            XElement sampleElement = null;
+            XElement featuredSampleElement = null;
 
-            // Create a list to hold the names of the samples.
-            List<string> samples = new List<string>();
+            // Create a list to hold the names of the featured samples.
+            List<string> featuredSamples = new List<string>();
 
-            string resourceStreamName = this.GetType().Assembly.GetManifestResourceNames().Single(str => str.EndsWith(fileName));
+            string resourceStreamName = this.GetType().Assembly.GetManifestResourceNames().Single(str => str.EndsWith("FeaturedSamples.xml"));
 
             // Load the FeaturedSamples resource file.
             using (Stream stream = this.GetType().Assembly.
                        GetManifestResourceStream(resourceStreamName))
             {
-                sampleElement = XElement.Load(stream);
+                featuredSampleElement = XElement.Load(stream);
             }
 
-            // If the resource file has been successfully loaded populate the list of samples.
-            if (sampleElement != null)
+            // If the resource file has been successfully loaded populate the list of featured samples.
+            if (featuredSampleElement != null)
             {
-                samples = sampleElement.Descendants("Sample").Select(x => x.Value).ToList();
+                featuredSamples = featuredSampleElement.Descendants("Sample").Select(x => x.Value).ToList();
             }
 
-            IEnumerable<SampleInfo> searchableTreeNodeItems = AllSamples.Where(sample => samples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase));
-
-            if (orderByName)
-            {
-                searchableTreeNodeItems = searchableTreeNodeItems.OrderBy(sample => sample.SampleName);
-            }
-
-            return new SearchableTreeNode(searchableTreeNodeTitle, searchableTreeNodeItems);
+            return featuredSamples;
         }
 
         /// <summary>

@@ -2,11 +2,11 @@
 
 Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
 
-![Image of custom feature clustering](defineclusteringfeaturereduction.jpg)
+![Image of define clustering feature reduction](defineclusteringfeaturereduction.jpg)
 
 ## Use case
 
-Feature clustering can be used to dynamically aggregate groups of points that are within proximity of each other in order to represent each group with a single symbol. Such grouping allows you to see patterns in the data that are difficult to visualize when a layer contains hundreds or thousands of points that overlap and cover each other. Custom feature clustering allows users to add feature clustering to layers without predefined feature reduction. This is useful when the layer does not have feature reduction enabled by default or when the existing feature reduction properties need to be overridden.
+Feature clustering can be used to dynamically aggregate groups of points that are within proximity of each other in order to represent each group with a single symbol. Such grouping allows you to see patterns in the data that are difficult to visualize when a layer contains hundreds or thousands of points that overlap and cover each other. Users can add feature clustering to point feature layers without predefined feature reduction. This is useful when the layer does not have feature reduction enabled by default or when the existing feature reduction properties need to be overridden.
 
 ## How to use the sample
 

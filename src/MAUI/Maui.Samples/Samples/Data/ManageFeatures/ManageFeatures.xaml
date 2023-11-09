@@ -21,7 +21,6 @@
                         IsVisible="False"
                         Text="Delete incident" />
             </StackLayout>
-
         </Border>
     </Grid>
 </ContentPage>

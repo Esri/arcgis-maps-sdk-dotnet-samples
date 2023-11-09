@@ -33,7 +33,7 @@
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Property="RowDefinitions" Value="*" />
-                            <Setter Property="ColumnDefinitions" Value="*,*" />
+                            <Setter Property="ColumnDefinitions" Value="2*,*" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -67,6 +67,7 @@
                         <VisualState.Setters>
                             <Setter Property="Grid.Row" Value="0" />
                             <Setter Property="Grid.Column" Value="0" />
+                            <Setter Property="MaximumHeightRequest" Value="{OnIdiom Phone=300, Tablet=500}" />
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="Horizontal">

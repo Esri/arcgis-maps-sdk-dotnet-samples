@@ -4,9 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
-        <esriUI:MapView x:Name="MyMapView"
-                        GeoViewTapped="MyMapView_GeoViewTapped"
-                        Style="{DynamicResource EsriSampleGeoView}" />
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border x:Name="MainUI"
                 Style="{DynamicResource EsriSampleControlPanel}"
                 VerticalOptions="Start">

@@ -1,0 +1,61 @@
+name: Sync v.next with main
+
+# PRs are completed with squash and merge option - this commit will be cherry-picked for v.next.
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync_branches:
+    runs-on: ubuntu-latest
+    steps:
+    
+      # Clone just the main branch of the samples repo.
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+          ref: main
+          fetch-depth: 2
+
+      # Cherry-pick the most recent commit from main into v.next.
+      - name: Cherry-pick from main into v.next
+        env:
+          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
+        run: |
+          # Configure the bot's git identity.
+          git config --global user.name "ArcGIS Maps SDK [bot]"
+          git config --global user.email "arcgis-maps-sdk-bot@esri.com"
+
+          # Store the commit hash of the most recent commit from main.
+          COMMIT_HASH=$(git rev-parse HEAD)
+
+          # Name the target branch.
+          SYNC_BRANCH="sync/$COMMIT_HASH"
+
+          # Pull v.next and branch off with the cherry-picked commit.
+          git fetch --depth=2 origin v.next 
+          git switch v.next
+          git branch $SYNC_BRANCH
+          git switch $SYNC_BRANCH
+          git cherry-pick $COMMIT_HASH
+
+          # Push the new head branch to the remote and try to open a PR.
+          git push -u origin $SYNC_BRANCH
+          if ! git diff --quiet v.next; then
+            echo "Diff detected."
+            gh pr create \
+              --title "[Automated] Sync v.next with main" \
+              --body "This PR was automaticaly opened to update v.next with the most recent commit from main." \
+              --head "$SYNC_BRANCH" \
+              --base "v.next" || CANNOT_OPEN_PR=$?
+            if [ -n "$CANNOT_OPEN_PR" ]; then
+              echo "Failed to open PR."
+              git branch -D $SYNC_BRANCH
+            else
+              echo "PR successfully opened."
+            fi
+          else
+            echo "No diff detected."
+            git branch -D $SYNC_BRANCH
+          fi

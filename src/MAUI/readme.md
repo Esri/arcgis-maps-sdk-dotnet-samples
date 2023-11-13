@@ -78,6 +78,7 @@
 ## Layers
 
 * [Add a point scene layer](Maui.Samples/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
+* [Add clustering feature reduction to a point feature layer](Maui.Samples/Samples/Layers/AddClusteringFeatureReductionToAPointFeatureLayer) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
 * [Add custom dynamic entity data source](Maui.Samples/Samples/Layers/AddCustomDynamicEntityDataSource) - Create a custom dynamic entity data source and display it using a dynamic entity layer.
 * [Add dynamic entity layer](Maui.Samples/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](Maui.Samples/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.

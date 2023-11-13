@@ -1,10 +1,10 @@
-// Copyright 2023 Esri.
+﻿// Copyright 2023 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.ArcGISServices;
@@ -15,28 +15,23 @@ using Esri.ArcGISRuntime.Mapping.Popups;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Reduction;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Toolkit.UI.Controls;
-using Esri.ArcGISRuntime.UI.Controls;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using System.Linq;
-using System.Threading.Tasks;
+using Map = Esri.ArcGISRuntime.Mapping.Map;
 
-namespace ArcGIS.WinUI.Samples.DefineClusteringFeatureReduction
+namespace ArcGIS.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Define clustering feature reduction",
+        name: "Add clustering feature reduction to a point feature layer",
         category: "Layers",
         description: "Add client side feature reduction on a point feature layer that is not pre-configured with clustering.",
         instructions: "Tap the `Draw clusters` button to set new feature reduction object on the feature layer. Interact with the controls to customize clustering feature reduction properties. Tap on any clustered aggregate geoelement to see the cluster feature count and aggregate fields in the popup.",
         tags: new[] { "aggregate", "bin", "cluster", "group", "merge", "normalize", "popup", "reduce", "renderer", "summarize" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("aa44e79a4836413c89908e1afdace2ea")]
-    public partial class DefineClusteringFeatureReduction
+    public partial class AddClusteringFeatureReductionToAPointFeatureLayer
     {
         private FeatureLayer _layer;
         private ClusteringFeatureReduction _clusteringFeatureReduction;
 
-        public DefineClusteringFeatureReduction()
+        public AddClusteringFeatureReductionToAPointFeatureLayer()
         {
             InitializeComponent();
             _ = Initialize();
@@ -59,11 +54,14 @@ namespace ArcGIS.WinUI.Samples.DefineClusteringFeatureReduction
             await MyMapView.SetViewpointAsync(new Viewpoint(47.38, 8.53, 8e4));
 
             // Hide and nullify an opened popup when user taps screen.
-            PopupBackground.Tapped += (sender, args) =>
+            PopupBackground.GestureRecognizers.Add(new TapGestureRecognizer
             {
-                PopupBackground.Visibility = Visibility.Collapsed;
-                PopupViewer.PopupManager = null;
-            };
+                Command = new Command(() =>
+                {
+                    PopupBackground.IsVisible = false;
+                    PopupViewer.Popup = null;
+                })
+            });
         }
 
         private void CreateCustomFeatureReduction()
@@ -89,7 +87,7 @@ namespace ArcGIS.WinUI.Samples.DefineClusteringFeatureReduction
 
             // Define a default symbol to use for features that do not fall within any of the ranges defined by the class breaks.
             classBreaksRenderer.DefaultSymbol = new SimpleMarkerSymbol() { Color = System.Drawing.Color.Pink };
-
+            
             // Create a new clustering feature reduction using the class breaks renderer.
             _clusteringFeatureReduction = new ClusteringFeatureReduction(classBreaksRenderer);
 
@@ -97,7 +95,7 @@ namespace ArcGIS.WinUI.Samples.DefineClusteringFeatureReduction
             // The aggregate fields summarize values based on the defined aggregate statistic type.
             _clusteringFeatureReduction.AggregateFields.Add(new AggregateField("Total Residential Buildings", "Residential_Buildings", AggregateStatisticType.Sum));
             _clusteringFeatureReduction.AggregateFields.Add(new AggregateField("Average Building Height", "Most_common_number_of_storeys", AggregateStatisticType.Mode));
-
+            
             // Enable the feature reduction.
             _clusteringFeatureReduction.IsEnabled = true;
 
@@ -123,9 +121,9 @@ namespace ArcGIS.WinUI.Samples.DefineClusteringFeatureReduction
         }
 
         #region EventHandlers
-        private void DisplayLabelsCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        private void DisplayLabelsCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
-            if ((bool)(sender as CheckBox).IsChecked)
+            if (DisplayLabelsCheckBox.IsChecked)
             {
                 // Create a label definition with a simple label expression.
                 var simpleLabelExpression = new SimpleLabelExpression("[cluster_count]");
@@ -139,20 +137,17 @@ namespace ArcGIS.WinUI.Samples.DefineClusteringFeatureReduction
             {
                 _clusteringFeatureReduction.LabelDefinitions.Clear();
             }
-
+            
         }
 
-        private void UpdateClusteringProperties(object sender, Microsoft.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
+        private void UpdateClusteringProperties(object sender, EventArgs e)
         {
-            if (_layer != null)
-            {
-                // Update the feature reduction's cluster radius and max scale properties.
-                ((ClusteringFeatureReduction)_layer.FeatureReduction).Radius = ClusterRadiusSlider.Value;
-                ((ClusteringFeatureReduction)_layer.FeatureReduction).MaxScale = MaxScaleSlider.Value;
-            }
+            // Update the feature reduction's cluster radius and max scale properties.
+            ((ClusteringFeatureReduction)_layer.FeatureReduction).Radius = ClusterRadiusSlider.Value;
+            ((ClusteringFeatureReduction)_layer.FeatureReduction).MaxScale = MaxScaleSlider.Value;
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             // Identify the tapped observation.
             IdentifyLayerResult result = await MyMapView.IdentifyLayerAsync(MyMapView.Map.OperationalLayers.First(), e.Position, 3, true);
@@ -161,22 +156,23 @@ namespace ArcGIS.WinUI.Samples.DefineClusteringFeatureReduction
             if (result.Popups.Count == 0) return;
 
             // Set the popup and make it visible.
-            PopupViewer.PopupManager = new PopupManager(result.Popups.FirstOrDefault());
-            PopupBackground.Visibility = Visibility.Visible;
+            PopupViewer.Popup = result.Popups.FirstOrDefault();
+            PopupBackground.IsVisible = true;
         }
-        private void DrawClustersButton_Click(object sender, RoutedEventArgs e)
+
+        private void DrawClustersButton_Clicked(object sender, EventArgs e)
         {
             // Create a new clustering feature reduction.
             CreateCustomFeatureReduction();
 
             // Show the feature reduction's clustering options.
-            DefineClusteringFeatureReductionOptions.Visibility = Visibility.Visible;
+            AddClusteringFeatureReductionToAPointFeatureLayerOptions.IsVisible = true;
 
             // Add an event handler for tap events on the map view.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
             // Hide the draw clusters button.
-            DrawClustersButton.Visibility = Visibility.Collapsed;
+            DrawClustersButton.IsVisible = false;
         }
         #endregion
     }

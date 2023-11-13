@@ -15,23 +15,28 @@ using Esri.ArcGISRuntime.Mapping.Popups;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Reduction;
 using Esri.ArcGISRuntime.Symbology;
-using Map = Esri.ArcGISRuntime.Mapping.Map;
+using Esri.ArcGISRuntime.Toolkit.UI.Controls;
+using Esri.ArcGISRuntime.UI.Controls;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
 
-namespace ArcGIS.Samples.DefineClusteringFeatureReduction
+namespace ArcGIS.WPF.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Define clustering feature reduction",
+        name: "Add clustering feature reduction to a point feature layer",
         category: "Layers",
         description: "Add client side feature reduction on a point feature layer that is not pre-configured with clustering.",
         instructions: "Tap the `Draw clusters` button to set new feature reduction object on the feature layer. Interact with the controls to customize clustering feature reduction properties. Tap on any clustered aggregate geoelement to see the cluster feature count and aggregate fields in the popup.",
         tags: new[] { "aggregate", "bin", "cluster", "group", "merge", "normalize", "popup", "reduce", "renderer", "summarize" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("aa44e79a4836413c89908e1afdace2ea")]
-    public partial class DefineClusteringFeatureReduction
+    public partial class AddClusteringFeatureReductionToAPointFeatureLayer
     {
         private FeatureLayer _layer;
         private ClusteringFeatureReduction _clusteringFeatureReduction;
 
-        public DefineClusteringFeatureReduction()
+        public AddClusteringFeatureReductionToAPointFeatureLayer()
         {
             InitializeComponent();
             _ = Initialize();
@@ -52,16 +57,6 @@ namespace ArcGIS.Samples.DefineClusteringFeatureReduction
 
             // Set the initial viewpoint to Zurich, Switzerland.
             await MyMapView.SetViewpointAsync(new Viewpoint(47.38, 8.53, 8e4));
-
-            // Hide and nullify an opened popup when user taps screen.
-            PopupBackground.GestureRecognizers.Add(new TapGestureRecognizer
-            {
-                Command = new Command(() =>
-                {
-                    PopupBackground.IsVisible = false;
-                    PopupViewer.Popup = null;
-                })
-            });
         }
 
         private void CreateCustomFeatureReduction()
@@ -87,7 +82,7 @@ namespace ArcGIS.Samples.DefineClusteringFeatureReduction
 
             // Define a default symbol to use for features that do not fall within any of the ranges defined by the class breaks.
             classBreaksRenderer.DefaultSymbol = new SimpleMarkerSymbol() { Color = System.Drawing.Color.Pink };
-            
+
             // Create a new clustering feature reduction using the class breaks renderer.
             _clusteringFeatureReduction = new ClusteringFeatureReduction(classBreaksRenderer);
 
@@ -95,7 +90,7 @@ namespace ArcGIS.Samples.DefineClusteringFeatureReduction
             // The aggregate fields summarize values based on the defined aggregate statistic type.
             _clusteringFeatureReduction.AggregateFields.Add(new AggregateField("Total Residential Buildings", "Residential_Buildings", AggregateStatisticType.Sum));
             _clusteringFeatureReduction.AggregateFields.Add(new AggregateField("Average Building Height", "Most_common_number_of_storeys", AggregateStatisticType.Mode));
-            
+
             // Enable the feature reduction.
             _clusteringFeatureReduction.IsEnabled = true;
 
@@ -121,9 +116,9 @@ namespace ArcGIS.Samples.DefineClusteringFeatureReduction
         }
 
         #region EventHandlers
-        private void DisplayLabelsCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
+        private void DisplayLabelsCheckBox_Checked(object sender, RoutedEventArgs e)
         {
-            if (DisplayLabelsCheckBox.IsChecked)
+            if ((bool)(sender as CheckBox).IsChecked)
             {
                 // Create a label definition with a simple label expression.
                 var simpleLabelExpression = new SimpleLabelExpression("[cluster_count]");
@@ -137,17 +132,20 @@ namespace ArcGIS.Samples.DefineClusteringFeatureReduction
             {
                 _clusteringFeatureReduction.LabelDefinitions.Clear();
             }
-            
+
         }
 
-        private void UpdateClusteringProperties(object sender, EventArgs e)
+        private void UpdateClusteringProperties(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            // Update the feature reduction's cluster radius and max scale properties.
-            ((ClusteringFeatureReduction)_layer.FeatureReduction).Radius = ClusterRadiusSlider.Value;
-            ((ClusteringFeatureReduction)_layer.FeatureReduction).MaxScale = MaxScaleSlider.Value;
+            if (_layer != null)
+            {
+                // Update the feature reduction's cluster radius and max scale properties.
+                ((ClusteringFeatureReduction)_layer.FeatureReduction).Radius = ClusterRadiusSlider.Value;
+                ((ClusteringFeatureReduction)_layer.FeatureReduction).MaxScale = MaxScaleSlider.Value;
+            }
         }
 
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             // Identify the tapped observation.
             IdentifyLayerResult result = await MyMapView.IdentifyLayerAsync(MyMapView.Map.OperationalLayers.First(), e.Position, 3, true);
@@ -157,22 +155,29 @@ namespace ArcGIS.Samples.DefineClusteringFeatureReduction
 
             // Set the popup and make it visible.
             PopupViewer.Popup = result.Popups.FirstOrDefault();
-            PopupBackground.IsVisible = true;
+            PopupBackground.Visibility = Visibility.Visible;
         }
 
-        private void DrawClustersButton_Clicked(object sender, EventArgs e)
+        private void DrawClustersButton_Clicked(object sender, RoutedEventArgs e)
         {
             // Create a new clustering feature reduction.
             CreateCustomFeatureReduction();
 
             // Show the feature reduction's clustering options.
-            DefineClusteringFeatureReductionOptions.IsVisible = true;
+            AddClusteringFeatureReductionToAPointFeatureLayerOptions.Visibility = Visibility.Visible;
 
             // Add an event handler for tap events on the map view.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
             // Hide the draw clusters button.
-            DrawClustersButton.IsVisible = false;
+            DrawClustersButton.Visibility = Visibility.Collapsed;
+        }
+
+        // Hide and nullify the opened popup when user left clicks.
+        private void PopupBackground_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            PopupBackground.Visibility = Visibility.Collapsed;
+            PopupViewer.Popup = null;
         }
         #endregion
     }

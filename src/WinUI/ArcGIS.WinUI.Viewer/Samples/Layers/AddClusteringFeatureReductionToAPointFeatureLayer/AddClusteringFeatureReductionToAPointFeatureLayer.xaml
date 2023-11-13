@@ -1,4 +1,4 @@
-<UserControl x:Class="ArcGIS.WinUI.Samples.DefineClusteringFeatureReduction.DefineClusteringFeatureReduction"
+<UserControl x:Class="ArcGIS.WinUI.Samples.AddClusteringFeatureReductionToAPointFeatureLayer.AddClusteringFeatureReductionToAPointFeatureLayer"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esriTK="using:Esri.ArcGISRuntime.Toolkit.UI.Controls"
@@ -10,7 +10,7 @@
                 <Button x:Name="DrawClustersButton"
                         Click="DrawClustersButton_Click"
                         Content="Draw clusters" />
-                <StackPanel x:Name="DefineClusteringFeatureReductionOptions"
+                <StackPanel x:Name="AddClusteringFeatureReductionToAPointFeatureLayerOptions"
                             Orientation="Vertical"
                             Visibility="Collapsed">
                     <TextBlock Margin="0,0,0,10"

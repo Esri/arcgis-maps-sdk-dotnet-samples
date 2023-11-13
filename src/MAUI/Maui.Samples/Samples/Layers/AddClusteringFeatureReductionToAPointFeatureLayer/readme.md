@@ -1,8 +1,8 @@
-# Define clustering feature reduction
+# Add clustering feature reduction to a point feature layer
 
 Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
 
-![Image of define clustering feature reduction](defineclusteringfeaturereduction.jpg)
+![Image of add clustering feature reduction to a point feature layer](addclusteringfeaturereductiontoapointfeaturelayer.jpg)
 
 ## Use case
 

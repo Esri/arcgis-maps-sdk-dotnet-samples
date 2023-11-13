@@ -78,6 +78,7 @@
 ## Layers
 
 * [Add a point scene layer](Maui.Samples/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
+* [Add clustering feature reduction to a point feature layer](Maui.Samples/Samples/Layers/AddClusteringFeatureReductionToAPointFeatureLayer) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
 * [Add custom dynamic entity data source](Maui.Samples/Samples/Layers/AddCustomDynamicEntityDataSource) - Create a custom dynamic entity data source and display it using a dynamic entity layer.
 * [Add dynamic entity layer](Maui.Samples/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](Maui.Samples/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
@@ -95,7 +96,6 @@
 * [Control annotation sublayer visibility](Maui.Samples/Samples/Layers/ControlAnnotationSublayerVisibility) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](Maui.Samples/Samples/Layers/CreateAndSaveKmlFile) - Construct a KML document and save it as a KMZ file.
 * [Create feature collection layer (Portal item)](Maui.Samples/Samples/Layers/FeatureCollectionLayerFromPortal) - Create a feature collection layer from a portal item.
-* [Define clustering feature reduction](Maui.Samples/Samples/Layers/DefineClusteringFeatureReduction) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
 * [Dictionary renderer with feature layer](Maui.Samples/Samples/Layers/FeatureLayerDictionaryRenderer) - Convert features into graphics to show them with mil2525d symbols.
 * [Display KML](Maui.Samples/Samples/Layers/DisplayKml) - Display KML from a URL, portal item, or local KML file.
 * [Display KML network links](Maui.Samples/Samples/Layers/DisplayKmlNetworkLinks) - Display a file with a KML network link, including displaying any network link control messages at launch.

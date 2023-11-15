@@ -18,7 +18,6 @@ SET ArcGISMapsSDKVersion=%RUNTIMEVERSION%
 
 REM Configure NuGet
 dotnet new nugetconfig --force -o ../
-SET NUGET_REPO=\\runtime\windows\api_dotnet\200.3.0\4058\output\dotnet_AnyCPU_Release\NuGet
 IF "%NUGET_REPO%" NEQ "" AND EXIST %NUGET_REPO% (
 dotnet nuget add source %NUGET_REPO%
 )

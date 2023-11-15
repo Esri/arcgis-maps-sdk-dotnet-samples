@@ -8,7 +8,7 @@
     <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
     <RootNamespace>ArcGIS</RootNamespace>
     <AssemblyName>ArcGIS</AssemblyName>
-    <OutputPath>..\..\..\output\WPFCore\$(Configuration)\</OutputPath>
+    <OutputPath>..\..\..\output\WPF\$(Configuration)\</OutputPath>
     <ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <PublishTrimmed>false</PublishTrimmed>

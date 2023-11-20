@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGIS.Resources">
-    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border MinimumWidthRequest="350" Style="{DynamicResource EsriSampleControlPanel}">
             <!--  View is being done mostly in code, not XAML, because of buggy listview behavior and no option to specify a maximum height.  -->

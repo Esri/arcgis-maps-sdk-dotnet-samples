@@ -9,7 +9,7 @@
             <local:TransformRowTemplateSelector x:Key="TransformTemplateSelector" />
         </ResourceDictionary>
     </ContentPage.Resources>
-    <Grid RowDefinitions="Auto, *" ColumnDefinitions="*, Auto">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid Padding="5"

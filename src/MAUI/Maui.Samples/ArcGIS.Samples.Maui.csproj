@@ -30,12 +30,6 @@
         <DefineConstants>$(DefineConstants);MAUI</DefineConstants>
 	</PropertyGroup>
 
-    <!-- Workaround for error : strip exited with code 139-->
-    <!-- https://github.com/xamarin/xamarin-macios/issues/19157 -->
-    <PropertyGroup>
-      <MtouchNoSymbolStrip Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">True</MtouchNoSymbolStrip>
-    </PropertyGroup>
-
 	<ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\arcgissdkglyphfg.svg" />

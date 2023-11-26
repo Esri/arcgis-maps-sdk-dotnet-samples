@@ -1,14 +1,44 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <?xaml-comp compile="true" ?>
-<ResourceDictionary
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
 
     <!--  Esri samples helper styles  -->
     <Style x:Key="EsriSampleContainer" TargetType="Grid">
-        <Setter Property="Grid.RowDefinitions" Value="Auto,*" />
-        <Setter Property="Grid.ColumnDefinitions" Value="*,Auto" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup>
+                    <VisualState x:Name="HorizontalFloat">
+                        <VisualState.StateTriggers>
+                            <AdaptiveTrigger MinWindowHeight="{OnPlatform Default=800, WinUI=0}" MinWindowWidth="{OnPlatform Default=800, WinUI=0}" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Property="RowDefinitions" Value="Auto,*" />
+                            <Setter Property="ColumnDefinitions" Value="*,Auto" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Vertical">
+                        <VisualState.StateTriggers>
+                            <OrientationStateTrigger Orientation="Portrait" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Property="RowDefinitions" Value="Auto,*" />
+                            <Setter Property="ColumnDefinitions" Value="*" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Horizontal">
+                        <VisualState.StateTriggers>
+                            <OrientationStateTrigger Orientation="Landscape" />
+                        </VisualState.StateTriggers>
+                        <VisualState.Setters>
+                            <Setter Property="RowDefinitions" Value="*" />
+                            <Setter Property="ColumnDefinitions" Value="2*,*" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
     </Style>
     <Style x:Key="EsriSampleControlPanel" TargetType="Border">
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#dfdfdf, Dark=#303030}" />
@@ -36,8 +66,8 @@
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Property="Grid.Row" Value="0" />
-                            <Setter Property="Grid.ColumnSpan" Value="2" />
                             <Setter Property="Grid.Column" Value="0" />
+                            <Setter Property="MaximumHeightRequest" Value="{OnIdiom Phone=300, Tablet=500}" />
                         </VisualState.Setters>
                     </VisualState>
                     <VisualState x:Name="Horizontal">
@@ -46,9 +76,7 @@
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Property="Grid.Row" Value="0" />
-                            <Setter Property="Grid.RowSpan" Value="2" />
                             <Setter Property="Grid.Column" Value="1" />
-                            <Setter Property="Grid.ColumnSpan" Value="1" />
                         </VisualState.Setters>
                     </VisualState>
                 </VisualStateGroup>
@@ -76,8 +104,6 @@
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Property="Grid.Row" Value="1" />
-                            <Setter Property="Grid.RowSpan" Value="1" />
-                            <Setter Property="Grid.ColumnSpan" Value="2" />
                             <Setter Property="Grid.Column" Value="0" />
                         </VisualState.Setters>
                     </VisualState>
@@ -87,7 +113,6 @@
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Property="Grid.Row" Value="0" />
-                            <Setter Property="Grid.RowSpan" Value="2" />
                             <Setter Property="Grid.Column" Value="0" />
                         </VisualState.Setters>
                     </VisualState>
@@ -453,10 +478,9 @@
         <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
     </Style>
 
-    <Style
-        ApplyToDerivedTypes="True"
-        BasedOn="{StaticResource BaseStyle}"
-        TargetType="ShellItem" />
+    <Style ApplyToDerivedTypes="True"
+           BasedOn="{StaticResource BaseStyle}"
+           TargetType="ShellItem" />
 
     <Style TargetType="NavigationPage">
         <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Black}}" />

@@ -48,9 +48,9 @@ msbuild /restore /t:Build %~dp0..\src\WinUI\ArcGIS.WinUI.Viewer\ArcGIS.WinUI.Vie
 msbuild /restore /t:Build %~dp0..\src\WinUI\ArcGIS.WinUI.Viewer\ArcGIS.WinUI.Viewer.csproj /p:Configuration=Release /p:Platform=ARM64 /p:GenerateAppxPackageOnBuild=true /p:PackageCertificateKeyFile=%PFXSignatureFile% /p:PackageCertificatePassword=%PFXSignaturePassword% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint% /p:AppxPackageDir=%~dp0..\output\AppPackages\arm64\
 
 ECHO Generating .NET MAUI Windows Packages
-dotnet publish %~dp0..\src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -f net8.0-windows10.0.19041.0 -c Release -p:RuntimeIdentifierOverride=win10-x86 /p:PackageCertificateKeyFile=%PFXSignatureFile% /p:PackageCertificatePassword=%PFXSignaturePassword% /p:AppxPackageDir=%~dp0..\output\AppPackages\x86\
-dotnet publish %~dp0..\src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -f net8.0-windows10.0.19041.0 -c Release -p:RuntimeIdentifierOverride=win10-x64 /p:PackageCertificateKeyFile=%PFXSignatureFile% /p:PackageCertificatePassword=%PFXSignaturePassword% /p:AppxPackageDir=%~dp0..\output\AppPackages\x64\
-dotnet publish %~dp0..\src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -f net8.0-windows10.0.19041.0 -c Release -p:RuntimeIdentifierOverride=win10-arm64 /p:PackageCertificateKeyFile=%PFXSignatureFile% /p:PackageCertificatePassword=%PFXSignaturePassword% /p:AppxPackageDir=%~dp0..\output\AppPackages\arm64\
+dotnet publish %~dp0..\src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -f net8.0-windows10.0.19041.0 -c Release -p:RuntimeIdentifier=win10-x86 -p:RuntimeIdentifierOverride=win10-x86 -p:PackageCertificateKeyFile=%PFXSignatureFile% -p:PackageCertificatePassword=%PFXSignaturePassword% -p:AppxPackageDir=%~dp0..\output\AppPackages\x86\ /p:UseRidGraph=true
+dotnet publish %~dp0..\src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -f net8.0-windows10.0.19041.0 -c Release -p:RuntimeIdentifierOverride=win10-arm64 -p:PackageCertificateKeyFile=%PFXSignatureFile% -p:PackageCertificatePassword=%PFXSignaturePassword% -p:AppxPackageDir=%~dp0..\output\AppPackages\arm64\
+dotnet publish %~dp0..\src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -f net8.0-windows10.0.19041.0 -c Release -p:RuntimeIdentifierOverride=win10-x64 -p:PackageCertificateKeyFile=%PFXSignatureFile% -p:PackageCertificatePassword=%PFXSignaturePassword% -p:AppxPackageDir=%~dp0..\output\AppPackages\x64\
 
 ECHO Generating .NET MAUI Android Package
 dotnet publish %~dp0..\src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -f net8.0-android -c Release

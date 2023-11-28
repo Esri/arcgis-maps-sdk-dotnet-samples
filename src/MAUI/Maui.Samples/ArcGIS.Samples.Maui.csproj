@@ -28,6 +28,7 @@
 		<RootNamespace>ArcGIS</RootNamespace>
 		<AssemblyName>ArcGIS</AssemblyName>
         <DefineConstants>$(DefineConstants);MAUI</DefineConstants>
+        <AppxPackageDir>..\..\..\output\AppPackages\$(RuntimeIdentifier)\</AppxPackageDir>
 	</PropertyGroup>
 
 	<ItemGroup>

@@ -14,7 +14,7 @@ Run the sample and a map will appear. As you navigate the map, map tiles will be
 
 ## How it works
 
-1. Create a `WebTiledLayer` from a URL and a list of subdomains.
+1. Create a `WebTiledLayer` from a URL.
 2. Create a new `Basemap` from the layer.
 3. Update the attribution on the layer. Note: this is a necessary step because web tiled services don't have associated service metadata.
 4. Display the basemap.
@@ -26,7 +26,7 @@ Run the sample and a map will appear. As you navigate the map, map tiles will be
 
 ## About the data
 
-The basemap in this sample is provided by [Stamen Design](https://stamen.com/). Stamen publishes tiled services based on OpenStreetMap data with several unique styles applied.
+The basemap in this sample is provided by [ArcGIS Living Atlas of the World](https://www.arcgis.com/home/item.html?id=1e126e7520f9466c9ca28b8f28b5e500). ArcGIS Living Atlas of the World provides tiled services with several unique styles.
 
 ## Additional information
 
@@ -42,4 +42,4 @@ For more information about web tiled layers, see the following resources:
 
 ## Tags
 
-layer, OGC, Open Street Map, OpenStreetMap, stamen.com, tiled, tiles
+layer, OGC, tiled, tiles

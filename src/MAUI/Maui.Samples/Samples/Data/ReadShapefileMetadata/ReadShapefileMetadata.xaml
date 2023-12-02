@@ -5,18 +5,27 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <ScrollView>
+        <Border x:Name="ControlPanel" Style="{DynamicResource EsriSampleControlPanel}">
+            <ScrollView MaximumHeightRequest="{OnIdiom Desktop=500, Default={Binding Height, Source=ControlPanel}}" Orientation="{OnPlatform iOS=Both, Default=Vertical}">
                 <StackLayout x:Name="InfoList" Spacing="5">
                     <Label FontAttributes="Bold"
-                           FontSize="Medium"
+                           FontSize="Large"
+                           HorizontalOptions="Start"
+                           LineBreakMode="WordWrap"
+                           MaximumWidthRequest="400"
                            Text="{Binding Path=Credits}" />
-                    <Label LineBreakMode="WordWrap" Text="{Binding Summary}" />
-                    <Image x:Name="ShapefileThumbnailImage" Margin="10" />
-                    <Label Margin="0,3"
-                           FontAttributes="Bold"
+                    <Label HorizontalOptions="Start"
+                           LineBreakMode="WordWrap"
+                           MaximumWidthRequest="400"
+                           Text="{Binding Summary}" />
+                    <Image x:Name="ShapefileThumbnailImage" HorizontalOptions="Start" />
+                    <Label FontAttributes="Bold"
+                           FontSize="Medium"
+                           HorizontalOptions="Start"
                            Text="Tags:" />
-                    <ListView ItemsSource="{Binding Tags}"
+                    <ListView HorizontalOptions="Start"
+                              ItemsSource="{Binding Tags}"
+                              MaximumWidthRequest="400"
                               RowHeight="25"
                               VerticalScrollBarVisibility="Never" />
                 </StackLayout>

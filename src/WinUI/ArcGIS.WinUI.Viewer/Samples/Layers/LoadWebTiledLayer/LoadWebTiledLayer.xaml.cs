@@ -17,44 +17,40 @@ namespace ArcGIS.WinUI.Samples.LoadWebTiledLayer
         category: "Layers",
         description: "Display a tiled web layer.",
         instructions: "Run the sample and a map will appear. As you navigate the map, map tiles will be fetched automatically and displayed on the map.",
-        tags: new[] { "OGC", "Open Street Map", "OpenStreetMap", "layer", "stamen.com", "tiled", "tiles" })]
+        tags: new[] { "OGC", "layer", "tiled", "tiles" })]
     public partial class LoadWebTiledLayer
     {
-        // Templated URL to the tile service
-        private readonly string _templateUri = "https://stamen-tiles-{subdomain}.a.ssl.fastly.net/watercolor/{level}/{col}/{row}.jpg";
+        // Templated URL to the tile service.
+        private readonly string _templateUri = "https://server.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{level}/{row}/{col}.jpg";
 
-        // List of subdomains for use when constructing the web tiled layer
-        private readonly List<string> _tiledLayerSubdomains = new List<string> { "a", "b", "c", "d" };
-
-        // Attribution string for the Stamen service
-        private readonly string _attribution = "Map tiles by <a href=\"http://stamen.com/\">Stamen Design</a>," +
-                                               "under <a href=\"http://creativecommons.org/licenses/by/3.0\">CC BY 3.0</a>." +
-                                               "Data by <a href=\"http://openstreetmap.org/\">OpenStreetMap</a>," +
-                                               "under <a href=\"http://creativecommons.org/licenses/by-sa/3.0\">CC BY SA</a>.";
+        // Attribution string.
+        private readonly string _attribution = "Map tiles by <a href=\"https://livingatlas.arcgis.com\">ArcGIS Living Atlas of the World</a>, " +
+                                            "under <a href=\"https://www.esri.com/en-us/legal/terms/full-master-agreement\">Esri Master License Agreement</a>. " + 
+                                            "Data by Esri, Garmin, GEBCO, NOAA NGDC, and other contributors.";
 
         public LoadWebTiledLayer()
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization
+            // Setup the control references and execute initialization.
             Initialize();
         }
 
         private void Initialize()
         {
-            // Create the layer from the URL and the subdomain list
-            WebTiledLayer myBaseLayer = new WebTiledLayer(_templateUri, _tiledLayerSubdomains);
+            // Create the layer from the URL and the subdomain list.
+            WebTiledLayer myBaseLayer = new WebTiledLayer(_templateUri);
 
-            // Create a basemap from the layer
+            // Create a basemap from the layer.
             Basemap layerBasemap = new Basemap(myBaseLayer);
 
-            // Apply the attribution for the layer
+            // Apply the attribution for the layer.
             myBaseLayer.Attribution = _attribution;
 
-            // Create a map to hold the basemap
+            // Create a map to hold the basemap.
             Map myMap = new Map(layerBasemap);
 
-            // Add the map to the map view
+            // Add the map to the map view.
             MyMapView.Map = myMap;
         }
     }

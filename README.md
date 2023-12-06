@@ -37,8 +37,8 @@ If you want to modify or debug sample code, you can clone this repo and load one
 
 If you are only interested in one platform, you can open a platform-specific solutions:
 
-- [WPF (.NET Framework)](src/WPF/readme.md): `src\WPF\WPF.Viewer.NetFramework.sln`
-- [WPF (.NET)](src/WPF/readme.md): `src\WPF\WPF.Viewer.Net.sln`
+- [WPF .NET Framework](src/WPF/readme.md): `src\WPF\WPF.Viewer.NetFramework.sln`
+- [WPF .NET](src/WPF/readme.md): `src\WPF\WPF.Viewer.Net.sln`
 - [.NET MAUI](src/MAUI/readme.md): `src\MAUI\ArcGIS.Samples.Maui.sln`
 - [WinUI](src/WinUI/readme.md): `src\WinUI\ArcGIS.WinUI.Viewer.sln`
 

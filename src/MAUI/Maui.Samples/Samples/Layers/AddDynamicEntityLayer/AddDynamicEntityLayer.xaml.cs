@@ -162,30 +162,5 @@ namespace ArcGIS.Samples.AddDynamicEntityLayer
                 _dynamicEntityDataSource.ConnectAsync();
             }
         }
-
-        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
-        {
-            MyMapView.DismissCallout();
-            if (e.Location is null) return;
-            IdentifyLayerResult result;
-            try
-            {
-                result = await ((GeoView)sender).IdentifyLayerAsync(_dynamicEntityLayer, e.Position, 5, false);
-            }
-            catch { return; }
-            var first = result.GeoElements?.FirstOrDefault();
-            if (first is DynamicEntityObservation deo)
-            {
-                // Get the dynamic entity reference so the callout will follow the moving vehicle.
-                var entity = deo.GetDynamicEntity();
-                // Use a custom arcade expression to display the speed, heading and location in the callout as it changes.
-                var calloutDefinition = new CalloutDefinition(
-                   element: entity,
-                   textExpression: "concatenate($feature.vehiclename, \": \", $feature.speed, \" mph\")",
-                   detailTextExpression: "concatenate(Round($feature.point_x,6), \",\",Round($feature.point_y,6),\" Heading: \",$feature.heading,\"°\")"
-                );
-                MyMapView.ShowCalloutForGeoElement(entity, e.Position, calloutDefinition);
-            }
-        }
     }
 }

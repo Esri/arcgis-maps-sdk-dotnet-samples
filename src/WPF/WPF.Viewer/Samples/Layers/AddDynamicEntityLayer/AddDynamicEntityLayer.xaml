@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <esri:MapView x:Name="MyMapView" />
         <Border x:Name="MainUI" Style="{DynamicResource BorderStyle}">
             <StackPanel>
                 <Label Name="ConnectionStatusLabel" />

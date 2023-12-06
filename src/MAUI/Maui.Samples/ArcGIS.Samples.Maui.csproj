@@ -1,8 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>ArcGIS.Samples</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -20,11 +20,11 @@
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
 		<ApplicationVersion>1</ApplicationVersion>
 
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</SupportedOSPlatformVersion>
-		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</TargetPlatformMinVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<RootNamespace>ArcGIS</RootNamespace>
 		<AssemblyName>ArcGIS</AssemblyName>
         <DefineConstants>$(DefineConstants);MAUI</DefineConstants>
@@ -61,7 +61,7 @@
 	</ItemGroup>
 
 	<!-- Exclude Indoor Positioning on desktop platforms -->
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-maccatalyst')) or $(TargetFramework.StartsWith('net8.0-windows'))">
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net7.0-maccatalyst')) or $(TargetFramework.StartsWith('net7.0-windows'))">
 	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
 	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
 	  <MauiCss Remove="Samples\Location\IndoorPositioning\**" />
@@ -135,16 +135,14 @@
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" />
     <PackageReference Include="Markdig" />
     <PackageReference Include="System.Drawing.Common" />
-    <PackageReference Include="Microsoft.Maui.Controls"/>
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility"/>
   </ItemGroup>
 
   <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-windows10.0.19041.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows10.0.19041.0'">
     <PackageReference Include="WinUIEx" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-android'">
     <PackageReference Include="Xamarin.AndroidX.AppCompat" />
   </ItemGroup>
   <ItemGroup>

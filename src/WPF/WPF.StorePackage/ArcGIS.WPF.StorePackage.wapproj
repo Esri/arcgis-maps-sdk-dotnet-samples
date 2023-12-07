@@ -100,9 +100,9 @@
   <ItemGroup>
     <ProjectReference Include="..\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj">
       <SkipGetTargetFrameworkProperties>True</SkipGetTargetFrameworkProperties>
-<!--      <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Properties\PublishProfiles\win10-x64-release.pubxml</PublishProfile>-->
-      <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|x86'">Properties\PublishProfiles\win10-x86-release.pubxml</PublishProfile>
-<!--      <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">Properties\PublishProfiles\win10-arm64-release.pubxml</PublishProfile>-->
+<!--      <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Properties\PublishProfiles\win-x64-release.pubxml</PublishProfile>-->
+      <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|x86'">Properties\PublishProfiles\win-x86-release.pubxml</PublishProfile>
+<!--      <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">Properties\PublishProfiles\win-arm64-release.pubxml</PublishProfile>-->
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

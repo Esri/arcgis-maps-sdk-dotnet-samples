@@ -5,59 +5,31 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <ScrollView x:Name="MetadataScrollView"
-                            Grid.Row="1"
-                            IsVisible="false"
-                            MaximumHeightRequest="400">
-                    <Grid x:Name="InfoGrid">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                        </Grid.RowDefinitions>
-                        <Label Grid.Row="0"
-                               Margin="5"
-                               FontAttributes="Bold"
-                               FontSize="Small"
-                               Text="{Binding Path=Credits}" />
-                        <Label Grid.Row="1"
-                               FontSize="Micro"
-                               LineBreakMode="WordWrap"
-                               Text="{Binding Summary}" />
-                        <Image x:Name="ShapefileThumbnailImage"
-                               Grid.Row="2"
-                               Margin="10" />
-                        <Grid Grid.Row="3">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Label Grid.Column="0"
-                                   Margin="0,3"
-                                   FontAttributes="Bold"
-                                   FontSize="Micro"
-                                   Text="Tags:" />
-                            <ListView Grid.Column="1"
-                                      HeightRequest="120"
-                                      ItemsSource="{Binding Tags}"
-                                      RowHeight="25"
-                                      WidthRequest="160" />
-                        </Grid>
-                    </Grid>
-                </ScrollView>
-                <Button Grid.Row="0"
-                        Clicked="ShowMetadataClicked"
-                        HeightRequest="40"
-                        HorizontalOptions="FillAndExpand"
-                        Text="Show/Hide Metadata" />
-            </Grid>
+        <Border x:Name="ControlPanel" Style="{DynamicResource EsriSampleControlPanel}">
+            <ScrollView MaximumHeightRequest="{OnIdiom Desktop=500, Default={Binding Height, Source=ControlPanel}}" Orientation="{OnPlatform iOS=Both, Default=Vertical}">
+                <StackLayout x:Name="InfoList" Spacing="5">
+                    <Label FontAttributes="Bold"
+                           FontSize="Large"
+                           HorizontalOptions="Start"
+                           LineBreakMode="WordWrap"
+                           MaximumWidthRequest="400"
+                           Text="{Binding Path=Credits}" />
+                    <Label HorizontalOptions="Start"
+                           LineBreakMode="WordWrap"
+                           MaximumWidthRequest="400"
+                           Text="{Binding Summary}" />
+                    <Image x:Name="ShapefileThumbnailImage" HorizontalOptions="Start" />
+                    <Label FontAttributes="Bold"
+                           FontSize="Medium"
+                           HorizontalOptions="Start"
+                           Text="Tags:" />
+                    <ListView HorizontalOptions="Start"
+                              ItemsSource="{Binding Tags}"
+                              MaximumWidthRequest="400"
+                              RowHeight="25"
+                              VerticalScrollBarVisibility="Never" />
+                </StackLayout>
+            </ScrollView>
         </Border>
     </Grid>
 </ContentPage>

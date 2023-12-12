@@ -24,6 +24,7 @@ namespace ArcGIS.Samples.ControlAnnotationSublayerVisibility
         // Mobile map package that contains annotation layers.
         private MobileMapPackage _mobileMapPackage;
 
+
         // Sub layers of the annotation layer.
         private AnnotationSublayer _openSublayer;
         private AnnotationSublayer _closedSublayer;

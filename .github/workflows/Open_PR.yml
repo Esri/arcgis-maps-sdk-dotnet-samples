@@ -26,29 +26,57 @@ jobs:
           # Configure the bot's git identity.
           git config --global user.name "ArcGIS Maps SDK [bot]"
           git config --global user.email "arcgis-maps-sdk-bot@esri.com"
+          echo "Configured git identity for bot."
 
           # Store the commit hash of the most recent commit from main.
-          COMMIT_HASH=$(git rev-parse HEAD)
+          TRIGGER_COMMIT_HASH=$(git rev-parse HEAD)
+          echo "Job triggered by commit: $TRIGGER_COMMIT_HASH."
 
-          # Name the target branch.
-          SYNC_BRANCH="sync/$COMMIT_HASH"
+          # Store the commit message.
+          COMMIT_MESSAGE=$(gh api repos/Esri/arcgis-maps-sdk-dotnet-samples/commits/$TRIGGER_COMMIT_HASH  | jq -r '.commit.message')
+            echo "Commit message:"
+            echo "$COMMIT_MESSAGE."
 
-          # Pull v.next and branch off with the cherry-picked commit.
+          # If the commit message contains the string "no-branch-sync", don't open a PR.
+          if [[ $COMMIT_MESSAGE == *no-branch-sync* ]]; then
+            echo "PR author intended the commit to only target main."
+            exit 0
+          fi
+
+          # Name the target branch for new PR.
+          SYNC_BRANCH="sync/$TRIGGER_COMMIT_HASH"
+
+          # Pull v.next and branch off. 
           git fetch --depth=2 origin v.next 
           git switch v.next
-          git branch $SYNC_BRANCH
-          git switch $SYNC_BRANCH
-          git cherry-pick $COMMIT_HASH
+          git switch -c $SYNC_BRANCH
 
-          # Push the new head branch to the remote and try to open a PR.
-          git push -u origin $SYNC_BRANCH
+          # Attempt to cherry-pick the commit.
+          git cherry-pick $TRIGGER_COMMIT_HASH || CANNOT_CHERRY_PICK=$?
+          
+          # Terminate the job if cherry-picking failed. Output the merge conflict.
+          if [ -n "$CANNOT_CHERRY_PICK" ]; then
+            echo "Failed to cherry-pick commit."
+            exit 1
+          fi
+
+          # Check for a diff between the new branch and v.next.
           if ! git diff --quiet v.next; then
             echo "Diff detected."
+
+            # Push the new head branch to the remote.
+            git push -u origin $SYNC_BRANCH
+
+            # Find the author's GitHub username.
+            COMMIT_AUTHOR=$(gh api repos/Esri/arcgis-maps-sdk-dotnet-samples/commits/$TRIGGER_COMMIT_HASH | jq -r '.author.login')
+
+            # Try to open a PR.
             gh pr create \
               --title "[Automated] Sync v.next with main" \
               --body "This PR was automaticaly opened to update v.next with the most recent commit from main." \
               --head "$SYNC_BRANCH" \
-              --base "v.next" || CANNOT_OPEN_PR=$?
+              --base "v.next" \
+              --reviewer "$COMMIT_AUTHOR" || CANNOT_OPEN_PR=$?
             if [ -n "$CANNOT_OPEN_PR" ]; then
               echo "Failed to open PR."
               git branch -D $SYNC_BRANCH

@@ -7,46 +7,60 @@
         <esriUI:SceneView x:Name="MySceneView"
                           AtmosphereEffect="Realistic"
                           Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="{OnPlatform MacCatalyst=375, WinUI=375}">
-            <StackLayout>
-                <StackLayout Orientation="Horizontal" Spacing="5">
-                    <Picker x:Name="MissionSelectionBox"
-                            HorizontalTextAlignment="Center"
-                            WidthRequest="150" />
-                    <Button x:Name="MissionPlayPause"
-                            Clicked="MissionPlayPlauseClick"
-                            Text="Pause"
-                            WidthRequest="75" />
-                    <Button x:Name="CameraControlButton"
-                            Clicked="ToggleFollowPlane"
-                            Text="Don't Follow"
-                            WidthRequest="110" />
-                </StackLayout>
-                <Label Text="Mission Progress:" />
-                <Slider x:Name="MissionProgressBar"
-                        Maximum="100"
-                        ValueChanged="MissionProgressOnSeek"
-                        WidthRequest="350" />
-                <Grid ColumnDefinitions="100,*">
-                    <StackLayout Orientation="Vertical">
-                        <Label>Altitude:</Label>
-                        <Label x:Name="AltitudeLabel" />
-                        <Label>Heading:</Label>
-                        <Label x:Name="HeadingLabel" />
-                        <Label>Pitch:</Label>
-                        <Label x:Name="PitchLabel" />
-                        <Label>Roll:</Label>
-                        <Label x:Name="RollLabel" />
-                    </StackLayout>
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <ScrollView>
+                <StackLayout Spacing="5">
+                    <Label FontAttributes="Bold" Text="Select a mission:" />
+                    <Picker x:Name="MissionSelectionBox" />
+                    <Label FontAttributes="Bold" Text="Mission progress:" />
+                    <Slider x:Name="MissionProgressBar"
+                            Maximum="100"
+                            ValueChanged="MissionProgressBar_ValueChanged" />
+                    <Label FontAttributes="Bold" Text="Play mission:" />
+                    <Switch x:Name="PlaySwitch"
+                            HorizontalOptions="Start"
+                            Toggled="PlaySwitch_Toggled" />
+                    <Label FontAttributes="Bold" Text="Follow plane:" />
+                    <Switch x:Name="FollowSwitch"
+                            HorizontalOptions="Start"
+                            Toggled="FollowSwitch_Toggled" />
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontAttributes="Bold" Text="Altitude: " />
+                                <Span x:Name="AltitudeLabel" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontAttributes="Bold" Text="Heading: " />
+                                <Span x:Name="HeadingLabel" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontAttributes="Bold" Text="Pitch: " />
+                                <Span x:Name="PitchLabel" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span FontAttributes="Bold" Text="Roll: " />
+                                <Span x:Name="RollLabel" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
                     <esriUI:MapView x:Name="InsetMapView"
-                                    Grid.Column="1"
-                                    HeightRequest="150"
-                                    HorizontalOptions="End"
-                                    IsAttributionTextVisible="False"
-                                    VerticalOptions="Start"
-                                    WidthRequest="150" />
-                </Grid>
-            </StackLayout>
+                                    HeightRequest="200"
+                                    IsAttributionTextVisible="False" />
+                </StackLayout>
+            </ScrollView>
         </Border>
     </Grid>
 </ContentPage>

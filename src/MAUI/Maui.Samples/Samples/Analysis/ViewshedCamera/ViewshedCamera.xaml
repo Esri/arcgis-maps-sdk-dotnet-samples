@@ -4,14 +4,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <esriUI:SceneView x:Name="MySceneView" Grid.Row="0" />
+        <esriUI:SceneView x:Name="MySceneView" />
         <Button x:Name="UpdateObserverButton"
-                Grid.Row="1"
+                Margin="10"
                 Clicked="UpdateObserverWithCamera"
-                Text="Viewshed from Here" />
+                HorizontalOptions="End"
+                Text="Viewshed from Here"
+                VerticalOptions="Start" />
     </Grid>
 </ContentPage>

@@ -2,15 +2,14 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{StaticResource EsriSampleControlPanel}">
-            <Grid RowDefinitions="auto">
-                <Button x:Name="LocationTrackingButton"
-                        Clicked="StartTracking_Tapped"
-                        IsEnabled="False"
-                        Text="Start tracking" />
-            </Grid>
-        </Border>
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Button x:Name="LocationTrackingButton"
+                Margin="10"
+                Clicked="StartTracking_Tapped"
+                HorizontalOptions="End"
+                IsEnabled="False"
+                Text="Start tracking"
+                VerticalOptions="Start" />
     </Grid>
 </ContentPage>

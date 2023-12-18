@@ -3,12 +3,12 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
-        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Button x:Name="MyButton"
-                    Clicked="MyButton_Click"
-                    HorizontalOptions="CenterAndExpand" />
-        </Border>
+    <Grid>
+        <esriUI:SceneView x:Name="MySceneView" />
+        <Button x:Name="MyButton"
+                Margin="10"
+                Clicked="MyButton_Click"
+                HorizontalOptions="End"
+                VerticalOptions="Start" />
     </Grid>
 </ContentPage>

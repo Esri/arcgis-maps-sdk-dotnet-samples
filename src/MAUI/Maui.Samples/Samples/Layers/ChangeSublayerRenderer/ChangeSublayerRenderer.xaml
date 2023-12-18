@@ -3,14 +3,13 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5" RowDefinitions="auto">
-                <Button x:Name="ChangeSublayerRendererButton"
-                        Clicked="ChangeSublayerRendererButton_Clicked"
-                        Text="Change sublayer renderer" />
-            </Grid>
-        </Border>
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Button x:Name="ChangeSublayerRendererButton"
+                Margin="10"
+                Clicked="ChangeSublayerRendererButton_Clicked"
+                HorizontalOptions="End"
+                Text="Change sublayer renderer"
+                VerticalOptions="Start" />
     </Grid>
 </ContentPage>

@@ -8,11 +8,8 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <Grid ColumnSpacing="5"
                   RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto"
+                  ColumnDefinitions="auto,*"
                   RowSpacing="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="{OnPlatform Default=*, iOS=150}" />
-                </Grid.ColumnDefinitions>
                 <Label Grid.Row="0"
                        Grid.Column="0"
                        HorizontalTextAlignment="End"

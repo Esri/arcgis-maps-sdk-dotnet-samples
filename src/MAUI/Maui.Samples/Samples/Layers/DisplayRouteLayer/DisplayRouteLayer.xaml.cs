@@ -71,11 +71,5 @@ namespace ArcGIS.Samples.DisplayRouteLayer
                 await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
-
-        private void Button_Clicked(object sender, EventArgs e)
-        {
-            // Toggle the visibility of the directions.
-            DirectionsView.IsVisible = !DirectionsView.IsVisible;
-        }
     }
 }

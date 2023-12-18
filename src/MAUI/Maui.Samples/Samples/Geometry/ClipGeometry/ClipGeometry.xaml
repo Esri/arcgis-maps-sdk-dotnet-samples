@@ -4,14 +4,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+        <esriUI:MapView x:Name="MyMapView" />
         <Button x:Name="ClipButton"
-                Grid.Row="0"
+                Margin="10"
                 Clicked="ClipButton_Clicked"
-                Text="Clip" />
-        <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
+                HorizontalOptions="End"
+                Text="Clip"
+                VerticalOptions="Start" />
     </Grid>
 </ContentPage>

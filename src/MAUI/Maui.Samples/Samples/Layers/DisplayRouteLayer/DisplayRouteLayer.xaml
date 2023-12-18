@@ -9,46 +9,31 @@
         <converters:DirectionPointTypeToIconConverter x:Key="Converter" />
     </ContentPage.Resources>
 
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
-        <StackLayout>
-            <Button Clicked="Button_Clicked" Text="Show/hide directions" />
-            <Border x:Name="DirectionsView"
-                    Margin="15"
-                    Padding="10"
-                    BackgroundColor="{AppThemeBinding Light=#dfdfdf,
-                                                      Dark=#303030}"
-                    HorizontalOptions="End"
-                    IsVisible="False"
-                    HeightRequest="250"
-                    WidthRequest="300"
-                    StrokeShape="RoundRectangle 10">
-                <VerticalStackLayout>
-                    <Label FontAttributes="Bold"
-                           Text="Directions:"
-                           TextColor="{AppThemeBinding Light={StaticResource Black},
-                                                       Dark={StaticResource White}}" />
-                    <CollectionView x:Name="DirectionsList"
-                                    HeightRequest="200"
-                                    VerticalScrollBarVisibility="Default">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Grid ColumnDefinitions="20,25,*">
-                                    <Label HorizontalOptions="End" Text="{Binding Attributes[Sequence], StringFormat='{}{0}.'}" />
-                                    <Label Grid.Column="1"
-                                           FontFamily="calcite-ui-icons-24"
-                                           FontSize="20"
-                                           Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
-                                    <Label Grid.Column="2"
-                                           LineBreakMode="WordWrap"
-                                           Text="{Binding Attributes[DisplayText]}" />
-                                </Grid>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </VerticalStackLayout>
-            </Border>
-        </StackLayout>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <StackLayout Spacing="5">
+                <Label FontAttributes="Bold" Text="Directions:" />
+                <CollectionView x:Name="DirectionsList"
+                                HeightRequest="200"
+                                VerticalScrollBarVisibility="Default">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="20,25,*">
+                                <Label HorizontalOptions="End" Text="{Binding Attributes[Sequence], StringFormat='{}{0}.'}" />
+                                <Label Grid.Column="1"
+                                       FontFamily="calcite-ui-icons-24"
+                                       FontSize="20"
+                                       Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
+                                <Label Grid.Column="2"
+                                       LineBreakMode="WordWrap"
+                                       Text="{Binding Attributes[DisplayText]}" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </Border>
     </Grid>
 
 </ContentPage>

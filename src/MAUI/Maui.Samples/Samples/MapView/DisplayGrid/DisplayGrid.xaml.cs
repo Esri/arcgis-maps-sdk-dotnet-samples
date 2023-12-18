@@ -62,7 +62,6 @@ namespace ArcGIS.Samples.DisplayGrid
 
             // Subscribe to the button click events.
             ApplySettingsButton.Clicked += ApplySettingsButton_Clicked;
-            ShowHideSettingsButton.Clicked += ShowHideSettingsButton_Clicked;
 
             // Enable the action button.
             ApplySettingsButton.IsEnabled = true;
@@ -73,11 +72,6 @@ namespace ArcGIS.Samples.DisplayGrid
 
             // Apply default settings.
             ApplySettingsButton_Clicked(this, null);
-        }
-
-        private void ShowHideSettingsButton_Clicked(object sender, EventArgs e)
-        {
-            SettingsScrollView.IsVisible = !SettingsScrollView.IsVisible;
         }
 
         private void ApplySettingsButton_Clicked(object sender, EventArgs e)

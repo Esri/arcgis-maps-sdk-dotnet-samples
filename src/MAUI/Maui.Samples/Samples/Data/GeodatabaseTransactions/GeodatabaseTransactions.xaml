@@ -1,105 +1,50 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="ArcGIS.Samples.GeodatabaseTransactions.GeodatabaseTransactions"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border MaximumWidthRequest="300" Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5"
-                  ColumnSpacing="3"
-                  RowSpacing="5">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="35" />
-                    <RowDefinition Height="35" />
-                    <RowDefinition Height="35" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2.5*" />
-                    <ColumnDefinition Width="2.5*" />
-                    <ColumnDefinition Width="0.5*" />
-                    <ColumnDefinition Width="2.5*" />
-                </Grid.ColumnDefinitions>
-                <Button x:Name="StartEditingButton"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Margin="2,0"
-                        Clicked="BeginTransaction"
-                        FontSize="10"
-                        IsEnabled="False"
-                        MinimumHeightRequest="35"
-                        Text="Start Edit" />
-                <Button x:Name="StopEditingButton"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Margin="2,0"
-                        Clicked="StopEditTransaction"
-                        FontSize="10"
-                        IsEnabled="False"
-                        MinimumHeightRequest="35"
-                        Text="Stop Edit" />
-                <Button x:Name="AddBirdButton"
-                        Grid.Row="0"
-                        Grid.Column="1"
-                        Margin="2,0"
-                        Clicked="AddNewFeature"
-                        FontSize="10"
-                        IsEnabled="False"
-                        MinimumHeightRequest="35"
-                        Text="Add Bird" />
-                <Button x:Name="AddMarineButton"
-                        Grid.Row="1"
-                        Grid.Column="1"
-                        Margin="2,0"
-                        Clicked="AddNewFeature"
-                        FontSize="10"
-                        IsEnabled="False"
-                        MinimumHeightRequest="35"
-                        Text="Add Marine" />
-                <Button x:Name="SyncEditsButton"
-                        Grid.Row="0"
-                        Grid.Column="3"
-                        Margin="2,0"
-                        Clicked="SynchronizeEdits"
-                        FontSize="10"
-                        IsEnabled="False"
-                        MinimumHeightRequest="35"
-                        Text="Sync" />
-                <Grid Grid.Row="2"
-                      Grid.ColumnSpan="4"
-                      HeightRequest="50">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="auto" />
-                        <ColumnDefinition Width="auto" />
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Column="0"
-                           Margin="3"
-                           FontSize="12"
-                           Text="Require a transaction for edits"
-                           VerticalOptions="Center" />
-                    <Switch x:Name="RequireTransactionCheckBox"
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <StackLayout Spacing="5">
+                <Grid RowDefinitions="*, *"
+                      ColumnSpacing="5"
+                      RowSpacing="5"
+                      ColumnDefinitions="*, *">
+                    <Button x:Name="StartEditingButton"
+                            Clicked="BeginTransaction"
+                            IsEnabled="False"
+                            Text="Start Edit" />
+                    <Button x:Name="StopEditingButton"
+                            Clicked="StopEditTransaction"
                             Grid.Column="1"
-                            Margin="3"
-                            IsToggled="True"
-                            Toggled="RequireTransactionChanged"
-                            VerticalOptions="Center" />
+                            IsEnabled="False"
+                            Text="Stop Edit" />
+                    <Button x:Name="AddBirdButton"
+                            Clicked="AddNewFeature"
+                            Grid.Row="1"
+                            IsEnabled="False"
+                            Text="Add Bird" />
+                    <Button x:Name="AddMarineButton"
+                            Clicked="AddNewFeature"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            IsEnabled="False"
+                            Text="Add Marine" />
                 </Grid>
+                <Button x:Name="SyncEditsButton"
+                        Clicked="SynchronizeEdits"
+                        IsEnabled="False"
+                        Text="Sync" />
+                <Label Text="Require a transaction for edits:" />
+                <Switch x:Name="RequireTransactionCheckBox"
+                        IsToggled="True"
+                        Toggled="RequireTransactionChanged"/>
                 <Label x:Name="MessageTextBlock"
-                       Grid.Row="3"
-                       Grid.ColumnSpan="4"
-                       Margin="5"
-                       FontSize="12"
-                       HorizontalOptions="FillAndExpand"
                        LineBreakMode="CharacterWrap"
-                       Text="Generating local geodatabase ..."
-                       VerticalOptions="FillAndExpand" />
-                <ActivityIndicator x:Name="LoadingProgressBar"
-                                   Grid.Row="1"
-                                   Grid.Column="3"
-                                   HorizontalOptions="FillAndExpand"
-                                   IsRunning="True" />
-            </Grid>
+                       Text="Generating local geodatabase ..." />
+                <ActivityIndicator x:Name="LoadingProgressBar" IsRunning="True" />
+            </StackLayout>
         </Border>
     </Grid>
 </ContentPage>

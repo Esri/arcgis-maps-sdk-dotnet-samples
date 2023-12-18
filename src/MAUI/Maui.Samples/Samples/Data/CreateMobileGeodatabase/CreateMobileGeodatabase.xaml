@@ -5,12 +5,11 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid RowDefinitions="auto,auto">
+            <StackLayout Spacing="5">
                 <Label x:Name="FeaturesLabel"
                        Grid.Row="0"
                        Margin="5,0"
                        Text="Number of features added: " />
-                <StackLayout Spacing="5">
                     <Button Clicked="ViewTable" Text="View table" />
                     <Button x:Name="CreateGdbButton"
                             Clicked="CreateGdbButton_Click"
@@ -20,7 +19,6 @@
                             Clicked="CloseGeodatabaseClick"
                             Text="Close and share" />
                 </StackLayout>
-            </Grid>
         </Border>
         <Border x:Name="TableFrame"
                 Grid.Row="{OnIdiom Default=0,

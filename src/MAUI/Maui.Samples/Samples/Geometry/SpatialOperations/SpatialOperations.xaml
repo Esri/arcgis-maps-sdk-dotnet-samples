@@ -5,21 +5,15 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border MinimumWidthRequest="350" Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5"
-                  RowDefinitions="auto,auto"
-                  RowSpacing="5">
-                <HorizontalStackLayout Grid.Row="0" Spacing="5">
-                    <Label Text="Spatial operation:" VerticalTextAlignment="Center" />
-                    <Picker x:Name="SpatialOperationComboBox"
-                            SelectedIndexChanged="SpatialOperationComboBox_SelectedIndexChanged"
-                            WidthRequest="200" />
-                </HorizontalStackLayout>
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <StackLayout Spacing="5">
+                <Label Text="Spatial operation:" />
+                <Picker x:Name="SpatialOperationComboBox" SelectedIndexChanged="SpatialOperationComboBox_SelectedIndexChanged"/>
                 <Button x:Name="ResetOperationButton"
-                        Grid.Row="2"
                         Clicked="ResetOperationButton_Clicked"
                         Text="Reset" />
-            </Grid>
+            </StackLayout>
+                
         </Border>
     </Grid>
 </ContentPage>

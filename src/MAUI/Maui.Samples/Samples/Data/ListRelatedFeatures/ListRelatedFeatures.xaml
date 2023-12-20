@@ -9,12 +9,12 @@
             <ScrollView Orientation="Both">
                 <StackLayout Spacing="5">
                     <Label x:Name="Status"
-                           Text="Tap a park to see related features."
-                           LineBreakMode="WordWrap"/>
+                           LineBreakMode="WordWrap"
+                           Text="Tap a park to see related features." />
                     <ListView x:Name="MyResultsView"
                               HeightRequest="300"
-                              WidthRequest="600"
-                              HorizontalScrollBarVisibility="Always"/>
+                              HorizontalScrollBarVisibility="Always"
+                              WidthRequest="600" />
                 </StackLayout>
             </ScrollView>
         </Border>

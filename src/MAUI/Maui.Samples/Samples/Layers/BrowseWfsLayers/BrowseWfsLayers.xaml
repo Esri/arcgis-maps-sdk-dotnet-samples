@@ -8,14 +8,14 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout Spacing="5">
                 <Entry x:Name="ServiceTextBox"
-                        MaximumWidthRequest="250"
-                        HorizontalOptions="Start"/>
+                       HorizontalOptions="Start"
+                       MaximumWidthRequest="250" />
                 <Button x:Name="LoadServiceButton"
                         Clicked="LoadServiceButton_Click"
                         Text="Load service" />
                 <ListView x:Name="WfsLayerList"
-                            HeightRequest="100"
-                            SelectionMode="Single">
+                          HeightRequest="100"
+                          SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <TextCell Text="{Binding Title}" />
@@ -24,15 +24,15 @@
                 </ListView>
                 <Label Text="Swap coordinate order:" />
                 <Switch x:Name="AxisOrderSwapCheckbox" />
-                <Button x:Name="LoadLayersButton" 
+                <Button x:Name="LoadLayersButton"
                         Clicked="LoadLayers_Clicked"
                         IsEnabled="False"
                         Text="Load selected layer" />
                 <ActivityIndicator x:Name="LoadingProgressBar"
-                                    HeightRequest="30"
-                                    IsEnabled="True"
-                                    IsRunning="True"
-                                    IsVisible="True" />
+                                   HeightRequest="30"
+                                   IsEnabled="True"
+                                   IsRunning="True"
+                                   IsVisible="True" />
             </StackLayout>
         </Border>
     </Grid>

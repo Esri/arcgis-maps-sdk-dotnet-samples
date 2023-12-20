@@ -8,45 +8,47 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout Spacing="5">
                 <HorizontalStackLayout Spacing="5">
-                    <Label Text="Stretch:" VerticalOptions="Center"/>
+                    <Label Text="Stretch:" VerticalOptions="Center" />
                     <Picker x:Name="StretchTypeComboBox"
-                            WidthRequest="200"
-                            SelectedIndexChanged="StretchTypeSelectionChanged" />
+                            SelectedIndexChanged="StretchTypeSelectionChanged"
+                            WidthRequest="200" />
                 </HorizontalStackLayout>
                 <StackLayout x:Name="MinMaxParameters" Spacing="5">
-                    <Label Text="Min:"/>
+                    <Label Text="Min:" />
                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="5">
-                        <Picker x:Name="MinRedComboBox" TextColor="Red"/>
+                        <Picker x:Name="MinRedComboBox" TextColor="Red" />
                         <Picker x:Name="MinGreenComboBox"
-                                TextColor="Green"
-                                Grid.Column="1"/>
+                                Grid.Column="1"
+                                TextColor="Green" />
                         <Picker x:Name="MinBlueComboBox"
-                                TextColor="Blue"
-                                Grid.Column="2"/>
+                                Grid.Column="2"
+                                TextColor="Blue" />
                     </Grid>
                     <Label Text="Max:" />
                     <Grid ColumnDefinitions="*,*,*" ColumnSpacing="5">
-                        <Picker x:Name="MaxRedComboBox" TextColor="Red"/>
+                        <Picker x:Name="MaxRedComboBox" TextColor="Red" />
                         <Picker x:Name="MaxGreenComboBox"
-                                TextColor="Green"
-                                Grid.Column="1"/>
+                                Grid.Column="1"
+                                TextColor="Green" />
                         <Picker x:Name="MaxBlueComboBox"
-                                TextColor="Blue"
-                                Grid.Column="2"/>
+                                Grid.Column="2"
+                                TextColor="Blue" />
                     </Grid>
                 </StackLayout>
                 <Grid x:Name="PercentClipParameters"
                       ColumnDefinitions="auto,*"
                       ColumnSpacing="5"
-                      RowSpacing="5"
                       IsVisible="False"
-                      RowDefinitions="*,*">
+                      RowDefinitions="*,*"
+                      RowSpacing="5">
                     <Label Text="Min %" VerticalOptions="Center" />
                     <Slider x:Name="MinimumValueSlider"
                             Grid.Column="1"
                             Maximum="100"
                             Minimum="0" />
-                    <Label Grid.Row="1" Text="Max %" VerticalOptions="Center" />
+                    <Label Grid.Row="1"
+                           Text="Max %"
+                           VerticalOptions="Center" />
                     <Slider x:Name="MaximumValueSlider"
                             Grid.Row="1"
                             Grid.Column="1"
@@ -54,8 +56,8 @@
                             Minimum="0" />
                 </Grid>
                 <Grid x:Name="StdDeviationParameters"
-                      ColumnSpacing="5"
                       ColumnDefinitions="auto,*"
+                      ColumnSpacing="5"
                       IsVisible="False">
                     <Label Text="Factor:" VerticalOptions="Center" />
                     <Picker x:Name="StdDeviationFactorComboBox" Grid.Column="1" />

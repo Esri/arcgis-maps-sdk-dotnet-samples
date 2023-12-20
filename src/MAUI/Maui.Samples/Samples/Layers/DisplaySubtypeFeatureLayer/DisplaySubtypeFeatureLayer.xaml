@@ -14,8 +14,7 @@
                         Text="Make sublayer invisible" />
                 <Button Clicked="OnSetMinimumScale" Text="Set min scale" />
                 <Button Clicked="OnChangeRenderer" Text="Change renderer" />
-                <Label x:Name="MinScaleLabel"
-                       Text="Current min scale:"/>
+                <Label x:Name="MinScaleLabel" Text="Current min scale:" />
             </StackLayout>
         </Border>
     </Grid>

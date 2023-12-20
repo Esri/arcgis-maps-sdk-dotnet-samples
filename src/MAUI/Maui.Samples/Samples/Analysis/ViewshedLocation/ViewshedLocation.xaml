@@ -6,9 +6,9 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid ColumnSpacing="5"
+            <Grid ColumnDefinitions="auto,*"
+                  ColumnSpacing="5"
                   RowDefinitions="auto,auto,auto,auto,auto,auto,auto,auto,auto,auto"
-                  ColumnDefinitions="auto,*"
                   RowSpacing="5">
                 <Label Grid.Row="0"
                        Grid.Column="0"

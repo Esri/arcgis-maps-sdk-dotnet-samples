@@ -7,28 +7,28 @@
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout Spacing="5">
-                <Grid RowDefinitions="*, *"
+                <Grid ColumnDefinitions="*, *"
                       ColumnSpacing="5"
-                      RowSpacing="5"
-                      ColumnDefinitions="*, *">
+                      RowDefinitions="*, *"
+                      RowSpacing="5">
                     <Button x:Name="StartEditingButton"
                             Clicked="BeginTransaction"
                             IsEnabled="False"
                             Text="Start Edit" />
                     <Button x:Name="StopEditingButton"
-                            Clicked="StopEditTransaction"
                             Grid.Column="1"
+                            Clicked="StopEditTransaction"
                             IsEnabled="False"
                             Text="Stop Edit" />
                     <Button x:Name="AddBirdButton"
-                            Clicked="AddNewFeature"
                             Grid.Row="1"
+                            Clicked="AddNewFeature"
                             IsEnabled="False"
                             Text="Add Bird" />
                     <Button x:Name="AddMarineButton"
-                            Clicked="AddNewFeature"
                             Grid.Row="1"
                             Grid.Column="1"
+                            Clicked="AddNewFeature"
                             IsEnabled="False"
                             Text="Add Marine" />
                 </Grid>
@@ -39,7 +39,7 @@
                 <Label Text="Require a transaction for edits:" />
                 <Switch x:Name="RequireTransactionCheckBox"
                         IsToggled="True"
-                        Toggled="RequireTransactionChanged"/>
+                        Toggled="RequireTransactionChanged" />
                 <Label x:Name="MessageTextBlock"
                        LineBreakMode="CharacterWrap"
                        Text="Generating local geodatabase ..." />

@@ -11,10 +11,9 @@
                        Text="Tap the map to add points." />
                 <Label Text="Buffer distance (miles):" />
                 <Entry x:Name="BufferDistanceMilesEntry"
-                           Keyboard="Numeric"
-                           Text="10" />
-                <Label Text="Union the buffers:"
-                       VerticalOptions="Center" />
+                       Keyboard="Numeric"
+                       Text="10" />
+                <Label Text="Union the buffers:" VerticalOptions="Center" />
                 <Switch x:Name="UnionSwitch" IsToggled="True" />
                 <Button x:Name="BufferButton"
                         Clicked="BufferButton_Click"

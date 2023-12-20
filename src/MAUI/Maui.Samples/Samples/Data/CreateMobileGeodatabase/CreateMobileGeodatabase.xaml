@@ -10,15 +10,15 @@
                        Grid.Row="0"
                        Margin="5,0"
                        Text="Number of features added: " />
-                    <Button Clicked="ViewTable" Text="View table" />
-                    <Button x:Name="CreateGdbButton"
-                            Clicked="CreateGdbButton_Click"
-                            IsEnabled="False"
-                            Text="Create GDB" />
-                    <Button x:Name="CloseGdbButton"
-                            Clicked="CloseGeodatabaseClick"
-                            Text="Close and share" />
-                </StackLayout>
+                <Button Clicked="ViewTable" Text="View table" />
+                <Button x:Name="CreateGdbButton"
+                        Clicked="CreateGdbButton_Click"
+                        IsEnabled="False"
+                        Text="Create GDB" />
+                <Button x:Name="CloseGdbButton"
+                        Clicked="CloseGeodatabaseClick"
+                        Text="Close and share" />
+            </StackLayout>
         </Border>
         <Border x:Name="TableFrame"
                 Grid.Row="{OnIdiom Default=0,

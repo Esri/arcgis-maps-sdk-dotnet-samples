@@ -8,12 +8,12 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout Spacing="5">
                 <Label Text="Spatial operation:" />
-                <Picker x:Name="SpatialOperationComboBox" SelectedIndexChanged="SpatialOperationComboBox_SelectedIndexChanged"/>
+                <Picker x:Name="SpatialOperationComboBox" SelectedIndexChanged="SpatialOperationComboBox_SelectedIndexChanged" />
                 <Button x:Name="ResetOperationButton"
                         Clicked="ResetOperationButton_Clicked"
                         Text="Reset" />
             </StackLayout>
-                
+
         </Border>
     </Grid>
 </ContentPage>

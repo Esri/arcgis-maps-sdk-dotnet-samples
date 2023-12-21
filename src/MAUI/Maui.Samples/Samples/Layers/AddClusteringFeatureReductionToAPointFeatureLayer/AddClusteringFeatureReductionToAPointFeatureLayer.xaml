@@ -14,7 +14,7 @@
                     <Label Margin="0,0,0,10"
                            FontSize="Small"
                            Text="Clustering properties" />
-                    <Grid Grid.RowDefinitions="auto,auto,auto,auto" ColumnDefinitions="auto,*">
+                    <Grid ColumnDefinitions="auto,*" RowDefinitions="auto,auto,auto,auto">
                         <Label Grid.Row="0"
                                Grid.Column="0"
                                Text="Display Labels"

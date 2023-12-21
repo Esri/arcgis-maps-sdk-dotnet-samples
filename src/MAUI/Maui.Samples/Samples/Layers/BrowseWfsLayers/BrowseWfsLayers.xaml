@@ -23,7 +23,7 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <Label Text="Swap coordinate order:" />
-                <Switch x:Name="AxisOrderSwapCheckbox" />
+                <Switch x:Name="AxisOrderSwapCheckbox" HorizontalOptions="Start" />
                 <Button x:Name="LoadLayersButton"
                         Clicked="LoadLayers_Clicked"
                         IsEnabled="False"

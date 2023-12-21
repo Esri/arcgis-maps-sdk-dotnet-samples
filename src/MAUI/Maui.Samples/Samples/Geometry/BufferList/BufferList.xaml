@@ -14,7 +14,9 @@
                        Keyboard="Numeric"
                        Text="10" />
                 <Label Text="Union the buffers:" VerticalOptions="Center" />
-                <Switch x:Name="UnionSwitch" IsToggled="True" />
+                <Switch x:Name="UnionSwitch"
+                        HorizontalOptions="Start"
+                        IsToggled="True" />
                 <Button x:Name="BufferButton"
                         Clicked="BufferButton_Click"
                         Text="Create buffers" />

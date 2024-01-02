@@ -12,13 +12,14 @@
                 Text="Capture"
                 VerticalOptions="Start" />
         <Border x:Name="ScreenshotView"
-                Padding="{OnIdiom Phone=50, Tablet=100, Desktop=200}"
+                Padding="{OnIdiom Phone=50,
+                                  Default=100}"
                 Background="#AA333333"
                 IsVisible="False">
             <Border.GestureRecognizers>
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
             </Border.GestureRecognizers>
-            <Image x:Name="ScreenshotImage"/>
+            <Image x:Name="ScreenshotImage" />
         </Border>
     </Grid>
 </ContentPage>

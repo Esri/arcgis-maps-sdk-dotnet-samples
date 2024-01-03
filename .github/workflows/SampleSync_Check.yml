@@ -41,21 +41,21 @@ jobs:
       #     echo "Changed" > test_directory/new.txt
 
       - name: Verify readme
-        uses: tj-actions/verify-changed-files@v10
+        uses: tj-actions/verify-changed-files@v17
         id: verify-readme
         with:
           files: |
              **/*.md
 
       - name: Verify metadata
-        uses: tj-actions/verify-changed-files@v10
+        uses: tj-actions/verify-changed-files@v17
         id: verify-metadata
         with:
           files: |
              **/*.metadata.json
 
       - name: Verify sample code
-        uses: tj-actions/verify-changed-files@v10
+        uses: tj-actions/verify-changed-files@v17
         id: verify-sample-code
         with:
           files: |

@@ -32,10 +32,14 @@ ECHO Building WPF .NET Framework
 msbuild /restore /t:Build %~dp0..\src\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj /p:Configuration=Release /p:TargetFramework=net472
 
 ECHO Generating WPF Store packages
-msbuild /restore /t:Build %~dp0..\src\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj /p:Configuration=Release /p:TargetFramework=net8.0-windows10.0.19041.0
-REM msbuild /restore /t:Build %~dp0..\src\WPF\WPF.StorePackage\ArcGIS.WPF.StorePackage.wapproj /p:Configuration=Release /p:Platform=x86
-REM msbuild /restore /t:Build %~dp0..\src\WPF\WPF.StorePackage\ArcGIS.WPF.StorePackage.wapproj /p:Configuration=Release /p:Platform=x64
-REM msbuild /restore /t:Build %~dp0..\src\WPF\WPF.StorePackage\ArcGIS.WPF.StorePackage.wapproj /p:Configuration=Release /p:Platform=ARM64
+powershell -Command "(gc %~dp0..\src\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj) -replace '<TargetFrameworks>net8.0-windows10.0.19041.0;net472</TargetFrameworks>', '<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>' | sc %~dp0..\src\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj"
+powershell -Command "(gc %~dp0..\src\WPF\WPF.StorePackage\Package.appxmanifest) -replace 'Version=""200.0.0.0\""', 'Version="\"%RUNTIMEVERSION%.%BUILD_NUM%\""' | sc %~dp0..\src\WPF\WPF.StorePackage\Package.appxmanifest"
+msbuild /restore /t:Build %~dp0..\src\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj /p:Configuration=Release
+msbuild /restore /t:Build %~dp0..\src\WPF\WPF.StorePackage\ArcGIS.WPF.StorePackage.wapproj /p:Configuration=Release /p:Platform=x86 /p:PackageCertificateKeyFile=%PFXSignatureFile% /p:PackageCertificatePassword=%PFXSignaturePassword% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint% 
+msbuild /restore /t:Build %~dp0..\src\WPF\WPF.StorePackage\ArcGIS.WPF.StorePackage.wapproj /p:Configuration=Release /p:Platform=x64 /p:PackageCertificateKeyFile=%PFXSignatureFile% /p:PackageCertificatePassword=%PFXSignaturePassword% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint% 
+msbuild /restore /t:Build %~dp0..\src\WPF\WPF.StorePackage\ArcGIS.WPF.StorePackage.wapproj /p:Configuration=Release /p:Platform=ARM64 /p:PackageCertificateKeyFile=%PFXSignatureFile% /p:PackageCertificatePassword=%PFXSignaturePassword% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint% 
+powershell -Command "(gc %~dp0..\src\WPF\WPF.StorePackage\Package.appxmanifest) -replace 'Version=""%RUNTIMEVERSION%.%BUILD_NUM%\""', 'Version="\"200.0.0.0\""' | sc %~dp0..\src\WPF\WPF.StorePackage\Package.appxmanifest"
+powershell -Command "(gc %~dp0..\src\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj) -replace '<TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>', '<TargetFrameworks>net8.0-windows10.0.19041.0;net472</TargetFrameworks>' | sc %~dp0..\src\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj"
 
 ECHO Generating UWP store packages
 msbuild /restore /t:Build %~dp0..\src\UWP\ArcGIS.UWP.Viewer\ArcGIS.UWP.Viewer.csproj /p:Configuration=Release /p:Platform=x86 /p:PackageCertificateKeyFile=%PFXSignatureFile% /p:PackageCertificatePassword=%PFXSignaturePassword%

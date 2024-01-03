@@ -161,23 +161,23 @@ namespace ArcGIS.Samples.RasterRgbRenderer
         private void StretchTypeSelectionChanged(object sender, EventArgs e)
         {
             // Hide all UI controls for the input parameters.
-            MinMaxParametersGrid.IsVisible = false;
-            PercentClipParametersGrid.IsVisible = false;
-            StdDeviationParametersGrid.IsVisible = false;
+            MinMaxParameters.IsVisible = false;
+            PercentClipParameters.IsVisible = false;
+            StdDeviationParameters.IsVisible = false;
 
             // See which type was selected and show the corresponding input controls.
             switch (StretchTypeComboBox.SelectedItem.ToString())
             {
                 case "Min Max":
-                    MinMaxParametersGrid.IsVisible = true;
+                    MinMaxParameters.IsVisible = true;
                     break;
 
                 case "Percent Clip":
-                    PercentClipParametersGrid.IsVisible = true;
+                    PercentClipParameters.IsVisible = true;
                     break;
 
                 case "Standard Deviation":
-                    StdDeviationParametersGrid.IsVisible = true;
+                    StdDeviationParameters.IsVisible = true;
                     break;
             }
         }

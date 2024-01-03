@@ -2,61 +2,38 @@
 <ContentPage x:Class="ArcGIS.Samples.BrowseWfsLayers.BrowseWfsLayers"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:resources="clr-namespace:ArcGIS.Resources">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <ScrollView>
-                <Grid Padding="5"
-                      ColumnDefinitions="*,auto"
-                      RowDefinitions="auto,auto,auto,auto,auto"
-                      RowSpacing="5">
-                    <Entry x:Name="ServiceTextBox"
-                           Grid.Row="0"
-                           Grid.Column="0"
-                           Margin="5"
-                           MaximumWidthRequest="150" />
-                    <Button x:Name="LoadServiceButton"
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Clicked="LoadServiceButton_Click"
-                            Text="Load service"
-                            VerticalOptions="Center" />
-                    <ListView x:Name="WfsLayerList"
-                              Grid.Row="1"
-                              Grid.ColumnSpan="2"
-                              HeightRequest="100"
-                              SelectionMode="Single">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <TextCell Text="{Binding Title}" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <Label Grid.Row="2"
-                           Grid.Column="0"
-                           Text="Swap coordinate order"
-                           VerticalOptions="Center" />
-                    <Switch x:Name="AxisOrderSwapCheckbox"
-                            Grid.Row="2"
-                            Grid.Column="1" />
-                    <Button x:Name="LoadLayersButton"
-                            Grid.Row="3"
-                            Grid.ColumnSpan="2"
-                            Clicked="LoadLayers_Clicked"
-                            IsEnabled="False"
-                            Text="Load selected layer" />
-                    <ActivityIndicator x:Name="LoadingProgressBar"
-                                       Grid.Row="4"
-                                       Grid.ColumnSpan="2"
-                                       HeightRequest="30"
-                                       IsEnabled="True"
-                                       IsRunning="True"
-                                       IsVisible="True" />
-                </Grid>
-            </ScrollView>
-
+            <StackLayout Spacing="5">
+                <Entry x:Name="ServiceTextBox"
+                       HorizontalOptions="Start"
+                       MaximumWidthRequest="250" />
+                <Button x:Name="LoadServiceButton"
+                        Clicked="LoadServiceButton_Click"
+                        Text="Load service" />
+                <ListView x:Name="WfsLayerList"
+                          HeightRequest="100"
+                          SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextCell Text="{Binding Title}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label Text="Swap coordinate order:" />
+                <Switch x:Name="AxisOrderSwapCheckbox" HorizontalOptions="Start" />
+                <Button x:Name="LoadLayersButton"
+                        Clicked="LoadLayers_Clicked"
+                        IsEnabled="False"
+                        Text="Load selected layer" />
+                <ActivityIndicator x:Name="LoadingProgressBar"
+                                   HeightRequest="30"
+                                   IsEnabled="True"
+                                   IsRunning="True"
+                                   IsVisible="True" />
+            </StackLayout>
         </Border>
     </Grid>
 </ContentPage>

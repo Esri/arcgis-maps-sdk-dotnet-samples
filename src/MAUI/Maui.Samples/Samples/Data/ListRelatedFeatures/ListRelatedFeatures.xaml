@@ -6,17 +6,17 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Label x:Name="Status"
-                       Grid.Row="0"
-                       Margin="5"
-                       Text="Tap a park (green) to see related features." />
-                <ListView x:Name="MyResultsView" HeightRequest="300" MaximumWidthRequest="200"  Grid.Row="1" />
-            </Grid>
+            <ScrollView Orientation="Both">
+                <StackLayout Spacing="5">
+                    <Label x:Name="Status"
+                           LineBreakMode="WordWrap"
+                           Text="Tap a park to see related features." />
+                    <ListView x:Name="MyResultsView"
+                              HeightRequest="300"
+                              HorizontalScrollBarVisibility="Always"
+                              WidthRequest="600" />
+                </StackLayout>
+            </ScrollView>
         </Border>
     </Grid>
 </ContentPage>

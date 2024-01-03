@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriTK="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, *">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <VerticalStackLayout>
@@ -14,11 +14,7 @@
                     <Label Margin="0,0,0,10"
                            FontSize="Small"
                            Text="Clustering properties" />
-                    <Grid Grid.RowDefinitions="auto,auto,auto,auto">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140" />
-                            <ColumnDefinition Width="{OnPlatform Default=*, iOS=150}" />
-                        </Grid.ColumnDefinitions>
+                    <Grid ColumnDefinitions="auto,*" RowDefinitions="auto,auto,auto,auto">
                         <Label Grid.Row="0"
                                Grid.Column="0"
                                Text="Display Labels"

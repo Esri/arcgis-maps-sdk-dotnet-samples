@@ -39,7 +39,8 @@
                                   Grid.Column="1"
                                   VerticalAlignment="Center"
                                   Checked="DisplayLabelsCheckBox_Checked"
-                                  IsChecked="false" />
+                                  IsChecked="false"
+                                  Unchecked="DisplayLabelsCheckBox_Checked" />
                         <TextBlock Grid.Row="1"
                                    Grid.Column="0"
                                    VerticalAlignment="Center">

@@ -235,8 +235,8 @@ namespace ArcGIS.Samples.ManageFeatures
 
         private async void DamageType_Changed(object sender, EventArgs e)
         {
-            // Skip if nothing is selected.
-            if (DamageTypePicker.SelectedIndex == -1) return;
+            // Skip if nothing is selected or selected feature is null.
+            if (DamageTypePicker.SelectedIndex == -1 || _selectedFeature == null) return;
 
             try
             {

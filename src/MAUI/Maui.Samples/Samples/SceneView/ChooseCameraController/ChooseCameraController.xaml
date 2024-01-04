@@ -2,14 +2,13 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5" RowDefinitions="auto">
-                <Button x:Name="ControllersButton"
-                        Clicked="OnButtonClicked"
-                        Text="Change Camera Controller" />
-            </Grid>
-        </Border>
+    <Grid>
+        <esriUI:SceneView x:Name="MySceneView" />
+        <Button x:Name="ControllersButton"
+                Margin="10"
+                Clicked="OnButtonClicked"
+                HorizontalOptions="End"
+                Text="Change Camera Controller"
+                VerticalOptions="Start" />
     </Grid>
 </ContentPage>

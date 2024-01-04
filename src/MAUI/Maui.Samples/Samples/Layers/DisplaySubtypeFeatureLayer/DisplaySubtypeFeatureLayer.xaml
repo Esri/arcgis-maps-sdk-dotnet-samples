@@ -5,41 +5,17 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid ColumnDefinitions="*,*" RowDefinitions="auto,auto,auto,auto">
+            <StackLayout Spacing="5">
                 <Label x:Name="MapScaleLabel"
-                       Grid.Row="0"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="2"
                        Margin="5"
-                       HorizontalTextAlignment="Center"
-                       Text="Current map scale"
-                       VerticalTextAlignment="Center" />
+                       Text="Current map scale:" />
                 <Button x:Name="VisibilityButton"
-                        Grid.Row="1"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="2"
-                        Margin="5"
                         Clicked="VisibilityChanged"
                         Text="Make sublayer invisible" />
-                <Button Grid.Row="2"
-                        Grid.Column="0"
-                        Margin="5"
-                        Clicked="OnSetMinimumScale"
-                        Text="Set min scale" />
-                <Button Grid.Row="2"
-                        Grid.Column="1"
-                        Margin="5"
-                        Clicked="OnChangeRenderer"
-                        Text="Change renderer" />
-                <Label x:Name="MinScaleLabel"
-                       Grid.Row="3"
-                       Grid.Column="0"
-                       Grid.ColumnSpan="2"
-                       Margin="5"
-                       HorizontalTextAlignment="Center"
-                       Text="Current min scale:"
-                       VerticalTextAlignment="Center" />
-            </Grid>
+                <Button Clicked="OnSetMinimumScale" Text="Set min scale" />
+                <Button Clicked="OnChangeRenderer" Text="Change renderer" />
+                <Label x:Name="MinScaleLabel" Text="Current min scale:" />
+            </StackLayout>
         </Border>
     </Grid>
 </ContentPage>

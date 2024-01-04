@@ -101,7 +101,8 @@ namespace ArcGIS.Samples.TakeScreenshot
             return tcs.Task;
         }
 
-        private void CloseButton_Clicked(object sender, EventArgs e)
+        // Close the screenshot view when the user taps or clicks.
+        void TapGestureRecognizer_Tapped(object sender, TappedEventArgs e)
         {
             ScreenshotView.IsVisible = false;
             ScreenshotButton.IsEnabled = true;

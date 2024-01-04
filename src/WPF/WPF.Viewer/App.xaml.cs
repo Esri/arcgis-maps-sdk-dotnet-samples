@@ -11,8 +11,11 @@
 using ArcGIS.Helpers;
 #endif
 
+using ArcGIS.Samples.Shared.Managers;
+using Esri.ArcGISRuntime;
 using System;
 using System.IO;
+using System.Linq;
 using System.Windows;
 
 namespace ArcGIS.WPF.Viewer
@@ -30,10 +33,15 @@ namespace ArcGIS.WPF.Viewer
                 string tempDataPathRoot = Directory.GetParent(Environment.GetFolderPath(Environment.SpecialFolder.Windows)).FullName;
                 string tempDataPath = Path.Combine(tempDataPathRoot, "EsriSamples", "Temp");
                 Directory.CreateDirectory(tempDataPath); // CreateDirectory won't overwrite if it already exists.
-                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.TempPath = tempDataPath;
+                ArcGISRuntimeEnvironment.TempPath = tempDataPath;
 
                 // Initialize ArcGISRuntime.
-                Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.Initialize();
+                ArcGISRuntimeEnvironment.Initialize((config) =>
+                {
+                    // Set the licenses for the sample viewer if available.
+                    if (!string.IsNullOrEmpty(LicenseStrings.ArcGISLicenseKey))
+                        config.UseLicense(LicenseStrings.ArcGISLicenseKey, LicenseStrings.ExtensionLicenses);
+                });
 
 #if ENABLE_ANALYTICS
                 // Analytics are only used in the Microsoft store version of the viewer.

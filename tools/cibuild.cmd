@@ -26,6 +26,24 @@ SET NUGET_HTTP_CACHE_PATH=%~dp0..\output\.nuget\cache
 md %NUGET_PACKAGES%
 md %NUGET_HTTP_CACHE_PATH%
 
+REM Override LicenseKeys if available
+SET licenseFile=%~dp0..\src\Samples.Shared\Managers\LicenseStrings.CI.cs
+ECHO namespace ArcGIS.Samples.Shared.Managers { >%licenseFile%
+ECHO internal static partial class LicenseStrings { >>%licenseFile%
+ECHO static LicenseStrings() { >>%licenseFile%
+ECHO ArcGISLicenseKey = "%ArcGISLicenseKey%"; >>%licenseFile%
+ECHO ArcGISAnalysisLicenseKey = "%ArcGISAnalysisLicenseKey%"; >>%licenseFile%
+ECHO ArcGISUtilityNetworkLicenseKey = "%ArcGISUtilityNetworkLicenseKey%"; >>%licenseFile%
+ECHO }}} >>%licenseFile%
+
+
+SET keyFile=%~dp0..\src\Samples.Shared\Managers\ApiKeyManager.CI.cs
+ECHO namespace ArcGIS.Samples.Shared.Managers { >%keyFile%
+ECHO public static partial class ApiKeyManager { >>%keyFile%
+ECHO static ApiKeyManager() { >>%keyFile%
+ECHO Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = _key = "%ArcGISLicenseKey%"; >>%keyFile%
+ECHO }}} >>%keyFile%
+
 REM BUILD
 
 ECHO Building WPF .NET Framework

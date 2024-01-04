@@ -29,7 +29,7 @@ using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 namespace ArcGIS.Samples.Shared.Managers
 {
-    public static class ApiKeyManager
+    public static partial class ApiKeyManager
     {
         private static string _key;
         private static bool _keyDisabled;

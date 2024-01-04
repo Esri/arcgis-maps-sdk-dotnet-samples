@@ -18,7 +18,7 @@ SET ArcGISMapsSDKVersion=%RELEASE_VERSION%
 
 REM Configure NuGet
 dotnet new nugetconfig --force -o ../
-IF "%NUGET_REPO%" NEQ "" AND EXIST %NUGET_REPO% (
+IF "%NUGET_REPO%" NEQ "" IF EXIST "%NUGET_REPO%" (
 dotnet nuget add source %NUGET_REPO%
 )
 SET NUGET_PACKAGES=%~dp0..\output\.nuget\packages
@@ -26,12 +26,12 @@ SET NUGET_HTTP_CACHE_PATH=%~dp0..\output\.nuget\cache
 md %NUGET_PACKAGES%
 md %NUGET_HTTP_CACHE_PATH%
 
+SET licenseFile=%~dp0..\src\Samples.Shared\Managers\LicenseStrings.generated.cs
 IF "%ArcGISLicenseKey%" NEQ "" (
   REM Override LicenseKeys if available
-  SET licenseFile=%~dp0..\src\Samples.Shared\Managers\LicenseStrings.CI.cs
-  ECHO namespace ArcGIS.Samples.Shared.Managers { >%licenseFile%
-  ECHO internal static partial class LicenseStrings { >>%licenseFile%
-  ECHO static LicenseStrings() { >>%licenseFile%
+  ECHO namespace ArcGIS.Samples.Shared.Managers ^{ >%licenseFile%
+  ECHO internal static partial class LicenseStrings ^{ >>%licenseFile%
+  ECHO static LicenseStrings^(^) ^{ >>%licenseFile%
   ECHO ArcGISLicenseKey = "%ArcGISLicenseKey%"; >>%licenseFile%
   IF "%ArcGISAnalysisLicenseKey%" NEQ "" (
     ECHO ArcGISAnalysisLicenseKey = "%ArcGISAnalysisLicenseKey%"; >>%licenseFile%
@@ -39,16 +39,16 @@ IF "%ArcGISLicenseKey%" NEQ "" (
   IF "%ArcGISUtilityNetworkLicenseKey%" NEQ "" (
     ECHO ArcGISUtilityNetworkLicenseKey = "%ArcGISUtilityNetworkLicenseKey%"; >>%licenseFile%
   )
-  ECHO }}} >>%licenseFile%
+  ECHO ^}^}^} >>%licenseFile%
 )
 
+SET keyFile=%~dp0..\src\Samples.Shared\Managers\ApiKeyManager.generated.cs
 IF "%ARCGIS_API_KEY%" NEQ "" (
-  SET keyFile=%~dp0..\src\Samples.Shared\Managers\ApiKeyManager.CI.cs
-  ECHO namespace ArcGIS.Samples.Shared.Managers { >%keyFile%
-  ECHO public static partial class ApiKeyManager { >>%keyFile%
-  ECHO static ApiKeyManager() { >>%keyFile%
+  ECHO namespace ArcGIS.Samples.Shared.Managers ^{ >%keyFile%
+  ECHO public static partial class ApiKeyManager ^{ >>%keyFile%
+  ECHO static ApiKeyManager^(^) ^{ >>%keyFile%
   ECHO Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = _key = "%ARCGIS_API_KEY%"; >>%keyFile%
-  ECHO }}} >>%keyFile%
+  ECHO ^}^}^} >>%keyFile%
 )
 
 REM BUILD

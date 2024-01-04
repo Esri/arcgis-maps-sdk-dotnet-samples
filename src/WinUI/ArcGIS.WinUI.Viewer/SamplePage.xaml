@@ -1,59 +1,83 @@
-﻿<Page x:Class="ArcGIS.WinUI.Viewer.SamplePage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
-      xmlns:local="using:ArcGIS.WinUI.Viewer">
-    <TabView x:Name="Tabs"
-             HorizontalAlignment="Stretch"
-             VerticalAlignment="Stretch"
-             CanDragTabs="False"
-             CanReorderTabs="False"
-             IsAddTabButtonVisible="False">
+﻿<Page
+    x:Class="ArcGIS.WinUI.Viewer.SamplePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:local="using:ArcGIS.WinUI.Viewer">
+    <TabView
+        x:Name="Tabs"
+        HorizontalAlignment="Stretch"
+        VerticalAlignment="Stretch"
+        CanDragTabs="False"
+        CanReorderTabs="False"
+        IsAddTabButtonVisible="False">
         <TabView.TabStripHeaderTemplate>
             <DataTemplate>
-                <TextBlock Margin="5,5,5,0"
-                           FontSize="20"
-                           Text="{Binding SampleName}" />
+                <TextBlock
+                    Margin="5,5,5,0"
+                    FontSize="20"
+                    Text="{Binding SampleName}" />
             </DataTemplate>
         </TabView.TabStripHeaderTemplate>
         <TabView.TabItems>
-            <TabViewItem FontSize="20"
-                         Header="Live Sample"
-                         IsClosable="False">
-                <ContentControl x:Name="SampleContainer"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                HorizontalContentAlignment="Stretch"
-                                VerticalContentAlignment="Stretch"
-                                RequestedTheme="Light" />
+            <TabViewItem
+                FontSize="20"
+                Header="Live Sample"
+                IsClosable="False">
+                <ContentControl
+                    x:Name="SampleContainer"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    RequestedTheme="Light" />
             </TabViewItem>
-            <TabViewItem FontSize="20"
-                         Header="Description"
-                         IsClosable="False">
-                <ScrollViewer x:Name="DescriptionContainer"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Stretch"
-                              HorizontalContentAlignment="Stretch"
-                              VerticalContentAlignment="Stretch"
-                              Background="Transparent">
-                    <controls:MarkdownTextBlock x:Name="DescriptionBlock"
-                                                Margin="5"
-                                                ImageResolving="MarkDownBlock_ImageResolving"
-                                                InlineCodeForeground="{StaticResource InlineCodeColor}"
-                                                InlineCodeMargin="0"
-                                                InlineCodePadding="0"
-                                                LinkClicked="MarkdownText_LinkClicked" />
+            <TabViewItem
+                FontSize="20"
+                Header="Description"
+                IsClosable="False">
+                <ScrollViewer
+                    x:Name="DescriptionContainer"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"
+                    Background="Transparent">
+                    <controls:MarkdownTextBlock
+                        x:Name="DescriptionBlock"
+                        Margin="5"
+                        ImageResolving="MarkDownBlock_ImageResolving"
+                        InlineCodeForeground="{StaticResource InlineCodeColor}"
+                        InlineCodeMargin="0"
+                        InlineCodePadding="0"
+                        LinkClicked="MarkdownText_LinkClicked" />
                 </ScrollViewer>
             </TabViewItem>
-            <TabViewItem FontSize="20"
-                         Header="Source Code"
-                         IsClosable="False">
-                <local:SourceCode x:Name="SourceCodeContainer"
-                                  HorizontalAlignment="Stretch"
-                                  VerticalAlignment="Stretch"
-                                  HorizontalContentAlignment="Stretch"
-                                  VerticalContentAlignment="Stretch" />
+            <TabViewItem
+                FontSize="20"
+                Header="Source Code"
+                IsClosable="False">
+                <local:SourceCode
+                    x:Name="SourceCodeContainer"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch" />
             </TabViewItem>
         </TabView.TabItems>
+        <TabView.TabStripFooter>
+            <Button
+                x:Name="GitHubButton"
+                Width="40"
+                Height="30"
+                Margin="0,0,20,0"
+                VerticalAlignment="Center"
+                Background="White"
+                BorderThickness="0"
+                Click="GitHubButton_Click"
+                ToolTipService.ToolTip="View on GitHub">
+                <Image Source="/Assets/github-mark.png" />
+            </Button>
+        </TabView.TabStripFooter>
     </TabView>
 </Page>

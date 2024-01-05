@@ -208,9 +208,5 @@
     </MauiFont>
   </ItemGroup>
 
-  <Target Name="CopyAPKFiles" AfterTargets="_Sign" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
-      <Copy SourceFiles="$(ApkFileSigned)" DestinationFolder="..\..\..\output\Android\" />
-  </Target>
-
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />
 </Project>

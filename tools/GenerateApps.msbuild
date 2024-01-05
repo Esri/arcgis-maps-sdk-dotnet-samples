@@ -60,6 +60,7 @@
   <Target Name="BuildUWP">
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\UWP\ArcGIS.UWP.Viewer\Package.appxmanifest"
 	         Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
+	<MSBuild Projects="@(UWPProject)" Targets="Restore" />
 	<MSBuild Projects="@(UWPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
 	<MSBuild Projects="@(UWPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
 	<MSBuild Projects="@(UWPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=ARM64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />

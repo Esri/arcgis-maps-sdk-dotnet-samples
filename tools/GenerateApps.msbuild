@@ -25,7 +25,7 @@
 	 <MAUIProject Include="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj"/>
   </ItemGroup>
   
-  <Target Name="BuildWPF">
+  <Target Name="BuildWPF" DependsOnTargets="CreateOutputDirectory">
     <!-- Note: Due to bug in WAP build tasks, multi-targeted projects are not working - we're modifying project target framework properties here to work around the problem -->
 	<MSBuild Projects="@(WPFProject)" Targets="Restore" />
 	<!-- .NET Framework -->
@@ -48,7 +48,7 @@
 	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\ARM64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_ARM64.zip" Overwrite="true" />
   </Target>
   
-  <Target Name="BuildWinUI">
+  <Target Name="BuildWinUI" DependsOnTargets="CreateOutputDirectory">
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WinUI\ArcGIS.WinUI.Viewer\Package.appxmanifest"
 	         Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
 	<MSBuild Projects="@(WinUIProject)" Targets="Restore" Properties="PublishReadyToRun=true" />
@@ -57,7 +57,7 @@
 	<MSBuild Projects="@(WinUIProject)" Targets="Build" Properties="Configuration=$(Configuration);GenerateAppxPackageOnBuild=true;RuntimeIdentifier=win10-arm64;Platform=ARM64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
   </Target>
   
-  <Target Name="BuildUWP">
+  <Target Name="BuildUWP" DependsOnTargets="CreateOutputDirectory">
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\UWP\ArcGIS.UWP.Viewer\Package.appxmanifest"
 	         Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
 	<MSBuild Projects="@(UWPProject)" Targets="Restore" />
@@ -66,7 +66,7 @@
 	<MSBuild Projects="@(UWPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=ARM64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
   </Target>
 
-  <Target Name="BuildMaui">
+  <Target Name="BuildMaui" DependsOnTargets="CreateOutputDirectory">
     <MSBuild Projects="@(MAUIProject)" Targets="Restore" />
 	<MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-x64;RuntimeIdentifierOverride=win10-x64;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
 	<MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-x86;RuntimeIdentifierOverride=win10-x86;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
@@ -76,6 +76,11 @@
           DestinationFolder="$(MSBuildThisFileDirectory)..\output\" />
   </Target>
   
+  
+    <Target Name="CreateOutputDirectory">
+        <MakeDir Directories="$(MSBuildThisFileDirectory)..\output" />
+    </Target>
+    
   <Target Name="BuildAll" DependsOnTargets="BuildWPF;BuildWinUI;BuildMaui;BuildUWP" />
   
 </Project>

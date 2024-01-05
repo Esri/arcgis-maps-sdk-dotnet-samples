@@ -27,11 +27,11 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</TargetPlatformMinVersion>
 		<RootNamespace>ArcGIS</RootNamespace>
 		<AssemblyName>ArcGIS</AssemblyName>
-        <DefineConstants>$(DefineConstants);MAUI</DefineConstants>
-        <AppxPackageDir>..\..\..\output\AppPackages\$(RuntimeIdentifier)\</AppxPackageDir>
+		<DefineConstants>$(DefineConstants);MAUI</DefineConstants>
+		<AppxPackageDir>..\..\..\output\$(RuntimeIdentifier)\</AppxPackageDir>
 	</PropertyGroup>
 
-	<ItemGroup>
+    <ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\arcgissdkglyphfg.svg" />
 
@@ -53,7 +53,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-    <!-- Excluded due to missing toolkit components -->
+	<!-- Excluded due to missing toolkit components -->
 	  <AndroidResource Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <Compile Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <MauiCss Remove="Samples\MapView\FilterByTimeExtent\**" />
@@ -206,6 +206,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiFont>
   </ItemGroup>
+
+  <Target Name="CopyAPKFiles" AfterTargets="_Sign" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
+      <Copy SourceFiles="$(ApkFileSigned)" DestinationFolder="..\..\..\output\Android\" />
+  </Target>
 
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />
 </Project>

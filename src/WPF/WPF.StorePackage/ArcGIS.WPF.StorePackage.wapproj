@@ -53,7 +53,6 @@
     <AppxPackageDir>..\..\..\output\win10-$(Platform)</AppxPackageDir>
     <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <!-- <EntryPointProjectUniqueName>..\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj</EntryPointProjectUniqueName> -->
 	<EntryPointExe>ArcGIS.WPF.Viewer.Net\ArcGIS.exe</EntryPointExe>
   </PropertyGroup>
 

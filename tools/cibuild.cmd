@@ -20,8 +20,8 @@ dotnet new nugetconfig --force -o ../
 IF "%NUGET_REPO%" NEQ "" IF EXIST "%NUGET_REPO%" (
 dotnet nuget add source %NUGET_REPO%
 )
-SET NUGET_PACKAGES=%~dp0..\output\.nuget\packages
-SET NUGET_HTTP_CACHE_PATH=%~dp0..\output\.nuget\cache
+SET NUGET_PACKAGES=%~dp0..\.nuget\packages
+SET NUGET_HTTP_CACHE_PATH=%~dp0..\.nuget\cache
 md %NUGET_PACKAGES%
 md %NUGET_HTTP_CACHE_PATH%
 

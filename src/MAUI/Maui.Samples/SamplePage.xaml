@@ -18,7 +18,7 @@
             Text="Source" />
         <ToolbarItem
             Clicked="GitHubButton_Clicked"
-            IconImageSource="githubdark.png"
+            IconImageSource="github.png"
             Text="GitHub"
             ToolTipProperties.Text="View on GitHub" />
     </ContentPage.ToolbarItems>

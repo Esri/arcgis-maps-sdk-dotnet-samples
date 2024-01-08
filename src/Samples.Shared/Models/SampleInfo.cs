@@ -187,6 +187,10 @@ namespace ArcGIS.Samples.Shared.Models
             return typeInfo.GetCustomAttributes(typeof(T)).SingleOrDefault() as T;
         }
 
+        /// <summary>
+        /// Get the GitHub url for a given sample folder.
+        /// </summary>
+        /// <returns>The full GitHub url.</returns>
         public string GetGitHubUrl()
         {
             var repoUrl = "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples";

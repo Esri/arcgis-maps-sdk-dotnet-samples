@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using static System.Net.WebRequestMethods;
 
 namespace ArcGIS.Samples.Shared.Models
 {
@@ -184,6 +185,32 @@ namespace ArcGIS.Samples.Shared.Models
         private static T GetAttribute<T>(MemberInfo typeInfo) where T : Attribute
         {
             return typeInfo.GetCustomAttributes(typeof(T)).SingleOrDefault() as T;
+        }
+
+        /// <summary>
+        /// Get the GitHub url for a given sample folder.
+        /// </summary>
+        /// <returns>The full GitHub url.</returns>
+        public string GetGitHubUrl()
+        {
+            var repoUrl = "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples";
+            string samplesPath;
+            string fullPath;
+#if WPF
+#if NETFRAMEWORK
+            samplesPath = Path.Substring(Path.LastIndexOf("Samples")).Replace("//", "\\");
+#elif NETCOREAPP
+            samplesPath = Path.Substring(Path.LastIndexOf("Samples")).Replace("\\", "/");
+#endif
+            fullPath = repoUrl + "/tree/main/src/WPF/WPF.Viewer/" + samplesPath;
+#elif WinUI
+            samplesPath = Path.Substring(Path.LastIndexOf("Samples")).Replace("\\", "/");
+            fullPath = repoUrl + "/tree/main/src/WinUI/ArcGIS.WinUI.Viewer/" + samplesPath;
+#elif MAUI
+            samplesPath = Path.Substring(Path.LastIndexOf("Samples")).Replace("\\", "/");
+            fullPath = repoUrl + "/tree/main/src/MAUI/Maui.Samples/" + samplesPath;
+#endif
+            return fullPath;
         }
     }
 }

@@ -181,5 +181,10 @@ namespace ArcGIS.WinUI.Viewer
         }
 
         #endregion Screenshot Tool
+
+        private async void GitHubButton_Click(object sender, RoutedEventArgs e)
+        {
+            _ = await Windows.System.Launcher.LaunchUriAsync(new Uri(SampleManager.Current.SelectedSample.GetGitHubUrl()));
+        }
     }
 }

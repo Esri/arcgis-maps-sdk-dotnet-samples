@@ -16,7 +16,7 @@
     <RuntimeIdentifiers>win-x64;win-x86;win-arm64</RuntimeIdentifiers>
     <Platforms>AnyCPU;x64;x86;ARM64</Platforms>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
-    <DefineConstants>$(DefineConstants);TRACE;NET_CORE_3</DefineConstants>
+    <DefineConstants>$(DefineConstants);TRACE;WPF</DefineConstants>
     <NoWarn>1701;1702;CA1416</NoWarn>
     <PlatformTarget Condition="'$(TargetFramework)'=='net472'">AnyCPU</PlatformTarget>
   </PropertyGroup>
@@ -70,7 +70,7 @@
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)'=='net472'">
     <PackageReference Include="System.Text.Json" />
-    <Reference Include="System.Security"/>
+    <Reference Include="System.Security" />
     <Reference Include="System.IO.Compression" />
   </ItemGroup>
   <ItemGroup>

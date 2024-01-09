@@ -18,6 +18,7 @@ using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -377,6 +378,19 @@ namespace ArcGIS.Samples.Desktop
 #endif
         }
 
+        private void GitHub_Click(object sender, RoutedEventArgs e)
+        {
+#if NETFRAMEWORK
+            System.Diagnostics.Process.Start(SampleManager.Current.SelectedSample.GetGitHubUrl());
+#elif NETCOREAPP
+            System.Diagnostics.Process.Start(new ProcessStartInfo
+            {
+                FileName = SampleManager.Current.SelectedSample.GetGitHubUrl(),
+                UseShellExecute = true
+            });
+#endif
+        }
+
         // Code here is adapted from the following StackOverflow answer:
         // https://stackoverflow.com/a/34148858
         private void SearchFilterBox_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -655,6 +669,6 @@ namespace ArcGIS.Samples.Desktop
             }
         }
 
-#endregion Screenshot Tool
+        #endregion Screenshot Tool
     }
 }

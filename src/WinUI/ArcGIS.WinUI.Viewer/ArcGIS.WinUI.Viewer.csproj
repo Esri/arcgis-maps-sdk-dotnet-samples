@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Remove="Resources\Fonts\calcite-ui-icons-24.ttf" />
+    <None Remove="Resources\github-mark.png" />
     <None Remove="ScreenshotTab.xaml" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +86,10 @@
     <Content Include="Resources\Fonts\calcite-ui-icons-24.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Assets\github-mark.png" />
   </ItemGroup>
 
   <ItemGroup>

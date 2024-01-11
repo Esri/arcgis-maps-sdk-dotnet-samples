@@ -18,6 +18,7 @@
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
 using Esri.ArcGISRuntime.Maui;
+using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Platform;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -336,6 +337,18 @@ namespace ArcGIS
 
             SourceCodePage.IsVisible = true;
             SampleDetailPage.IsVisible = SampleContentPage.IsVisible = false;
+        }
+        private async void GitHubButton_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                Uri uri = new Uri(SampleManager.Current.SelectedSample.GetGitHubUrl());
+                await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
+            }
+            catch (Exception ex)
+            {
+                // An unexpected error occurred. No browser may be installed on the device.
+            }
         }
 
         private async void FileChange_Clicked(object sender, EventArgs e)

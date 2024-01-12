@@ -187,6 +187,7 @@ namespace ArcGIS.Samples.Shared.Models
             return typeInfo.GetCustomAttributes(typeof(T)).SingleOrDefault() as T;
         }
 
+#if !WINDOWS_UWP
         /// <summary>
         /// Get the GitHub url for a given sample folder.
         /// </summary>
@@ -212,5 +213,6 @@ namespace ArcGIS.Samples.Shared.Models
 #endif
             return fullPath;
         }
+#endif
     }
 }

@@ -2,59 +2,62 @@
 <ContentPage x:Class="ArcGIS.SearchPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
-             Background="#aa000000">
+             ios:Page.ModalPresentationStyle="OverFullScreen"
+             Background="Transparent">
 
     <ContentPage.BindingContext>
         <viewModels:SearchViewModel />
     </ContentPage.BindingContext>
 
-    <Border BackgroundColor="{AppThemeBinding Default=White,
-                                              Dark=Black}"
-            HeightRequest="300"
-            StrokeThickness="1"
-            VerticalOptions="Center"
-            WidthRequest="{OnPlatform Default=400,
-                                      Android=250,
-                                      iOS=250}">
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="10,10,10,10" />
-        </Border.StrokeShape>
-        <Grid Padding="5" RowDefinitions="40,*,40">
-            <SearchBar Grid.Row="0"
-                       Placeholder="Enter search term"
-                       SearchCommand="{Binding PerformSearchCommand}"
-                       SearchCommandParameter="{Binding Text, Source={x:Reference PopupSearchBar}}"
-                       Text="{Binding SearchText}" />
-            <CollectionView Grid.Row="1" ItemsSource="{Binding SearchItems}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="viewModels:SearchResultViewModel">
-                        <Border StrokeThickness="0">
-                            <Border.GestureRecognizers>
-                                <TapGestureRecognizer CommandParameter="{Binding SampleObject}" Tapped="TapGestureRecognizer_SearchResultTapped" />
-                            </Border.GestureRecognizers>
-                            <Grid Padding="10" ColumnDefinitions="0.15*,0.85*">
-                                <Image Grid.Column="0"
-                                       HeightRequest="30"
-                                       Source="{Binding SampleImage}"
-                                       WidthRequest="40" />
-                                <Label Grid.Column="1"
-                                       Margin="5,0"
-                                       Text="{Binding SampleName}"
-                                       TextColor="{AppThemeBinding Default=Black,
-                                                                   Dark=White}"
-                                       VerticalOptions="Center" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-            <Button x:Name="CloseButton"
-                    Grid.Row="2"
-                    Clicked="CloseButton_Clicked"
-                    Text="Close"
-                    VerticalOptions="End" />
-        </Grid>
-    </Border>
-
+    <Grid>
+        <Border BackgroundColor="{AppThemeBinding Default=LightGrey,
+                                                  Dark=Black}"
+                HeightRequest="300"
+                StrokeThickness="1"
+                VerticalOptions="Center"
+                WidthRequest="{OnPlatform Default=400,
+                                          Android=250,
+                                          iOS=250}">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="10,10,10,10" />
+            </Border.StrokeShape>
+            <Grid Padding="5" RowDefinitions="40,*,40">
+                <SearchBar Grid.Row="0"
+                           Placeholder="Enter search term"
+                           SearchCommand="{Binding PerformSearchCommand}"
+                           SearchCommandParameter="{Binding Text, Source={x:Reference PopupSearchBar}}"
+                           Text="{Binding SearchText}" />
+                <CollectionView Grid.Row="1" ItemsSource="{Binding SearchItems}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="viewModels:SearchResultViewModel">
+                            <Border StrokeThickness="0">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer CommandParameter="{Binding SampleObject}" Tapped="TapGestureRecognizer_SearchResultTapped" />
+                                </Border.GestureRecognizers>
+                                <Grid Padding="10" ColumnDefinitions="0.15*,0.85*">
+                                    <Image Grid.Column="0"
+                                           HeightRequest="30"
+                                           Source="{Binding SampleImage}"
+                                           WidthRequest="40" />
+                                    <Label Grid.Column="1"
+                                           Margin="5,0"
+                                           Text="{Binding SampleName}"
+                                           TextColor="{AppThemeBinding Default=Black,
+                                                                       Dark=White}"
+                                           VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button x:Name="CloseButton"
+                        Grid.Row="2"
+                        Clicked="CloseButton_Clicked"
+                        Text="Close"
+                        VerticalOptions="End" />
+            </Grid>
+        </Border>
+    </Grid>
 </ContentPage>

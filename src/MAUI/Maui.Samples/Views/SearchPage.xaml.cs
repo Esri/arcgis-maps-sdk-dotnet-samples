@@ -14,8 +14,6 @@ public partial class SearchPage : ContentPage
     {
         var sampleInfo = e.Parameter as SampleInfo;
         _ = SampleLoader.LoadSample(sampleInfo);
-
-        this.Navigation.PopModalAsync(false);
     }
 
     private async void CloseButton_Clicked(object sender, EventArgs e)

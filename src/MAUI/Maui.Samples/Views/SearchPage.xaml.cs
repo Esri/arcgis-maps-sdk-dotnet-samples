@@ -1,26 +1,25 @@
 using ArcGIS.Helpers;
 using ArcGIS.Samples.Shared.Models;
-using CommunityToolkit.Maui.Views;
 
 namespace ArcGIS;
 
-public partial class SearchPopup : Popup
+public partial class SearchPage : ContentPage
 {
-	public SearchPopup()
+	public SearchPage()
 	{
 		InitializeComponent();
 	}
 
     private void TapGestureRecognizer_SearchResultTapped(object sender, TappedEventArgs e)
     {
-        this.Close();
-
         var sampleInfo = e.Parameter as SampleInfo;
         _ = SampleLoader.LoadSample(sampleInfo);
+
+        this.Navigation.PopModalAsync(false);
     }
 
-    private void CloseButton_Clicked(object sender, EventArgs e)
+    private async void CloseButton_Clicked(object sender, EventArgs e)
     {
-		this.Close();
+        await Navigation.PopModalAsync(false);
     }
 }

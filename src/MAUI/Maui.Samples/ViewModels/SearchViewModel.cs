@@ -28,17 +28,6 @@ namespace ArcGIS.ViewModels
             _allSamples = SampleManager.Current.AllSamples
                 .OrderBy(sample => sample.SampleName)
                 .ToList();
-
-            try
-            {
-                SearchItems = _allSamples
-                    .Select(sample => new SearchResultViewModel(sample))
-                    .ToObservableCollection();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.ToString());
-            }
         }
 
         [ObservableProperty]
@@ -76,7 +65,7 @@ namespace ArcGIS.ViewModels
         {
             if (string.IsNullOrWhiteSpace(SearchText))
             {
-                SearchItems = new ObservableCollection<SearchResultViewModel>(GetSortedSamples(_allSamples).Select(sample => new SearchResultViewModel(sample)));
+                SearchItems = new ObservableCollection<SearchResultViewModel>();
             }
             else
             {

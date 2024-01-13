@@ -1,5 +1,6 @@
 ﻿using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
+using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
@@ -11,12 +12,33 @@ namespace ArcGIS.ViewModels
 {
     public partial class SearchViewModel : ObservableObject
     {
-        private IDispatcherTimer _delaySearchTimer;
-        private const int _delayedTextChangedTimeout = 500;
+        List<SampleInfo> _allSamples;
 
         public SearchViewModel()
         {
-            _searchItems = new ObservableCollection<SearchResultViewModel>();
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            SearchItems = new ObservableCollection<SearchResultViewModel>();
+            SearchField = "Sample Name";
+            SearchOrder = "Ascending";
+
+            _allSamples = SampleManager.Current.AllSamples
+                .OrderBy(sample => sample.SampleName)
+                .ToList();
+
+            try
+            {
+                SearchItems = _allSamples
+                    .Select(sample => new SearchResultViewModel(sample))
+                    .ToObservableCollection();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         [ObservableProperty]
@@ -25,84 +47,125 @@ namespace ArcGIS.ViewModels
         [ObservableProperty]
         string _searchText;
 
-        [RelayCommand]
-        void PerformSearch(string searchTerm)
+        [ObservableProperty]
+        string _searchField;
+
+        [ObservableProperty]
+        bool _hasSearchResults;
+
+        partial void OnSearchItemsChanged(ObservableCollection<SearchResultViewModel> value)
         {
-            if (string.IsNullOrWhiteSpace(searchTerm))
+            HasSearchResults = value != null && value.Count > 0;
+        }
+
+        partial void OnSearchFieldChanged(string value)
+        {
+            SortSearchResults();
+        }
+
+        [ObservableProperty]
+        string _searchOrder;
+
+        partial void OnSearchOrderChanged(string value)
+        {
+            SortSearchResults();
+        }
+
+        [RelayCommand]
+        void PerformSearch()
+        {
+            if (string.IsNullOrWhiteSpace(SearchText))
             {
-                SearchItems = new ObservableCollection<SearchResultViewModel>();
+                SearchItems = new ObservableCollection<SearchResultViewModel>(GetSortedSamples(_allSamples).Select(sample => new SearchResultViewModel(sample)));
             }
             else
             {
                 // Remove punctuation from the search text and any trailing white space at the end. 
                 Regex regex = new Regex("[^a-zA-Z0-9 -]");
-                searchTerm = regex.Replace(searchTerm, "");
-                
-                searchTerm = searchTerm.TrimEnd();
+                var searchText = regex.Replace(SearchText, "");
 
-                var allSamples = SampleManager.Current.AllSamples.ToList();
-                string searchText = searchTerm.ToLower();
+                searchText = searchText.TrimEnd();
 
-                var sampleResults = allSamples.Where(sample => sample.SampleName.ToLower().Contains(searchText) ||
+                _allSamples = SampleManager.Current.AllSamples.ToList();
+                searchText = searchText.ToLower();
+
+                var sampleResults = _allSamples.Where(sample => sample.SampleName.ToLower().Contains(searchText) ||
                    sample.Category.ToLower().Contains(searchText) ||
                    sample.Description.ToLower().Contains(searchText) ||
                    sample.Tags.Any(tag => tag.Contains(searchText))).ToList<SampleInfo>();
 
                 try
                 {
-                    var searchResults = new ObservableCollection<SearchResultViewModel>();
-
-                    foreach (var sampleResult in sampleResults)
-                    {
-                        searchResults.Add(new SearchResultViewModel(sampleResult));
-                    }
-
-                    SearchItems = searchResults;
+                    SearchItems = GetSortedSamples(sampleResults)
+                        .Select(sample => new SearchResultViewModel(sample))
+                        .ToObservableCollection();
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.ToString());
                 }
-
             }
         }
 
-        protected override void OnPropertyChanged(PropertyChangedEventArgs e)
+        [RelayCommand]
+        void SortSearchResults()
         {
-            base.OnPropertyChanged(e);
-
-            if (e.PropertyName == nameof(SearchText))
+            if (SearchItems != null && SearchItems.Count > 0)
             {
-                SearchTextChanged();
+                var searchItems = SearchItems;
+                if (SearchField == "Sample Name")
+                {
+                    if (SearchOrder == "Ascending")
+                    {
+                        searchItems = SearchItems.OrderBy(item => item.SampleName).ToObservableCollection();
+                    }
+                    else
+                    {
+                        searchItems = SearchItems.OrderByDescending(item => item.SampleName).ToObservableCollection();
+                    }
+                }
+                else
+                {
+                    if (SearchOrder == "Ascending")
+                    {
+                        searchItems = SearchItems.OrderBy(item => item.SampleCategory).ToObservableCollection();
+                    }
+                    else
+                    {
+                        searchItems = SearchItems.OrderByDescending(item => item.SampleCategory).ToObservableCollection();
+                    }
+                }
+
+                SearchItems = new ObservableCollection<SearchResultViewModel>(searchItems);
             }
         }
 
-        private void SearchTextChanged()
+        private List<SampleInfo> GetSortedSamples(List<SampleInfo> samples)
         {
-            // Don't update results immediately; makes search-as-you-type more comfortable
-            if (_delaySearchTimer != null)
+            if (SearchField == "Sample Name")
             {
-                _delaySearchTimer.Stop();
+                if (SearchOrder == "Ascending")
+                {
+                    samples = samples.OrderBy(sample => sample.SampleName).ToList();
+                }
+                else
+                {
+                    samples = samples.OrderByDescending(sample => sample.SampleName).ToList();
+                }
+            }
+            else
+            {
+                if (SearchOrder == "Ascending")
+                {
+                    samples = samples.OrderBy(sample => sample.Category).ToList();
+                }
+                else
+                {
+                    samples = samples.OrderByDescending(sample => sample.Category).ToList();
+                }
             }
 
-            if (_delaySearchTimer == null)
-            {
-                _delaySearchTimer = Application.Current.Dispatcher.CreateTimer();
-                _delaySearchTimer.Tick += DelaySearchTimer_Tick;
-                _delaySearchTimer.Interval = TimeSpan.FromMilliseconds(_delayedTextChangedTimeout);
-            }
-
-            _delaySearchTimer.Start();
-        }
-
-        private void DelaySearchTimer_Tick(object sender, EventArgs e)
-        {
-            PerformSearch(SearchText);
-
-            if (_delaySearchTimer != null)
-            {
-                _delaySearchTimer.Stop();
-            }
+            return samples;
         }
     }
 
@@ -111,12 +174,20 @@ namespace ArcGIS.ViewModels
         public SearchResultViewModel(SampleInfo sampleResult)
         {
             SampleName = sampleResult.SampleName;
+            SampleCategory = sampleResult.Category;
+            SampleDescription = sampleResult.Description;
             SampleImage = new FileImageSource() { File = sampleResult.SampleImageName };
             SampleObject = sampleResult;
         }
 
         [ObservableProperty]
         string _sampleName;
+
+        [ObservableProperty]
+        string _sampleCategory;
+
+        [ObservableProperty]
+        string _sampleDescription;
 
         [ObservableProperty]
         ImageSource _sampleImage;

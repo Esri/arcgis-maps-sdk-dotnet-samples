@@ -26,11 +26,6 @@ namespace ArcGIS.Helpers
         {
             try
             {
-                if (Shell.Current.Navigation.ModalStack.Any())
-                {
-                    await Shell.Current.Navigation.PopModalAsync(false);
-                }
-
                 // Set the currently selected sample.
                 SampleManager.Current.SelectedSample = sampleInfo;
 

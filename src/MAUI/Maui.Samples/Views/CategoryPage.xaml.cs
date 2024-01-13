@@ -43,7 +43,7 @@ public partial class CategoryPage : ContentPage
 
     private async void SearchClicked(object sender, EventArgs e)
     {
-        await Navigation.PushModalAsync(new SearchPage(), false);
+        await Navigation.PushAsync(new SearchPage(), false);
     }
 
     private void TapGestureRecognizer_SampleTapped(object sender, TappedEventArgs e)

@@ -16,10 +16,7 @@
                    SearchCommand="{Binding PerformSearchCommand}"
                    Text="{Binding SearchText}">
             <SearchBar.Behaviors>
-                <toolkit:UserStoppedTypingBehavior Command="{Binding PerformSearchCommand}"
-                                                   MinimumLengthThreshold="0"
-                                                   ShouldDismissKeyboardAutomatically="False"
-                                                   StoppedTypingTimeThreshold="300" />
+                <toolkit:UserStoppedTypingBehavior MinimumLengthThreshold="0" ShouldDismissKeyboardAutomatically="False" />
             </SearchBar.Behaviors>
         </SearchBar>
         <CollectionView Grid.Row="1" ItemsSource="{Binding SearchItems}">
@@ -66,6 +63,13 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        <Label Grid.Row="1"
+               HorizontalOptions="Center"
+               IsVisible="{Binding NoSearchResults}"
+               Text="No results"
+               TextColor="{AppThemeBinding Default=Black,
+                                           Dark=White}"
+               VerticalOptions="Center" />
         <Button x:Name="CloseButton"
                 Grid.Row="2"
                 Clicked="CloseButton_Clicked"

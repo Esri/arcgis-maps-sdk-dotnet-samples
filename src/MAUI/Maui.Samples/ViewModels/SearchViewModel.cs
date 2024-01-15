@@ -9,6 +9,9 @@ namespace ArcGIS.ViewModels
 {
     public partial class SearchViewModel : ObservableObject
     {
+        private IDispatcherTimer _delaySearchTimer;
+        private const int _delayedTextChangedTimeout = 500;
+
         public SearchViewModel()
         {
             SearchItems = new ObservableCollection<SearchResultViewModel>();
@@ -19,6 +22,21 @@ namespace ArcGIS.ViewModels
 
         [ObservableProperty]
         string _searchText;
+
+        [ObservableProperty]
+        bool _noSearchResults;
+
+        private string[] _previousSearchKeywords = [];
+
+        partial void OnSearchTextChanged(string value)
+        {
+            SearchTextChanged();
+        }
+
+        partial void OnSearchItemsChanged(ObservableCollection<SearchResultViewModel> value)
+        {
+            NoSearchResults = value.Count == 0;
+        }
 
         [RelayCommand]
         void PerformSearch()
@@ -31,6 +49,16 @@ namespace ArcGIS.ViewModels
             {
                 // Remove punctuation from the search text and any trailing white space at the end.
                 var searchKeywords = GetKeywords(SearchText);
+
+                // Check if the keywords are the same as the previous search.
+                if (Enumerable.SequenceEqual(searchKeywords, _previousSearchKeywords))
+                {
+                    return;
+                }
+                else
+                {
+                    _previousSearchKeywords = searchKeywords;
+                }
 
                 List<SearchResultViewModel> sampleResults = new List<SearchResultViewModel>();
 
@@ -60,6 +88,10 @@ namespace ArcGIS.ViewModels
                     {
                         sampleResults = sampleResults.OrderByDescending(sampleResults => sampleResults.Score).ThenBy(sampleResults => sampleResults.SampleName).ToList();
                         SearchItems = new ObservableCollection<SearchResultViewModel>(sampleResults);
+                    }
+                    else
+                    {
+                        SearchItems = new ObservableCollection<SearchResultViewModel>();
                     }
                 }
                 catch (Exception ex)
@@ -109,6 +141,34 @@ namespace ArcGIS.ViewModels
             }
 
             return cleanedTextWords.ToArray();
+        }
+
+        private void SearchTextChanged()
+        {
+            // Don't update results immediately; makes search-as-you-type more comfortable
+            if (_delaySearchTimer != null)
+            {
+                _delaySearchTimer.Stop();
+            }
+
+            if (_delaySearchTimer == null)
+            {
+                _delaySearchTimer = Application.Current.Dispatcher.CreateTimer();
+                _delaySearchTimer.Tick += DelaySearchTimer_Tick;
+                _delaySearchTimer.Interval = TimeSpan.FromMilliseconds(_delayedTextChangedTimeout);
+            }
+
+            _delaySearchTimer.Start();
+        }
+
+        private void DelaySearchTimer_Tick(object sender, EventArgs e)
+        {
+            PerformSearch();
+
+            if (_delaySearchTimer != null)
+            {
+                _delaySearchTimer.Stop();
+            }
         }
     }
 

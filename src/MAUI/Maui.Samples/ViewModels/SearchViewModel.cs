@@ -37,30 +37,20 @@ namespace ArcGIS.ViewModels
                 foreach (var sample in SampleManager.Current.AllSamples.ToList())
                 {
                     int score = 0;
-                    var matchingKeyWords = new List<string>();
 
                     var sampleNameKeywords = GetKeywords(sample.SampleName);
                     var categoryKeywords = GetKeywords(sample.Category);
                     var descriptionKeywords = GetKeywords(sample.Description);
                     var tagsKeywords = sample.Tags.ToArray();
 
-                    score += sampleNameKeywords.Intersect(searchKeywords).Count() * 6;
-                    matchingKeyWords.AddRange(sampleNameKeywords.Intersect(searchKeywords).ToArray());
-
-                    score += categoryKeywords.Intersect(searchKeywords).Count() * 3;
-                    matchingKeyWords.AddRange(categoryKeywords.Intersect(searchKeywords).ToArray());
-
-                    score += descriptionKeywords.Intersect(searchKeywords).Count() * 2;
-                    matchingKeyWords.AddRange(descriptionKeywords.Intersect(searchKeywords).ToArray());
-
-                    score += tagsKeywords.Intersect(searchKeywords).Count();
-                    matchingKeyWords.AddRange(tagsKeywords.Intersect(searchKeywords).ToArray());
-
-                    matchingKeyWords = matchingKeyWords.Distinct().Order().ToList();
+                    score += GetMatches(sampleNameKeywords, searchKeywords) * 6;
+                    score += GetMatches(categoryKeywords, searchKeywords) * 3;
+                    score += GetMatches(descriptionKeywords, searchKeywords) * 2;
+                    score += GetMatches(tagsKeywords, searchKeywords);
 
                     if (score > 0)
                     {
-                        sampleResults.Add(new SearchResultViewModel(sample, score, matchingKeyWords));
+                        sampleResults.Add(new SearchResultViewModel(sample, score));
                     }
                 }
 
@@ -77,6 +67,28 @@ namespace ArcGIS.ViewModels
                     Console.WriteLine(ex.ToString());
                 }
             }
+        }
+
+        private int GetMatches(string[] contentKeywords, string[] searchKeywords)
+        {
+            int matches = 0;
+
+            foreach (var searchKeyword in searchKeywords)
+            {
+                foreach (var contentKeyword in contentKeywords)
+                {
+                    if (contentKeyword == searchKeyword)
+                    {
+                        matches += 2;
+                    }
+                    else if (contentKeyword.Contains(searchKeyword))
+                    {
+                        matches++;
+                    }
+                }
+            }
+
+            return matches;
         }
 
         private string[] GetKeywords(string text)
@@ -102,7 +114,7 @@ namespace ArcGIS.ViewModels
 
     public partial class SearchResultViewModel : ObservableObject
     {
-        public SearchResultViewModel(SampleInfo sampleResult, int score, List<string> matchingKeywords)
+        public SearchResultViewModel(SampleInfo sampleResult, int score)
         {
             SampleName = sampleResult.SampleName;
             SampleCategory = sampleResult.Category;
@@ -110,19 +122,7 @@ namespace ArcGIS.ViewModels
             SampleImage = new FileImageSource() { File = sampleResult.SampleImageName };
             Score = score;
             SampleObject = sampleResult;
-
-            if (matchingKeywords.Count > 1)
-            {
-                Keywords = $"[{string.Join(", ", matchingKeywords.ToArray())}]";
-            }
-            else
-            {
-                Keywords = $"[{matchingKeywords[0]}]";
-            }
         }
-
-        [ObservableProperty]
-        string _keywords;
 
         [ObservableProperty]
         int _score;

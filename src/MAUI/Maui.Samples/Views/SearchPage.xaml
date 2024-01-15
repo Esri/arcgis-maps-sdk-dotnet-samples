@@ -6,19 +6,6 @@
              xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
              Title="Search">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Clicked="FieldToolbarItem_Clicked"
-                     IconImageSource="field.png"
-                     IsEnabled="{Binding HasSearchResults}"
-                     Text="Field"
-                     ToolTipProperties.Text="Sort by field" />
-        <ToolbarItem Clicked="OrderToolbarItem_Clicked"
-                     IconImageSource="order.png"
-                     IsEnabled="{Binding HasSearchResults}"
-                     Text="Order"
-                     ToolTipProperties.Text="Order direction" />
-    </ContentPage.ToolbarItems>
-
     <Grid Padding="5" RowDefinitions="40,*,40">
         <SearchBar x:Name="SampleSearchBar"
                    Grid.Row="0"
@@ -69,6 +56,10 @@
                                        Text="{Binding SampleDescription}"
                                        TextColor="{AppThemeBinding Default=Black,
                                                                    Dark=White}" />
+                                <Label Margin="0,10,0,0"
+                                       FontSize="9"
+                                       Text="{Binding Keywords}"
+                                       TextColor="Red" />
 
                             </VerticalStackLayout>
                         </Grid>

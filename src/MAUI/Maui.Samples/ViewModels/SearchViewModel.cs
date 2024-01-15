@@ -6,28 +6,16 @@ using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Reflection;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace ArcGIS.ViewModels
 {
     public partial class SearchViewModel : ObservableObject
     {
-        List<SampleInfo> _allSamples;
-
         public SearchViewModel()
         {
-            Initialize();
-        }
-
-        private void Initialize()
-        {
             SearchItems = new ObservableCollection<SearchResultViewModel>();
-            SearchField = "Sample Name";
-            SearchOrder = "Ascending";
-
-            _allSamples = SampleManager.Current.AllSamples
-                .OrderBy(sample => sample.SampleName)
-                .ToList();
         }
 
         [ObservableProperty]
@@ -35,30 +23,6 @@ namespace ArcGIS.ViewModels
 
         [ObservableProperty]
         string _searchText;
-
-        [ObservableProperty]
-        string _searchField;
-
-        [ObservableProperty]
-        bool _hasSearchResults;
-
-        partial void OnSearchItemsChanged(ObservableCollection<SearchResultViewModel> value)
-        {
-            HasSearchResults = value != null && value.Count > 0;
-        }
-
-        partial void OnSearchFieldChanged(string value)
-        {
-            SortSearchResults();
-        }
-
-        [ObservableProperty]
-        string _searchOrder;
-
-        partial void OnSearchOrderChanged(string value)
-        {
-            SortSearchResults();
-        }
 
         [RelayCommand]
         void PerformSearch()
@@ -69,25 +33,48 @@ namespace ArcGIS.ViewModels
             }
             else
             {
-                // Remove punctuation from the search text and any trailing white space at the end. 
-                Regex regex = new Regex("[^a-zA-Z0-9 -]");
-                var searchText = regex.Replace(SearchText, "");
+                // Remove punctuation from the search text and any trailing white space at the end.
+                var searchKeywords = GetKeywords(SearchText);
 
-                searchText = searchText.TrimEnd();
+                List<SearchResultViewModel> sampleResults = new List<SearchResultViewModel>();
 
-                _allSamples = SampleManager.Current.AllSamples.ToList();
-                searchText = searchText.ToLower();
+                foreach (var sample in SampleManager.Current.AllSamples.ToList())
+                {
+                    int score = 0;
+                    var matchingKeyWords = new List<string>();
 
-                var sampleResults = _allSamples.Where(sample => sample.SampleName.ToLower().Contains(searchText) ||
-                   sample.Category.ToLower().Contains(searchText) ||
-                   sample.Description.ToLower().Contains(searchText) ||
-                   sample.Tags.Any(tag => tag.Contains(searchText))).ToList<SampleInfo>();
+                    var sampleNameKeywords = GetKeywords(sample.SampleName);
+                    var categoryKeywords = GetKeywords(sample.Category);
+                    var descriptionKeywords = GetKeywords(sample.Description);
+                    var tagsKeywords = sample.Tags.ToArray();
+
+                    score += sampleNameKeywords.Intersect(searchKeywords).Count() * 6;
+                    matchingKeyWords.AddRange(sampleNameKeywords.Intersect(searchKeywords).ToArray());
+
+                    score += categoryKeywords.Intersect(searchKeywords).Count() * 3;
+                    matchingKeyWords.AddRange(categoryKeywords.Intersect(searchKeywords).ToArray());
+
+                    score += descriptionKeywords.Intersect(searchKeywords).Count() * 2;
+                    matchingKeyWords.AddRange(descriptionKeywords.Intersect(searchKeywords).ToArray());
+
+                    score += tagsKeywords.Intersect(searchKeywords).Count();
+                    matchingKeyWords.AddRange(tagsKeywords.Intersect(searchKeywords).ToArray());
+
+                    matchingKeyWords = matchingKeyWords.Distinct().Order().ToList();
+
+                    if (score > 0)
+                    {
+                        sampleResults.Add(new SearchResultViewModel(sample, score, matchingKeyWords));
+                    }
+                }
 
                 try
                 {
-                    SearchItems = GetSortedSamples(sampleResults)
-                        .Select(sample => new SearchResultViewModel(sample))
-                        .ToObservableCollection();
+                    if (sampleResults.Any())
+                    {
+                        sampleResults = sampleResults.OrderByDescending(sampleResults => sampleResults.Score).ToList();
+                        SearchItems = new ObservableCollection<SearchResultViewModel>(sampleResults);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -96,78 +83,53 @@ namespace ArcGIS.ViewModels
             }
         }
 
-        [RelayCommand]
-        void SortSearchResults()
+        private string[] GetKeywords(string text)
         {
-            if (SearchItems != null && SearchItems.Count > 0)
-            {
-                var searchItems = SearchItems;
-                if (SearchField == "Sample Name")
-                {
-                    if (SearchOrder == "Ascending")
-                    {
-                        searchItems = SearchItems.OrderBy(item => item.SampleName).ToObservableCollection();
-                    }
-                    else
-                    {
-                        searchItems = SearchItems.OrderByDescending(item => item.SampleName).ToObservableCollection();
-                    }
-                }
-                else
-                {
-                    if (SearchOrder == "Ascending")
-                    {
-                        searchItems = SearchItems.OrderBy(item => item.SampleCategory).ToObservableCollection();
-                    }
-                    else
-                    {
-                        searchItems = SearchItems.OrderByDescending(item => item.SampleCategory).ToObservableCollection();
-                    }
-                }
+            // Remove punctuation from the search text and any trailing white space at the end.
+            Regex regex = new Regex("[^a-zA-Z0-9 -]");
+            text = regex.Replace(text, "");
 
-                SearchItems = new ObservableCollection<SearchResultViewModel>(searchItems);
-            }
-        }
+            var cleanedTextWords = text.TrimEnd().ToLower().Split(" ").Distinct().ToList();
+            var commonWords = new string[] { "in", "a", "of", "the", "by" };
 
-        private List<SampleInfo> GetSortedSamples(List<SampleInfo> samples)
-        {
-            if (SearchField == "Sample Name")
+            foreach (var word in commonWords)
             {
-                if (SearchOrder == "Ascending")
+                if (cleanedTextWords.Contains(word))
                 {
-                    samples = samples.OrderBy(sample => sample.SampleName).ToList();
-                }
-                else
-                {
-                    samples = samples.OrderByDescending(sample => sample.SampleName).ToList();
-                }
-            }
-            else
-            {
-                if (SearchOrder == "Ascending")
-                {
-                    samples = samples.OrderBy(sample => sample.Category).ToList();
-                }
-                else
-                {
-                    samples = samples.OrderByDescending(sample => sample.Category).ToList();
+                    cleanedTextWords.Remove(word);
                 }
             }
 
-            return samples;
+            return cleanedTextWords.ToArray();
         }
     }
 
     public partial class SearchResultViewModel : ObservableObject
     {
-        public SearchResultViewModel(SampleInfo sampleResult)
+        public SearchResultViewModel(SampleInfo sampleResult, int score, List<string> matchingKeywords)
         {
             SampleName = sampleResult.SampleName;
             SampleCategory = sampleResult.Category;
             SampleDescription = sampleResult.Description;
             SampleImage = new FileImageSource() { File = sampleResult.SampleImageName };
+            Score = score;
             SampleObject = sampleResult;
+
+            if (matchingKeywords.Count > 1)
+            {
+                Keywords = $"[{string.Join(", ", matchingKeywords.ToArray())}]";
+            }
+            else
+            {
+                Keywords = $"[{matchingKeywords[0]}]";
+            }
         }
+
+        [ObservableProperty]
+        string _keywords;
+
+        [ObservableProperty]
+        int _score;
 
         [ObservableProperty]
         string _sampleName;

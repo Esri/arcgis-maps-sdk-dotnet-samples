@@ -1,12 +1,8 @@
 ﻿using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
-using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Reflection;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace ArcGIS.ViewModels

@@ -58,7 +58,7 @@ namespace ArcGIS.ViewModels
                 {
                     if (sampleResults.Any())
                     {
-                        sampleResults = sampleResults.OrderByDescending(sampleResults => sampleResults.Score).ToList();
+                        sampleResults = sampleResults.OrderByDescending(sampleResults => sampleResults.Score).ThenBy(sampleResults => sampleResults.SampleName).ToList();
                         SearchItems = new ObservableCollection<SearchResultViewModel>(sampleResults);
                     }
                 }

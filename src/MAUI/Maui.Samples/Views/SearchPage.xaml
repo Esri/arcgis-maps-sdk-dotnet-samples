@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage x:Class="ArcGIS.SearchPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
@@ -49,6 +49,7 @@
                                                                    Dark=White}"
                                        ToolTipProperties.Text="{Binding SampleName}" />
                                 <Label FontSize="11"
+                                       LineBreakMode="TailTruncation"
                                        Text="{Binding SampleCategory}"
                                        TextColor="{AppThemeBinding Default=Black,
                                                                    Dark=White}" />

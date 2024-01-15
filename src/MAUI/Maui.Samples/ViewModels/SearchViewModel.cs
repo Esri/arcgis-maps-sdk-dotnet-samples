@@ -86,7 +86,7 @@ namespace ArcGIS.ViewModels
             text = regex.Replace(text, "");
 
             var cleanedTextWords = text.TrimEnd().ToLower().Split(" ").Distinct().ToList();
-            var commonWords = new string[] { "in", "a", "of", "the", "by" };
+            var commonWords = new string[] { "in", "a", "of", "the", "by", "an", "and" };
 
             foreach (var word in commonWords)
             {

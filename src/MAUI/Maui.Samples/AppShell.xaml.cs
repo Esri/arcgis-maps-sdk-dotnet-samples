@@ -19,25 +19,27 @@ public partial class AppShell : Shell
 
         SampleManager.Current.Initialize();
 
-        var samplesCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
-        var allSamples = SampleManager.Current.AllSamples.ToList();
+        //var samplesCategories = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().ToList();
+        //var allSamples = SampleManager.Current.AllSamples.ToList();
 
-        List<FlyoutItem> flyoutItems = new List<FlyoutItem>();
+        Routing.RegisterRoute(nameof(CategoryPage), typeof(CategoryPage));
+        Routing.RegisterRoute(nameof(SamplePage), typeof(SamplePage));
 
-        foreach (var category in samplesCategories)
-        {
-            FlyoutItem flyoutItem = new FlyoutItem();
-            flyoutItem.Title = category.Name;
+        //List<FlyoutItem> flyoutItems = new List<FlyoutItem>();
 
-            ShellContent shellContent = new ShellContent();
-            //shellContent.Title = category.Name;
-            shellContent.Content = new CategoryPage(category);
-            shellContent.Route = $"{nameof(CategoryPage)}_{category.Name}";
+        //foreach (var category in samplesCategories)
+        //{
+        //    FlyoutItem flyoutItem = new FlyoutItem();
+        //    flyoutItem.Title = category.Name;
 
-            flyoutItem.Items.Add(shellContent);
+        //    ShellContent shellContent = new ShellContent();
+        //    shellContent.ContentTemplate = new DataTemplate(typeof(CategoryPage));
+        //    shellContent.Route = $"{nameof(CategoryPage)}?CategoryName={category.Name}";
 
-            this.Items.Add(flyoutItem);
-        }
+        //    flyoutItem.Items.Add(shellContent);
+
+        //    this.Items.Add(flyoutItem);
+        //}
     }
 
     #region Check API Key

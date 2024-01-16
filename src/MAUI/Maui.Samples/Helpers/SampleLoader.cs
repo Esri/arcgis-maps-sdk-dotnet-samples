@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGIS.Models;
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.Samples.Shared.Models;
@@ -68,19 +69,21 @@ namespace ArcGIS.Helpers
                     await Shell.Current.Navigation.PopModalAsync(false);
                 }
 
-                // Get the sample control from the selected sample.
-                ContentPage sampleControl = (ContentPage)SampleManager.Current.SampleToControl(sampleInfo);
-
-                // Create the sample display page to show the sample and the metadata.
-                SamplePage page = new SamplePage(sampleControl, sampleInfo);
+                var navigationParameter = new Dictionary<string, object>
+                {
+                    { "Sample", sampleInfo }
+                };
 
                 // Show the sample.
-                await Shell.Current.Navigation.PushAsync(page, true);
+                await Shell.Current.GoToAsync(nameof(SamplePage), navigationParameter);
             }
             catch (OperationCanceledException)
             {
-                // Remove the waiting page.
-                await Shell.Current.Navigation.PopModalAsync(false);
+                if (Shell.Current.Navigation.ModalStack.Any())
+                {
+                    // Remove the waiting page.
+                    await Shell.Current.Navigation.PopModalAsync(false);
+                }
 
                 await Application.Current.MainPage.DisplayAlert("", "Download cancelled", "OK");
             }

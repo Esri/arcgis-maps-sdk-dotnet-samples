@@ -1,22 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
-    x:Class="ArcGIS.CategoryPage"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:converters="clr-namespace:ArcGIS.Converters"
-    xmlns:models="clr-namespace:ArcGIS.Samples.Shared.Models"
-    xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
-    x:DataType="viewModels:CategoryViewModel">
+<ContentPage x:Class="ArcGIS.CategoryPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:ArcGIS.Converters"
+             xmlns:models="clr-namespace:ArcGIS.Samples.Shared.Models"
+             xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
+             Title="{Binding SelectedCategory}"
+             x:DataType="viewModels:CategoryViewModel">
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem
-            Clicked="SearchClicked"
-            IconImageSource="search.png"
-            Text="Search" />
-        <ToolbarItem
-            Clicked="SettingsClicked"
-            IconImageSource="settings.png"
-            Text="Settings" />
+        <ToolbarItem Clicked="SearchClicked"
+                     IconImageSource="search.png"
+                     Text="Search" />
+        <ToolbarItem Clicked="SettingsClicked"
+                     IconImageSource="settings.png"
+                     Text="Settings" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Resources>
@@ -25,23 +23,21 @@
     </ContentPage.Resources>
     <Grid x:Name="SampleListGrid">
         <ScrollView x:Name="SampleScrollView" HorizontalOptions="Center">
-            <FlexLayout
-                AlignContent="Start"
-                AlignItems="Start"
-                BackgroundColor="Transparent"
-                BindableLayout.ItemsSource="{Binding SamplesItems}"
-                JustifyContent="SpaceEvenly"
-                Wrap="Wrap">
+            <FlexLayout AlignContent="Start"
+                        AlignItems="Start"
+                        BackgroundColor="Transparent"
+                        BindableLayout.ItemsSource="{Binding SamplesItems}"
+                        JustifyContent="SpaceEvenly"
+                        Wrap="Wrap">
                 <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="viewModels:SampleViewModel">
                         <Grid x:Name="SampleGrid">
-                            <Border
-                                Margin="5"
-                                StrokeThickness="{OnPlatform Default=0,
-                                                             Android=1}"
-                                WidthRequest="{Binding SampleImageWidth}">
+                            <Border Margin="5"
+                                    StrokeThickness="{OnPlatform Default=0,
+                                                                 Android=1}"
+                                    WidthRequest="{Binding SampleImageWidth}">
                                 <Border.GestureRecognizers>
-                                    <TapGestureRecognizer CommandParameter="{Binding SampleObject}" Tapped="TapGestureRecognizer_SampleTapped" />
+                                    <TapGestureRecognizer Command="{Binding OpenSampleCommand}" />
                                     <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
                                     <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
                                 </Border.GestureRecognizers>
@@ -50,56 +46,52 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="45" />
                                     </Grid.RowDefinitions>
-                                    <Image
-                                        Grid.Row="0"
-                                        HeightRequest="{Binding SampleImageHeight}"
-                                        Source="{Binding SampleImageName}"
-                                        WidthRequest="{Binding SampleImageWidth}" />
+                                    <Image Grid.Row="0"
+                                           HeightRequest="{Binding SampleImageHeight}"
+                                           Source="{Binding SampleImageName}"
+                                           WidthRequest="{Binding SampleImageWidth}" />
 
-                                    <Button FontFamily="calcite-ui-icons-24"
-                                        Text="{Binding IsFavorite, Converter={StaticResource BoolToFavoriteGlyphConverter}}"
-                                        x:Name="FavoriteButton"
-                                        Grid.Row="0"
-                                        CornerRadius="0"
-                                        Padding="2"
-                                        Background="#A52F2F2F"
-                                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
-                                        CommandParameter="{Binding SampleFormalName}"
-                                        HorizontalOptions="Start"
-                                        TextColor="Yellow" 
-                                        IsVisible="{Binding ShowFavoriteIcon}"
-                                        VerticalOptions="Start"
-                                        FontSize="{OnPlatform Default=25,
-                                                                  iOS=40,
-                                                                  Android=40}" />
-
-                                    <Grid
-                                        Grid.Row="0"
-                                        BackgroundColor="#A52F2F2F"
-                                        VerticalOptions="End">
-                                        <Label
+                                    <Button x:Name="FavoriteButton"
                                             Grid.Row="0"
-                                            Grid.Column="0"
-                                            Padding="10"
-                                            FontSize="18"
-                                            HeightRequest="{OnPlatform Default=50,
-                                                                       MacCatalyst=80}"
-                                            LineBreakMode="WordWrap"
-                                            Text="{Binding SampleName}"
-                                            TextColor="White"
-                                            VerticalOptions="End"
-                                            VerticalTextAlignment="Center" />
+                                            Padding="2"
+                                            Background="#A52F2F2F"
+                                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
+                                            CommandParameter="{Binding SampleFormalName}"
+                                            CornerRadius="0"
+                                            FontFamily="calcite-ui-icons-24"
+                                            FontSize="{OnPlatform Default=25,
+                                                                  iOS=40,
+                                                                  Android=40}"
+                                            HorizontalOptions="Start"
+                                            IsVisible="{Binding ShowFavoriteIcon}"
+                                            Text="{Binding IsFavorite, Converter={StaticResource BoolToFavoriteGlyphConverter}}"
+                                            TextColor="Yellow"
+                                            VerticalOptions="Start" />
+
+                                    <Grid Grid.Row="0"
+                                          BackgroundColor="#A52F2F2F"
+                                          VerticalOptions="End">
+                                        <Label Grid.Row="0"
+                                               Grid.Column="0"
+                                               Padding="10"
+                                               FontSize="18"
+                                               HeightRequest="{OnPlatform Default=50,
+                                                                          MacCatalyst=80}"
+                                               LineBreakMode="WordWrap"
+                                               Text="{Binding SampleName}"
+                                               TextColor="White"
+                                               VerticalOptions="End"
+                                               VerticalTextAlignment="Center" />
                                     </Grid>
-                                    <Label
-                                        Grid.Row="1"
-                                        Margin="5"
-                                        Padding="0,5"
-                                        FontSize="13"
-                                        LineBreakMode="TailTruncation"
-                                        Text="{Binding Description}"
-                                        TextColor="{AppThemeBinding Dark=LightGray,
-                                                                    Light=Black}"
-                                        VerticalTextAlignment="Start" />
+                                    <Label Grid.Row="1"
+                                           Margin="5"
+                                           Padding="0,5"
+                                           FontSize="13"
+                                           LineBreakMode="TailTruncation"
+                                           Text="{Binding Description}"
+                                           TextColor="{AppThemeBinding Dark=LightGray,
+                                                                       Light=Black}"
+                                           VerticalTextAlignment="Start" />
                                 </Grid>
                             </Border>
                         </Grid>

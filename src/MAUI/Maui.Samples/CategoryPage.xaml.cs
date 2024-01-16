@@ -7,14 +7,24 @@ using CommunityToolkit.Maui.Views;
 
 namespace ArcGIS;
 
+[QueryProperty(nameof(CategoryName), "CategoryName")]
 public partial class CategoryPage : ContentPage
 {
-    private SearchableTreeNode _category;
+    private CategoryViewModel _viewModel;
 
-    public CategoryPage(SearchableTreeNode category)
+    string _categoryName;
+    public string CategoryName 
+    { 
+        get => _categoryName; 
+        set 
+        { 
+            _categoryName = value;
+            _viewModel.UpdateCategory(value);
+        } 
+    }
+
+    public CategoryPage()
     {
-        _category = category;
-
         InitializeComponent();
 
         Initialize();
@@ -22,18 +32,9 @@ public partial class CategoryPage : ContentPage
 
     private void Initialize()
     {
-        SetBindingContext();
-
-        Title = _category.Name;
-    }
-
-    private void SetBindingContext()
-    {
-        // Get the samples from the category.
-        var listSampleItems = _category?.Items.OfType<SampleInfo>().ToList();
-
         // Update the binding to show the samples.
-        BindingContext = new CategoryViewModel(listSampleItems, _category.Name);
+        _viewModel = new CategoryViewModel();
+        BindingContext = _viewModel;
     }
 
     private async void SettingsClicked(object sender, EventArgs e)
@@ -46,12 +47,6 @@ public partial class CategoryPage : ContentPage
         var popup = new SearchPopup();
 
         var result = await this.ShowPopupAsync(popup);
-    }
-
-    private void TapGestureRecognizer_SampleTapped(object sender, TappedEventArgs e)
-    {
-        var sampleInfo = e.Parameter as SampleInfo;
-        _ = SampleLoader.LoadSample(sampleInfo);
     }
 
     private void PointerGestureRecognizer_PointerEntered(object sender, PointerEventArgs e)
@@ -82,15 +77,13 @@ public partial class CategoryPage : ContentPage
 
     protected override void OnAppearing()
     {
-        base.OnAppearing();
+        //base.OnAppearing();
 
-        // Ensure the favorite category is up to date with the correct favorited samples. 
-        if (_category.Name == "Favorites")
-        {
-            _category = SampleManager.Current.GetFavoritesCategory();
-        }
-
-        SetBindingContext();
+        //// Ensure the favorite category is up to date with the correct favorited samples. 
+        //if (_category.Name == "Favorites")
+        //{
+        //    _category = SampleManager.Current.GetFavoritesCategory();
+        //}
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)

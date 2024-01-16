@@ -1,25 +1,27 @@
-﻿using ArcGIS.Samples.Managers;
+﻿using ArcGIS.Helpers;
+using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
 
 namespace ArcGIS.ViewModels
 {
     public partial class CategoryViewModel : ObservableObject
     {
-        private string _category;
+        private static readonly string DefaultCategory = "Featured";
+        private double _sampleImageWidth;
+        private double _sampleImageHeight;
 
-        public CategoryViewModel(List<SampleInfo> sampleInfos, string category)
+        public CategoryViewModel()
         {
-            _samplesItems = new ObservableCollection<SampleViewModel>();
-
             // Calculate the sample image width and height on mobile platforms based on device display size. 
-            double sampleImageWidth = 400;
+            _sampleImageWidth = 400;
 
 #if WINDOWS
 
-            sampleImageWidth  = 300;
+            _sampleImageWidth  = 300;
 
 #elif IOS || ANDROID
 
@@ -29,30 +31,56 @@ namespace ArcGIS.ViewModels
             var displayDensity = DeviceDisplay.MainDisplayInfo.Density;
 
             // Calculate the width for the image using the device display density. Account for a margin around the image. 
-            sampleImageWidth = displayWidth / displayDensity - 20;
+            _sampleImageWidth = displayWidth / displayDensity - 20;
             
             // For tablets check to see if multiple images could fit rather than one tablet sized image. 
             // If multiple images of arbitrary size "300" would fit then update the image width.
-            var sampleImageFactor = Math.Floor(sampleImageWidth / 300);
+            var sampleImageFactor = Math.Floor(_sampleImageWidth / 300);
 
             if (sampleImageFactor > 1)
             {
-                sampleImageWidth = sampleImageWidth / sampleImageFactor;
+                _sampleImageWidth = _sampleImageWidth / sampleImageFactor;
             }
 #endif
             // Maintain 4:3 image resolution. 
-            double sampleImageHeight = Math.Floor(sampleImageWidth * 3 / 4);
+            _sampleImageHeight = Math.Floor(_sampleImageWidth * 3 / 4);
 
-            foreach (var sampleInfo in sampleInfos)
+            var featuredSamples = GetSamplesInCategory(DefaultCategory);
+
+            foreach (var sampleInfo in featuredSamples)
             {
-                SamplesItems.Add(new SampleViewModel(sampleInfo, sampleImageWidth, sampleImageHeight));
+                SamplesItems.Add(new SampleViewModel(sampleInfo, _sampleImageWidth, _sampleImageHeight));
             }
 
-            _category = category;
+            _selectedCategory = DefaultCategory;
+        }
+
+        public void UpdateCategory(string category)
+        {
+            SelectedCategory = category;
+
+            SamplesItems.Clear();
+
+            var samples = GetSamplesInCategory(category);
+
+            foreach (var sampleInfo in samples)
+            {
+                SamplesItems.Add(new SampleViewModel(sampleInfo, _sampleImageWidth, _sampleImageHeight));
+            }
+        }
+
+        private List<SampleInfo> GetSamplesInCategory(string category)
+        {
+            var categoryNode = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().FirstOrDefault(c => c.Name == category);
+
+            return categoryNode.Items.OfType<SampleInfo>().ToList();
         }
 
         [ObservableProperty]
-        ObservableCollection<SampleViewModel> _samplesItems;
+        ObservableCollection<SampleViewModel> _samplesItems = new ObservableCollection<SampleViewModel>();
+
+        [ObservableProperty]
+        private string _selectedCategory;
 
         [RelayCommand]
         void UpdateFavorite(string sampleFormalName)
@@ -63,12 +91,14 @@ namespace ArcGIS.ViewModels
 
             SampleManager.Current.AddRemoveFavorite(sampleFormalName);
 
-            if (_category == "Favorites" && SamplesItems.Contains(sample))
+            if (SelectedCategory == "Favorites" && SamplesItems.Contains(sample))
             {
                 SamplesItems.Remove(sample);
             }
-
-            
+            else
+            {
+                SamplesItems.Add(sample);
+            }
         }
     }
 
@@ -76,7 +106,7 @@ namespace ArcGIS.ViewModels
     {
         public SampleViewModel(SampleInfo sampleInfo, double sampleImageWidth, double sampleImageHeight)
         {
-            SampleObject = sampleInfo;
+            _sampleObject = sampleInfo;
             SampleName = sampleInfo.SampleName;
             SampleFormalName = sampleInfo.FormalName;
             Description = sampleInfo.Description;
@@ -105,7 +135,6 @@ namespace ArcGIS.ViewModels
         [ObservableProperty]
         string _sampleImageName;
 
-        [ObservableProperty]
         SampleInfo _sampleObject;
 
         [ObservableProperty]
@@ -114,5 +143,10 @@ namespace ArcGIS.ViewModels
         [ObservableProperty]
         double _sampleImageHeight;
 
+        [RelayCommand]
+        void OpenSample()
+        {
+            _ = SampleLoader.LoadSample(_sampleObject);
+        }
     }
 }

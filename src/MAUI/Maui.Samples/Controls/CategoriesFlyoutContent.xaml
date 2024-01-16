@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView x:Class="ArcGIS.Controls.CategoriesFlyoutContent"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:ArcGIS.Converters"
+             xmlns:local="clr-namespace:ArcGIS"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
+             x:DataType="viewModels:FlyoutMenuViewModel">
+    <ContentView.Resources>
+        <converters:BoolToExpandedImageConverter x:Key="BoolToExpandedImageConverter" />
+    </ContentView.Resources>
+
+    <CollectionView ItemsSource="{Binding Categories}">
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="viewModels:FlyoutCategoryViewModel">
+                <FlyoutItem Title="{Binding CategoryName}">
+                    <ShellContent Route="CategoryPage">
+                        <ShellContent.ContentTemplate>
+                            <DataTemplate>
+                                <local:CategoryPage />
+                            </DataTemplate>
+                        </ShellContent.ContentTemplate>
+                    </ShellContent>
+                </FlyoutItem>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+</ContentView>

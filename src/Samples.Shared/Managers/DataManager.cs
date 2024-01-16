@@ -237,7 +237,7 @@ namespace ArcGIS.Samples.Managers
         /// <summary>
         /// Gets the data folder where locally provisioned data is stored.
         /// </summary>
-        internal static string GetDataFolder()
+        public static string GetDataFolder()
         {
 #if NETFX_CORE
             string appDataFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;

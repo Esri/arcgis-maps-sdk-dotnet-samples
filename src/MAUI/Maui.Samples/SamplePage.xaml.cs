@@ -15,7 +15,6 @@
         using Microsoft.Maui.Graphics;
 #endif
 
-using ArcGIS.Models;
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
 using CommunityToolkit.Maui.Views;

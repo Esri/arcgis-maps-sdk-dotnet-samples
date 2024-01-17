@@ -2,27 +2,27 @@
 <ContentView x:Class="ArcGIS.Controls.CategoriesFlyoutContent"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:ArcGIS.Converters"
-             xmlns:local="clr-namespace:ArcGIS"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
              x:DataType="viewModels:FlyoutMenuViewModel">
-    <ContentView.Resources>
-        <converters:BoolToExpandedImageConverter x:Key="BoolToExpandedImageConverter" />
-    </ContentView.Resources>
 
-    <CollectionView ItemsSource="{Binding Categories}">
+    <CollectionView x:Name="CategoriesCollectionView"
+                    ItemsSource="{Binding Categories}"
+                    SelectionChanged="CategoriesCollectionView_SelectionChanged"
+                    SelectionMode="Single">
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="viewModels:FlyoutCategoryViewModel">
-                <FlyoutItem Title="{Binding CategoryName}">
-                    <ShellContent Route="CategoryPage">
-                        <ShellContent.ContentTemplate>
-                            <DataTemplate>
-                                <local:CategoryPage />
-                            </DataTemplate>
-                        </ShellContent.ContentTemplate>
-                    </ShellContent>
-                </FlyoutItem>
+                <HorizontalStackLayout HeightRequest="40">
+                    <Label Margin="20,0"
+                           FontFamily="calcite-ui-icons-24"
+                           FontSize="20"
+                           Text="{Binding CategoryIcon}"
+                           VerticalOptions="Center" />
+                    <Label Margin="15,0,0,0"
+                           FontSize="16"
+                           Text="{Binding CategoryName}"
+                           VerticalOptions="Center" />
+                </HorizontalStackLayout>
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>

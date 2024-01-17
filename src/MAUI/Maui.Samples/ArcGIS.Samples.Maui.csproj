@@ -206,6 +206,25 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiFont>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Icons\analysis.svg" />
+    <None Include="Resources\Icons\featured.svg" />
+    <None Include="Resources\Icons\geometry.svg" />
+    <None Include="Resources\Icons\geoprocessing.svg" />
+    <None Include="Resources\Icons\geosearch.svg" />
+    <None Include="Resources\Icons\graphicsoverlay.svg" />
+    <None Include="Resources\Icons\hydrography.svg" />
+    <None Include="Resources\Icons\layers.svg" />
+    <None Include="Resources\Icons\map.svg" />
+    <None Include="Resources\Icons\mapview.svg" />
+    <None Include="Resources\Icons\networkanalysis.svg" />
+    <None Include="Resources\Icons\no_icon.svg" />
+    <None Include="Resources\Icons\scene.svg" />
+    <None Include="Resources\Icons\sceneview.svg" />
+    <None Include="Resources\Icons\security.svg" />
+    <None Include="Resources\Icons\symbology.svg" />
+    <None Include="Resources\Icons\utilitynetwork.svg" />
+  </ItemGroup>
 
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />
 </Project>

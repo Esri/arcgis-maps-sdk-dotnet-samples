@@ -7,21 +7,9 @@ using CommunityToolkit.Maui.Views;
 
 namespace ArcGIS;
 
-[QueryProperty(nameof(CategoryName), "CategoryName")]
 public partial class CategoryPage : ContentPage
 {
     private CategoryViewModel _viewModel;
-
-    string _categoryName;
-    public string CategoryName 
-    { 
-        get => _categoryName; 
-        set 
-        { 
-            _categoryName = value;
-            _viewModel.UpdateCategory(value);
-        } 
-    }
 
     public CategoryPage()
     {
@@ -73,17 +61,6 @@ public partial class CategoryPage : ContentPage
         string sampleName = (string)imageButton.CommandParameter;
 
         imageButton.IsVisible = false || SampleManager.Current.IsSampleFavorited(sampleName);
-    }
-
-    protected override void OnAppearing()
-    {
-        //base.OnAppearing();
-
-        //// Ensure the favorite category is up to date with the correct favorited samples. 
-        //if (_category.Name == "Favorites")
-        //{
-        //    _category = SampleManager.Current.GetFavoritesCategory();
-        //}
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)

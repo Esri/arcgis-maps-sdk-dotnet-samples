@@ -35,9 +35,9 @@
                             <Border Margin="5"
                                     StrokeThickness="{OnPlatform Default=0,
                                                                  Android=1}"
-                                    WidthRequest="{Binding SampleImageWidth}">
+                                    WidthRequest="{Binding SampleImageWidth, Mode=OneTime}">
                                 <Border.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding OpenSampleCommand}" />
+                                    <TapGestureRecognizer Command="{Binding OpenSampleCommand, Mode=OneTime}" />
                                     <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
                                     <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
                                 </Border.GestureRecognizers>
@@ -47,9 +47,9 @@
                                         <RowDefinition Height="45" />
                                     </Grid.RowDefinitions>
                                     <Image Grid.Row="0"
-                                           HeightRequest="{Binding SampleImageHeight}"
-                                           Source="{Binding SampleImageName}"
-                                           WidthRequest="{Binding SampleImageWidth}" />
+                                           HeightRequest="{Binding SampleImageHeight, Mode=OneTime}"
+                                           Source="{Binding SampleImageName, Mode=OneTime}"
+                                           WidthRequest="{Binding SampleImageWidth, Mode=OneTime}" />
 
                                     <Button x:Name="FavoriteButton"
                                             Grid.Row="0"
@@ -78,7 +78,7 @@
                                                HeightRequest="{OnPlatform Default=50,
                                                                           MacCatalyst=80}"
                                                LineBreakMode="WordWrap"
-                                               Text="{Binding SampleName}"
+                                               Text="{Binding SampleName, Mode=OneTime}"
                                                TextColor="White"
                                                VerticalOptions="End"
                                                VerticalTextAlignment="Center" />
@@ -88,7 +88,7 @@
                                            Padding="0,5"
                                            FontSize="13"
                                            LineBreakMode="TailTruncation"
-                                           Text="{Binding Description}"
+                                           Text="{Binding Description, Mode=OneTime}"
                                            TextColor="{AppThemeBinding Dark=LightGray,
                                                                        Light=Black}"
                                            VerticalTextAlignment="Start" />

@@ -1,6 +1,7 @@
 ﻿using ArcGIS.Helpers;
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
+using CommunityToolkit.Maui.Core.Extensions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
@@ -53,20 +54,20 @@ namespace ArcGIS.ViewModels
             }
 
             _selectedCategory = DefaultCategory;
+
+            WeakReferenceMessenger.Default.Register<string>(this, (message, category) => UpdateCategory(category));
         }
 
-        public void UpdateCategory(string category)
+        private void UpdateCategory(string category)
         {
+            // Close flyout when category changes.
+            Shell.Current.FlyoutIsPresented = false;
+
             SelectedCategory = category;
 
-            SamplesItems.Clear();
-
             var samples = GetSamplesInCategory(category);
-
-            foreach (var sampleInfo in samples)
-            {
-                SamplesItems.Add(new SampleViewModel(sampleInfo, _sampleImageWidth, _sampleImageHeight));
-            }
+            var samplesCollection = samples.Select(s => new SampleViewModel(s, _sampleImageWidth, _sampleImageHeight)).ToObservableCollection();
+            SamplesItems = samplesCollection;
         }
 
         private List<SampleInfo> GetSamplesInCategory(string category)
@@ -77,7 +78,7 @@ namespace ArcGIS.ViewModels
         }
 
         [ObservableProperty]
-        ObservableCollection<SampleViewModel> _samplesItems = new ObservableCollection<SampleViewModel>();
+        private ObservableCollection<SampleViewModel> _samplesItems = new ObservableCollection<SampleViewModel>();
 
         [ObservableProperty]
         private string _selectedCategory;
@@ -94,10 +95,6 @@ namespace ArcGIS.ViewModels
             if (SelectedCategory == "Favorites" && SamplesItems.Contains(sample))
             {
                 SamplesItems.Remove(sample);
-            }
-            else
-            {
-                SamplesItems.Add(sample);
             }
         }
     }

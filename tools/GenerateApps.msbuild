@@ -42,7 +42,7 @@
 	<MSBuild Projects="@(WPFWAPProject)" Targets="Restore" Properties="Configuration=$(Configuration)" />
 	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;AppXBundle=Never;AppXBundlePlatforms=x64" />
 	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_x64.zip" Overwrite="true" />
-	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x86;Properties="Configuration=$(Configuration);Platform=x64;AppXBundle=Never;AppXBundlePlatforms=x64" />
+	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;AppXBundle=Never;AppXBundlePlatforms=x64" />
 	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x86\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_x86.zip" Overwrite="true" />
 	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=arm64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
 	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\ARM64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_ARM64.zip" Overwrite="true" />

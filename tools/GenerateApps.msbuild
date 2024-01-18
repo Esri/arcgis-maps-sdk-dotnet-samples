@@ -1,22 +1,26 @@
-<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">  
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
     <_NetFrameworkTarget>net472</_NetFrameworkTarget>
 	<_NetWindowsTarget>net8.0-windows10.0.19041.0</_NetWindowsTarget>
 	<_NetAndroidTarget>net8.0-android</_NetAndroidTarget>
     <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
-	<RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">200.4.0</RELEASE_VERSION>	
+	<RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">200.4.0</RELEASE_VERSION>
 	<BUILD_NUM Condition="'$(BUILD_NUM)'==''">0</BUILD_NUM>
+	<PUBLISHER Condition="'$(PUBLISHER)'==''">CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US</PUBLISHER>
     <ArcGISMapsSDKVersion>$(RELEASE_VERSION)</ArcGISMapsSDKVersion>
-	
+
 	<AppManifestNamespace>
         <Namespace Prefix="dn" Uri="http://schemas.microsoft.com/appx/manifest/foundation/windows10" />
     </AppManifestNamespace>
 	<MSBuildProjectNamespace>
         <Namespace Prefix="ms" Uri="http://schemas.microsoft.com/developer/msbuild/2003" />
     </MSBuildProjectNamespace>
+	<XmlNamespace>
+	    <Namespace Prefix="xns" Uri="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+	</XmlNamespace>
   </PropertyGroup>
-      
+
   <ItemGroup>
      <WPFProject Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj" />
 	 <WPFWAPProject Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\ArcGIS.WPF.StorePackage.wapproj" />
@@ -24,7 +28,7 @@
 	 <WinUIProject Include="$(MSBuildThisFileDirectory)..\src\WinUI\ArcGIS.WinUI.Viewer\ArcGIS.WinUI.Viewer.csproj" />
 	 <MAUIProject Include="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj"/>
   </ItemGroup>
-  
+
   <Target Name="BuildWPF" DependsOnTargets="CreateOutputDirectory">
     <!-- Note: Due to bug in WAP build tasks, multi-targeted projects are not working - we're modifying project target framework properties here to work around the problem -->
 	<MSBuild Projects="@(WPFProject)" Targets="Restore" />
@@ -33,21 +37,28 @@
 	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\Release\net472" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetFrameworkTarget)_$(Configuration)_AnyCPU.zip" Overwrite="true" />
 	<MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetFrameworkTarget);Platform=ARM64;PlatformTarget=ARM64" />
 	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\ARM64\Release\net472" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetFrameworkTarget)_$(Configuration)_ARM64.zip" Overwrite="true" />
-	
+
 	<!-- .NET -->
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
 	         Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
+	<XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
+	         Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
+	<XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\SettingsWindow.xaml" Query="/xns:Window/xns:Grid/xns:TabControl/xns:TabItem[@Header='API Key']/@Visibility" Value="Collapsed" Namespaces="$(XmlNamespace)" />
+	<XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\SettingsWindow.xaml" Query="/xns:Window/xns:Grid/xns:TabControl/xns:TabItem[@Header='Screenshot']/@Visibility" Value="Collapsed" Namespaces="$(XmlNamespace)" />
+
 
     <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=x64" />
 	<MSBuild Projects="@(WPFWAPProject)" Targets="Restore" Properties="Configuration=$(Configuration)" />
-	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
+	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint);AppxBundle=Always;AppxBundlePlatforms=x64" />
+	<Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\bin\x64\Release\ArcGIS.WPF.StorePackage_$(RELEASE_VERSION).$(BUILD_NUM)_x64.MSIX" DestinationFolder="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x64\Release\$(_NetWindowsTarget)" />
 	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_x64.zip" Overwrite="true" />
-	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
+	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint);AppxBundle=Always;AppxBundlePlatforms=x86" />
+	<Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\bin\x86\Release\ArcGIS.WPF.StorePackage_$(RELEASE_VERSION).$(BUILD_NUM)_x86.MSIX" DestinationFolder="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x86\Release\$(_NetWindowsTarget)" />
 	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x86\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_x86.zip" Overwrite="true" />
 	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=arm64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
 	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\ARM64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_ARM64.zip" Overwrite="true" />
   </Target>
-  
+
   <Target Name="BuildWinUI" DependsOnTargets="CreateOutputDirectory">
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WinUI\ArcGIS.WinUI.Viewer\Package.appxmanifest"
 	         Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
@@ -56,7 +67,7 @@
 	<MSBuild Projects="@(WinUIProject)" Targets="Build" Properties="Configuration=$(Configuration);GenerateAppxPackageOnBuild=true;RuntimeIdentifier=win10-x86;Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
 	<MSBuild Projects="@(WinUIProject)" Targets="Build" Properties="Configuration=$(Configuration);GenerateAppxPackageOnBuild=true;RuntimeIdentifier=win10-arm64;Platform=ARM64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
   </Target>
-  
+
   <Target Name="BuildUWP" DependsOnTargets="CreateOutputDirectory">
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\UWP\ArcGIS.UWP.Viewer\Package.appxmanifest"
 	         Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
@@ -75,12 +86,12 @@
 	<Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\net8.0-android\com.esri.arcgisruntime.samples.maui-Signed.apk"
           DestinationFolder="$(MSBuildThisFileDirectory)..\output\" />
   </Target>
-  
-  
+
+
     <Target Name="CreateOutputDirectory">
         <MakeDir Directories="$(MSBuildThisFileDirectory)..\output" />
     </Target>
-    
+
   <Target Name="BuildAll" DependsOnTargets="BuildWPF;BuildWinUI;BuildMaui;BuildUWP" />
-  
+
 </Project>

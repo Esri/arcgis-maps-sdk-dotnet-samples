@@ -25,6 +25,7 @@ using System.Text;
 
 #endif
 
+using ArcGIS.Samples.Managers;
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 namespace ArcGIS.Samples.Shared.Managers
@@ -115,7 +116,7 @@ namespace ArcGIS.Samples.Shared.Managers
 #if __IOS__
             try
             {
-                return await Task.FromResult(Encoding.Default.GetString(Decrypt(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName)))));
+                return await Task.FromResult(Encoding.Default.GetString(Decrypt(File.ReadAllBytes(Path.Combine(DataManager.GetDataFolder(), _apiKeyFileName)))));
             }
             catch (Exception ex)
             {
@@ -125,7 +126,7 @@ namespace ArcGIS.Samples.Shared.Managers
 #elif ANDROID
             return await SecureStorage.GetAsync(_apiKeyFileName);
 #else
-            return await Task.FromResult(Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName)))));
+            return await Task.FromResult(Encoding.Default.GetString(Unprotect(File.ReadAllBytes(Path.Combine(DataManager.GetDataFolder(), _apiKeyFileName)))));
 #endif
         }
 
@@ -134,7 +135,7 @@ namespace ArcGIS.Samples.Shared.Managers
             try
             {
 #if __IOS__
-                File.WriteAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName), Encrypt(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)));
+                File.WriteAllBytes(Path.Combine(DataManager.GetDataFolder(), _apiKeyFileName), Encrypt(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)));
                 return true;
 #elif ANDROID
 
@@ -143,7 +144,7 @@ namespace ArcGIS.Samples.Shared.Managers
 
 #else
 
-                File.WriteAllBytes(Path.Combine(GetDataFolder(), _apiKeyFileName), Protect(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)));
+                File.WriteAllBytes(Path.Combine(DataManager.GetDataFolder(), _apiKeyFileName), Protect(Encoding.Default.GetBytes(Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey)));
                 return true;
 
 #endif
@@ -153,22 +154,6 @@ namespace ArcGIS.Samples.Shared.Managers
                 Debug.WriteLine(ex.Message);
                 return false;
             }
-        }
-
-        internal static string GetDataFolder()
-        {
-#if NETFX_CORE
-            string appDataFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#elif __ANDROID__ && !NETCOREAPP
-            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-#else
-            string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
-#endif
-            string sampleDataFolder = Path.Combine(appDataFolder, "ArcGISSampleData");
-
-            if (!Directory.Exists(sampleDataFolder)) { Directory.CreateDirectory(sampleDataFolder); }
-
-            return sampleDataFolder;
         }
 
 #if !__IOS__ && !__ANDROID__

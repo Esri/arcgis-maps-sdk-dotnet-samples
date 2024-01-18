@@ -307,7 +307,7 @@ namespace ArcGIS.Samples.Managers
         {
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
-            string sampleDataFolder = Path.Combine(appDataFolder, "ArcGISRuntimeFavorites");
+            string sampleDataFolder = Path.Combine(appDataFolder, "ESRI", "dotnetSamples", "Favorites");
 
             if (!Directory.Exists(sampleDataFolder)) { Directory.CreateDirectory(sampleDataFolder); }
 

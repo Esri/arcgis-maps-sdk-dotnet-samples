@@ -237,7 +237,7 @@ namespace ArcGIS.Samples.Managers
         /// <summary>
         /// Gets the data folder where locally provisioned data is stored.
         /// </summary>
-        internal static string GetDataFolder()
+        public static string GetDataFolder()
         {
 #if NETFX_CORE
             string appDataFolder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
@@ -248,7 +248,7 @@ namespace ArcGIS.Samples.Managers
 #else
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 #endif
-            string sampleDataFolder = Path.Combine(appDataFolder, "ArcGISSampleData");
+            string sampleDataFolder = Path.Combine(appDataFolder, "ESRI", "dotnetSamples", "Data");
 
             if (!Directory.Exists(sampleDataFolder)) { Directory.CreateDirectory(sampleDataFolder); }
 

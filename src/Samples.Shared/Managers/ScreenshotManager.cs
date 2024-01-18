@@ -78,7 +78,7 @@ namespace ArcGIS.Samples.Shared.Managers
         {
             string appDataFolder = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
 
-            string screenshotSettingsFolder = Path.Combine(appDataFolder, "ArcGISRuntimeScreenshots");
+            string screenshotSettingsFolder = Path.Combine(appDataFolder, "ESRI", "dotnetSamples", "ScreenshotSettings");
 
             if (!Directory.Exists(screenshotSettingsFolder)) { Directory.CreateDirectory(screenshotSettingsFolder); }
 

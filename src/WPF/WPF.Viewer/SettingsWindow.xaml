@@ -106,13 +106,15 @@
                     </StatusBar>
                 </Grid>
             </TabItem>
-            <TabItem Header="API Key">
+            <TabItem Header="API Key" Visibility="Visible">
                 <local:ApiKeyPrompt HorizontalAlignment="Left" VerticalAlignment="Top" />
             </TabItem>
-            <TabItem Header="Screenshot">
+            <TabItem Header="Screenshot" Visibility="Visible">
                 <local:ScreenshotTab HorizontalAlignment="Left" VerticalAlignment="Top" />
             </TabItem>
-            <TabItem Name="TelemetryTab" Header="Telemetry">
+            <TabItem Name="TelemetryTab"
+                     Header="Telemetry"
+                     Visibility="Visible">
                 <StackPanel>
                     <TextBlock Margin="5"
                                Text="This app uses telemetry to determine which samples are being used and what searches are done in app. No location or GPS data is reported using telemetry."

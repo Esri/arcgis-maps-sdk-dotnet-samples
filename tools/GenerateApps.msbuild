@@ -7,7 +7,6 @@
     <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
 	<RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">200.4.0</RELEASE_VERSION>
 	<BUILD_NUM Condition="'$(BUILD_NUM)'==''">0</BUILD_NUM>
-	<PUBLISHER Condition="'$(PUBLISHER)'==''">CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US</PUBLISHER>
     <ArcGISMapsSDKVersion>$(RELEASE_VERSION)</ArcGISMapsSDKVersion>
 
 	<AppManifestNamespace>
@@ -41,19 +40,14 @@
 	<!-- .NET -->
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
 	         Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
-	<XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
+	<XmlPoke Condition="'$(PUBLISHER)'=='' XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
 	         Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
-	<XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\SettingsWindow.xaml" Query="/xns:Window/xns:Grid/xns:TabControl/xns:TabItem[@Header='API Key']/@Visibility" Value="Collapsed" Namespaces="$(XmlNamespace)" />
-	<XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\SettingsWindow.xaml" Query="/xns:Window/xns:Grid/xns:TabControl/xns:TabItem[@Header='Screenshot']/@Visibility" Value="Collapsed" Namespaces="$(XmlNamespace)" />
-
 
     <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=x64" />
 	<MSBuild Projects="@(WPFWAPProject)" Targets="Restore" Properties="Configuration=$(Configuration)" />
-	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint);AppxBundle=Always;AppxBundlePlatforms=x64" />
-	<Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\bin\x64\Release\ArcGIS.WPF.StorePackage_$(RELEASE_VERSION).$(BUILD_NUM)_x64.MSIX" DestinationFolder="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x64\Release\$(_NetWindowsTarget)" />
+	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
 	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_x64.zip" Overwrite="true" />
-	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint);AppxBundle=Always;AppxBundlePlatforms=x86" />
-	<Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\bin\x86\Release\ArcGIS.WPF.StorePackage_$(RELEASE_VERSION).$(BUILD_NUM)_x86.MSIX" DestinationFolder="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x86\Release\$(_NetWindowsTarget)" />
+	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
 	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x86\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_x86.zip" Overwrite="true" />
 	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=arm64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
 	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\ARM64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_ARM64.zip" Overwrite="true" />

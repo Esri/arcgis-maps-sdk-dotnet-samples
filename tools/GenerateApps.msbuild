@@ -40,7 +40,7 @@
 	<!-- .NET -->
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
 	         Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
-	<XmlPoke Condition="'$(PUBLISHER)'=='' XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
+	<XmlPoke Condition="'$(PUBLISHER)'==''" XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
 	         Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
 
     <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=x64" />

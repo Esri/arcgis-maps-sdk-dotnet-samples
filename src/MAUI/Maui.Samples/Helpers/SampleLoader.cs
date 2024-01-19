@@ -68,13 +68,8 @@ namespace ArcGIS.Helpers
                     await Shell.Current.Navigation.PopModalAsync(false);
                 }
 
-                var navigationParameter = new Dictionary<string, object>
-                {
-                    { "Sample", sampleInfo }
-                };
-
                 // Show the sample.
-                await Shell.Current.GoToAsync(nameof(SamplePage), navigationParameter);
+                await Shell.Current.Navigation.PushAsync(new SamplePage(sampleInfo), true); 
             }
             catch (OperationCanceledException)
             {

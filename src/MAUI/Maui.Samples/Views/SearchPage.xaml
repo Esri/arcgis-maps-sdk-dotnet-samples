@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.SearchPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
+             Title="Search">
+
+    <Grid Padding="5" RowDefinitions="40,*,40">
+        <SearchBar x:Name="SampleSearchBar"
+                   Grid.Row="0"
+                   Grid.Column="0"
+                   ios:SearchBar.SearchBarStyle="Minimal"
+                   Placeholder="Enter search term"
+                   SearchCommand="{Binding PerformSearchCommand}"
+                   Text="{Binding SearchText}">
+            <SearchBar.Behaviors>
+                <toolkit:UserStoppedTypingBehavior MinimumLengthThreshold="0" ShouldDismissKeyboardAutomatically="False" />
+            </SearchBar.Behaviors>
+        </SearchBar>
+        <CollectionView Grid.Row="1" ItemsSource="{Binding SearchItems}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="viewModels:SearchResultViewModel">
+                    <Border MaximumHeightRequest="120" StrokeThickness="0">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding SampleObject}" Tapped="TapGestureRecognizer_SearchResultTapped" />
+                        </Border.GestureRecognizers>
+                        <Grid Padding="10"
+                              ColumnDefinitions="auto,*"
+                              ColumnSpacing="5">
+                            <Image Grid.Column="0"
+                                   MaximumHeightRequest="90"
+                                   MaximumWidthRequest="120"
+                                   MinimumHeightRequest="60"
+                                   MinimumWidthRequest="80"
+                                   Source="{Binding SampleImage}" />
+                            <VerticalStackLayout Grid.Column="1"
+                                                 Margin="5,0"
+                                                 Spacing="2"
+                                                 VerticalOptions="Start">
+                                <Label FontAttributes="Bold"
+                                       LineBreakMode="TailTruncation"
+                                       Text="{Binding SampleName}"
+                                       TextColor="{AppThemeBinding Default=Black,
+                                                                   Dark=White}"
+                                       ToolTipProperties.Text="{Binding SampleName}" />
+                                <Label FontSize="11"
+                                       LineBreakMode="TailTruncation"
+                                       Text="{Binding SampleCategory}"
+                                       TextColor="{AppThemeBinding Default=Black,
+                                                                   Dark=White}" />
+                                <Label Margin="0,10,0,0"
+                                       FontSize="11"
+                                       LineBreakMode="TailTruncation"
+                                       Text="{Binding SampleDescription}"
+                                       TextColor="{AppThemeBinding Default=Black,
+                                                                   Dark=White}" />
+
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Label Grid.Row="1"
+               HorizontalOptions="Center"
+               IsVisible="{Binding NoSearchResults}"
+               Text="No results"
+               TextColor="{AppThemeBinding Default=Black,
+                                           Dark=White}"
+               VerticalOptions="Center" />
+        <Button x:Name="CloseButton"
+                Grid.Row="2"
+                Clicked="CloseButton_Clicked"
+                Text="Close"
+                VerticalOptions="End" />
+    </Grid>
+</ContentPage>

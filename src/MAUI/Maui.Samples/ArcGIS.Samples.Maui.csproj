@@ -190,6 +190,9 @@
     <MauiAsset Update="Converters\*.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiAsset>
+    <MauiXaml Update="Controls\CategoriesFlyoutContent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiXaml Update="ScreenshotView.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

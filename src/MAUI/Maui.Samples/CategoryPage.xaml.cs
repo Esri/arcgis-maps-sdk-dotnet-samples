@@ -4,6 +4,7 @@ using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.Samples.Shared.Models;
 using ArcGIS.ViewModels;
 using CommunityToolkit.Maui.Views;
+using System.Diagnostics;
 
 namespace ArcGIS;
 
@@ -23,6 +24,12 @@ public partial class CategoryPage : ContentPage
         // Update the binding to show the samples.
         _viewModel = new CategoryViewModel();
         BindingContext = _viewModel;
+
+        SizeChanged += (s, e) =>
+        {
+            var numberOfColumns = Math.Floor(Width / _viewModel.SampleImageWidth);
+            SamplesGridItemsLayout.Span = (int)numberOfColumns;
+        };
     }
 
     private async void SettingsClicked(object sender, EventArgs e)
@@ -71,6 +78,21 @@ public partial class CategoryPage : ContentPage
         if (ApiKeyManager.KeyDisabled)
         {
             ApiKeyManager.EnableKey();
+        }
+    }
+
+    private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        try
+        {
+            var selectedCategory = e.CurrentSelection.FirstOrDefault() as SampleViewModel;
+
+            _ = SampleLoader.LoadSample(selectedCategory.SampleObject);
+
+        }
+        catch (Exception ex)
+        {
+            Debug.Write(ex.ToString());
         }
     }
 }

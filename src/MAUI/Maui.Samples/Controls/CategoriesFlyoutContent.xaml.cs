@@ -5,28 +5,28 @@ namespace ArcGIS.Controls;
 
 public partial class CategoriesFlyoutContent : ContentView
 {
-	private FlyoutMenuViewModel _viewModel;
+    private FlyoutMenuViewModel _viewModel;
 
-	public CategoriesFlyoutContent()
-	{
-		InitializeComponent();
+    public CategoriesFlyoutContent()
+    {
+        InitializeComponent();
 
-		_viewModel = new FlyoutMenuViewModel();
+        _viewModel = new FlyoutMenuViewModel();
 
-		BindingContext = _viewModel;
+        BindingContext = _viewModel;
     }
 
     private void CategoriesCollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-		try
-		{
+        try
+        {
             var selectedCategory = e.CurrentSelection.FirstOrDefault() as FlyoutCategoryViewModel;
-			_viewModel.CategorySelected(selectedCategory.CategoryName);
+            _viewModel.CategorySelected(selectedCategory.CategoryName);
 
         }
-		catch (Exception ex)
-		{
-			Debug.Write(ex.ToString());
-		}
+        catch (Exception ex)
+        {
+            Debug.Write(ex.ToString());
+        }
     }
 }

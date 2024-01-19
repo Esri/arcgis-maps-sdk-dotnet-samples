@@ -2,82 +2,82 @@
 
   <PropertyGroup>
     <_NetFrameworkTarget>net472</_NetFrameworkTarget>
-	<_NetWindowsTarget>net8.0-windows10.0.19041.0</_NetWindowsTarget>
-	<_NetAndroidTarget>net8.0-android</_NetAndroidTarget>
+    <_NetWindowsTarget>net8.0-windows10.0.19041.0</_NetWindowsTarget>
+    <_NetAndroidTarget>net8.0-android</_NetAndroidTarget>
     <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
-	<RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">200.4.0</RELEASE_VERSION>
-	<BUILD_NUM Condition="'$(BUILD_NUM)'==''">0</BUILD_NUM>
+    <RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">200.4.0</RELEASE_VERSION>
+    <BUILD_NUM Condition="'$(BUILD_NUM)'==''">0</BUILD_NUM>
     <ArcGISMapsSDKVersion>$(RELEASE_VERSION)</ArcGISMapsSDKVersion>
 
-	<AppManifestNamespace>
+    <AppManifestNamespace>
         <Namespace Prefix="dn" Uri="http://schemas.microsoft.com/appx/manifest/foundation/windows10" />
     </AppManifestNamespace>
-	<MSBuildProjectNamespace>
+    <MSBuildProjectNamespace>
         <Namespace Prefix="ms" Uri="http://schemas.microsoft.com/developer/msbuild/2003" />
     </MSBuildProjectNamespace>
-	<XmlNamespace>
-	    <Namespace Prefix="xns" Uri="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
-	</XmlNamespace>
+    <XmlNamespace>
+        <Namespace Prefix="xns" Uri="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
+    </XmlNamespace>
   </PropertyGroup>
 
   <ItemGroup>
-     <WPFProject Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj" />
-	 <WPFWAPProject Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\ArcGIS.WPF.StorePackage.wapproj" />
-	 <UWPProject Include="$(MSBuildThisFileDirectory)..\src\UWP\ArcGIS.UWP.Viewer\ArcGIS.UWP.Viewer.csproj" />
-	 <WinUIProject Include="$(MSBuildThisFileDirectory)..\src\WinUI\ArcGIS.WinUI.Viewer\ArcGIS.WinUI.Viewer.csproj" />
-	 <MAUIProject Include="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj"/>
+    <WPFProject Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj" />
+    <WPFWAPProject Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\ArcGIS.WPF.StorePackage.wapproj" />
+    <UWPProject Include="$(MSBuildThisFileDirectory)..\src\UWP\ArcGIS.UWP.Viewer\ArcGIS.UWP.Viewer.csproj" />
+    <WinUIProject Include="$(MSBuildThisFileDirectory)..\src\WinUI\ArcGIS.WinUI.Viewer\ArcGIS.WinUI.Viewer.csproj" />
+    <MAUIProject Include="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj"/>
   </ItemGroup>
 
   <Target Name="BuildWPF" DependsOnTargets="CreateOutputDirectory">
     <!-- Note: Due to bug in WAP build tasks, multi-targeted projects are not working - we're modifying project target framework properties here to work around the problem -->
-	<MSBuild Projects="@(WPFProject)" Targets="Restore" Properties="ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)" />
-	<!-- .NET Framework -->
-	<MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetFrameworkTarget)" />
-	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\Release\net472" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetFrameworkTarget)_$(Configuration)_AnyCPU.zip" Overwrite="true" />
-	<MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetFrameworkTarget);Platform=ARM64;PlatformTarget=ARM64" />
-	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\ARM64\Release\net472" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetFrameworkTarget)_$(Configuration)_ARM64.zip" Overwrite="true" />
+    <MSBuild Projects="@(WPFProject)" Targets="Restore" Properties="ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)" />
+    <!-- .NET Framework -->
+    <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetFrameworkTarget)" />
+    <ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\Release\net472" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetFrameworkTarget)_$(Configuration)_AnyCPU.zip" Overwrite="true" />
+    <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetFrameworkTarget);Platform=ARM64;PlatformTarget=ARM64" />
+    <ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\ARM64\Release\net472" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetFrameworkTarget)_$(Configuration)_ARM64.zip" Overwrite="true" />
 
-	<!-- .NET -->
+    <!-- .NET -->
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
-	         Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
-	<XmlPoke Condition="'$(PUBLISHER)'!=''" XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
-	         Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
+             Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
+    <XmlPoke Condition="'$(PUBLISHER)'!=''" XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
+             Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
 
     <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=x64" />
-	<MSBuild Projects="@(WPFWAPProject)" Targets="Restore" Properties="Configuration=$(Configuration)" />
-	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
-	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_x64.zip" Overwrite="true" />
-	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
-	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x86\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_x86.zip" Overwrite="true" />
-	<MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=arm64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
-	<ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\ARM64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_ARM64.zip" Overwrite="true" />
+    <MSBuild Projects="@(WPFWAPProject)" Targets="Restore" Properties="Configuration=$(Configuration);ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)" />
+    <MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
+    <ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_x64.zip" Overwrite="true" />
+    <MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
+    <ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x86\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_x86.zip" Overwrite="true" />
+    <MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=arm64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
+    <ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\ARM64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_ARM64.zip" Overwrite="true" />
   </Target>
 
   <Target Name="BuildWinUI" DependsOnTargets="CreateOutputDirectory">
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WinUI\ArcGIS.WinUI.Viewer\Package.appxmanifest"
-	         Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
-	<MSBuild Projects="@(WinUIProject)" Targets="Restore" Properties="PublishReadyToRun=true" />
-	<MSBuild Projects="@(WinUIProject)" Targets="Build" Properties="Configuration=$(Configuration);GenerateAppxPackageOnBuild=true;RuntimeIdentifier=win10-x64;Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
-	<MSBuild Projects="@(WinUIProject)" Targets="Build" Properties="Configuration=$(Configuration);GenerateAppxPackageOnBuild=true;RuntimeIdentifier=win10-x86;Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
-	<MSBuild Projects="@(WinUIProject)" Targets="Build" Properties="Configuration=$(Configuration);GenerateAppxPackageOnBuild=true;RuntimeIdentifier=win10-arm64;Platform=ARM64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
+             Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
+    <MSBuild Projects="@(WinUIProject)" Targets="Restore" Properties="PublishReadyToRun=true;ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)" />
+    <MSBuild Projects="@(WinUIProject)" Targets="Build" Properties="Configuration=$(Configuration);GenerateAppxPackageOnBuild=true;RuntimeIdentifier=win10-x64;Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
+    <MSBuild Projects="@(WinUIProject)" Targets="Build" Properties="Configuration=$(Configuration);GenerateAppxPackageOnBuild=true;RuntimeIdentifier=win10-x86;Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
+    <MSBuild Projects="@(WinUIProject)" Targets="Build" Properties="Configuration=$(Configuration);GenerateAppxPackageOnBuild=true;RuntimeIdentifier=win10-arm64;Platform=ARM64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
   </Target>
 
   <Target Name="BuildUWP" DependsOnTargets="CreateOutputDirectory">
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\UWP\ArcGIS.UWP.Viewer\Package.appxmanifest"
-	         Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
-	<MSBuild Projects="@(UWPProject)" Targets="Restore" />
-	<MSBuild Projects="@(UWPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
-	<MSBuild Projects="@(UWPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
-	<MSBuild Projects="@(UWPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=ARM64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
+             Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
+    <MSBuild Projects="@(UWPProject)" Targets="Restore" Properties="ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)"/>
+    <MSBuild Projects="@(UWPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
+    <MSBuild Projects="@(UWPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
+    <MSBuild Projects="@(UWPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=ARM64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
   </Target>
 
   <Target Name="BuildMaui" DependsOnTargets="CreateOutputDirectory">
-    <MSBuild Projects="@(MAUIProject)" Targets="Restore" />
-	<MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-x64;RuntimeIdentifierOverride=win10-x64;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
-	<MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-x86;RuntimeIdentifierOverride=win10-x86;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
-	<MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-arm64;RuntimeIdentifierOverride=win10-arm64;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
-	<MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetAndroidTarget);ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM)" />
-	<Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\net8.0-android\com.esri.arcgisruntime.samples.maui-Signed.apk"
+    <MSBuild Projects="@(MAUIProject)" Targets="Restore" Properties="ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)"/>
+    <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-x64;RuntimeIdentifierOverride=win10-x64;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
+    <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-x86;RuntimeIdentifierOverride=win10-x86;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
+    <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-arm64;RuntimeIdentifierOverride=win10-arm64;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
+    <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetAndroidTarget);ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM)" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\net8.0-android\com.esri.arcgisruntime.samples.maui-Signed.apk"
           DestinationFolder="$(MSBuildThisFileDirectory)..\output\" />
   </Target>
 

@@ -30,7 +30,6 @@ using System.Runtime.CompilerServices;
 namespace ArcGIS
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    [QueryProperty(nameof(Sample), "Sample")]
     public partial class SamplePage : ContentPage
     {
         private ContentPage _sampleContent;
@@ -41,21 +40,16 @@ namespace ArcGIS
         static WebView SourceCodeView = new WebView();
 
         SampleInfo _sample;
-        public SampleInfo Sample
-        {
-            get => _sample;
-            set
-            {
-                _sample = value;
-                Initialize();
-            }
-        }
 
         public ObservableCollection<SourceCodeFile> SourceFiles { get; } = new ObservableCollection<SourceCodeFile>();
 
-        public SamplePage()
+        public SamplePage(SampleInfo sample)
         {
+            _sample = sample;
+
             InitializeComponent();
+
+            Initialize();
         }
 
         private void Initialize()

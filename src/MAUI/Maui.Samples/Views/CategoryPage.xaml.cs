@@ -27,7 +27,7 @@ public partial class CategoryPage : ContentPage
 
     private async void SettingsClicked(object sender, EventArgs e)
     {
-        await this.Navigation.PushAsync(new SettingsPage(), true);
+        await Navigation.PushAsync(new SettingsPage(), true);
     }
 
     private async void SearchClicked(object sender, EventArgs e)

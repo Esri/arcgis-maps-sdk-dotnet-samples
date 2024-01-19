@@ -15,9 +15,6 @@ public partial class AppShell : Shell
     private void Initialize()
     {
         this.Appearing += FirstLoaded;
-
-        Routing.RegisterRoute(nameof(CategoryPage), typeof(CategoryPage));
-        Routing.RegisterRoute(nameof(SamplePage), typeof(SamplePage));
     }
 
     #region Check API Key

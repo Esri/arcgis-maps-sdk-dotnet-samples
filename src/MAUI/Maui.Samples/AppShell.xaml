@@ -1,15 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Shell
-    x:Class="ArcGIS.AppShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Shell.TabBarIsVisible="False">
+<Shell x:Class="ArcGIS.AppShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:controls="clr-namespace:ArcGIS.Controls"
+       xmlns:local="clr-namespace:ArcGIS"
+       Shell.FlyoutBehavior="Flyout"
+       Shell.TabBarIsVisible="False">
     <Shell.FlyoutHeader>
-        <Label
-            Margin="0,5"
-            FontAttributes="Bold"
-            HorizontalTextAlignment="Center"
-            Text="Categories"
-            VerticalTextAlignment="Center" />
+        <Label Margin="0,5"
+               FontAttributes="Bold"
+               HorizontalTextAlignment="Center"
+               Text="Categories"
+               VerticalTextAlignment="Center" />
     </Shell.FlyoutHeader>
+    <Shell.FlyoutContent>
+        <controls:CategoriesFlyoutContent />
+    </Shell.FlyoutContent>
+
+    <ShellContent ContentTemplate="{DataTemplate local:CategoryPage}" Route="CategoryPage" />
 </Shell>

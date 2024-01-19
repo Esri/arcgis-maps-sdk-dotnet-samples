@@ -146,36 +146,10 @@
     <PackageReference Include="Xamarin.AndroidX.AppCompat" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="ApiKeyView.xaml.cs">
-      <DependentUpon>ApiKeyView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="AppShell.xaml.cs">
-      <DependentUpon>AppShell.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="Converters\*.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Update="Samples\**\*.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Update="Helpers\ArcGISLoginPrompt.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Update="ScreenshotView.xaml.cs">
-      <DependentUpon>ScreenshotView.xaml</DependentUpon>
-    </Compile>
-    <Compile Update="SettingsPage.xaml.cs">
-      <DependentUpon>SettingsPage.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <MauiXaml Update="ApiKeyPage.xaml">
+    <MauiXaml Update="Views\*.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="AppShell.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="CategoryPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiXaml Update="Samples\**\*.xaml">
@@ -191,15 +165,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiAsset>
     <MauiXaml Update="Controls\CategoriesFlyoutContent.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="ScreenshotView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="SearchPopup.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </MauiXaml>
-    <MauiXaml Update="SettingsPage.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
     <MauiFont Update="Resources\Fonts\calcite-ui-icons-24.ttf">

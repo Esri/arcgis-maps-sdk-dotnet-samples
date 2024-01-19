@@ -164,6 +164,9 @@
     <MauiAsset Update="Converters\*.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiAsset>
+    <MauiXaml Update="Controls\CategoriesFlyoutContent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </MauiXaml>
     <MauiFont Update="Resources\Fonts\calcite-ui-icons-24.ttf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiFont>

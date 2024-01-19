@@ -17,6 +17,7 @@
 
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
+using CommunityToolkit.Maui.Views;
 using Esri.ArcGISRuntime.Maui;
 using Microsoft.Maui.ApplicationModel;
 using Microsoft.Maui.Platform;
@@ -24,18 +25,31 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 
 namespace ArcGIS
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SamplePage
+    [QueryProperty(nameof(Sample), "Sample")]
+    public partial class SamplePage : ContentPage
     {
-        private ContentPage _sample;
+        private ContentPage _sampleContent;
         private Assembly _assembly;
         private int _lastViewedFileIndex = 0;
         // single-instance webviews reused on each view, to avoid a memory leak in webview
         static WebView DescriptionView = new WebView();
         static WebView SourceCodeView = new WebView();
+
+        SampleInfo _sample;
+        public SampleInfo Sample
+        {
+            get => _sample;
+            set
+            {
+                _sample = value;
+                Initialize();
+            }
+        }
 
         public ObservableCollection<SourceCodeFile> SourceFiles { get; } = new ObservableCollection<SourceCodeFile>();
 
@@ -44,19 +58,19 @@ namespace ArcGIS
             InitializeComponent();
         }
 
-        public SamplePage(ContentPage sample, SampleInfo sampleInfo) : this()
+        private void Initialize()
         {
-            // Set the sample variable.
-            _sample = sample;
-
             // Set the executing assembly (for accessing embedded resources).
             _assembly = Assembly.GetExecutingAssembly();
 
             // Update the binding context - this is important for the description tab.
-            BindingContext = sampleInfo;
+            BindingContext = _sample;
+
+            // Get the sample control from the selected sample.
+            _sampleContent = (ContentPage)SampleManager.Current.SampleToControl(_sample);
 
             // Update the content - this displays the sample.
-            SampleContentPage.Content = sample.Content;
+            SampleContentPage.Content = _sampleContent.Content;
 
 #if WINDOWS
             if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
@@ -76,9 +90,9 @@ namespace ArcGIS
             if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
 
             // Set the title.
-            Title = sampleInfo.SampleName;
+            Title = _sample.SampleName;
 
-            LoadSampleData(sampleInfo);
+            LoadSampleData(_sample);
         }
 
         protected override void OnNavigatedTo(NavigatedToEventArgs args)
@@ -108,7 +122,7 @@ namespace ArcGIS
             {
                 // Explicit cleanup of the Map and SceneView instead of waiting for garbage collector can help when
                 // lots of geoviews are being opened and closed
-                foreach (var geoView in TreeWalker<GeoView>(_sample))
+                foreach (var geoView in TreeWalker<GeoView>(_sampleContent))
                 {
                     if (geoView is MapView mapView)
                     {
@@ -120,8 +134,8 @@ namespace ArcGIS
                     geoView.Handler?.DisconnectHandler();
                 }
 
-                if (_sample is IDisposable disposableSample) disposableSample.Dispose();
-                if (_sample is IARSample ARSample) ARSample.StopAugmentedReality();
+                if (_sampleContent is IDisposable disposableSample) disposableSample.Dispose();
+                if (_sampleContent is IARSample ARSample) ARSample.StopAugmentedReality();
             }
         }
 
@@ -130,7 +144,7 @@ namespace ArcGIS
             // Set up the description page.
             try
             {
-                var htmlString = await GetDescriptionHtml(sampleInfo);
+                var htmlString = await GetDescriptionHtml(_sample);
                 DescriptionView.Source = new HtmlWebViewSource()
                 {
                     Html = htmlString
@@ -314,6 +328,12 @@ namespace ArcGIS
                     Debug.WriteLine(ex);
                 }
             }
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            _ = Shell.Current.GoToAsync("..", true);
+            return true;
         }
 
         private void SampleButton_Clicked(object sender, EventArgs e)

@@ -1,7 +1,5 @@
-using ArcGIS.Helpers;
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Managers;
-using ArcGIS.Samples.Shared.Models;
 using ArcGIS.ViewModels;
 using CommunityToolkit.Maui.Views;
 using System.Diagnostics;
@@ -34,14 +32,12 @@ public partial class CategoryPage : ContentPage
 
     private async void SettingsClicked(object sender, EventArgs e)
     {
-        await this.Navigation.PushAsync(new SettingsPage(), true);
+        await Navigation.PushAsync(new SettingsPage(), true);
     }
 
     private async void SearchClicked(object sender, EventArgs e)
     {
-        var popup = new SearchPopup();
-
-        var result = await this.ShowPopupAsync(popup);
+        await Navigation.PushAsync(new SearchPage(), false);
     }
 
     private void PointerGestureRecognizer_PointerEntered(object sender, PointerEventArgs e)

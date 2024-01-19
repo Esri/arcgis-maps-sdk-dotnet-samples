@@ -1,8 +1,7 @@
-<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentView x:Class="ArcGIS.Controls.CategoriesFlyoutContent"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
              x:DataType="viewModels:FlyoutMenuViewModel">
 
@@ -10,6 +9,7 @@
                     ItemsSource="{Binding Categories}"
                     SelectionChanged="CategoriesCollectionView_SelectionChanged"
                     SelectionMode="Single">
+
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="viewModels:FlyoutCategoryViewModel">
                 <HorizontalStackLayout HeightRequest="40">
@@ -26,4 +26,5 @@
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>
+    
 </ContentView>

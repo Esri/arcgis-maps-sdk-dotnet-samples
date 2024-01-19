@@ -1,3 +1,4 @@
+using ArcGIS.Helpers;
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.ViewModels;

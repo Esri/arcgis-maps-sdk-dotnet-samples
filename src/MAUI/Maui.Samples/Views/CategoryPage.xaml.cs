@@ -3,6 +3,7 @@ using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.ViewModels;
 using CommunityToolkit.Maui.Views;
+using CommunityToolkit.Mvvm.Messaging;
 using System.Diagnostics;
 
 namespace ArcGIS;
@@ -24,15 +25,21 @@ public partial class CategoryPage : ContentPage
         _viewModel = new CategoryViewModel();
         BindingContext = _viewModel;
 
+        WeakReferenceMessenger.Default.Register<string>(this, (message, category) => ScrollToTop());
+
         SizeChanged += (s, e) =>
         {
             var numberOfColumns = Math.Floor(Width / _viewModel.SampleImageWidth);
-            SamplesGridItemsLayout.Span = (int)numberOfColumns;
+            var layout = new GridItemsLayout((int)numberOfColumns, ItemsLayoutOrientation.Vertical);
+            layout.HorizontalItemSpacing = 5;
+            layout.VerticalItemSpacing = 5;
+            SamplesCollection.ItemsLayout = layout;
         };
+
     }
 
     private async void SettingsClicked(object sender, EventArgs e)
-    {
+    { 
         await Navigation.PushAsync(new SettingsPage(), true);
     }
 
@@ -75,6 +82,15 @@ public partial class CategoryPage : ContentPage
         if (ApiKeyManager.KeyDisabled)
         {
             ApiKeyManager.EnableKey();
+        }
+    }
+
+    private void ScrollToTop()
+    {
+        var firstItem = _viewModel.SamplesItems.FirstOrDefault();
+        if (firstItem != null)
+        {
+            SamplesCollection.ScrollTo(firstItem, null, ScrollToPosition.Start);
         }
     }
 

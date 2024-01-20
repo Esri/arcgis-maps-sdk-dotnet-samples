@@ -16,20 +16,18 @@
                      IconImageSource="settings.png"
                      Text="Settings" />
     </ContentPage.ToolbarItems>
-
     <ContentPage.Resources>
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
         <converters:BoolToFavoriteGlyphConverter x:Key="BoolToFavoriteGlyphConverter" />
     </ContentPage.Resources>
     <CollectionView BackgroundColor="Transparent"
+                    x:Name="SamplesCollection"
                     ItemsSource="{Binding SamplesItems}"
                     SelectionChanged="CollectionView_SelectionChanged"
                     SelectionMode="Single">
         <CollectionView.ItemsLayout>
-            <GridItemsLayout x:Name="SamplesGridItemsLayout"
-                             HorizontalItemSpacing="5"
+            <GridItemsLayout HorizontalItemSpacing="5"
                              Orientation="Vertical"
-                             SnapPointsAlignment="Start"
                              Span="{OnPlatform Default=4,
                                                iOS=1,
                                                Android=1}"
@@ -37,12 +35,12 @@
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="viewModels:SampleViewModel">
-                <Border MinimumWidthRequest="{Binding SampleImageWidth}" WidthRequest="{Binding SampleImageWidth}">
+                <Border StrokeThickness="{OnPlatform Default=0, Android=1}">
                     <Border.GestureRecognizers>
                         <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
                         <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
                     </Border.GestureRecognizers>
-                    <Grid>
+                    <Grid WidthRequest="{Binding SampleImageWidth, Mode=OneTime}" >
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="45" />

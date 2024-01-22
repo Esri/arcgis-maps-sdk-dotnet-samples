@@ -67,6 +67,11 @@ namespace ArcGIS
             SampleDataListView.ItemsSource = OfflineDataSamples;
 
             SetUpTelemetryTab();
+
+#if STORE_RELEASE
+            ScreenshotTab.Visibility = Visibility.Collapsed;
+            APIKeyTab.Visibility = Visibility.Collapsed;
+#endif
         }
 
         private void SetUpTelemetryTab()

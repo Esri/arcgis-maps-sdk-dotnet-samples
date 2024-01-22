@@ -27,10 +27,13 @@
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</TargetPlatformMinVersion>
 		<RootNamespace>ArcGIS</RootNamespace>
 		<AssemblyName>ArcGIS</AssemblyName>
-        <DefineConstants>$(DefineConstants);MAUI</DefineConstants>
+		<DefineConstants>$(DefineConstants);MAUI</DefineConstants>
+		<RuntimeIdentifiers Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+		<RuntimeIdentifier Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND '$(Platform)' == 'AnyCPU'">win10-x64</RuntimeIdentifier>
+    <AppxPackageDir>..\..\..\output\$(RuntimeIdentifier)\</AppxPackageDir>
 	</PropertyGroup>
 
-	<ItemGroup>
+    <ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\arcgissdkglyphfg.svg" />
 
@@ -52,7 +55,7 @@
   </ItemGroup>
 
 	<ItemGroup>
-    <!-- Excluded due to missing toolkit components -->
+	<!-- Excluded due to missing toolkit components -->
 	  <AndroidResource Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <Compile Remove="Samples\MapView\FilterByTimeExtent\**" />
 	  <MauiCss Remove="Samples\MapView\FilterByTimeExtent\**" />
@@ -135,6 +138,8 @@
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" />
     <PackageReference Include="Markdig" />
     <PackageReference Include="System.Drawing.Common" />
+    <PackageReference Include="Microsoft.Maui.Controls"/>
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility"/>
   </ItemGroup>
 
   <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->

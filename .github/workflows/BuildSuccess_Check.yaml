@@ -22,9 +22,22 @@ jobs:
   
     - name: Setup Visual Studio Command Prompt
       uses: microsoft/setup-msbuild@v1.0.2
-    - name: Build MAUI
+    - name: Build MAUI (Windows)
       run: |
-        msbuild /restore /t:Build src/MAUI/ArcGIS.Samples.MAUI.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true
+        msbuild /restore /t:Build src/MAUI/ArcGIS.Samples.MAUI.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true /p:TargetFramework=net8.0-windows10.0.19041.0 /p:RuntimeIdentifier=win10-x64 /p:RuntimeIdentifierOverride=win10-x64 /p:UseRidGraph=true
+    
+    - name: Build MAUI (Android)
+      run: |
+        msbuild /restore /t:Build src/MAUI/ArcGIS.Samples.MAUI.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true /p:TargetFramework=net8.0-android
+    
+    - name: Build MAUI (iOS)
+      run: |
+        msbuild /restore /t:Build src/MAUI/ArcGIS.Samples.MAUI.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true /p:TargetFramework=net8.0-ios
+    
+    - name: Build MAUI (Mac)
+      run: |
+        msbuild /restore /t:Build src/MAUI/ArcGIS.Samples.MAUI.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true /p:TargetFramework=net8.0-maccatalyst
+
 
 # WPF .NET Build
   build-wpf:

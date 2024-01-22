@@ -14,6 +14,7 @@ namespace ArcGIS.ViewModels
         private static readonly string DefaultCategory = "Featured";
         private double _sampleImageWidth;
         private double _sampleImageHeight;
+        public double SampleImageWidth => _sampleImageWidth;
 
         public CategoryViewModel()
         {
@@ -103,7 +104,7 @@ namespace ArcGIS.ViewModels
     {
         public SampleViewModel(SampleInfo sampleInfo, double sampleImageWidth, double sampleImageHeight)
         {
-            _sampleObject = sampleInfo;
+            SampleObject = sampleInfo;
             SampleName = sampleInfo.SampleName;
             SampleFormalName = sampleInfo.FormalName;
             Description = sampleInfo.Description;
@@ -132,18 +133,12 @@ namespace ArcGIS.ViewModels
         [ObservableProperty]
         string _sampleImageName;
 
-        SampleInfo _sampleObject;
+        public SampleInfo SampleObject;
 
         [ObservableProperty]
         double _sampleImageWidth;
 
         [ObservableProperty]
         double _sampleImageHeight;
-
-        [RelayCommand]
-        void OpenSample()
-        {
-            _ = SampleLoader.LoadSample(_sampleObject);
-        }
     }
 }

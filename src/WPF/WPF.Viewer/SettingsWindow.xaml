@@ -106,10 +106,10 @@
                     </StatusBar>
                 </Grid>
             </TabItem>
-            <TabItem Header="API Key">
+            <TabItem x:Name="APIKeyTab" Header="API Key">
                 <local:ApiKeyPrompt HorizontalAlignment="Left" VerticalAlignment="Top" />
             </TabItem>
-            <TabItem Header="Screenshot">
+            <TabItem x:Name="ScreenshotTab" Header="Screenshot">
                 <local:ScreenshotTab HorizontalAlignment="Left" VerticalAlignment="Top" />
             </TabItem>
             <TabItem Name="TelemetryTab" Header="Telemetry">

@@ -197,12 +197,12 @@ namespace ArcGIS.Samples.Shared.Models
             var repoUrl = "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples";
             string samplesPath;
             string fullPath;
-#if WPF
+
+            samplesPath = Path.Substring(Path.LastIndexOf("Samples")).Replace("\\", "/");
+            fullPath = repoUrl + "/tree/main/src/WPF/WPF.Viewer/" + samplesPath;
+
 #if NETFRAMEWORK
             samplesPath = Path.Substring(Path.LastIndexOf("Samples")).Replace("//", "\\");
-#elif NETCOREAPP
-            samplesPath = Path.Substring(Path.LastIndexOf("Samples")).Replace("\\", "/");
-#endif
             fullPath = repoUrl + "/tree/main/src/WPF/WPF.Viewer/" + samplesPath;
 #elif WinUI
             samplesPath = Path.Substring(Path.LastIndexOf("Samples")).Replace("\\", "/");

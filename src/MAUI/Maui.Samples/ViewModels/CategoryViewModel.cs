@@ -98,6 +98,12 @@ namespace ArcGIS.ViewModels
                 SamplesItems.Remove(sample);
             }
         }
+
+        [RelayCommand]
+        void SampleSelected(SampleViewModel sampleViewModel)
+        {
+            _ = SampleLoader.LoadSample(sampleViewModel.SampleObject);
+        }
     }
 
     public partial class SampleViewModel : ObservableObject

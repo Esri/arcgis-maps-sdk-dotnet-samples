@@ -39,7 +39,7 @@
                     Background="Transparent"
                     BorderThickness="0"
                     Click="CopyCodeButton_Click"
-                    Content="&#xe0d9;"
+                    Content="&#xe0a6;"
                     FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
                     FontSize="30"
                     ToolTip="Copy code to clipboard" />

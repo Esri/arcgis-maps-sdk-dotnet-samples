@@ -42,7 +42,7 @@
                             FontFamily="calcite-ui-icons-24"
                             FontSize="20"
                             HorizontalOptions="End"
-                            Text="&#xe0d9;"
+                            Text="&#xe0a6;"
                             ToolTipProperties.Text="Copy code to clipboard" />
                 </Grid>
                 <Border x:Name="SourceCodeViewContainer" VerticalOptions="FillAndExpand" />

@@ -41,7 +41,7 @@
                     Background="Transparent"
                     BorderThickness="0"
                     Click="CopyCodeButton_Click"
-                    Content="&#xe0d9;"
+                    Content="&#xe0a6;"
                     FontFamily="{StaticResource Calcite}"
                     FontSize="30"
                     ToolTipService.ToolTip="Copy code to clipboard" />

@@ -291,11 +291,4 @@
             </DataTrigger>
         </Style.Triggers>
     </Style>
-
-    <Style x:Key="ContextMenuItemIcon" TargetType="TextBlock">
-        <Setter Property="FontSize" Value="17" />
-        <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24" />
-        <Setter Property="Text" Value="&#xe0d9;" />
-        <Setter Property="Background" Value="Transparent" />
-    </Style>
 </ResourceDictionary>

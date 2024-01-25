@@ -11,7 +11,8 @@ using ArcGIS.Samples.Managers;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.Web.WebView2.Core;
 using System;
-using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -22,29 +23,43 @@ namespace ArcGIS.WinUI.Viewer
 {
     public partial class SourceCode
     {
+        private SourceCodeFile _selectedFile;
+
         // Pattern for mapping a local folder to a url host name.
         private const string FolderMapping = "arcgisruntime.viewer";
 
         // List of source code files relevant to the selected sample.
-        private List<SourceCodeFile> _sourceFiles;
+        public ObservableCollection<SourceCodeFile> SourceFiles { get; } = new ObservableCollection<SourceCodeFile>();
+
+        public SourceCodeFile SelectedSourceFile
+        {
+            get => _selectedFile;
+            set
+            {
+                if (value != _selectedFile)
+                {
+                    _selectedFile = value;
+                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedSourceFile)));
+                }
+            }
+        }
 
         public SourceCode()
         {
             InitializeComponent();
         }
 
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public async Task LoadSourceCodeAsync()
         {
-            // Create a new list of TabViewItems.
-            var _tabs = new List<TabViewItem>();
-
             // Create a list of source files for the sample.
-            _sourceFiles = new List<SourceCodeFile>();
+            SourceFiles.Clear();
 
             foreach (string filepath in Directory.GetFiles(SampleManager.Current.SelectedSample.Path)
                 .Where(candidate => candidate.EndsWith(".cs") || candidate.EndsWith(".xaml")))
             {
-                _sourceFiles.Insert(0, new SourceCodeFile(filepath));
+                SourceFiles.Insert(0, new SourceCodeFile(filepath));
             }
 
             // Add additional class files from the sample.
@@ -53,25 +68,11 @@ namespace ArcGIS.WinUI.Viewer
                 foreach (string additionalPath in SampleManager.Current.SelectedSample.ClassFiles)
                 {
                     string actualPath = Path.Combine(SampleManager.Current.SelectedSample.Path, "..", "..", "..", additionalPath);
-                    _sourceFiles.Add(new SourceCodeFile(actualPath));
+                    SourceFiles.Add(new SourceCodeFile(actualPath));
                 }
             }
 
-            // Set up the tabs.
-            foreach (SourceCodeFile file in _sourceFiles)
-            {
-                // Create a new tab.
-                TabViewItem newTab = new TabViewItem() { IsClosable = false };
-
-                // Set the tab text to the file name.
-                newTab.Header = Path.GetFileName(file.FilePath);
-
-                // Add the tab to the end of the list.
-                _tabs.Add(newTab);
-            }
-
-            // Set the Tab source to the list of tabs.
-            Tabs.TabItemsSource = _tabs;
+            SelectedSourceFile = SourceFiles[0];
 
             try
             {
@@ -87,20 +88,6 @@ namespace ArcGIS.WinUI.Viewer
             // Set up folder mapping for local syntax highlighting resources.
             string applicationPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             WebView.CoreWebView2.SetVirtualHostNameToFolderMapping(FolderMapping, applicationPath, CoreWebView2HostResourceAccessKind.Allow);
-
-            // Enable selection events on the tab control.
-            Tabs.SelectionChanged += TabChanged;
-            Tabs.SelectedIndex = 0;
-        }
-
-        private void TabChanged(object sender, SelectionChangedEventArgs e)
-        {
-            // Get the html content for the tab.
-            var selected = Tabs.SelectedItem as TabViewItem;
-            string content = _sourceFiles.FirstOrDefault(x => x.Name == selected.Header.ToString()).HtmlContent;
-
-            // Display the html content in the web view.
-            WebView.NavigateToString(content);
         }
 
         public class SourceCodeFile
@@ -129,6 +116,8 @@ namespace ArcGIS.WinUI.Viewer
 
             public string Name => Path.GetFileName(_path);
 
+            public string SourceCode { get; set; }
+
             public string HtmlContent
             {
                 get
@@ -156,7 +145,7 @@ namespace ArcGIS.WinUI.Viewer
                 // Source code of the file.
                 try
                 {
-                    string baseContent = File.ReadAllText(_path);
+                    string baseContent = SourceCode = File.ReadAllText(_path);
 
                     // Set the type of highlighting for the source file.
                     string codeClass = _path.EndsWith(".xaml") ? "xml" : "csharp";
@@ -177,6 +166,23 @@ namespace ArcGIS.WinUI.Viewer
                     Debug.WriteLine(ex);
                 }
             }
+        }
+
+        private void CopyCodeButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            // Copy the source code to the clipboard.
+            var dataPackage = new Windows.ApplicationModel.DataTransfer.DataPackage();
+            dataPackage.SetText(SelectedSourceFile.SourceCode);
+            Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dataPackage);
+        }
+
+        private void File_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            // Update the selected source file.
+            SelectedSourceFile = (sender as ComboBox).SelectedItem as SourceCodeFile;
+
+            // Display the html content in the web view.
+            WebView.NavigateToString(SelectedSourceFile.HtmlContent);
         }
     }
 }

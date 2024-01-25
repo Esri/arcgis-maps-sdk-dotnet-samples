@@ -7,7 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGIS.Samples.Desktop;
 using ArcGIS.Samples.Managers;
+using ArcGIS.Samples.Shared.Models;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -70,6 +72,7 @@ namespace ArcGIS.WPF.Viewer
             }
 
             SelectedSourceFile = SourceFiles[0];
+
         }
 
         public class SourceCodeFile
@@ -111,6 +114,8 @@ namespace ArcGIS.WPF.Viewer
                 }
             }
 
+            public string SourceCode { get; set; }
+
             public SourceCodeFile(string sourceFilePath)
             {
                 _path = sourceFilePath;
@@ -126,7 +131,7 @@ namespace ArcGIS.WPF.Viewer
                 // Source code of the file.
                 try
                 {
-                    string baseContent = File.ReadAllText(_path);
+                    string baseContent = SourceCode = File.ReadAllText(_path);
 
                     // Set the type of highlighting for the source file.
                     string codeClass = _path.EndsWith(".xaml") ? "xml" : "csharp";
@@ -147,6 +152,11 @@ namespace ArcGIS.WPF.Viewer
                     System.Diagnostics.Debug.WriteLine(ex);
                 }
             }
+        }
+
+        private void CopyCodeButton_Click(object sender, RoutedEventArgs e)
+        {
+            Clipboard.SetText(_selectedFile.SourceCode);
         }
     }
 

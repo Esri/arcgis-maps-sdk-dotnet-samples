@@ -277,8 +277,8 @@ namespace ArcGIS
             // Get all files in the samples folder.
             var fileNames = new List<string>
             {
-                $"Samples/{sampleInfo.Category}/{sampleInfo.FormalName}/{sampleInfo.FormalName}.xaml.cs",
-                $"Samples/{sampleInfo.Category}/{sampleInfo.FormalName}/{sampleInfo.FormalName}.xaml",
+                $"Samples/{sampleInfo.Category.Replace(" ","")}/{sampleInfo.FormalName}/{sampleInfo.FormalName}.xaml.cs",
+                $"Samples/{sampleInfo.Category.Replace(" ","")}/{sampleInfo.FormalName}/{sampleInfo.FormalName}.xaml",
             };
 
             // Add every .cs and .xaml file in the directory of the sample.

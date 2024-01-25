@@ -26,15 +26,21 @@ public partial class CategoryPage : ContentPage
         BindingContext = _viewModel;
 
         WeakReferenceMessenger.Default.Register<string>(this, (message, category) => ScrollToTop());
-
+#if !ANDROID
         SizeChanged += (s, e) =>
         {
+#if IOS || MACCATALYST
             var numberOfColumns = Math.Floor(Width / _viewModel.SampleImageWidth);
             var layout = new GridItemsLayout((int)numberOfColumns, ItemsLayoutOrientation.Vertical);
             layout.HorizontalItemSpacing = 5;
             layout.VerticalItemSpacing = 5;
             SamplesCollection.ItemsLayout = layout;
+#elif WINDOWS
+            var numberOfColumns = Math.Floor(Width / _viewModel.SampleImageWidth);
+            SamplesGridItemsLayout.Span = (int)numberOfColumns;
+#endif
         };
+#endif
 
     }
 
@@ -91,21 +97,6 @@ public partial class CategoryPage : ContentPage
         if (firstItem != null)
         {
             SamplesCollection.ScrollTo(firstItem, null, ScrollToPosition.Start);
-        }
-    }
-
-    private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        try
-        {
-            var selectedCategory = e.CurrentSelection.FirstOrDefault() as SampleViewModel;
-
-            _ = SampleLoader.LoadSample(selectedCategory.SampleObject);
-
-        }
-        catch (Exception ex)
-        {
-            Debug.Write(ex.ToString());
         }
     }
 }

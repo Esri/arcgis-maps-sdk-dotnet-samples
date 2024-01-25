@@ -20,13 +20,12 @@
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
         <converters:BoolToFavoriteGlyphConverter x:Key="BoolToFavoriteGlyphConverter" />
     </ContentPage.Resources>
-    <CollectionView BackgroundColor="Transparent"
-                    x:Name="SamplesCollection"
-                    ItemsSource="{Binding SamplesItems}"
-                    SelectionChanged="CollectionView_SelectionChanged"
-                    SelectionMode="Single">
+    <CollectionView x:Name="SamplesCollection"
+                    BackgroundColor="Transparent"
+                    ItemsSource="{Binding SamplesItems}">
         <CollectionView.ItemsLayout>
-            <GridItemsLayout HorizontalItemSpacing="5"
+            <GridItemsLayout x:Name="SamplesGridItemsLayout"
+                             HorizontalItemSpacing="5"
                              Orientation="Vertical"
                              Span="{OnPlatform Default=4,
                                                iOS=1,
@@ -39,8 +38,11 @@
                     <Border.GestureRecognizers>
                         <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
                         <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=SampleSelectedCommand}"
+                                              CommandParameter="{Binding .}"
+                                              NumberOfTapsRequired="1" />
                     </Border.GestureRecognizers>
-                    <Grid WidthRequest="{Binding SampleImageWidth, Mode=OneTime}" >
+                    <Grid WidthRequest="{Binding SampleImageWidth, Mode=OneTime}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="45" />

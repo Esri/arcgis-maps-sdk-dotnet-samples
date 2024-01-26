@@ -2,14 +2,50 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              Background="{StaticResource PrimaryBackgroundColor}">
+    <UserControl.Resources>
+        <FontFamily x:Key="Calcite">/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24</FontFamily>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
+            <RowDefinition Height="auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TabView x:Name="Tabs"
-                 Grid.Row="0"
-                 IsAddTabButtonVisible="False" />
+        <Grid Background="{StaticResource SecondaryBackgroundColor}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="15,5,5,5"
+                       HorizontalAlignment="Right"
+                       VerticalAlignment="Center"
+                       Text="View file:" />
+            <ComboBox Grid.Column="1"
+                      Width="400"
+                      Margin="5"
+                      VerticalAlignment="Center"
+                      DataContext="{x:Bind}"
+                      ItemsSource="{Binding SourceFiles, Mode=OneWay}"
+                      SelectedItem="{Binding SelectedSourceFile, Mode=TwoWay}"
+                      SelectionChanged="File_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}" />
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+            <Button x:Name="CopyCodeButton"
+                    Grid.Column="2"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Click="CopyCodeButton_Click"
+                    Content="&#xe0a6;"
+                    FontFamily="{StaticResource Calcite}"
+                    FontSize="30"
+                    ToolTipService.ToolTip="Copy code to clipboard" />
+        </Grid>
         <WebView2 x:Name="WebView" Grid.Row="1" />
     </Grid>
 </UserControl>

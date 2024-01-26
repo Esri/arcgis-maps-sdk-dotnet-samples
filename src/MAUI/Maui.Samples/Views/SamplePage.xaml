@@ -22,15 +22,29 @@
         <Border x:Name="SampleDetailPage" IsVisible="false" />
         <Border x:Name="SourceCodePage" IsVisible="false">
             <StackLayout>
-                <StackLayout Orientation="Horizontal">
-                    <Button Margin="5"
-                            Clicked="FileChange_Clicked"
-                            Text="Change file" />
-                    <Label x:Name="CurrentFileLabel"
-                           Margin="5"
-                           Text=""
+                <Grid BackgroundColor="{AppThemeBinding Dark={StaticResource Dark}, Light={StaticResource Light}}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="{OnIdiom Phone=5*, Default=Auto}" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Margin="5"
+                           FontAttributes="Bold"
+                           Text="View file:"
                            VerticalOptions="Center" />
-                </StackLayout>
+                    <Picker x:Name="FilePicker"
+                            Grid.Column="1"
+                            SelectedIndexChanged="FilePicker_SelectedIndexChanged" />
+                    <Button Grid.Column="2"
+                            Background="Transparent"
+                            BorderWidth="0"
+                            Clicked="CopyCodeButton_Clicked"
+                            FontFamily="calcite-ui-icons-24"
+                            FontSize="20"
+                            HorizontalOptions="End"
+                            Text="&#xe0a6;"
+                            ToolTipProperties.Text="Copy code to clipboard" />
+                </Grid>
                 <Border x:Name="SourceCodeViewContainer" VerticalOptions="FillAndExpand" />
             </StackLayout>
         </Border>

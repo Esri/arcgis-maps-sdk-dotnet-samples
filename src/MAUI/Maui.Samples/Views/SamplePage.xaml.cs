@@ -8,11 +8,11 @@
 // language governing permissions and limitations under the License.
 
 #if WINDOWS
-        using uiXaml =  Microsoft.UI.Xaml;
-        using System.Drawing;
-        using ArcGIS.Samples.Shared.Managers;
-        using System.Text.RegularExpressions;
-        using Microsoft.Maui.Graphics;
+using uiXaml = Microsoft.UI.Xaml;
+using System.Drawing;
+using ArcGIS.Samples.Shared.Managers;
+using System.Text.RegularExpressions;
+using Microsoft.Maui.Graphics;
 #endif
 
 using ArcGIS.Samples.Managers;
@@ -35,12 +35,14 @@ namespace ArcGIS
         private ContentPage _sampleContent;
         private Assembly _assembly;
         private int _lastViewedFileIndex = 0;
+
         // single-instance webviews reused on each view, to avoid a memory leak in webview
-        static WebView DescriptionView = new WebView();
-        static WebView SourceCodeView = new WebView();
+        private static WebView DescriptionView = new WebView();
+        private static WebView SourceCodeView = new WebView();
 
-        SampleInfo _sample;
+        private SampleInfo _sample;
 
+        private SourceCodeFile _selectedFile;
         public ObservableCollection<SourceCodeFile> SourceFiles { get; } = new ObservableCollection<SourceCodeFile>();
 
         public SamplePage(SampleInfo sample)
@@ -71,7 +73,7 @@ namespace ArcGIS
             {
                 var screenshotToolbarItem = new ToolbarItem();
                 screenshotToolbarItem.Clicked += ScreenshotButton_Clicked;
-                screenshotToolbarItem.IconImageSource="camera.png";
+                screenshotToolbarItem.IconImageSource = "camera.png";
                 screenshotToolbarItem.Text = "Screenshot";
                 ToolbarItems.Insert(0, screenshotToolbarItem);
 
@@ -134,7 +136,7 @@ namespace ArcGIS
         }
 
         private async void LoadSampleData(SampleInfo sampleInfo)
-        { 
+        {
             // Set up the description page.
             try
             {
@@ -152,7 +154,6 @@ namespace ArcGIS
             try
             {
                 LoadSourceCode(sampleInfo);
-
             }
             catch (Exception ex)
             {
@@ -233,6 +234,7 @@ namespace ArcGIS
         }
 
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
+
         public static async Task<Stream> LoadImageStreamAsync(string file)
 #pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
         {
@@ -259,7 +261,7 @@ namespace ArcGIS
                     return stream;
             }
 #else
-		    try
+            try
             {
                 return await FileSystem.Current.OpenAppPackageFileAsync(file);
             }
@@ -275,8 +277,8 @@ namespace ArcGIS
             // Get all files in the samples folder.
             var fileNames = new List<string>
             {
-                $"Samples/{sampleInfo.Category}/{sampleInfo.FormalName}/{sampleInfo.FormalName}.xaml.cs",
-                $"Samples/{sampleInfo.Category}/{sampleInfo.FormalName}/{sampleInfo.FormalName}.xaml",
+                $"Samples/{sampleInfo.Category.Replace(" ","")}/{sampleInfo.FormalName}/{sampleInfo.FormalName}.xaml.cs",
+                $"Samples/{sampleInfo.Category.Replace(" ","")}/{sampleInfo.FormalName}/{sampleInfo.FormalName}.xaml",
             };
 
             // Add every .cs and .xaml file in the directory of the sample.
@@ -305,6 +307,12 @@ namespace ArcGIS
                     }
                 }
             }
+
+            FilePicker.Items.Clear();
+            FilePicker.ItemsSource = SourceFiles;
+
+            // Use the file name as the display name for the picker
+            FilePicker.ItemDisplayBinding = new Binding("FileName");
         }
 
         private void Webview_Navigating(object sender, WebNavigatingEventArgs e)
@@ -346,12 +354,14 @@ namespace ArcGIS
         {
             if (SourceFiles.Any())
             {
-                SelectFile(SourceFiles[_lastViewedFileIndex].Name);
+                _selectedFile = SourceFiles[_lastViewedFileIndex];
+                FilePicker.SelectedIndex = _lastViewedFileIndex;
             }
 
             SourceCodePage.IsVisible = true;
             SampleDetailPage.IsVisible = SampleContentPage.IsVisible = false;
         }
+
         private async void GitHubButton_Clicked(object sender, EventArgs e)
         {
             try
@@ -359,32 +369,16 @@ namespace ArcGIS
                 Uri uri = new Uri(SampleManager.Current.SelectedSample.GetGitHubUrl());
                 await Browser.Default.OpenAsync(uri, BrowserLaunchMode.SystemPreferred);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // An unexpected error occurred. No browser may be installed on the device.
             }
         }
 
-        private async void FileChange_Clicked(object sender, EventArgs e)
+        private void CopyCodeButton_Clicked(object sender, EventArgs e)
         {
-            try
-            {
-                string[] fileList = SourceFiles.Select(s => s.Name.Split('/').Last()).ToArray();
-                string result = await Application.Current.MainPage.DisplayActionSheet("Choose file:", "Cancel", null, fileList);
-
-                _lastViewedFileIndex = fileList.ToList().IndexOf(result);
-
-                if (fileList.Contains(result))
-                {
-                    SelectFile(SourceFiles.FirstOrDefault(s => s.Name.Split("/").Last().Equals(result)).Name);
-                }
-            }
-            // No need to handle any cancellation.
-            catch
-            {
-            }
+            Clipboard.SetTextAsync(_selectedFile.SourceCode);
         }
-
 
 #if WINDOWS
         private void ScreenshotButton_Clicked(object sender, EventArgs e)
@@ -433,9 +427,8 @@ namespace ArcGIS
             {
                 Console.WriteLine($"Error saving screenshot: {ex.Message}");
             }
-        }  
+        }
 #endif
-
 
         private void SelectFile(string fileName)
         {
@@ -443,8 +436,12 @@ namespace ArcGIS
             {
                 Html = SourceFiles.FirstOrDefault(s => s.Name == fileName).HtmlContent,
             };
+        }
 
-            CurrentFileLabel.Text = fileName.Split('/').Last();
+        private void FilePicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _selectedFile = SourceFiles[FilePicker.SelectedIndex];
+            SelectFile(_selectedFile.Name);
         }
     }
 
@@ -467,8 +464,11 @@ namespace ArcGIS
 
         private string _path;
         private string _fullContent;
+        public string SourceCode { get; set; }
 
         public string Path => _path;
+
+        public string FileName => System.IO.Path.GetFileName(_path);
 
         public string Name
         {
@@ -491,27 +491,28 @@ namespace ArcGIS
 
             _ = LoadContent();
         }
+
         private async Task LoadContent()
         {
             try
             {
-                string baseContent = string.Empty;
+                string baseContent = SourceCode = string.Empty;
                 var assembly = Assembly.GetExecutingAssembly();
 #if __ANDROID__
                 if (_path.EndsWith(".xaml"))
                 {
                     var fileName = _path.Split('/').Last();
                     var xamlPath = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{fileName}"));
-                    baseContent = new StreamReader(assembly.GetManifestResourceStream(xamlPath)).ReadToEnd();
+                    SourceCode = baseContent = new StreamReader(assembly.GetManifestResourceStream(xamlPath)).ReadToEnd();
                 }
                 else
                 {
                     using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync(_path).ConfigureAwait(false);
-                    baseContent = new StreamReader(fileStream).ReadToEnd();
+                    SourceCode = baseContent = new StreamReader(fileStream).ReadToEnd();
                 }
 #else
                 using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync(_path).ConfigureAwait(false);
-                baseContent = new StreamReader(fileStream).ReadToEnd();
+                SourceCode = baseContent = new StreamReader(fileStream).ReadToEnd();
 #endif
                 // > and < characters will be incorrectly parsed by the html.
                 baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");

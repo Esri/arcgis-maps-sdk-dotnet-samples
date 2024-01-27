@@ -10,73 +10,81 @@
             <StackPanel Orientation="Vertical">
                 <Button x:Name="DrawClustersButton"
                         Padding="5"
+                        HorizontalAlignment="Center"
                         Click="DrawClustersButton_Clicked"
                         Content="Draw clusters" />
-                <StackPanel x:Name="AddClusteringFeatureReductionToAPointFeatureLayerOptions"
-                            Orientation="Vertical"
-                            Visibility="Collapsed">
-                    <TextBlock Margin="0,0,0,10"
+                <Grid x:Name="ClusteringOptions" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.ColumnSpan="2"
+                               Padding="5"
+                               HorizontalAlignment="Center"
                                FontSize="16"
                                FontWeight="Bold"
-                               Text="Clustering properties" />
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                            <RowDefinition Height="auto" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="140" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Row="0"
-                                   Grid.Column="0"
-                                   VerticalAlignment="Center"
-                                   Text="Display Labels" />
-                        <CheckBox x:Name="DisplayLabelsCheckBox"
-                                  Grid.Row="0"
-                                  Grid.Column="1"
-                                  VerticalAlignment="Center"
-                                  Checked="DisplayLabelsCheckBox_Checked"
-                                  IsChecked="false"
-                                  Unchecked="DisplayLabelsCheckBox_Checked" />
-                        <TextBlock Grid.Row="1"
-                                   Grid.Column="0"
-                                   VerticalAlignment="Center">
-                            <Run Text="Cluster radius: " />
-                            <Run Text="{Binding ElementName=ClusterRadiusSlider, Path=Value, Mode=OneWay, StringFormat=n0}" />
-                        </TextBlock>
-                        <Slider x:Name="ClusterRadiusSlider"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                VerticalAlignment="Center"
-                                Maximum="85"
-                                Minimum="30"
-                                ValueChanged="UpdateClusteringProperties" />
-                        <TextBlock Grid.Row="2"
-                                   Grid.Column="0"
-                                   VerticalAlignment="Center">
-                            <Run Text="MaxScale: " />
-                            <Run Text="{Binding ElementName=MaxScaleSlider, Path=Value, Mode=OneWay, StringFormat=n0}" />
-                        </TextBlock>
-                        <Slider x:Name="MaxScaleSlider"
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                VerticalAlignment="Center"
-                                Maximum="150000"
-                                Minimum="0"
-                                ValueChanged="UpdateClusteringProperties" />
-                        <TextBlock Grid.Row="3"
-                                   Grid.Column="0"
-                                   Grid.ColumnSpan="2"
-                                   VerticalAlignment="Center">
-                            <Run Text="Current map scale: " />
-                            <Run Text="1:" />
-                            <Run Text="{Binding ElementName=MyMapView, Path=MapScale, Mode=OneWay, StringFormat=n0}" />
-                        </TextBlock>
-                    </Grid>
-                </StackPanel>
+                               Text="Clustering Properties" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Padding="5"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Text="Display labels:" />
+                    <CheckBox x:Name="DisplayLabelsCheckBox"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Checked="DisplayLabelsCheckBox_Checked"
+                              IsChecked="false"
+                              Unchecked="DisplayLabelsCheckBox_Checked" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Padding="5"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center">
+                        <Run FontWeight="Bold" Text="Cluster radius:" />
+                        <Run Text="{Binding ElementName=ClusterRadiusSlider, Path=Value, Mode=OneWay, StringFormat=n0}" />
+                    </TextBlock>
+                    <ComboBox x:Name="ClusterRadiusPicker"
+                              Grid.Row="2"
+                              Grid.Column="1"
+                              Width="50"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              SelectionChanged="ClusterRadiusPicker_SelectionChanged" />
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Padding="5"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center">
+                        <Run FontWeight="Bold" Text="Maximum map scale:" />
+                        <Run Text="{Binding ElementName=MaxScaleSlider, Path=Value, Mode=OneWay, StringFormat=n0}" />
+                    </TextBlock>
+                    <ComboBox x:Name="MaxScalePicker"
+                              Grid.Row="3"
+                              Grid.Column="1"
+                              Width="75"
+                              VerticalAlignment="Center"
+                              SelectionChanged="MaxScalePicker_SelectionChanged" />
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Padding="5"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        <Run FontWeight="Bold" Text="Current map scale: " />
+                        <Run Text="1:" />
+                        <Run Text="{Binding ElementName=MyMapView, Path=MapScale, Mode=OneWay, StringFormat=n0}" />
+                    </TextBlock>
+                </Grid>
             </StackPanel>
         </Border>
         <Grid x:Name="PopupBackground"

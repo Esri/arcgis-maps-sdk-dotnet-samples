@@ -57,6 +57,10 @@ namespace ArcGIS.WPF.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
 
             // Set the initial viewpoint to Zurich, Switzerland.
             await MyMapView.SetViewpointAsync(new Viewpoint(47.38, 8.53, 8e4));
+
+            // Enable the draw clusters button after the layer finishes loading.
+            await _layer.LoadAsync();
+            DrawClustersButton.IsEnabled = true;
         }
 
         private void CreateCustomFeatureReduction()
@@ -106,10 +110,10 @@ namespace ArcGIS.WPF.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
             _layer.FeatureReduction = _clusteringFeatureReduction;
 
             // Populate the cluster radius and max scale pickers with default values.
-            ClusterRadiusPicker.ItemsSource = new double[] { 5, 15, 30, 45, 60, 75, 90 };
+            ClusterRadiusPicker.ItemsSource = new double[] { 30, 45, 60, 75, 90 };
             MaxScalePicker.ItemsSource = new double[] { 0, 1000, 5000, 10000, 50000, 100000, 500000 };
 
-            // Set initial slider values.
+            // Set initial picker values.
             // Note that the default value for cluster radius is 60.
             // Increasing the cluster radius increases the number of features that are grouped together into a cluster.
             ClusterRadiusPicker.SelectedValue = _clusteringFeatureReduction.Radius;

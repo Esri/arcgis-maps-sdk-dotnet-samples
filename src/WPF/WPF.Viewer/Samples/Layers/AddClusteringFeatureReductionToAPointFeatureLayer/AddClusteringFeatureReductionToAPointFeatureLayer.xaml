@@ -12,7 +12,8 @@
                         Padding="5"
                         HorizontalAlignment="Center"
                         Click="DrawClustersButton_Clicked"
-                        Content="Draw clusters" />
+                        Content="Draw clusters"
+                        IsEnabled="False" />
                 <Grid x:Name="ClusteringOptions" Visibility="Collapsed">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
@@ -56,7 +57,7 @@
                     <ComboBox x:Name="ClusterRadiusPicker"
                               Grid.Row="2"
                               Grid.Column="1"
-                              Width="50"
+                              Width="75"
                               HorizontalAlignment="Left"
                               VerticalAlignment="Center"
                               SelectionChanged="ClusterRadiusPicker_SelectionChanged" />

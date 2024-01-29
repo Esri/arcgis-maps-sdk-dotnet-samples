@@ -38,12 +38,6 @@ public partial class ScreenshotView : ContentView
     {
         ScreenshotSettings screenshotSettings = new ScreenshotSettings();
 
-        // Do not overwrite the saved WinUI setting.
-        if (ScreenshotManager.ScreenshotSettings.ScaleFactor.HasValue)
-        {
-            screenshotSettings.ScaleFactor = ScreenshotManager.ScreenshotSettings.ScaleFactor.Value;
-        }
-
         screenshotSettings.ScreenshotEnabled = ScreenshotEnabledCheckBox.IsChecked ? ScreenshotEnabledCheckBox.IsChecked : false;
         screenshotSettings.SourcePath = SourcePathEntry.Text;
 
@@ -63,6 +57,15 @@ public partial class ScreenshotView : ContentView
         else
         {
             screenshotSettings.Height = null;
+        }
+
+        if (double.TryParse(ScaleFactorEntry.Text, out double scaleFactor))
+        {
+            screenshotSettings.ScaleFactor = scaleFactor;
+        }
+        else
+        {
+            screenshotSettings.ScaleFactor = null;
         }
 
         ScreenshotManager.SaveScreenshotSettings(screenshotSettings);

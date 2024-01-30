@@ -62,6 +62,10 @@ namespace ArcGIS.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
                     PopupViewer.Popup = null;
                 })
             });
+
+            // Enable the draw clusters button after the layer finishes loading.
+            await _layer.LoadAsync();
+            DrawClustersButton.IsEnabled = true;
         }
 
         private void CreateCustomFeatureReduction()
@@ -87,7 +91,7 @@ namespace ArcGIS.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
 
             // Define a default symbol to use for features that do not fall within any of the ranges defined by the class breaks.
             classBreaksRenderer.DefaultSymbol = new SimpleMarkerSymbol() { Color = System.Drawing.Color.Pink };
-            
+
             // Create a new clustering feature reduction using the class breaks renderer.
             _clusteringFeatureReduction = new ClusteringFeatureReduction(classBreaksRenderer);
 
@@ -95,7 +99,7 @@ namespace ArcGIS.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
             // The aggregate fields summarize values based on the defined aggregate statistic type.
             _clusteringFeatureReduction.AggregateFields.Add(new AggregateField("Total Residential Buildings", "Residential_Buildings", AggregateStatisticType.Sum));
             _clusteringFeatureReduction.AggregateFields.Add(new AggregateField("Average Building Height", "Most_common_number_of_storeys", AggregateStatisticType.Mode));
-            
+
             // Enable the feature reduction.
             _clusteringFeatureReduction.IsEnabled = true;
 
@@ -110,17 +114,22 @@ namespace ArcGIS.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
             // Set the feature reduction for the layer.
             _layer.FeatureReduction = _clusteringFeatureReduction;
 
-            // Set initial slider values.
+            // Populate the cluster radius and max scale pickers with default values.
+            ClusterRadiusPicker.ItemsSource = new double[] { 30, 45, 60, 75, 90 };
+            MaxScalePicker.ItemsSource = new double[] { 0, 1000, 5000, 10000, 50000, 100000, 500000 };
+
+            // Set initial picker values.
             // Note that the default value for cluster radius is 60.
             // Increasing the cluster radius increases the number of features that are grouped together into a cluster.
-            ClusterRadiusSlider.Value = _clusteringFeatureReduction.Radius;
+            ClusterRadiusPicker.SelectedItem = _clusteringFeatureReduction.Radius;
 
             // Note that the default value for max scale is 0.
             // The max scale value is the maximum scale at which clustering is applied.
-            MaxScaleSlider.Value = _clusteringFeatureReduction.MaxScale;
+            MaxScalePicker.SelectedItem = _clusteringFeatureReduction.MaxScale;
         }
 
         #region EventHandlers
+
         private void DisplayLabelsCheckBox_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             if (DisplayLabelsCheckBox.IsChecked)
@@ -137,14 +146,18 @@ namespace ArcGIS.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
             {
                 _clusteringFeatureReduction.LabelDefinitions.Clear();
             }
-            
         }
 
-        private void UpdateClusteringProperties(object sender, EventArgs e)
+        private void ClusterRadiusPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Update the feature reduction's cluster radius and max scale properties.
-            ((ClusteringFeatureReduction)_layer.FeatureReduction).Radius = ClusterRadiusSlider.Value;
-            ((ClusteringFeatureReduction)_layer.FeatureReduction).MaxScale = MaxScaleSlider.Value;
+            if (_layer != null)
+                ((ClusteringFeatureReduction)_layer.FeatureReduction).Radius = (double)ClusterRadiusPicker.SelectedItem;
+        }
+
+        private void MaxScalePicker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (_layer != null)
+                ((ClusteringFeatureReduction)_layer.FeatureReduction).MaxScale = (double)MaxScalePicker.SelectedItem;
         }
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
@@ -166,7 +179,7 @@ namespace ArcGIS.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
             CreateCustomFeatureReduction();
 
             // Show the feature reduction's clustering options.
-            AddClusteringFeatureReductionToAPointFeatureLayerOptions.IsVisible = true;
+            ClusteringOptions.IsVisible = true;
 
             // Add an event handler for tap events on the map view.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -174,6 +187,7 @@ namespace ArcGIS.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
             // Hide the draw clusters button.
             DrawClustersButton.IsVisible = false;
         }
-        #endregion
+
+        #endregion EventHandlers
     }
 }

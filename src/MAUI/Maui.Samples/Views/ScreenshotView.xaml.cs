@@ -59,6 +59,7 @@ public partial class ScreenshotView : ContentView
             screenshotSettings.Height = null;
         }
 
+        // On MAUI a null ScaleFactor will cause an exception to be thrown.
         if (double.TryParse(ScaleFactorEntry.Text, out double scaleFactor))
         {
             screenshotSettings.ScaleFactor = scaleFactor;

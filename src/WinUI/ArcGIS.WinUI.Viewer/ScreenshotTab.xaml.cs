@@ -69,6 +69,7 @@ namespace ArcGIS
                 screenshotSettings.Height = null;
             }
 
+            // On WinUI a null ScaleFactor will cause an exception to be thrown.
             if (double.TryParse(ScaleFactorEntryBox.Text, out double scaleFactor))
             {
                 screenshotSettings.ScaleFactor = scaleFactor;

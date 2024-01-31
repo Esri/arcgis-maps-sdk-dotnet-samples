@@ -150,16 +150,22 @@ namespace ArcGIS.WinUI.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
             }
         }
 
+        // When a new picker item is selected, update the feature reduction cluster radius.
         private void ClusterRadiusPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_layer != null)
+            {
                 ((ClusteringFeatureReduction)_layer.FeatureReduction).Radius = (double)ClusterRadiusPicker.SelectedItem;
+            }
         }
 
+        // When a new picker item is selected, update the feature reduction max scale.
         private void MaxScalePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_layer != null)
+            {
                 ((ClusteringFeatureReduction)_layer.FeatureReduction).MaxScale = (double)MaxScalePicker.SelectedValue;
+            }
         }
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)

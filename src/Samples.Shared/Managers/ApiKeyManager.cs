@@ -37,6 +37,8 @@ namespace ArcGIS.Samples.Shared.Managers
 
         public static bool KeyDisabled { get { return _keyDisabled; } }
 
+        internal static bool DisableApiKeyUI {get; private set;}
+
         // Name for file on windows systems. / Name for key in .NET MAUI SecureStorage.
         private const string _apiKeyFileName = "agolResource";
 

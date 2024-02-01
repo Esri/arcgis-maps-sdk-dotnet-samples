@@ -47,6 +47,7 @@ IF "%ARCGIS_API_KEY%" NEQ "" (
   ECHO public static partial class ApiKeyManager ^{ >>%keyFile%
   ECHO static ApiKeyManager^(^) ^{ >>%keyFile%
   ECHO Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = _key = "%ARCGIS_API_KEY%"; >>%keyFile%
+  ECHO DisableApiKeyUI = true; >>%keyFile%
   ECHO ^}^}^} >>%keyFile%
 )
 

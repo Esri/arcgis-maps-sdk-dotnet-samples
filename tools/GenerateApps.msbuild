@@ -76,6 +76,8 @@
   </Target>
 
   <Target Name="BuildMaui" DependsOnTargets="CreateOutputDirectory">
+    <XmlPoke Condition="'$(PUBLISHER)'!=''" XmlInputPath="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\Platforms\Windows\Package.appxmanifest"
+             Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
     <MSBuild Projects="@(MAUIProject)" Targets="Restore" Properties="ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)"/>
     <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-x64;RuntimeIdentifierOverride=win10-x64;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
     <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-x86;RuntimeIdentifierOverride=win10-x86;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />

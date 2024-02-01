@@ -22,10 +22,10 @@ namespace ArcGIS.Samples.WmsIdentify
     public partial class WmsIdentify : ContentPage
     {
         // Create and hold the URL to the WMS service showing EPA water info
-        private Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        private Uri _wmsUrl = new Uri("https://sampleserver6.arcgisonline.com/arcgis/services/SampleWorldCities/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Create and hold a list of uniquely-identifying WMS layer names to display
-        private List<String> _wmsLayerNames = new List<string> { "4" };
+        private List<String> _wmsLayerNames = new List<string> { "1" };
 
         // Hold the WMS layer
         private WmsLayer _wmsLayer;

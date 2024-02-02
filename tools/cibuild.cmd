@@ -51,5 +51,5 @@ IF "%ARCGIS_API_KEY%" NEQ "" (
 )
 
 
-msbuild /t:BuildAll %~dp0GenerateApps.msbuild /p:BUILD_NUM=%BUILD_NUM% /p:RELEASE_VERSION=%RELEASE_VERSION% /p:PUBLISHER=%PUBLISHER% /p:PFXSignaturePassword=%PFXSignaturePassword% /p:PFXSignatureFile=%PFXSignatureFile% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint%
+msbuild /t:BuildAll %~dp0GenerateApps.msbuild /p:BUILD_NUM=%BUILD_NUM% /p:RELEASE_VERSION=%RELEASE_VERSION% /p:PUBLISHER="%PUBLISHER%" /p:PFXSignaturePassword=%PFXSignaturePassword% /p:PFXSignatureFile=%PFXSignatureFile% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint%
 

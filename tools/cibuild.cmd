@@ -15,10 +15,6 @@ IF "%RELEASE_VERSION%" == "" (
   SET RELEASE_VERSION=200.3.0
 )
 
-IF "%BUILD_NUM%" == "" (
-  SET BUILD_NUM=0
-)
-
 REM Configure NuGet
 dotnet new nugetconfig --force -o ../
 IF "%NUGET_REPO%" NEQ "" IF EXIST "%NUGET_REPO%" (

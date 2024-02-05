@@ -71,11 +71,12 @@ namespace ArcGIS
 
 #if RELEASE
             ScreenshotTab.Visibility = Visibility.Collapsed;
-            if(ApiKeyManager.DisableApiKeyUI)
+#endif
+
+            if (ApiKeyManager.DisableApiKeyUI)
             {
                 APIKeyTab.Visibility = Visibility.Collapsed;
             }
-#endif
         }
 
         private void SetUpTelemetryTab()

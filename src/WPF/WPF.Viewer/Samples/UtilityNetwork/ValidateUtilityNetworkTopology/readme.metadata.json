@@ -1,0 +1,19 @@
+{
+    "category": "UtilityNetwork",
+    "description": "Demonstrates the workflow of getting the network state and validating the topology of a utility network.",
+    "formal_name": "ValidateUtilityNetworkTopology",
+    "ignore": false,
+    "images": [
+        "ValidateUtilityNetworkTopology.jpg"
+    ],
+    "keywords": [
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/ValidateUtilityNetworkTopology.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Validate utility network topology"
+}

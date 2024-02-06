@@ -1,5 +1,5 @@
 {
-    "category": "UtilityNetwork",
+    "category": "Utility network",
     "description": "Demonstrates the workflow of getting the network state and validating the topology of a utility network.",
     "formal_name": "ValidateUtilityNetworkTopology",
     "ignore": false,
@@ -7,13 +7,33 @@
         "validateutilitynetworktopology.jpg"
     ],
     "keywords": [
+        "dirty areas",
+        "edit",
+        "network topology",
+        "online",
+        "state",
+        "trace",
+        "utility network",
+        "validate"
     ],
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/ValidateUtilityNetworkTopology.htm"
+        "/net/latest/maui/sample-code/validateutilitynetworktopology.htm"
     ],
     "relevant_apis": [
+        "UtilityElement",
+        "UtilityElementTraceResult",
+        "UtilityNetwork",
+        "UtilityNetworkCapabilities",
+        "UtilityNetworkState",
+        "UtilityNetworkValidationJob",
+        "UtilityTraceConfiguration",
+        "UtilityTraceParameters",
+        "UtilityTraceResult"
     ],
     "snippets": [
+        "ValidateUtilityNetworkTopology.xaml.cs",
+        "ValidateUtilityNetworkTopology.xaml"
     ],
     "title": "Validate utility network topology"
 }

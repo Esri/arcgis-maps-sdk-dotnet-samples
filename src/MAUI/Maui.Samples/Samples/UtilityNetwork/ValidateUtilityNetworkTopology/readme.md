@@ -11,8 +11,9 @@ Dirty areas are generated where edits to utility network features have not been 
 ## How to use the sample
 
 Select features to make edits and then use 'Update and Apply Edit' to send edits to the server.
-* Tap 'Get state' to check if validate is required or if tracing is available. 
-* Tap 'Validate' to validate network topology and clear dirty areas. 
+
+* Tap 'Get state' to check if validate is required or if tracing is available.
+* Tap 'Validate' to validate network topology and clear dirty areas.
 * Tap 'Trace' to run a trace.
 
 ## How it works

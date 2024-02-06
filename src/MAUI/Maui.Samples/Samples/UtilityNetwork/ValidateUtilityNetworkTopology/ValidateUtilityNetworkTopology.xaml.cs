@@ -53,6 +53,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
 
         // To impact trace
         private const string DeviceStatusField = "devicestatus";
+
         private readonly LabelDefinition DeviceLabelDefinition = new LabelDefinition(
             new SimpleLabelExpression($"[{DeviceStatusField}]"),
             new TextSymbol
@@ -69,6 +70,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
 
         // To better visualize dirty area
         private const string NominalVoltageField = "nominalvoltage";
+
         private readonly LabelDefinition LineLabelDefinition = new LabelDefinition(
             new SimpleLabelExpression($"[{NominalVoltageField}]"),
             new TextSymbol

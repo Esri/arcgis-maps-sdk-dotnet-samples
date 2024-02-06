@@ -3,8 +3,8 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using System;
@@ -56,6 +56,7 @@ namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
 
         // To impact trace
         private const string DeviceStatusField = "devicestatus";
+
         private readonly LabelDefinition DeviceLabelDefinition = new LabelDefinition(
             new SimpleLabelExpression($"[{DeviceStatusField}]"),
             new TextSymbol
@@ -72,6 +73,7 @@ namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
 
         // To better visualize dirty area
         private const string NominalVoltageField = "nominalvoltage";
+
         private readonly LabelDefinition LineLabelDefinition = new LabelDefinition(
             new SimpleLabelExpression($"[{NominalVoltageField}]"),
             new TextSymbol
@@ -561,7 +563,7 @@ namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
                 {
                     XamlRoot = Dialog.XamlRoot,
                     Title = ex.GetType().Name,
-                    Content = ex.Message, 
+                    Content = ex.Message,
                     CloseButtonText = "OK"
                 }.ShowAsync();
             }
@@ -590,5 +592,4 @@ namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
             ClearBtn.IsEnabled = false;
         }
     }
-
 }

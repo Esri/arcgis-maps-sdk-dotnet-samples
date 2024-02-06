@@ -57,6 +57,10 @@ namespace ArcGIS.WPF.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
 
             // Set the initial viewpoint to Zurich, Switzerland.
             await MyMapView.SetViewpointAsync(new Viewpoint(47.38, 8.53, 8e4));
+
+            // Enable the draw clusters button after the layer finishes loading.
+            await _layer.LoadAsync();
+            DrawClustersButton.IsEnabled = true;
         }
 
         private void CreateCustomFeatureReduction()
@@ -105,17 +109,22 @@ namespace ArcGIS.WPF.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
             // Set the feature reduction for the layer.
             _layer.FeatureReduction = _clusteringFeatureReduction;
 
-            // Set initial slider values.
+            // Populate the cluster radius and max scale pickers with default values.
+            ClusterRadiusPicker.ItemsSource = new double[] { 30, 45, 60, 75, 90 };
+            MaxScalePicker.ItemsSource = new double[] { 0, 1000, 5000, 10000, 50000, 100000, 500000 };
+
+            // Set initial picker values.
             // Note that the default value for cluster radius is 60.
             // Increasing the cluster radius increases the number of features that are grouped together into a cluster.
-            ClusterRadiusSlider.Value = _clusteringFeatureReduction.Radius;
+            ClusterRadiusPicker.SelectedValue = _clusteringFeatureReduction.Radius;
 
             // Note that the default value for max scale is 0.
             // The max scale value is the maximum scale at which clustering is applied.
-            MaxScaleSlider.Value = _clusteringFeatureReduction.MaxScale;
+            MaxScalePicker.SelectedValue = _clusteringFeatureReduction.MaxScale;
         }
 
         #region EventHandlers
+
         private void DisplayLabelsCheckBox_Checked(object sender, RoutedEventArgs e)
         {
             if ((bool)(sender as CheckBox).IsChecked)
@@ -132,16 +141,23 @@ namespace ArcGIS.WPF.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
             {
                 _clusteringFeatureReduction.LabelDefinitions.Clear();
             }
-
         }
 
-        private void UpdateClusteringProperties(object sender, RoutedPropertyChangedEventArgs<double> e)
+        // When a new picker item is selected, update the feature reduction cluster radius.
+        private void ClusterRadiusPicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (_layer != null)
             {
-                // Update the feature reduction's cluster radius and max scale properties.
-                ((ClusteringFeatureReduction)_layer.FeatureReduction).Radius = ClusterRadiusSlider.Value;
-                ((ClusteringFeatureReduction)_layer.FeatureReduction).MaxScale = MaxScaleSlider.Value;
+                ((ClusteringFeatureReduction)_layer.FeatureReduction).Radius = (double)ClusterRadiusPicker.SelectedItem;
+            }
+        }
+
+        // When a new picker item is selected, update the feature reduction max scale.
+        private void MaxScalePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (_layer != null)
+            {
+                ((ClusteringFeatureReduction)_layer.FeatureReduction).MaxScale = (double)MaxScalePicker.SelectedValue;
             }
         }
 
@@ -164,7 +180,7 @@ namespace ArcGIS.WPF.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
             CreateCustomFeatureReduction();
 
             // Show the feature reduction's clustering options.
-            AddClusteringFeatureReductionToAPointFeatureLayerOptions.Visibility = Visibility.Visible;
+            ClusteringOptions.Visibility = Visibility.Visible;
 
             // Add an event handler for tap events on the map view.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -179,6 +195,7 @@ namespace ArcGIS.WPF.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
             PopupBackground.Visibility = Visibility.Collapsed;
             PopupViewer.Popup = null;
         }
-        #endregion
+
+        #endregion EventHandlers
     }
 }

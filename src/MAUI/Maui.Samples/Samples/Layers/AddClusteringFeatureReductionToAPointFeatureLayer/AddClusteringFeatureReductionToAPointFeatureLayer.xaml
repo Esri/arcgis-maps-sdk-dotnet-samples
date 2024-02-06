@@ -9,57 +9,62 @@
             <VerticalStackLayout>
                 <Button x:Name="DrawClustersButton"
                         Clicked="DrawClustersButton_Clicked"
+                        IsEnabled="False"
                         Text="Draw clusters" />
-                <VerticalStackLayout x:Name="AddClusteringFeatureReductionToAPointFeatureLayerOptions" IsVisible="False">
-                    <Label Margin="0,0,0,10"
-                           FontSize="Small"
-                           Text="Clustering properties" />
-                    <Grid ColumnDefinitions="auto,*" RowDefinitions="auto,auto,auto,auto">
-                        <Label Grid.Row="0"
-                               Grid.Column="0"
-                               Text="Display Labels"
-                               VerticalOptions="Center" />
-                        <CheckBox x:Name="DisplayLabelsCheckBox"
-                                  Grid.Row="0"
-                                  Grid.Column="1"
-                                  Background="Transparent"
-                                  CheckedChanged="DisplayLabelsCheckBox_CheckedChanged"
-                                  HorizontalOptions="Start"
-                                  IsChecked="false"
-                                  VerticalOptions="Center" />
-                        <Label Grid.Row="1"
-                               Grid.Column="0"
-                               BindingContext="{x:Reference ClusterRadiusSlider}"
-                               Text="{Binding Value, StringFormat='Cluster radius: {0:F0}'}"
-                               VerticalOptions="Center" />
-                        <Slider x:Name="ClusterRadiusSlider"
-                                Grid.Row="1"
-                                Grid.Column="1"
-                                Maximum="85"
-                                Minimum="30"
-                                ValueChanged="UpdateClusteringProperties"
-                                VerticalOptions="Center" />
-                        <Label Grid.Row="2"
-                               Grid.Column="0"
-                               BindingContext="{x:Reference MaxScaleSlider}"
-                               Text="{Binding Value, StringFormat='MaxScale: {0:F0}'}"
-                               VerticalOptions="Center" />
-                        <Slider x:Name="MaxScaleSlider"
-                                Grid.Row="2"
-                                Grid.Column="1"
-                                Maximum="150000"
-                                Minimum="0"
-                                ValueChanged="UpdateClusteringProperties"
-                                VerticalOptions="Center" />
-                        <Label Grid.Row="3"
-                               Grid.Column="0"
-                               Text="Current map scale:" />
-                        <Label Grid.Row="3"
-                               Grid.Column="1"
-                               BindingContext="{x:Reference MyMapView}"
-                               Text="{Binding Path=MapScale, Mode=OneWay, StringFormat='{0:n0}'}" />
-                    </Grid>
-                </VerticalStackLayout>
+                <Grid x:Name="ClusteringOptions"
+                      ColumnDefinitions="3*,2*"
+                      ColumnSpacing="5"
+                      IsVisible="False"
+                      RowDefinitions="auto,auto,auto,auto,auto"
+                      RowSpacing="5">
+                    <Label Grid.ColumnSpan="2"
+                           FontAttributes="Bold"
+                           FontSize="Medium"
+                           HorizontalTextAlignment="Center"
+                           IsEnabled="False"
+                           Text="Clustering Properties" />
+                    <Label Grid.Row="1"
+                           FontAttributes="Bold"
+                           HorizontalOptions="End"
+                           Text="Display labels:"
+                           VerticalOptions="Center" />
+                    <CheckBox x:Name="DisplayLabelsCheckBox"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              Background="Transparent"
+                              CheckedChanged="DisplayLabelsCheckBox_CheckedChanged"
+                              HorizontalOptions="Start"
+                              IsChecked="false"
+                              VerticalOptions="Center" />
+                    <Label Grid.Row="2"
+                           FontAttributes="Bold"
+                           HorizontalOptions="End"
+                           Text="Cluster radius:"
+                           VerticalOptions="Center" />
+                    <Picker x:Name="ClusterRadiusPicker"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            SelectedIndexChanged="ClusterRadiusPicker_SelectedIndexChanged"
+                            VerticalOptions="Center" />
+                    <Label Grid.Row="3"
+                           FontAttributes="Bold"
+                           HorizontalOptions="End"
+                           Text="Maxium map scale:"
+                           VerticalOptions="Center" />
+                    <Picker x:Name="MaxScalePicker"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            SelectedIndexChanged="MaxScalePicker_SelectedIndexChanged"
+                            VerticalOptions="Center" />
+                    <Label Grid.Row="4"
+                           FontAttributes="Bold"
+                           HorizontalOptions="End"
+                           Text="Current map scale:" />
+                    <Label Grid.Row="4"
+                           Grid.Column="1"
+                           BindingContext="{x:Reference MyMapView}"
+                           Text="{Binding Path=MapScale, Mode=OneWay, StringFormat='{0:n0}'}" />
+                </Grid>
             </VerticalStackLayout>
         </Border>
         <Grid x:Name="PopupBackground"

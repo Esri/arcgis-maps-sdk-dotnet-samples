@@ -230,7 +230,7 @@ namespace ArcGIS.WPF.Samples.ValidateUtilityNetworkTopology
                 // Set the instruction text.
                 Status.Text = "Utility Network Loaded\n" +
                     "Tap on a feature to edit.\n" +
-                    "Click 'Get State' to check if validating is necessary.\n" +
+                    "Click 'Get State' to check if validating is necessary\n" +
                     "or if tracing is available.\n" +
                     "Click 'Trace' to run a trace.";
             }

@@ -386,8 +386,8 @@ namespace ArcGIS
 
         private async void VerticalHandle_Clicked(object sender, EventArgs e)
         {
-            await DisplayActionSheet ("Select a view", "Cancel", null, new string[] { "Live Sample", "About", "Source Code", "View on GitHub" }).ContinueWith((result) =>
-            { 
+            await DisplayActionSheet("Select a view", "Cancel", null, new string[] { "Live Sample", "About", "Source Code", "View on GitHub" }).ContinueWith((result) =>
+            {
                 if (result.Result != "Cancel")
                 {
                     switch (result.Result)
@@ -395,12 +395,15 @@ namespace ArcGIS
                         case "Live Sample":
                             OpenLiveSample();
                             break;
+
                         case "About":
                             OpenDetailsPage();
                             break;
+
                         case "Source Code":
                             OpenSourceCodePage();
                             break;
+
                         case "View on GitHub":
                             _ = OpenGitHub();
                             break;

@@ -88,6 +88,8 @@ namespace ArcGIS
             // Set the title.
             Title = _sample.SampleName;
 
+            SetToolbarItems();
+
             LoadSampleData(_sample);
         }
 
@@ -338,19 +340,103 @@ namespace ArcGIS
             return true;
         }
 
-        private void SampleButton_Clicked(object sender, EventArgs e)
+        private void SetToolbarItems()
+        {
+#if WINDOWS || MACOS
+            var sampleToolbarItem = new ToolbarItem
+            {
+                IconImageSource = "maps.png",
+                Text = "Live Sample"
+            };
+            sampleToolbarItem.Clicked += SampleToolbarItem_Clicked;
+            this.ToolbarItems.Add(sampleToolbarItem);
+
+            var infoToolbarItem = new ToolbarItem
+            {
+                IconImageSource = "information.png",
+                Text = "About"
+            };
+            infoToolbarItem.Clicked += InfoToolbarItem_Clicked;
+            this.ToolbarItems.Add(infoToolbarItem);
+
+            var sourceCodeToolbarItem = new ToolbarItem
+            {
+                IconImageSource = "code.png",
+                Text = "Source Code",
+            };
+            sourceCodeToolbarItem.Clicked += SourceCodeToolbarItem_Clicked;
+            this.ToolbarItems.Add(sourceCodeToolbarItem);
+
+            var gitHubToolbarItem = new ToolbarItem
+            {
+                IconImageSource = "github.png",
+                Text = "GitHub",
+            };
+            gitHubToolbarItem.Clicked += GitHubToolbarItem_Clicked;
+            this.ToolbarItems.Add(gitHubToolbarItem);
+#else
+            var verticalHandle = new ToolbarItem
+            {
+                IconImageSource = "verticalhandle.png"
+            };
+            verticalHandle.Clicked += VerticalHandle_Clicked;
+            this.ToolbarItems.Add(verticalHandle);
+#endif
+        }
+
+        private async void VerticalHandle_Clicked(object sender, EventArgs e)
+        {
+            await DisplayActionSheet ("Select a view", "Cancel", null, new string[] { "Live Sample", "About", "Source Code", "View on GitHub" }).ContinueWith((result) =>
+            { 
+                if (result.Result != "Cancel")
+                {
+                    switch (result.Result)
+                    {
+                        case "Live Sample":
+                            OpenLiveSample();
+                            break;
+                        case "About":
+                            OpenDetailsPage();
+                            break;
+                        case "Source Code":
+                            OpenSourceCodePage();
+                            break;
+                        case "View on GitHub":
+                            _ = OpenGitHub();
+                            break;
+                    }
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private void SampleToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            OpenLiveSample();
+        }
+
+        private void OpenLiveSample()
         {
             SampleContentPage.IsVisible = true;
             SampleDetailPage.IsVisible = SourceCodePage.IsVisible = false;
         }
 
-        private void DetailButton_Clicked(object sender, EventArgs e)
+        private void InfoToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            OpenDetailsPage();
+        }
+
+        private void OpenDetailsPage()
         {
             SampleDetailPage.IsVisible = true;
             SampleContentPage.IsVisible = SourceCodePage.IsVisible = false;
         }
 
-        private void SourceButton_Clicked(object sender, EventArgs e)
+        private void SourceCodeToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            OpenSourceCodePage();
+        }
+
+        private void OpenSourceCodePage()
         {
             if (SourceFiles.Any())
             {
@@ -362,7 +448,12 @@ namespace ArcGIS
             SampleDetailPage.IsVisible = SampleContentPage.IsVisible = false;
         }
 
-        private async void GitHubButton_Clicked(object sender, EventArgs e)
+        private async void GitHubToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            await OpenGitHub();
+        }
+
+        private async Task OpenGitHub()
         {
             try
             {

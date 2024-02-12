@@ -30,6 +30,7 @@
 		</Category>
 		<Category name="UtilityNetwork">
 			<Sample>CreateLoadReport</Sample>
+			<Sample>ValidateUtilityNetworkTopology</Sample>
 		</Category>
 	</Categories>
 </FeaturedSamples>

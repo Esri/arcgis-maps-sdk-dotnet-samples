@@ -68,27 +68,14 @@ namespace ArcGIS
             // Update the content - this displays the sample.
             SampleContentPage.Content = _sampleContent.Content;
 
-#if WINDOWS
-            if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
-            {
-                var screenshotToolbarItem = new ToolbarItem();
-                screenshotToolbarItem.Clicked += ScreenshotButton_Clicked;
-                screenshotToolbarItem.IconImageSource = "camera.png";
-                screenshotToolbarItem.Text = "Screenshot";
-                ToolbarItems.Insert(0, screenshotToolbarItem);
-
-                SampleContentPage.WidthRequest = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
-                SampleContentPage.HeightRequest = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
-            }
-#endif
+            // Set the toolbar items.
+            SetToolbarItems();
 
             //  Start AR
             if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
 
             // Set the title.
             Title = _sample.SampleName;
-
-            SetToolbarItems();
 
             LoadSampleData(_sample);
         }
@@ -342,6 +329,13 @@ namespace ArcGIS
 
         private void SetToolbarItems()
         {
+#if WINDOWS
+            // Add the screenshot tool if enabled in settings.
+            if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
+            {
+                ToolbarItems.Add(PrepareScreenshotTool());
+            }
+#endif
 #if WINDOWS || MACCATALYST
             var sampleToolbarItem = new ToolbarItem
             {
@@ -385,6 +379,23 @@ namespace ArcGIS
             ToolbarItems.Add(verticalHandle);
 #endif
         }
+
+#if WINDOWS
+        private ToolbarItem PrepareScreenshotTool()
+        {
+            var screenshotToolbarItem = new ToolbarItem()
+            {
+                IconImageSource = "camera.png",
+                Text = "Screenshot"
+            };
+            screenshotToolbarItem.Clicked += ScreenshotButton_Clicked;
+
+            SampleContentPage.WidthRequest = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
+            SampleContentPage.HeightRequest = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
+            
+            return screenshotToolbarItem;
+        }
+#endif
 
         private async void VerticalHandle_Clicked(object sender, EventArgs e)
         {

@@ -266,9 +266,9 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
 
                     var sb = new StringBuilder(
                         "Utility Network State:\n"
-                            + $"\tHas Dirty Areas: {state.HasDirtyAreas}\n"
-                            + $"\tHas Errors: {state.HasErrors}\n"
-                            + $"\tIs Network Topology Enabled: {state.IsNetworkTopologyEnabled}\n"
+                            + $"- Has Dirty Areas: {state.HasDirtyAreas}\n"
+                            + $"- Has Errors: {state.HasErrors}\n"
+                            + $"- Is Network Topology Enabled: {state.IsNetworkTopologyEnabled}\n"
                     );
 
                     if (state.HasDirtyAreas || state.HasErrors)
@@ -317,8 +317,8 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
 
                 Status.Text =
                     "Utility Validation Result:\n"
-                    + $"\tHas Dirty Areas: {result.HasDirtyAreas}\n"
-                    + $"\tHas Errors: {result.HasErrors}\n" +
+                    + $"- Has Dirty Areas: {result.HasDirtyAreas}\n"
+                    + $"- Has Errors: {result.HasErrors}\n" +
                     "Click 'Get State' to check the updated network state.";
 
                 ValidateBtn.IsEnabled = result.HasDirtyAreas;
@@ -475,6 +475,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                 AttributePicker.IsVisible = false;
                 ClearBtn.IsEnabled = false;
                 ValidateBtn.IsEnabled = true;
+                IsBusy.IsVisible = false;
             }
         }
 

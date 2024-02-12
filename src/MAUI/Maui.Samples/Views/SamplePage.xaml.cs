@@ -342,14 +342,14 @@ namespace ArcGIS
 
         private void SetToolbarItems()
         {
-#if WINDOWS || MACOS
+#if WINDOWS || MACCATALYST
             var sampleToolbarItem = new ToolbarItem
             {
                 IconImageSource = "maps.png",
                 Text = "Live Sample"
             };
             sampleToolbarItem.Clicked += SampleToolbarItem_Clicked;
-            this.ToolbarItems.Add(sampleToolbarItem);
+            ToolbarItems.Add(sampleToolbarItem);
 
             var infoToolbarItem = new ToolbarItem
             {
@@ -357,30 +357,32 @@ namespace ArcGIS
                 Text = "About"
             };
             infoToolbarItem.Clicked += InfoToolbarItem_Clicked;
-            this.ToolbarItems.Add(infoToolbarItem);
+            ToolbarItems.Add(infoToolbarItem);
 
             var sourceCodeToolbarItem = new ToolbarItem
             {
                 IconImageSource = "code.png",
-                Text = "Source Code",
+                Text = "Source Code"
             };
             sourceCodeToolbarItem.Clicked += SourceCodeToolbarItem_Clicked;
-            this.ToolbarItems.Add(sourceCodeToolbarItem);
+            ToolbarItems.Add(sourceCodeToolbarItem);
 
             var gitHubToolbarItem = new ToolbarItem
             {
-                IconImageSource = "github.png",
-                Text = "GitHub",
+#if WINDOWS
+                IconImageSource = "github.png", // Icon too large on Mac, so force text instead.
+#endif
+                Text = "GitHub"
             };
             gitHubToolbarItem.Clicked += GitHubToolbarItem_Clicked;
-            this.ToolbarItems.Add(gitHubToolbarItem);
+            ToolbarItems.Add(gitHubToolbarItem);
 #else
             var verticalHandle = new ToolbarItem
             {
                 IconImageSource = "verticalhandle.png"
             };
             verticalHandle.Clicked += VerticalHandle_Clicked;
-            this.ToolbarItems.Add(verticalHandle);
+            ToolbarItems.Add(verticalHandle);
 #endif
         }
 

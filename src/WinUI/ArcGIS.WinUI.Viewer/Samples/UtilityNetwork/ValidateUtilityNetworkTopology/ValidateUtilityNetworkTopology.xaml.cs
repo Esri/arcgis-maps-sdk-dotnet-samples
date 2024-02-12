@@ -7,11 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
@@ -24,7 +19,11 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
+using System;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
 {
@@ -110,6 +109,7 @@ namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
                 Status.Text = "Loading a webmap...";
 
                 // Add credential for this webmap.
+                // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample
                 string sampleServerPortalUrl =
                     "https://sampleserver7.arcgisonline.com/portal/sharing/rest";
                 string sampleServer7User = "editor01";
@@ -172,7 +172,7 @@ namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
                 var dirtyAreaTable =
                     utilityNetwork.DirtyAreaTable
                     ?? throw new InvalidOperationException("Expected a dirty area table");
-                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(dirtyAreaTable));
+                MyMapView.Map.OperationalLayers.Insert(0, new FeatureLayer(utilityNetwork.DirtyAreaTable));
 
                 // Trace with a subnetwork controller as default starting location.
                 var networkSource = utilityNetwork.Definition.GetNetworkSource(DeviceTableName);
@@ -231,20 +231,14 @@ namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
                 // Set the instruction text.
                 Status.Text = "Utility Network Loaded\n" +
                     "Tap on a feature to edit.\n" +
-                    "Click 'Get State' to check if validating is necessary\n" +
+                    "Click 'Get State' to check if validating is necessary " +
                     "or if tracing is available.\n" +
                     "Click 'Trace' to run a trace.";
             }
             catch (Exception ex)
             {
                 Status.Text = "Initialization failed.";
-                await new ContentDialog()
-                {
-                    XamlRoot = Dialog.XamlRoot,
-                    Title = ex.GetType().Name,
-                    Content = ex.Message,
-                    CloseButtonText = "OK"
-                }.ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {
@@ -294,13 +288,7 @@ namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
             }
             catch (Exception ex)
             {
-                await new ContentDialog()
-                {
-                    XamlRoot = Dialog.XamlRoot,
-                    Title = ex.GetType().Name,
-                    Content = ex.Message,
-                    CloseButtonText = "OK"
-                }.ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {
@@ -341,13 +329,7 @@ namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
             catch (Exception ex)
             {
                 Status.Text = "Validate network topology failed.";
-                await new ContentDialog()
-                {
-                    XamlRoot = Dialog.XamlRoot,
-                    Title = ex.GetType().Name,
-                    Content = ex.Message,
-                    CloseButtonText = "OK"
-                }.ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {
@@ -427,13 +409,7 @@ namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
             catch (Exception ex)
             {
                 Status.Text = "Identifying feature to edit failed.";
-                await new ContentDialog()
-                {
-                    XamlRoot = Dialog.XamlRoot,
-                    Title = ex.GetType().Name,
-                    Content = ex.Message,
-                    CloseButtonText = "OK"
-                }.ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {
@@ -487,13 +463,7 @@ namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
             catch (Exception ex)
             {
                 Status.Text = "Apply edits failed.";
-                await new ContentDialog()
-                {
-                    XamlRoot = Dialog.XamlRoot,
-                    Title = ex.GetType().Name,
-                    Content = ex.Message,
-                    CloseButtonText = "OK"
-                }.ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {
@@ -559,13 +529,7 @@ namespace ArcGIS.WinUI.Samples.ValidateUtilityNetworkTopology
             {
                 Status.Text = "Trace failed.\n" +
                     "Click 'Get State' to check the updated network state.";
-                await new ContentDialog()
-                {
-                    XamlRoot = Dialog.XamlRoot,
-                    Title = ex.GetType().Name,
-                    Content = ex.Message,
-                    CloseButtonText = "OK"
-                }.ShowAsync();
+                await new MessageDialog2(ex.Message, ex.GetType().Name).ShowAsync();
             }
             finally
             {

@@ -109,6 +109,7 @@ namespace ArcGIS.WPF.Samples.ValidateUtilityNetworkTopology
                 Status.Text = "Loading a webmap...";
 
                 // Add credential for this webmap.
+                // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample
                 string sampleServerPortalUrl =
                     "https://sampleserver7.arcgisonline.com/portal/sharing/rest";
                 string sampleServer7User = "editor01";
@@ -171,7 +172,7 @@ namespace ArcGIS.WPF.Samples.ValidateUtilityNetworkTopology
                 var dirtyAreaTable =
                     utilityNetwork.DirtyAreaTable
                     ?? throw new InvalidOperationException("Expected a dirty area table");
-                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(dirtyAreaTable));
+                MyMapView.Map.OperationalLayers.Insert(0, new FeatureLayer(utilityNetwork.DirtyAreaTable));
 
                 // Trace with a subnetwork controller as default starting location.
                 var networkSource = utilityNetwork.Definition.GetNetworkSource(DeviceTableName);
@@ -230,7 +231,7 @@ namespace ArcGIS.WPF.Samples.ValidateUtilityNetworkTopology
                 // Set the instruction text.
                 Status.Text = "Utility Network Loaded\n" +
                     "Tap on a feature to edit.\n" +
-                    "Click 'Get State' to check if validating is necessary\n" +
+                    "Click 'Get State' to check if validating is necessary " +
                     "or if tracing is available.\n" +
                     "Click 'Trace' to run a trace.";
             }

@@ -7,10 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
@@ -20,7 +17,8 @@ using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
+using Color = System.Drawing.Color;
+using Esri.ArcGISRuntime.Maui;
 using Esri.ArcGISRuntime.UtilityNetworks;
 
 namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
@@ -58,8 +56,8 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             new SimpleLabelExpression($"[{DeviceStatusField}]"),
             new TextSymbol
             {
-                Color = System.Drawing.Color.Blue,
-                HaloColor = System.Drawing.Color.White,
+                Color = Color.Blue,
+                HaloColor = Color.White,
                 HaloWidth = 2,
                 Size = 12
             }
@@ -75,8 +73,8 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             new SimpleLabelExpression($"[{NominalVoltageField}]"),
             new TextSymbol
             {
-                Color = System.Drawing.Color.Red,
-                HaloColor = System.Drawing.Color.White,
+                Color = Color.Red,
+                HaloColor = Color.White,
                 HaloWidth = 2,
                 Size = 12
             }
@@ -103,9 +101,11 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
         {
             try
             {
+                IsBusy.IsVisible = true;
                 Status.Text = "Loading a webmap...";
 
                 // Add credential for this webmap.
+                // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample.
                 string sampleServerPortalUrl =
                     "https://sampleserver7.arcgisonline.com/portal/sharing/rest";
                 string sampleServer7User = "editor01";
@@ -139,6 +139,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                 var sgdb =
                     utilityNetwork.ServiceGeodatabase
                     ?? throw new InvalidOperationException("Expected a service geodatabase");
+                IsBusy.IsVisible = true;
 
                 // Restrict editing and tracing on a random branch.
                 var parameters = new ServiceVersionParameters();
@@ -168,7 +169,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                 var dirtyAreaTable =
                     utilityNetwork.DirtyAreaTable
                     ?? throw new InvalidOperationException("Expected a dirty area table");
-                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(dirtyAreaTable));
+                MyMapView.Map.OperationalLayers.Insert(0, new FeatureLayer(utilityNetwork.DirtyAreaTable));
 
                 // Trace with a subnetwork controller as default starting location.
                 var networkSource = utilityNetwork.Definition.GetNetworkSource(DeviceTableName);
@@ -194,7 +195,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                     {
                         Symbol = new SimpleMarkerSymbol(
                             SimpleMarkerSymbolStyle.Cross,
-                            System.Drawing.Color.Green,
+                            Color.Green,
                             25d
                         )
                     };
@@ -227,7 +228,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                 // Set the instruction text.
                 Status.Text = "Utility Network Loaded\n" +
                     "Tap on a feature to edit.\n" +
-                    "Click 'Get State' to check if validating is necessary\n" +
+                    "Click 'Get State' to check if validating is necessary " +
                     "or if tracing is available.\n" +
                     "Click 'Trace' to run a trace.";
             }
@@ -235,6 +236,10 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             {
                 Status.Text = "Initialization failed.";
                 await DisplayAlert(ex.Message, ex.GetType().Name, "OK");
+            }
+            finally
+            {
+                IsBusy.IsVisible = false;
             }
         }
 
@@ -248,6 +253,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
 
                 if (utilityNetwork.Definition.Capabilities.SupportsNetworkState)
                 {
+                    IsBusy.IsVisible = true;
                     Status.Text = "Getting utility network state...";
 
                     var state = await utilityNetwork.GetStateAsync();
@@ -281,6 +287,10 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             {
                 await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
+            finally
+            {
+                IsBusy.IsVisible = false;
+            }
         }
 
         private async void OnValidate(object sender, EventArgs e)
@@ -298,6 +308,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                     ?.Extent
                     ?? throw new InvalidOperationException("Expected current extent");
 
+                IsBusy.IsVisible = true;
                 Status.Text = "Validating utility network topology...";
 
                 // Get the validation result.
@@ -317,12 +328,17 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                 Status.Text = "Validate network topology failed.";
                 await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
+            finally
+            {
+                IsBusy.IsVisible = false;
+            }
         }
 
-        private async void OnGeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
+        private async void OnGeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
             try
             {
+                IsBusy.IsVisible = true;
                 Status.Text = "Identifying feature to edit...";
 
                 // Perform an identify to determine if a user tapped on a feature.
@@ -392,6 +408,10 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                 Status.Text = "Identifying feature to edit failed.";
                 await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
+            finally
+            {
+                IsBusy.IsVisible = false;
+            }
         }
 
         private async void OnApplyEdits(object sender, EventArgs e)
@@ -413,6 +433,8 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                 {
                     return;
                 }
+
+                IsBusy.IsVisible = true;
 
                 Status.Text = "Updating feature...";
                 _featureToEdit.Attributes[fieldName] = codedValue.Code;
@@ -465,6 +487,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             try
             {
                 // Update the UI.
+                IsBusy.IsVisible = true;
                 Status.Text = $"Running a downstream trace...";
 
                 // Clear previous selection from the layers.
@@ -503,6 +526,10 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                 Status.Text = "Trace failed.\n" +
                     "Click 'Get State' to check the updated network state.";
                 await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+            }
+            finally
+            {
+                IsBusy.IsVisible = false;
             }
         }
 

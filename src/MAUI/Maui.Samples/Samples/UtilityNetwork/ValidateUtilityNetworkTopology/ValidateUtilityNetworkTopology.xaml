@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.ValidateUtilityNetworkTopology.ValidateUtilityNetworkTopology"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                        GeoViewTapped="OnGeoViewTapped"
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <Grid x:Name="ControlPanel"
+                  ColumnDefinitions="*,*"
+                  ColumnSpacing="5"
+                  RowDefinitions="auto,auto,auto,auto"
+                  RowSpacing="5">
+                <Button x:Name="StateBtn"
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Clicked="OnGetState"
+                        Text="Get State" />
+                <Button x:Name="ValidateBtn"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Clicked="OnValidate"
+                        Text="Validate" />
+                <Button x:Name="TraceBtn"
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Clicked="OnTrace"
+                        Text="Trace" />
+                <Button x:Name="ClearBtn"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Clicked="OnClear"
+                        Text="Clear Selected" />
+                <Label x:Name="Status"
+                       Grid.Row="2"
+                       Grid.ColumnSpan="2"
+                       Text="Loading sample..." />
+                <ActivityIndicator x:Name="IsBusy"
+                                   Grid.Row="3"
+                                   Grid.ColumnSpan="2"
+                                   Height="15"
+                                   IsRunning="True"
+                                   IsVisible="False" />
+            </Grid>
+        </Border>
+        <Border x:Name="AttributePicker"
+                Grid.RowSpan="2"
+                Grid.ColumnSpan="2"
+                Margin="5"
+                Padding="5"
+                Background="{AppThemeBinding Light=#dfdfdf,
+                                             Dark=#303030}"
+                HorizontalOptions="Center"
+                IsVisible="False"
+                StrokeShape="RoundRectangle 10, 10, 10, 10"
+                VerticalOptions="Center">
+            <Grid ColumnDefinitions="Auto,Auto"
+                  ColumnSpacing="5"
+                  RowDefinitions="Auto,Auto"
+                  RowSpacing="5">
+                <Label x:Name="FieldName"
+                       HorizontalTextAlignment="End"
+                       VerticalTextAlignment="Center"
+                       WidthRequest="170" />
+                <Picker x:Name="Choices"
+                        Grid.Column="1"
+                        ItemDisplayBinding="{Binding Name}"
+                        WidthRequest="130" />
+                <Button Grid.Row="1"
+                        Clicked="OnApplyEdits"
+                        Text="Update and Apply Edit" />
+                <Button x:Name="CloseButton"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Clicked="OnClear"
+                        Text="Cancel" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

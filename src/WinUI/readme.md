@@ -266,3 +266,4 @@
 * [Display utility associations](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/DisplayUtilityAssociations) - Create graphics for utility associations in a utility network.
 * [Perform valve isolation trace](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/PerformValveIsolationTrace) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
 * [Trace utility network](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/TraceUtilityNetwork) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
+* [Validate utility network topology](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/ValidateUtilityNetworkTopology) - Demonstrates the workflow of getting the network state and validating the topology of a utility network.

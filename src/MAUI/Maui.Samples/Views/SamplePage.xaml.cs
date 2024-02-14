@@ -369,9 +369,7 @@ namespace ArcGIS
 
             var gitHubToolbarItem = new ToolbarItem
             {
-#if WINDOWS
-                IconImageSource = "github.png", // Icon too large on Mac, so force text instead.
-#endif
+                IconImageSource = "github.png",
                 Text = ViewOnGitHub
             };
             gitHubToolbarItem.Clicked += GitHubToolbarItem_Clicked;

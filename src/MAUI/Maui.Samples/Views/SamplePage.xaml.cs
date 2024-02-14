@@ -45,6 +45,12 @@ namespace ArcGIS
         private SourceCodeFile _selectedFile;
         public ObservableCollection<SourceCodeFile> SourceFiles { get; } = new ObservableCollection<SourceCodeFile>();
 
+        // Toolbar item titles as displayed in UI
+        private const string ViewOnGitHub = "View on GitHub";
+        private const string SourceCode = "Source Code";
+        private const string Description = "Description";
+        private const string LiveSample = "Live Sample";
+
         public SamplePage(SampleInfo sample)
         {
             _sample = sample;
@@ -340,7 +346,7 @@ namespace ArcGIS
             var sampleToolbarItem = new ToolbarItem
             {
                 IconImageSource = "maps.png",
-                Text = "Live Sample"
+                Text = LiveSample
             };
             sampleToolbarItem.Clicked += SampleToolbarItem_Clicked;
             ToolbarItems.Add(sampleToolbarItem);
@@ -348,7 +354,7 @@ namespace ArcGIS
             var infoToolbarItem = new ToolbarItem
             {
                 IconImageSource = "information.png",
-                Text = "About"
+                Text = Description
             };
             infoToolbarItem.Clicked += InfoToolbarItem_Clicked;
             ToolbarItems.Add(infoToolbarItem);
@@ -356,7 +362,7 @@ namespace ArcGIS
             var sourceCodeToolbarItem = new ToolbarItem
             {
                 IconImageSource = "code.png",
-                Text = "Source Code"
+                Text = SourceCode
             };
             sourceCodeToolbarItem.Clicked += SourceCodeToolbarItem_Clicked;
             ToolbarItems.Add(sourceCodeToolbarItem);
@@ -366,7 +372,7 @@ namespace ArcGIS
 #if WINDOWS
                 IconImageSource = "github.png", // Icon too large on Mac, so force text instead.
 #endif
-                Text = "GitHub"
+                Text = ViewOnGitHub
             };
             gitHubToolbarItem.Clicked += GitHubToolbarItem_Clicked;
             ToolbarItems.Add(gitHubToolbarItem);
@@ -399,25 +405,25 @@ namespace ArcGIS
 
         private async void VerticalHandle_Clicked(object sender, EventArgs e)
         {
-            await DisplayActionSheet("Select a view", "Cancel", null, new string[] { "Live Sample", "About", "Source Code", "View on GitHub" }).ContinueWith((result) =>
+            await DisplayActionSheet("Select a view", "Cancel", null, new string[] { LiveSample, Description, SourceCode, ViewOnGitHub }).ContinueWith((result) =>
             {
                 if (result.Result != "Cancel")
                 {
                     switch (result.Result)
                     {
-                        case "Live Sample":
+                        case LiveSample:
                             OpenLiveSample();
                             break;
 
-                        case "About":
+                        case Description:
                             OpenDetailsPage();
                             break;
 
-                        case "Source Code":
+                        case SourceCode:
                             OpenSourceCodePage();
                             break;
 
-                        case "View on GitHub":
+                        case ViewOnGitHub:
                             _ = OpenGitHub();
                             break;
                     }

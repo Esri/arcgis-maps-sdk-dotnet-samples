@@ -45,6 +45,12 @@ namespace ArcGIS
         private SourceCodeFile _selectedFile;
         public ObservableCollection<SourceCodeFile> SourceFiles { get; } = new ObservableCollection<SourceCodeFile>();
 
+        // Toolbar item titles as displayed in UI
+        private const string ViewOnGitHub = "View on GitHub";
+        private const string SourceCode = "Source Code";
+        private const string Description = "Description";
+        private const string LiveSample = "Live Sample";
+
         public SamplePage(SampleInfo sample)
         {
             _sample = sample;
@@ -68,19 +74,8 @@ namespace ArcGIS
             // Update the content - this displays the sample.
             SampleContentPage.Content = _sampleContent.Content;
 
-#if WINDOWS
-            if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
-            {
-                var screenshotToolbarItem = new ToolbarItem();
-                screenshotToolbarItem.Clicked += ScreenshotButton_Clicked;
-                screenshotToolbarItem.IconImageSource = "camera.png";
-                screenshotToolbarItem.Text = "Screenshot";
-                ToolbarItems.Insert(0, screenshotToolbarItem);
-
-                SampleContentPage.WidthRequest = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
-                SampleContentPage.HeightRequest = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
-            }
-#endif
+            // Set the toolbar items.
+            SetToolbarItems();
 
             //  Start AR
             if (_sample is IARSample ARSample) ARSample.StartAugmentedReality();
@@ -338,19 +333,130 @@ namespace ArcGIS
             return true;
         }
 
-        private void SampleButton_Clicked(object sender, EventArgs e)
+        private void SetToolbarItems()
+        {
+#if WINDOWS
+            // Add the screenshot tool if enabled in settings.
+            if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
+            {
+                ToolbarItems.Add(PrepareScreenshotTool());
+            }
+#endif
+#if WINDOWS || MACCATALYST
+            var sampleToolbarItem = new ToolbarItem
+            {
+                IconImageSource = "maps.png",
+                Text = LiveSample
+            };
+            sampleToolbarItem.Clicked += SampleToolbarItem_Clicked;
+            ToolbarItems.Add(sampleToolbarItem);
+
+            var infoToolbarItem = new ToolbarItem
+            {
+                IconImageSource = "information.png",
+                Text = Description
+            };
+            infoToolbarItem.Clicked += InfoToolbarItem_Clicked;
+            ToolbarItems.Add(infoToolbarItem);
+
+            var sourceCodeToolbarItem = new ToolbarItem
+            {
+                IconImageSource = "code.png",
+                Text = SourceCode
+            };
+            sourceCodeToolbarItem.Clicked += SourceCodeToolbarItem_Clicked;
+            ToolbarItems.Add(sourceCodeToolbarItem);
+
+            var gitHubToolbarItem = new ToolbarItem
+            {
+                IconImageSource = "github.png",
+                Text = ViewOnGitHub
+            };
+            gitHubToolbarItem.Clicked += GitHubToolbarItem_Clicked;
+            ToolbarItems.Add(gitHubToolbarItem);
+#else
+            var verticalHandle = new ToolbarItem
+            {
+                IconImageSource = "verticalhandle.png"
+            };
+            verticalHandle.Clicked += VerticalHandle_Clicked;
+            ToolbarItems.Add(verticalHandle);
+#endif
+        }
+
+#if WINDOWS
+        private ToolbarItem PrepareScreenshotTool()
+        {
+            var screenshotToolbarItem = new ToolbarItem()
+            {
+                IconImageSource = "camera.png",
+                Text = "Screenshot"
+            };
+            screenshotToolbarItem.Clicked += ScreenshotButton_Clicked;
+
+            SampleContentPage.WidthRequest = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
+            SampleContentPage.HeightRequest = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
+            
+            return screenshotToolbarItem;
+        }
+#endif
+
+        private async void VerticalHandle_Clicked(object sender, EventArgs e)
+        {
+            await DisplayActionSheet("Select a view", "Cancel", null, new string[] { LiveSample, Description, SourceCode, ViewOnGitHub }).ContinueWith((result) =>
+            {
+                if (result.Result != "Cancel")
+                {
+                    switch (result.Result)
+                    {
+                        case LiveSample:
+                            OpenLiveSample();
+                            break;
+
+                        case Description:
+                            OpenDetailsPage();
+                            break;
+
+                        case SourceCode:
+                            OpenSourceCodePage();
+                            break;
+
+                        case ViewOnGitHub:
+                            _ = OpenGitHub();
+                            break;
+                    }
+                }
+            }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private void SampleToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            OpenLiveSample();
+        }
+
+        private void OpenLiveSample()
         {
             SampleContentPage.IsVisible = true;
             SampleDetailPage.IsVisible = SourceCodePage.IsVisible = false;
         }
 
-        private void DetailButton_Clicked(object sender, EventArgs e)
+        private void InfoToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            OpenDetailsPage();
+        }
+
+        private void OpenDetailsPage()
         {
             SampleDetailPage.IsVisible = true;
             SampleContentPage.IsVisible = SourceCodePage.IsVisible = false;
         }
 
-        private void SourceButton_Clicked(object sender, EventArgs e)
+        private void SourceCodeToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            OpenSourceCodePage();
+        }
+
+        private void OpenSourceCodePage()
         {
             if (SourceFiles.Any())
             {
@@ -362,7 +468,12 @@ namespace ArcGIS
             SampleDetailPage.IsVisible = SampleContentPage.IsVisible = false;
         }
 
-        private async void GitHubButton_Clicked(object sender, EventArgs e)
+        private async void GitHubToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            await OpenGitHub();
+        }
+
+        private async Task OpenGitHub()
         {
             try
             {

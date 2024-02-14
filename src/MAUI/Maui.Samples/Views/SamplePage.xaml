@@ -3,21 +3,6 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Shell.PresentationMode="Animated">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Clicked="SampleButton_Clicked"
-                     IconImageSource="maps.png"
-                     Text="Sample" />
-        <ToolbarItem Clicked="DetailButton_Clicked"
-                     IconImageSource="information.png"
-                     Text="About" />
-        <ToolbarItem Clicked="SourceButton_Clicked"
-                     IconImageSource="code.png"
-                     Text="Source" />
-        <ToolbarItem Clicked="GitHubButton_Clicked"
-                     IconImageSource="github.png"
-                     Text="GitHub"
-                     ToolTipProperties.Text="View on GitHub" />
-    </ContentPage.ToolbarItems>
     <Grid>
         <Border x:Name="SampleDetailPage" IsVisible="false" />
         <Border x:Name="SourceCodePage" IsVisible="false">

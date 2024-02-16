@@ -127,6 +127,8 @@ namespace ArcGIS
 
                 if (_sampleContent is IDisposable disposableSample) disposableSample.Dispose();
                 if (_sampleContent is IARSample ARSample) ARSample.StopAugmentedReality();
+
+                SampleManager.Current.SelectedSample = null;
             }
         }
 

@@ -625,6 +625,15 @@ namespace ArcGIS
                 using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync(_path).ConfigureAwait(false);
                 SourceCode = baseContent = new StreamReader(fileStream).ReadToEnd();
 #endif
+                // For xaml files, search for dynamic resource styles, taking into account any whitespace.
+                if (_path.EndsWith(".xaml") && String.Concat(baseContent.Where(c => !Char.IsWhiteSpace(c)))
+                    .Contains("Style=\"{DynamicResource"))
+                {
+                    // Display a comment on the second line of the file.
+                    baseContent = baseContent.Insert(baseContent.IndexOf(">")+1, 
+                        "\n<!-- Styles used in this sample can be copied from Resources/Styles/Styles.xaml. -->");
+                }
+                
                 // > and < characters will be incorrectly parsed by the html.
                 baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");
 

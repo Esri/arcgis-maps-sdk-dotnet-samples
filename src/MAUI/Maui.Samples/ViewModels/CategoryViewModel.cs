@@ -102,7 +102,8 @@ namespace ArcGIS.ViewModels
         [RelayCommand]
         void SampleSelected(SampleViewModel sampleViewModel)
         {
-            _ = SampleLoader.LoadSample(sampleViewModel.SampleObject);
+            if(SampleManager.Current.SelectedSample == null)
+                _ = SampleLoader.LoadSample(sampleViewModel.SampleObject);
         }
     }
 

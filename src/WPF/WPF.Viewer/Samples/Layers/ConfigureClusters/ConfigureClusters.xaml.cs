@@ -22,21 +22,21 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace ArcGIS.WPF.Samples.AddClusteringFeatureReductionToAPointFeatureLayer
+namespace ArcGIS.WPF.Samples.ConfigureClusters
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Add clustering feature reduction to a point feature layer",
+        name: "Configure clusters",
         category: "Layers",
         description: "Add client side feature reduction on a point feature layer that is not pre-configured with clustering.",
         instructions: "Tap the `Draw clusters` button to set new feature reduction object on the feature layer. Interact with the controls to customize clustering feature reduction properties. Tap on any clustered aggregate geoelement to see the cluster feature count and aggregate fields in the popup.",
         tags: new[] { "aggregate", "bin", "cluster", "group", "merge", "normalize", "popup", "reduce", "renderer", "summarize" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("aa44e79a4836413c89908e1afdace2ea")]
-    public partial class AddClusteringFeatureReductionToAPointFeatureLayer
+    public partial class ConfigureClusters
     {
         private FeatureLayer _layer;
         private ClusteringFeatureReduction _clusteringFeatureReduction;
 
-        public AddClusteringFeatureReductionToAPointFeatureLayer()
+        public ConfigureClusters()
         {
             InitializeComponent();
             _ = Initialize();

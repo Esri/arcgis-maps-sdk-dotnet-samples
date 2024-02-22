@@ -78,7 +78,6 @@
 ## Layers
 
 * [Add a point scene layer](WPF.Viewer/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
-* [Add clustering feature reduction to a point feature layer](WPF.Viewer/Samples/Layers/AddClusteringFeatureReductionToAPointFeatureLayer) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
 * [Add custom dynamic entity data source](WPF.Viewer/Samples/Layers/AddCustomDynamicEntityDataSource) - Create a custom dynamic entity data source and display it using a dynamic entity layer.
 * [Add dynamic entity layer](WPF.Viewer/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](WPF.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
@@ -93,6 +92,7 @@
 * [Change feature layer renderer](WPF.Viewer/Samples/Layers/ChangeFeatureLayerRenderer) - Change the appearance of a feature layer with a renderer.
 * [Change sublayer renderer](WPF.Viewer/Samples/Layers/ChangeSublayerRenderer) - Apply a renderer to a sublayer.
 * [Colormap renderer](WPF.Viewer/Samples/Layers/RasterColormapRenderer) - Apply a colormap renderer to a raster.
+* [Configure clusters](WPF.Viewer/Samples/Layers/ConfigureClusters) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
 * [Control annotation sublayer visibility](WPF.Viewer/Samples/Layers/ControlAnnotationSublayerVisibility) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](WPF.Viewer/Samples/Layers/CreateAndSaveKmlFile) - Construct a KML document and save it as a KMZ file.
 * [Create feature collection layer (Portal item)](WPF.Viewer/Samples/Layers/FeatureCollectionLayerFromPortal) - Create a feature collection layer from a portal item.

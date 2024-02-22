@@ -103,9 +103,9 @@
 * [Display WFS layer](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayWfs) - Display a layer from a WFS service, requesting only features for the current extent.
 * [Display a scene](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayScene) - Display a scene with a terrain surface and some imagery.
 * [Display annotation](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayAnnotation) - Display annotation from a feature service URL.
+* [Display clusters](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayClusters) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display dimensions](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayDimensions) - Display dimension features from a mobile map package.
 * [Display feature layers](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayFeatureLayers) - Display feature layers from various data sources.
-* [Display points using clustering feature reduction](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayPointsUsingClusteringFeatureReduction) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display route layer](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayRouteLayer) - Display a route layer and its directions using a feature collection.
 * [Display subtype feature layer](ArcGIS.WinUI.Viewer/Samples/Layers/DisplaySubtypeFeatureLayer) - Displays a composite layer of all the subtype values in a feature class.
 * [Edit KML ground overlay](ArcGIS.WinUI.Viewer/Samples/Layers/EditKmlGroundOverlay) - Edit the values of a KML ground overlay.

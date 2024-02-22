@@ -11,11 +11,11 @@
 			<Sample>CreateAndEditGeometries</Sample>
 		</Category>
 		<Category name="Layers">
-      <Sample>AddClusteringFeatureReductionToAPointFeatureLayer</Sample>
-      <Sample>AddCustomDynamicEntityDataSource</Sample>
+			<Sample>AddClusteringFeatureReductionToAPointFeatureLayer</Sample>
+			<Sample>AddCustomDynamicEntityDataSource</Sample>
 			<Sample>AddDynamicEntityLayer</Sample>
 			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>
-			<Sample>DisplayPointsUsingClusteringFeatureReduction</Sample>
+			<Sample>DisplayClusters</Sample>
 			<Sample>DisplayRouteLayer</Sample>
 		</Category>
 		<Category name="Map">

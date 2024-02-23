@@ -9,6 +9,7 @@
 
 using ArcGIS.Helpers;
 using ArcGIS.Samples.Managers;
+using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.Samples.Shared.Models;
 using ArcGIS.WPF.Viewer;
 using Esri.ArcGISRuntime;
@@ -68,10 +69,14 @@ namespace ArcGIS
 
             SetUpTelemetryTab();
 
-#if STORE_RELEASE
+#if RELEASE
             ScreenshotTab.Visibility = Visibility.Collapsed;
-            APIKeyTab.Visibility = Visibility.Collapsed;
 #endif
+
+            if (ApiKeyManager.DisableApiKeyUI)
+            {
+                APIKeyTab.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void SetUpTelemetryTab()

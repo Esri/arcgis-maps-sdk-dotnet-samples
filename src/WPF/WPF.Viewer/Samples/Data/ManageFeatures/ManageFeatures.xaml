@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{DynamicResource BorderStyle}">
+        <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <Label Content="Select a feature management operation:" FontWeight="SemiBold" />
                 <ComboBox x:Name="OperationChooser"

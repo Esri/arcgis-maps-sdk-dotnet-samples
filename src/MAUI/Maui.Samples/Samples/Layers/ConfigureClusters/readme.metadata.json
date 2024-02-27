@@ -21,7 +21,7 @@
     "offline_data": [],
     "redirect_from": [
         "/net/latest/maui/sample-code/configureclusters.htm",
-        "/net/latest/maui/sample-code/addclusteringfeaturereductiontoapointfeaturelayer.htm"
+        "/net/maui/sample-code/configureclusters.htm"
     ],
     "relevant_apis": [
         "AggregateGeoElement",

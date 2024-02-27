@@ -19,7 +19,7 @@
     "offline_data": [],
     "redirect_from": [
         "/net/latest/winui/sample-code/displayclusters.htm",
-        "/net/latest/winui/sample-code/displaypointsusingclusteringfeaturereduction.htm"
+        "/net/winui/sample-code/displayclusters.htm"
     ],
     "relevant_apis": [
         "AggregateGeoElement",

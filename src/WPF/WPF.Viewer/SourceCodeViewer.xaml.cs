@@ -136,6 +136,15 @@ namespace ArcGIS.WPF.Viewer
                     // Set the type of highlighting for the source file.
                     string codeClass = _path.EndsWith(".xaml") ? "xml" : "csharp";
 
+                    // For xaml files, search for static border resource styles, taking into account any whitespace.
+                    if (_path.EndsWith(".xaml") && String.Concat(baseContent.Where(c => !Char.IsWhiteSpace(c)))
+                        .Contains("Style=\"{StaticResource"))
+                    {
+                        // Display a comment on the top line of the file.
+                        baseContent = String.Concat("<!-- Styles used in this sample can be copied from Resources/ControlStyles.xaml. -->\n",
+                            baseContent);
+                    }
+
                     // > and < characters will be incorrectly parsed by the html.
                     baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");
 

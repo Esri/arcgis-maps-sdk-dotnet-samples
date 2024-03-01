@@ -1,0 +1,21 @@
+name: Feature Request
+description: Submit a feature request to inspire an innovative samples experience.
+title: "[Feature]: "
+labels: ["Type: Feature"]
+body:
+- type: checkboxes
+  id: apps
+  attributes:
+    label: Apps
+    description: Which sample viewer app(s) does this feature request apply to?
+    options:
+      - label: .NET MAUI
+      - label: WinUI
+      - label: WPF
+- type: textarea
+  id: feature-description
+  validations:
+    required: true
+  attributes:
+    label: Feature Description
+    description: Please provide a detailed description of your feature request. Screenshots and videos to illustrate your idea may be included as well.

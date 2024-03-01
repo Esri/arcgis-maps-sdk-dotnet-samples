@@ -12,6 +12,9 @@ public partial class CategoryPage : ContentPage
 {
     private CategoryViewModel _viewModel;
 
+    private const string BugReport = "Bug Report";
+    private const string FeatureRequest = "Feature Request";
+
     public CategoryPage()
     {
         InitializeComponent();
@@ -42,6 +45,24 @@ public partial class CategoryPage : ContentPage
         };
 #endif
 
+    }
+
+    private async void FeedbackToolbarItem_Clicked(object sender, EventArgs e)
+    {
+        await DisplayActionSheet("Open an issue on GitHub:", "Cancel", null, new string[] { BugReport, FeatureRequest }).ContinueWith((result) =>
+        {
+            switch (result.Result)
+            {
+                case BugReport:
+                    break;
+
+                case FeatureRequest:
+                    break;
+
+                case "Cancel":
+                    break;
+            }
+        }, TaskScheduler.FromCurrentSynchronizationContext());
     }
 
     private async void SettingsClicked(object sender, EventArgs e)

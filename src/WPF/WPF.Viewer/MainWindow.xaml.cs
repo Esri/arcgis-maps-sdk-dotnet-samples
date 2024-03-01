@@ -468,8 +468,25 @@ namespace ArcGIS.Samples.Desktop
         {
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Owner = this;
-            settingsWindow.Closing += SettingsWindow_Closing;
+            settingsWindow.Closing += Window_Closing;
             settingsWindow.Show();
+        }
+
+        private void FeedbackButton_Click(object sender, RoutedEventArgs e)
+        {
+            var feedbackWindow = new FeedbackWindow();
+            feedbackWindow.Owner = this;
+            feedbackWindow.Closing += Window_Closing;
+            feedbackWindow.Show();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            SetScreenshotButttonVisibility();
+            SetContainerDimensions();
+
+            // Reactivate the parent window so that it does not minimize on close.
+            Activate();
         }
 
 #region Update Favorites
@@ -599,15 +616,6 @@ namespace ArcGIS.Samples.Desktop
         private void ScreenshotButton_Click(object sender, RoutedEventArgs e)
         {
             SaveScreenshot(SampleContainer);
-        }
-
-        private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            SetScreenshotButttonVisibility();
-            SetContainerDimensions();
-
-            // Reactivate the parent window so that it does not minimize on close.
-            Activate();
         }
 
         private void SetScreenshotButttonVisibility()

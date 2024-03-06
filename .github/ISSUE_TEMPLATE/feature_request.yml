@@ -1,6 +1,6 @@
 name: Feature Request
 description: Submit a feature request to inspire an innovative samples experience.
-title: "[Feature]: "
+title: "[Feature]"
 labels: ["Type: Feature"]
 body:
 - type: checkboxes

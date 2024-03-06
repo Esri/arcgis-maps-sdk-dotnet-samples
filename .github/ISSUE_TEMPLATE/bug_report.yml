@@ -1,6 +1,6 @@
 name: Bug Report
 description: Submit a bug report to help improve the samples experience.
-title: "[Bug]: "
+title: "[Bug]"
 labels: ["Type: Bug"]
 body:
 - type: checkboxes
@@ -28,7 +28,7 @@ body:
     required: true
   attributes:
     label: Bug Description
-    description: Please provide a detailed description of the bug, including expected behavior. Screenshots and videos may be included as well.
+    description: Please provide a detailed description of the bug, including expected behavior and any workarounds. Screenshots and videos may be included as well.
 - type: textarea
   id: steps-to-reproduce
   validations:
@@ -36,6 +36,11 @@ body:
   attributes:
     label: Steps to Reproduce
     description: Please provide detailed, numbered steps to reproduce the bug.
+- type: input
+  id: impacted-samples
+  attributes:
+    label: Impacted Samples
+    description: Please provide the name of the sample(s) impacted by this bug. Leave blank if reporting a sample viewer app bug.
 - type: textarea
   id: log-output
   attributes:

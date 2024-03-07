@@ -6,7 +6,7 @@ Apply basemap style parameters customization for a basemap, such as displaying a
 
 ## Use case
 
-When creating an application that’s used in multiple countries, basemaps can reflect the languages and cultures of the users' location. For example, if an application user is in Greece, displaying the labels on a basemap in Greek reflects the local language. Customizing the language setting on the basemap can be controlled by an application user (such as by setting preferences), or implicitly managed within the application logic (by querying the locale of the platform running the application).
+When creating an application that's used in multiple countries, basemaps can reflect the languages and cultures of the users' location. For example, if an application user is in Greece, displaying the labels on a basemap in Greek reflects the local language. Customizing the language setting on the basemap can be controlled by an application user (such as by setting preferences), or implicitly managed within the application logic (by querying the locale of the platform running the application).
 
 ## How to use the sample
 

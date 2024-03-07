@@ -163,6 +163,7 @@
 * [Apply scheduled updates to preplanned map area](ArcGIS.WinUI.Viewer/Samples/Map/ApplyScheduledUpdates) - Apply scheduled updates to a downloaded preplanned map area.
 * [Browse building floors](ArcGIS.WinUI.Viewer/Samples/Map/BrowseBuildingFloors) - Display and browse through building floors from a floor-aware web map.
 * [Change basemap](ArcGIS.WinUI.Viewer/Samples/Map/ChangeBasemap) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
+* [Configure basemap style parameters](ArcGIS.WinUI.Viewer/Samples/Map/ConfigureBasemapStyleParameters) - Apply basemap style parameters customization for a basemap, such as displaying all labels in a specific language or displaying every label in their corresponding local language.
 * [Create and save map](ArcGIS.WinUI.Viewer/Samples/Map/AuthorMap) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
 * [Display map](ArcGIS.WinUI.Viewer/Samples/Map/DisplayMap) - Display a map with an imagery basemap.
 * [Download preplanned map area](ArcGIS.WinUI.Viewer/Samples/Map/DownloadPreplannedMap) - Take a map offline using a preplanned map area.

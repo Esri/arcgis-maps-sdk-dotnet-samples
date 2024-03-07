@@ -21,6 +21,7 @@
 		<Category name="Map">
 			<Sample>BrowseBuildingFloors</Sample>
 			<Sample>ChangeBasemap</Sample>
+			<Sample>ConfigureBasemapStyleParameters</Sample>
 			<Sample>DisplayMap</Sample>
 			<Sample>DisplayOverviewMap</Sample>
         </Category>

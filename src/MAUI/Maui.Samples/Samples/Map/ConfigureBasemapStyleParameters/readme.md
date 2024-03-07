@@ -2,7 +2,7 @@
 
 Apply basemap style parameters customization for a basemap, such as displaying all labels in a specific language or displaying every label in their corresponding local language.
 
-![Configure basemap style parameters](configurebasemapstyleparameters.png)
+![Configure basemap style parameters](configurebasemapstyleparameters.jpg)
 
 ## Use case
 

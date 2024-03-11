@@ -73,6 +73,12 @@ class sample_metadata:
         if self.formal_name == "GenerateGeodatabaseReplica":
             self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/generategeodatabase.htm")
 
+        if self.formal_name == "DisplayClusters":
+            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/displayclusters.htm")
+
+        if self.formal_name == "ConfigureClusters":
+            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/configureclusters.htm")
+
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]
 

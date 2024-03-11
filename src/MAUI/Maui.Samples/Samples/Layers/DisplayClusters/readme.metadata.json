@@ -1,10 +1,10 @@
 {
     "category": "Layers",
     "description": "Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.",
-    "formal_name": "DisplayPointsUsingClusteringFeatureReduction",
+    "formal_name": "DisplayClusters",
     "ignore": false,
     "images": [
-        "DisplayPointsUsingClusteringFeatureReduction.jpg"
+        "displayclusters.jpg"
     ],
     "keywords": [
         "aggregate",
@@ -18,7 +18,8 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/displaypointsusingclusteringfeaturereduction.htm"
+        "/net/latest/maui/sample-code/displayclusters.htm",
+        "/net/maui/sample-code/displayclusters.htm"
     ],
     "relevant_apis": [
         "AggregateGeoElement",
@@ -28,8 +29,8 @@
         "IdentifyLayerResult"
     ],
     "snippets": [
-        "DisplayPointsUsingClusteringFeatureReduction.xaml.cs",
-        "DisplayPointsUsingClusteringFeatureReduction.xaml"
+        "DisplayClusters.xaml.cs",
+        "DisplayClusters.xaml"
     ],
-    "title": "Display points using clustering feature reduction"
+    "title": "Display clusters"
 }

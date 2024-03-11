@@ -1,10 +1,10 @@
 {
     "category": "Layers",
     "description": "Add client side feature reduction on a point feature layer that is not pre-configured with clustering.",
-    "formal_name": "AddClusteringFeatureReductionToAPointFeatureLayer",
+    "formal_name": "ConfigureClusters",
     "ignore": false,
     "images": [
-        "addclusteringfeaturereductiontoapointfeaturelayer.jpg"
+        "configureclusters.jpg"
     ],
     "keywords": [
         "aggregate",
@@ -20,7 +20,8 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/addclusteringfeaturereductiontoapointfeaturelayer.htm"
+        "/net/latest/maui/sample-code/configureclusters.htm",
+        "/net/maui/sample-code/configureclusters.htm"
     ],
     "relevant_apis": [
         "AggregateGeoElement",
@@ -32,8 +33,8 @@
         "PopupViewer"
     ],
     "snippets": [
-        "AddClusteringFeatureReductionToAPointFeatureLayer.xaml.cs",
-        "AddClusteringFeatureReductionToAPointFeatureLayer.xaml"
+        "ConfigureClusters.xaml.cs",
+        "ConfigureClusters.xaml"
     ],
-    "title": "Add clustering feature reduction to a point feature layer"
+    "title": "Configure clusters"
 }

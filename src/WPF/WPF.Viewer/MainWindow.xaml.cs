@@ -35,6 +35,7 @@ namespace ArcGIS.Samples.Desktop
         private List<TreeViewItem> _samples;
         private System.Windows.Forms.Timer _delaySearchTimer;
         private const int _delayedTextChangedTimeout = 500;
+        private bool _settingsWindowOpen;
 
         private List<string> _namedUserSamples = new List<string> {
             "AuthorMap",
@@ -466,6 +467,8 @@ namespace ArcGIS.Samples.Desktop
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)
         {
+            if (_settingsWindowOpen) return;
+            _settingsWindowOpen = true;
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Owner = this;
             settingsWindow.Closing += SettingsWindow_Closing;
@@ -605,6 +608,8 @@ namespace ArcGIS.Samples.Desktop
         {
             SetScreenshotButttonVisibility();
             SetContainerDimensions();
+
+            _settingsWindowOpen = false;
 
             // Reactivate the parent window so that it does not minimize on close.
             Activate();

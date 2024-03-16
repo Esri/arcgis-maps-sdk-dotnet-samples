@@ -24,7 +24,7 @@ def get_proj_file(platform, sample_root):
     '''
     basepath = get_platform_root(platform, sample_root)
     if (platform == "WPF"):
-        return os.path.join(basepath, "ArcGIS.WPF.Viewer.NetFramework.csproj")
+        return os.path.join(basepath, "ArcGIS.WPF.Viewer.Net.csproj")
     if (platform == "WinUI"):
         return os.path.join(basepath, "ArcGIS.WinUI.Viewer.csproj")
     if (platform == "MAUI"):

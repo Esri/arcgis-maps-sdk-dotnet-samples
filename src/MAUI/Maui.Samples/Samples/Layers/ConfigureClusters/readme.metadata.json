@@ -1,0 +1,40 @@
+{
+    "category": "Layers",
+    "description": "Add client side feature reduction on a point feature layer that is not pre-configured with clustering.",
+    "formal_name": "ConfigureClusters",
+    "ignore": false,
+    "images": [
+        "configureclusters.jpg"
+    ],
+    "keywords": [
+        "aggregate",
+        "bin",
+        "cluster",
+        "group",
+        "merge",
+        "normalize",
+        "popup",
+        "reduce",
+        "renderer",
+        "summarize"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/configureclusters.htm",
+        "/net/maui/sample-code/configureclusters.htm"
+    ],
+    "relevant_apis": [
+        "AggregateGeoElement",
+        "ClassBreaksRenderer",
+        "FeatureLayer",
+        "FeatureReduction",
+        "GeoElement",
+        "IdentifyLayerResult",
+        "PopupViewer"
+    ],
+    "snippets": [
+        "ConfigureClusters.xaml.cs",
+        "ConfigureClusters.xaml"
+    ],
+    "title": "Configure clusters"
+}

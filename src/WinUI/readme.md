@@ -78,7 +78,6 @@
 ## Layers
 
 * [Add a point scene layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
-* [Add clustering feature reduction to a point feature layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddClusteringFeatureReductionToAPointFeatureLayer) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
 * [Add custom dynamic entity data source](ArcGIS.WinUI.Viewer/Samples/Layers/AddCustomDynamicEntityDataSource) - Create a custom dynamic entity data source and display it using a dynamic entity layer.
 * [Add dynamic entity layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
@@ -93,6 +92,7 @@
 * [Change feature layer renderer](ArcGIS.WinUI.Viewer/Samples/Layers/ChangeFeatureLayerRenderer) - Change the appearance of a feature layer with a renderer.
 * [Change sublayer renderer](ArcGIS.WinUI.Viewer/Samples/Layers/ChangeSublayerRenderer) - Apply a renderer to a sublayer.
 * [Colormap renderer](ArcGIS.WinUI.Viewer/Samples/Layers/RasterColormapRenderer) - Apply a colormap renderer to a raster.
+* [Configure clusters](ArcGIS.WinUI.Viewer/Samples/Layers/ConfigureClusters) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
 * [Control annotation sublayer visibility](ArcGIS.WinUI.Viewer/Samples/Layers/ControlAnnotationSublayerVisibility) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](ArcGIS.WinUI.Viewer/Samples/Layers/CreateAndSaveKmlFile) - Construct a KML document and save it as a KMZ file.
 * [Create feature collection layer (Portal item)](ArcGIS.WinUI.Viewer/Samples/Layers/FeatureCollectionLayerFromPortal) - Create a feature collection layer from a portal item.
@@ -103,9 +103,9 @@
 * [Display WFS layer](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayWfs) - Display a layer from a WFS service, requesting only features for the current extent.
 * [Display a scene](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayScene) - Display a scene with a terrain surface and some imagery.
 * [Display annotation](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayAnnotation) - Display annotation from a feature service URL.
+* [Display clusters](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayClusters) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display dimensions](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayDimensions) - Display dimension features from a mobile map package.
 * [Display feature layers](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayFeatureLayers) - Display feature layers from various data sources.
-* [Display points using clustering feature reduction](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayPointsUsingClusteringFeatureReduction) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display route layer](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayRouteLayer) - Display a route layer and its directions using a feature collection.
 * [Display subtype feature layer](ArcGIS.WinUI.Viewer/Samples/Layers/DisplaySubtypeFeatureLayer) - Displays a composite layer of all the subtype values in a feature class.
 * [Edit KML ground overlay](ArcGIS.WinUI.Viewer/Samples/Layers/EditKmlGroundOverlay) - Edit the values of a KML ground overlay.
@@ -266,3 +266,4 @@
 * [Display utility associations](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/DisplayUtilityAssociations) - Create graphics for utility associations in a utility network.
 * [Perform valve isolation trace](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/PerformValveIsolationTrace) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
 * [Trace utility network](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/TraceUtilityNetwork) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
+* [Validate utility network topology](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/ValidateUtilityNetworkTopology) - Demonstrates the workflow of getting the network state and validating the topology of a utility network.

@@ -43,7 +43,7 @@
     <XmlPoke Condition="'$(PUBLISHER)'!=''" XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
              Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
 
-    <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=x64;DefineConstants=STORE_RELEASE" />
+    <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=x64" />
     <MSBuild Projects="@(WPFWAPProject)" Targets="Restore" Properties="Configuration=$(Configuration);ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)" />
     <MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
     <ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_x64.zip" Overwrite="true" />
@@ -56,6 +56,8 @@
   <Target Name="BuildWinUI" DependsOnTargets="CreateOutputDirectory">
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WinUI\ArcGIS.WinUI.Viewer\Package.appxmanifest"
              Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
+    <XmlPoke Condition="'$(PUBLISHER)'!=''" XmlInputPath="$(MSBuildThisFileDirectory)..\src\WinUI\ArcGIS.WinUI.Viewer\Package.appxmanifest"
+             Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
     <MSBuild Projects="@(WinUIProject)" Targets="Restore" Properties="PublishReadyToRun=true;ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)" />
     <MSBuild Projects="@(WinUIProject)" Targets="Build" Properties="Configuration=$(Configuration);GenerateAppxPackageOnBuild=true;RuntimeIdentifier=win10-x64;Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
     <MSBuild Projects="@(WinUIProject)" Targets="Build" Properties="Configuration=$(Configuration);GenerateAppxPackageOnBuild=true;RuntimeIdentifier=win10-x86;Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
@@ -65,6 +67,8 @@
   <Target Name="BuildUWP" DependsOnTargets="CreateOutputDirectory">
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\UWP\ArcGIS.UWP.Viewer\Package.appxmanifest"
              Value="$(RELEASE_VERSION).$(BUILD_NUM)" Query="/dn:Package/dn:Identity/@Version" Namespaces="$(AppManifestNamespace)"/>
+    <XmlPoke Condition="'$(PUBLISHER)'!=''" XmlInputPath="$(MSBuildThisFileDirectory)..\src\UWP\ArcGIS.UWP.Viewer\Package.appxmanifest"
+             Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
     <MSBuild Projects="@(UWPProject)" Targets="Restore" Properties="ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)"/>
     <MSBuild Projects="@(UWPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
     <MSBuild Projects="@(UWPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x86;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
@@ -72,6 +76,8 @@
   </Target>
 
   <Target Name="BuildMaui" DependsOnTargets="CreateOutputDirectory">
+    <XmlPoke Condition="'$(PUBLISHER)'!=''" XmlInputPath="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\Platforms\Windows\Package.appxmanifest"
+             Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
     <MSBuild Projects="@(MAUIProject)" Targets="Restore" Properties="ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)"/>
     <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-x64;RuntimeIdentifierOverride=win10-x64;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
     <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-x86;RuntimeIdentifierOverride=win10-x86;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />

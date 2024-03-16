@@ -21,7 +21,7 @@
         <ToolbarItem
             x:Name="OfflineDataButton"
             Clicked="OfflineDataButton_Clicked"
-            IconImageSource="download.png"
+            IconImageSource="downloaddark.png"
             Text="Offline data" />
         <ToolbarItem
             x:Name="ApiKeyButton"

@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ConfigureClusters.ConfigureClusters"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Width="auto"
+                Height="auto"
+                Style="{StaticResource BorderStyle}">
+            <StackPanel Orientation="Vertical">
+                <Button x:Name="DrawClustersButton"
+                        Padding="5"
+                        HorizontalAlignment="Center"
+                        Click="DrawClustersButton_Clicked"
+                        Content="Draw clusters"
+                        IsEnabled="False" />
+                <Grid x:Name="ClusteringOptions" Visibility="Collapsed">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                        <RowDefinition Height="auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.ColumnSpan="2"
+                               Padding="5"
+                               HorizontalAlignment="Center"
+                               FontSize="16"
+                               FontWeight="Bold"
+                               Text="Clustering Properties" />
+                    <TextBlock Grid.Row="1"
+                               Grid.Column="0"
+                               Padding="5"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               FontWeight="Bold"
+                               Text="Display labels:" />
+                    <CheckBox x:Name="DisplayLabelsCheckBox"
+                              Grid.Row="1"
+                              Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Checked="DisplayLabelsCheckBox_Checked"
+                              IsChecked="false"
+                              Unchecked="DisplayLabelsCheckBox_Checked" />
+                    <TextBlock Grid.Row="2"
+                               Grid.Column="0"
+                               Padding="5"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center">
+                        <Run FontWeight="Bold" Text="Cluster radius:" />
+                        <Run Text="{Binding ElementName=ClusterRadiusSlider, Path=Value, Mode=OneWay, StringFormat=n0}" />
+                    </TextBlock>
+                    <ComboBox x:Name="ClusterRadiusPicker"
+                              Grid.Row="2"
+                              Grid.Column="1"
+                              Width="75"
+                              HorizontalAlignment="Left"
+                              VerticalAlignment="Center"
+                              SelectionChanged="ClusterRadiusPicker_SelectionChanged" />
+                    <TextBlock Grid.Row="3"
+                               Grid.Column="0"
+                               Padding="5"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center">
+                        <Run FontWeight="Bold" Text="Maximum map scale:" />
+                        <Run Text="{Binding ElementName=MaxScaleSlider, Path=Value, Mode=OneWay, StringFormat=n0}" />
+                    </TextBlock>
+                    <ComboBox x:Name="MaxScalePicker"
+                              Grid.Row="3"
+                              Grid.Column="1"
+                              Width="75"
+                              VerticalAlignment="Center"
+                              SelectionChanged="MaxScalePicker_SelectionChanged" />
+                    <TextBlock Grid.Row="4"
+                               Grid.Column="0"
+                               Grid.ColumnSpan="2"
+                               Padding="5"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center">
+                        <Run FontWeight="Bold" Text="Current map scale: " />
+                        <Run Text="1:" />
+                        <Run Text="{Binding ElementName=MyMapView, Path=MapScale, Mode=OneWay, StringFormat=n0}" />
+                    </TextBlock>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <Grid x:Name="PopupBackground"
+              Background="#AA333333"
+              MouseLeftButtonDown="PopupBackground_MouseLeftButtonDown"
+              Visibility="Collapsed">
+            <Border HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="White">
+                <esri:PopupViewer x:Name="PopupViewer"
+                                  MaxWidth="400"
+                                  MaxHeight="400"
+                                  Margin="5"
+                                  Padding="5" />
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

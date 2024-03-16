@@ -47,9 +47,10 @@ IF "%ARCGIS_API_KEY%" NEQ "" (
   ECHO public static partial class ApiKeyManager ^{ >>%keyFile%
   ECHO static ApiKeyManager^(^) ^{ >>%keyFile%
   ECHO Esri.ArcGISRuntime.ArcGISRuntimeEnvironment.ApiKey = _key = "%ARCGIS_API_KEY%"; >>%keyFile%
+  ECHO DisableApiKeyUI = true; >>%keyFile%
   ECHO ^}^}^} >>%keyFile%
 )
 
 
-msbuild /t:BuildAll %~dp0GenerateApps.msbuild /p:BUILD_NUM=%BUILD_NUM% /p:RELEASE_VERSION=%RELEASE_VERSION% /p:PUBLISHER=%PUBLISHER% /p:PFXSignaturePassword=%PFXSignaturePassword% /p:PFXSignatureFile=%PFXSignatureFile% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint%
+msbuild /t:BuildAll %~dp0GenerateApps.msbuild /p:BUILD_NUM=%BUILD_NUM% /p:RELEASE_VERSION=%RELEASE_VERSION% /p:PUBLISHER="%PUBLISHER%" /p:PFXSignaturePassword=%PFXSignaturePassword% /p:PFXSignatureFile=%PFXSignatureFile% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint%
 

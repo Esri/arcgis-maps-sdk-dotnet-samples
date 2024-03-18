@@ -17,10 +17,10 @@
         "summarize"
     ],
     "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/displayclusters.htm",
-        "/net/wpf/sample-code/displayclusters.htm"
-    ],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/displaypointsusingclusteringfeaturereduction.htm",
+    "/net/latest/wpf/sample-code/displayclusters.htm"
+  ],
     "relevant_apis": [
         "AggregateGeoElement",
         "FeatureLayer",

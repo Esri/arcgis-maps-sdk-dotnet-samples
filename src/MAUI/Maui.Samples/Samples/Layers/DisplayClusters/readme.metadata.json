@@ -17,10 +17,10 @@
         "summarize"
     ],
     "offline_data": [],
-    "redirect_from": [
-        "/net/latest/maui/sample-code/displayclusters.htm",
-        "/net/maui/sample-code/displayclusters.htm"
-    ],
+  "redirect_from": [
+    "/net/latest/maui/sample-code/displaypointsusingclusteringfeaturereduction.htm",
+    "/net/latest/maui/sample-code/displayclusters.htm"
+  ],
     "relevant_apis": [
         "AggregateGeoElement",
         "FeatureLayer",

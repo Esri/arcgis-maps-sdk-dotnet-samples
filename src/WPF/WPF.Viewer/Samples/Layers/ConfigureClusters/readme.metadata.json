@@ -19,10 +19,10 @@
         "summarize"
     ],
     "offline_data": [],
-    "redirect_from": [
-        "/net/latest/wpf/sample-code/configureclusters.htm",
-        "/net/wpf/sample-code/configureclusters.htm"
-    ],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/addclusteringfeaturereductiontoapointfeaturelayer.htm",
+    "/net/latest/wpf/sample-code/configureclusters.htm"
+  ],
     "relevant_apis": [
         "AggregateGeoElement",
         "ClassBreaksRenderer",

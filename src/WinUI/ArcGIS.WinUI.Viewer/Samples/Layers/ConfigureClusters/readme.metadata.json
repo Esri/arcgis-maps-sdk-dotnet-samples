@@ -20,8 +20,8 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/configureclusters.htm",
-        "/net/winui/sample-code/configureclusters.htm"
+        "/net/latest/winui/sample-code/addclusteringfeaturereductiontoapointfeaturelayer.htm",
+        "/net/latest/winui/sample-code/configureclusters.htm"
     ],
     "relevant_apis": [
         "AggregateGeoElement",

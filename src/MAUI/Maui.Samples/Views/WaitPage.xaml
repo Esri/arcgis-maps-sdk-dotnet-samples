@@ -5,9 +5,7 @@
         <Border BackgroundColor="Transparent"
                 HorizontalOptions="Center"
                 StrokeThickness="0"
-                VerticalOptions="Center"
-                WidthRequest="{OnIdiom Phone=-1,
-                                       Desktop=500}">
+                VerticalOptions="Center">
             <Grid Padding="10" RowDefinitions="auto,auto,auto">
                 <Label x:Name="DownloadLabel"
                        Grid.Row="0"

@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -51,6 +52,9 @@ namespace ArcGIS.WPF.Samples.WmsIdentify
 
             // Create a new WMS layer displaying the specified layers from the service.
             _wmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);
+
+            // Disabling the WrapAroundMode property for the Mapview
+            MyMapView.WrapAroundMode = WrapAroundMode.Disabled;
 
             try
             {

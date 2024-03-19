@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.ConfigureBasemapStyleParameters.ConfigureBasemapStyleParameters"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <StackLayout Margin="5" Spacing="5">
+                <Label FontAttributes="Bold" Text="Set language strategy:" />
+                <RadioButton x:Name="GlobalRadioButton" Content="Global" />
+                <RadioButton x:Name="LocalRadioButton"
+                             Content="Local"
+                             IsChecked="True" />
+                <Label FontAttributes="Bold" Text="Set specific language:" />
+                <Picker x:Name="LanguagePicker">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>None</x:String>
+                            <x:String>Bulgarian</x:String>
+                            <x:String>Greek</x:String>
+                            <x:String>Turkish</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </StackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

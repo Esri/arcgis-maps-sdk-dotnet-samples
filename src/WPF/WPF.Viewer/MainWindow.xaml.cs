@@ -35,7 +35,7 @@ namespace ArcGIS.Samples.Desktop
         private List<TreeViewItem> _samples;
         private System.Windows.Forms.Timer _delaySearchTimer;
         private const int _delayedTextChangedTimeout = 500;
-        private bool _settingsWindowOpen;
+        private bool _settingsWindowOpen, _feedbackWindowOpen;
 
         private List<string> _namedUserSamples = new List<string> {
             "AuthorMap",
@@ -471,19 +471,29 @@ namespace ArcGIS.Samples.Desktop
             _settingsWindowOpen = true;
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Owner = this;
-            settingsWindow.Closing += Window_Closing;
+            settingsWindow.Closing += (send, args) => 
+            {
+                _settingsWindowOpen = false;
+                CloseWindow();
+            };
             settingsWindow.Show();
         }
 
         private void FeedbackButton_Click(object sender, RoutedEventArgs e)
         {
+            if (_feedbackWindowOpen) return;
+            _feedbackWindowOpen = true;
             var feedbackWindow = new FeedbackWindow();
             feedbackWindow.Owner = this;
-            feedbackWindow.Closing += Window_Closing;
+            feedbackWindow.Closing += (send, args) =>
+            {
+                _feedbackWindowOpen = false;
+                CloseWindow();
+            };
             feedbackWindow.Show();
         }
 
-        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        private void CloseWindow()
         {
             SetScreenshotButttonVisibility();
             SetContainerDimensions();

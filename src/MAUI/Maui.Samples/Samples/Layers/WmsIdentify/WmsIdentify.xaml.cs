@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Ogc;
+using Esri.ArcGISRuntime.UI;
 
 namespace ArcGIS.Samples.WmsIdentify
 {
@@ -22,10 +23,10 @@ namespace ArcGIS.Samples.WmsIdentify
     public partial class WmsIdentify : ContentPage
     {
         // Create and hold the URL to the WMS service showing EPA water info
-        private Uri _wmsUrl = new Uri("https://watersgeo.epa.gov/arcgis/services/OWPROGRAM/SDWIS_WMERC/MapServer/WMSServer?request=GetCapabilities&service=WMS");
+        private Uri _wmsUrl = new Uri("https://sampleserver6.arcgisonline.com/arcgis/services/SampleWorldCities/MapServer/WMSServer?request=GetCapabilities&service=WMS");
 
         // Create and hold a list of uniquely-identifying WMS layer names to display
-        private List<String> _wmsLayerNames = new List<string> { "4" };
+        private List<String> _wmsLayerNames = new List<string> { "1" };
 
         // Hold the WMS layer
         private WmsLayer _wmsLayer;
@@ -45,6 +46,9 @@ namespace ArcGIS.Samples.WmsIdentify
 
             // Provide used Map to the MapView
             MyMapView.Map = myMap;
+
+            // Disabling the WrapAroundMode property for the Mapview
+            MyMapView.WrapAroundMode = WrapAroundMode.Disabled;
 
             // Create a new WMS layer displaying the specified layers from the service
             _wmsLayer = new WmsLayer(_wmsUrl, _wmsLayerNames);

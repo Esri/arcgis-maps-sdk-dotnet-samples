@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.DisplayClusters.DisplayClusters"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:esriTK="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esri:MapView x:Name="MyMapView"
+                      GeoViewTapped="MyMapView_GeoViewTapped"
+                      Style="{DynamicResource EsriSampleGeoView}" />
+        <Border MaximumWidthRequest="200" Style="{DynamicResource EsriSampleControlPanel}">
+            <HorizontalStackLayout>
+                <CheckBox CheckedChanged="CheckBox_CheckChanged" IsChecked="True" />
+                <Label Text="Feature clustering" VerticalOptions="Center" />
+            </HorizontalStackLayout>
+        </Border>
+        <Grid x:Name="PopupBackground"
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
+              Background="#AA333333"
+              IsVisible="false">
+            <Border Background="{AppThemeBinding Light=#dfdfdf,
+                                                 Dark=#303030}"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+                <esriTK:PopupViewer x:Name="PopupViewer"
+                                    Margin="5"
+                                    Padding="5"
+                                    HeightRequest="250"
+                                    WidthRequest="250" />
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -78,7 +78,6 @@
 ## Layers
 
 * [Add a point scene layer](WPF.Viewer/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
-* [Add clustering feature reduction to a point feature layer](WPF.Viewer/Samples/Layers/AddClusteringFeatureReductionToAPointFeatureLayer) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
 * [Add custom dynamic entity data source](WPF.Viewer/Samples/Layers/AddCustomDynamicEntityDataSource) - Create a custom dynamic entity data source and display it using a dynamic entity layer.
 * [Add dynamic entity layer](WPF.Viewer/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](WPF.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
@@ -93,6 +92,7 @@
 * [Change feature layer renderer](WPF.Viewer/Samples/Layers/ChangeFeatureLayerRenderer) - Change the appearance of a feature layer with a renderer.
 * [Change sublayer renderer](WPF.Viewer/Samples/Layers/ChangeSublayerRenderer) - Apply a renderer to a sublayer.
 * [Colormap renderer](WPF.Viewer/Samples/Layers/RasterColormapRenderer) - Apply a colormap renderer to a raster.
+* [Configure clusters](WPF.Viewer/Samples/Layers/ConfigureClusters) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
 * [Control annotation sublayer visibility](WPF.Viewer/Samples/Layers/ControlAnnotationSublayerVisibility) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](WPF.Viewer/Samples/Layers/CreateAndSaveKmlFile) - Construct a KML document and save it as a KMZ file.
 * [Create feature collection layer (Portal item)](WPF.Viewer/Samples/Layers/FeatureCollectionLayerFromPortal) - Create a feature collection layer from a portal item.
@@ -103,9 +103,9 @@
 * [Display WFS layer](WPF.Viewer/Samples/Layers/DisplayWfs) - Display a layer from a WFS service, requesting only features for the current extent.
 * [Display a scene](WPF.Viewer/Samples/Layers/DisplayScene) - Display a scene with a terrain surface and some imagery.
 * [Display annotation](WPF.Viewer/Samples/Layers/DisplayAnnotation) - Display annotation from a feature service URL.
+* [Display clusters](WPF.Viewer/Samples/Layers/DisplayClusters) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display dimensions](WPF.Viewer/Samples/Layers/DisplayDimensions) - Display dimension features from a mobile map package.
 * [Display feature layers](WPF.Viewer/Samples/Layers/DisplayFeatureLayers) - Display feature layers from various data sources.
-* [Display points using clustering feature reduction](WPF.Viewer/Samples/Layers/DisplayPointsUsingClusteringFeatureReduction) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display route layer](WPF.Viewer/Samples/Layers/DisplayRouteLayer) - Display a route layer and its directions using a feature collection.
 * [Display subtype feature layer](WPF.Viewer/Samples/Layers/DisplaySubtypeFeatureLayer) - Displays a composite layer of all the subtype values in a feature class.
 * [Edit KML ground overlay](WPF.Viewer/Samples/Layers/EditKmlGroundOverlay) - Edit the values of a KML ground overlay.
@@ -166,6 +166,7 @@
 * [Apply scheduled updates to preplanned map area](WPF.Viewer/Samples/Map/ApplyScheduledUpdates) - Apply scheduled updates to a downloaded preplanned map area.
 * [Browse building floors](WPF.Viewer/Samples/Map/BrowseBuildingFloors) - Display and browse through building floors from a floor-aware web map.
 * [Change basemap](WPF.Viewer/Samples/Map/ChangeBasemap) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
+* [Configure basemap style parameters](WPF.Viewer/Samples/Map/ConfigureBasemapStyleParameters) - Apply basemap style parameters customization for a basemap, such as displaying all labels in a specific language or displaying every label in their corresponding local language.
 * [Create and save map](WPF.Viewer/Samples/Map/AuthorMap) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
 * [Display map](WPF.Viewer/Samples/Map/DisplayMap) - Display a map with an imagery basemap.
 * [Display overview map](WPF.Viewer/Samples/Map/DisplayOverviewMap) - Include an overview or inset map as an additional map view to show the wider context of the primary view.

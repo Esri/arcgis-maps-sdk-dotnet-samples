@@ -1,0 +1,36 @@
+{
+    "category": "Layers",
+    "description": "Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.",
+    "formal_name": "DisplayClusters",
+    "ignore": false,
+    "images": [
+        "DisplayClusters.jpg"
+    ],
+    "keywords": [
+        "aggregate",
+        "bin",
+        "cluster",
+        "group",
+        "merge",
+        "normalize",
+        "reduce",
+        "summarize"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/displaypointsusingclusteringfeaturereduction.htm",
+        "/net/latest/wpf/sample-code/displayclusters.htm"
+    ],
+    "relevant_apis": [
+        "AggregateGeoElement",
+        "FeatureLayer",
+        "FeatureReduction",
+        "GeoElement",
+        "IdentifyLayerResult"
+    ],
+    "snippets": [
+        "DisplayClusters.xaml.cs",
+        "DisplayClusters.xaml"
+    ],
+    "title": "Display clusters"
+}

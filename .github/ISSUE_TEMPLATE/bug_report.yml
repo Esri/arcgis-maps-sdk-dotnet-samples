@@ -1,0 +1,48 @@
+name: Bug Report
+description: Submit a bug report to help improve the samples experience.
+title: "[Bug]"
+labels: ["Type: Bug"]
+body:
+- type: checkboxes
+  id: platforms
+  attributes:
+    label: Platforms
+    description: What platform(s) can you reproduce the bug on?
+    options:
+      - label: Android
+      - label: iOS
+      - label: macOS
+      - label: Windows
+- type: checkboxes
+  id: apps
+  attributes:
+    label: Apps
+    description: Which sample viewer app(s) can you reproduce the bug on?
+    options:
+      - label: .NET MAUI
+      - label: WinUI
+      - label: WPF
+- type: textarea
+  id: bug-description
+  validations:
+    required: true
+  attributes:
+    label: Bug Description
+    description: Please provide a detailed description of the bug, including expected behavior and any workarounds. Screenshots and videos may be included as well.
+- type: textarea
+  id: steps-to-reproduce
+  validations:
+    required: true
+  attributes:
+    label: Steps to Reproduce
+    description: Please provide detailed, numbered steps to reproduce the bug.
+- type: input
+  id: impacted-samples
+  attributes:
+    label: Impacted Samples
+    description: Please provide the name of the sample(s) impacted by this bug. Leave blank if reporting a sample viewer app bug.
+- type: textarea
+  id: log-output
+  attributes:
+    label: Log Output
+    description: Please provide any relevant log output. Error messages and stack traces are particularly helpful.

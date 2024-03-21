@@ -8,6 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using Microsoft.UI.Xaml.Controls;
+using ArcGIS.Samples.Managers;
 
 namespace ArcGIS
 {
@@ -21,12 +22,22 @@ namespace ArcGIS
 
         private void BugReportButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            // TODO: link to issue template
+            string link =
+                "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=bug_report.yml&title=%5BBug%5D";
+
+            if (SampleManager.Current.SelectedSample != null)
+            {
+                link += "+&impacted-samples=" + SampleManager.Current.SelectedSample.FormalName;
+            }
+
+            _ = Windows.System.Launcher.LaunchUriAsync(new System.Uri(link));
         }
 
         private void FeatureRequestButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
-            // TODO: link to issue template
+            string link =
+                "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Feature&projects=&template=feature_request.yml&title=%5BFeature%5D";
+            _ = Windows.System.Launcher.LaunchUriAsync(new System.Uri(link));
         }
     }
 }

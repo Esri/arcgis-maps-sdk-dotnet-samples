@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime;
 using System;
 using System.Diagnostics;
 using System.Windows;
+using ArcGIS.Samples.Managers;
 
 namespace ArcGIS
 {
@@ -23,13 +24,21 @@ namespace ArcGIS
 
         private void BugReportButton_Click(object sender, RoutedEventArgs e)
         {
-            string link = "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=t%2Fbug&projects=&template=bug_report.yml";
+            string link = 
+                "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=bug_report.yml&title=%5BBug%5D";
+            
+            if (SampleManager.Current.SelectedSample != null)
+            {
+                link += "+&impacted-samples=" + SampleManager.Current.SelectedSample.FormalName;
+            }
+
             Process.Start(link);
         }
 
         private void FeatureRequestButton_Click(object sender, RoutedEventArgs e)
         {
-            string link = "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=t%2Fbug&projects=&template=feature_request.yml";
+            string link =
+                "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Feature&projects=&template=feature_request.yml&title=%5BFeature%5D";
             Process.Start(link);
         }
     }

@@ -4,6 +4,7 @@ using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.ViewModels;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Maui.ApplicationModel;
 using System.Diagnostics;
 
 namespace ArcGIS;
@@ -49,14 +50,21 @@ public partial class CategoryPage : ContentPage
 
     private async void FeedbackToolbarItem_Clicked(object sender, EventArgs e)
     {
-        await DisplayActionSheet("Open an issue on GitHub:", "Cancel", null, new string[] { BugReport, FeatureRequest }).ContinueWith((result) =>
+        await DisplayActionSheet("Open an issue on GitHub:", "Cancel", null, [BugReport, FeatureRequest]).ContinueWith((result) =>
         {
+            string link;
             switch (result.Result)
             {
                 case BugReport:
+                    link =
+                        "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=bug_report.yml&title=%5BBug%5D";
+                    _ = Browser.Default.OpenAsync(new Uri(link), BrowserLaunchMode.SystemPreferred);
                     break;
 
                 case FeatureRequest:
+                    link =
+                        "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Feature&projects=&template=feature_request.yml&title=%5BFeature%5D";
+                    _ = Browser.Default.OpenAsync(new Uri(link), BrowserLaunchMode.SystemPreferred);
                     break;
 
                 case "Cancel":

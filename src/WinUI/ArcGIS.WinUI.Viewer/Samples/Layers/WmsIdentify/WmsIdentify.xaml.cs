@@ -106,6 +106,9 @@ namespace ArcGIS.WinUI.Samples.WmsIdentify
                     return;
                 }
 
+                
+                await ResultWebView.EnsureCoreWebView2Async();
+
                 // Show the result.
                 ResultWebView.NavigateToString(htmlContent);
                 ResultWebView.Visibility = Visibility.Visible;

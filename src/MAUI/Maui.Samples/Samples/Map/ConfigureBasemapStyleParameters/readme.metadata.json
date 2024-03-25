@@ -1,0 +1,33 @@
+{
+    "category": "Map",
+    "description": "Apply basemap style parameters customization for a basemap, such as displaying all labels in a specific language or displaying every label in their corresponding local language.",
+    "formal_name": "ConfigureBasemapStyleParameters",
+    "ignore": false,
+    "images": [
+        "configurebasemapstyleparameters.jpg"
+    ],
+    "keywords": [
+        "basemap style",
+        "language",
+        "language strategy",
+        "map",
+        "point",
+        "viewpoint"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/configurebasemapstyleparameters.htm"
+    ],
+    "relevant_apis": [
+        "Basemap",
+        "BasemapStyleLanguageStrategy",
+        "BasemapStyleParameters",
+        "Map",
+        "MapView"
+    ],
+    "snippets": [
+        "ConfigureBasemapStyleParameters.xaml.cs",
+        "ConfigureBasemapStyleParameters.xaml"
+    ],
+    "title": "Configure basemap style parameters"
+}

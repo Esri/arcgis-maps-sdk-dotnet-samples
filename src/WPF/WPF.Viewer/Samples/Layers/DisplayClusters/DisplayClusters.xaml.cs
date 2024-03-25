@@ -9,8 +9,11 @@
 
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Mapping.Popups;
 using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.Reduction;
 using Esri.ArcGISRuntime.UI.Controls;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -51,19 +54,46 @@ namespace ArcGIS.WPF.Samples.DisplayClusters
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
+            // Clear any previously selected features.
+            _layer.ClearSelection();
+
             // Identify the tapped observation.
-            IdentifyLayerResult results = await MyMapView.IdentifyLayerAsync(_layer, e.Position, 3, true);
+            var results = await MyMapView.IdentifyLayerAsync(_layer, e.Position, 3, false);
 
             // Return if no popups are found.
-            if (results.Popups.Count == 0) return;
+            if (results.GeoElements.Count == 0 || results.Popups.Count == 0) return;
 
-            // Set the popup and make it visible.
-            PopupViewer.Popup = results.Popups.FirstOrDefault();
+            if (results.Popups.FirstOrDefault() is Popup popup)
+            {
+                // Set the popup;
+                PopupViewer.Popup = popup;
+            }
+
+            // If the tapped observation is an AggregateGeoElement then select it.
+            if (results.GeoElements.FirstOrDefault() is AggregateGeoElement aggregateGeoElement)
+            {
+                // Select the AggregateGeoElement.
+                aggregateGeoElement.IsSelected = true;
+
+                // Get the contained GeoElements.
+                IReadOnlyList<GeoElement> geoElements = await aggregateGeoElement.GetGeoElementsAsync();
+                
+                // Set the geoelements as an items source and set the visibility.
+                GeoElementsGrid.ItemsSource = geoElements;
+                GeoElementsPanel.Visibility = Visibility.Visible;
+            }
+            else if (results.GeoElements.FirstOrDefault() is ArcGISFeature feature)
+            {
+                // If the tapped observation is not an AggregateGeoElement select the feature.
+                _layer.SelectFeature(feature);
+            }
+
+            // Make the popup visible.
             PopupBackground.Visibility = Visibility.Visible;
         }
 
         // Enable clustering feature reduction if the checkbox has been checked, disable otherwise.
-        private void CheckBox_CheckChanged(object sender, RoutedEventArgs e)
+        private void EnableClusteringCheckBox_CheckChanged(object sender, RoutedEventArgs e)
         {
             // This event is raised when sample is initially loaded when layer is null.
             if (_layer == null) return;
@@ -75,7 +105,9 @@ namespace ArcGIS.WPF.Samples.DisplayClusters
         private void PopupBackground_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
             PopupBackground.Visibility = Visibility.Collapsed;
+            GeoElementsPanel.Visibility = Visibility.Collapsed;
             PopupViewer.Popup = null;
+            GeoElementsGrid.ItemsSource = null;
         }
     }
 }

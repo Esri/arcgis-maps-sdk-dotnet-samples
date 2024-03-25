@@ -32,14 +32,34 @@ namespace ArcGIS
                 link += "+&impacted-samples=" + SampleManager.Current.SelectedSample.FormalName;
             }
 
-            Process.Start(link);
+            OpenWebpage(link);
         }
 
         private void FeatureRequestButton_Click(object sender, RoutedEventArgs e)
         {
             string link =
                 "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Feature&projects=&template=feature_request.yml&title=%5BFeature%5D";
+            OpenWebpage(link);
+        }
+
+        private void OpenWebpage(string link)
+        {
+            try
+            {
+#if NETFRAMEWORK
             Process.Start(link);
+#elif NETCOREAPP
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = link,
+                UseShellExecute = true
+            });
+#endif
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

@@ -57,12 +57,6 @@ namespace ArcGIS.Samples.Managers
         /// </summary>
         public SampleInfo SelectedSample { get; set; }
 
-        /// <summary>
-        /// The sample that was previously shown to the user.
-        /// </summary>
-        /// <remarks>This can be helpful when bug reporting.</remarks>
-        public SampleInfo PreviouslySelectedSample { get; set; }
-
         private const string _favoritedSampleFileName = "favoritedSamples";
 
         /// <summary>

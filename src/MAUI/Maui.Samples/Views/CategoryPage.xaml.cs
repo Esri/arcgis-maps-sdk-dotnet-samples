@@ -58,12 +58,6 @@ public partial class CategoryPage : ContentPage
                 case BugReport:
                     link =
                         "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=bug_report.yml&title=%5BBug%5D";
-                    
-                    if (SampleManager.Current.PreviouslySelectedSample != null)
-                    {
-                        link += "+&impacted-samples=" + SampleManager.Current.PreviouslySelectedSample.FormalName;
-                    }
-
                     _ = Browser.Default.OpenAsync(new Uri(link), BrowserLaunchMode.SystemPreferred);
                     break;
 

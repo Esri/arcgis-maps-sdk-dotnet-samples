@@ -2,7 +2,7 @@
 
 Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 
-![](DisplayClusters.jpg)
+![Image of display clusters](DisplayClusters.jpg)
 
 ## Use case
 

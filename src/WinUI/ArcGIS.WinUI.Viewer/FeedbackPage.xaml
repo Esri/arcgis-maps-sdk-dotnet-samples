@@ -1,0 +1,21 @@
+﻿<UserControl x:Class="ArcGIS.FeedbackPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <StackPanel x:Name="SubmitFeedback" HorizontalAlignment="Center">
+        <TextBlock Margin="10"
+                   FontSize="25"
+                   FontWeight="Bold"
+                   Text="Open an issue on GitHub:" />
+        <Button Margin="10"
+                HorizontalAlignment="Stretch"
+                Click="BugReportButton_Click"
+                Content="Bug Report" />
+        <Button Margin="10"
+                HorizontalAlignment="Stretch"
+                Click="FeatureRequestButton_Click"
+                Content="Feature Request" />
+    </StackPanel>
+
+</UserControl>

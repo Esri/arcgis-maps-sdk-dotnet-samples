@@ -68,7 +68,7 @@ jobs:
 
     - name: Build WPF .NETFramework
       run: |
-        msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.Net.sln /p:TargetFramework=net472 /p:Configuration=Release /p:CentralPackageManagementEnabled=true
+        msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.NetFramework.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true
 
 # WinUI Build
   build-winUI:

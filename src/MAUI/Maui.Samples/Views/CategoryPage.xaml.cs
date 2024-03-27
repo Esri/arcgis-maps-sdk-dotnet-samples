@@ -13,9 +13,6 @@ public partial class CategoryPage : ContentPage
 {
     private CategoryViewModel _viewModel;
 
-    private const string BugReport = "Bug Report";
-    private const string FeatureRequest = "Feature Request";
-
     public CategoryPage()
     {
         InitializeComponent();
@@ -50,27 +47,7 @@ public partial class CategoryPage : ContentPage
 
     private async void FeedbackToolbarItem_Clicked(object sender, EventArgs e)
     {
-        await DisplayActionSheet("Open an issue on GitHub:", "Cancel", null, [BugReport, FeatureRequest]).ContinueWith((result) =>
-        {
-            string link;
-            switch (result.Result)
-            {
-                case BugReport:
-                    link =
-                        "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=bug_report.yml&title=%5BBug%5D";
-                    _ = Browser.Default.OpenAsync(new Uri(link), BrowserLaunchMode.SystemPreferred);
-                    break;
-
-                case FeatureRequest:
-                    link =
-                        "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Feature&projects=&template=feature_request.yml&title=%5BFeature%5D";
-                    _ = Browser.Default.OpenAsync(new Uri(link), BrowserLaunchMode.SystemPreferred);
-                    break;
-
-                case "Cancel":
-                    break;
-            }
-        }, TaskScheduler.FromCurrentSynchronizationContext());
+        await FeedbackPrompt.ShowFeedbackPromptAsync();
     }
 
     private async void SettingsClicked(object sender, EventArgs e)

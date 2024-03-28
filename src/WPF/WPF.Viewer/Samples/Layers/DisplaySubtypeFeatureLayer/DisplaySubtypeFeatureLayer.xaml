@@ -7,7 +7,7 @@
         <Border x:Name="SublayerInfo"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Style="{StaticResource BorderStyle}">
+                >
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />

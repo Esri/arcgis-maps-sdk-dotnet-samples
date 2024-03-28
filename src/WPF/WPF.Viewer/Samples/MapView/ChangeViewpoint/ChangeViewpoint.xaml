@@ -17,7 +17,7 @@
                 </mapping:Map.OperationalLayers>
             </mapping:Map>
         </esri:MapView>
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

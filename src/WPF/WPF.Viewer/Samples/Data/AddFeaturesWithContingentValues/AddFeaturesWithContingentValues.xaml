@@ -7,7 +7,7 @@
         <Border x:Name="FeatureAttributesPanel"
                 MaxWidth="200"
                 IsVisibleChanged="FeatureAttributesPanel_IsVisibleChanged"
-                Style="{StaticResource BorderStyle}">
+                >
             <StackPanel>
                 <Label Content="Status" />
                 <ComboBox x:Name="StatusCombo" />

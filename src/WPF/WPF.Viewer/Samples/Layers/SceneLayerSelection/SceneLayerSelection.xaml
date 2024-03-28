@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:SceneView x:Name="MySceneView" GeoViewTapped="SceneViewTapped" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <TextBlock FontWeight="SemiBold"
                        Text="Tap to select buildings."
                        TextAlignment="Center" />

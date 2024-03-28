@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" DrawStatusChanged="MapDrawStatusChanged" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel Orientation="Vertical">
                 <TextBlock x:Name="IncidentReportSummary" />
                 <StackPanel Orientation="Horizontal">

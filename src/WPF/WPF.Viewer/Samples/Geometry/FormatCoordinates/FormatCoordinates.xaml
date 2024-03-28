@@ -12,7 +12,7 @@
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

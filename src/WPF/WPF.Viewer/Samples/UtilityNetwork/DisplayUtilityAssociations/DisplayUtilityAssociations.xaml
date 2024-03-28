@@ -18,7 +18,7 @@
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" NavigationCompleted="OnNavigationCompleted" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel>
                 <Label Margin="5" Content="Utility association types" />
                 <ListView x:Name="AssociationLegend"

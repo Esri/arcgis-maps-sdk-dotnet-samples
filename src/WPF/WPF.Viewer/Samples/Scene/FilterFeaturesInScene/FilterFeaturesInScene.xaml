@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:SceneView x:Name="MySceneView" />
-        <Border Width="250" Style="{StaticResource BorderStyle}">
+        <Border Width="250" >
             <Button x:Name="MyButton" Click="MyButton_Click" />
         </Border>
     </Grid>

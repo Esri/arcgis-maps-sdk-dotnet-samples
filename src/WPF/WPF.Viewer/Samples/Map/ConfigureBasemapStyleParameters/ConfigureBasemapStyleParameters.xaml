@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel Margin="5">
                 <Label Content="Set language strategy:" FontWeight="Bold" />
                 <RadioButton x:Name="GlobalRadioButton" Content="Global" />

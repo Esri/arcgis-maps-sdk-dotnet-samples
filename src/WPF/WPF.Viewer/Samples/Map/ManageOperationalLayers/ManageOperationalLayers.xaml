@@ -18,7 +18,7 @@
     </UserControl.Resources>
     <Grid>
         <esri:MapView Map="{Binding Map}" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel Orientation="Vertical">
                 <Label Content="Drag and drop to reorder and move layers." />
                 <Label HorizontalContentAlignment="Center"

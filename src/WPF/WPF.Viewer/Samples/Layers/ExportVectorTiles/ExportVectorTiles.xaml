@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" ViewpointChanged="MyMapView_ViewpointChanged" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel>
                 <Button x:Name="MyExportButton"
                         Click="MyExportButton_Click"

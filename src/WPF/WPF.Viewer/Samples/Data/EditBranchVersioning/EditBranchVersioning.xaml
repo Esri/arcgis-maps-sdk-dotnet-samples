@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel>
                 <Label Content="Click to select a feature, then change its damage type." FontWeight="SemiBold" />
                 <Label x:Name="CurrentVersionLabel" Content="Current version:" />
@@ -17,7 +17,7 @@
         <Border x:Name="VersionCreator"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Style="{StaticResource BorderStyle}"
+                
                 Visibility="Collapsed">
             <Grid>
                 <Grid.RowDefinitions>
@@ -65,7 +65,7 @@
         </Border>
         <Border x:Name="AttributePicker"
                 HorizontalAlignment="Left"
-                Style="{StaticResource BorderStyle}"
+                
                 Visibility="Collapsed">
             <StackPanel>
                 <Label Margin="5"

@@ -5,7 +5,7 @@
              xmlns:networkAnalysis="clr-namespace:Esri.ArcGISRuntime.Tasks.NetworkAnalysis;assembly=Esri.ArcGISRuntime">
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_OnGeoViewTapped" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:SceneView x:Name="MySceneView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel>
                 <Label Content="Terrain exaggeration:" />
                 <Slider x:Name="TerrainSlider"

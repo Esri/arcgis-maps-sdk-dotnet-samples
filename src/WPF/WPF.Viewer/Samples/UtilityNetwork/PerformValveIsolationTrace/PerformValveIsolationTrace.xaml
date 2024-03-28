@@ -7,7 +7,7 @@
         <Border x:Name="MainUI"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Style="{StaticResource BorderStyle}">
+                >
             <Grid x:Name="FilterOptions">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -57,7 +57,7 @@
         <Border Name="TerminalPicker"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Style="{StaticResource BorderStyle}"
+                
                 Visibility="Collapsed">
             <Grid>
                 <Grid.RowDefinitions>

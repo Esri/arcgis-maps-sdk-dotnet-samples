@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel>
                 <Label Margin="5" Content="Zoom in and out to observe changes in layer status." />
                 <Button x:Name="LoadButton"

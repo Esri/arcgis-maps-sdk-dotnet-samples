@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <Label HorizontalContentAlignment="Center"
                    Content="Tap to identify features."
                    FontWeight="SemiBold" />

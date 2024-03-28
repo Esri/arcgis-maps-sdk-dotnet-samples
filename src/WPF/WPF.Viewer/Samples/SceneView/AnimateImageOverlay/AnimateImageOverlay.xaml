@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:SceneView x:Name="MySceneView" />
-        <Border Width="260" Style="{StaticResource BorderStyle}">
+        <Border Width="260" >
             <StackPanel Width="250">
                 <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                     <Label Margin="5"

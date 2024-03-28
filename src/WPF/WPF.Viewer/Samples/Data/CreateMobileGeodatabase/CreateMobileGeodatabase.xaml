@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel>
                 <Label x:Name="FeaturesLabel" Content="Number of features added: " />
                 <Button Margin="5"
@@ -24,7 +24,7 @@
         <Border x:Name="TableBorder"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Style="{StaticResource BorderStyle}"
+                
                 Visibility="Hidden">
             <StackPanel>
                 <ScrollViewer Height="400" Margin="5">

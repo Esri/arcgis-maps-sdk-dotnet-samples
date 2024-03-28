@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="OnGeoViewTapped" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -56,7 +56,7 @@
         <Border x:Name="AttributePicker"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Style="{StaticResource BorderStyle}"
+                
                 Visibility="Collapsed">
             <Grid>
                 <Grid.RowDefinitions>

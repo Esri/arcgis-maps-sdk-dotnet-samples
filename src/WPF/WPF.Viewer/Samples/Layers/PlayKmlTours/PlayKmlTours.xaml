@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:SceneView x:Name="MySceneView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel Orientation="Vertical">
                 <TextBlock Margin="0,0,0,5" Text="Use the buttons to control the tour. Contains audio. 🎧" />
                 <Grid>

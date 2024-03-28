@@ -5,7 +5,7 @@
     <Grid>
         <Grid>
             <esri:MapView x:Name="MyMapView" />
-            <Border Style="{StaticResource BorderStyle}">
+            <Border >
                 <StackPanel>
                     <Button x:Name="SolveRoutesButton"
                             Height="30"

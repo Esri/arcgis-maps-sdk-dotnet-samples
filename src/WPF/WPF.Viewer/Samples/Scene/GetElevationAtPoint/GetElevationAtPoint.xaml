@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:SceneView x:Name="MySceneView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border VerticalAlignment="Top">
             <TextBlock FontWeight="SemiBold"
                        Text="Tap to find the elevation for a point."
                        TextAlignment="Center"

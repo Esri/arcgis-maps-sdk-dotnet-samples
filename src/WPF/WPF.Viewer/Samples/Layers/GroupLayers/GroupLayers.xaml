@@ -5,7 +5,7 @@
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
     <Grid>
         <esri:SceneView x:Name="MySceneView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />

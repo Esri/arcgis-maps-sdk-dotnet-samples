@@ -7,7 +7,7 @@
         <Border x:Name="MyButtonPanel"
                 Width="250"
                 HorizontalAlignment="Left"
-                Style="{StaticResource BorderStyle}"
+                
                 Visibility="Collapsed">
             <StackPanel>
                 <Button x:Name="MyGenerateElevationProfileButton"
@@ -51,7 +51,7 @@
         </Border>
         <Border Width="250"
                 HorizontalAlignment="Right"
-                Style="{StaticResource BorderStyle}">
+                >
             <StackPanel>
                 <TextBlock x:Name="MyInstructionsTitleTextBlock"
                            FontSize="14"

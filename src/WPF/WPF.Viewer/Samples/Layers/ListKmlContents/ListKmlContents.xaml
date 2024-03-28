@@ -5,7 +5,7 @@
              xmlns:listKmlContents="clr-namespace:ArcGIS.WPF.Samples.ListKmlContents">
     <Grid>
         <esri:SceneView x:Name="MySceneView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />

@@ -8,7 +8,7 @@
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Height="300" Style="{StaticResource BorderStyle}">
+        <Border Height="300" >
             <ScrollViewer Height="250" VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <TextBlock FontWeight="Bold" Text="Directions:" />

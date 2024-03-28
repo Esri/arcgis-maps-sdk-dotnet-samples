@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border VerticalAlignment="Top">
             <TextBlock FontWeight="SemiBold"
                        Text="Tap to show a callout."
                        TextAlignment="Center" />

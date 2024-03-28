@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel>
                 <CheckBox x:Name="OnlyInExtentCheckbox" Content="Cities in current extent" />
                 <CheckBox x:Name="OnlyBigCitiesCheckbox" Content="Cities larger than 5M" />
@@ -19,7 +19,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Visibility="Collapsed"
-                Style="{StaticResource BorderStyle}">
+                >
             <StackPanel>
                 <ListBox x:Name="StatsResultsListBox"
                          Margin="0,5,0,5"

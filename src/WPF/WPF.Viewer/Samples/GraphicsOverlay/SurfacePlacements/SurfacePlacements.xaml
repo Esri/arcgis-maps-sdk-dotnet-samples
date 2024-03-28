@@ -6,7 +6,7 @@
         <esri:SceneView x:Name="MySceneView" />
         <Border Width="175"
                 Height="auto"
-                Style="{StaticResource BorderStyle}">
+                >
             <StackPanel>
                 <RadioButton x:Name="BillboardButton"
                              Content="Draped billboarded"

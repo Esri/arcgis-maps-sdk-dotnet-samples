@@ -6,7 +6,7 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Width="auto"
                 Height="auto"
-                Style="{StaticResource BorderStyle}">
+                >
             <StackPanel Orientation="Vertical">
                 <Button x:Name="DrawClustersButton"
                         Padding="5"

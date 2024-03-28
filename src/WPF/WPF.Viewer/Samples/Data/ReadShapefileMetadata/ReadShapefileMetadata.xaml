@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Width="300" Style="{StaticResource BorderStyle}">
+        <Border Width="300" >
             <Grid x:Name="InfoPanel">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

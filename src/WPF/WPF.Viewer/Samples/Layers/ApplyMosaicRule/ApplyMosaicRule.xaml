@@ -6,7 +6,7 @@
         <esri:MapView x:Name="MyMapView" />
         <Border HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Style="{StaticResource BorderStyle}">
+                >
             <StackPanel>
                 <Label Content="Choose a mosaic rule to apply to the image service." />
                 <ComboBox x:Name="MosaicRulesBox" SelectionChanged="MosaicRulesBox_SelectionChanged" />

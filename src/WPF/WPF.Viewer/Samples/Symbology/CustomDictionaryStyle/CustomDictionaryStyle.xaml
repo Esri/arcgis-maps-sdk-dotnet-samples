@@ -6,7 +6,7 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Width="250"
                 Height="auto"
-                Style="{StaticResource BorderStyle}">
+                >
             <StackPanel>
                 <Label Padding="0,0,0,5" Content="Custom Dictionary Symbol Style Source" />
                 <RadioButton x:Name="LocalStyleButton"

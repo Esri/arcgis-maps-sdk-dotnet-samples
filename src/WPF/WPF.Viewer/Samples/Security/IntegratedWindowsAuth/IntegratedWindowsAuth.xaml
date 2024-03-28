@@ -7,7 +7,7 @@
         <Border x:Name="AuthenticationBorder"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Style="{StaticResource BorderStyle}">
+                >
             <StackPanel>
                 <TextBlock x:Name="Instruction" Text="Enter URL to an IWA secured portal:" />
                 <TextBox x:Name="SecurePortalUrlTextBox"
@@ -28,7 +28,7 @@
             </StackPanel>
         </Border>
         <Border x:Name="PostAuthenticationBorder"
-                Style="{StaticResource BorderStyle}"
+                
                 Visibility="Collapsed">
             <ScrollViewer>
                 <StackPanel>

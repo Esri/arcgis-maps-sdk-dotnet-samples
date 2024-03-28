@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArcGIS.WPF.Viewer.NetFramew
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGIS.Samples.Shared", "..\Samples.Shared\ArcGIS.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsApp1", "WindowsFormsApp1\WindowsFormsApp1.csproj", "{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,22 @@ Global
 		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x64.Build.0 = Release|x64
 		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x86.ActiveCfg = Release|x86
 		{5278F66E-D41F-45D2-8327-25EA13A11618}.Release|x86.Build.0 = Release|x86
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Debug|x64.Build.0 = Debug|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Debug|x86.Build.0 = Debug|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Release|ARM64.Build.0 = Release|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Release|x64.ActiveCfg = Release|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Release|x64.Build.0 = Release|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Release|x86.ActiveCfg = Release|Any CPU
+		{70EAFAD6-97E3-4D23-A6C7-FC6B8A217395}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

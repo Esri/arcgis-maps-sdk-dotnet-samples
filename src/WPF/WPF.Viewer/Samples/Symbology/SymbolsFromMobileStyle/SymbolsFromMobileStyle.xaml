@@ -12,7 +12,7 @@
                 Height="290"
                 Margin="0,20,20,0"
                 Padding="0"
-                Style="{StaticResource BorderStyle}">
+                >
             <Grid Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="140" />

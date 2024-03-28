@@ -6,7 +6,7 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Width="auto"
                 Height="auto"
-                Style="{StaticResource BorderStyle}">
+                >
             <StackPanel>
                 <Label Margin="5"
                        Content="{Binding ElementName=MyMapView, Path=MapScale}"

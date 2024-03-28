@@ -17,7 +17,7 @@
         </esri:MapView>
 
         <!--  Layer listing with status  -->
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel>
                 <TextBlock Margin="4"
                            FontSize="14"
@@ -63,7 +63,7 @@
         <!--  Login UI  -->
         <Border x:Name="loginPanel"
                 HorizontalAlignment="Left"
-                Style="{StaticResource BorderStyle}"
+                
                 Visibility="Collapsed">
             <Grid>
                 <Grid.ColumnDefinitions>

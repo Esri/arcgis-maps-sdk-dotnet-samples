@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border x:Name="MainUI" Style="{StaticResource BorderStyle}">
+        <Border x:Name="MainUI" >
             <StackPanel>
                 <Label Name="ConnectionStatusLabel" />
                 <Button x:Name="ConnectionButton"

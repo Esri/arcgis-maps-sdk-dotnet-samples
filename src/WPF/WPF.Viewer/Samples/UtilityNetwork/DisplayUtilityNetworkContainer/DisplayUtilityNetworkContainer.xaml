@@ -18,7 +18,7 @@
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Border >
             <StackPanel>
                 <Label Margin="5" Content="Click an element to view its container." />
                 <Label Margin="5"

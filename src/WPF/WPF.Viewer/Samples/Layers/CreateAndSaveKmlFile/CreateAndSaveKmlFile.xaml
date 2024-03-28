@@ -5,7 +5,7 @@
              xmlns:local="clr-namespace:ArcGIS.WPF.Samples.CreateAndSaveKmlFile">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Name="MainUI" Style="{StaticResource BorderStyle}">
+        <Border Name="MainUI" >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -67,7 +67,7 @@
                 Width="250"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Style="{StaticResource BorderStyle}"
+                
                 Visibility="Collapsed">
             <Grid>
                 <Grid.RowDefinitions>

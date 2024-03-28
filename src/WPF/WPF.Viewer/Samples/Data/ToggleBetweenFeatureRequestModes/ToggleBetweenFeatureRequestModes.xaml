@@ -6,7 +6,7 @@
         <esri:MapView x:Name="MyMapView" />
         <Border Width="150"
                 Height="auto"
-                Style="{StaticResource BorderStyle}">
+                >
             <StackPanel>
                 <RadioButton x:Name="Cache"
                              Checked="CacheChecked"

@@ -9,7 +9,7 @@
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border Width="225" Style="{StaticResource BorderStyle}">
+        <Border Width="225" >
             <StackPanel>
                 <TextBlock FontWeight="Bold" Text="Color scheme" />
                 <StackPanel Orientation="Horizontal">

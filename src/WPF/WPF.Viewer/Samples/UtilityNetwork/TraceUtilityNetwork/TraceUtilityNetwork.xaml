@@ -8,7 +8,7 @@
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 IsEnabled="False"
-                Style="{StaticResource BorderStyle}">
+                >
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition />
@@ -71,7 +71,7 @@
         <Border Name="TerminalPicker"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Style="{StaticResource BorderStyle}"
+                
                 Visibility="Collapsed">
             <Grid>
                 <Grid.RowDefinitions>

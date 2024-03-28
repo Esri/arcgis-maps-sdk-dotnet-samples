@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border MaxWidth="230" Style="{StaticResource BorderStyle}">
+        <Border MaxWidth="230" >
             <StackPanel>
                 <TextBlock Margin="0,0,0,5"
                            HorizontalAlignment="Center"

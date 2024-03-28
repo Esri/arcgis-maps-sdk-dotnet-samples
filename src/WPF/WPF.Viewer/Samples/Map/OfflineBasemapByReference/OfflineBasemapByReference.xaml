@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
-        <Border x:Name="TakeOfflineArea" Style="{StaticResource BorderStyle}">
+        <Border x:Name="TakeOfflineArea" >
             <StackPanel>
                 <Button Click="TakeMapOfflineButton_Click"
                         Content="Take map offline"
@@ -12,7 +12,7 @@
             </StackPanel>
         </Border>
         <Border x:Name="MessageArea"
-                Style="{StaticResource BorderStyle}"
+                
                 Visibility="Collapsed">
             <StackPanel>
                 <TextBlock Margin="10"

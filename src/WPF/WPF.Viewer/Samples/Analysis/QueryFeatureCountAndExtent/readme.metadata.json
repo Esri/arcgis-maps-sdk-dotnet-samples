@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/queryfeaturecountandextent.htm"
+        "/net/latest/wpf/sample-code/query-feature-count-and-extent.htm"
     ],
     "relevant_apis": [
         "FeatureTable.QueryExtentAsync",

@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/analyzeviewshed.htm"
+        "/net/latest/winui/sample-code/analyze-viewshed-geoprocessing.htm"
     ],
     "relevant_apis": [
         "FeatureCollectionTable",

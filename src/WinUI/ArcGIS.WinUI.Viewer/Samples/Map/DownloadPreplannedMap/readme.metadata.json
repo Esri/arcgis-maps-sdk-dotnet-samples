@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/downloadpreplannedmap.htm"
+        "/net/latest/winui/sample-code/download-preplanned-map-area.htm"
     ],
     "relevant_apis": [
         "DownloadPreplannedOfflineMapJob",

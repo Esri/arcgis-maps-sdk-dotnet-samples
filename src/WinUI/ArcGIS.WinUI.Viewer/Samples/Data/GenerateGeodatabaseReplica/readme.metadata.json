@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/generategeodatabasereplica.htm",
+        "/net/latest/winui/sample-code/generate-geodatabase-replica-from-feature-service.htm",
         "/net/winui/sample-code/generategeodatabase.htm"
     ],
     "relevant_apis": [

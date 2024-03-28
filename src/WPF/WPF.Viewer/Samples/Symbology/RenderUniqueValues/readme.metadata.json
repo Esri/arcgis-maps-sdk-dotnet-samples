@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/renderuniquevalues.htm"
+        "/net/latest/wpf/sample-code/unique-value-renderer.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

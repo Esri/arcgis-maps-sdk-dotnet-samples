@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/generateofflinemap.htm"
+        "/net/latest/winui/sample-code/generate-offline-map.htm"
     ],
     "relevant_apis": [
         "GenerateOfflineMapJob",

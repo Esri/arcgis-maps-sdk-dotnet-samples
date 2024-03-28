@@ -13,7 +13,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/cutgeometry.htm"
+        "/net/latest/maui/sample-code/cut-geometry.htm"
     ],
     "relevant_apis": [
         "GeometryEngine.Cut",

@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/displaylayerviewstate.htm"
+        "/net/latest/winui/sample-code/display-layer-view-state.htm"
     ],
     "relevant_apis": [
         "LayerViewStateChanged",

@@ -21,7 +21,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/querycqlfilters.htm"
+        "/net/latest/winui/sample-code/query-with-cql-filters.htm"
     ],
     "relevant_apis": [
         "OgcFeatureCollectionTable",

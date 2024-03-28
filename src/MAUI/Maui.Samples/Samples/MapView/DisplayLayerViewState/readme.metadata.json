@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/displaylayerviewstate.htm"
+        "/net/latest/maui/sample-code/display-layer-view-state.htm"
     ],
     "relevant_apis": [
         "LayerViewStateChanged",

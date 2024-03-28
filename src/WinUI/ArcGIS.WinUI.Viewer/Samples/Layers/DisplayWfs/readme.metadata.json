@@ -19,7 +19,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/displaywfs.htm"
+        "/net/latest/winui/sample-code/display-wfs-layer.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

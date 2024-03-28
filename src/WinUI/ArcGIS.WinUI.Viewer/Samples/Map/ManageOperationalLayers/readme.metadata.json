@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/manageoperationallayers.htm"
+        "/net/latest/winui/sample-code/manage-operational-layers.htm"
     ],
     "relevant_apis": [
         "ArcGISMapImageLayer",

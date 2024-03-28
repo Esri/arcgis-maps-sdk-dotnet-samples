@@ -18,7 +18,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/displayoacollection.htm"
+        "/net/latest/maui/sample-code/display-ogc-api-collection.htm"
     ],
     "relevant_apis": [
         "OgcFeatureCollectionTable",

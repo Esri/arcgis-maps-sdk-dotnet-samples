@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/analyzeviewshed.htm"
+        "/net/latest/maui/sample-code/analyze-viewshed-geoprocessing.htm"
     ],
     "relevant_apis": [
         "FeatureCollectionTable",

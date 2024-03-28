@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/setinitialmaparea.htm"
+        "/net/latest/winui/sample-code/map-initial-extent.htm"
     ],
     "relevant_apis": [
         "Envelope",

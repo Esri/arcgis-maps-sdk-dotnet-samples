@@ -13,7 +13,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/addpointscenelayer.htm"
+        "/net/latest/maui/sample-code/add-a-point-scene-layer.htm"
     ],
     "relevant_apis": [
         "ArcGISSceneLayer"

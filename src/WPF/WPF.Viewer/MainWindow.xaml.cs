@@ -35,7 +35,7 @@ namespace ArcGIS.Samples.Desktop
         private List<TreeViewItem> _samples;
         private System.Windows.Forms.Timer _delaySearchTimer;
         private const int _delayedTextChangedTimeout = 500;
-        private bool _settingsWindowOpen;
+        private bool _settingsWindowOpen, _feedbackWindowOpen;
 
         private List<string> _namedUserSamples = new List<string> {
             "AuthorMap",
@@ -471,8 +471,35 @@ namespace ArcGIS.Samples.Desktop
             _settingsWindowOpen = true;
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Owner = this;
-            settingsWindow.Closing += SettingsWindow_Closing;
+            settingsWindow.Closing += (send, args) => 
+            {
+                _settingsWindowOpen = false;
+                CloseWindow();
+            };
             settingsWindow.Show();
+        }
+
+        private void FeedbackButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_feedbackWindowOpen) return;
+            _feedbackWindowOpen = true;
+            var feedbackWindow = new FeedbackWindow();
+            feedbackWindow.Owner = this;
+            feedbackWindow.Closing += (send, args) =>
+            {
+                _feedbackWindowOpen = false;
+                CloseWindow();
+            };
+            feedbackWindow.Show();
+        }
+
+        private void CloseWindow()
+        {
+            SetScreenshotButttonVisibility();
+            SetContainerDimensions();
+
+            // Reactivate the parent window so that it does not minimize on close.
+            Activate();
         }
 
 #region Update Favorites
@@ -602,17 +629,6 @@ namespace ArcGIS.Samples.Desktop
         private void ScreenshotButton_Click(object sender, RoutedEventArgs e)
         {
             SaveScreenshot(SampleContainer);
-        }
-
-        private void SettingsWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
-        {
-            SetScreenshotButttonVisibility();
-            SetContainerDimensions();
-
-            _settingsWindowOpen = false;
-
-            // Reactivate the parent window so that it does not minimize on close.
-            Activate();
         }
 
         private void SetScreenshotButttonVisibility()

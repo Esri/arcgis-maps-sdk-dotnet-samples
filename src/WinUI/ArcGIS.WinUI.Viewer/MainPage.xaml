@@ -72,6 +72,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="auto" />
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0"
                        Margin="10,0,0,0"
@@ -105,6 +106,19 @@
                     Click="Settings_Click">
                 <SymbolIcon RequestedTheme="Dark" Symbol="Setting" />
             </Button>
+
+            <Button Grid.Column="3"
+                    Margin="0,10,10,10"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    HorizontalContentAlignment="Center"
+                    VerticalContentAlignment="Center"
+                    Background="Transparent"
+                    Click="Feedback_Click"
+                    BorderBrush="Transparent">
+                <Path Data="M18 10H7V9h11v1zm0 2H7v1h11v-1zm-1 3H7v1h10v-1zm-4 3H7v1h6v-1zm8-15v10.19c-.23.21-.54.51-1 .97V4h-1V3h2zM5 22h7.73l-.41 1H4V3h2v1H5v18zm16-3.13V23h-4.14c.07-.05.06-.05 1.01-1H20v-2.13l1-1zM8.5 5.25v-3.5A.752.752 0 0 0 7.75 1a.752.752 0 0 0-.75.75v3.5c0 .412.338.75.75.75s.75-.338.75-.75zm3 0v-3.5a.752.752 0 0 0-.75-.75.752.752 0 0 0-.75.75v3.5c0 .412.338.75.75.75s.75-.338.75-.75zm3.5 0v-3.5a.752.752 0 0 0-.75-.75.752.752 0 0 0-.75.75v3.5c0 .412.338.75.75.75s.75-.338.75-.75zm3 0v-3.5a.752.752 0 0 0-.75-.75.752.752 0 0 0-.75.75v3.5c0 .412.338.75.75.75s.75-.338.75-.75zm3.435 11.772l-1.413-1.415-5.184 5.184 1.414 1.414 5.183-5.183zm1.725-2.05l-1.13-1.132a.2.2 0 0 0-.283 0l-.734.734 1.414 1.414.734-.734a.2.2 0 0 0 0-.283zm-9.32 6.941L13 24l2.086-.84-1.247-1.247z" Fill="White" />
+            </Button>
+
         </Grid>
 
         <!--
@@ -164,6 +178,12 @@
                        Grid.RowSpan="2"
                        CloseButtonText="Close">
             <arcgisruntime:SettingsPage />
+        </ContentDialog>
+
+        <ContentDialog x:Name="FeedbackDialog"
+                       Grid.RowSpan="2"
+                       CloseButtonText="Close">
+            <arcgisruntime:FeedbackPage />
         </ContentDialog>
     </Grid>
 </Page>

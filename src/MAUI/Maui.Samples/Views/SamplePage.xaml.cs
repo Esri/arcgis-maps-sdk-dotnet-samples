@@ -337,6 +337,14 @@ namespace ArcGIS
 
         private void SetToolbarItems()
         {
+            // Feedback toolbar item should be placed last on desktop and first on mobile.
+            var feedbackToolbarItem = new ToolbarItem
+            {
+                IconImageSource = "feedback.png",
+                Text = "Feedback"
+            };
+            feedbackToolbarItem.Clicked += FeedbackToolbarItem_Clicked;
+
 #if WINDOWS
             // Add the screenshot tool if enabled in settings.
             if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
@@ -376,7 +384,10 @@ namespace ArcGIS
             };
             gitHubToolbarItem.Clicked += GitHubToolbarItem_Clicked;
             ToolbarItems.Add(gitHubToolbarItem);
+
+            ToolbarItems.Add(feedbackToolbarItem);
 #else
+            ToolbarItems.Add(feedbackToolbarItem);
             var verticalHandle = new ToolbarItem
             {
                 IconImageSource = "verticalhandle.png"
@@ -384,6 +395,7 @@ namespace ArcGIS
             verticalHandle.Clicked += VerticalHandle_Clicked;
             ToolbarItems.Add(verticalHandle);
 #endif
+            
         }
 
 #if WINDOWS
@@ -429,6 +441,11 @@ namespace ArcGIS
                     }
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        private async void FeedbackToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            await Helpers.FeedbackPrompt.ShowFeedbackPromptAsync();
         }
 
         private void SampleToolbarItem_Clicked(object sender, EventArgs e)

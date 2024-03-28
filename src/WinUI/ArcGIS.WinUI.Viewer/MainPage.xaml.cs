@@ -249,6 +249,11 @@ namespace ArcGIS.WinUI.Viewer
         {
             _ = settingsDialog.ShowAsync();
         }
+
+        private void Feedback_Click(object sender, RoutedEventArgs e)
+        {
+            _ = FeedbackDialog.ShowAsync();
+        }
     }
 
     internal class TreeViewItemTemplateSelector : DataTemplateSelector

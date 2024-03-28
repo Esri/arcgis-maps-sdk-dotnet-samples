@@ -4,6 +4,7 @@ using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.ViewModels;
 using CommunityToolkit.Maui.Views;
 using CommunityToolkit.Mvvm.Messaging;
+using Microsoft.Maui.ApplicationModel;
 using System.Diagnostics;
 
 namespace ArcGIS;
@@ -42,6 +43,11 @@ public partial class CategoryPage : ContentPage
         };
 #endif
 
+    }
+
+    private async void FeedbackToolbarItem_Clicked(object sender, EventArgs e)
+    {
+        await FeedbackPrompt.ShowFeedbackPromptAsync();
     }
 
     private async void SettingsClicked(object sender, EventArgs e)

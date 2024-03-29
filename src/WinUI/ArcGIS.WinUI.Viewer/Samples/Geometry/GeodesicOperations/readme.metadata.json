@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/geodesicoperations.htm"
+        "/net/latest/winui/sample-code/geodesic-operations.htm"
     ],
     "relevant_apis": [
         "GeometryEngine.DensifyGeodetic",

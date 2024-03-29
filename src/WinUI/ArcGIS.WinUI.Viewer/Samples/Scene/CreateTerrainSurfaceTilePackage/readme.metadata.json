@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/createterrainsurfacetilepackage.htm"
+        "/net/latest/winui/sample-code/create-terrain-from-local-tile-package.htm"
     ],
     "relevant_apis": [
         "ArcGISTiledElevationSource",

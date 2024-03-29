@@ -20,7 +20,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/showlocationhistory.htm"
+        "/net/latest/winui/sample-code/show-location-history.htm"
     ],
     "relevant_apis": [
         "Location.Position",

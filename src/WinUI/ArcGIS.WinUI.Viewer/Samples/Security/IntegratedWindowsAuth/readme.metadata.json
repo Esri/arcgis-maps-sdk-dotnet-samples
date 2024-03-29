@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/integratedwindowsauth.htm"
+        "/net/latest/winui/sample-code/integrated-windows-authentication.htm"
     ],
     "relevant_apis": [
         "ArcGISNetworkCredential",

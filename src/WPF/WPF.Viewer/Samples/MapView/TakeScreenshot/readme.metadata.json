@@ -18,7 +18,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/takescreenshot.htm"
+        "/net/latest/wpf/sample-code/take-screenshot.htm"
     ],
     "relevant_apis": [
         "GeoView.DrawStatus",

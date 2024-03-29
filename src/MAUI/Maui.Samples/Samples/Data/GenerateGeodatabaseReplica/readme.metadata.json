@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/generategeodatabasereplica.htm",
+        "/net/latest/maui/sample-code/generate-geodatabase-replica-from-feature-service.htm",
         "/net/maui/sample-code/generategeodatabase.htm"
     ],
     "relevant_apis": [

@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/analyzehotspots.htm"
+        "/net/latest/winui/sample-code/analyze-hotspots.htm"
     ],
     "relevant_apis": [
         "GeoprocessingJob",

@@ -12,7 +12,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/setmapspatialreference.htm"
+        "/net/latest/winui/sample-code/map-spatial-reference.htm"
     ],
     "relevant_apis": [
         "ArcGISMapImageLayer",

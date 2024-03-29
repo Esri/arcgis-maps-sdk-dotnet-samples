@@ -18,7 +18,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/certificateauthenticationwithpki.htm"
+        "/net/latest/wpf/sample-code/certificate-authentication-with-pki.htm"
     ],
     "relevant_apis": [
         "CertificateCredential"

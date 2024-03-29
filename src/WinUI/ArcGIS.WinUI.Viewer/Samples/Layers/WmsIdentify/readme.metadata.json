@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/wmsidentify.htm"
+        "/net/latest/winui/sample-code/identify-wms-features.htm"
     ],
     "relevant_apis": [
         "IdentifyLayerResult",

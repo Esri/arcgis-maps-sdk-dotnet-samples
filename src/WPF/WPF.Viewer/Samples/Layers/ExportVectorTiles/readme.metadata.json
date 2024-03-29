@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/exportvectortiles.htm"
+        "/net/latest/wpf/sample-code/export-vector-tiles.htm"
     ],
     "relevant_apis": [
         "ArcGISVectorTiledLayer",

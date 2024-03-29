@@ -18,7 +18,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/displayoacollection.htm"
+        "/net/latest/winui/sample-code/display-ogc-api-collection.htm"
     ],
     "relevant_apis": [
         "OgcFeatureCollectionTable",

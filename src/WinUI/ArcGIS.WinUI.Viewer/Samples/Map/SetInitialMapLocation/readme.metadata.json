@@ -24,7 +24,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/setinitialmaplocation.htm"
+        "/net/latest/winui/sample-code/set-initial-map-location.htm"
     ],
     "relevant_apis": [
         "BasemapStyle",

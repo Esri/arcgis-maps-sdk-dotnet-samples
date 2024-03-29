@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/listgeodatabaseversions.htm"
+        "/net/latest/winui/sample-code/list-geodatabase-versions.htm"
     ],
     "relevant_apis": [
         "GeoprocessingFeatures",

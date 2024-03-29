@@ -11,7 +11,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/mapimagesublayerquery.htm"
+        "/net/latest/maui/sample-code/query-map-image-sublayer.htm"
     ],
     "relevant_apis": [
         "ArcGISMapImageLayer",

@@ -22,7 +22,7 @@
         "d98b3e5293834c5f852f13c569930caa"
     ],
     "redirect_from": [
-        "/net/latest/winui/sample-code/readshapefilemetadata.htm"
+        "/net/latest/winui/sample-code/read-shapefile-metadata.htm"
     ],
     "relevant_apis": [
         "ShapefileFeatureTable",

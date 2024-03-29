@@ -19,7 +19,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/locationwithnmea.htm"
+        "/net/latest/wpf/sample-code/display-device-location-with-nmea-data-sources.htm"
     ],
     "relevant_apis": [
         "Location",

@@ -18,7 +18,7 @@
         "134d60f50e184e8fa56365f44e5ce3fb"
     ],
     "redirect_from": [
-        "/net/latest/winui/sample-code/rasterhillshade.htm"
+        "/net/latest/winui/sample-code/hillshade-renderer.htm"
     ],
     "relevant_apis": [
         "Basemap",

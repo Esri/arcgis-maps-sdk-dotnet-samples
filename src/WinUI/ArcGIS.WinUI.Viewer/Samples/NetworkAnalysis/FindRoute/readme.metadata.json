@@ -19,7 +19,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/findroute.htm"
+        "/net/latest/winui/sample-code/find-route.htm"
     ],
     "relevant_apis": [
         "DirectionManeuver",

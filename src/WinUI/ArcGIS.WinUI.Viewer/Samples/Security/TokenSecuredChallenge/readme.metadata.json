@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/tokensecuredchallenge.htm"
+        "/net/latest/winui/sample-code/arcgis-token-challenge.htm"
     ],
     "relevant_apis": [
         "AuthenticationManager",

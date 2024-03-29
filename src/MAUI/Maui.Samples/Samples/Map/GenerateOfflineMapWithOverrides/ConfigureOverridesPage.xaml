@@ -1,143 +1,108 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-
 <ContentPage x:Class="ArcGIS.Samples.GenerateOfflineMapWithOverrides.ConfigureOverridesPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              Title="Configure offline map job">
-    <Grid Margin="10" VerticalOptions="Center">
-        <Grid.Resources>
-            <Style TargetType="Label">
-                <Setter Property="Margin" Value="0,0,0,5" />
-                <Setter Property="VerticalOptions" Value="Center" />
-            </Style>
-            <Style TargetType="Entry">
-                <Setter Property="Margin" Value="0,0,0,5" />
-            </Style>
-            <Style TargetType="Switch">
-                <Setter Property="Margin" Value="0,0,0,5" />
-            </Style>
-        </Grid.Resources>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Label Grid.Row="0"
-               Grid.Column="0"
-               FontAttributes="Bold"
-               Text="Adjust the basemap" />
-        <Label Grid.Row="1"
-               Grid.Column="0"
-               Text="Min scale:" />
-        <Slider x:Name="MinScaleEntry"
-                Grid.Row="1"
-                Grid.Column="1"
-                Maximum="23"
-                MaximumTrackColor="CadetBlue"
-                Minimum="0"
-                MinimumTrackColor="CadetBlue"
-                Value="0" />
-        <Label Grid.Row="1"
-               Grid.Column="2"
-               Text="{Binding Source={x:Reference MinScaleEntry}, Path=Value, StringFormat='{0:N0}'}" />
-        <Label Grid.Row="2"
-               Grid.Column="0"
-               Text="Max scale:" />
-        <Slider x:Name="MaxScaleEntry"
-                Grid.Row="2"
-                Grid.Column="1"
-                Maximum="23"
-                MaximumTrackColor="CadetBlue"
-                Minimum="0"
-                MinimumTrackColor="CadetBlue"
-                Value="23" />
-        <Label Grid.Row="2"
-               Grid.Column="2"
-               Text="{Binding Source={x:Reference MaxScaleEntry}, Path=Value, StringFormat='{0:N0}'}" />
-        <Label Grid.Row="3"
-               Grid.Column="0"
-               Text="Buffer distance:" />
-        <Slider x:Name="ExtentBufferEntry"
-                Grid.Row="3"
-                Grid.Column="1"
-                Maximum="500"
-                MaximumTrackColor="CadetBlue"
-                Minimum="0"
-                MinimumTrackColor="CadetBlue"
-                Value="250" />
-        <Label Grid.Row="3"
-               Grid.Column="2"
-               Text="{Binding Source={x:Reference ExtentBufferEntry}, Path=Value, StringFormat='{0:N0}m'}" />
-        <Label Grid.Row="4"
-               Grid.Column="0"
-               FontAttributes="Bold"
-               Text="Choose layers" />
-        <Label Grid.Row="5"
-               Grid.Column="0"
-               Text="System valves:" />
-        <Switch x:Name="SysValvesLayerCheckbox"
-                Grid.Row="5"
-                Grid.Column="2"
-                IsToggled="True" />
-        <Label Grid.Row="6"
-               Grid.Column="0"
-               Text="Service connections:" />
-        <Switch x:Name="ServiceConnCheckbox"
-                Grid.Row="6"
-                Grid.Column="2" />
-        <Label Grid.Row="7"
-               Grid.Column="0"
-               Margin="0,0,0,5"
-               FontAttributes="Bold"
-               Text="Apply a feature layer filer" />
-        <Label Grid.Row="8"
-               Grid.Column="0"
-               Margin="0,0,5,5"
-               Text="Min Flow Rate:" />
-        <Slider x:Name="FlowRateFilterEntry"
-                Grid.Row="8"
-                Grid.Column="1"
-                Maximum="999"
-                MaximumTrackColor="CadetBlue"
-                Minimum="0"
-                MinimumTrackColor="CadetBlue"
-                Value="500" />
-        <Label Grid.Row="8"
-               Grid.Column="2"
-               MinimumWidthRequest="40"
-               Text="{Binding Source={x:Reference FlowRateFilterEntry}, Path=Value, StringFormat='{0:N0} GPM'}" />
-        <Label Grid.Row="9"
-               Grid.Column="0"
-               FontAttributes="Bold"
-               Text="Crop layers to extent" />
-        <Label Grid.Row="10"
-               Grid.Column="0"
-               Text="Water pipes:" />
-        <Switch x:Name="CropLayerCheckbox"
-                Grid.Row="10"
-                Grid.Column="2"
-                IsToggled="True" />
-        <Button Grid.Row="11"
-                Grid.Column="0"
-                Grid.ColumnSpan="3"
-                Clicked="TakeMapOffline_Clicked"
-                IsEnabled="True"
-                Text="Take map offline" />
-    </Grid>
+    <ScrollView>
+        <Grid Margin="10"
+              ColumnDefinitions="auto, *, auto"
+              ColumnSpacing="5"
+              RowDefinitions="auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto, auto"
+              RowSpacing="5"
+              VerticalOptions="Center">
+            <Grid.Resources>
+                <Style TargetType="Label">
+                    <Setter Property="VerticalOptions" Value="Center" />
+                </Style>
+                <Style x:Key="TitleLabelStyle" TargetType="Label">
+                    <Setter Property="FontAttributes" Value="Bold" />
+                    <Setter Property="HorizontalOptions" Value="Center" />
+                    <Setter Property="Grid.ColumnSpan" Value="3" />
+                </Style>
+                <Style TargetType="Switch">
+                    <Setter Property="HorizontalOptions" Value="Start" />
+                </Style>
+            </Grid.Resources>
+            <Label FontSize="Large"
+                   Style="{StaticResource TitleLabelStyle}"
+                   Text="Overrides" />
+            <Label Grid.Row="1"
+                   Style="{StaticResource TitleLabelStyle}"
+                   Text="Adjust the basemap" />
+            <Label Grid.Row="2" Text="Min scale:" />
+            <Slider x:Name="MinScaleEntry"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Maximum="23"
+                    Minimum="0"
+                    Value="0" />
+            <Label Grid.Row="2"
+                   Grid.Column="2"
+                   Text="{Binding Source={x:Reference MinScaleEntry}, Path=Value, StringFormat='{0:N0}'}" />
+            <Label Grid.Row="3" Text="Max scale:" />
+            <Slider x:Name="MaxScaleEntry"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    Maximum="23"
+                    Minimum="0"
+                    Value="23" />
+            <Label Grid.Row="3"
+                   Grid.Column="2"
+                   Text="{Binding Source={x:Reference MaxScaleEntry}, Path=Value, StringFormat='{0:N0}'}" />
+            <Label Grid.Row="4" Text="Buffer distance:" />
+            <Slider x:Name="ExtentBufferEntry"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Maximum="500"
+                    Minimum="0"
+                    Value="250" />
+            <Label Grid.Row="4"
+                   Grid.Column="2"
+                   Text="{Binding Source={x:Reference ExtentBufferEntry}, Path=Value, StringFormat='{0:N0}m'}" />
+            <Label Grid.Row="5"
+                   Style="{StaticResource TitleLabelStyle}"
+                   Text="Choose layers" />
+            <Label Grid.Row="6" Text="System valves:" />
+            <Switch x:Name="SysValvesLayerCheckbox"
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    IsToggled="True" />
+            <Label Grid.Row="7"
+                   Margin="0,0,5,0"
+                   Text="Service connections:" />
+            <Switch x:Name="ServiceConnCheckbox"
+                    Grid.Row="7"
+                    Grid.Column="1" />
+            <Label Grid.Row="8"
+                   Margin="0,0,0,5"
+                   Style="{StaticResource TitleLabelStyle}"
+                   Text="Apply a feature layer filer" />
+            <Label Grid.Row="9"
+                   Margin="0,0,5,5"
+                   Text="Min Flow Rate:" />
+            <Slider x:Name="FlowRateFilterEntry"
+                    Grid.Row="9"
+                    Grid.Column="1"
+                    Maximum="999"
+                    Minimum="0"
+                    Value="500" />
+            <Label Grid.Row="9"
+                   Grid.Column="2"
+                   MinimumWidthRequest="40"
+                   Text="{Binding Source={x:Reference FlowRateFilterEntry}, Path=Value, StringFormat='{0:N0} GPM'}" />
+            <Label Grid.Row="10"
+                   Style="{StaticResource TitleLabelStyle}"
+                   Text="Crop layers to extent" />
+            <Label Grid.Row="11" Text="Water pipes:" />
+            <Switch x:Name="CropLayerCheckbox"
+                    Grid.Row="11"
+                    Grid.Column="1"
+                    IsToggled="True" />
+            <Button Grid.Row="12"
+                    Grid.ColumnSpan="3"
+                    Clicked="TakeMapOffline_Clicked"
+                    IsEnabled="True"
+                    Text="Take map offline" />
+        </Grid>
+    </ScrollView>
 </ContentPage>

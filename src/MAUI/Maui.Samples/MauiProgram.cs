@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Maui;
 using Esri.ArcGISRuntime.Maui;
+using Esri.ArcGISRuntime.Toolkit.Maui;
 
 public static class MauiProgram
 {
@@ -19,7 +20,9 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddFont("calcite-ui-icons-24.ttf", "calcite-ui-icons-24");
-            }).UseArcGISRuntime();
+            })
+            .UseArcGISRuntime()
+            .UseArcGISToolkit();
 
         return builder.Build();
     }

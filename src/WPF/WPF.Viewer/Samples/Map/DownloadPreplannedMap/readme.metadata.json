@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/downloadpreplannedmap.htm"
+        "/net/latest/wpf/sample-code/download-preplanned-map-area.htm"
     ],
     "relevant_apis": [
         "DownloadPreplannedOfflineMapJob",

@@ -25,7 +25,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/indoorpositioning.htm"
+        "/net/latest/maui/sample-code/show-device-location-using-indoor-positioning.htm"
     ],
     "relevant_apis": [
         "ArcGISFeatureTable",

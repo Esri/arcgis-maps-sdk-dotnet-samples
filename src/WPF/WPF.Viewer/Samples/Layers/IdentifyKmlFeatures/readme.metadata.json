@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/identifykmlfeatures.htm"
+        "/net/latest/wpf/sample-code/identify-kml-features.htm"
     ],
     "relevant_apis": [
         "GeoView.IdentifyLayerAsync",

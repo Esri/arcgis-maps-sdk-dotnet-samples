@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/reversegeocode.htm"
+        "/net/latest/maui/sample-code/reverse-geocode.htm"
     ],
     "relevant_apis": [
         "GeocodeParameters",

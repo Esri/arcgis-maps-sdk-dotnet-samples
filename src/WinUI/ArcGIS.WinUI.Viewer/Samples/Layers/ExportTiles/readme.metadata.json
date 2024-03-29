@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/exporttiles.htm"
+        "/net/latest/winui/sample-code/export-tiles.htm"
     ],
     "relevant_apis": [
         "ArcGISTiledLayer",

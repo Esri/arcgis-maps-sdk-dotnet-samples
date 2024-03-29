@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/editfeatureattachments.htm"
+        "/net/latest/winui/sample-code/edit-feature-attachments.htm"
     ],
     "relevant_apis": [
         "ApplyEditsAsync",

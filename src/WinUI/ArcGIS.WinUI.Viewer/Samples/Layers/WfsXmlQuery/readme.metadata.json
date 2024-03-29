@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/wfsxmlquery.htm"
+        "/net/latest/winui/sample-code/load-wfs-with-xml-query.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

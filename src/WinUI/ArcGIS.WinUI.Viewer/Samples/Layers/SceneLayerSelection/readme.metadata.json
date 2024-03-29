@@ -18,7 +18,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/scenelayerselection.htm"
+        "/net/latest/winui/sample-code/scene-layer-selection.htm"
     ],
     "relevant_apis": [
         "ArcGISSceneLayer",

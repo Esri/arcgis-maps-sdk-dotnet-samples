@@ -21,7 +21,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/generateofflinemapwithoverrides.htm"
+        "/net/latest/winui/sample-code/generate-offline-map-overrides.htm"
     ],
     "relevant_apis": [
         "ExportTileCacheParameters",

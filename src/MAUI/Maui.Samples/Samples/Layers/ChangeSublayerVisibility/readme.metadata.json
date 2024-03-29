@@ -13,7 +13,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/changesublayervisibility.htm"
+        "/net/latest/maui/sample-code/map-image-layer-sublayer-visibility.htm"
     ],
     "relevant_apis": [
         "ArcGISMapImageLayer"

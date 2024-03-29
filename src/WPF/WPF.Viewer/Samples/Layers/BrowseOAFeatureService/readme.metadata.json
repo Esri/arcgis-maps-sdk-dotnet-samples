@@ -18,7 +18,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/browseoafeatureservice.htm"
+        "/net/latest/wpf/sample-code/browse-ogc-api-feature-service.htm"
     ],
     "relevant_apis": [
         "OgcFeatureCollectionInfo",

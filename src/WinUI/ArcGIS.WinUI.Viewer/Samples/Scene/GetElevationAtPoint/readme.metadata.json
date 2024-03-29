@@ -13,7 +13,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/getelevationatpoint.htm"
+        "/net/latest/winui/sample-code/get-elevation-at-a-point.htm"
     ],
     "relevant_apis": [
         "ArcGISTiledElevationSource",

@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/wfsxmlquery.htm"
+        "/net/latest/maui/sample-code/load-wfs-with-xml-query.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

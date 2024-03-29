@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/createterrainsurfaceraster.htm"
+        "/net/latest/wpf/sample-code/create-terrain-surface-from-a-local-raster.htm"
     ],
     "relevant_apis": [
         "RasterElevationSource",

@@ -18,7 +18,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/takescreenshot.htm"
+        "/net/latest/maui/sample-code/take-screenshot.htm"
     ],
     "relevant_apis": [
         "GeoView.DrawStatus",

@@ -19,7 +19,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/locationwithnmea.htm"
+        "/net/latest/winui/sample-code/display-device-location-with-nmea-data-sources.htm"
     ],
     "relevant_apis": [
         "Location",

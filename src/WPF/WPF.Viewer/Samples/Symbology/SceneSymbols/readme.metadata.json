@@ -26,7 +26,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/scenesymbols.htm"
+        "/net/latest/wpf/sample-code/scene-symbols.htm"
     ],
     "relevant_apis": [
         "SceneSymbol.AnchorPosition",

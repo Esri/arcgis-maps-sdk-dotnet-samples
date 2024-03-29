@@ -1,6 +1,9 @@
 import json
+import subprocess
+import sys
 import os
 import re
+from slugify import slugify
 
 class sample_metadata:
     
@@ -25,7 +28,11 @@ class sample_metadata:
 
     def __init__(self):
         self.reset_props()
-    
+        self.install("python-slugify")
+
+    def install(package):
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
     def populate_from_json(self, path_to_json):
         # formal name is the name of the folder containing the json
         pathparts = sample_metadata.splitall(path_to_json)
@@ -48,43 +55,7 @@ class sample_metadata:
         return
     
     def populate_from_readme(self, platform, path_to_readme):
-        # formal name is the name of the folder containing the json
-        pathparts = sample_metadata.splitall(path_to_readme)
-        self.formal_name = pathparts[-2]
-
-        # populate redirect_from; it is based on a pattern
-        real_platform = platform
-        redirect_string = f"/net/latest/{real_platform.lower()}/sample-code/{self.formal_name.lower()}.htm"
-        self.redirect_from.append(redirect_string)
-
-        if self.formal_name == "DisplayDeviceLocation":
-            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/display-device-location/")
-
-        if self.formal_name == "ToggleBetweenFeatureRequestModes":
-            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/servicefeaturetablenocache.htm")
-            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/servicefeaturetablemanualcache.htm")
-            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/servicefeaturetablecache.htm")
-
-        if self.formal_name == "DisplayFeatureLayers":
-            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/featurelayergeopackage.htm")
-            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/featurelayergeodatabase.htm")
-            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/featurelayershapefile.htm")
-
-        if self.formal_name == "GenerateGeodatabaseReplica":
-            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/generategeodatabase.htm")
-
-        if self.formal_name == "DisplayClusters":
-            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/displayclusters.htm")
-
-        if self.formal_name == "ConfigureClusters":
-            self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/configureclusters.htm")
-
-        # category is the name of the folder containing the sample folder
-        self.category = pathparts[-3]
-
-         # Correct category metadata for categories with spaces
-        self.category = self.category.replace("LocalServer", "Local Server").replace("NetworkAnalysis", "Network analysis").replace("UtilityNetwork", "Utility network").replace("AugmentedReality", "Augmented reality")
-
+        
         # read the readme content into a string
         readme_contents = ""
         try:
@@ -95,7 +66,7 @@ class sample_metadata:
             # not a sample, skip
             print(f"Error populating sample from readme - {path_to_readme} - {err}")
             return
-
+        
         # break into sections
         readme_parts = readme_contents.split("\n\n") # a blank line is two newlines
 
@@ -104,6 +75,26 @@ class sample_metadata:
         if not title_line.startswith("#"):
             title_line = title_line.split("#")[1]
         self.friendly_name = title_line.strip("#").strip()
+
+        # formal name is the name of the folder containing the json
+        pathparts = sample_metadata.splitall(path_to_readme)
+        self.formal_name = pathparts[-2]
+        slugged_sample_name = slugify(self.friendly_name)
+
+        # populate redirect_from; it is based on a pattern
+        real_platform = platform
+        redirect_string = f"/net/latest/{real_platform.lower()}/sample-code/{slugged_sample_name}.htm"
+        self.redirect_from.append(redirect_string)
+
+        # In cases where the sample name changes the previous name can be added as a redirect following the pattern below.
+        # if self.formal_name == "NewFormalSampleName":
+        #     self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/old-slugged-sample-name/")
+
+        # category is the name of the folder containing the sample folder
+        self.category = pathparts[-3]
+
+         # Correct category metadata for categories with spaces
+        self.category = self.category.replace("LocalServer", "Local Server").replace("NetworkAnalysis", "Network analysis").replace("UtilityNetwork", "Utility network").replace("AugmentedReality", "Augmented reality")
         
         if len(readme_parts) < 3:
             # can't handle this, return early

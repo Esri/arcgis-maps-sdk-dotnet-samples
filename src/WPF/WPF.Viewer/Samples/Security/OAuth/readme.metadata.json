@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/oauth.htm"
+        "/net/latest/wpf/sample-code/authenticate-with-oauth.htm"
     ],
     "relevant_apis": [
         "AuthenticationManager",

@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/convexhulllist.htm"
+        "/net/latest/maui/sample-code/convex-hull-list.htm"
     ],
     "relevant_apis": [
         "GeometryEngine.ConvexHull",

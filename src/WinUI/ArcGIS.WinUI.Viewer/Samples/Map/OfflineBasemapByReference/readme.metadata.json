@@ -18,7 +18,7 @@
         "85282f2aaa2844d8935cdb8722e22a93"
     ],
     "redirect_from": [
-        "/net/latest/winui/sample-code/offlinebasemapbyreference.htm"
+        "/net/latest/winui/sample-code/generate-offline-map-with-local-basemap.htm"
     ],
     "relevant_apis": [
         "GenerateOfflineMapJob",

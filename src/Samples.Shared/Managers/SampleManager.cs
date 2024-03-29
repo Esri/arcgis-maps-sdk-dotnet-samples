@@ -83,6 +83,7 @@ namespace ArcGIS.Samples.Managers
 #if INCLUDE_SAMPLES_SUBSET
             // Add a category for the samples subset.
             FullTree.Items.Insert(0, GetSearchableTreeNodeFromFile("SubsetSamples.xml", "Subset", false));
+            FullTree.Items.Insert(1, GetSearchableTreeNodeFromFile("FeaturedSamples.xml", "Featured"));
 #else
             // Add a category for featured samples.
             FullTree.Items.Insert(0, GetSearchableTreeNodeFromFile("FeaturedSamples.xml", "Featured"));

@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/identifylayers.htm"
+        "/net/latest/winui/sample-code/identify-layers.htm"
     ],
     "relevant_apis": [
         "IdentifyLayerResult",

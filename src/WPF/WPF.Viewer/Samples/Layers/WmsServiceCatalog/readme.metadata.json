@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/wmsservicecatalog.htm"
+        "/net/latest/wpf/sample-code/wms-service-catalog.htm"
     ],
     "relevant_apis": [
         "WmsLayer(List<WmsLayerInfo>)",

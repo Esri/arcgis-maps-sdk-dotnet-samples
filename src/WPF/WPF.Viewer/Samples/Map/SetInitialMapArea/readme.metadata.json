@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/setinitialmaparea.htm"
+        "/net/latest/wpf/sample-code/map-initial-extent.htm"
     ],
     "relevant_apis": [
         "Envelope",

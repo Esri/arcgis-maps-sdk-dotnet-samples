@@ -18,7 +18,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/takescreenshot.htm"
+        "/net/latest/winui/sample-code/take-screenshot.htm"
     ],
     "relevant_apis": [
         "GeoView.DrawStatus",

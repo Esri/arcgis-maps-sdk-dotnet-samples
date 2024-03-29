@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/closestfacility.htm"
+        "/net/latest/wpf/sample-code/find-closest-facility-to-an-incident-interactive.htm"
     ],
     "relevant_apis": [
         "ClosestFacilityParameters",

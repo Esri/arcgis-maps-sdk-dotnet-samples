@@ -19,7 +19,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/showlabelsonlayer.htm"
+        "/net/latest/winui/sample-code/show-labels-on-layers.htm"
     ],
     "relevant_apis": [
         "ArcadeLabelExpression",

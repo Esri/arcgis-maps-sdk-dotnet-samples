@@ -13,7 +13,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/changefeaturelayerrenderer.htm"
+        "/net/latest/wpf/sample-code/change-feature-layer-renderer.htm"
     ],
     "relevant_apis": [
         "FeatureLayer.Renderer",

@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/closestfacility.htm"
+        "/net/latest/winui/sample-code/find-closest-facility-to-an-incident-interactive.htm"
     ],
     "relevant_apis": [
         "ClosestFacilityParameters",

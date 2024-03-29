@@ -19,7 +19,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/findplace.htm"
+        "/net/latest/winui/sample-code/find-place.htm"
     ],
     "relevant_apis": [
         "GeocodeParameters",

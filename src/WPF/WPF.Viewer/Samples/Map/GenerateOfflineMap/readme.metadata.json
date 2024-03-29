@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/generateofflinemap.htm"
+        "/net/latest/wpf/sample-code/generate-offline-map.htm"
     ],
     "relevant_apis": [
         "GenerateOfflineMapJob",

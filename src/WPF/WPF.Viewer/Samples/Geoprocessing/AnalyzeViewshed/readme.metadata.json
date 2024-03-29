@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/analyzeviewshed.htm"
+        "/net/latest/wpf/sample-code/analyze-viewshed-geoprocessing.htm"
     ],
     "relevant_apis": [
         "FeatureCollectionTable",

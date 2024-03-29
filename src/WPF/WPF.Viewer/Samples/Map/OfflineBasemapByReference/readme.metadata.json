@@ -18,7 +18,7 @@
         "85282f2aaa2844d8935cdb8722e22a93"
     ],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/offlinebasemapbyreference.htm"
+        "/net/latest/wpf/sample-code/generate-offline-map-with-local-basemap.htm"
     ],
     "relevant_apis": [
         "GenerateOfflineMapJob",

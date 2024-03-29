@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/findaddress.htm"
+        "/net/latest/wpf/sample-code/find-address.htm"
     ],
     "relevant_apis": [
         "GeocodeParameters",

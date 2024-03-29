@@ -14,7 +14,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/applymosaicrule.htm"
+        "/net/latest/winui/sample-code/apply-mosaic-rule-to-rasters.htm"
     ],
     "relevant_apis": [
         "ImageServiceRaster",

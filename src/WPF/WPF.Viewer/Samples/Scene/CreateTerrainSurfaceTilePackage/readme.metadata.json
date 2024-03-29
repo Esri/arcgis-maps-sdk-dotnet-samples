@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/createterrainsurfacetilepackage.htm"
+        "/net/latest/wpf/sample-code/create-terrain-from-local-tile-package.htm"
     ],
     "relevant_apis": [
         "ArcGISTiledElevationSource",

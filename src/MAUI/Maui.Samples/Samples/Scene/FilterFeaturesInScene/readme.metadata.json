@@ -19,7 +19,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/filterfeaturesinscene.htm"
+        "/net/latest/maui/sample-code/filter-features-in-scene.htm"
     ],
     "relevant_apis": [
         "ArcGISSceneLayer",

@@ -15,7 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/rasterlayerrasterfunction.htm"
+        "/net/latest/winui/sample-code/apply-raster-function-to-raster-from-service.htm"
     ],
     "relevant_apis": [
         "ImageServiceRaster",

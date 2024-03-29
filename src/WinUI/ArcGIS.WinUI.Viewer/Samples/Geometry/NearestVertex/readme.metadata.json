@@ -16,7 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/nearestvertex.htm"
+        "/net/latest/winui/sample-code/nearest-vertex.htm"
     ],
     "relevant_apis": [
         "GeometryEngine",

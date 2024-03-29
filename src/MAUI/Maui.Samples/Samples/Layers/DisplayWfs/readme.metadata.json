@@ -19,7 +19,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/displaywfs.htm"
+        "/net/latest/maui/sample-code/display-wfs-layer.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

@@ -12,8 +12,9 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Editing;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI;
 
 namespace ArcGIS.Samples.GeodatabaseTransactions
 {
@@ -41,22 +42,45 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
         // Store a reference to the table to be edited.
         private GeodatabaseFeatureTable _editTable;
 
+        // Flag indicating if an edit exists which is not committed and was created during a transaction.
+        // Not to be confused with HasLocalEdits() which is for local edits not synchronized with the service.
+        private bool _hasUncommittedEdits;
+
         public GeodatabaseTransactions()
         {
             InitializeComponent();
 
-            // When the spatial reference changes (the map loads) add the local geodatabase tables as feature layers.
-            MyMapView.SpatialReferenceChanged += async (s, e) =>
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            // When the map view loads, add the local geodatabase tables as feature layers.
+            MyMapView.Loaded += async (s, e) =>
             {
                 // Call a function (and await it) to get the local geodatabase (or generate it from the feature service).
                 await GetLocalGeodatabase();
 
                 // Once the local geodatabase is available, load the tables as layers to the map.
                 await LoadLocalGeodatabaseTables();
+
+                // Create a graphic for the geodatabase extent.
+                var lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
+                var extentGraphic = new Graphic(_extent, lineSymbol);
+
+                // Create a graphics overlay for the extent graphic and apply a renderer.
+                var extentOverlay = new GraphicsOverlay
+                {
+                    Graphics = { extentGraphic },
+                    Renderer = new SimpleRenderer(lineSymbol)
+                };
+
+                // Add graphics overlay to the map view.
+                MyMapView.GraphicsOverlays.Add(extentOverlay);
             };
 
             // Create a new map with the oceans basemap and add it to the map view.
-            Map map = new Map(BasemapStyle.ArcGISOceans);
+            var map = new Map(BasemapStyle.ArcGISOceans);
             MyMapView.Map = map;
         }
 
@@ -73,12 +97,12 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                     // If the geodatabase is already available, open it, hide the progress control, and update the message.
                     _localGeodatabase = await Geodatabase.OpenAsync(localGeodatabasePath);
                     LoadingProgressBar.IsVisible = false;
-                    MessageTextBlock.Text = "Using local geodatabase from '" + _localGeodatabase.Path + "'";
+                    MessageTextBlock.Text = "Using local geodatabase from '" + _localGeodatabase.Path + "'.";
                 }
                 else
                 {
                     // Create a new GeodatabaseSyncTask with the uri of the feature server to pull from.
-                    Uri uri = new Uri(SyncServiceUrl);
+                    var uri = new Uri(SyncServiceUrl);
                     GeodatabaseSyncTask gdbTask = await GeodatabaseSyncTask.CreateAsync(uri);
 
                     // Create parameters for the task: layers and extent to include, out spatial reference, and sync model.
@@ -102,7 +126,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                             {
                                 // Hide the progress control and update the message.
                                 LoadingProgressBar.IsVisible = false;
-                                MessageTextBlock.Text = "Created local geodatabase";
+                                MessageTextBlock.Text = "Created local geodatabase.";
                             });
                         }
                         else if (generateGdbJob.Status == JobStatus.Failed)
@@ -123,10 +147,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
             catch (Exception ex)
             {
                 // Show a message for the exception encountered.
-                Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
-                {
-                    Application.Current.MainPage.DisplayAlert("Generate Geodatabase", "Unable to create offline database: " + ex.Message, "OK");
-                });
+                MessageTextBlock.Text = ex.Message;
             }
         }
 
@@ -156,12 +177,13 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                     }
 
                     // Create a new feature layer to show the table in the map.
-                    FeatureLayer layer = new FeatureLayer(table);
+                    var layer = new FeatureLayer(table);
                     Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => MyMapView.Map?.OperationalLayers.Add(layer));
                 }
                 catch (Exception e)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                    // Report the exception.
+                    MessageTextBlock.Text = e.Message;
                 }
             }
 
@@ -191,6 +213,9 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                 StartEditingButton.IsEnabled = !e.IsInTransaction;
                 SyncEditsButton.IsEnabled = !e.IsInTransaction;
                 RequireTransactionCheckBox.IsEnabled = !e.IsInTransaction;
+
+                // Always flag when starting or leaving an editing session.
+                _hasUncommittedEdits = false;
             });
         }
 
@@ -214,7 +239,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
             {
                 // If not, begin a transaction.
                 _localGeodatabase.BeginTransaction();
-                MessageTextBlock.Text = "Transaction started";
+                MessageTextBlock.Text = "Transaction started.";
             }
         }
 
@@ -236,12 +261,16 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                 }
 
                 // Inform the user which table is being edited.
-                MessageTextBlock.Text = "Click the map to add a new feature to the geodatabase table '" + _editTable.TableName + "'";
+                MessageTextBlock.Text = "Click the map to add a new feature to the geodatabase table '" + _editTable.TableName + "'.";
 
                 // Use the geometry editor to allow the user to draw a point on the map.
-                MyMapView.GeometryEditor.Start(GeometryType.Point);
-
-                MyMapView.GeometryEditor.PropertyChanged += GeometryEditor_PropertyChanged;
+                if (!MyMapView.GeometryEditor.IsStarted)
+                {
+                    MyMapView.GeometryEditor.Start(GeometryType.Point);
+                    
+                    MyMapView.GeometryEditor.PropertyChanged += GeometryEditor_PropertyChanged;
+                }
+                
             }
             catch (Exception ex)
             {
@@ -253,38 +282,59 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
         private async void GeometryEditor_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             // Check if the user finished drawing a point on the map.
-            if (e.PropertyName == nameof(GeometryEditor.Geometry))
+            if (e.PropertyName == nameof(GeometryEditor.Geometry) && MyMapView.GeometryEditor.Geometry?.IsEmpty == false )
             {
                 // Disconnect event handler to prevent multiple calls.
                 MyMapView.GeometryEditor.PropertyChanged -= GeometryEditor_PropertyChanged;
 
                 // Get the active geometry.
-                Geometry geometry = MyMapView.GeometryEditor.Geometry;
+                Geometry geometry = MyMapView.GeometryEditor.Stop();
 
                 // Create a new feature (row) in the selected table.
                 Feature newFeature = _editTable.CreateFeature();
 
                 // Create a random value for the 'type' attribute (integer between 1 and 7).
-                Random random = new Random(DateTime.Now.Millisecond);
+                var random = new Random(DateTime.Now.Millisecond);
                 int featureType = random.Next(1, 7);
 
                 // Set the geometry with the point the user clicked and the 'type' with the random integer.
                 newFeature.Geometry = geometry;
                 newFeature.SetAttributeValue("type", featureType);
 
-                // Add the new feature to the table.
-                await _editTable.AddFeatureAsync(newFeature);
+                try
+                {
+                    // Add the new feature to the table.
+                    await _editTable.AddFeatureAsync(newFeature);
 
-                // Set the newly created feature message.
-                MessageTextBlock.Text = "New feature added to the '" + _editTable.TableName + "' table";
+                    // Set the newly created feature message.
+                    MessageTextBlock.Text = "New feature added to the '" + _editTable.TableName + "' table";
 
-                // Stop the geometry editor, clearing the active geometry.
-                MyMapView.GeometryEditor.Stop();
+                    _hasUncommittedEdits = true;
+                }
+                catch (Exception ex)
+                {
+                    // Report the exception message.
+                    MessageTextBlock.Text = ex.Message;
+                }
             }
         }
 
         private async void StopEditTransaction(object sender, EventArgs e)
         {
+            // Ensure the geometry editor is stopped since user is leaving editing mode.
+            MyMapView.GeometryEditor.Stop();
+
+            // Handle the case where there are no edits to commit or rollback.
+            if (!_hasUncommittedEdits)
+            {
+                MessageTextBlock.Text = "No edits to commit or rollback.";
+
+                // Raise the transaction status changed event to update the UI and reset the flag.
+                _localGeodatabase.RollbackTransaction();
+
+                return;
+            }
+
             try
             {
                 // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction).
@@ -292,27 +342,20 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
 
                 if (choice == "Commit")
                 {
-                    // See if there is a transaction active for the geodatabase.
-                    if (_localGeodatabase.IsInTransaction)
-                    {
-                        // If there is, commit the transaction to store the edits (this will also end the transaction).
-                        _localGeodatabase.CommitTransaction();
-                        MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
-                    }
+                    // Commit the transaction to store the edits (this will also end the transaction).
+                    _localGeodatabase.CommitTransaction();
+                    MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
                 }
-                else if (choice == "Rollback")
+                else if (choice == "Rollback") // TODO: remove nested if on other implementations
                 {
-                    // See if there is a transaction active for the geodatabase.
-                    if (_localGeodatabase.IsInTransaction)
-                    {
-                        // If there is, rollback the transaction to discard the edits (this will also end the transaction).
-                        _localGeodatabase.RollbackTransaction();
-                        MessageTextBlock.Text = "Edits were rolled back and not stored to the local geodatabase.";
-                    }
+                    // Rollback the transaction to discard the edits (this will also end the transaction).
+                    _localGeodatabase.RollbackTransaction();
+                    MessageTextBlock.Text = "Edits were rolled back and not stored to the local geodatabase.";
                 }
                 else
                 {
-                    // For 'cancel' don't end the transaction with a commit or rollback.
+                    // User canceled.
+                    MessageTextBlock.Text = "Transaction still going.";
                 }
             }
             catch (Exception ex)
@@ -348,6 +391,13 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
         // Synchronize edits in the local geodatabase with the service.
         public async void SynchronizeEdits(object sender, EventArgs e)
         {
+            // Don't attempt to sync if there are no local edits.
+            if (!_localGeodatabase.HasLocalEdits())
+            {
+                MessageTextBlock.Text = "No local edits to synchronize.";
+                return;
+            }
+
             // Show the progress bar while the sync is working.
             LoadingProgressBar.IsVisible = true;
 

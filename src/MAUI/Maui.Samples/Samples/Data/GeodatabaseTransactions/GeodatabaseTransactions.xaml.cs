@@ -12,7 +12,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Editing;
 
 namespace ArcGIS.Samples.GeodatabaseTransactions
@@ -45,6 +44,11 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
         {
             InitializeComponent();
 
+            Initialize();
+        }
+
+        private void Initialize()
+        {
             // When the spatial reference changes (the map loads) add the local geodatabase tables as feature layers.
             MyMapView.SpatialReferenceChanged += async (s, e) =>
             {
@@ -56,7 +60,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
             };
 
             // Create a new map with the oceans basemap and add it to the map view.
-            Map map = new Map(BasemapStyle.ArcGISOceans);
+            var map = new Map(BasemapStyle.ArcGISOceans);
             MyMapView.Map = map;
         }
 
@@ -78,7 +82,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                 else
                 {
                     // Create a new GeodatabaseSyncTask with the uri of the feature server to pull from.
-                    Uri uri = new Uri(SyncServiceUrl);
+                    var uri = new Uri(SyncServiceUrl);
                     GeodatabaseSyncTask gdbTask = await GeodatabaseSyncTask.CreateAsync(uri);
 
                     // Create parameters for the task: layers and extent to include, out spatial reference, and sync model.
@@ -156,7 +160,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                     }
 
                     // Create a new feature layer to show the table in the map.
-                    FeatureLayer layer = new FeatureLayer(table);
+                    var layer = new FeatureLayer(table);
                     Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => MyMapView.Map?.OperationalLayers.Add(layer));
                 }
                 catch (Exception e)
@@ -265,15 +269,23 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                 Feature newFeature = _editTable.CreateFeature();
 
                 // Create a random value for the 'type' attribute (integer between 1 and 7).
-                Random random = new Random(DateTime.Now.Millisecond);
+                var random = new Random(DateTime.Now.Millisecond);
                 int featureType = random.Next(1, 7);
 
                 // Set the geometry with the point the user clicked and the 'type' with the random integer.
                 newFeature.Geometry = geometry;
                 newFeature.SetAttributeValue("type", featureType);
 
-                // Add the new feature to the table.
-                await _editTable.AddFeatureAsync(newFeature);
+                try
+                {
+                    // Add the new feature to the table.
+                    await _editTable.AddFeatureAsync(newFeature);
+                }
+                catch (Exception ex)
+                {
+                    // Handle any exceptions, for example a user attempting to add a feature outside the extent will throw.
+                    await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                }
 
                 // Set the newly created feature message.
                 MessageTextBlock.Text = "New feature added to the '" + _editTable.TableName + "' table";

@@ -74,12 +74,11 @@
                     Grid.Row="7"
                     Grid.Column="1" />
             <Label Grid.Row="8"
-                   Margin="0,0,0,5"
                    Style="{StaticResource TitleLabelStyle}"
                    Text="Apply a feature layer filer" />
             <Label Grid.Row="9"
                    Margin="0,0,5,5"
-                   Text="Min Flow Rate:" />
+                   Text="Min flow rate:" />
             <Slider x:Name="FlowRateFilterEntry"
                     Grid.Row="9"
                     Grid.Column="1"
@@ -100,6 +99,8 @@
                     IsToggled="True" />
             <Button Grid.Row="12"
                     Grid.ColumnSpan="3"
+                    Background="{AppThemeBinding Light=LightGray,
+                                                 Dark=Gray}"
                     Clicked="TakeMapOffline_Clicked"
                     IsEnabled="True"
                     Text="Take map offline" />

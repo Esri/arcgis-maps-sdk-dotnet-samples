@@ -31,7 +31,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
         private const string SyncServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/FeatureServer/";
 
         // Work in a small extent south of Galveston, TX.
-        private Envelope _extent = new Envelope(-95.3035, 29.0100, -95.1053, 29.1298, SpatialReferences.Wgs84);
+        private readonly Envelope _extent = new Envelope(-95.3035, 29.0100, -95.1053, 29.1298, SpatialReferences.Wgs84);
 
         // Store the local geodatabase to edit.
         private Geodatabase _localGeodatabase;
@@ -72,25 +72,31 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                     // Show the exception message.
                     MessageTextBlock.Text = ex.Message;
                 }
-
-                // Create a graphic for the geodatabase extent.
-                var lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
-                var extentGraphic = new Graphic(_extent, lineSymbol);
-
-                // Create a graphics overlay for the extent graphic and apply a renderer.
-                var extentOverlay = new GraphicsOverlay
-                {
-                    Graphics = { extentGraphic },
-                    Renderer = new SimpleRenderer(lineSymbol)
-                };
-
-                // Add graphics overlay to the map view.
-                MyMapView.GraphicsOverlays.Add(extentOverlay);
             };
 
             // Create a new map with the oceans basemap and add it to the map view.
             var map = new Map(BasemapStyle.ArcGISOceans);
             MyMapView.Map = map;
+
+            // Create a graphic for the extent of the geodatabase and add it to the map view.
+            ShowExtent();
+        }
+
+        private void ShowExtent()
+        {
+            // Create a graphic for the geodatabase extent.
+            var lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
+            var extentGraphic = new Graphic(_extent, lineSymbol);
+
+            // Create a graphics overlay for the extent graphic and apply a renderer.
+            var extentOverlay = new GraphicsOverlay
+            {
+                Graphics = { extentGraphic },
+                Renderer = new SimpleRenderer(lineSymbol)
+            };
+
+            // Add graphics overlay to the map view.
+            MyMapView.GraphicsOverlays.Add(extentOverlay);
         }
 
         private async Task GetLocalGeodatabase()

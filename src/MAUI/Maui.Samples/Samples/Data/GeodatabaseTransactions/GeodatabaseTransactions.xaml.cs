@@ -276,10 +276,9 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                 if (!MyMapView.GeometryEditor.IsStarted)
                 {
                     MyMapView.GeometryEditor.Start(GeometryType.Point);
-                    
+
                     MyMapView.GeometryEditor.PropertyChanged += GeometryEditor_PropertyChanged;
                 }
-                
             }
             catch (Exception ex)
             {
@@ -291,7 +290,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
         private async void GeometryEditor_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
         {
             // Check if the user finished drawing a point on the map.
-            if (e.PropertyName == nameof(GeometryEditor.Geometry) && MyMapView.GeometryEditor.Geometry?.IsEmpty == false )
+            if (e.PropertyName == nameof(GeometryEditor.Geometry) && MyMapView.GeometryEditor.Geometry?.IsEmpty == false)
             {
                 // Disconnect event handler to prevent multiple calls.
                 MyMapView.GeometryEditor.PropertyChanged -= GeometryEditor_PropertyChanged;

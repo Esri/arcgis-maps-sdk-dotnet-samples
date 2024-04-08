@@ -315,7 +315,9 @@ namespace ArcGIS.WPF.Samples.GeodatabaseTransactions
 
         private void StopEditTransaction(object sender, RoutedEventArgs e)
         {
-            // Ensure the geometry editor is stopped since user is leaving editing mode.
+            // Ensure the geometry editor is stopped and property changed event is unsubscribed since user is leaving editing mode.
+            // Handles case where user stops transaction while geometry editor is active.
+            MyMapView.GeometryEditor.PropertyChanged -= GeometryEditor_PropertyChanged;
             MyMapView.GeometryEditor.Stop();
 
             // Handle the case where there are no edits to commit or rollback.
@@ -334,23 +336,15 @@ namespace ArcGIS.WPF.Samples.GeodatabaseTransactions
 
             if (commitAnswer == MessageBoxResult.Yes)
             {
-                // See if there is a transaction active for the geodatabase.
-                if (_localGeodatabase.IsInTransaction)
-                {
-                    // Commit the transaction to store the edits (this will also end the transaction).
-                    _localGeodatabase.CommitTransaction();
-                    MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
-                }
+                // Commit the transaction to store the edits (this will also end the transaction).
+                _localGeodatabase.CommitTransaction();
+                MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
             }
             else if (commitAnswer == MessageBoxResult.No)
             {
-                // See if there is a transaction active for the geodatabase.
-                if (_localGeodatabase.IsInTransaction)
-                {
-                    // Rollback the transaction to discard the edits (this will also end the transaction).
-                    _localGeodatabase.RollbackTransaction();
-                    MessageTextBlock.Text = "Edits were rolled back and not stored to the local geodatabase.";
-                }
+                // Rollback the transaction to discard the edits (this will also end the transaction).
+                _localGeodatabase.RollbackTransaction();
+                MessageTextBlock.Text = "Edits were rolled back and not stored to the local geodatabase.";
             }
             else
             {

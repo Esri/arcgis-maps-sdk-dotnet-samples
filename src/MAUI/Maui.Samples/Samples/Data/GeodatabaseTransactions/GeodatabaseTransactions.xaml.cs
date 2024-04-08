@@ -15,6 +15,7 @@ using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI.Editing;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using System.Linq.Expressions;
 
 namespace ArcGIS.Samples.GeodatabaseTransactions
 {
@@ -58,11 +59,19 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
             // When the map view loads, add the local geodatabase tables as feature layers.
             MyMapView.Loaded += async (s, e) =>
             {
-                // Call a function (and await it) to get the local geodatabase (or generate it from the feature service).
-                await GetLocalGeodatabase();
+                try
+                {
+                    // Call a function (and await it) to get the local geodatabase (or generate it from the feature service).
+                    await GetLocalGeodatabase();
 
-                // Once the local geodatabase is available, load the tables as layers to the map.
-                await LoadLocalGeodatabaseTables();
+                    // Once the local geodatabase is available, load the tables as layers to the map.
+                    await LoadLocalGeodatabaseTables();
+                }
+                catch (Exception ex)
+                {
+                    // Show the exception message.
+                    MessageTextBlock.Text = ex.Message;
+                }
 
                 // Create a graphic for the geodatabase extent.
                 var lineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
@@ -321,7 +330,9 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
 
         private async void StopEditTransaction(object sender, EventArgs e)
         {
-            // Ensure the geometry editor is stopped since user is leaving editing mode.
+            // Ensure the geometry editor is stopped and property changed event is unsubscribed since user is leaving editing mode.
+            // Handles case where user stops transaction while geometry editor is active.
+            MyMapView.GeometryEditor.PropertyChanged -= GeometryEditor_PropertyChanged;
             MyMapView.GeometryEditor.Stop();
 
             // Handle the case where there are no edits to commit or rollback.

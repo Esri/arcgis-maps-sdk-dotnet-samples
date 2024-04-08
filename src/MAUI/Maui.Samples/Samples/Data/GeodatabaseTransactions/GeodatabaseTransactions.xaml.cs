@@ -57,7 +57,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
         private void Initialize()
         {
             // When the map view loads, add the local geodatabase tables as feature layers.
-            MyMapView.Loaded += async (s, e) =>
+            MyMapView.SpatialReferenceChanged += async (s, e) =>
             {
                 try
                 {

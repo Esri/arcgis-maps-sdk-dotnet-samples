@@ -3,26 +3,23 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid Style="{DynamicResource EsriSampleContainer}">
-        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Button x:Name="TakeMapOfflineButton"
-                    Padding="10"
-                    Clicked="TakeMapOfflineButton_Click"
-                    IsEnabled="True"
-                    Text="Take map offline" />
-        </Border>
-        <Grid x:Name="busyIndicator"
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Button x:Name="TakeMapOfflineButton"
+                Margin="10"
+                Clicked="TakeMapOfflineButton_Click"
+                HorizontalOptions="End"
+                IsEnabled="True"
+                Text="Take map offline"
+                VerticalOptions="Start" />
+        <Grid x:Name="BusyIndicator"
               Grid.RowSpan="2"
               Grid.ColumnSpan="2"
-              BackgroundColor="#807f7f7f"
+              BackgroundColor="#AA333333"
               IsVisible="False">
-            <Grid HorizontalOptions="Center" VerticalOptions="Center">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
+            <Grid HorizontalOptions="Center"
+                  RowDefinitions="auto, auto, auto"
+                  VerticalOptions="Center">
                 <Label Margin="10"
                        FontSize="18"
                        HorizontalOptions="Center"
@@ -35,7 +32,7 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <ProgressBar x:Name="progressBar"
+                <ProgressBar x:Name="ProgressBar"
                              Grid.Row="1"
                              Margin="0,0,0,10"
                              HeightRequest="10"
@@ -51,10 +48,10 @@
                         WidthRequest="100" />
             </Grid>
         </Grid>
-        <Grid x:Name="loadingIndicator"
+        <Grid x:Name="LoadingIndicator"
               Grid.RowSpan="2"
               Grid.ColumnSpan="2"
-              BackgroundColor="#807f7f7f"
+              BackgroundColor="#AA333333"
               IsVisible="True">
             <Grid HorizontalOptions="Center" VerticalOptions="Center">
                 <Grid.RowDefinitions>

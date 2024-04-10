@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 This is the minimum required version of the Apple Privacy Manifest for .NET MAUI apps and using the ArcGIS Maps SDK.
 The contents below are needed because of APIs that are used in the .NET framework and .NET MAUI SDK.
@@ -6,7 +7,6 @@ You are responsible for adding extra entries as needed for your application.
 
 More information: https://aka.ms/maui-privacy-manifest
 -->
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>

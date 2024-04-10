@@ -43,10 +43,6 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
         // Store a reference to the table to be edited.
         private GeodatabaseFeatureTable _editTable;
 
-        // Flag indicating if an edit exists which is not committed and was created during a transaction.
-        // Not to be confused with HasLocalEdits() which is for local edits not synchronized with the service.
-        private bool _hasUncommittedEdits;
-
         public GeodatabaseTransactions()
         {
             InitializeComponent();
@@ -228,9 +224,6 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                 StartEditingButton.IsEnabled = !e.IsInTransaction;
                 SyncEditsButton.IsEnabled = !e.IsInTransaction;
                 RequireTransactionCheckBox.IsEnabled = !e.IsInTransaction;
-
-                // Always flag when starting or leaving an editing session.
-                _hasUncommittedEdits = false;
             });
         }
 
@@ -322,8 +315,6 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
 
                     // Set the newly created feature message.
                     MessageTextBlock.Text = "New feature added to the '" + _editTable.TableName + "' table";
-
-                    _hasUncommittedEdits = true;
                 }
                 catch (Exception ex)
                 {
@@ -340,17 +331,6 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
             MyMapView.GeometryEditor.PropertyChanged -= GeometryEditor_PropertyChanged;
             MyMapView.GeometryEditor.Stop();
 
-            // Handle the case where there are no edits to commit or rollback.
-            if (!_hasUncommittedEdits)
-            {
-                MessageTextBlock.Text = "No edits to commit or rollback.";
-
-                // Raise the transaction status changed event to update the UI and reset the flag.
-                _localGeodatabase.RollbackTransaction();
-
-                return;
-            }
-
             try
             {
                 // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction).
@@ -360,13 +340,15 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                 {
                     // Commit the transaction to store the edits (this will also end the transaction).
                     _localGeodatabase.CommitTransaction();
-                    MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
+                    MessageTextBlock.Text = _localGeodatabase.HasLocalEdits() ?
+                        "Edits were committed to the local geodatabase." : "No edits committed.";
                 }
                 else if (choice == "Rollback")
                 {
                     // Rollback the transaction to discard the edits (this will also end the transaction).
                     _localGeodatabase.RollbackTransaction();
-                    MessageTextBlock.Text = "Edits were rolled back and not stored to the local geodatabase.";
+                    MessageTextBlock.Text = _localGeodatabase.HasLocalEdits() ?
+                        "Edits were rolled back and not stored to the local geodatabase." : "No edits were rolled back.";
                 }
                 else
                 {

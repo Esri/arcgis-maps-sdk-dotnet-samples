@@ -362,7 +362,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                     _localGeodatabase.CommitTransaction();
                     MessageTextBlock.Text = "Edits were committed to the local geodatabase.";
                 }
-                else if (choice == "Rollback") // TODO: remove nested if on other implementations
+                else if (choice == "Rollback")
                 {
                     // Rollback the transaction to discard the edits (this will also end the transaction).
                     _localGeodatabase.RollbackTransaction();

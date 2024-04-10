@@ -8,7 +8,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class ConfigureOverridesPage : ContentPage
     {
-        private Esri.ArcGISRuntime.Mapping.Map _map;
+        private Map _map;
         private Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
         private GenerateOfflineMapParameterOverrides _overrides;
 
@@ -17,7 +17,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
             InitializeComponent();
         }
 
-        public ConfigureOverridesPage(GenerateOfflineMapParameterOverrides overrides, Esri.ArcGISRuntime.Mapping.Map map)
+        public ConfigureOverridesPage(GenerateOfflineMapParameterOverrides overrides, Map map)
         {
             InitializeComponent();
 
@@ -31,7 +31,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
         private void ConfigureTileLayerOverrides(GenerateOfflineMapParameterOverrides overrides)
         {
             // Create a parameter key for the first basemap layer.
-            OfflineMapParametersKey basemapKey = new OfflineMapParametersKey(_map.Basemap.BaseLayers.First());
+            var basemapKey = new OfflineMapParametersKey(_map.Basemap.BaseLayers.First());
 
             // Get the export tile cache parameters for the layer key.
             ExportTileCacheParameters basemapParams = overrides.ExportTileCacheParameters[basemapKey];
@@ -109,7 +109,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
             FeatureLayer targetLayer = _map.OperationalLayers.OfType<FeatureLayer>().First();
 
             // Get the key for the layer.
-            OfflineMapParametersKey layerKey = new OfflineMapParametersKey(targetLayer);
+            var layerKey = new OfflineMapParametersKey(targetLayer);
 
             // Use that key to get the generate options for the layer.
             GenerateGeodatabaseParameters generateParams = overrides.GenerateGeodatabaseParameters[layerKey];
@@ -127,7 +127,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
             long targetLayerId = GetServiceLayerId(targetLayer);
 
             // Create a layer key for the selected layer.
-            OfflineMapParametersKey layerKey = new OfflineMapParametersKey(targetLayer);
+            var layerKey = new OfflineMapParametersKey(targetLayer);
 
             // Get the parameters for the layer.
             GenerateGeodatabaseParameters generateParams = overrides.GenerateGeodatabaseParameters[layerKey];

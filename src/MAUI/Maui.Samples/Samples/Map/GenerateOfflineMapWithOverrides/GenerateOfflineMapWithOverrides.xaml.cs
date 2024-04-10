@@ -60,7 +60,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
                 PortalItem webmapItem = await PortalItem.CreateAsync(portal, WebMapId);
 
                 // Create a map from the web map item.
-                Map onlineMap = new Map(webmapItem);
+                var onlineMap = new Map(webmapItem);
 
                 // Display the map in the MapView.
                 MyMapView.Map = onlineMap;
@@ -72,19 +72,19 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
                 };
 
                 // Create a graphics overlay for the extent graphic and apply a renderer.
-                SimpleLineSymbol aoiOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 3);
-                GraphicsOverlay extentOverlay = new GraphicsOverlay
+                var aoiOutlineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 3);
+                var extentOverlay = new GraphicsOverlay
                 {
                     Renderer = new SimpleRenderer(aoiOutlineSymbol)
                 };
                 MyMapView.GraphicsOverlays.Add(extentOverlay);
 
                 // Add a graphic to show the area of interest (extent) that will be taken offline.
-                Graphic aoiGraphic = new Graphic(_areaOfInterest);
+                var aoiGraphic = new Graphic(_areaOfInterest);
                 extentOverlay.Graphics.Add(aoiGraphic);
 
                 // Hide the map loading progress indicator.
-                loadingIndicator.IsVisible = false;
+                LoadingIndicator.IsVisible = false;
             }
             catch (Exception ex)
             {
@@ -94,40 +94,37 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
 
         private async void TakeMapOfflineButton_Click(object sender, EventArgs e)
         {
-            // Clean up any previous outputs in the temp directory.
-            string tempPath = $"{Path.GetTempPath()}";
-            string[] outputFolders = Directory.GetDirectories(tempPath, "NapervilleWaterNetwork*");
-
-            // Loop through the folder names and delete them.
-            foreach (string dir in outputFolders)
-            {
-                try
-                {
-                    // Delete the folder.
-                    Directory.Delete(dir, true);
-                }
-                catch (Exception)
-                {
-                    // Ignore exceptions (files might be locked, for example).
-                }
-            }
-
-            // Create a new folder for the output mobile map.
-            string packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork");
-            int num = 1;
-            while (Directory.Exists(packagePath))
-            {
-                packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork" + num.ToString());
-                num++;
-            }
-
-            // Create the output directory.
-            Directory.CreateDirectory(packagePath);
-
             try
             {
-                // Show the progress indicator while the job is running.
-                busyIndicator.IsVisible = true;
+                // Clean up any previous outputs in the temp directory.
+                string tempPath = $"{Path.GetTempPath()}";
+                string[] outputFolders = Directory.GetDirectories(tempPath, "NapervilleWaterNetwork*");
+
+                // Loop through the folder names and delete them.
+                foreach (string dir in outputFolders)
+                {
+                    try
+                    {
+                        // Delete the folder.
+                        Directory.Delete(dir, true);
+                    }
+                    catch (Exception)
+                    {
+                        // Ignore exceptions (files might be locked, for example).
+                    }
+                }
+
+                // Create a new folder for the output mobile map.
+                string packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork");
+                int num = 1;
+                while (Directory.Exists(packagePath))
+                {
+                    packagePath = Path.Combine(tempPath, @"NapervilleWaterNetwork" + num.ToString());
+                    num++;
+                }
+
+                // Create the output directory.
+                Directory.CreateDirectory(packagePath);
 
                 // Create an offline map task with the current (online) map.
                 OfflineMapTask takeMapOfflineTask = await OfflineMapTask.CreateAsync(MyMapView.Map);
@@ -139,80 +136,84 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
                 GenerateOfflineMapParameterOverrides overrides = await takeMapOfflineTask.CreateGenerateOfflineMapParameterOverridesAsync(parameters);
 
                 // Create the UI for configuring the overrides.
-                ConfigureOverridesPage configurationPage = new ConfigureOverridesPage(overrides, MyMapView.Map);
+                var configurationPage = new ConfigureOverridesPage(overrides, MyMapView.Map);
 
                 // Wait for the user to finish with the configuration, then continue.
                 configurationPage.Disappearing += async (o, args) =>
                 {
-                    // Re-show the busy indicator.
-                    busyIndicator.IsVisible = true;
-
-                    // Create the job with the parameters and output location.
-                    _generateOfflineMapJob = takeMapOfflineTask.GenerateOfflineMap(parameters, packagePath, overrides);
-
-                    // Handle the progress changed event for the job.
-                    _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
-
-                    // Await the job to generate geodatabases, export tile packages, and create the mobile map package.
-                    GenerateOfflineMapResult results = await _generateOfflineMapJob.GetResultAsync();
-
-                    // Check for job failure (writing the output was denied, e.g.).
-                    if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
+                    try
                     {
-                        await Application.Current.MainPage.DisplayAlert("Alert", "Generate offline map package failed.", "OK");
-                        busyIndicator.IsVisible = false;
-                    }
+                        // Re-show the busy indicator.
+                        BusyIndicator.IsVisible = true;
 
-                    // Check for errors with individual layers.
-                    if (results.LayerErrors.Any())
-                    {
-                        // Build a string to show all layer errors.
-                        System.Text.StringBuilder errorBuilder = new System.Text.StringBuilder();
-                        foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
+                        // Create the job with the parameters and output location.
+                        _generateOfflineMapJob = takeMapOfflineTask.GenerateOfflineMap(parameters, packagePath, overrides);
+
+                        // Handle the progress changed event for the job.
+                        _generateOfflineMapJob.ProgressChanged += OfflineMapJob_ProgressChanged;
+
+                        // Await the job to generate geodatabases, export tile packages, and create the mobile map package.
+                        GenerateOfflineMapResult results = await _generateOfflineMapJob.GetResultAsync();
+
+                        // Check for job failure (writing the output was denied, e.g.).
+                        if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
                         {
-                            errorBuilder.AppendLine($"{layerError.Key.Id} : {layerError.Value.Message}");
+                            await Application.Current.MainPage.DisplayAlert("Alert", "Generate offline map package failed.", "OK");
+                            BusyIndicator.IsVisible = false;
                         }
 
-                        // Show layer errors.
-                        string errorText = errorBuilder.ToString();
-                        await Application.Current.MainPage.DisplayAlert("Alert", errorText, "OK");
+                        // Check for errors with individual layers.
+                        if (results.LayerErrors.Any())
+                        {
+                            // Build a string to show all layer errors.
+                            System.Text.StringBuilder errorBuilder = new System.Text.StringBuilder();
+                            foreach (KeyValuePair<Layer, Exception> layerError in results.LayerErrors)
+                            {
+                                errorBuilder.AppendLine($"{layerError.Key.Id} : {layerError.Value.Message}");
+                            }
+
+                            // Show layer errors.
+                            string errorText = errorBuilder.ToString();
+                            await Application.Current.MainPage.DisplayAlert("Alert", errorText, "OK");
+                        }
+
+                        // Display the offline map.
+                        MyMapView.Map = results.OfflineMap;
+
+                        // Apply the original viewpoint for the offline map.
+                        MyMapView.SetViewpoint(new Viewpoint(_areaOfInterest));
+
+                        // Enable map interaction so the user can explore the offline data.
+                        MyMapView.InteractionOptions.IsEnabled = true;
+
+                        // Show a message that the map is offline.
+                        await Application.Current.MainPage.DisplayAlert("Alert", "Map is offline.", "OK");
+
+                        TakeMapOfflineButton.IsEnabled = false;
                     }
-
-                    // Display the offline map.
-                    MyMapView.Map = results.OfflineMap;
-
-                    // Apply the original viewpoint for the offline map.
-                    MyMapView.SetViewpoint(new Viewpoint(_areaOfInterest));
-
-                    // Enable map interaction so the user can explore the offline data.
-                    MyMapView.InteractionOptions.IsEnabled = true;
-
-                    // Show a message that the map is offline.
-                    await Application.Current.MainPage.DisplayAlert("Alert", "Map is offline.", "OK");
-
-                    TakeMapOfflineButton.IsEnabled = false;
-
-                    // Hide the busy indicator.
-                    busyIndicator.IsVisible = false;
+                    catch (TaskCanceledException)
+                    {
+                        // Generate offline map task was canceled.
+                        await Application.Current.MainPage.DisplayAlert("Alert", "Taking map offline was canceled.", "OK");
+                    }
+                    catch (Exception ex)
+                    {
+                        // Exception while taking the map offline.
+                        await Application.Current.MainPage.DisplayAlert("Alert", ex.ToString(), "OK");
+                    }
+                    finally
+                    {
+                        // Hide the busy indicator.
+                        BusyIndicator.IsVisible = false;
+                    }
                 };
 
                 // Show the configuration UI.
                 await Shell.Current.Navigation.PushModalAsync(configurationPage, true);
             }
-            catch (TaskCanceledException)
-            {
-                // Generate offline map task was canceled.
-                await Application.Current.MainPage.DisplayAlert("Alert", "Taking map offline was canceled", "OK");
-            }
             catch (Exception ex)
             {
-                // Exception while taking the map offline.
-                await Application.Current.MainPage.DisplayAlert("Alert", ex.Message, "OK");
-            }
-            finally
-            {
-                // Hide the activity indicator when the job is done.
-                busyIndicator.IsVisible = false;
+                await Application.Current.MainPage.DisplayAlert("Alert", ex.ToString(), "OK");
             }
         }
 
@@ -227,7 +228,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
             {
                 // Show the percent complete and update the progress bar.
                 Percentage.Text = job.Progress > 0 ? job.Progress.ToString() + " %" : string.Empty;
-                progressBar.Progress = job.Progress / 100.0;
+                ProgressBar.Progress = job.Progress / 100.0;
             });
         }
 
@@ -235,6 +236,9 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
         {
             // The user canceled the job.
             _generateOfflineMapJob.CancelAsync();
+
+            // Hide the busy indicator.
+            BusyIndicator.IsVisible = false;
         }
     }
 }

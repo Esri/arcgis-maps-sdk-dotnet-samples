@@ -177,5 +177,9 @@
     </MauiFont>
   </ItemGroup>
 
+  <!-- Apple Privacy Manifest file, more information: https://aka.ms/maui-privacy-manifest -->
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">
+    <BundleResource Include="Platforms\iOS\PrivacyInfo.xcprivacy" LogicalName="PrivacyInfo.xcprivacy" />
+  </ItemGroup>
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />
 </Project>

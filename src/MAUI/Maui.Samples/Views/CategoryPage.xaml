@@ -15,6 +15,9 @@
         <ToolbarItem Clicked="SettingsClicked"
                      IconImageSource="settings.png"
                      Text="Settings" />
+        <ToolbarItem Clicked="FeedbackToolbarItem_Clicked"
+                     IconImageSource="feedback.png"
+                     Text="Feedback" />
     </ContentPage.ToolbarItems>
     <ContentPage.Resources>
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />

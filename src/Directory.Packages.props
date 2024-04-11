@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <ArcGISMapsSDKVersion Condition="'$(ArcGISMapsSDKVersion)'==''">200.3.0</ArcGISMapsSDKVersion>
+    <ArcGISMapsSDKVersion Condition="'$(ArcGISMapsSDKVersion)'==''">200.4.0</ArcGISMapsSDKVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Esri.ArcGISRuntime" Version="$(ArcGISMapsSDKVersion)" />

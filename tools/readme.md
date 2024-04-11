@@ -4,3 +4,4 @@ The following tools help manage the sample content for the ArcGIS Maps SDK for .
 
 * [Metadata tools](metadata_tools/readme.md) - tools for managing sample readmes and metadata.
 * [Sample generator](sample_generator/readme.md) - adds all the needed files and csproj entries for a new sample, accepting parameters for title, description, formal name, and other properties.
+* [Program increment](program_increment.py) - a tool to automate branch creation during program increments.

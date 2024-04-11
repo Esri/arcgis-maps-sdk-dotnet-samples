@@ -1,0 +1,24 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ConfigureBasemapStyleParameters.ConfigureBasemapStyleParameters"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel Margin="5">
+                <Label Content="Set language strategy:" FontWeight="Bold" />
+                <RadioButton x:Name="GlobalRadioButton" Content="Global" />
+                <RadioButton x:Name="LocalRadioButton"
+                             Content="Local"
+                             IsChecked="True" />
+                <Label Content="Set specific language:" FontWeight="Bold" />
+                <ComboBox x:Name="LanguagePicker">
+                    <ComboBoxItem Content="None" IsSelected="True" />
+                    <ComboBoxItem Content="Bulgarian" />
+                    <ComboBoxItem Content="Greek" />
+                    <ComboBoxItem Content="Turkish" />
+                </ComboBox>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

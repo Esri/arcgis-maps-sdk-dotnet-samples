@@ -1,0 +1,19 @@
+{
+    "category": "Geometry",
+    "description": "Use the Geometry Editor to edit a geometry and align it to existing geometries on a map.",
+    "formal_name": "SnapGeometryEdits",
+    "ignore": false,
+    "images": [
+        "snapgeometryedits.jpg"
+    ],
+    "keywords": [
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/SnapGeometryEdits.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Snap geometry edits"
+}

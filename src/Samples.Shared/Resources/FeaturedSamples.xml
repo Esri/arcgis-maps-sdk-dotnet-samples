@@ -9,6 +9,7 @@
 		</Category>
 		<Category name="Geometry">
 			<Sample>CreateAndEditGeometries</Sample>
+      <Sample>SnapGeometryEdits</Sample>
 		</Category>
 		<Category name="Layers">
 			<Sample>ConfigureClusters</Sample>

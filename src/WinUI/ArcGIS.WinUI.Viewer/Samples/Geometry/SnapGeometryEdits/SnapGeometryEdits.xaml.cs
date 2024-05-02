@@ -10,21 +10,17 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
-using System.ComponentModel;
-using Esri.ArcGISRuntime.UI.Editing;
 using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.UI;
+using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.UI.Editing;
+using Microsoft.UI.Xaml;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 
 namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
 {
@@ -38,7 +34,7 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
     {
         private GeometryEditor _geometryEditor;
         private GraphicsOverlay _graphicsOverlay;
-        private Graphic _identifiedGraphic;
+        private Graphic _selectedGraphic;
 
         public SnapGeometryEdits()
         {
@@ -90,7 +86,7 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
                 _geometryEditor.SnapSettings.IsEnabled = true;
             }
 
-            var snapSourceSettingsVMs = _geometryEditor.SnapSettings.SourceSettings.Select(sourceSettings => new SnapSourceSettingsVM(sourceSettings) { IsEnabled = true }).ToList();
+            var snapSourceSettingsVMs = _geometryEditor.SnapSettings.SourceSettings.Select(sourceSettings => new SnapSourceSettingsVM(sourceSettings) { IsEnabled = false }).ToList();
 
             PointSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Point).ToList();
             PolylineSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Polyline).ToList();
@@ -128,28 +124,57 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            if (_geometryEditor.IsStarted)
+            if (_geometryEditor.IsStarted) return;
+
+            try
             {
-                return;
+                IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 10, false);
+
+                _selectedGraphic = results.FirstOrDefault()?.Graphics?.FirstOrDefault();
+
+                if (results.Any() && results[0].Graphics.Any())
+                {
+                    _selectedGraphic = results.First().Graphics.First();
+                    _selectedGraphic.IsSelected = true;
+                    _geometryEditor.Start(_selectedGraphic.Geometry);
+                }
+                else
+                {
+                    _selectedGraphic = null;
+                }
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog2(ex.Message).ShowAsync();
+
+                ResetFromEditingSession();
             }
 
-            var result = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 10, false);
+            if (_selectedGraphic == null) return;
 
-            if (result.Any() && result[0].Graphics.Any())
+            _selectedGraphic.IsSelected = true;
+
+            // Hide the selected graphic and start an editing session with a copy of it.
+            _geometryEditor.Start(_selectedGraphic.Geometry);
+            _selectedGraphic.IsVisible = false;
+        }
+
+        // Reset the UI after the editor stops.
+        private void ResetFromEditingSession()
+        {
+            // Reset the selected graphic.
+            if (_selectedGraphic != null)
             {
-                _identifiedGraphic = result.First().Graphics.First();
-                _identifiedGraphic.IsSelected = true;
-                _geometryEditor.Start(_identifiedGraphic.Geometry);
+                _selectedGraphic.IsSelected = false;
+                _selectedGraphic.IsVisible = true;
             }
-            else
-            {
-                _identifiedGraphic = null;
-            }
+
+            _selectedGraphic = null;
         }
 
         private void EnableAllPointSnapSourceButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var item in PointSnapSettingsList.Items)
+            foreach (var item in PointSnapSettingsList.Items.ToList())
             {
                 if (item is SnapSourceSettingsVM snapSourceSettingsVM)
                 {
@@ -160,7 +185,7 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
 
         private void EnableAllPolylineSnapSourceButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (var item in PolylineSnapSettingsList.Items)
+            foreach (var item in PolylineSnapSettingsList.Items.ToList())
             {
                 if (item is SnapSourceSettingsVM snapSourceSettingsVM)
                 {
@@ -181,20 +206,24 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_identifiedGraphic?.Geometry != null)
+            if (_selectedGraphic?.Geometry != null)
             {
-                _identifiedGraphic.Geometry = _geometryEditor.Stop();
-                _identifiedGraphic.IsSelected = false;
+                _selectedGraphic.Geometry = _geometryEditor.Stop();
+                _selectedGraphic.IsSelected = false;
             }
             else if (_geometryEditor.IsStarted)
             {
                 CreateNewGraphic();
             }
+
+            ResetFromEditingSession();
         }
 
         private void DiscardButton_Click(object sender, RoutedEventArgs e)
         {
             _geometryEditor.Stop();
+
+            ResetFromEditingSession();
         }
 
         private void PointButton_Click(object sender, RoutedEventArgs e)
@@ -203,6 +232,8 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
             {
                 _geometryEditor.Stop();
             }
+
+            ResetFromEditingSession();
 
             _geometryEditor.Start(GeometryType.Point);
         }
@@ -214,6 +245,8 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
                 _geometryEditor.Stop();
             }
 
+            ResetFromEditingSession();
+
             _geometryEditor.Start(GeometryType.Multipoint);
         }
         private void PolylineButton_Click(object sender, RoutedEventArgs e)
@@ -223,6 +256,8 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
                 _geometryEditor.Stop();
             }
 
+            ResetFromEditingSession();
+
             _geometryEditor.Start(GeometryType.Polyline);
         }
         private void PolygonButton_Click(object sender, RoutedEventArgs e)
@@ -231,6 +266,8 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
             {
                 _geometryEditor.Stop();
             }
+
+            ResetFromEditingSession();
 
             _geometryEditor.Start(GeometryType.Polygon);
         }

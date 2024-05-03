@@ -10,19 +10,14 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
+using Esri.ArcGISRuntime.Maui;
+using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using System.ComponentModel;
 using Esri.ArcGISRuntime.UI.Editing;
+using Microsoft.Maui.ApplicationModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 namespace ArcGIS.Samples.SnapGeometryEdits
 {
@@ -32,11 +27,12 @@ namespace ArcGIS.Samples.SnapGeometryEdits
         "Use the Geometry Editor to edit a geometry and align it to existing geometries on a map.",
         "")]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("b95fe18073bc4f7788f0375af2bb445e")]
-    public partial class SnapGeometryEdits : INotifyPropertyChanged
+    public partial class SnapGeometryEdits : ContentPage
     {
         private GeometryEditor _geometryEditor;
         private GraphicsOverlay _graphicsOverlay;
         private Graphic _selectedGraphic;
+        private List<Button> _geometryEditorToolButtons;
 
         public SnapGeometryEdits()
         {
@@ -75,20 +71,28 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             await Task.WhenAll(MyMapView.Map.OperationalLayers.ToList().Select(layer => layer.LoadAsync()).ToList());
 
             SetSnapSettings();
-            SnappingControls.Visibility = Visibility.Visible;
+            CreateEditGeometriesPanel.IsVisible = true;
+
+            _geometryEditorToolButtons = new List<Button>()
+            {
+                PointButton,
+                PolylineButton,
+                PolygonButton,
+                MultipointButton
+            };
 
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private void SetSnapSettings()
         {
-            if (!_geometryEditor.SnapSettings.SourceSettings.Any())
+            if (_geometryEditor.SnapSettings.SourceSettings.Count == 0)
             {
                 _geometryEditor.SnapSettings.SyncSourceSettings();
                 _geometryEditor.SnapSettings.IsEnabled = true;
             }
 
-            var snapSourceSettingsVMs = _geometryEditor.SnapSettings.SourceSettings.Select(sourceSettings => new SnapSourceSettingsVM(sourceSettings) { IsEnabled = false }).ToList();
+            List<SnapSourceSettingsVM> snapSourceSettingsVMs = _geometryEditor.SnapSettings.SourceSettings.Select(sourceSettings => new SnapSourceSettingsVM(sourceSettings) { IsEnabled = false }).ToList();
 
             PointSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Point).ToList();
             PolylineSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Polyline).ToList();
@@ -147,9 +151,10 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             }
             catch (Exception ex)
             {
-                await new MessageDialog2(ex.Message).ShowAsync();
+                await Application.Current.MainPage.DisplayAlert("Error editing", ex.Message, "OK");
 
                 ResetFromEditingSession();
+                return;
             }
 
             if (_selectedGraphic == null) return;
@@ -171,12 +176,25 @@ namespace ArcGIS.Samples.SnapGeometryEdits
                 _selectedGraphic.IsVisible = true;
             }
 
+            foreach (var button in _geometryEditorToolButtons)
+            {
+                switch (Application.Current.RequestedTheme)
+                {
+                    case AppTheme.Dark:
+                        button.BackgroundColor = Color.FromArgb("#3C3C3C");
+                        break;
+                    default:
+                        button.BackgroundColor = Colors.White;
+                        break;
+                }
+            }
+
             _selectedGraphic = null;
         }
 
-        private void EnableAllPointSnapSourceButton_Click(object sender, RoutedEventArgs e)
+        private void EnableAllPointSnapSourceButton_Click(object sender, EventArgs e)
         {
-            foreach (var item in PointSnapSettingsList.Items.ToList())
+            foreach (var item in PointSnapSettingsList.ItemsSource)
             {
                 if (item is SnapSourceSettingsVM snapSourceSettingsVM)
                 {
@@ -185,9 +203,9 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             }
         }
 
-        private void EnableAllPolylineSnapSourceButton_Click(object sender, RoutedEventArgs e)
+        private void EnableAllPolylineSnapSourceButton_Click(object sender, EventArgs e)
         {
-            foreach (var item in PolylineSnapSettingsList.Items.ToList())
+            foreach (var item in PolylineSnapSettingsList.ItemsSource)
             {
                 if (item is SnapSourceSettingsVM snapSourceSettingsVM)
                 {
@@ -196,17 +214,18 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             }
         }
 
-        private void DeleteButton_Click(object sender, RoutedEventArgs e)
+        #region Geometry Management Buttons
+        private void DeleteButton_Click(object sender, EventArgs e)
         {
             _geometryEditor.DeleteSelectedElement();
         }
 
-        private void UndoButton_Click(object sender, RoutedEventArgs e)
+        private void UndoButton_Click(object sender, EventArgs e)
         {
             _geometryEditor.Undo();
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
             if (_selectedGraphic?.Geometry != null)
             {
@@ -221,14 +240,16 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             ResetFromEditingSession();
         }
 
-        private void DiscardButton_Click(object sender, RoutedEventArgs e)
+        private void DiscardButton_Click(object sender, EventArgs e)
         {
             _geometryEditor.Stop();
 
             ResetFromEditingSession();
         }
+        #endregion
 
-        private void PointButton_Click(object sender, RoutedEventArgs e)
+        #region Geometry Tool Buttons
+        private void PointButton_Click(object sender, EventArgs e)
         {
             if (_geometryEditor.IsStarted)
             {
@@ -237,10 +258,11 @@ namespace ArcGIS.Samples.SnapGeometryEdits
 
             ResetFromEditingSession();
 
+            PointButton.BackgroundColor = Application.Current.RequestedTheme == AppTheme.Dark ? Colors.Gray : Colors.LightGray;
             _geometryEditor.Start(GeometryType.Point);
         }
 
-        private void MultipointButton_Click(object sender, RoutedEventArgs e)
+        private void MultipointButton_Click(object sender, EventArgs e)
         {
             if (_geometryEditor.IsStarted)
             {
@@ -249,9 +271,11 @@ namespace ArcGIS.Samples.SnapGeometryEdits
 
             ResetFromEditingSession();
 
+            MultipointButton.BackgroundColor = Application.Current.RequestedTheme == AppTheme.Dark ? Colors.Gray : Colors.LightGray;
             _geometryEditor.Start(GeometryType.Multipoint);
         }
-        private void PolylineButton_Click(object sender, RoutedEventArgs e)
+
+        private void PolylineButton_Click(object sender, EventArgs e)
         {
             if (_geometryEditor.IsStarted)
             {
@@ -260,9 +284,10 @@ namespace ArcGIS.Samples.SnapGeometryEdits
 
             ResetFromEditingSession();
 
+            PolylineButton.BackgroundColor = Application.Current.RequestedTheme == AppTheme.Dark ? Colors.Gray : Colors.LightGray;
             _geometryEditor.Start(GeometryType.Polyline);
         }
-        private void PolygonButton_Click(object sender, RoutedEventArgs e)
+        private void PolygonButton_Click(object sender, EventArgs e)
         {
             if (_geometryEditor.IsStarted)
             {
@@ -271,16 +296,22 @@ namespace ArcGIS.Samples.SnapGeometryEdits
 
             ResetFromEditingSession();
 
+            PolygonButton.BackgroundColor = Application.Current.RequestedTheme == AppTheme.Dark ? Colors.Gray : Colors.LightGray;
             _geometryEditor.Start(GeometryType.Polygon);
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        #region Snap Settings Visibility Buttons
+        private void ShowSnapSettingsButton_Clicked(object sender, EventArgs e)
         {
-            var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+            SnappingSettingsPopup.IsVisible = true;
         }
+
+        private void HideSnapSettingsButton_Clicked(object sender, EventArgs e)
+        {
+            SnappingSettingsPopup.IsVisible = false;
+        }
+        #endregion
     }
 
     public class SnapSourceSettingsVM : INotifyPropertyChanged

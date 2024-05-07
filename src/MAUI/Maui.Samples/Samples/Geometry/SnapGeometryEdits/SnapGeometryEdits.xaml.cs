@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Maui;
-using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Editing;
 using Microsoft.Maui.ApplicationModel;
@@ -26,9 +25,9 @@ namespace ArcGIS.Samples.SnapGeometryEdits
         "Geometry",
         "Use the Geometry Editor to edit a geometry and align it to existing geometries on a map.",
         "")]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData("b95fe18073bc4f7788f0375af2bb445e")]
     public partial class SnapGeometryEdits : ContentPage
     {
+        // Hold references for use in event handlers.
         private GeometryEditor _geometryEditor;
         private GraphicsOverlay _graphicsOverlay;
         private Graphic _selectedGraphic;
@@ -42,14 +41,11 @@ namespace ArcGIS.Samples.SnapGeometryEdits
 
         private async Task Initialize()
         {
-            ArcGISPortal portal = await ArcGISPortal.CreateAsync();
-            PortalItem portalItem = await PortalItem.CreateAsync(portal, "b95fe18073bc4f7788f0375af2bb445e");
-
-            // Create a map using a portal item.
-            var myMap = new Map(portalItem);
+            // Create a map using a Uri.
+            var myMap = new Map(new Uri("https://www.arcgis.com/home/item.html?id=b95fe18073bc4f7788f0375af2bb445e"));
 
             // Set the map load setting feature tiling mode.
-            // Enabled with full resolution when supported is used to ensure that we are snapping to geometries in full resolution to improve snapping accuracy. 
+            // Enabled with full resolution when supported is used to ensure that snapping to geometries occurs in full resolution to improve snapping accuracy. 
             myMap.LoadSettings.FeatureTilingMode = FeatureTilingMode.EnabledWithFullResolutionWhenSupported;
 
             // Set the initial viewpoint.
@@ -62,17 +58,24 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             // Add the map to the map view.
             MyMapView.Map = myMap;
 
+            // Create and add a geometry editor to the map view.
             _geometryEditor = new GeometryEditor();
             MyMapView.GeometryEditor = _geometryEditor;
 
+            // Load the map.
             await myMap.LoadAsync();
 
             // Ensure all layers are loaded before setting the snap settings.
+            // If this step is not undertaken there is a risk that operational layers may not have loaded loaded and therefore will not be included in the snap sources.
             await Task.WhenAll(MyMapView.Map.OperationalLayers.ToList().Select(layer => layer.LoadAsync()).ToList());
 
+            // Set the snap source settings.
             SetSnapSettings();
+
+            // Show the create and edit geometries UI.
             CreateEditGeometriesPanel.IsVisible = true;
 
+            // Store a reference to the geometry editor tool buttons to update their background color when selected.
             _geometryEditorToolButtons = new List<Button>()
             {
                 PointButton,
@@ -81,27 +84,36 @@ namespace ArcGIS.Samples.SnapGeometryEdits
                 MultipointButton
             };
 
+            // Add an event handler to detect geoview tapped events.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }
 
         private void SetSnapSettings()
         {
-            if (_geometryEditor.SnapSettings.SourceSettings.Count == 0)
-            {
-                _geometryEditor.SnapSettings.SyncSourceSettings();
-                _geometryEditor.SnapSettings.IsEnabled = true;
-            }
+            // Synchronize the snap source collection with the map's operational layers. 
+            // Note that layers that have not been loaded will not synchronize.
+            _geometryEditor.SnapSettings.SyncSourceSettings();
 
+            // Enable snapping on the geometry layer.
+            _geometryEditor.SnapSettings.IsEnabled = true;
+
+            // Create a list of snap source settings with with snapping disabled.
             List<SnapSourceSettingsVM> snapSourceSettingsVMs = _geometryEditor.SnapSettings.SourceSettings.Select(sourceSettings => new SnapSourceSettingsVM(sourceSettings) { IsEnabled = false }).ToList();
 
+            // Populate lists of snap source settings for point and polyline layers.
             PointSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Point).ToList();
             PolylineSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Polyline).ToList();
         }
 
         private void CreateNewGraphic()
         {
-            var geometry = _geometryEditor.Stop();
+            // Get the new geometry from the geometry editor.
+            Geometry geometry = _geometryEditor.Stop();
+
+            // Create a graphic.
             var graphic = new Graphic(geometry);
+
+            // Create a geometry editor style to get symbols for the new graphic.
             var geometryEditorStyle = new GeometryEditorStyle();
 
             switch (geometry.GeometryType)
@@ -130,22 +142,24 @@ namespace ArcGIS.Samples.SnapGeometryEdits
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
+            // If the geometry editor is active then stop.
             if (_geometryEditor.IsStarted) return;
 
             try
             {
+                // Get the list of identified graphics overlay results based on tap position.
                 IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 10, false);
 
-                _selectedGraphic = results.FirstOrDefault()?.Graphics?.FirstOrDefault();
-
+                // If a graphics overlay result has been tapped and contains a corresponding graphic. 
+                // Set the selected graphic and start the geometry editor.
                 if (results.Any() && results[0].Graphics.Any())
                 {
-                    _selectedGraphic = results.First().Graphics.First();
+                    _selectedGraphic = results[0].Graphics[0];
                     _selectedGraphic.IsSelected = true;
-                    _geometryEditor.Start(_selectedGraphic.Geometry);
                 }
                 else
                 {
+                    // No results have been found, update the selected graphic.
                     _selectedGraphic = null;
                 }
             }
@@ -153,13 +167,12 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             {
                 await Application.Current.MainPage.DisplayAlert("Error editing", ex.Message, "OK");
 
+                // Reset the UI.
                 ResetFromEditingSession();
                 return;
             }
 
             if (_selectedGraphic == null) return;
-
-            _selectedGraphic.IsSelected = true;
 
             // Hide the selected graphic and start an editing session with a copy of it.
             _geometryEditor.Start(_selectedGraphic.Geometry);
@@ -176,6 +189,7 @@ namespace ArcGIS.Samples.SnapGeometryEdits
                 _selectedGraphic.IsVisible = true;
             }
 
+            // Reset the geometry tool button colors.
             foreach (var button in _geometryEditorToolButtons)
             {
                 switch (Application.Current.RequestedTheme)
@@ -189,9 +203,12 @@ namespace ArcGIS.Samples.SnapGeometryEdits
                 }
             }
 
+            // Update the selected graphic.
             _selectedGraphic = null;
         }
 
+        #region Enable Sources Button Handlers
+        // Enable all point layer snap sources.
         private void EnableAllPointSnapSourceButton_Click(object sender, EventArgs e)
         {
             foreach (var item in PointSnapSettingsList.ItemsSource)
@@ -203,6 +220,7 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             }
         }
 
+        // Enable all polyline layer snap sources.
         private void EnableAllPolylineSnapSourceButton_Click(object sender, EventArgs e)
         {
             foreach (var item in PolylineSnapSettingsList.ItemsSource)
@@ -213,8 +231,9 @@ namespace ArcGIS.Samples.SnapGeometryEdits
                 }
             }
         }
+        #endregion
 
-        #region Geometry Management Buttons
+        #region Geometry Management Button Handlers
         private void DeleteButton_Click(object sender, EventArgs e)
         {
             _geometryEditor.DeleteSelectedElement();
@@ -248,7 +267,7 @@ namespace ArcGIS.Samples.SnapGeometryEdits
         }
         #endregion
 
-        #region Geometry Tool Buttons
+        #region Geometry Tool Buttons Handlers
         private void PointButton_Click(object sender, EventArgs e)
         {
             if (_geometryEditor.IsStarted)
@@ -301,7 +320,7 @@ namespace ArcGIS.Samples.SnapGeometryEdits
         }
         #endregion
 
-        #region Snap Settings Visibility Buttons
+        #region Snap Settings Visibility Button Handlers
         private void ShowSnapSettingsButton_Clicked(object sender, EventArgs e)
         {
             SnappingSettingsPopup.IsVisible = true;
@@ -318,6 +337,7 @@ namespace ArcGIS.Samples.SnapGeometryEdits
     {
         public SnapSourceSettings SnapSourceSettings { get; set; }
 
+        // Wrap the snap source settings in a view model to expose them to the UI. 
         public SnapSourceSettingsVM(SnapSourceSettings snapSourceSettings)
         {
             SnapSourceSettings = snapSourceSettings;

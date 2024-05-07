@@ -24,10 +24,11 @@ using System.Threading.Tasks;
 namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Snap geometry edits",
-        "Geometry",
-        "Use the Geometry Editor to edit a geometry and align it to existing geometries on a map.",
-        "")]
+        name: "Snap geometry edits",
+        category: "Geometry",
+        description: "Use the Geometry Editor to edit a geometry and align it to existing geometries on a map.",
+        instructions: "To create a geometry, press the create button to choose the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry.",
+        tags: new[] { "edit", "feature", "geometry editor", "layers", "map", "snapping" })]
     public partial class SnapGeometryEdits
     {
         // Hold references for use in event handlers.

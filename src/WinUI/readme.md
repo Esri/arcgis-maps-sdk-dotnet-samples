@@ -51,6 +51,7 @@
 * [Perform spatial operations](ArcGIS.WinUI.Viewer/Samples/Geometry/SpatialOperations) - Find the union, intersection, or difference of two geometries.
 * [Project](ArcGIS.WinUI.Viewer/Samples/Geometry/Project) - Project a point from one spatial reference to another.
 * [Project with specific transformation](ArcGIS.WinUI.Viewer/Samples/Geometry/ProjectWithSpecificTransformation) - Project a point from one coordinate system to another using a specific transformation step.
+* [Snap geometry edits](ArcGIS.WinUI.Viewer/Samples/Geometry/SnapGeometryEdits) - Use the Geometry Editor to edit a geometry and align it to existing geometries on a map.
 * [Spatial relationships](ArcGIS.WinUI.Viewer/Samples/Geometry/SpatialRelationships) - Determine spatial relationships between two geometries.
 
 ## Geoprocessing

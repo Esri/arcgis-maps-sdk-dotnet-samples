@@ -7,13 +7,30 @@
         "SnapGeometryEdits.jpg"
     ],
     "keywords": [
+        "edit",
+        "feature",
+        "geometry editor",
+        "layers",
+        "map",
+        "snapping"
     ],
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/SnapGeometryEdits.htm"
+        "/net/latest/winui/sample-code/snap-geometry-edits.htm"
     ],
     "relevant_apis": [
+        "FeatureLayer",
+        "Geometry",
+        "GeometryEditor",
+        "GeometryEditorStyle",
+        "MapView",
+        "SnapSettings",
+        "SnapSource",
+        "SnapSourceSettings"
     ],
     "snippets": [
+        "SnapGeometryEdits.xaml.cs",
+        "SnapGeometryEdits.xaml"
     ],
     "title": "Snap geometry edits"
 }

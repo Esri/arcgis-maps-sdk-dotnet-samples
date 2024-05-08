@@ -86,6 +86,15 @@ namespace ArcGIS.Samples.SnapGeometryEdits
                 MultipointButton
             };
 
+            // Enable magnifier on mobile platforms.
+#if ANDROID || IOS
+            MyMapView.InteractionOptions = new Esri.ArcGISRuntime.UI.MapViewInteractionOptions
+            {
+                IsMagnifierEnabled = true,
+                AllowMagnifierToPan = true
+            };
+#endif
+
             // Add an event handler to detect geoview tapped events.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
         }

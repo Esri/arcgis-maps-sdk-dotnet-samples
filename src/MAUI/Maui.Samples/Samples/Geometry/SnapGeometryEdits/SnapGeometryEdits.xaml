@@ -32,23 +32,14 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Grid x:Name="CreateEditGeometriesPanel"
               Margin="10"
+              ColumnDefinitions="95,95"
               ColumnSpacing="5"
               HorizontalOptions="End"
               IsVisible="False"
+              RowDefinitions="auto,auto,auto,auto,auto"
               RowSpacing="5"
               VerticalOptions="Start"
               WidthRequest="200">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="95" />
-                <ColumnDefinition Width="95" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
             <Button x:Name="ShowSnapSettingsButton"
                     Grid.Row="0"
                     Grid.ColumnSpan="2"

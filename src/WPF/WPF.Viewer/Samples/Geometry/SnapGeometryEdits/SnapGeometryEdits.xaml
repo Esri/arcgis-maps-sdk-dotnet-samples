@@ -15,7 +15,17 @@
                 <CheckBox Grid.Column="1" IsChecked="{Binding Path=IsEnabled}" />
             </Grid>
         </DataTemplate>
-        <Style x:Key="IconStyle" TargetType="Button">
+        <Style x:Key="ToggleButtonIconStyle" TargetType="ToggleButton">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24" />
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Padding" Value="3" />
+                <Setter Property="Margin" Value="3" />
+            </Style.Setters>
+        </Style>
+        <Style x:Key="ButtonIconStyle" TargetType="Button">
             <Style.Setters>
                 <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24" />
                 <Setter Property="FontSize" Value="25" />
@@ -66,63 +76,63 @@
                         <RowDefinition Height="auto" />
                         <RowDefinition Height="auto" />
                     </Grid.RowDefinitions>
-                    <Button x:Name="PointButton"
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Click="PointButton_Click"
-                            Content="&#xe21c;"
-                            Style="{StaticResource IconStyle}"
-                            ToolTipService.ToolTip="Point" />
-                    <Button x:Name="MultipointButton"
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Click="MultipointButton_Click"
-                            Content="&#xe21c;&#xe21c;"
-                            FontSize="20"
-                            Style="{StaticResource IconStyle}"
-                            ToolTipService.ToolTip="Multipoint" />
-                    <Button x:Name="PolylineButton"
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Click="PolylineButton_Click"
-                            Content="&#xe1a8;"
-                            Style="{StaticResource IconStyle}"
-                            ToolTipService.ToolTip="Polyline / no shape fill" />
-                    <Button x:Name="PolygonButton"
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Click="PolygonButton_Click"
-                            Content="&#xe220;"
-                            Style="{StaticResource IconStyle}"
-                            ToolTipService.ToolTip="Polygon / shape fill" />
+                    <ToggleButton x:Name="PointButton"
+                                  Grid.Row="0"
+                                  Grid.Column="0"
+                                  Click="PointButton_Click"
+                                  Content="&#xe21c;"
+                                  Style="{StaticResource ToggleButtonIconStyle}"
+                                  ToolTipService.ToolTip="Point" />
+                    <ToggleButton x:Name="MultipointButton"
+                                  Grid.Row="0"
+                                  Grid.Column="1"
+                                  Click="MultipointButton_Click"
+                                  Content="&#xe21c;&#xe21c;"
+                                  FontSize="20"
+                                  Style="{StaticResource ToggleButtonIconStyle}"
+                                  ToolTipService.ToolTip="Multipoint" />
+                    <ToggleButton x:Name="PolylineButton"
+                                  Grid.Row="1"
+                                  Grid.Column="0"
+                                  Click="PolylineButton_Click"
+                                  Content="&#xe1a8;"
+                                  Style="{StaticResource ToggleButtonIconStyle}"
+                                  ToolTipService.ToolTip="Polyline / no shape fill" />
+                    <ToggleButton x:Name="PolygonButton"
+                                  Grid.Row="1"
+                                  Grid.Column="1"
+                                  Click="PolygonButton_Click"
+                                  Content="&#xe220;"
+                                  Style="{StaticResource ToggleButtonIconStyle}"
+                                  ToolTipService.ToolTip="Polygon / shape fill" />
                     <Button Grid.Row="2"
                             Grid.Column="0"
                             HorizontalAlignment="Stretch"
                             Click="DeleteButton_Click"
                             Content="&#xe0e8;"
                             IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
-                            Style="{StaticResource IconStyle}"
+                            Style="{StaticResource ButtonIconStyle}"
                             ToolTipService.ToolTip="Delete selected" />
                     <Button Grid.Row="2"
                             Grid.Column="1"
                             Click="UndoButton_Click"
                             Content="&#xe2d6;"
                             IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
-                            Style="{StaticResource IconStyle}"
+                            Style="{StaticResource ButtonIconStyle}"
                             ToolTipService.ToolTip="Undo" />
                     <Button Grid.Row="3"
                             Grid.Column="0"
                             Click="DiscardButton_Click"
                             Content="&#xe080;"
                             IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
-                            Style="{StaticResource IconStyle}"
+                            Style="{StaticResource ButtonIconStyle}"
                             ToolTipService.ToolTip="Discard edits" />
                     <Button Grid.Row="3"
                             Grid.Column="1"
                             Click="SaveButton_Click"
                             Content="&#xe06f;"
                             IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
-                            Style="{StaticResource IconStyle}"
+                            Style="{StaticResource ButtonIconStyle}"
                             ToolTipService.ToolTip="Save edits" />
                 </Grid>
             </StackPanel>

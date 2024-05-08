@@ -29,7 +29,7 @@ To save your edits, press the save button.
 1. Create a `Map` from the `URL` and connect it to the `MapView`.
 2. Set the map's `LoadSettings.FeatureTilingMode` to `EnabledWithFullResolutionWhenSupported`.
 3. Create a `GeometryEditor` and connect it to the map view.
-4. Call `SyncSourceSettings` after the map's operational layers are loaded and the geometry editor connected to the map view.
+4. Call `SyncSourceSettings` after the map's operational layers are loaded and the geometry editor has connected to the map view.
 5. Set `SnapSettings.IsEnabled` and `SnapSourceSettings.IsEnabled` to true for the `SnapSource` of interest.
 6. Start the geometry editor with a `GeometryType`.
 

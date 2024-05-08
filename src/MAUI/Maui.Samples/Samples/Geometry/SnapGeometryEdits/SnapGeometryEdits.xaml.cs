@@ -46,13 +46,14 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             var myMap = new Map(new Uri("https://www.arcgis.com/home/item.html?id=b95fe18073bc4f7788f0375af2bb445e"));
 
             // Set the map load setting feature tiling mode.
-            // Enabled with full resolution when supported is used to ensure that snapping to geometries occurs in full resolution to improve snapping accuracy. 
+            // Enabled with full resolution when supported is used to ensure that snapping to geometries occurs in full resolution.
+            // Snapping in full resolution improves snapping accuracy.
             myMap.LoadSettings.FeatureTilingMode = FeatureTilingMode.EnabledWithFullResolutionWhenSupported;
 
             // Set the initial viewpoint.
             myMap.InitialViewpoint = new Viewpoint(new MapPoint(-9812798, 5126406, SpatialReferences.WebMercator), 2000);
 
-            // Create a graphic, graphics overlay and geometry editor.
+            // Create a graphics overlay and add it to the map view.
             _graphicsOverlay = new GraphicsOverlay();
             MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
 
@@ -67,7 +68,7 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             await myMap.LoadAsync();
 
             // Ensure all layers are loaded before setting the snap settings.
-            // If this step is not undertaken there is a risk that operational layers may not have loaded loaded and therefore will not be included in the snap sources.
+            // If this is not awaited there is a risk that operational layers may not have loaded and therefore would not have been included in the snap sources.
             await Task.WhenAll(MyMapView.Map.OperationalLayers.ToList().Select(layer => layer.LoadAsync()).ToList());
 
             // Set the snap source settings.
@@ -98,7 +99,7 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             // Enable snapping on the geometry layer.
             _geometryEditor.SnapSettings.IsEnabled = true;
 
-            // Create a list of snap source settings with with snapping disabled.
+            // Create a list of snap source settings with snapping disabled.
             List<SnapSourceSettingsVM> snapSourceSettingsVMs = _geometryEditor.SnapSettings.SourceSettings.Select(sourceSettings => new SnapSourceSettingsVM(sourceSettings) { IsEnabled = false }).ToList();
 
             // Populate lists of snap source settings for point and polyline layers.
@@ -151,8 +152,8 @@ namespace ArcGIS.Samples.SnapGeometryEdits
                 // Get the list of identified graphics overlay results based on tap position.
                 IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 10, false);
 
-                // If a graphics overlay result has been tapped and contains a corresponding graphic. 
-                // Set the selected graphic and start the geometry editor.
+                // If a graphics overlay result has been tapped and contains a corresponding graphic,
+                // set the selected graphic and start the geometry editor.
                 if (results.Any() && results[0].Graphics.Any())
                 {
                     _selectedGraphic = results[0].Graphics[0];
@@ -343,10 +344,10 @@ namespace ArcGIS.Samples.SnapGeometryEdits
         {
             SnapSourceSettings = snapSourceSettings;
 
-            if (snapSourceSettings.Source is FeatureLayer flayer && flayer.FeatureTable != null)
+            if (snapSourceSettings.Source is FeatureLayer featureLayer && featureLayer.FeatureTable != null)
             {
-                Name = flayer.Name;
-                GeometryType = flayer.FeatureTable.GeometryType;
+                Name = featureLayer.Name;
+                GeometryType = featureLayer.FeatureTable.GeometryType;
             }
 
             IsEnabled = snapSourceSettings.IsEnabled;

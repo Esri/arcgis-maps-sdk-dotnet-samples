@@ -14,6 +14,8 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.Editing;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -35,6 +37,8 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
         private GeometryEditor _geometryEditor;
         private GraphicsOverlay _graphicsOverlay;
         private Graphic _selectedGraphic;
+        private List<ToggleButton> _geometryEditorToolButtons;
+
 
         public SnapGeometryEdits()
         {
@@ -48,13 +52,14 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
             var myMap = new Map(new Uri("https://www.arcgis.com/home/item.html?id=b95fe18073bc4f7788f0375af2bb445e"));
 
             // Set the map load setting feature tiling mode.
-            // Enabled with full resolution when supported is used to ensure that snapping to geometries occurs in full resolution to improve snapping accuracy. 
+            // Enabled with full resolution when supported is used to ensure that snapping to geometries occurs in full resolution.
+            // Snapping in full resolution improves snapping accuracy.
             myMap.LoadSettings.FeatureTilingMode = FeatureTilingMode.EnabledWithFullResolutionWhenSupported;
 
             // Set the initial viewpoint.
             myMap.InitialViewpoint = new Viewpoint(new MapPoint(-9812798, 5126406, SpatialReferences.WebMercator), 2000);
 
-            // Create a graphic, graphics overlay and geometry editor.
+            // Create a graphics overlay and add it to the map view.
             _graphicsOverlay = new GraphicsOverlay();
             MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
 
@@ -69,7 +74,7 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
             await myMap.LoadAsync();
 
             // Ensure all layers are loaded before setting the snap settings.
-            // If this step is not undertaken there is a risk that operational layers may not have loaded loaded and therefore will not be included in the snap sources.
+            // If this is not awaited there is a risk that operational layers may not have loaded and therefore would not have been included in the snap sources.
             await Task.WhenAll(MyMapView.Map.OperationalLayers.ToList().Select(layer => layer.LoadAsync()).ToList());
 
             // Set the snap source settings.
@@ -77,6 +82,15 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
 
             // Show the UI.
             SnappingControls.Visibility = Visibility.Visible;
+
+            // Store a reference to the geometry editor tool buttons to update their background color when selected.
+            _geometryEditorToolButtons = new List<ToggleButton>()
+            {
+                PointButton,
+                PolylineButton,
+                PolygonButton,
+                MultipointButton
+            };
 
             // Add an event handler to detect geoview tapped events.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -91,7 +105,7 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
             // Enable snapping on the geometry layer.
             _geometryEditor.SnapSettings.IsEnabled = true;
 
-            // Create a list of snap source settings with with snapping disabled.
+            // Create a list of snap source settings with snapping disabled.
             List<SnapSourceSettingsVM> snapSourceSettingsVMs = _geometryEditor.SnapSettings.SourceSettings.Select(sourceSettings => new SnapSourceSettingsVM(sourceSettings) { IsEnabled = false }).ToList();
 
             // Populate lists of snap source settings for point and polyline layers.
@@ -144,8 +158,8 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
                 // Get the list of identified graphics overlay results based on tap position.
                 IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 10, false);
 
-                // If a graphics overlay result has been tapped and contains a corresponding graphic. 
-                // Set the selected graphic and start the geometry editor.
+                // If a graphics overlay result has been tapped and contains a corresponding graphic, 
+                // set the selected graphic and start the geometry editor.
                 if (results.Any() && results[0].Graphics.Any())
                 {
                     _selectedGraphic = results[0].Graphics[0];
@@ -181,6 +195,11 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
             {
                 _selectedGraphic.IsSelected = false;
                 _selectedGraphic.IsVisible = true;
+            }
+
+            foreach (var toggleButton in _geometryEditorToolButtons)
+            {
+                toggleButton.IsChecked = false;
             }
 
             _selectedGraphic = null;
@@ -256,6 +275,7 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
 
             ResetFromEditingSession();
 
+            PointButton.IsChecked = true;
             _geometryEditor.Start(GeometryType.Point);
         }
 
@@ -268,6 +288,7 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
 
             ResetFromEditingSession();
 
+            MultipointButton.IsChecked = true;
             _geometryEditor.Start(GeometryType.Multipoint);
         }
         private void PolylineButton_Click(object sender, RoutedEventArgs e)
@@ -279,6 +300,7 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
 
             ResetFromEditingSession();
 
+            PolylineButton.IsChecked = true;
             _geometryEditor.Start(GeometryType.Polyline);
         }
         private void PolygonButton_Click(object sender, RoutedEventArgs e)
@@ -290,6 +312,7 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
 
             ResetFromEditingSession();
 
+            PolygonButton.IsChecked = true;
             _geometryEditor.Start(GeometryType.Polygon);
         }
         #endregion
@@ -304,10 +327,10 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
         {
             SnapSourceSettings = snapSourceSettings;
 
-            if (snapSourceSettings.Source is FeatureLayer flayer && flayer.FeatureTable != null)
+            if (snapSourceSettings.Source is FeatureLayer featureLayer && featureLayer.FeatureTable != null)
             {
-                Name = flayer.Name;
-                GeometryType = flayer.FeatureTable.GeometryType;
+                Name = featureLayer.Name;
+                GeometryType = featureLayer.FeatureTable.GeometryType;
             }
 
             IsEnabled = snapSourceSettings.IsEnabled;

@@ -17,10 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/display-feature-layers.htm",
-        "/net/winui/sample-code/featurelayergeopackage.htm",
-        "/net/winui/sample-code/featurelayergeodatabase.htm",
-        "/net/winui/sample-code/featurelayershapefile.htm"
+        "/net/latest/winui/sample-code/display-feature-layers.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

@@ -51,6 +51,7 @@
 * [Perform spatial operations](Maui.Samples/Samples/Geometry/SpatialOperations) - Find the union, intersection, or difference of two geometries.
 * [Project](Maui.Samples/Samples/Geometry/Project) - Project a point from one spatial reference to another.
 * [Project with specific transformation](Maui.Samples/Samples/Geometry/ProjectWithSpecificTransformation) - Project a point from one coordinate system to another using a specific transformation step.
+* [Snap geometry edits](Maui.Samples/Samples/Geometry/SnapGeometryEdits) - Use the Geometry Editor to edit a geometry and align it to existing geometries on a map.
 * [Spatial relationships](Maui.Samples/Samples/Geometry/SpatialRelationships) - Determine spatial relationships between two geometries.
 
 ## Geoprocessing

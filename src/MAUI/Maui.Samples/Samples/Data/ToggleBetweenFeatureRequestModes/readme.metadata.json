@@ -13,10 +13,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/toggle-between-feature-request-modes.htm",
-        "/net/maui/sample-code/servicefeaturetablenocache.htm",
-        "/net/maui/sample-code/servicefeaturetablemanualcache.htm",
-        "/net/maui/sample-code/servicefeaturetablecache.htm"
+        "/net/latest/maui/sample-code/toggle-between-feature-request-modes.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

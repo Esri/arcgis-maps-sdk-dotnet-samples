@@ -18,8 +18,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/display-clusters.htm",
-        "/net/wpf/sample-code/displaypointsusingclusteringfeaturereduction.htm"
+        "/net/latest/wpf/sample-code/display-clusters.htm"
     ],
     "relevant_apis": [
         "AggregateGeoElement",

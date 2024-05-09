@@ -15,8 +15,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/generate-geodatabase-replica-from-feature-service.htm",
-        "/net/wpf/sample-code/generategeodatabase.htm"
+        "/net/latest/wpf/sample-code/generate-geodatabase-replica-from-feature-service.htm"
     ],
     "relevant_apis": [
         "GenerateGeodatabaseReplicaJob",

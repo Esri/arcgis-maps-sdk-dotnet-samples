@@ -16,8 +16,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/display-device-location-with-autopan-modes.htm",
-        "/net/maui/sample-code/display-device-location/"
+        "/net/latest/maui/sample-code/display-device-location-with-autopan-modes.htm"
     ],
     "relevant_apis": [
         "LocationDisplay",

@@ -1,0 +1,36 @@
+{
+    "category": "Geometry",
+    "description": "Use the Geometry Editor to edit a geometry and align it to existing geometries on a map.",
+    "formal_name": "SnapGeometryEdits",
+    "ignore": false,
+    "images": [
+        "SnapGeometryEdits.jpg"
+    ],
+    "keywords": [
+        "edit",
+        "feature",
+        "geometry editor",
+        "layers",
+        "map",
+        "snapping"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/snap-geometry-edits.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "Geometry",
+        "GeometryEditor",
+        "GeometryEditorStyle",
+        "MapView",
+        "SnapSettings",
+        "SnapSource",
+        "SnapSourceSettings"
+    ],
+    "snippets": [
+        "SnapGeometryEdits.xaml.cs",
+        "SnapGeometryEdits.xaml"
+    ],
+    "title": "Snap geometry edits"
+}

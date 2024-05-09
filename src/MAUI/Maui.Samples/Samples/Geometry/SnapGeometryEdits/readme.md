@@ -54,9 +54,7 @@ Snapping is used to maintain data integrity between different sources of data wh
 
 To snap to polygon and polyline layers, the recommended approach is to set the `FeatureLayer`'s feature tiling mode to `FeatureTilingMode.EnabledWithFullResolutionWhenSupported` and use the default `ServiceFeatureTable` feature request mode `FeatureRequestMode.OnInteractionCache`. Local data sources, such as geodatabases, always provide full resolution geometries. Point and multipoint feature layers are also always full resolution.
 
-For SDKs which added enhanced feedback at 200.3 (Java, QT, .NET, Swift): Snapping can be used during interactive edits that move existing vertices using the `VertexTool`. It is also supported for adding new vertices for input devices with a hover event (such as a mouse move without a mouse button press). Using the magnifier to perform a vertex move allows users of touch devices to clearly see the visual cues for snapping.
-
-For SDKs which did not add enhanced feedback yet (Kotlin): Snapping can be used during interactive edits that move existing vertices using the `VertexTool`. Using the magnifier to perform the vertex move allows users of touch devices to clearly see the visual cues for snapping.
+Snapping can be used during interactive edits that move existing vertices using the `VertexTool`. It is also supported for adding new vertices for input devices with a hover event (such as a mouse move without a mouse button press). Using the magnifier to perform a vertex move allows users of touch devices to clearly see the visual cues for snapping.
 
 ## Tags
 

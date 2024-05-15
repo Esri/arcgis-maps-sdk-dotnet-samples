@@ -5,24 +5,48 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Border Width="auto" Style="{StaticResource BorderStyle}">
-            <CheckBox Checked="CheckBox_CheckChanged"
-                      Content="Feature clustering"
-                      IsChecked="True"
-                      Unchecked="CheckBox_CheckChanged" />
+            <StackPanel>
+                <CheckBox Checked="EnableClusteringCheckBox_CheckChanged"
+                          Content="Feature clustering"
+                          IsChecked="True"
+                          Unchecked="EnableClusteringCheckBox_CheckChanged" />
+            </StackPanel>
         </Border>
         <Grid x:Name="PopupBackground"
               Background="#AA333333"
               MouseLeftButtonDown="PopupBackground_MouseLeftButtonDown"
               Visibility="Collapsed">
-            <Border HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Background="White">
+            <StackPanel MaxWidth="600"
+                        MaxHeight="500"
+                        Margin="5"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Background="White">
                 <esri:PopupViewer x:Name="PopupViewer"
-                                  MaxWidth="400"
-                                  MaxHeight="400"
-                                  Margin="5"
+                                  Margin="5,0,5,5"
                                   Padding="5" />
-            </Border>
+                <StackPanel x:Name="GeoElementsPanel"
+                            Margin="5,0,5,5"
+                            Visibility="Collapsed">
+                    <TextBlock Padding="10,0,10,5"
+                               FontWeight="Bold"
+                               Text="Contained Geoelements:" />
+                    <DataGrid x:Name="GeoElementsGrid"
+                              MaxHeight="250"
+                              Margin="10,5"
+                              AutoGenerateColumns="False"
+                              IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Path=Attributes[objectid]}" Header="Object ID" />
+                            <DataGridTextColumn Binding="{Binding Path=Attributes[name]}" Header="Name" />
+                            <DataGridTextColumn Binding="{Binding Path=Attributes[capacity_mw]}" Header="Capacity (MW)" />
+                            <DataGridTextColumn Width="*"
+                                                Binding="{Binding Path=Attributes[fuel1]}"
+                                                Header="Fuel" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </StackPanel>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

@@ -23,11 +23,75 @@
                                                  Dark=#303030}"
                     HorizontalOptions="Center"
                     VerticalOptions="Center">
-                <esriTK:PopupViewer x:Name="PopupViewer"
-                                    Margin="5"
-                                    Padding="5"
-                                    HeightRequest="250"
-                                    WidthRequest="250" />
+                <StackLayout Margin="5"
+                             Padding="5"
+                             Spacing="5">
+                    <esriTK:PopupViewer x:Name="PopupViewer"
+                                        MaximumHeightRequest="{OnIdiom Default=150,
+                                                                       Phone=150}"
+                                        MaximumWidthRequest="{OnIdiom Default=750,
+                                                                      Phone=250}"
+                                        MinimumHeightRequest="{OnIdiom Phone=150}"
+                                        MinimumWidthRequest="{OnIdiom Phone=250}" />
+                    <StackLayout x:Name="GeoElementsPanel"
+                                 Margin="5"
+                                 Padding="5"
+                                 IsVisible="false"
+                                 Spacing="5">
+                        <Label FontAttributes="Bold" Text="Contained Geoelements:" />
+                        <!--  On phone, only show the name attribute.  -->
+                        <CollectionView x:Name="GeoElementsGrid"
+                                        MaximumHeightRequest="{OnIdiom Default=500,
+                                                                       Phone=250}"
+                                        MaximumWidthRequest="{OnIdiom Default=750,
+                                                                      Phone=250}">
+                            <CollectionView.Header>
+                                <Grid ColumnDefinitions="*,2*,*,*" ColumnSpacing="50">
+                                    <Label Grid.Column="0"
+                                           FontAttributes="Bold"
+                                           IsVisible="{OnIdiom Default=True,
+                                                               Phone=False}"
+                                           Text="Object ID" />
+                                    <Label Grid.Column="{OnIdiom Default=1,
+                                                                 Phone=0}"
+                                           Grid.ColumnSpan="{OnIdiom Default=0,
+                                                                     Phone=4}"
+                                           FontAttributes="Bold"
+                                           Text="Name" />
+                                    <Label Grid.Column="2"
+                                           FontAttributes="Bold"
+                                           IsVisible="{OnIdiom Default=True,
+                                                               Phone=False}"
+                                           Text="Capacity (MW)" />
+                                    <Label Grid.Column="3"
+                                           FontAttributes="Bold"
+                                           IsVisible="{OnIdiom Default=True,
+                                                               Phone=False}"
+                                           Text="Fuel" />
+                                </Grid>
+                            </CollectionView.Header>
+                            <CollectionView.ItemTemplate>
+                                <OnIdiom x:TypeArguments="DataTemplate">
+                                    <OnIdiom.Default>
+                                        <DataTemplate>
+                                            <Grid ColumnDefinitions="*,2*,*,*" ColumnSpacing="50">
+                                                <Label Text="{Binding Path=Attributes[objectid]}" />
+                                                <Label Grid.Column="1" Text="{Binding Path=Attributes[name]}" />
+                                                <Label Grid.Column="2" Text="{Binding Path=Attributes[capacity_mw]}" />
+                                                <Label Grid.Column="3" Text="{Binding Path=Attributes[fuel1]}" />
+                                            </Grid>
+                                        </DataTemplate>
+                                    </OnIdiom.Default>
+                                    <OnIdiom.Phone>
+                                        <DataTemplate>
+                                            <Label Text="{Binding Path=Attributes[name]}" />
+                                        </DataTemplate>
+                                    </OnIdiom.Phone>
+                                </OnIdiom>
+                            </CollectionView.ItemTemplate>
+                        </CollectionView>
+                    </StackLayout>
+                </StackLayout>
             </Border>
         </Grid>
     </Grid>

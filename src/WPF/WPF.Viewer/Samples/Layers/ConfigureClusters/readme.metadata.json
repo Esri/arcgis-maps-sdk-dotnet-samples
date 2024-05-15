@@ -20,8 +20,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/configure-clusters.htm",
-        "/net/wpf/sample-code/addclusteringfeaturereductiontoapointfeaturelayer.htm"
+        "/net/latest/wpf/sample-code/configure-clusters.htm"
     ],
     "relevant_apis": [
         "AggregateGeoElement",

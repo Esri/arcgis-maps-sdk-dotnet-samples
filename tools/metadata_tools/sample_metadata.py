@@ -28,9 +28,13 @@ class sample_metadata:
 
     def __init__(self):
         self.reset_props()
-        self.install("python-slugify")
+        try:
+            import slugify
+        except ModuleNotFoundError:
+            print("Module `slugify` is not installed")
+            self.install("python-slugify")
 
-    def install(package):
+    def install(self, package):
         subprocess.check_call([sys.executable, "-m", "pip", "install", package])
 
     def populate_from_json(self, path_to_json):

@@ -1,0 +1,162 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.SnapGeometryEdits.SnapGeometryEdits"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <ContentPage.Resources>
+        <DataTemplate x:Key="SnapSettingTemplate">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"
+                       Text="{Binding Path=Name}"
+                       VerticalOptions="Center"
+                       WidthRequest="150" />
+                <Switch Grid.Column="1"
+                        HorizontalOptions="End"
+                        IsToggled="{Binding Path=IsEnabled, Mode=TwoWay}"
+                        VerticalOptions="Center" />
+            </Grid>
+        </DataTemplate>
+        <Style x:Key="IconStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="calcite-ui-icons-24" />
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#3C3C3C, Light=White}" />
+            </Style.Setters>
+        </Style>
+    </ContentPage.Resources>
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Grid x:Name="CreateEditGeometriesPanel"
+              Margin="10"
+              ColumnDefinitions="95,95"
+              ColumnSpacing="5"
+              HorizontalOptions="End"
+              IsVisible="False"
+              RowDefinitions="auto,auto,auto,auto,auto"
+              RowSpacing="5"
+              VerticalOptions="Start"
+              WidthRequest="200">
+            <Button x:Name="ShowSnapSettingsButton"
+                    Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Clicked="ShowSnapSettingsButton_Clicked"
+                    Text="Show snap settings" />
+            <Button x:Name="PointButton"
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Clicked="PointButton_Click"
+                    Style="{StaticResource IconStyle}"
+                    Text="&#xe21c;"
+                    ToolTipProperties.Text="Point" />
+            <Button x:Name="MultipointButton"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    Clicked="MultipointButton_Click"
+                    FontSize="20"
+                    Style="{StaticResource IconStyle}"
+                    Text="&#xe21c;&#xe21c;"
+                    ToolTipProperties.Text="Multipoint" />
+            <Button x:Name="PolylineButton"
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Clicked="PolylineButton_Click"
+                    Style="{StaticResource IconStyle}"
+                    Text="&#xe1a8;"
+                    ToolTipProperties.Text="Polyline / no shape fill" />
+            <Button x:Name="PolygonButton"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    Clicked="PolygonButton_Click"
+                    Style="{StaticResource IconStyle}"
+                    Text="&#xe220;"
+                    ToolTipProperties.Text="Polygon / shape fill" />
+            <Button Grid.Row="3"
+                    Grid.Column="0"
+                    Clicked="DeleteButton_Click"
+                    IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
+                    Style="{StaticResource IconStyle}"
+                    Text="&#xe0e8;"
+                    ToolTipProperties.Text="Delete selected" />
+            <Button Grid.Row="3"
+                    Grid.Column="1"
+                    Clicked="UndoButton_Click"
+                    IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                    Style="{StaticResource IconStyle}"
+                    Text="&#xe2d6;"
+                    ToolTipProperties.Text="Undo" />
+            <Button Grid.Row="4"
+                    Grid.Column="0"
+                    Clicked="DiscardButton_Click"
+                    IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                    Style="{StaticResource IconStyle}"
+                    Text="&#xe080;"
+                    ToolTipProperties.Text="Discard edits" />
+            <Button Grid.Row="4"
+                    Grid.Column="1"
+                    Clicked="SaveButton_Click"
+                    IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                    Style="{StaticResource IconStyle}"
+                    Text="&#xe06f;"
+                    ToolTipProperties.Text="Save edits" />
+        </Grid>
+        <Grid x:Name="SnappingSettingsPopup"
+              Grid.ColumnSpan="2"
+              Padding="10"
+              Background="#AA333333"
+              IsVisible="False">
+            <Border Margin="10"
+                    Background="{AppThemeBinding Dark=Black,
+                                                 Light=White}"
+                    HorizontalOptions="Center"
+                    MaximumHeightRequest="450"
+                    MaximumWidthRequest="250"
+                    StrokeShape="RoundRectangle 10"
+                    VerticalOptions="Center">
+                <ScrollView>
+                    <VerticalStackLayout Margin="10">
+                        <Label Padding="0,5"
+                               FontAttributes="Bold"
+                               FontSize="14"
+                               Text="Select snap sources" />
+                        <Grid ColumnDefinitions="0.5*,auto">
+                            <Label Grid.Column="0"
+                                   Text="Point layers:"
+                                   VerticalOptions="Center" />
+                            <Button Grid.Column="1"
+                                    Clicked="EnableAllPointSnapSourceButton_Click"
+                                    HorizontalOptions="End"
+                                    Text="Enable all"
+                                    VerticalOptions="Center" />
+                        </Grid>
+                        <CollectionView x:Name="PointSnapSettingsList"
+                                        HeightRequest="150"
+                                        ItemTemplate="{StaticResource SnapSettingTemplate}"
+                                        WidthRequest="200" />
+                        <Grid Margin="0,10,0,0" ColumnDefinitions="0.5*,auto">
+                            <Label Grid.Column="0"
+                                   Text="Polyline layers:"
+                                   VerticalOptions="Center" />
+                            <Button Grid.Column="1"
+                                    Clicked="EnableAllPolylineSnapSourceButton_Click"
+                                    HorizontalOptions="End"
+                                    Text="Enable all"
+                                    VerticalOptions="Center" />
+                        </Grid>
+                        <CollectionView x:Name="PolylineSnapSettingsList"
+                                        HeightRequest="90"
+                                        ItemTemplate="{StaticResource SnapSettingTemplate}"
+                                        WidthRequest="200" />
+                        <Button Margin="0,5"
+                                Clicked="HideSnapSettingsButton_Clicked"
+                                HorizontalOptions="FillAndExpand"
+                                Text="Close" />
+                    </VerticalStackLayout>
+                </ScrollView>
+            </Border>
+        </Grid>
+    </Grid>
+</ContentPage>

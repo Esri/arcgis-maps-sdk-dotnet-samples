@@ -370,21 +370,25 @@ def rename_sample_alt(full_directory, command):
     return
 
 def main():
+
+    # Relative to the script, get the path of the src folder
+    src_path = os.path.join(os.path.abspath(os.path.join(os.path.dirname(os.path.realpath(__file__)), "..", "..")), "src")
+
     # Ask if the user wants to rename a sample or copy
-    if len(sys.argv) < 3:
-        print("Usage: samplegen.py /path/to/samples/directory -[mode] (note: dir should end with 'src')")
+    if len(sys.argv) < 2:
+        print("Usage: samplegen.py -[mode]")
         print("Mode is -[r]ename to rename a sample (guided), -[n]ew to create new, -c to rename (one-line-entry)")
         return
-    op = sys.argv[2]
+    op = sys.argv[1]
     if 'r' in op:
-        rename_sample_main(sys.argv[1])
+        rename_sample_main(src_path)
     elif 'c' in op:
-        if len(sys.argv) > 3:
-            rename_sample_alt(sys.argv[1], sys.argv[3])
+        if len(sys.argv) > 2:
+            rename_sample_alt(src_path, sys.argv[2])
         else:
-            rename_sample_alt(sys.argv[1], None)
+            rename_sample_alt(src_path, None)
     else:
-        new_sample_main(sys.argv[1])
+        new_sample_main(src_path)
 
 if __name__=="__main__":
     main()

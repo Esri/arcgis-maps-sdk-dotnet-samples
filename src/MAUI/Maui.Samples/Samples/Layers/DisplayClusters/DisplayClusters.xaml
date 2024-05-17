@@ -27,12 +27,10 @@
                              Padding="5"
                              Spacing="5">
                     <esriTK:PopupViewer x:Name="PopupViewer"
-                                        MaximumHeightRequest="{OnIdiom Default=150,
-                                                                       Phone=150}"
                                         MaximumWidthRequest="{OnIdiom Default=750,
                                                                       Phone=250}"
-                                        MinimumHeightRequest="{OnIdiom Phone=150}"
-                                        MinimumWidthRequest="{OnIdiom Phone=250}" />
+                                        MinimumWidthRequest="250"
+                                        HeightRequest="150" />
                     <StackLayout x:Name="GeoElementsPanel"
                                  Margin="5"
                                  Padding="5"

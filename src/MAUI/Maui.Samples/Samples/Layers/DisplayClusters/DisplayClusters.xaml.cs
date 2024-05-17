@@ -9,7 +9,9 @@
 
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Mapping.Popups;
 using Esri.ArcGISRuntime.Portal;
+using Esri.ArcGISRuntime.Reduction;
 
 namespace ArcGIS.Samples.DisplayClusters
 {
@@ -17,11 +19,12 @@ namespace ArcGIS.Samples.DisplayClusters
         name: "Display clusters",
         category: "Layers",
         description: "Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.",
-        instructions: "Pan and zoom the map to view how clustering is dynamically updated. Toggle clustering off to view the original point features that make up the clustered elements. When clustering is on, you can tap on a clustered geoelement to view aggregated information and summary statistics for that cluster. When clustering is toggled off and you tap on the original feature you get access to information about individual power plant features.",
+        instructions: "Pan and zoom the map to view how clustering is dynamically updated. Toggle clustering off to view the original point features that make up the clustered elements. When clustering is on, you can click on a clustered geoelement to view aggregated information and summary statistics for that cluster as well as a list geo elements in the identified cluster. When clustering is toggled off and you click on the original feature you get access to information about individual power plant features.",
         tags: new[] { "aggregate", "bin", "cluster", "group", "merge", "normalize", "reduce", "summarize" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayClusters
     {
+        // Hold a reference to the feature layer.
         private FeatureLayer _layer;
 
         public DisplayClusters()
@@ -50,23 +53,49 @@ namespace ArcGIS.Samples.DisplayClusters
                 {
                     PopupBackground.IsVisible = false;
                     PopupViewer.Popup = null;
+                    GeoElementsGrid.ItemsSource = null;
+                    GeoElementsPanel.IsVisible = false;
                 })
             });
 
-            MyMapView.ViewpointChanged += (s, e) => Console.WriteLine($"Viewpoint changed");
         }
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
+            // Clear any previously selected features or clusters.
+            _layer.ClearSelection();
+
             // Identify the tapped observation.
-            IdentifyLayerResult results = await MyMapView.IdentifyLayerAsync(_layer, e.Position, 3, true);
+            var results = await MyMapView.IdentifyLayerAsync(_layer, e.Position, 3, false);
 
-            // Return if no observations were found.
-            if (results.Popups.Count == 0) return;
+            // Return if no popups are found.
+            if (results.GeoElements.Count == 0 || results.Popups.Count == 0) return;
 
-            // Set the popup and make it visible.
-            PopupViewer.Popup = results.Popups.FirstOrDefault();
-            PopupBackground.IsVisible = true;
+            if (results.Popups.FirstOrDefault() is Popup popup)
+            {
+                // Set the popup and make it visible.
+                PopupViewer.Popup = popup;
+                PopupBackground.IsVisible = true;
+            }
+
+            // If the tapped observation is an AggregateGeoElement then select it.
+            if (results.GeoElements.FirstOrDefault() is AggregateGeoElement aggregateGeoElement)
+            {
+                // Select the AggregateGeoElement.
+                aggregateGeoElement.IsSelected = true;
+
+                // Get the contained GeoElements.
+                IReadOnlyList<GeoElement> geoElements = await aggregateGeoElement.GetGeoElementsAsync();
+
+                // Set the geoelements as an items source and set the visibility.
+                GeoElementsGrid.ItemsSource = geoElements;
+                GeoElementsPanel.IsVisible = true;
+            }
+            else if (results.GeoElements.FirstOrDefault() is ArcGISFeature feature)
+            {
+                // If the tapped observation is not an AggregateGeoElement select the feature.
+                _layer.SelectFeature(feature);
+            }
         }
 
         // Enable clustering feature reduction if the checkbox has been checked, disable otherwise.

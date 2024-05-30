@@ -34,7 +34,7 @@ namespace ArcGIS.WPF.Samples.Add3dTilesLayer
 
         // Create a camera with an initial viewpoint.
         // Camera constructor parameters: latitude, longitude, altitude, heading, pitch, and roll.
-        private readonly Camera sceneCamera = new Camera(48.8418, 9.1536, 1325.0, 48.35, 57.84, 0.0);
+        private readonly Camera _sceneCamera = new Camera(48.8418, 9.1536, 1325.0, 48.35, 57.84, 0.0);
 
         public Add3dTilesLayer()
         {
@@ -54,7 +54,7 @@ namespace ArcGIS.WPF.Samples.Add3dTilesLayer
             MySceneView.Scene = _scene;
 
             // Set the viewpoint with the camera.
-            await MySceneView.SetViewpointCameraAsync(sceneCamera);
+            await MySceneView.SetViewpointCameraAsync(_sceneCamera);
         }
     }
 }

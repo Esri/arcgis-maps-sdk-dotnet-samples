@@ -111,7 +111,7 @@ namespace ArcGIS.WPF.Samples.SnapGeometryEdits
             PolylineSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Polyline).ToList();
 
             // Populate a list of snap source settings for graphics overlays.
-            GraphicsOverlaySnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingsVMs => snapSourceSettingsVMs.SnapSourceSettings.Source is GraphicsOverlay).ToList();
+            GraphicsOverlaySnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingsVM => snapSourceSettingsVM.SnapSourceSettings.Source is GraphicsOverlay).ToList();
         }
 
         private void CreateNewGraphic()

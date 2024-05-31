@@ -30,7 +30,7 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
         category: "Geometry",
         description: "Use the Geometry Editor to edit a geometry and align it to existing geometries on a map.",
         instructions: "To create a geometry, press the create button to choose the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry.",
-        tags: new[] { "edit", "feature", "geometry editor", "layers", "map", "snapping" })]
+        tags: new[] { "edit", "feature", "geometry editor", "graphics", "layers", "map", "snapping" })]
     public partial class SnapGeometryEdits
     {
         // Hold references for use in event handlers.

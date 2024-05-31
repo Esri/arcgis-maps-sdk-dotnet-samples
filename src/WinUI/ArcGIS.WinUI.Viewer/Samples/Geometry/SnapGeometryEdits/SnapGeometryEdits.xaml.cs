@@ -111,6 +111,9 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
             // Populate lists of snap source settings for point and polyline layers.
             PointSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Point).ToList();
             PolylineSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Polyline).ToList();
+
+            // Populate a list of snap source settings for graphics overlays.
+            GraphicsOverlaySnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingsVMs => snapSourceSettingsVMs.SnapSourceSettings.Source is GraphicsOverlay).ToList();
         }
 
         private void CreateNewGraphic()
@@ -327,10 +330,18 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
         {
             SnapSourceSettings = snapSourceSettings;
 
-            if (snapSourceSettings.Source is FeatureLayer featureLayer && featureLayer.FeatureTable != null)
+            if (snapSourceSettings.Source is FeatureLayer featureLayer)
             {
                 Name = featureLayer.Name;
-                GeometryType = featureLayer.FeatureTable.GeometryType;
+
+                if (featureLayer.FeatureTable != null)
+                {
+                    GeometryType = featureLayer.FeatureTable.GeometryType;
+                }
+            }
+            else if (snapSourceSettings.Source is GraphicsOverlay graphicsOverlay)
+            {
+                Name = "Editor graphics overlay";
             }
 
             IsEnabled = snapSourceSettings.IsEnabled;

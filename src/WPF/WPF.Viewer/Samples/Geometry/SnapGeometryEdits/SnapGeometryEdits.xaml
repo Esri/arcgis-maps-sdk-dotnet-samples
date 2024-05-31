@@ -52,7 +52,7 @@
                 <TextBlock Text="Point layers:" />
                 <ListView x:Name="PointSnapSettingsList"
                           Width="200"
-                          Height="100"
+                          Height="80"
                           ItemTemplate="{StaticResource SnapSettingTemplate}" />
                 <Button Click="EnableAllPointSnapSourceButton_Click" Content="Enable all" />
                 <TextBlock Margin="0,10,0,0" Text="Polyline layers:" />
@@ -61,6 +61,12 @@
                           Height="50"
                           ItemTemplate="{StaticResource SnapSettingTemplate}" />
                 <Button Click="EnableAllPolylineSnapSourceButton_Click" Content="Enable all" />
+                <TextBlock Margin="0,10,0,0" Text="Graphics overlays:" />
+                <ListView x:Name="GraphicsOverlaySnapSettingsList"
+                          Width="200"
+                          Height="30"
+                          BorderThickness="0"
+                          ItemTemplate="{StaticResource SnapSettingTemplate}" />
                 <TextBlock Padding="0,10,0,5"
                            FontSize="14"
                            FontWeight="Bold"

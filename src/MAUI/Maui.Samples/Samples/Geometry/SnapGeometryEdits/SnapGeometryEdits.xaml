@@ -108,7 +108,8 @@
               Padding="10"
               Background="#AA333333"
               IsVisible="False">
-            <Border Margin="10"
+            <Border x:Name="SnapSettingsContainer"
+                    Margin="10"
                     Background="{AppThemeBinding Dark=Black,
                                                  Light=White}"
                     HorizontalOptions="Center"
@@ -159,10 +160,6 @@
                                         HeightRequest="60"
                                         ItemTemplate="{StaticResource SnapSettingTemplate}"
                                         WidthRequest="250" />
-                        <Button Margin="0,5"
-                                Clicked="HideSnapSettingsButton_Clicked"
-                                HorizontalOptions="FillAndExpand"
-                                Text="Close" />
                     </VerticalStackLayout>
                 </ScrollView>
             </Border>

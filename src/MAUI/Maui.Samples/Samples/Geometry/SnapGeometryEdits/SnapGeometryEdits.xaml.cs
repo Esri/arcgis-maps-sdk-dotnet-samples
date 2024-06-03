@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Maui;
+using Esri.ArcGISRuntime.Toolkit.Maui;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Editing;
 using Microsoft.Maui.ApplicationModel;
@@ -94,6 +95,15 @@ namespace ArcGIS.Samples.SnapGeometryEdits
                 AllowMagnifierToPan = true
             };
 #endif
+
+            // Hide the popup when user taps screen.
+            SnappingSettingsPopup.GestureRecognizers.Add(new TapGestureRecognizer
+            {
+                Command = new Command(() =>
+                {
+                    SnappingSettingsPopup.IsVisible = false;
+                })
+            });
 
             // Add an event handler to detect geoview tapped events.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -338,11 +348,6 @@ namespace ArcGIS.Samples.SnapGeometryEdits
         private void ShowSnapSettingsButton_Clicked(object sender, EventArgs e)
         {
             SnappingSettingsPopup.IsVisible = true;
-        }
-
-        private void HideSnapSettingsButton_Clicked(object sender, EventArgs e)
-        {
-            SnappingSettingsPopup.IsVisible = false;
         }
         #endregion
     }

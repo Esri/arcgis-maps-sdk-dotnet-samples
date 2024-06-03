@@ -29,7 +29,7 @@ namespace ArcGIS.WPF.Samples.SnapGeometryEdits
         category: "Geometry",
         description: "Use the Geometry Editor to edit a geometry and align it to existing geometries on a map.",
         instructions: "To create a geometry, press the create button to choose the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry.",
-        tags: new[] { "edit", "feature", "geometry editor", "layers", "map", "snapping" })]
+        tags: new[] { "edit", "feature", "geometry editor", "graphics", "layers", "map", "snapping" })]
     public partial class SnapGeometryEdits
     {
         // Hold references for use in event handlers.
@@ -109,6 +109,9 @@ namespace ArcGIS.WPF.Samples.SnapGeometryEdits
             // Populate lists of snap source settings for point and polyline layers.
             PointSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Point).ToList();
             PolylineSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Polyline).ToList();
+
+            // Populate a list of snap source settings for graphics overlays.
+            GraphicsOverlaySnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingsVM => snapSourceSettingsVM.SnapSourceSettings.Source is GraphicsOverlay).ToList();
         }
 
         private void CreateNewGraphic()
@@ -325,10 +328,18 @@ namespace ArcGIS.WPF.Samples.SnapGeometryEdits
         {
             SnapSourceSettings = snapSourceSettings;
 
-            if (snapSourceSettings.Source is FeatureLayer featureLayer && featureLayer.FeatureTable != null)
+            if (snapSourceSettings.Source is FeatureLayer featureLayer)
             {
                 Name = featureLayer.Name;
-                GeometryType = featureLayer.FeatureTable.GeometryType;
+                
+                if (featureLayer.FeatureTable != null)
+                {
+                    GeometryType = featureLayer.FeatureTable.GeometryType;
+                }
+            }
+            else if (snapSourceSettings.Source is GraphicsOverlay)
+            {
+                Name = "Editor graphics overlay";
             }
 
             IsEnabled = snapSourceSettings.IsEnabled;

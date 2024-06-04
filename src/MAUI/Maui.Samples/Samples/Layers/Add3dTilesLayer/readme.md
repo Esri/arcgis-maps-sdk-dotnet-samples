@@ -2,7 +2,7 @@
 
 Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.
 
-![Add 3D Tiles Layer](Add3dTilesLayer.png)
+![Add 3D Tiles Layer](add3dtileslayer.jpg)
 
 ## Use case
 

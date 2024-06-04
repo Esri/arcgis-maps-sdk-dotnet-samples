@@ -78,6 +78,7 @@
 
 ## Layers
 
+* [Add 3d tiles layer](Maui.Samples/Samples/Layers/Add3dTilesLayer) - Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.
 * [Add a point scene layer](Maui.Samples/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
 * [Add custom dynamic entity data source](Maui.Samples/Samples/Layers/AddCustomDynamicEntityDataSource) - Create a custom dynamic entity data source and display it using a dynamic entity layer.
 * [Add dynamic entity layer](Maui.Samples/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.

@@ -7,13 +7,24 @@
         "Add3dTilesLayer.jpg"
     ],
     "keywords": [
+        "3d tiles",
+        "OGC",
+        "OGC API",
+        "layers",
+        "scene",
+        "service"
     ],
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/Add3dTilesLayer.htm"
+        "/net/latest/wpf/sample-code/add-3d-tiles-layer.htm"
     ],
     "relevant_apis": [
+        "Ogc3DTilesLayer",
+        "SceneView"
     ],
     "snippets": [
+        "Add3dTilesLayer.xaml.cs",
+        "Add3dTilesLayer.xaml"
     ],
     "title": "Add 3d tiles layer"
 }

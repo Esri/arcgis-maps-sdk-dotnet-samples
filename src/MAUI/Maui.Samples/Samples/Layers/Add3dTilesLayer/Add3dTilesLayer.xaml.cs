@@ -12,10 +12,11 @@ using Esri.ArcGISRuntime.Mapping;
 namespace ArcGIS.Samples.Add3dTilesLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Add 3d tiles layer",
-        "Layers",
-        "Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.",
-        "")]
+        name: "Add 3d tiles layer",
+        category: "Layers",
+        description: "Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.",
+        instructions: "When loaded, the sample will display a scene with an `Ogc3DTilesLayer`. Pan around and zoom in to observe the scene of the `Ogc3DTilesLayer`. Notice how the layer's level of detail changes as you zoom in and out from the layer.",
+        tags: new[] { "3d tiles", "OGC", "OGC API", "layers", "scene", "service" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class Add3dTilesLayer
     {

@@ -20,20 +20,9 @@ namespace ArcGIS.Samples.Add3dTilesLayer
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class Add3dTilesLayer
     {
-        // Create a new elevation source from Terrain3D REST service.
-        private readonly ArcGISTiledElevationSource _elevationSource = new ArcGISTiledElevationSource
-            (new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
-
-        // Create a new scene with a dark gray basemap.
-        private readonly Scene _scene = new Scene(BasemapStyle.ArcGISDarkGray);
-
-        // Create a new 3D tiles layer from a REST endpoint.
-        private readonly Ogc3DTilesLayer _3dTilesLayer = new Ogc3DTilesLayer
-            (new Uri("https://tiles.arcgis.com/tiles/ZQgQTuoyBrtmoGdP/arcgis/rest/services/Stuttgart/3DTilesServer/tileset.json"));
-
-        // Create a camera with an initial viewpoint.
-        // Camera constructor parameters: latitude, longitude, altitude, heading, pitch, and roll.
-        private readonly Camera _sceneCamera = new Camera(48.8418, 9.1536, 1325.0, 48.35, 57.84, 0.0);
+        // Create Uris for the elevation source and 3D tiles layer.
+        private readonly Uri _elevationSourceUri = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+        private readonly Uri _3dTilesLayerUri = new Uri("https://tiles.arcgis.com/tiles/ZQgQTuoyBrtmoGdP/arcgis/rest/services/Stuttgart/3DTilesServer/tileset.json");
 
         public Add3dTilesLayer()
         {
@@ -43,17 +32,30 @@ namespace ArcGIS.Samples.Add3dTilesLayer
 
         private async Task Initialize()
         {
+            // Create a new elevation source from Terrain3D REST service.
+            var elevationSource = new ArcGISTiledElevationSource(_elevationSourceUri);
+
+            // Create a new 3D tiles layer from a REST endpoint.
+            var _3dTilesLayer = new Ogc3DTilesLayer(_3dTilesLayerUri);
+
+            // Create a new scene with a dark gray basemap.
+            var scene = new Scene(BasemapStyle.ArcGISDarkGray);
+
             // Add the elevation source to the scene.
-            _scene.BaseSurface.ElevationSources.Add(_elevationSource);
+            scene.BaseSurface.ElevationSources.Add(elevationSource);
 
             // Add the 3D tiles layer to the scene.
-            _scene.OperationalLayers.Add(_3dTilesLayer);
+            scene.OperationalLayers.Add(_3dTilesLayer);
 
             // Set the scene on the SceneView to visualize the 3D tiles layer.
-            MySceneView.Scene = _scene;
+            MySceneView.Scene = scene;
+
+            // Create a camera with an initial viewpoint.
+            // Camera constructor parameters: latitude, longitude, altitude, heading, pitch, and roll.
+            var sceneCamera = new Camera(48.8418, 9.1536, 1325.0, 48.35, 57.84, 0.0);
 
             // Set the viewpoint with the camera.
-            await MySceneView.SetViewpointCameraAsync(_sceneCamera);
+            await MySceneView.SetViewpointCameraAsync(sceneCamera);
         }
     }
 }

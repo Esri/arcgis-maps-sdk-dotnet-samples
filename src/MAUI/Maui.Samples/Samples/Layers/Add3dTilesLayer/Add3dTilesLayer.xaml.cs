@@ -36,7 +36,7 @@ namespace ArcGIS.Samples.Add3dTilesLayer
             var elevationSource = new ArcGISTiledElevationSource(_elevationSourceUri);
 
             // Create a new 3D tiles layer from a REST endpoint.
-            var _3dTilesLayer = new Ogc3DTilesLayer(_3dTilesLayerUri);
+            var layer = new Ogc3DTilesLayer(_3dTilesLayerUri);
 
             // Create a new scene with a dark gray basemap.
             var scene = new Scene(BasemapStyle.ArcGISDarkGray);
@@ -45,7 +45,7 @@ namespace ArcGIS.Samples.Add3dTilesLayer
             scene.BaseSurface.ElevationSources.Add(elevationSource);
 
             // Add the 3D tiles layer to the scene.
-            scene.OperationalLayers.Add(_3dTilesLayer);
+            scene.OperationalLayers.Add(layer);
 
             // Set the scene on the SceneView to visualize the 3D tiles layer.
             MySceneView.Scene = scene;

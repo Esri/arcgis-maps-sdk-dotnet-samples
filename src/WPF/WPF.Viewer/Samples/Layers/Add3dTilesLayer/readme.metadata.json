@@ -1,0 +1,30 @@
+{
+    "category": "Layers",
+    "description": "Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.",
+    "formal_name": "Add3dTilesLayer",
+    "ignore": false,
+    "images": [
+        "Add3dTilesLayer.jpg"
+    ],
+    "keywords": [
+        "3d tiles",
+        "OGC",
+        "OGC API",
+        "layers",
+        "scene",
+        "service"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/add-3d-tiles-layer.htm"
+    ],
+    "relevant_apis": [
+        "Ogc3DTilesLayer",
+        "SceneView"
+    ],
+    "snippets": [
+        "Add3dTilesLayer.xaml.cs",
+        "Add3dTilesLayer.xaml"
+    ],
+    "title": "Add 3d tiles layer"
+}

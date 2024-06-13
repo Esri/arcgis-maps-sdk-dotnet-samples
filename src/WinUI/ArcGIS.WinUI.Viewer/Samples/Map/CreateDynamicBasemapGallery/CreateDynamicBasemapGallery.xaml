@@ -1,0 +1,51 @@
+<UserControl x:Class="ArcGIS.WinUI.Samples.CreateDynamicBasemapGallery.CreateDynamicBasemapGallery"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="using:Esri.ArcGISRuntime"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <ProgressBar x:Name="ProgressBar"
+                             Height="25"
+                             IsIndeterminate="True" />
+                <StackPanel x:Name="DynamicBasemapStyleGallery"
+                            Margin="5"
+                            Spacing="5"
+                            Visibility="Collapsed">
+                    <ListView x:Name="BasemapStyleGallery" MaxHeight="500">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Margin="5">
+                                    <TextBlock FontWeight="Bold" Text="{Binding BasemapStyleInfo.StyleName}" />
+                                    <Image Height="150"
+                                           HorizontalAlignment="Left"
+                                           Source="{Binding ImageSource}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                    <TextBlock FontWeight="Bold" Text="Language strategy:" />
+                    <ComboBox x:Name="StrategyPicker"
+                              HorizontalAlignment="Stretch"
+                              IsEnabled="False" />
+                    <TextBlock FontWeight="Bold" Text="Language:" />
+                    <ComboBox x:Name="LanguagePicker"
+                              HorizontalAlignment="Stretch"
+                              DisplayMemberPath="DisplayName"
+                              IsEnabled="False" />
+                    <TextBlock FontWeight="Bold" Text="Worldview:" />
+                    <ComboBox x:Name="WorldviewPicker"
+                              HorizontalAlignment="Stretch"
+                              DisplayMemberPath="DisplayName"
+                              IsEnabled="False" />
+                    <Button Margin="0,10,0,0"
+                            Click="LoadButton_Click"
+                            HorizontalAlignment="Stretch"
+                            Content="Load" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

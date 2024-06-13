@@ -167,6 +167,7 @@
 * [Change basemap](ArcGIS.WinUI.Viewer/Samples/Map/ChangeBasemap) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
 * [Configure basemap style parameters](ArcGIS.WinUI.Viewer/Samples/Map/ConfigureBasemapStyleParameters) - Apply basemap style parameters customization for a basemap, such as displaying all labels in a specific language or displaying every label in their corresponding local language.
 * [Create and save map](ArcGIS.WinUI.Viewer/Samples/Map/AuthorMap) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
+* [Create dynamic basemap gallery](ArcGIS.WinUI.Viewer/Samples/Map/CreateDynamicBasemapGallery) - Implement a basemap gallery that automatically retrieves the latest customization options from the basemap styles service.
 * [Display map](ArcGIS.WinUI.Viewer/Samples/Map/DisplayMap) - Display a map with an imagery basemap.
 * [Download preplanned map area](ArcGIS.WinUI.Viewer/Samples/Map/DownloadPreplannedMap) - Take a map offline using a preplanned map area.
 * [Generate offline map](ArcGIS.WinUI.Viewer/Samples/Map/GenerateOfflineMap) - Take a web map offline.

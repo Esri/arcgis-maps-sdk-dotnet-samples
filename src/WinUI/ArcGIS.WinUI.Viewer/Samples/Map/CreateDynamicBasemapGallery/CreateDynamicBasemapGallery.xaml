@@ -41,8 +41,8 @@
                               DisplayMemberPath="DisplayName"
                               IsEnabled="False" />
                     <Button Margin="0,10,0,0"
-                            Click="LoadButton_Click"
                             HorizontalAlignment="Stretch"
+                            Click="LoadButton_Click"
                             Content="Load" />
                 </StackPanel>
             </StackPanel>

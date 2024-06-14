@@ -9,14 +9,14 @@
                 Margin="10"
                 Background="#AA333333"
                 BorderColor="Transparent"
-                TextColor="White"
                 Clicked="ShowGallery_Clicked"
-                CornerRadius="50"
                 FontFamily="calcite-ui-icons-24"
-                FontSize="{OnIdiom Default=80, Phone=50}"
+                FontSize="{OnIdiom Default=80,
+                                   Phone=50}"
                 HorizontalOptions="Start"
                 IsVisible="False"
                 Text="&#xe019;"
+                TextColor="White"
                 VerticalOptions="Start" />
         <Border x:Name="TransparentBackground" Background="#AA333333">
             <Border.GestureRecognizers>
@@ -35,8 +35,10 @@
                      Background="{AppThemeBinding Light=#dfdfdf,
                                                   Dark=#303030}"
                      IsVisible="False"
-                     MaximumHeightRequest="{OnIdiom Desktop=800, Phone=650}"
-                     MaximumWidthRequest="{OnIdiom Desktop=400, Phone=300}"
+                     MaximumHeightRequest="{OnIdiom Desktop=800,
+                                                    Phone=650}"
+                     MaximumWidthRequest="{OnIdiom Desktop=400,
+                                                   Phone=300}"
                      Spacing="5">
             <CollectionView x:Name="BasemapStyleGallery"
                             Margin="5"
@@ -48,7 +50,8 @@
                     <DataTemplate>
                         <StackLayout Margin="5">
                             <Label FontAttributes="Bold" Text="{Binding BasemapStyleInfo.StyleName}" />
-                            <Image HeightRequest="{OnIdiom Default=200, Phone=150}"
+                            <Image HeightRequest="{OnIdiom Default=200,
+                                                           Phone=150}"
                                    HorizontalOptions="Start"
                                    Source="{Binding ImageSource}" />
                         </StackLayout>

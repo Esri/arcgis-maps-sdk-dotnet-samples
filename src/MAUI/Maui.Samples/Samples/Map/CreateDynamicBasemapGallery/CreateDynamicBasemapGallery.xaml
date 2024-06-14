@@ -35,9 +35,9 @@
                      Background="{AppThemeBinding Light=#dfdfdf,
                                                   Dark=#303030}"
                      IsVisible="False"
-                     MaximumHeightRequest="{OnIdiom Desktop=800,
+                     MaximumHeightRequest="{OnIdiom Default=800,
                                                     Phone=650}"
-                     MaximumWidthRequest="{OnIdiom Desktop=400,
+                     MaximumWidthRequest="{OnIdiom Default=400,
                                                    Phone=300}"
                      Spacing="5">
             <CollectionView x:Name="BasemapStyleGallery"

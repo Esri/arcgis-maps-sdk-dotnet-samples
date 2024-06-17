@@ -7,21 +7,17 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <ProgressBar x:Name="ProgressBar"
-                             Height="25"
-                             IsIndeterminate="True" />
-                <StackPanel x:Name="DynamicBasemapStyleGallery"
-                            Margin="5"
-                            Spacing="5"
-                            Visibility="Collapsed">
-                    <ListView x:Name="BasemapStyleGallery" MaxHeight="500">
+                <StackPanel Margin="5" Spacing="5">
+                    <ListView x:Name="BasemapStyleGallery"
+                              MaxHeight="500"
+                              SelectionMode="Single">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Margin="5">
-                                    <TextBlock FontWeight="Bold" Text="{Binding BasemapStyleInfo.StyleName}" />
+                                    <TextBlock FontWeight="Bold" Text="{Binding StyleName}" />
                                     <Image Height="150"
                                            HorizontalAlignment="Left"
-                                           Source="{Binding ImageSource}" />
+                                           Source="{Binding Thumbnail.Source}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>

@@ -3,19 +3,14 @@
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI;
-using System;
-using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media;
-using System.Diagnostics;
-using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace ArcGIS.WinUI.Samples.CreateDynamicBasemapGallery
 {
@@ -28,16 +23,6 @@ namespace ArcGIS.WinUI.Samples.CreateDynamicBasemapGallery
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class CreateDynamicBasemapGallery
     {
-        /// <summary>
-        /// A class to hold information about basemap styles, allowing for easy binding to UI elements and dynamic basemap creation.
-        /// </summary>
-        internal class BasemapStyleGalleryItem
-        {
-            public BasemapStyleInfo BasemapStyleInfo { get; set; }
-            public BasemapStyle BasemapStyle { get; set; }
-            public ImageSource ImageSource { get; set; }
-        }
-
         public CreateDynamicBasemapGallery()
         {
             InitializeComponent();
@@ -53,42 +38,16 @@ namespace ArcGIS.WinUI.Samples.CreateDynamicBasemapGallery
             BasemapStylesServiceInfo service = await BasemapStylesServiceInfo.CreateAsync();
 
             // Populate the basemap style gallery.
-            foreach (var styleInfo in service.StylesInfo)
-            {
-                // Remove all whitespace from the style name.
-                string styleName = styleInfo.StyleName.Replace(" ", string.Empty);
-
-                // Get an enum of type BasemapStyle using the formatted style name.
-                BasemapStyle style = (BasemapStyle)Enum.Parse(typeof(BasemapStyle), styleName, true);
-
-                try
-                {
-                    // Create a new basemap style gallery item.
-                    BasemapStyleGallery.Items.Add(new BasemapStyleGalleryItem
-                    {
-                        BasemapStyle = style,
-                        BasemapStyleInfo = styleInfo,
-                        ImageSource = await styleInfo.Thumbnail.ToImageSourceAsync()
-                    });
-                }
-                catch (HttpRequestException e)
-                {
-                    Debug.WriteLine(e.Message);
-                }
-            }
+            BasemapStyleGallery.ItemsSource = service.StylesInfo;
 
             // Listen for basemap style selection events.
             BasemapStyleGallery.SelectionChanged += BasemapStyleGallery_SelectionChanged;
-
-            // Make the dynamic basemap style gallery visible now that initialization is complete.
-            ProgressBar.Visibility = Visibility.Collapsed;
-            DynamicBasemapStyleGallery.Visibility = Visibility.Visible;
         }
 
         private void BasemapStyleGallery_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the selected basemap style info.
-            var styleInfo = ((BasemapStyleGalleryItem)BasemapStyleGallery.SelectedItem).BasemapStyleInfo;
+            var styleInfo = (BasemapStyleInfo)BasemapStyleGallery.SelectedItem;
 
             // Set the pickers to the available options for the selected basemap.
             StrategyPicker.ItemsSource = styleInfo.LanguageStrategies;
@@ -119,11 +78,10 @@ namespace ArcGIS.WinUI.Samples.CreateDynamicBasemapGallery
                 basemapStyleParameters.LanguageStrategy = (BasemapStyleLanguageStrategy)StrategyPicker.SelectedItem;
 
             // Determine the basemap style of the currently selected basemap.
-            BasemapStyle selectedBasemapStyle = ((BasemapStyleGalleryItem)BasemapStyleGallery.SelectedItem).BasemapStyle;
+            BasemapStyle selectedBasemapStyle = ((BasemapStyleInfo)BasemapStyleGallery.SelectedItem).Style;
 
             // Update the map's basemap.
             MyMapView.Map.Basemap = new Basemap(selectedBasemapStyle, basemapStyleParameters);
         }
-
     }
 }

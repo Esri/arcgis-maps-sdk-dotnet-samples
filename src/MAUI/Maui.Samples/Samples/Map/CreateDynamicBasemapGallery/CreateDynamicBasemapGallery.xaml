@@ -14,21 +14,17 @@
                 FontSize="{OnIdiom Default=80,
                                    Phone=50}"
                 HorizontalOptions="Start"
-                IsVisible="False"
                 Text="&#xe019;"
                 TextColor="White"
+                ToolTipProperties.Text="Show Gallery"
                 VerticalOptions="Start" />
-        <Border x:Name="TransparentBackground" Background="#AA333333">
+        <Border x:Name="TransparentBackground"
+                Background="#AA333333"
+                IsVisible="False">
             <Border.GestureRecognizers>
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
             </Border.GestureRecognizers>
         </Border>
-        <ActivityIndicator x:Name="LoadingIndicator"
-                           Margin="10"
-                           HeightRequest="200"
-                           IsRunning="True"
-                           WidthRequest="200"
-                           Color="White" />
         <StackLayout x:Name="DynamicBasemapStyleGallery"
                      Margin="5"
                      Padding="5"
@@ -49,11 +45,11 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout Margin="5">
-                            <Label FontAttributes="Bold" Text="{Binding BasemapStyleInfo.StyleName}" />
+                            <Label FontAttributes="Bold" Text="{Binding StyleName}" />
                             <Image HeightRequest="{OnIdiom Default=200,
                                                            Phone=150}"
                                    HorizontalOptions="Start"
-                                   Source="{Binding ImageSource}" />
+                                   Source="{Binding Thumbnail.Source}" />
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

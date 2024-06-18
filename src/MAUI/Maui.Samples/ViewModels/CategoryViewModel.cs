@@ -11,7 +11,7 @@ namespace ArcGIS.ViewModels
 {
     public partial class CategoryViewModel : ObservableObject
     {
-        private static readonly string DefaultCategory = "Featured";
+        private const string DefaultCategory = "Featured";
         private double _sampleImageWidth;
         private double _sampleImageHeight;
         public double SampleImageWidth => _sampleImageWidth;
@@ -71,7 +71,7 @@ namespace ArcGIS.ViewModels
             SamplesItems = samplesCollection;
         }
 
-        private List<SampleInfo> GetSamplesInCategory(string category)
+        private static List<SampleInfo> GetSamplesInCategory(string category)
         {
             var categoryNode = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().FirstOrDefault(c => c.Name == category);
 
@@ -100,7 +100,7 @@ namespace ArcGIS.ViewModels
         }
 
         [RelayCommand]
-        void SampleSelected(SampleViewModel sampleViewModel)
+        static void SampleSelected(SampleViewModel sampleViewModel)
         {
             if(SampleManager.Current.SelectedSample == null)
                 _ = SampleLoader.LoadSample(sampleViewModel.SampleObject);

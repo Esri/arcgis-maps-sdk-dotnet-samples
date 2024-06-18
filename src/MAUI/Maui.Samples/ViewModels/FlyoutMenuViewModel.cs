@@ -68,7 +68,7 @@ namespace ArcGIS.ViewModels
         [ObservableProperty]
         private ObservableCollection<FlyoutCategoryViewModel> _categories;
 
-        public void CategorySelected(string categoryName)
+        public static void CategorySelected(string categoryName)
         {
             WeakReferenceMessenger.Default.Send(categoryName);
         }

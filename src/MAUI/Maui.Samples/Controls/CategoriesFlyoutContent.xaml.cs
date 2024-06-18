@@ -29,7 +29,7 @@ public partial class CategoriesFlyoutContent : ContentView
             selectedCategory.IsSelected = true;
             previousCategory.IsSelected = false;
 
-            _viewModel.CategorySelected(selectedCategory.CategoryName);
+            FlyoutMenuViewModel.CategorySelected(selectedCategory.CategoryName);
 
         }
         catch (Exception ex)

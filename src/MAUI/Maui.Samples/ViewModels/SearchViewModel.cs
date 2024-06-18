@@ -12,9 +12,22 @@ namespace ArcGIS.ViewModels
         private IDispatcherTimer _delaySearchTimer;
         private const int _delayedTextChangedTimeout = 500;
 
+        private Dictionary<SampleInfo, (string[] nameKeywords, string[] categoryKeywords, string[] descriptionKeywords, string[] tagsKeywords)>
+            _sampleKeywords = new();
+
         public SearchViewModel()
         {
             SearchItems = new ObservableCollection<SearchResultViewModel>();
+
+            // Initialize the dictionary of sample keywords.
+            foreach (var sample in SampleManager.Current.AllSamples.ToList())
+            {
+                var sampleNameKeywords = GetKeywords(sample.SampleName);
+                var categoryKeywords = GetKeywords(sample.Category);
+                var descriptionKeywords = GetKeywords(sample.Description);
+                var tagsKeywords = sample.Tags.ToArray();
+                _sampleKeywords.Add(sample, (sampleNameKeywords, categoryKeywords, descriptionKeywords, tagsKeywords));
+            }
         }
 
         [ObservableProperty]
@@ -62,23 +75,18 @@ namespace ArcGIS.ViewModels
 
                 List<SearchResultViewModel> sampleResults = new List<SearchResultViewModel>();
 
-                foreach (var sample in SampleManager.Current.AllSamples.ToList())
+                foreach (var sample in _sampleKeywords)
                 {
                     int score = 0;
 
-                    var sampleNameKeywords = GetKeywords(sample.SampleName);
-                    var categoryKeywords = GetKeywords(sample.Category);
-                    var descriptionKeywords = GetKeywords(sample.Description);
-                    var tagsKeywords = sample.Tags.ToArray();
-
-                    score += GetMatches(sampleNameKeywords, searchKeywords) * 6;
-                    score += GetMatches(categoryKeywords, searchKeywords) * 3;
-                    score += GetMatches(descriptionKeywords, searchKeywords) * 2;
-                    score += GetMatches(tagsKeywords, searchKeywords);
+                    score += GetMatches(sample.Value.nameKeywords, searchKeywords) * 6;
+                    score += GetMatches(sample.Value.categoryKeywords, searchKeywords) * 3;
+                    score += GetMatches(sample.Value.descriptionKeywords, searchKeywords) * 2;
+                    score += GetMatches(sample.Value.tagsKeywords, searchKeywords);
 
                     if (score > 0)
                     {
-                        sampleResults.Add(new SearchResultViewModel(sample, score));
+                        sampleResults.Add(new SearchResultViewModel(sample.Key, score));
                     }
                 }
 

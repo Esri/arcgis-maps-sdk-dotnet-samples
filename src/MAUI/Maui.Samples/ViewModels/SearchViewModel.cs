@@ -66,15 +66,15 @@ namespace ArcGIS.ViewModels
                 {
                     int score = 0;
 
-                    var sampleNameKeywords = SearchViewModel.GetKeywords(sample.SampleName);
-                    var categoryKeywords = SearchViewModel.GetKeywords(sample.Category);
-                    var descriptionKeywords = SearchViewModel.GetKeywords(sample.Description);
+                    var sampleNameKeywords = GetKeywords(sample.SampleName);
+                    var categoryKeywords = GetKeywords(sample.Category);
+                    var descriptionKeywords = GetKeywords(sample.Description);
                     var tagsKeywords = sample.Tags.ToArray();
 
-                    score += SearchViewModel.GetMatches(sampleNameKeywords, searchKeywords) * 6;
-                    score += SearchViewModel.GetMatches(categoryKeywords, searchKeywords) * 3;
-                    score += SearchViewModel.GetMatches(descriptionKeywords, searchKeywords) * 2;
-                    score += SearchViewModel.GetMatches(tagsKeywords, searchKeywords);
+                    score += GetMatches(sampleNameKeywords, searchKeywords) * 6;
+                    score += GetMatches(categoryKeywords, searchKeywords) * 3;
+                    score += GetMatches(descriptionKeywords, searchKeywords) * 2;
+                    score += GetMatches(tagsKeywords, searchKeywords);
 
                     if (score > 0)
                     {

@@ -47,7 +47,7 @@ namespace ArcGIS.ViewModels
             // Maintain 4:3 image resolution. 
             _sampleImageHeight = Math.Floor(_sampleImageWidth * 3 / 4);
 
-            var featuredSamples = CategoryViewModel.GetSamplesInCategory(DefaultCategory);
+            var featuredSamples = GetSamplesInCategory(DefaultCategory);
 
             foreach (var sampleInfo in featuredSamples)
             {
@@ -66,7 +66,7 @@ namespace ArcGIS.ViewModels
 
             SelectedCategory = category;
 
-            var samples = CategoryViewModel.GetSamplesInCategory(category);
+            var samples = GetSamplesInCategory(category);
             var samplesCollection = samples.Select(s => new SampleViewModel(s, _sampleImageWidth, _sampleImageHeight)).ToObservableCollection();
             SamplesItems = samplesCollection;
         }

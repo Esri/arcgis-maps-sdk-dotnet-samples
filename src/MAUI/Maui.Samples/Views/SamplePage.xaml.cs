@@ -436,7 +436,7 @@ namespace ArcGIS
                             break;
 
                         case ViewOnGitHub:
-                            _ = SamplePage.OpenGitHub();
+                            _ = OpenGitHub();
                             break;
                     }
                 }
@@ -489,7 +489,7 @@ namespace ArcGIS
 
         private async void GitHubToolbarItem_Clicked(object sender, EventArgs e)
         {
-            await SamplePage.OpenGitHub();
+            await OpenGitHub();
         }
 
         private static async Task OpenGitHub()

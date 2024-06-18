@@ -11,7 +11,7 @@ namespace ArcGIS.ViewModels
 {
     public partial class CategoryViewModel : ObservableObject
     {
-        private static readonly string DefaultCategory = "Featured";
+        private const string DefaultCategory = "Featured";
         private double _sampleImageWidth;
         private double _sampleImageHeight;
         public double SampleImageWidth => _sampleImageWidth;
@@ -47,7 +47,7 @@ namespace ArcGIS.ViewModels
             // Maintain 4:3 image resolution. 
             _sampleImageHeight = Math.Floor(_sampleImageWidth * 3 / 4);
 
-            var featuredSamples = GetSamplesInCategory(DefaultCategory);
+            var featuredSamples = CategoryViewModel.GetSamplesInCategory(DefaultCategory);
 
             foreach (var sampleInfo in featuredSamples)
             {
@@ -66,12 +66,12 @@ namespace ArcGIS.ViewModels
 
             SelectedCategory = category;
 
-            var samples = GetSamplesInCategory(category);
+            var samples = CategoryViewModel.GetSamplesInCategory(category);
             var samplesCollection = samples.Select(s => new SampleViewModel(s, _sampleImageWidth, _sampleImageHeight)).ToObservableCollection();
             SamplesItems = samplesCollection;
         }
 
-        private List<SampleInfo> GetSamplesInCategory(string category)
+        private static List<SampleInfo> GetSamplesInCategory(string category)
         {
             var categoryNode = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().FirstOrDefault(c => c.Name == category);
 
@@ -100,7 +100,7 @@ namespace ArcGIS.ViewModels
         }
 
         [RelayCommand]
-        void SampleSelected(SampleViewModel sampleViewModel)
+        static void SampleSelected(SampleViewModel sampleViewModel)
         {
             if(SampleManager.Current.SelectedSample == null)
                 _ = SampleLoader.LoadSample(sampleViewModel.SampleObject);

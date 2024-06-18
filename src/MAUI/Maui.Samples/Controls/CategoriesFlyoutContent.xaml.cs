@@ -21,7 +21,7 @@ public partial class CategoriesFlyoutContent : ContentView
         try
         {
             var selectedCategory = e.CurrentSelection.FirstOrDefault() as FlyoutCategoryViewModel;
-            _viewModel.CategorySelected(selectedCategory.CategoryName);
+            FlyoutMenuViewModel.CategorySelected(selectedCategory.CategoryName);
 
         }
         catch (Exception ex)

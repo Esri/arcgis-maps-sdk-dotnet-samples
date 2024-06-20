@@ -15,6 +15,11 @@ namespace ArcGIS.ViewModels
         private Dictionary<SampleInfo, (string[] nameKeywords, string[] categoryKeywords, string[] descriptionKeywords, string[] tagsKeywords)>
             _sampleKeywords = new();
 
+        private static readonly HashSet<string> _commonWords = ["in", "a", "of", "the", "by", "an", "and"];
+
+        [GeneratedRegex("[^a-zA-Z0-9 -]")]
+        private static partial Regex NonWordCharRegex();
+
         public SearchViewModel()
         {
             SearchItems = new ObservableCollection<SearchResultViewModel>();
@@ -131,24 +136,16 @@ namespace ArcGIS.ViewModels
             return matches;
         }
 
-        private string[] GetKeywords(string text)
+        private static string[] GetKeywords(string text)
         {
             // Remove punctuation from the search text and any trailing white space at the end.
-            Regex regex = new Regex("[^a-zA-Z0-9 -]");
-            text = regex.Replace(text, "");
+            text = NonWordCharRegex().Replace(text, "").ToLower();
 
-            var cleanedTextWords = text.TrimEnd().ToLower().Split(" ").Distinct().ToList();
-            var commonWords = new string[] { "in", "a", "of", "the", "by", "an", "and" };
-
-            foreach (var word in commonWords)
-            {
-                if (cleanedTextWords.Contains(word))
-                {
-                    cleanedTextWords.Remove(word);
-                }
-            }
-
-            return cleanedTextWords.ToArray();
+            // Split the text into words, remove duplicates, and filter out common words in one go.
+            return text.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
+                       .Distinct()
+                       .Where(static word => !_commonWords.Contains(word))
+                       .ToArray();
         }
 
         private void SearchTextChanged()

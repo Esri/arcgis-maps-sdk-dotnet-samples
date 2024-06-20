@@ -93,6 +93,8 @@ namespace ArcGIS.ViewModels
                     {
                         sampleResults.Add(new SearchResultViewModel(sample.Key, score));
                     }
+
+                    if (sampleResults.Count >= 15) break;
                 }
 
                 try

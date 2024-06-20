@@ -34,7 +34,7 @@ namespace ArcGIS
     {
         private ContentPage _sampleContent;
         private Assembly _assembly;
-        private int _lastViewedFileIndex = 0;
+        private int _lastViewedFileIndex;
 
         // single-instance webviews reused on each view, to avoid a memory leak in webview
         private static WebView DescriptionView = new WebView();
@@ -176,7 +176,7 @@ namespace ArcGIS
         private async Task<string> GetDescriptionHtml(SampleInfo sampleInfo)
         {
             string category = sampleInfo.Category;
-            if (category.Contains(" "))
+            if (category.Contains(' '))
             {
                 // Make categories with spaces into titlecase folder name.
                 category = $"{category.Split(" ")[0]}{category.Split(" ")[1][0].ToString().ToUpper()}{category.Split(" ")[1].Substring(1)}";
@@ -184,13 +184,13 @@ namespace ArcGIS
 
             using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync($"Samples/{category}/{sampleInfo.FormalName}/readme.md").ConfigureAwait(false);
             StreamReader r = new StreamReader(fileStream);
-            var readmeContent = r.ReadToEnd();
+            var readmeContent = await r.ReadToEndAsync();
             readmeContent = Markdig.Markdown.ToHtml(readmeContent);
 
             // Set CSS for dark mode or light mode.
             string markdownCssType = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "github-markdown-dark.css" : "github-markdown.css";
             string cssResource = _assembly.GetManifestResourceNames().Single(n => n.EndsWith($"SyntaxHighlighting.{markdownCssType}"));
-            string cssContent = new StreamReader(_assembly.GetManifestResourceStream(cssResource)).ReadToEnd();
+            string cssContent = await new StreamReader(_assembly.GetManifestResourceStream(cssResource)).ReadToEndAsync();
 
 #if WINDOWS
             // Remove the readme header on Windows so it doesn't repeat the title.
@@ -202,7 +202,7 @@ namespace ArcGIS
             if (sourceStream is not null)
             {
                 using var memoryStream = new MemoryStream();
-                sourceStream.CopyTo(memoryStream);
+                await sourceStream.CopyToAsync(memoryStream);
                 byte[] image = memoryStream.ToArray();
                 memoryStream.Close();
 
@@ -492,7 +492,7 @@ namespace ArcGIS
             await OpenGitHub();
         }
 
-        private async Task OpenGitHub()
+        private static async Task OpenGitHub()
         {
             try
             {
@@ -519,7 +519,7 @@ namespace ArcGIS
         // Code here is adapted from the following Stack Overflow answers:
         // https://stackoverflow.com/q/24466482
         // https://stackoverflow.com/a/15537372
-        private void SaveScreenshot(VisualElement source)
+        private static void SaveScreenshot(VisualElement source)
         {
             double scale = ScreenshotManager.ScreenshotSettings.ScaleFactor.HasValue ? ScreenshotManager.ScreenshotSettings.ScaleFactor.Value : double.NaN;
 
@@ -633,23 +633,23 @@ namespace ArcGIS
                 {
                     var fileName = _path.Split('/').Last();
                     var xamlPath = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{fileName}"));
-                    SourceCode = baseContent = new StreamReader(assembly.GetManifestResourceStream(xamlPath)).ReadToEnd();
+                    SourceCode = baseContent = await new StreamReader(assembly.GetManifestResourceStream(xamlPath)).ReadToEndAsync();
                 }
                 else
                 {
                     using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync(_path).ConfigureAwait(false);
-                    SourceCode = baseContent = new StreamReader(fileStream).ReadToEnd();
+                    SourceCode = baseContent = await new StreamReader(fileStream).ReadToEndAsync();
                 }
 #else
                 using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync(_path).ConfigureAwait(false);
-                SourceCode = baseContent = new StreamReader(fileStream).ReadToEnd();
+                SourceCode = baseContent = await new StreamReader(fileStream).ReadToEndAsync();
 #endif
                 // For xaml files, search for dynamic resource styles, taking into account any whitespace.
                 if (_path.EndsWith(".xaml") && String.Concat(baseContent.Where(c => !Char.IsWhiteSpace(c)))
                     .Contains("Style=\"{DynamicResource"))
                 {
                     // Display a comment on the second line of the file.
-                    baseContent = baseContent.Insert(baseContent.IndexOf(">")+1, 
+                    baseContent = baseContent.Insert(baseContent.IndexOf('>')+1, 
                         "\n<!-- Styles used in this sample can be copied from Resources/Styles/Styles.xaml. -->");
                 }
                 
@@ -662,7 +662,7 @@ namespace ArcGIS
                 // Set CSS for dark mode or light mode.
                 string markdownCssType = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "highlight-dark.css" : "highlight.css";
                 string cssResource = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"SyntaxHighlighting.{markdownCssType}"));
-                string cssContent = new StreamReader(assembly.GetManifestResourceStream(cssResource)).ReadToEnd();
+                string cssContent = await new StreamReader(assembly.GetManifestResourceStream(cssResource)).ReadToEndAsync();
 
                 // Set the background color. Color values are taken from corresponding css files.
                 string backgroundColor = Application.Current.RequestedTheme == Microsoft.Maui.ApplicationModel.AppTheme.Dark ? "#1e1e1e" : "#fff";
@@ -670,7 +670,7 @@ namespace ArcGIS
 
                 // Read javascript content.
                 string jsResource = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"SyntaxHighlighting.highlight.js"));
-                string jsContent = new StreamReader(assembly.GetManifestResourceStream(jsResource)).ReadToEnd();
+                string jsContent = await new StreamReader(assembly.GetManifestResourceStream(jsResource)).ReadToEndAsync();
 
                 // Build the html.
                 _fullContent =

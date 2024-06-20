@@ -66,7 +66,7 @@ namespace ArcGIS.ViewModels
             else
             {
                 // Remove punctuation from the search text and any trailing white space at the end.
-                var searchKeywords = GetKeywords(SearchText);
+                var searchKeywords = SearchViewModel.GetKeywords(SearchText);
 
                 // Check if the keywords are the same as the previous search.
                 if (Enumerable.SequenceEqual(searchKeywords, _previousSearchKeywords))
@@ -99,7 +99,7 @@ namespace ArcGIS.ViewModels
 
                 try
                 {
-                    if (sampleResults.Any())
+                    if (sampleResults.Count != 0)
                     {
                         sampleResults = sampleResults.OrderByDescending(sampleResults => sampleResults.Score).ThenBy(sampleResults => sampleResults.SampleName).ToList();
                         SearchItems = new ObservableCollection<SearchResultViewModel>(sampleResults);
@@ -116,7 +116,7 @@ namespace ArcGIS.ViewModels
             }
         }
 
-        private int GetMatches(string[] contentKeywords, string[] searchKeywords)
+        private static int GetMatches(string[] contentKeywords, string[] searchKeywords)
         {
             int matches = 0;
 

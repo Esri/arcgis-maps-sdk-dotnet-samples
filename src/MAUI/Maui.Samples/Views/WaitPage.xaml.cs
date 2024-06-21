@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGIS.Samples.Managers;
+
 namespace ArcGIS
 {
     public partial class WaitPage
@@ -21,6 +23,7 @@ namespace ArcGIS
 
         private void DownloadCancelled(object sender, System.EventArgs e)
         {
+            SampleManager.Current.SelectedSample = null;
             _cancellationTokenSource.Cancel(true);
         }
 

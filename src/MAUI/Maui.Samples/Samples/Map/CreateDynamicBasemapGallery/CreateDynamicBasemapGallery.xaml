@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.CreateDynamicBasemapGallery.CreateDynamicBasemapGallery"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Button x:Name="ShowGalleryButton"
+                Margin="10"
+                Background="#AA333333"
+                BorderColor="Transparent"
+                Clicked="ShowGallery_Clicked"
+                FontFamily="calcite-ui-icons-24"
+                FontSize="{OnIdiom Default=80,
+                                   Phone=50}"
+                HorizontalOptions="Start"
+                Text="&#xe019;"
+                TextColor="White"
+                ToolTipProperties.Text="Show Gallery"
+                VerticalOptions="Start" />
+        <Border x:Name="TransparentBackground"
+                Background="#AA333333"
+                IsVisible="False">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
+            </Border.GestureRecognizers>
+        </Border>
+        <StackLayout x:Name="DynamicBasemapStyleGallery"
+                     Margin="5"
+                     Padding="5"
+                     Background="{AppThemeBinding Light=#dfdfdf,
+                                                  Dark=#303030}"
+                     IsVisible="False"
+                     MaximumHeightRequest="{OnIdiom Default=800,
+                                                    Phone=650}"
+                     MaximumWidthRequest="{OnIdiom Default=400,
+                                                   Phone=300}"
+                     Spacing="5">
+            <CollectionView x:Name="BasemapStyleGallery"
+                            Margin="5"
+                            MaximumHeightRequest="{OnIdiom Default=500,
+                                                           Phone=300}"
+                            SelectionChanged="BasemapStyleGallery_SelectionChanged"
+                            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout Margin="5">
+                            <Label FontAttributes="Bold" Text="{Binding StyleName}" />
+                            <Image HeightRequest="{OnIdiom Default=200,
+                                                           Phone=150}"
+                                   HorizontalOptions="Start"
+                                   Source="{Binding Thumbnail.Source}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Label FontAttributes="Bold" Text="Language strategy:" />
+            <Picker x:Name="StrategyPicker"
+                    Margin="5"
+                    HorizontalOptions="Fill"
+                    IsEnabled="False" />
+            <Label Margin="5"
+                   FontAttributes="Bold"
+                   Text="Language:" />
+            <Picker x:Name="LanguagePicker"
+                    Margin="5"
+                    HorizontalOptions="Fill"
+                    IsEnabled="False"
+                    ItemDisplayBinding="{Binding DisplayName}" />
+            <Label FontAttributes="Bold" Text="Worldview:" />
+            <Picker x:Name="WorldviewPicker"
+                    Margin="5"
+                    HorizontalOptions="Fill"
+                    IsEnabled="False"
+                    ItemDisplayBinding="{Binding DisplayName}" />
+            <Button Margin="5"
+                    Clicked="LoadButton_Click"
+                    Text="Load" />
+        </StackLayout>
+    </Grid>
+</ContentPage>

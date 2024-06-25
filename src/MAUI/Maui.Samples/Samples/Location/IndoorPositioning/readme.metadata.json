@@ -30,6 +30,7 @@
     "relevant_apis": [
         "ArcGISFeatureTable",
         "FeatureTable",
+        "IndoorPositioningDefinition",
         "IndoorsLocationDataSource",
         "Location",
         "LocationDisplay",

@@ -1,0 +1,32 @@
+{
+    "category": "Map",
+    "description": "Implement a basemap gallery that automatically retrieves the latest customization options from the basemap styles service.",
+    "formal_name": "CreateDynamicBasemapGallery",
+    "ignore": false,
+    "images": [
+        "CreateDynamicBasemapGallery.jpg"
+    ],
+    "keywords": [
+        "basemap",
+        "languages",
+        "service",
+        "style"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/create-dynamic-basemap-gallery.htm"
+    ],
+    "relevant_apis": [
+        "BasemapStyleInfo",
+        "BasemapStyleLanguageInfo",
+        "BasemapStyleParameters",
+        "BasemapStylesService",
+        "BasemapStylesServiceInfo",
+        "Worldview"
+    ],
+    "snippets": [
+        "CreateDynamicBasemapGallery.xaml.cs",
+        "CreateDynamicBasemapGallery.xaml"
+    ],
+    "title": "Create dynamic basemap gallery"
+}

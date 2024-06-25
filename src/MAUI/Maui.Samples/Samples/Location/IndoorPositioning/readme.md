@@ -10,14 +10,14 @@ An indoor positioning system (IPS) allows you to locate yourself and others insi
 
 ## How to use the sample
 
-Bring the device within range of an IPS beacon. The system will ask for permission to use the device's location if the user has not yet used location services in this app. It will then start the location display with auto-pan mode set to `Navigation`.
+When the device is within range of an IPS beacon, toggle "Show Location" to change the visibility of the location indicator in the map view. The system will ask for permission to use the device's location if the user has not yet used location services in this app. It will then start the location display with auto-pan mode set to `Navigation`.
 
 When there is no IPS beacons nearby, or other errors occur while initializing the indoors location data source, it will seamlessly fall back to the current device location as determined by GPS.
 
 ## How it works
 
-1. Load an IPS-enabled map. This can be a web map hosted as a portal item in ArcGIS Online, an Enterprise Portal, or a mobile map package (.mmpk) created with ArcGIS Pro.
-2. Create an `IndoorsLocationDataSource` with the positioning feature table (stored with the map) and the pathways feature table after both tables are loaded.
+1. Load an IPS-aware map. This can be a web map hosted as a portal item in ArcGIS Online, an Enterprise Portal, or a mobile map package (.mmpk) created with ArcGIS Pro.
+2. Create and load an `IndoorsLocationDataSource` with the positioning feature table (stored with the map), then create an `IndoorsLocationDataSource` from it.
 3. Handle location change events to respond to floor changes or read other metadata for locations.
 4. Assign the `IndoorsLocationDataSource` to the map view's location display.
 5. Enable and disable the map view's location display using `StartAsync()` and `StopAsync()`. Device location will appear on the display as a blue dot and update as the user moves throughout the space.
@@ -27,6 +27,7 @@ When there is no IPS beacons nearby, or other errors occur while initializing th
 
 * ArcGISFeatureTable
 * FeatureTable
+* IndoorPositioningDefinition
 * IndoorsLocationDataSource
 * Location
 * LocationDisplay

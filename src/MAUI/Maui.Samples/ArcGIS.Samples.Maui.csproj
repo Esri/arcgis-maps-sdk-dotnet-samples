@@ -35,7 +35,7 @@
 
     <ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\appicon.svg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
+		<MauiIcon Include="Resources\appiconwindows.svg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
 		<MauiIcon Include="Resources\appiconandroid.svg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android' " />
 		<MauiIcon Include="Resources\appicon.svg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'" />
 		<MauiIcon Include="Resources\appicon.svg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'" />

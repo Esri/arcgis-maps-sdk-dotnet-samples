@@ -27,7 +27,7 @@ namespace ArcGIS.ViewModels
             // Initialize the dictionary of sample keywords.
             foreach (var sample in SampleManager.Current.AllSamples.ToList())
             {
-                var sampleNameKeywords = GetKeywords(sample.SampleName);
+                string[] sampleNameKeywords = GetKeywords(sample.SampleName).Append(sample.FormalName.ToLower()).ToArray();
                 var categoryKeywords = GetKeywords(sample.Category);
                 var descriptionKeywords = GetKeywords(sample.Description);
                 var tagsKeywords = sample.Tags.ToArray();

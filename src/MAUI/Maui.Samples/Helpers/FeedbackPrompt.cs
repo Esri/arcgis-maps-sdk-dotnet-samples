@@ -22,29 +22,38 @@ namespace ArcGIS.Helpers
         {
             await Application.Current.MainPage.DisplayActionSheet("Open an issue on GitHub:", "Cancel", null, [BugReport, FeatureRequest]).ContinueWith((result) =>
             {
-                string link;
                 switch (result.Result)
                 {
                     case BugReport:
-                        var sb = new StringBuilder("https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=bug_report.yml&title=%5BBug%5D");
-                        if (SampleManager.Current.SelectedSample != null)
-                        {
-                            sb.Append("+&impacted-samples=");
-                            sb.Append(SampleManager.Current.SelectedSample.FormalName);
-                        }
-                        _ = Browser.Default.OpenAsync(new Uri(sb.ToString()), BrowserLaunchMode.SystemPreferred);
+                        OpenBugReport();
                         break;
 
                     case FeatureRequest:
-                        link =
-                            "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Feature&projects=&template=feature_request.yml&title=%5BFeature%5D";
-                        _ = Browser.Default.OpenAsync(new Uri(link), BrowserLaunchMode.SystemPreferred);
+                        OpenFeatureRequest();
                         break;
 
                     case "Cancel":
                         break;
                 }
             }, TaskScheduler.FromCurrentSynchronizationContext());
+        }
+
+        public static void OpenBugReport()
+        {
+            var sb = new StringBuilder("https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Bug&projects=&template=bug_report.yml&title=%5BBug%5D");
+            if (SampleManager.Current.SelectedSample != null)
+            {
+                sb.Append("+&impacted-samples=");
+                sb.Append(SampleManager.Current.SelectedSample.FormalName);
+            }
+            _ = Browser.Default.OpenAsync(new Uri(sb.ToString()), BrowserLaunchMode.SystemPreferred);
+        }
+
+        public static void OpenFeatureRequest()
+        {
+            string link =
+                "https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/issues/new?assignees=&labels=Type%3A+Feature&projects=&template=feature_request.yml&title=%5BFeature%5D";
+            _ = Browser.Default.OpenAsync(new Uri(link), BrowserLaunchMode.SystemPreferred);
         }
     }
 }

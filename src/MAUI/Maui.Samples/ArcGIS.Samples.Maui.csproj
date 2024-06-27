@@ -38,7 +38,7 @@
 		<MauiIcon Include="Resources\appicon.svg" ForegroundFile="Resources\arcgissdkglyphfg.svg" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\arcgissdkglyphfg.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\arcgissdkglyphfg.svg" Color="#832FBC" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Images\*" />

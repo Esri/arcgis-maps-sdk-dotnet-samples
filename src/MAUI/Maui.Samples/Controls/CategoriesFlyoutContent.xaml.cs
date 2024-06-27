@@ -21,6 +21,14 @@ public partial class CategoriesFlyoutContent : ContentView
         try
         {
             var selectedCategory = e.CurrentSelection.FirstOrDefault() as FlyoutCategoryViewModel;
+            var previousCategory = e.PreviousSelection.FirstOrDefault() as FlyoutCategoryViewModel;
+
+            if (previousCategory == null)
+                previousCategory = _viewModel.Categories.FirstOrDefault();
+
+            selectedCategory.IsSelected = true;
+            previousCategory.IsSelected = false;
+
             _viewModel.CategorySelected(selectedCategory.CategoryName);
 
         }

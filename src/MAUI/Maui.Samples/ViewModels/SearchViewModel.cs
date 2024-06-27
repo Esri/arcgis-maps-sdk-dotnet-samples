@@ -93,8 +93,6 @@ namespace ArcGIS.ViewModels
                     {
                         sampleResults.Add(new SearchResultViewModel(sample.Key, score));
                     }
-
-                    if (sampleResults.Count >= 15) break;
                 }
 
                 try
@@ -102,6 +100,11 @@ namespace ArcGIS.ViewModels
                     if (sampleResults.Count != 0)
                     {
                         sampleResults = sampleResults.OrderByDescending(sampleResults => sampleResults.Score).ThenBy(sampleResults => sampleResults.SampleName).ToList();
+                        
+                        // Limit the number of search results to 15
+                        if (sampleResults.Count > 15)
+                            sampleResults = sampleResults[0..15];
+
                         SearchItems = new ObservableCollection<SearchResultViewModel>(sampleResults);
                     }
                     else

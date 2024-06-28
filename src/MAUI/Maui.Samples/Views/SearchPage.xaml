@@ -19,7 +19,10 @@
                 <toolkit:UserStoppedTypingBehavior MinimumLengthThreshold="0" ShouldDismissKeyboardAutomatically="False" />
             </SearchBar.Behaviors>
         </SearchBar>
-        <CollectionView Grid.Row="1" ItemsSource="{Binding SearchItems}">
+        <CollectionView Grid.Row="1"
+                        ItemsSource="{Binding SearchItems}"
+                        RemainingItemsThreshold="3"
+                        RemainingItemsThresholdReachedCommand="{Binding BatchResultsCommand}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="viewModels:SearchResultViewModel">
                     <Border MaximumHeightRequest="120" StrokeThickness="0">

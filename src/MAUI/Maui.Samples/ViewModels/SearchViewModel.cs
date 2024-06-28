@@ -17,6 +17,8 @@ namespace ArcGIS.ViewModels
 
         private static readonly HashSet<string> _commonWords = ["in", "a", "of", "the", "by", "an", "and"];
 
+        private List<SearchResultViewModel> _results;
+
         [GeneratedRegex("[^a-zA-Z0-9 -]")]
         private static partial Regex NonWordCharRegex();
 
@@ -27,7 +29,7 @@ namespace ArcGIS.ViewModels
             // Initialize the dictionary of sample keywords.
             foreach (var sample in SampleManager.Current.AllSamples.ToList())
             {
-                var sampleNameKeywords = GetKeywords(sample.SampleName);
+                string[] sampleNameKeywords = GetKeywords(sample.SampleName).Append(sample.FormalName.ToLower()).ToArray();
                 var categoryKeywords = GetKeywords(sample.Category);
                 var descriptionKeywords = GetKeywords(sample.Description);
                 var tagsKeywords = sample.Tags.ToArray();
@@ -93,8 +95,6 @@ namespace ArcGIS.ViewModels
                     {
                         sampleResults.Add(new SearchResultViewModel(sample.Key, score));
                     }
-
-                    if (sampleResults.Count >= 15) break;
                 }
 
                 try
@@ -102,6 +102,12 @@ namespace ArcGIS.ViewModels
                     if (sampleResults.Count != 0)
                     {
                         sampleResults = sampleResults.OrderByDescending(sampleResults => sampleResults.Score).ThenBy(sampleResults => sampleResults.SampleName).ToList();
+                        _results = sampleResults;
+
+                        // Limit the number of search results to 15
+                        if (sampleResults.Count > 15)
+                            sampleResults = sampleResults[0..15];
+
                         SearchItems = new ObservableCollection<SearchResultViewModel>(sampleResults);
                     }
                     else
@@ -114,6 +120,18 @@ namespace ArcGIS.ViewModels
                     Console.WriteLine(ex.ToString());
                 }
             }
+        }
+
+        [RelayCommand]
+        void BatchResults()
+        {
+            var startIndex = SearchItems.Count;
+            var endIndex = Math.Min(startIndex + 15, _results.Count);
+
+            if (endIndex >= _results.Count) return;
+
+            foreach(var result in _results[startIndex..endIndex])
+                SearchItems.Add(result);
         }
 
         private static int GetMatches(string[] contentKeywords, string[] searchKeywords)

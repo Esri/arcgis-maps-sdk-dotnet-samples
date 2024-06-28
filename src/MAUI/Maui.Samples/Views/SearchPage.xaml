@@ -22,6 +22,7 @@
         <CollectionView Grid.Row="1"
                         ItemsSource="{Binding SearchItems}"
                         RemainingItemsThreshold="3"
+                        ItemsUpdatingScrollMode="KeepScrollOffset"
                         RemainingItemsThresholdReachedCommand="{Binding BatchResultsCommand}">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="viewModels:SearchResultViewModel">

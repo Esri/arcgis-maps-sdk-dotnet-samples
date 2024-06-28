@@ -199,11 +199,36 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
 
             // Account for case when vertex tool is selected and geometry editor is started with a polyline or polygon geometry type.
             // Ensure point and multipoint buttons are only enabled when the selected tool is a vertex tool.
-            PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && _geometryEditor.Tool is VertexTool;
+            PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && (_geometryEditor.Tool is VertexTool || _geometryEditor.Tool is ReticleVertexTool);
+
+            // Update UI when toggling on and off the reticle vertex tool. 
+            if (_geometryEditor.Tool is VertexTool || _geometryEditor.Tool is ReticleVertexTool)
+            {
+                ReticleVertexToolBox.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                ReticleVertexToolBox.Visibility = Visibility.Collapsed;
+                ReticleVertexToolCheckBox.IsChecked = false;
+            }
+        }
+
+        private void ReticleVertexToolCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (ReticleVertexToolCheckBox.IsChecked == true)
+            {
+                _geometryEditor.Tool = new ReticleVertexTool();
+            }
+            else
+            {
+              _geometryEditor.Tool = new VertexTool();
+            }
+
+            UniformScaleBox.Visibility = _geometryEditor.Tool is ReticleVertexTool ? Visibility.Collapsed : Visibility.Visible;
         }
 
         // Set the scale mode for every geometry editor tool.
-        private void CheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        private void UniformScaleCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
         {
             // Determine the newly selected scale mode.
             GeometryEditorScaleMode scaleMode =
@@ -364,7 +389,7 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
             _selectedGraphic = null;
 
             // Point and multipoint sessions do not support the vertex tool.
-            PointButton.IsEnabled = MultipointButton.IsEnabled = _geometryEditor.Tool is VertexTool;
+            PointButton.IsEnabled = MultipointButton.IsEnabled = _geometryEditor.Tool is VertexTool || _geometryEditor.Tool is ReticleVertexTool;
             PolylineButton.IsEnabled = PolygonButton.IsEnabled = true;
             ToolComboBox.IsEnabled = true;
 

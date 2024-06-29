@@ -17,7 +17,7 @@
                         <DataTrigger Binding="{Binding IsSelected}"
                                      TargetType="HorizontalStackLayout"
                                      Value="True">
-                            <Setter Property="BackgroundColor" Value="Black" />
+                            <Setter Property="BackgroundColor" Value="Grey" />
                         </DataTrigger>
                         <DataTrigger Binding="{Binding IsSelected}"
                                      TargetType="HorizontalStackLayout"

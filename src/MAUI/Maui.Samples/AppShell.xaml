@@ -6,12 +6,21 @@
        xmlns:local="clr-namespace:ArcGIS"
        Shell.FlyoutBehavior="Flyout"
        Shell.TabBarIsVisible="False">
+    <Shell.Resources>
+        <Style BasedOn="{StaticResource BaseStyle}" TargetType="local:AppShell" />
+    </Shell.Resources>
     <Shell.FlyoutHeader>
-        <Label Margin="0,5"
+        <Label Margin="5"
+               Padding="5"
                FontAttributes="Bold"
+               FontSize="18"
+               HeightRequest="{OnPlatform MacCatalyst=80,
+                                          iOS=65,
+                                          Default=40}"
                HorizontalTextAlignment="Center"
                Text="Categories"
-               VerticalTextAlignment="Center" />
+               TextColor="White"
+               VerticalTextAlignment="End" />
     </Shell.FlyoutHeader>
     <Shell.FlyoutContent>
         <controls:CategoriesFlyoutContent />

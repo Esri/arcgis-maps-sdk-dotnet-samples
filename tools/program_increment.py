@@ -13,7 +13,7 @@ subprocess.check_call(['git', 'checkout', '-b', branch_name])
 commits = subprocess.check_output(['git', 'log', '--pretty=format:%H', 'v.next', '^main']).decode('utf-8').split('\n')
 
 # Iterate through the commit subset in chronological order.
-ignore_case = "[Automated] Sync v.next with main"
+ignore_case = "Sync v.next with main"
 failed_commits = []
 print("Cherry-picking commits:\n")
 for commit in reversed(commits):

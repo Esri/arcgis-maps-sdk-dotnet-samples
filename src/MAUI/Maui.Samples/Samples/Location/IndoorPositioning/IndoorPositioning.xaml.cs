@@ -80,31 +80,8 @@ namespace ArcGIS.Samples.IndoorPositioning
 
                 PositioningLabel.Text = "Creating indoors location data source";
 
-                // Get the positioning table from the map.
-                await Task.WhenAll(MyMapView.Map.Tables.Select(table => table.LoadAsync()));
-                FeatureTable positioningTable = MyMapView.Map.Tables.Single(table => table.TableName.Equals(PositioningTableName));
-
-                // Get a table of all of the indoor pathways.
-                FeatureLayer pathwaysFeatureLayer = MyMapView.Map.OperationalLayers.OfType<FeatureLayer>().Single(l => l.Name.Equals(PathwaysLayerName, StringComparison.InvariantCultureIgnoreCase));
-                ArcGISFeatureTable pathwaysTable = pathwaysFeatureLayer.FeatureTable as ArcGISFeatureTable;
-
-                // Get the global ID for positioning. The ID identifies a specific row in the feature table that should be used for setting up IPS. We use this ID to construct the data source.
-                Field dateCreatedFieldName = positioningTable.Fields.Single(f => f.Name.Equals("DateCreated", StringComparison.InvariantCultureIgnoreCase) || f.Name.Equals("DATE_CREATED", StringComparison.InvariantCultureIgnoreCase));
-
-                // Create a query for the latest created feature. This is needed for correctly constructing the IPS used in this sample. There is a constructor without an ID parameter that will attempt to automatically find the latest row.
-                QueryParameters queryParameters = new QueryParameters
-                {
-                    MaxFeatures = 1,
-                    // "1=1" will give all the features from the table.
-                    WhereClause = "1=1",
-                };
-                queryParameters.OrderByFields.Add(new OrderBy(dateCreatedFieldName.Name, SortOrder.Descending));
-
-                FeatureQueryResult queryResult = await positioningTable.QueryFeaturesAsync(queryParameters);
-                Guid globalID = (Guid)queryResult.Single().Attributes["GlobalID"];
-
-                // Create the indoor location data source using the tables and Guid.
-                _indoorsLocationDataSource = new IndoorsLocationDataSource(positioningTable, pathwaysTable, globalID);
+                // Create the indoor location data source using the IndoorPositioningDefinition from the map.
+                _indoorsLocationDataSource = new IndoorsLocationDataSource(MyMapView.Map.IndoorPositioningDefinition);
 
                 PositioningLabel.Text = "Starting IPS";
 

@@ -6,6 +6,7 @@
              xmlns:models="clr-namespace:ArcGIS.Samples.Shared.Models"
              xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
              Title="{Binding SelectedCategory}"
+             Shell.FlyoutBehavior="Flyout"
              x:DataType="viewModels:CategoryViewModel">
 
     <ContentPage.ToolbarItems>

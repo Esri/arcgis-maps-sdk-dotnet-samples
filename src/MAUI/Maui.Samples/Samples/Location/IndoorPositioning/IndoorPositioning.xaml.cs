@@ -38,9 +38,6 @@ namespace ArcGIS.Samples.IndoorPositioning
 
         private const string ItemId = "YOUR_ITEM_ID_HERE";
 
-        private const string PositioningTableName = "IPS_Positioning";
-        private const string PathwaysLayerName = "Pathways";
-
         private string[] _layerNames = new string[] { "Details", "Units", "Levels" };
 
         #endregion BuildingData

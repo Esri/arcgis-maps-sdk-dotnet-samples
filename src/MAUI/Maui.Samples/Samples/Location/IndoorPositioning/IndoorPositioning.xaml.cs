@@ -133,7 +133,7 @@ namespace ArcGIS.Samples.IndoorPositioning
             labelText += $"Horizontal accuracy: {string.Format("{0:0.##}", loc.HorizontalAccuracy)}m";
 
             // Update UI on the main thread.
-            Dispatcher.Dispatch(() =>
+            Dispatcher.DispatchAsync(() =>
             {
                 PositioningLabel.Text = labelText;
             });

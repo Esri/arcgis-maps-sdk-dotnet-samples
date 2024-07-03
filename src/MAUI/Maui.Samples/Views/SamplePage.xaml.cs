@@ -16,7 +16,6 @@ using Microsoft.Maui.Graphics;
 #endif
 
 using ArcGIS.Samples.Managers;
-using ArcGIS.Helpers;
 using ArcGIS.Samples.Shared.Models;
 using CommunityToolkit.Maui.Views;
 using Esri.ArcGISRuntime.Maui;
@@ -47,8 +46,6 @@ namespace ArcGIS
         public ObservableCollection<SourceCodeFile> SourceFiles { get; } = new ObservableCollection<SourceCodeFile>();
 
         // Toolbar item titles as displayed in UI
-        private const string BugReport = "Open a Bug Report";
-        private const string FeatureRequest = "Request a Feature";
         private const string ViewOnGitHub = "View on GitHub";
         private const string SourceCode = "Source Code";
         private const string Description = "Description";
@@ -340,6 +337,13 @@ namespace ArcGIS
 
         private void SetToolbarItems()
         {
+            // Feedback toolbar item should be placed last on desktop and first on mobile.
+            var feedbackToolbarItem = new ToolbarItem
+            {
+                IconImageSource = "feedback.png",
+                Text = "Feedback"
+            };
+            feedbackToolbarItem.Clicked += FeedbackToolbarItem_Clicked;
 
 #if WINDOWS
             // Add the screenshot tool if enabled in settings.
@@ -381,16 +385,9 @@ namespace ArcGIS
             gitHubToolbarItem.Clicked += GitHubToolbarItem_Clicked;
             ToolbarItems.Add(gitHubToolbarItem);
 
-            // Feedback toolbar item should only be present on desktop platforms.
-            var feedbackToolbarItem = new ToolbarItem
-            {
-                IconImageSource = "feedback.png",
-                Text = "Feedback"
-            };
-            feedbackToolbarItem.Clicked += FeedbackToolbarItem_Clicked;
             ToolbarItems.Add(feedbackToolbarItem);
-            // On mobile platforms, issue forms are accessible via the vertical handle.
 #else
+            ToolbarItems.Add(feedbackToolbarItem);
             var verticalHandle = new ToolbarItem
             {
                 IconImageSource = "verticalhandle.png"
@@ -398,6 +395,7 @@ namespace ArcGIS
             verticalHandle.Clicked += VerticalHandle_Clicked;
             ToolbarItems.Add(verticalHandle);
 #endif
+            
         }
 
 #if WINDOWS
@@ -419,7 +417,7 @@ namespace ArcGIS
 
         private async void VerticalHandle_Clicked(object sender, EventArgs e)
         {
-            await DisplayActionSheet("", "Cancel", null, [LiveSample, Description, SourceCode, ViewOnGitHub, BugReport, FeatureRequest]).ContinueWith((result) =>
+            await DisplayActionSheet("Select a view", "Cancel", null, new string[] { LiveSample, Description, SourceCode, ViewOnGitHub }).ContinueWith((result) =>
             {
                 if (result.Result != "Cancel")
                 {
@@ -439,14 +437,6 @@ namespace ArcGIS
 
                         case ViewOnGitHub:
                             _ = OpenGitHub();
-                            break;
-
-                        case BugReport:
-                            FeedbackPrompt.OpenBugReport();
-                            break;
-
-                        case FeatureRequest:
-                            FeedbackPrompt.OpenFeatureRequest();
                             break;
                     }
                 }

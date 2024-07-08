@@ -13,28 +13,14 @@
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="viewModels:FlyoutCategoryViewModel">
                 <HorizontalStackLayout HeightRequest="40">
-                    <HorizontalStackLayout.Triggers>
-                        <DataTrigger Binding="{Binding IsSelected}"
-                                     TargetType="HorizontalStackLayout"
-                                     Value="True">
-                            <Setter Property="BackgroundColor" Value="Grey" />
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding IsSelected}"
-                                     TargetType="HorizontalStackLayout"
-                                     Value="False">
-                            <Setter Property="BackgroundColor" Value="Transparent" />
-                        </DataTrigger>
-                    </HorizontalStackLayout.Triggers>
                     <Label Margin="20,0"
                            FontFamily="calcite-ui-icons-24"
-                           FontSize="25"
+                           FontSize="20"
                            Text="{Binding CategoryIcon}"
-                           TextColor="White"
                            VerticalOptions="Center" />
                     <Label Margin="15,0,0,0"
                            FontSize="16"
                            Text="{Binding CategoryName}"
-                           TextColor="White"
                            VerticalOptions="Center" />
                 </HorizontalStackLayout>
             </DataTemplate>

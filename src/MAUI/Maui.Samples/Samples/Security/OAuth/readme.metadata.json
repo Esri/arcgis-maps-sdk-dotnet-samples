@@ -22,8 +22,8 @@
     "relevant_apis": [
         "AuthenticationManager",
         "OAuthConfiguration",
-        "PortalItem",
-        "ServerInfo"
+        "OAuthUserConfiguration",
+        "PortalItem"
     ],
     "snippets": [
         "OAuth.xaml.cs",

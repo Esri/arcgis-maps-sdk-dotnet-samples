@@ -7,10 +7,10 @@
         <TextBlock x:Name="Instructions"
                    Margin="5"
                    TextWrapping="Wrap">
-            Some content used in the samples requires a developer API key for access. Go to<Hyperlink NavigateUri="https://links.esri.com/arcgis-api-keys" RequestNavigate="Hyperlink_RequestNavigate">
+            Some content used in the samples requires a developer API key for access. Go to<Hyperlink NavigateUri="https://links.esri.com/create-an-api-key" RequestNavigate="Hyperlink_RequestNavigate">
                 the developer documentation
             </Hyperlink>
-            to learn how to obtain a developer API key for ArcGIS Online.</TextBlock>
+            to create a new API key.</TextBlock>
         <StackPanel Orientation="Horizontal">
             <Label Content="Current Api Key:" />
             <TextBox x:Name="CurrentKeyText"

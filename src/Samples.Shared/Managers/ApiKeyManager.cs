@@ -48,7 +48,7 @@ namespace ArcGIS.Samples.Shared.Managers
             {
                 // An Application programming interface key (API key) is a unique identifier used to authenticate a user, developer, or calling program with a server portal.
                 // Typically, API keys are used to authenticate a calling program within the API rather than an individual user.
-                // Go to https://links.esri.com/arcgis-api-keys to learn how to obtain a developer API key for ArcGIS Online.
+                // Go to https://links.esri.com/create-an-api-key to create a new API key.
                 return _key;
             }
 

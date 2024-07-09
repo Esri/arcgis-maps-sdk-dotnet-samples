@@ -59,7 +59,7 @@ namespace ArcGIS
 
         private void LinkTapped(object sender, EventArgs e)
         {
-            Microsoft.Maui.ApplicationModel.Launcher.OpenAsync(new Uri("https://links.esri.com/arcgis-api-keys"));
+            Microsoft.Maui.ApplicationModel.Launcher.OpenAsync(new Uri("https://links.esri.com/create-an-api-key"));
         }
     }
 }

@@ -88,28 +88,8 @@ namespace ArcGIS.Helpers
 
         public static void SetChallengeHandler(UserControl sample)
         {
-            // Define the server information for ArcGIS Online
-            ServerInfo portalServerInfo = new ServerInfo(new Uri(ArcGISOnlineUrl))
-            {
-                TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode,
-                OAuthClientInfo = new OAuthClientInfo(AppClientId, new Uri(OAuthRedirectUrl))
-            };
-
-            // If a client secret has been configured, set the authentication type to OAuth client credentials.
-            if (!string.IsNullOrEmpty(ClientSecret))
-            {
-                // If a client secret is specified then use the TokenAuthenticationType.OAuthClientCredentials type.
-                portalServerInfo.TokenAuthenticationType = TokenAuthenticationType.OAuthClientCredentials;
-                portalServerInfo.OAuthClientInfo.ClientSecret = ClientSecret;
-            }
-
-            // Register the ArcGIS Online server information with the AuthenticationManager
-            AuthenticationManager.Current.RegisterServer(portalServerInfo);
-
-            // Create a new ChallengeHandler that uses a method in this class to challenge for credentials
-            AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(PromptCredentialAsync);
-
-            // Use the OAuthAuthorize class in this project to create a new web view to show the login UI
+            var userConfig = new OAuthUserConfiguration(new Uri(ArcGISOnlineUrl), AppClientId, new Uri(OAuthRedirectUrl));
+            AuthenticationManager.Current.OAuthUserConfigurations.Add(userConfig);
             AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize(sample);
         }
     }

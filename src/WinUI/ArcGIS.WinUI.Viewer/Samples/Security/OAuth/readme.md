@@ -14,17 +14,17 @@ When you run the sample, the app will load a web map which contains premium cont
 
 ## How it works
 
-1. Set the `AuthenticationManager`'s `ChallengeHandler`.
-2. Create a `ServerInfo` specifying the portal URL, client ID, and redirect URL.
-3. Register the server with the authentication manager.
+1. Create a `OAuthUserConfiguration` specifying the portal URL, app id, and redirect URL.
+2. Set the `AuthenticationManager`'s `OAuthUserConfigurations` with the new `OAuthUserConfiguration`.
+3. Set the `AuthenticationManager`'s `OAuthAuthorizeHandler` to an instance of a class which implements `IOAuthAuthorizationHandler`.
 4. Load a map with premium content requiring authentication to automatically invoke the authentication handler.
 
 ## Relevant API
 
 * AuthenticationManager
-* OAuthConfiguration
+* OAuthTokenCredential
+* OAuthUserConfiguration
 * PortalItem
-* ServerInfo
 
 ## Additional information
 

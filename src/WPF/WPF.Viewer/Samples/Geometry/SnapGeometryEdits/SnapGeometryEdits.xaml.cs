@@ -317,6 +317,18 @@ namespace ArcGIS.WPF.Samples.SnapGeometryEdits
             _geometryEditor.Start(GeometryType.Polygon);
         }
         #endregion
+
+        private void ReticleVertexToolCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (ReticleVertexToolCheckBox.IsChecked == true)
+            {
+                _geometryEditor.Tool = new ReticleVertexTool();
+            }
+            else
+            {
+                _geometryEditor.Tool = new VertexTool();
+            }
+        }
     }
 
     public class SnapSourceSettingsVM : INotifyPropertyChanged

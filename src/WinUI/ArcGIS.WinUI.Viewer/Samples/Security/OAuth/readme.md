@@ -22,7 +22,7 @@ When you run the sample, the app will load a web map which contains premium cont
 ## Relevant API
 
 * AuthenticationManager
-* OAuthConfiguration
+* OAuthTokenCredential
 * OAuthUserConfiguration
 * PortalItem
 

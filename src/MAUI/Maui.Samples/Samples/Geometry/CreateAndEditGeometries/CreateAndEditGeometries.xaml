@@ -16,97 +16,120 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Grid Margin="5,5,5,5"
-              ColumnDefinitions="auto, auto"
               ColumnSpacing="5"
               HorizontalOptions="End"
-              RowDefinitions="auto, auto, auto, auto, auto, auto, auto"
+              RowDefinitions="auto,*"
               RowSpacing="5"
-              VerticalOptions="Start">
-            <Button x:Name="PointButton"
+              VerticalOptions="Start"
+              WidthRequest="150">
+            <Button x:Name="ToggleGeometryEditorPanelButton"
                     Grid.Row="0"
-                    Clicked="PointButton_Click"
-                    Style="{StaticResource IconStyle}"
-                    Text="&#xe21c;"
-                    ToolTipProperties.Text="Point" />
-            <Button x:Name="MultipointButton"
-                    Grid.Row="0"
-                    Grid.Column="1"
-                    Clicked="MultipointButton_Click"
-                    FontSize="15"
-                    Style="{StaticResource IconStyle}"
-                    Text="&#xe21c;&#xe21c;"
-                    ToolTipProperties.Text="Multipoint" />
-            <Button x:Name="PolylineButton"
-                    Grid.Row="1"
-                    Clicked="PolylineButton_Click"
-                    Style="{StaticResource IconStyle}"
-                    Text="&#xe1a8;"
-                    ToolTipProperties.Text="Polyline / no shape fill" />
-            <Button x:Name="PolygonButton"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Clicked="PolygonButton_Click"
-                    Style="{StaticResource IconStyle}"
-                    Text="&#xe220;"
-                    ToolTipProperties.Text="Polygon / shape fill" />
-            <Border Grid.Row="2"
-                    Grid.ColumnSpan="2"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource White},
-                                                      Dark={StaticResource Dark}}">
-                <Picker x:Name="ToolPicker"
-                        SelectedIndexChanged="ToolPicker_SelectedIndexChanged"
-                        ToolTipProperties.Text="Tools"
-                        WidthRequest="150" />
-            </Border>
-            <HorizontalStackLayout Grid.Row="3"
-                                   Grid.ColumnSpan="2"
-                                   Padding="1"
-                                   Background="{AppThemeBinding Light={StaticResource White},
-                                                                Dark={StaticResource Dark}}">
-                <CheckBox x:Name="UniformScaleCheckBox" CheckedChanged="CheckBox_CheckedChanged" />
-                <Label Text="Uniform Scale" VerticalOptions="Center" />
-            </HorizontalStackLayout>
-            <Button Grid.Row="4"
-                    Clicked="UndoButton_Click"
-                    IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
-                    Style="{StaticResource IconStyle}"
-                    Text="&#xe2d6;"
-                    ToolTipProperties.Text="Undo" />
-            <Button Grid.Row="4"
-                    Grid.Column="1"
-                    Clicked="RedoButton_Click"
-                    IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}}"
-                    Style="{StaticResource IconStyle}"
-                    Text="&#xe23e;"
-                    ToolTipProperties.Text="Redo" />
-            <Button Grid.Row="5"
-                    Clicked="DeleteSelectedButton_Click"
-                    IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
-                    Style="{StaticResource IconStyle}"
-                    Text="&#xe0e8;"
-                    ToolTipProperties.Text="Delete selected" />
-            <Button x:Name="SaveButton"
-                    Grid.Row="5"
-                    Grid.Column="1"
-                    Clicked="SaveButton_Click"
-                    IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
-                    Style="{StaticResource IconStyle}"
-                    Text="&#xe06f;"
-                    ToolTipProperties.Text="Save edits" />
-            <Button Grid.Row="6"
-                    Clicked="DiscardButton_Click"
-                    IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
-                    Style="{StaticResource IconStyle}"
-                    Text="&#xe080;"
-                    ToolTipProperties.Text="Discard edits" />
-            <Button x:Name="DeleteAllButton"
-                    Grid.Row="6"
-                    Grid.Column="1"
-                    Clicked="DeleteAllButton_Click"
-                    IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
-                    Style="{StaticResource IconStyle}"
-                    Text="&#xe2d0;"
-                    ToolTipProperties.Text="Delete all geometries" />
+                    HorizontalOptions="Fill"
+                    Pressed="ToggleGeometryEditorPanelButton_Pressed"
+                    Text="Show UI" />
+            <ScrollView x:Name="GeometryEditorPanel"
+                        Grid.Row="1"
+                        IsVisible="False"
+                        MaximumHeightRequest="400">
+                <Grid ColumnDefinitions="auto, auto"
+                      ColumnSpacing="5"
+                      RowDefinitions="auto, auto, auto, auto, auto, auto, auto"
+                      RowSpacing="5">
+                    <Button x:Name="PointButton"
+                            Grid.Row="0"
+                            Clicked="PointButton_Click"
+                            Style="{StaticResource IconStyle}"
+                            Text="&#xe21c;"
+                            ToolTipProperties.Text="Point" />
+                    <Button x:Name="MultipointButton"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Clicked="MultipointButton_Click"
+                            FontSize="15"
+                            Style="{StaticResource IconStyle}"
+                            Text="&#xe21c;&#xe21c;"
+                            ToolTipProperties.Text="Multipoint" />
+                    <Button x:Name="PolylineButton"
+                            Grid.Row="1"
+                            Clicked="PolylineButton_Click"
+                            Style="{StaticResource IconStyle}"
+                            Text="&#xe1a8;"
+                            ToolTipProperties.Text="Polyline / no shape fill" />
+                    <Button x:Name="PolygonButton"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Clicked="PolygonButton_Click"
+                            Style="{StaticResource IconStyle}"
+                            Text="&#xe220;"
+                            ToolTipProperties.Text="Polygon / shape fill" />
+                    <Border Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource White},
+                                                              Dark={StaticResource Dark}}">
+                        <Picker x:Name="ToolPicker"
+                                SelectedIndexChanged="ToolPicker_SelectedIndexChanged"
+                                ToolTipProperties.Text="Tools"
+                                WidthRequest="150" />
+                    </Border>
+                    <Border Grid.Row="3"
+                            Grid.ColumnSpan="2"
+                            Padding="5"
+                            Background="{AppThemeBinding Light={StaticResource White},
+                                                         Dark={StaticResource Dark}}">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <HorizontalStackLayout>
+                            <CheckBox x:Name="UniformScaleCheckBox"
+                                      Margin="3,0,5,0"
+                                      CheckedChanged="CheckBox_CheckedChanged" />
+                            <Label Text="Uniform Scale" VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </Border>
+                    <Button Grid.Row="4"
+                            Clicked="UndoButton_Click"
+                            IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                            Style="{StaticResource IconStyle}"
+                            Text="&#xe2d6;"
+                            ToolTipProperties.Text="Undo" />
+                    <Button Grid.Row="4"
+                            Grid.Column="1"
+                            Clicked="RedoButton_Click"
+                            IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}}"
+                            Style="{StaticResource IconStyle}"
+                            Text="&#xe23e;"
+                            ToolTipProperties.Text="Redo" />
+                    <Button Grid.Row="5"
+                            Clicked="DeleteSelectedButton_Click"
+                            IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
+                            Style="{StaticResource IconStyle}"
+                            Text="&#xe0e8;"
+                            ToolTipProperties.Text="Delete selected" />
+                    <Button x:Name="SaveButton"
+                            Grid.Row="5"
+                            Grid.Column="1"
+                            Clicked="SaveButton_Click"
+                            IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                            Style="{StaticResource IconStyle}"
+                            Text="&#xe06f;"
+                            ToolTipProperties.Text="Save edits" />
+                    <Button Grid.Row="6"
+                            Clicked="DiscardButton_Click"
+                            IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                            Style="{StaticResource IconStyle}"
+                            Text="&#xe080;"
+                            ToolTipProperties.Text="Discard edits" />
+                    <Button x:Name="DeleteAllButton"
+                            Grid.Row="6"
+                            Grid.Column="1"
+                            Clicked="DeleteAllButton_Click"
+                            IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
+                            Style="{StaticResource IconStyle}"
+                            Text="&#xe2d0;"
+                            ToolTipProperties.Text="Delete all geometries" />
+                </Grid>
+            </ScrollView>
         </Grid>
+
     </Grid>
 </ContentPage>

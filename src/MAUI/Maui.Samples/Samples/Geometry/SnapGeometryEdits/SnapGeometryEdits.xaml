@@ -32,28 +32,51 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Grid x:Name="CreateEditGeometriesPanel"
               Margin="10"
-              ColumnDefinitions="95,95"
+              ColumnDefinitions="110,110"
               ColumnSpacing="5"
               HorizontalOptions="End"
               IsVisible="False"
-              RowDefinitions="auto,auto,auto,auto,auto"
+              RowDefinitions="auto,auto,auto,auto,auto,auto"
               RowSpacing="5"
-              VerticalOptions="Start"
-              WidthRequest="200">
+              VerticalOptions="Start">
             <Button x:Name="ShowSnapSettingsButton"
                     Grid.Row="0"
                     Grid.ColumnSpan="2"
                     Clicked="ShowSnapSettingsButton_Clicked"
                     Text="Show snap settings" />
+            <Border Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    BackgroundColor="{AppThemeBinding Dark=#3C3C3C,
+                                                      Light=White}"
+                    HeightRequest="40">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                           Margin="10,0"
+                           Text="Reticle vertex tool"
+                           VerticalOptions="Center" />
+                    <Switch x:Name="ReticleVertexToolSwitch"
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Toggled="ReticleVertexToolSwitch_Toggled"
+                            VerticalOptions="Center" />
+                </Grid>
+            </Border>
             <Button x:Name="PointButton"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="0"
                     Clicked="PointButton_Click"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe21c;"
                     ToolTipProperties.Text="Point" />
             <Button x:Name="MultipointButton"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="1"
                     Clicked="MultipointButton_Click"
                     FontSize="20"
@@ -61,41 +84,41 @@
                     Text="&#xe21c;&#xe21c;"
                     ToolTipProperties.Text="Multipoint" />
             <Button x:Name="PolylineButton"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.Column="0"
                     Clicked="PolylineButton_Click"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe1a8;"
                     ToolTipProperties.Text="Polyline / no shape fill" />
             <Button x:Name="PolygonButton"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.Column="1"
                     Clicked="PolygonButton_Click"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe220;"
                     ToolTipProperties.Text="Polygon / shape fill" />
-            <Button Grid.Row="3"
+            <Button Grid.Row="4"
                     Grid.Column="0"
                     Clicked="DeleteButton_Click"
                     IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe0e8;"
                     ToolTipProperties.Text="Delete selected" />
-            <Button Grid.Row="3"
+            <Button Grid.Row="4"
                     Grid.Column="1"
                     Clicked="UndoButton_Click"
                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe2d6;"
                     ToolTipProperties.Text="Undo" />
-            <Button Grid.Row="4"
+            <Button Grid.Row="5"
                     Grid.Column="0"
                     Clicked="DiscardButton_Click"
                     IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe080;"
                     ToolTipProperties.Text="Discard edits" />
-            <Button Grid.Row="4"
+            <Button Grid.Row="5"
                     Grid.Column="1"
                     Clicked="SaveButton_Click"
                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"

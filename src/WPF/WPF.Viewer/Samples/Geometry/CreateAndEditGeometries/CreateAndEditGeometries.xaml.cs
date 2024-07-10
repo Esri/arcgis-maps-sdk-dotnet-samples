@@ -29,7 +29,7 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
         name: "Create and edit geometries",
         category: "Geometry",
         description: "Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.",
-        instructions: "To create a new geometry, press the button appropriate for the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry. To edit an existing geometry, tap the geometry to be edited in the map to select it and then edit the geometry by tapping and dragging elements of the geometry. If creating or editing polyline or polygon geometries, choose the desired creation/editing tool (i.e. `VertexTool` or `FreehandTool`).",
+        instructions: "To create a new geometry, press the button appropriate for the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry. To edit an existing geometry, tap the geometry to be edited in the map and then perform edits by tapping and dragging its elements. When using an appropriate tool to select a whole geometry, you can use the control handles to scale and rotate the geometry. If creating or editing polyline or polygon geometries, choose the desired creation/editing tool (i.e. `VertexTool`, `ReticleVertexTool`, `FreehandTool`, or one of the available `ShapeTool`s).",
         tags: new[] { "draw", "edit", "freehand", "geometry editor", "sketch", "vertex" })]
     public partial class CreateAndEditGeometries
     {
@@ -110,6 +110,7 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
             ToolComboBox.ItemsSource = _toolDictionary = new Dictionary<string, GeometryEditorTool>()
             {
                 { "Vertex Tool", new VertexTool() },
+                { "Reticle Vertex Tool", new ReticleVertexTool() },
                 { "Freehand Tool", new FreehandTool() },
                 { "Arrow Shape Tool", ShapeTool.Create(ShapeToolType.Arrow) },
                 { "Ellipse Shape Tool", ShapeTool.Create(ShapeToolType.Ellipse) },
@@ -201,30 +202,8 @@ namespace ArcGIS.WPF.Samples.CreateAndEditGeometries
             // Ensure point and multipoint buttons are only enabled when the selected tool is a vertex tool.
             PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && (_geometryEditor.Tool is VertexTool || _geometryEditor.Tool is ReticleVertexTool);
 
-            // Update UI when toggling on and off the reticle vertex tool. 
-            if (_geometryEditor.Tool is VertexTool || _geometryEditor.Tool is ReticleVertexTool)
-            {
-                ReticleVertexToolBox.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                ReticleVertexToolBox.Visibility = Visibility.Collapsed;
-                ReticleVertexToolCheckBox.IsChecked = false;
-            }
-        }
-
-        private void ReticleVertexToolCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
-        {
-            if (ReticleVertexToolCheckBox.IsChecked == true)
-            {
-                _geometryEditor.Tool = new ReticleVertexTool();
-            }
-            else
-            {
-              _geometryEditor.Tool = new VertexTool();
-            }
-
-            UniformScaleBox.Visibility = _geometryEditor.Tool is ReticleVertexTool ? Visibility.Collapsed : Visibility.Visible;
+            // Uniform scale is not compatible with the reticle vertex tool.
+            UniformScaleBox.IsEnabled = !(_geometryEditor.Tool is ReticleVertexTool);
         }
 
         // Set the scale mode for every geometry editor tool.

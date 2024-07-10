@@ -6,8 +6,8 @@
              xmlns:models="clr-namespace:ArcGIS.Samples.Shared.Models"
              xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
              Title="{Binding SelectedCategory}"
-             Shell.FlyoutBehavior="Flyout"
-             x:DataType="viewModels:CategoryViewModel">
+             x:DataType="viewModels:CategoryViewModel"
+             Shell.FlyoutBehavior="Flyout">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="SearchClicked"
@@ -32,8 +32,8 @@
                              HorizontalItemSpacing="5"
                              Orientation="Vertical"
                              Span="{OnPlatform Default=4,
-                                               iOS=1,
-                                               Android=1}"
+                                               Android=-1,
+                                               iOS=-1}"
                              VerticalItemSpacing="5" />
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>

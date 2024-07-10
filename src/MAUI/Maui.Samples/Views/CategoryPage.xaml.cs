@@ -27,22 +27,14 @@ public partial class CategoryPage : ContentPage
         BindingContext = _viewModel;
 
         WeakReferenceMessenger.Default.Register<string>(this, (message, category) => ScrollToTop());
-#if !ANDROID
-        SizeChanged += (s, e) =>
-        {
-#if IOS || MACCATALYST
-            var numberOfColumns = Math.Floor(Width / _viewModel.SampleImageWidth);
-            var layout = new GridItemsLayout((int)numberOfColumns, ItemsLayoutOrientation.Vertical);
-            layout.HorizontalItemSpacing = 5;
-            layout.VerticalItemSpacing = 5;
-            SamplesCollection.ItemsLayout = layout;
-#elif WINDOWS
-            var numberOfColumns = Math.Floor(Width / _viewModel.SampleImageWidth);
-            SamplesGridItemsLayout.Span = (int)numberOfColumns;
-#endif
-        };
-#endif
+    }
 
+    protected override void OnSizeAllocated(double width, double height)
+    {
+        base.OnSizeAllocated(width, height);
+
+        var numberOfColumns = Math.Floor(Width / _viewModel.SampleImageWidth);
+        SamplesGridItemsLayout.Span = (int)numberOfColumns;
     }
 
     private async void FeedbackToolbarItem_Clicked(object sender, EventArgs e)

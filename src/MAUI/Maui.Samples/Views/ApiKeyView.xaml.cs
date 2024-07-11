@@ -57,7 +57,7 @@ namespace ArcGIS
             Status.Text = "API key removed";
         }
 
-        private void LinkTapped(object sender, EventArgs e)
+        private void LinkTapped(object sender, TappedEventArgs e)
         {
             Microsoft.Maui.ApplicationModel.Launcher.OpenAsync(new Uri("https://links.esri.com/create-an-api-key"));
         }

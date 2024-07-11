@@ -87,15 +87,6 @@ namespace ArcGIS.Samples.SnapGeometryEdits
                 MultipointButton
             };
 
-            // Enable magnifier on mobile platforms.
-#if ANDROID || IOS
-            MyMapView.InteractionOptions = new Esri.ArcGISRuntime.UI.MapViewInteractionOptions
-            {
-                IsMagnifierEnabled = true,
-                AllowMagnifierToPan = true
-            };
-#endif
-
             // Hide the popup when user taps screen.
             SnappingSettingsPopup.GestureRecognizers.Add(new TapGestureRecognizer
             {

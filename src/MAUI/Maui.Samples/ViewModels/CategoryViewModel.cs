@@ -14,12 +14,17 @@ namespace ArcGIS.ViewModels
         private const string DefaultCategory = "Featured";
         private double _sampleImageWidth;
         private double _sampleImageHeight;
+        private double _sampleImageMargin;
         public double SampleImageWidth => _sampleImageWidth;
+        public double SampleImageMargin => _sampleImageMargin;
 
         public CategoryViewModel()
         {
             // Calculate the sample image width and height on mobile platforms based on device display size. 
             _sampleImageWidth = 400;
+
+            // Assign a margin, used to calculate the number of samples that will fit on each row depending on device orientation.
+            _sampleImageMargin = 4;
 
 #if WINDOWS
 
@@ -51,7 +56,7 @@ namespace ArcGIS.ViewModels
 
             foreach (var sampleInfo in featuredSamples)
             {
-                SamplesItems.Add(new SampleViewModel(sampleInfo, _sampleImageWidth, _sampleImageHeight));
+                SamplesItems.Add(new SampleViewModel(sampleInfo, _sampleImageWidth, _sampleImageHeight, _sampleImageMargin));
             }
 
             _selectedCategory = DefaultCategory;
@@ -67,7 +72,7 @@ namespace ArcGIS.ViewModels
             SelectedCategory = category;
 
             var samples = GetSamplesInCategory(category);
-            var samplesCollection = samples.Select(s => new SampleViewModel(s, _sampleImageWidth, _sampleImageHeight)).ToObservableCollection();
+            var samplesCollection = samples.Select(s => new SampleViewModel(s, _sampleImageWidth, _sampleImageHeight, _sampleImageMargin)).ToObservableCollection();
             SamplesItems = samplesCollection;
         }
 
@@ -109,7 +114,7 @@ namespace ArcGIS.ViewModels
 
     public partial class SampleViewModel : ObservableObject
     {
-        public SampleViewModel(SampleInfo sampleInfo, double sampleImageWidth, double sampleImageHeight)
+        public SampleViewModel(SampleInfo sampleInfo, double sampleImageWidth, double sampleImageHeight, double sampleImageMargin)
         {
             SampleObject = sampleInfo;
             SampleName = sampleInfo.SampleName;
@@ -120,6 +125,7 @@ namespace ArcGIS.ViewModels
             ShowFavoriteIcon = sampleInfo.ShowFavoriteIcon;
             SampleImageWidth = sampleImageWidth;
             SampleImageHeight = sampleImageHeight;
+            SampleImageMargin = sampleImageMargin;
         }
 
         [ObservableProperty]
@@ -147,5 +153,8 @@ namespace ArcGIS.ViewModels
 
         [ObservableProperty]
         double _sampleImageHeight;
+
+        [ObservableProperty]
+        double _sampleImageMargin;
     }
 }

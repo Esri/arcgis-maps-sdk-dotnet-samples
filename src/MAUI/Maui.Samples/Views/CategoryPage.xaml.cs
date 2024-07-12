@@ -26,32 +26,30 @@ public partial class CategoryPage : ContentPage
         _viewModel = new CategoryViewModel();
         BindingContext = _viewModel;
 
-        WeakReferenceMessenger.Default.Register<string>(this, (message, category) => ScrollToTop());
-
-#if !ANDROID
-        SizeChanged += (s, e) =>
-        {
-#if IOS || MACCATALYST
-            var numberOfColumns = Math.Floor(Width / _viewModel.SampleImageWidth);
-            var layout = new GridItemsLayout((int)numberOfColumns, ItemsLayoutOrientation.Vertical);
-            layout.HorizontalItemSpacing = 5;
-            layout.VerticalItemSpacing = 5;
-            SamplesCollection.ItemsLayout = layout;
-#elif WINDOWS
-            var numberOfColumns = Math.Floor(Width / _viewModel.SampleImageWidth);
-            SamplesGridItemsLayout.Span = (int)numberOfColumns;
-#endif
-        };
-#endif
+        WeakReferenceMessenger.Default.Register<string>(this, async (message, category) => await ScrollToTop());
     }
 
-#if ANDROID
+#if ANDROID || IOS
     protected override void OnSizeAllocated(double width, double height)
     {
         base.OnSizeAllocated(width, height);
 
-        var numberOfColumns = Math.Floor(Width / _viewModel.SampleImageWidth);
-        SamplesGridItemsLayout.Span = (int)numberOfColumns;
+        var numberOfColumns = Math.Floor(width / (_viewModel.SampleImageWidth + 4 * _viewModel.SampleImageMargin));
+
+        if (numberOfColumns == 0) return;
+
+        if (numberOfColumns > 1)
+        {
+            SamplesCollection.JustifyContent = Microsoft.Maui.Layouts.FlexJustify.Start;
+            SamplesCollection.HorizontalOptions = LayoutOptions.Fill;
+            SamplesScrollView.HorizontalOptions = LayoutOptions.Fill;
+        }
+        else
+        {
+            SamplesCollection.JustifyContent = Microsoft.Maui.Layouts.FlexJustify.Center;
+            SamplesCollection.HorizontalOptions = LayoutOptions.Center;
+            SamplesScrollView.HorizontalOptions = LayoutOptions.Center;
+        }
     }
 #endif
 
@@ -107,12 +105,12 @@ public partial class CategoryPage : ContentPage
         }
     }
 
-    private void ScrollToTop()
+    private async Task ScrollToTop()
     {
         var firstItem = _viewModel.SamplesItems.FirstOrDefault();
         if (firstItem != null)
         {
-            SamplesCollection.ScrollTo(firstItem, null, ScrollToPosition.Start);
+            await SamplesScrollView.ScrollToAsync(0, 0, false);
         }
     }
 }

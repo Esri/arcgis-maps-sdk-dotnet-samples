@@ -35,7 +35,7 @@ namespace ArcGIS.Samples.ShowMagnifier
             myMap.InitialViewpoint = new Viewpoint(34.056295, -117.195800, 50000);
 
             // The magnifier is enabled by default but will only display on touch screen devices. 
-            // To disable the magnifier set IsMagnifierEnable = false.
+            // To disable the magnifier set IsMagnifierEnabled = false.
             MyMapView.InteractionOptions = new MapViewInteractionOptions
             {
                 IsMagnifierEnabled = true

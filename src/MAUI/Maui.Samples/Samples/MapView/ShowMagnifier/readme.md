@@ -15,13 +15,13 @@ Tap and hold on the map to show a magnifier, then drag across the map to move th
 ## How it works
 
 1. Create a new `MapView`, and add an `Map` to it.
-2. Enable the magnifier using `mapView.MagnifierEnabled`. This will set the magnifier to be shown on the `Map` when the user performs a long press gesture. Note: The default value is `false`.
+2. Enable and disable the magnifier using `mapView.InteractionOptions.IsMagnifierEnabled`. This will set the magnifier to be shown on the `Map` when the user performs a long press gesture. Note: The default value is `true`.
 
 ## Relevant API
 
 * Map
 * MapView
-* MapView.MagnifierEnabled
+* MapViewInteractionOptions.IsMagnifierEnabled
 
 ## Additional information
 

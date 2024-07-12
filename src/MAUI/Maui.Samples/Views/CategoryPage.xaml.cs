@@ -30,25 +30,32 @@ public partial class CategoryPage : ContentPage
     }
 
 #if ANDROID || IOS
+
+    object _lock = new object();
     protected override void OnSizeAllocated(double width, double height)
     {
         base.OnSizeAllocated(width, height);
 
-        var numberOfColumns = Math.Floor(width / (_viewModel.SampleImageWidth + 4 * _viewModel.SampleImageMargin));
-
-        if (numberOfColumns == 0) return;
-
-        if (numberOfColumns > 1)
+        lock (_lock)
         {
-            SamplesCollection.JustifyContent = Microsoft.Maui.Layouts.FlexJustify.Start;
-            SamplesCollection.HorizontalOptions = LayoutOptions.Fill;
-            SamplesScrollView.HorizontalOptions = LayoutOptions.Fill;
-        }
-        else
-        {
-            SamplesCollection.JustifyContent = Microsoft.Maui.Layouts.FlexJustify.Center;
-            SamplesCollection.HorizontalOptions = LayoutOptions.Center;
-            SamplesScrollView.HorizontalOptions = LayoutOptions.Center;
+            var numberOfColumns = Math.Floor(width / (_viewModel.SampleImageWidth + 4 * _viewModel.SampleImageMargin));
+
+            if (numberOfColumns == 0) return;
+
+            if (numberOfColumns > 1)
+            {
+                SamplesCollection.JustifyContent = Microsoft.Maui.Layouts.FlexJustify.Start;
+                SamplesCollection.HorizontalOptions = LayoutOptions.Fill;
+                SamplesScrollView.HorizontalOptions = LayoutOptions.Fill;
+            }
+            else
+            {
+                SamplesCollection.JustifyContent = Microsoft.Maui.Layouts.FlexJustify.Center;
+                SamplesCollection.HorizontalOptions = LayoutOptions.CenterAndExpand;
+#pragma warning disable CS0618 // Type or member is obsolete
+                SamplesScrollView.HorizontalOptions = LayoutOptions.Center;
+#pragma warning restore CS0618 // Type or member is obsolete
+            }
         }
     }
 #endif

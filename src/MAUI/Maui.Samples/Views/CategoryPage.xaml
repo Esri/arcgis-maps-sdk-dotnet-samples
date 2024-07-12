@@ -24,17 +24,19 @@
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
         <converters:BoolToFavoriteGlyphConverter x:Key="BoolToFavoriteGlyphConverter" />
     </ContentPage.Resources>
-    <ScrollView x:Name="SamplesScrollView" VerticalOptions="Start">
+    <ScrollView x:Name="SamplesScrollView"
+                Background="Pink"
+                VerticalOptions="Start">
         <FlexLayout x:Name="SamplesCollection"
                     AlignContent="Start"
                     AlignItems="Start"
                     BackgroundColor="Transparent"
                     BindableLayout.ItemsSource="{Binding SamplesItems}"
                     Direction="Row"
-                    HorizontalOptions="Fill"
+                    HorizontalOptions="{OnPlatform Default=Fill,
+                                                   Android=Center,
+                                                   iOS=Center}"
                     JustifyContent="Start"
-                    MinimumHeightRequest="410"
-                    MinimumWidthRequest="410"
                     VerticalOptions="Start"
                     Wrap="Wrap">
             <BindableLayout.ItemTemplate>

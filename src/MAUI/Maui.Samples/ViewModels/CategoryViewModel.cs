@@ -26,16 +26,16 @@ namespace ArcGIS.ViewModels
             // Assign a margin, used to calculate the number of samples that will fit on each row depending on device orientation.
             _sampleImageMargin = 4;
 
+            // Ensure that the correct dimension is being used, this accounts for situations where the viewer is opened in landscape orientation. 
+            var displayWidth = DeviceDisplay.MainDisplayInfo.Width;// == DisplayOrientation.Portrait ? DeviceDisplay.MainDisplayInfo.Width : DeviceDisplay.MainDisplayInfo.Height;
+
+            var displayDensity = DeviceDisplay.MainDisplayInfo.Density;
+
 #if WINDOWS
 
             _sampleImageWidth  = 300;
 
 #elif IOS || ANDROID
-
-            // Ensure that the correct dimension is being used, this accounts for situations where the viewer is opened in landscape orientation. 
-            var displayWidth = DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait ? DeviceDisplay.MainDisplayInfo.Width : DeviceDisplay.MainDisplayInfo.Height;
-
-            var displayDensity = DeviceDisplay.MainDisplayInfo.Density;
 
             // Calculate the width for the image using the device display density. Account for a margin around the image. 
             _sampleImageWidth = displayWidth / displayDensity - 20;
@@ -61,8 +61,40 @@ namespace ArcGIS.ViewModels
 
             _selectedCategory = DefaultCategory;
 
+            Span = (int)Math.Floor(displayWidth / (_sampleImageWidth + 4 * _sampleImageMargin));
+
             WeakReferenceMessenger.Default.Register<string>(this, (message, category) => UpdateCategory(category));
+
+#if IOS || ANDROID
+            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
+#endif
         }
+
+#if IOS || ANDROID
+        private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
+        {
+            UpdateGridSpan();
+        }
+#endif
+
+        public void UpdateGridSpan(double? width = null)
+        {
+            double displayWidth;
+
+            if (width != null)
+            {
+                displayWidth = width.Value;
+            }
+            else
+            {
+                displayWidth = DeviceDisplay.MainDisplayInfo.Width;// == DisplayOrientation.Portrait ? DeviceDisplay.MainDisplayInfo.Height : DeviceDisplay.MainDisplayInfo.Width;
+            }
+
+            Span = (int)Math.Floor(displayWidth / (_sampleImageWidth + 4 * _sampleImageMargin));
+        }
+
+        [ObservableProperty]
+        int _span;
 
         private void UpdateCategory(string category)
         {

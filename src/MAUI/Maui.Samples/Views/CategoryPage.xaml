@@ -24,86 +24,80 @@
         <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
         <converters:BoolToFavoriteGlyphConverter x:Key="BoolToFavoriteGlyphConverter" />
     </ContentPage.Resources>
-    <ScrollView x:Name="SamplesScrollView"
-                Background="Pink"
-                VerticalOptions="Start">
-        <FlexLayout x:Name="SamplesCollection"
-                    AlignContent="Start"
-                    AlignItems="Start"
+    <CollectionView x:Name="SamplesCollection"
                     BackgroundColor="Transparent"
-                    BindableLayout.ItemsSource="{Binding SamplesItems}"
-                    Direction="Row"
-                    HorizontalOptions="{OnPlatform Default=Fill,
-                                                   Android=Center,
-                                                   iOS=Center}"
-                    JustifyContent="Start"
-                    VerticalOptions="Start"
-                    Wrap="Wrap">
-            <BindableLayout.ItemTemplate>
-                <DataTemplate x:DataType="viewModels:SampleViewModel">
-                    <Border Margin="{Binding SampleImageMargin}"
-                            HorizontalOptions="Center"
-                            StrokeThickness="{OnPlatform Default=0,
-                                                         Android=1}">
-                        <Border.GestureRecognizers>
-                            <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
-                            <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
-                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=SampleSelectedCommand}"
-                                                  CommandParameter="{Binding .}"
-                                                  NumberOfTapsRequired="1" />
-                        </Border.GestureRecognizers>
-                        <Grid WidthRequest="{Binding SampleImageWidth, Mode=OneTime}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*" />
-                                <RowDefinition Height="45" />
-                            </Grid.RowDefinitions>
-                            <Image Grid.Row="0"
-                                   HeightRequest="{Binding SampleImageHeight, Mode=OneTime}"
-                                   Source="{Binding SampleImageName, Mode=OneTime}"
-                                   WidthRequest="{Binding SampleImageWidth, Mode=OneTime}" />
+                    ItemsSource="{Binding SamplesItems}">
+        <CollectionView.ItemsLayout>
+            <GridItemsLayout x:Name="SamplesGridItemsLayout"
+                             HorizontalItemSpacing="5"
+                             Orientation="Vertical"
+                             Span="{Binding Span}"
+                             VerticalItemSpacing="5" />
+        </CollectionView.ItemsLayout>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="viewModels:SampleViewModel">
+                <Border Margin="{Binding SampleImageMargin}"
+                        HorizontalOptions="Center"
+                        StrokeThickness="{OnPlatform Default=0,
+                                                     Android=1}">
+                    <Border.GestureRecognizers>
+                        <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
+                        <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=SampleSelectedCommand}"
+                                              CommandParameter="{Binding .}"
+                                              NumberOfTapsRequired="1" />
+                    </Border.GestureRecognizers>
+                    <Grid WidthRequest="{Binding SampleImageWidth, Mode=OneTime}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="45" />
+                        </Grid.RowDefinitions>
+                        <Image Grid.Row="0"
+                               HeightRequest="{Binding SampleImageHeight, Mode=OneTime}"
+                               Source="{Binding SampleImageName, Mode=OneTime}"
+                               WidthRequest="{Binding SampleImageWidth, Mode=OneTime}" />
 
-                            <Button x:Name="FavoriteButton"
-                                    Grid.Row="0"
-                                    Padding="2"
-                                    Background="#A52F2F2F"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
-                                    CommandParameter="{Binding SampleFormalName}"
-                                    CornerRadius="0"
-                                    FontFamily="calcite-ui-icons-24"
-                                    FontSize="{OnPlatform Default=25,
-                                                          iOS=40,
-                                                          Android=40}"
-                                    HorizontalOptions="Start"
-                                    IsVisible="{Binding ShowFavoriteIcon}"
-                                    Text="{Binding IsFavorite, Converter={StaticResource BoolToFavoriteGlyphConverter}}"
-                                    TextColor="Yellow"
-                                    VerticalOptions="Start" />
+                        <Button x:Name="FavoriteButton"
+                                Grid.Row="0"
+                                Padding="2"
+                                Background="#A52F2F2F"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
+                                CommandParameter="{Binding SampleFormalName}"
+                                CornerRadius="0"
+                                FontFamily="calcite-ui-icons-24"
+                                FontSize="{OnPlatform Default=25,
+                                                      iOS=40,
+                                                      Android=40}"
+                                HorizontalOptions="Start"
+                                IsVisible="{Binding ShowFavoriteIcon}"
+                                Text="{Binding IsFavorite, Converter={StaticResource BoolToFavoriteGlyphConverter}}"
+                                TextColor="Yellow"
+                                VerticalOptions="Start" />
 
-                            <Label Grid.Row="0"
-                                   Grid.Column="0"
-                                   Padding="10"
-                                   BackgroundColor="#A52F2F2F"
-                                   FontSize="18"
-                                   HeightRequest="{OnPlatform Default=50,
-                                                              MacCatalyst=80}"
-                                   LineBreakMode="WordWrap"
-                                   Text="{Binding SampleName, Mode=OneTime}"
-                                   TextColor="White"
-                                   VerticalOptions="End"
-                                   VerticalTextAlignment="Center" />
-                            <Label Grid.Row="1"
-                                   Margin="5"
-                                   Padding="0,5"
-                                   FontSize="13"
-                                   LineBreakMode="TailTruncation"
-                                   Text="{Binding Description, Mode=OneTime}"
-                                   TextColor="{AppThemeBinding Dark=LightGray,
-                                                               Light=Black}"
-                                   VerticalTextAlignment="Start" />
-                        </Grid>
-                    </Border>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </FlexLayout>
-    </ScrollView>
+                        <Label Grid.Row="0"
+                               Grid.Column="0"
+                               Padding="10"
+                               BackgroundColor="#A52F2F2F"
+                               FontSize="18"
+                               HeightRequest="{OnPlatform Default=50,
+                                                          MacCatalyst=80}"
+                               LineBreakMode="WordWrap"
+                               Text="{Binding SampleName, Mode=OneTime}"
+                               TextColor="White"
+                               VerticalOptions="End"
+                               VerticalTextAlignment="Center" />
+                        <Label Grid.Row="1"
+                               Margin="5"
+                               Padding="0,5"
+                               FontSize="13"
+                               LineBreakMode="TailTruncation"
+                               Text="{Binding Description, Mode=OneTime}"
+                               TextColor="{AppThemeBinding Dark=LightGray,
+                                                           Light=Black}"
+                               VerticalTextAlignment="Start" />
+                    </Grid>
+                </Border>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
 </ContentPage>

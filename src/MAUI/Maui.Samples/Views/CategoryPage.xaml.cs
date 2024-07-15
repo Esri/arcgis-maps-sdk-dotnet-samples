@@ -26,39 +26,20 @@ public partial class CategoryPage : ContentPage
         _viewModel = new CategoryViewModel();
         BindingContext = _viewModel;
 
-        WeakReferenceMessenger.Default.Register<string>(this, async (message, category) => await ScrollToTop());
+        WeakReferenceMessenger.Default.Register<string>(this, (message, category) => ScrollToTop());
     }
 
-#if ANDROID || IOS
-
-    object _lock = new object();
+#if WINDOWS || MACCATALYST
+    
     protected override void OnSizeAllocated(double width, double height)
     {
         base.OnSizeAllocated(width, height);
 
-        lock (_lock)
-        {
-            var numberOfColumns = Math.Floor(width / (_viewModel.SampleImageWidth + 4 * _viewModel.SampleImageMargin));
-
-            if (numberOfColumns == 0) return;
-
-            if (numberOfColumns > 1)
-            {
-                SamplesCollection.JustifyContent = Microsoft.Maui.Layouts.FlexJustify.Start;
-                SamplesCollection.HorizontalOptions = LayoutOptions.Fill;
-                SamplesScrollView.HorizontalOptions = LayoutOptions.Fill;
-            }
-            else
-            {
-                SamplesCollection.JustifyContent = Microsoft.Maui.Layouts.FlexJustify.Center;
-                SamplesCollection.HorizontalOptions = LayoutOptions.CenterAndExpand;
-#pragma warning disable CS0618 // Type or member is obsolete
-                SamplesScrollView.HorizontalOptions = LayoutOptions.Center;
-#pragma warning restore CS0618 // Type or member is obsolete
-            }
-        }
+        _viewModel.UpdateGridSpan(width);
     }
+
 #endif
+
 
     private async void FeedbackToolbarItem_Clicked(object sender, EventArgs e)
     {
@@ -112,12 +93,12 @@ public partial class CategoryPage : ContentPage
         }
     }
 
-    private async Task ScrollToTop()
+    private void ScrollToTop()
     {
         var firstItem = _viewModel.SamplesItems.FirstOrDefault();
         if (firstItem != null)
         {
-            await SamplesScrollView.ScrollToAsync(0, 0, false);
+            SamplesCollection.ScrollTo(0);
         }
     }
 }

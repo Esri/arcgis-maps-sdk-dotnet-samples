@@ -18,7 +18,7 @@
     "relevant_apis": [
         "Map",
         "MapView",
-        "MapView.MagnifierEnabled"
+        "MapViewInteractionOptions.IsMagnifierEnabled"
     ],
     "snippets": [
         "ShowMagnifier.xaml.cs",

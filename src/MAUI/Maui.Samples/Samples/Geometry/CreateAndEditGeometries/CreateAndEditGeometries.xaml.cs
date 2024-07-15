@@ -21,7 +21,7 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
         name: "Create and edit geometries",
         category: "Geometry",
         description: "Use the Geometry Editor to create new point, multipoint, polyline, or polygon geometries or to edit existing geometries by interacting with a map view.",
-        instructions: "To create a new geometry, press the button appropriate for the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry. To edit an existing geometry, tap the geometry to be edited in the map to select it and then edit the geometry by tapping and dragging elements of the geometry. If creating or editing polyline or polygon geometries, choose the desired creation/editing tool (i.e. `VertexTool` or `FreehandTool`).",
+        instructions: "To create a new geometry, press the button appropriate for the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry. To edit an existing geometry, tap the geometry to be edited in the map and then perform edits by tapping and dragging its elements. When using an appropriate tool to select a whole geometry, you can use the control handles to scale and rotate the geometry. If creating or editing polyline or polygon geometries, choose the desired creation/editing tool (i.e. `VertexTool`, `ReticleVertexTool`, `FreehandTool`, or one of the available `ShapeTool`s).",
         tags: new[] { "draw", "edit", "freehand", "geometry editor", "sketch", "vertex" })]
     public partial class CreateAndEditGeometries
     {
@@ -102,6 +102,7 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             _toolDictionary = new Dictionary<string, GeometryEditorTool>()
             {
                 { "Vertex Tool", new VertexTool() },
+                { "Reticle Vertex Tool", new ReticleVertexTool() },
                 { "Freehand Tool", new FreehandTool() },
                 { "Arrow Shape Tool", ShapeTool.Create(ShapeToolType.Arrow) },
                 { "Ellipse Shape Tool", ShapeTool.Create(ShapeToolType.Ellipse) },
@@ -166,7 +167,7 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             if (!_geometryEditor.IsStarted)
             {
                 // Disable buttons to reflect that the geometry editor has started.
-                DisableOtherGeometryButtons(PointButton);
+                DisableOtherGeometryButtons(PolylineButton);
 
                 _geometryEditor.Start(GeometryType.Polyline);
             }
@@ -178,7 +179,7 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             if (!_geometryEditor.IsStarted)
             {
                 // Disable buttons to reflect that the geometry editor has started.
-                DisableOtherGeometryButtons(PointButton);
+                DisableOtherGeometryButtons(PolygonButton);
 
                 _geometryEditor.Start(GeometryType.Polygon);
             }
@@ -192,7 +193,10 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
 
             // Account for case when vertex tool is selected and geometry editor is started with a polyline or polygon geometry type.
             // Ensure point and multipoint buttons are only enabled when the selected tool is a vertex tool.
-            PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && tool is VertexTool;
+            PointButton.IsEnabled = MultipointButton.IsEnabled = !_geometryEditor.IsStarted && (tool is VertexTool || tool is ReticleVertexTool);
+
+            // Uniform scale is not compatible with the reticle vertex tool.
+            UniformScaleCheckBox.IsEnabled = !(_geometryEditor.Tool is ReticleVertexTool);
         }
 
         // Set the scale mode for every geometry editor tool.
@@ -318,6 +322,20 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             _selectedGraphic.IsVisible = false;
         }
 
+        private void ToggleGeometryEditorPanelButton_Pressed(object sender, EventArgs e)
+        {
+            GeometryEditorPanel.IsVisible = !GeometryEditorPanel.IsVisible;
+
+            if (GeometryEditorPanel.IsVisible)
+            {
+                ToggleGeometryEditorPanelButton.Text = "Hide UI";
+            }
+            else
+            {
+                ToggleGeometryEditorPanelButton.Text = "Show UI";
+            }
+        }
+
         #endregion Event handlers
 
         #region Helper methods
@@ -358,7 +376,7 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             _selectedGraphic = null;
 
             // Point and multipoint sessions do not support the vertex tool.
-            PointButton.IsEnabled = MultipointButton.IsEnabled = _geometryEditor.Tool is VertexTool;
+            PointButton.IsEnabled = MultipointButton.IsEnabled = _geometryEditor.Tool is VertexTool || _geometryEditor.Tool is ReticleVertexTool;
             PolylineButton.IsEnabled = PolygonButton.IsEnabled = true;
             ToolPicker.IsEnabled = true;
 

@@ -87,15 +87,6 @@ namespace ArcGIS.Samples.SnapGeometryEdits
                 MultipointButton
             };
 
-            // Enable magnifier on mobile platforms.
-#if ANDROID || IOS
-            MyMapView.InteractionOptions = new Esri.ArcGISRuntime.UI.MapViewInteractionOptions
-            {
-                IsMagnifierEnabled = true,
-                AllowMagnifierToPan = true
-            };
-#endif
-
             // Hide the popup when user taps screen.
             SnappingSettingsPopup.GestureRecognizers.Add(new TapGestureRecognizer
             {
@@ -292,6 +283,18 @@ namespace ArcGIS.Samples.SnapGeometryEdits
         #endregion
 
         #region Geometry Tool Buttons Handlers
+        private void ReticleVertexToolSwitch_Toggled(object sender, ToggledEventArgs e)
+        {
+            if (ReticleVertexToolSwitch.IsToggled)
+            {
+                _geometryEditor.Tool = new ReticleVertexTool();
+            }
+            else
+            {
+                _geometryEditor.Tool = new VertexTool();
+            }
+        }
+
         private void PointButton_Click(object sender, EventArgs e)
         {
             if (_geometryEditor.IsStarted)

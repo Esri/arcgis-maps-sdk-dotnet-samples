@@ -10,7 +10,9 @@ A field worker can mark features of interest on a map using an appropriate geome
 
 ## How to use the sample
 
-To create a new geometry, press the button appropriate for the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry. To edit an existing geometry, tap the geometry to be edited in the map to select it and then edit the geometry by tapping and dragging elements of the geometry. If creating or editing polyline or polygon geometries, choose the desired creation/editing tool (i.e. `VertexTool` or `FreehandTool`).
+To create a new geometry, press the button appropriate for the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry. To edit an existing geometry, tap the geometry to be edited in the map and then perform edits by tapping and dragging its elements. When using an appropriate tool to select a whole geometry, you can use the control handles to scale and rotate the geometry. If creating or editing polyline or polygon geometries, choose the desired creation/editing tool (i.e. `VertexTool`, `ReticleVertexTool`, `FreehandTool`, or one of the available `ShapeTool`s).
+
+When using the `ReticleVertexTool`, you can move the map position of the reticle by dragging and zooming the map. Insert a vertex under the reticle by tapping on the map. Move a vertex by tapping when the reticle is located over a vertex, drag the map to move the position of the reticle, then tap a second time to place the vertex.
 
 Use the control panel to undo or redo changes made to the geometry, delete a selected element, save the geometry, stop the editing session and discard any edits, and remove all geometries from the map.
 
@@ -23,7 +25,7 @@ Use the control panel to undo or redo changes made to the geometry, delete a sel
         * Access the `MapView.IdentifyGraphicsOverlayAsync(...)`.
         * Find the desired graphic in the `results.FirstOrDefault()` list.
         * Access the geometry associated with the `Graphic` using `Graphic.Geometry` - this will be used in the `GeometryEditor.Start(Geometry)` method.
-3. Create `VertexTool`, `FreehandTool`, or `ShapeTool` objects which define how the user interacts with the view to create or edit geometries, setting `GeometryEditor.Tool`.
+3. Create `VertexTool`, `ReticleVertexTool`, `FreehandTool`, or `ShapeTool` objects to define how the user interacts with the view to create or edit geometries, setting `GeometryEditor.Tool`.
 4. Edit a tool's InteractionConfiguration to set the GeometryEditorScaleMode to allow either uniform or stretch scale mode.
 5. Check to see if undo and redo are possible during an editing session using `GeometryEditor.CanUndo` and `GeometryEditor.CanRedo`. If it's possible, use `GeometryEditor.Undo()` and `GeometryEditor.Redo()`.
 6. Check whether the currently selected `GeometryEditorElement` can be deleted (`GeometryEditor.SelectedElement.CanDelete`). If the element can be deleted, delete using `GeometryEditor.DeleteSelectedElement()`.

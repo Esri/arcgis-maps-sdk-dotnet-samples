@@ -79,6 +79,20 @@
                            FontSize="14"
                            FontWeight="Bold"
                            Text="Create and edit geometries" />
+                <Grid Width="200" HorizontalAlignment="Center">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="150" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0"
+                               VerticalAlignment="Center"
+                               Text="Reticle vertex tool" />
+                    <CheckBox x:Name="ReticleVertexToolCheckBox"
+                              Grid.Column="1"
+                              VerticalAlignment="Center"
+                              Checked="ReticleVertexToolCheckBox_CheckedChanged"
+                              Unchecked="ReticleVertexToolCheckBox_CheckedChanged" />
+                </Grid>
                 <Grid Width="200"
                       HorizontalAlignment="Center"
                       ColumnSpacing="5"

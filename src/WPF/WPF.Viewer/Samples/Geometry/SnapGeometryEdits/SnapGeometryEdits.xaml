@@ -71,6 +71,11 @@
                            FontSize="14"
                            FontWeight="Bold"
                            Text="Create and edit geometries" />
+                <CheckBox x:Name="ReticleVertexToolCheckBox"
+                          Margin="5"
+                          Checked="ReticleVertexToolCheckBox_CheckedChanged"
+                          Content="Reticle vertex tool"
+                          Unchecked="ReticleVertexToolCheckBox_CheckedChanged" />
                 <Grid Width="200">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="100" />

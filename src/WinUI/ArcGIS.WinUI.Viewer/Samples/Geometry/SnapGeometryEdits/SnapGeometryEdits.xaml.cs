@@ -269,6 +269,18 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
         #endregion
 
         #region Geometry Tool Buttons Handlers
+        private void ReticleVertexToolCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
+        {
+            if (ReticleVertexToolCheckBox.IsChecked == true)
+            {
+                _geometryEditor.Tool = new ReticleVertexTool();
+            }
+            else
+            {
+                _geometryEditor.Tool = new VertexTool();
+            }
+        }
+
         private void PointButton_Click(object sender, RoutedEventArgs e)
         {
             if (_geometryEditor.IsStarted)

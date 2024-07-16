@@ -26,44 +26,46 @@ namespace ArcGIS.ViewModels
             // Assign a margin, used to calculate the number of samples that will fit on each row depending on device orientation.
             _sampleImageMargin = 4;
 
-            // Ensure that the correct dimension is being used, this accounts for situations where the viewer is opened in landscape orientation. 
-            double displayWidth;
+#if WINDOWS
 
+            _sampleImageWidth  = 350;
+
+#elif IOS || ANDROID
+            double displayWidth;
+            double displayHeight;
+            
+            // Ensure that on tablet a 3 column grid displays in horizontal orientation and 2 column in vertical orientation.
+            // Ensure that on mobile a 2 column grid displays in horizontal orientation and 1 column in vertical orientation.
+
+            if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait)
+            {
+                displayWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
+                displayHeight = DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
+            }
+            else
+            {
+                displayWidth = DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density;
+                displayHeight = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;
+            }
+
+            // Ensure samples display correctly on devices with varying dimensions.
             if (DeviceInfo.Idiom == DeviceIdiom.Tablet)
             {
-                if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait)
+                _sampleImageWidth = (displayWidth - 4 * _sampleImageMargin) / 2;
+
+                if (2 * _sampleImageWidth > displayHeight)
                 {
-                    displayWidth = DeviceDisplay.MainDisplayInfo.Height;
-                }
-                else
-                {
-                    displayWidth = DeviceDisplay.MainDisplayInfo.Width;
+                    _sampleImageWidth = (displayHeight - 6 * _sampleImageMargin) / 3;
                 }
             }
             else
             {
-                displayWidth = DeviceDisplay.MainDisplayInfo.Width;
-            }
+                _sampleImageWidth = (displayWidth - 2 * _sampleImageMargin);
 
-
-            var displayDensity = DeviceDisplay.MainDisplayInfo.Density;
-
-#if WINDOWS
-
-            _sampleImageWidth  = 300;
-
-#elif IOS || ANDROID
-
-            // Calculate the width for the image using the device display density. Account for a margin around the image. 
-            _sampleImageWidth = displayWidth / displayDensity - 20;
-            
-            // For tablets check to see if multiple images could fit rather than one tablet sized image. 
-            // If multiple images of arbitrary size "300" would fit then update the image width.
-            var sampleImageFactor = Math.Floor(_sampleImageWidth / 300);
-
-            if (sampleImageFactor > 1)
-            {
-                _sampleImageWidth = _sampleImageWidth / sampleImageFactor;
+                if (2 * _sampleImageWidth > displayHeight)
+                {
+                    _sampleImageWidth = (displayHeight - 4 * _sampleImageMargin) / 2;
+                }
             }
 #endif
             // Maintain 4:3 image resolution. 
@@ -78,40 +80,8 @@ namespace ArcGIS.ViewModels
 
             _selectedCategory = DefaultCategory;
 
-            Span = (int)Math.Floor((displayWidth / displayDensity) / (_sampleImageWidth + 4 * _sampleImageMargin));
-
             WeakReferenceMessenger.Default.Register<string>(this, (message, category) => UpdateCategory(category));
-
-#if IOS || ANDROID
-            DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_MainDisplayInfoChanged;
-#endif
         }
-
-#if IOS || ANDROID
-        private void DeviceDisplay_MainDisplayInfoChanged(object sender, DisplayInfoChangedEventArgs e)
-        {
-            UpdateGridSpan();
-        }
-#endif
-
-        public void UpdateGridSpan(double? width = null)
-        {
-            double displayWidth;
-
-            if (width != null)
-            {
-                displayWidth = width.Value;
-            }
-            else
-            {
-                displayWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;// == DisplayOrientation.Portrait ? DeviceDisplay.MainDisplayInfo.Height : DeviceDisplay.MainDisplayInfo.Width;
-            }
-
-            Span = (int)Math.Floor(displayWidth / (_sampleImageWidth + 4 * _sampleImageMargin));
-        }
-
-        [ObservableProperty]
-        int _span;
 
         private void UpdateCategory(string category)
         {

@@ -15,6 +15,13 @@ public partial class SearchPage : ContentPage
         BindingContext = _viewModel;
 	}
 
+    protected override void OnNavigatedTo(NavigatedToEventArgs args)
+    {
+        base.OnNavigatedTo(args);
+
+        SampleSearchBar.Focus();
+    }
+
     private void TapGestureRecognizer_SearchResultTapped(object sender, TappedEventArgs e)
     {
         var sampleInfo = e.Parameter as SampleInfo;

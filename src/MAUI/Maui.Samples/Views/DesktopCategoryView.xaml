@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView x:Class="ArcGIS.Views.DesktopCategoryView"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:ArcGIS.Converters"
+             xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
+             x:DataType="viewModels:CategoryViewModel">
+    <ContentView.Resources>
+        <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
+        <converters:BoolToFavoriteGlyphConverter x:Key="BoolToFavoriteGlyphConverter" />
+    </ContentView.Resources>
+    <ScrollView x:Name="SamplesScrollView"
+                HorizontalOptions="StartAndExpand"
+                VerticalOptions="Start">
+        <FlexLayout x:Name="SamplesCollection"
+                    Margin="5"
+                    Padding="0"
+                    AlignContent="Start"
+                    AlignItems="Start"
+                    BackgroundColor="Transparent"
+                    BindableLayout.ItemsSource="{Binding SamplesItems}"
+                    Direction="Row"
+                    HorizontalOptions="Fill"
+                    JustifyContent="Start"
+                    VerticalOptions="Start"
+                    Wrap="Wrap">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate x:DataType="viewModels:SampleViewModel">
+                    <Border Margin="{Binding SampleImageMargin}"
+                            HorizontalOptions="Center"
+                            StrokeThickness="0">
+                        <Border.GestureRecognizers>
+                            <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
+                            <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
+                            <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=SampleSelectedCommand}"
+                                                  CommandParameter="{Binding .}"
+                                                  NumberOfTapsRequired="1" />
+                        </Border.GestureRecognizers>
+                        <Grid WidthRequest="{Binding SampleImageWidth}">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="45" />
+                            </Grid.RowDefinitions>
+                            <Image Grid.Row="0"
+                                   HeightRequest="{Binding SampleImageHeight}"
+                                   Source="{Binding SampleImageName, Mode=OneTime}"
+                                   WidthRequest="{Binding SampleImageWidth}" />
+
+                            <Button x:Name="FavoriteButton"
+                                    Grid.Row="0"
+                                    Margin="{OnPlatform Default=0,
+                                                        WinUI='-1,-1,0,0'}"
+                                    Padding="2"
+                                    Background="#A52F2F2F"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
+                                    CommandParameter="{Binding SampleFormalName}"
+                                    CornerRadius="0"
+                                    FontFamily="calcite-ui-icons-24"
+                                    FontSize="25"
+                                    HorizontalOptions="Start"
+                                    IsVisible="{Binding ShowFavoriteIcon}"
+                                    Text="{Binding IsFavorite, Converter={StaticResource BoolToFavoriteGlyphConverter}}"
+                                    TextColor="Yellow"
+                                    VerticalOptions="Start" />
+
+                            <Label Grid.Row="0"
+                                   Grid.Column="0"
+                                   Margin="{OnIdiom Default=0,
+                                                    Tablet='0,0,0,5',
+                                                    Phone='0,0,0,5'}"
+                                   Padding="10"
+                                   BackgroundColor="#A52F2F2F"
+                                   FontSize="18"
+                                   HeightRequest="{OnPlatform Default=50,
+                                                              MacCatalyst=80}"
+                                   LineBreakMode="WordWrap"
+                                   Text="{Binding SampleName, Mode=OneTime}"
+                                   TextColor="White"
+                                   VerticalOptions="End"
+                                   VerticalTextAlignment="Center" />
+                            <Label Grid.Row="1"
+                                   Margin="5"
+                                   Padding="0,5"
+                                   FontSize="13"
+                                   LineBreakMode="TailTruncation"
+                                   Text="{Binding Description, Mode=OneTime}"
+                                   TextColor="{AppThemeBinding Dark=LightGray,
+                                                               Light=Black}"
+                                   VerticalTextAlignment="Start" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </FlexLayout>
+    </ScrollView>
+</ContentView>

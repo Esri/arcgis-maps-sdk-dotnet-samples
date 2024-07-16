@@ -1,5 +1,7 @@
 ﻿namespace ArcGIS.Samples.Maui;
 
+using ArcGIS.Samples.ManageOperationalLayers;
+using ArcGIS.ViewModels;
 using CommunityToolkit.Maui;
 using Esri.ArcGISRuntime.Maui;
 using Esri.ArcGISRuntime.Toolkit.Maui;
@@ -23,6 +25,9 @@ public static class MauiProgram
             })
             .UseArcGISRuntime()
             .UseArcGISToolkit();
+
+        builder.Services.AddSingleton<CategoryPage>();
+        builder.Services.AddSingleton<CategoryViewModel>();
 
         return builder.Build();
     }

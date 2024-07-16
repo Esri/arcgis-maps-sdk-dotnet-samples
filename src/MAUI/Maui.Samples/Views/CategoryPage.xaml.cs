@@ -27,22 +27,26 @@ public partial class CategoryPage : ContentPage
         BindingContext = _viewModel;
 
         WeakReferenceMessenger.Default.Register<string>(this, (message, category) => ScrollToTop());
+
+        // Handle platform differences in updating the layout.
 #if !ANDROID
+        // Event raised during an orientation state change or window resize. 
         SizeChanged += (s, e) =>
         {
+            var numberOfColumns = (int)Math.Floor(Width / _viewModel.SampleImageWidth);
 #if IOS || MACCATALYST
-            var numberOfColumns = Math.Floor(Width / _viewModel.SampleImageWidth);
-            var layout = new GridItemsLayout((int)numberOfColumns, ItemsLayoutOrientation.Vertical);
-            layout.HorizontalItemSpacing = 5;
-            layout.VerticalItemSpacing = 5;
-            SamplesCollection.ItemsLayout = layout;
+            SamplesCollection.ItemsLayout = new GridItemsLayout(numberOfColumns, ItemsLayoutOrientation.Vertical)
+            {
+                HorizontalItemSpacing = 5,
+                VerticalItemSpacing = 5
+            };
 #elif WINDOWS
-            var numberOfColumns = Math.Floor(Width / _viewModel.SampleImageWidth);
-            SamplesGridItemsLayout.Span = (int)numberOfColumns;
+            SamplesGridItemsLayout.Span = numberOfColumns;
 #endif
         };
+#else
+        SamplesCollection.Style = Resources["AndroidStyle"] as Style;
 #endif
-
     }
 
     private async void FeedbackToolbarItem_Clicked(object sender, EventArgs e)

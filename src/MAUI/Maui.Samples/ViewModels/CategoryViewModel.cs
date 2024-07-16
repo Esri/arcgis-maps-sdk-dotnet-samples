@@ -53,7 +53,7 @@ namespace ArcGIS.ViewModels
             {
                 _sampleImageWidth = (displayWidth - 4 * _sampleImageMargin) / 2;
 
-                if (2 * _sampleImageWidth > displayHeight)
+                if (3 * _sampleImageWidth > displayHeight)
                 {
                     _sampleImageWidth = (displayHeight - 6 * _sampleImageMargin) / 3;
                 }

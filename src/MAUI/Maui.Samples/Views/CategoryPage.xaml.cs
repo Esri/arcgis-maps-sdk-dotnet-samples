@@ -35,11 +35,15 @@ public partial class CategoryPage : ContentPage
         {
             var numberOfColumns = (int)Math.Floor(Width / _viewModel.SampleImageWidth);
 #if IOS || MACCATALYST
-            SamplesCollection.ItemsLayout = new GridItemsLayout(numberOfColumns, ItemsLayoutOrientation.Vertical)
+            // Don't update the layout when column count is the same, for example, when app height changes on Mac.
+            if (numberOfColumns != (SamplesCollection.ItemsLayout as GridItemsLayout)?.Span)
             {
-                HorizontalItemSpacing = 5,
-                VerticalItemSpacing = 5
-            };
+                SamplesCollection.ItemsLayout = new GridItemsLayout(numberOfColumns, ItemsLayoutOrientation.Vertical)
+                {
+                    HorizontalItemSpacing = 5,
+                    VerticalItemSpacing = 5
+                };
+            }
 #elif WINDOWS
             SamplesGridItemsLayout.Span = numberOfColumns;
 #endif

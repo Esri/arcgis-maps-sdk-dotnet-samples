@@ -82,7 +82,7 @@
                                FontSize="18"
                                HeightRequest="{OnPlatform Default=50,
                                                           MacCatalyst=80}"
-                               Margin="{OnIdiom Default=0, Tablet='0,0,0,5'}"
+                               Margin="{OnIdiom Default=0, Tablet='0,0,0,5', Phone='0,0,0,5'}"
                                LineBreakMode="WordWrap"
                                Text="{Binding SampleName, Mode=OneTime}"
                                TextColor="White"

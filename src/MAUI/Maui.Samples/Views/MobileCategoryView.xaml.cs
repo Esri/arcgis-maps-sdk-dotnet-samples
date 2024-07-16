@@ -14,7 +14,7 @@ public partial class MobileCategoryView : ContentView
 
     private void ScrollToTop()
     {
-        if (SamplesCollection.ItemsSource.Cast<object>().Count() > 0)
+        if ((this.BindingContext as CategoryViewModel).SamplesItems.Count > 0)
         {
             SamplesCollection.ScrollTo(0);
         }

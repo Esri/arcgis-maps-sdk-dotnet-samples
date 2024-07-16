@@ -1,6 +1,7 @@
 using ArcGIS.Helpers;
 using ArcGIS.Samples.Shared.Managers;
 using ArcGIS.ViewModels;
+using ArcGIS.Views;
 
 namespace ArcGIS;
 
@@ -11,6 +12,11 @@ public partial class CategoryPage : ContentPage
         InitializeComponent();
 
         BindingContext = categoryViewModel;
+#if MACCATALYST || WINDOWS
+        Content = new DesktopCategoryView();
+#elif IOS || ANDROID
+        Content = new MobileCategoryView();
+#endif
     }
 
     private async void FeedbackToolbarItem_Clicked(object sender, EventArgs e)

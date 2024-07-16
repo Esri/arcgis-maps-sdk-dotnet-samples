@@ -27,7 +27,24 @@ namespace ArcGIS.ViewModels
             _sampleImageMargin = 4;
 
             // Ensure that the correct dimension is being used, this accounts for situations where the viewer is opened in landscape orientation. 
-            var displayWidth = DeviceDisplay.MainDisplayInfo.Width;// == DisplayOrientation.Portrait ? DeviceDisplay.MainDisplayInfo.Width : DeviceDisplay.MainDisplayInfo.Height;
+            double displayWidth;
+
+            if (DeviceInfo.Idiom == DeviceIdiom.Tablet)
+            {
+                if (DeviceDisplay.MainDisplayInfo.Orientation == DisplayOrientation.Portrait)
+                {
+                    displayWidth = DeviceDisplay.MainDisplayInfo.Height;
+                }
+                else
+                {
+                    displayWidth = DeviceDisplay.MainDisplayInfo.Width;
+                }
+            }
+            else
+            {
+                displayWidth = DeviceDisplay.MainDisplayInfo.Width;
+            }
+
 
             var displayDensity = DeviceDisplay.MainDisplayInfo.Density;
 

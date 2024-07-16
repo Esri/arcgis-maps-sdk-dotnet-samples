@@ -47,19 +47,20 @@
                                               CommandParameter="{Binding .}"
                                               NumberOfTapsRequired="1" />
                     </Border.GestureRecognizers>
-                    <Grid WidthRequest="{Binding SampleImageWidth, Mode=OneTime}">
+                    <Grid WidthRequest="{Binding SampleImageWidth}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="45" />
                         </Grid.RowDefinitions>
                         <Image Grid.Row="0"
-                               HeightRequest="{Binding SampleImageHeight, Mode=OneTime}"
+                               HeightRequest="{Binding SampleImageHeight}"
                                Source="{Binding SampleImageName, Mode=OneTime}"
-                               WidthRequest="{Binding SampleImageWidth, Mode=OneTime}" />
+                               WidthRequest="{Binding SampleImageWidth}" />
 
                         <Button x:Name="FavoriteButton"
                                 Grid.Row="0"
                                 Padding="2"
+                                Margin="{OnPlatform Default=0, iOS='0,4,0,0'}"
                                 Background="#A52F2F2F"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
                                 CommandParameter="{Binding SampleFormalName}"
@@ -72,7 +73,7 @@
                                 IsVisible="{Binding ShowFavoriteIcon}"
                                 Text="{Binding IsFavorite, Converter={StaticResource BoolToFavoriteGlyphConverter}}"
                                 TextColor="Yellow"
-                                VerticalOptions="Start" />
+                                VerticalOptions="Start"/>
 
                         <Label Grid.Row="0"
                                Grid.Column="0"
@@ -81,6 +82,7 @@
                                FontSize="18"
                                HeightRequest="{OnPlatform Default=50,
                                                           MacCatalyst=80}"
+                               Margin="{OnIdiom Default=0, Tablet='0,0,0,5'}"
                                LineBreakMode="WordWrap"
                                Text="{Binding SampleName, Mode=OneTime}"
                                TextColor="White"

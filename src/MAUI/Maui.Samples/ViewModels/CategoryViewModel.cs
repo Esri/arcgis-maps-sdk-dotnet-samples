@@ -61,7 +61,7 @@ namespace ArcGIS.ViewModels
 
             _selectedCategory = DefaultCategory;
 
-            Span = (int)Math.Floor(displayWidth / (_sampleImageWidth + 4 * _sampleImageMargin));
+            Span = (int)Math.Floor((displayWidth / displayDensity) / (_sampleImageWidth + 4 * _sampleImageMargin));
 
             WeakReferenceMessenger.Default.Register<string>(this, (message, category) => UpdateCategory(category));
 
@@ -87,7 +87,7 @@ namespace ArcGIS.ViewModels
             }
             else
             {
-                displayWidth = DeviceDisplay.MainDisplayInfo.Width;// == DisplayOrientation.Portrait ? DeviceDisplay.MainDisplayInfo.Height : DeviceDisplay.MainDisplayInfo.Width;
+                displayWidth = DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density;// == DisplayOrientation.Portrait ? DeviceDisplay.MainDisplayInfo.Height : DeviceDisplay.MainDisplayInfo.Width;
             }
 
             Span = (int)Math.Floor(displayWidth / (_sampleImageWidth + 4 * _sampleImageMargin));

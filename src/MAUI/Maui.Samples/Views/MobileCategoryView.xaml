@@ -37,13 +37,6 @@
                     BackgroundColor="Transparent"
                     ItemsSource="{Binding SamplesItems}"
                     Style="{StaticResource Key=SamplesCollectionStyle}">
-        <!--<CollectionView.ItemsLayout>
-            <GridItemsLayout x:Name="SamplesGridItemsLayout"
-                             HorizontalItemSpacing="5"
-                             Orientation="Vertical"
-                             Span="{Binding Span}"
-                             VerticalItemSpacing="5" />
-        </CollectionView.ItemsLayout>-->
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="viewModels:SampleViewModel">
                 <Border Margin="{Binding SampleImageMargin}"
@@ -67,8 +60,7 @@
 
                         <Button x:Name="FavoriteButton"
                                 Grid.Row="0"
-                                Margin="{OnPlatform Default=0,
-                                                    WinUI='-1,-1,0,0',
+                                Margin="{OnPlatform Android=0,
                                                     iOS='0,4,0,0'}"
                                 Padding="2"
                                 Background="#A52F2F2F"
@@ -93,8 +85,7 @@
                                Padding="10"
                                BackgroundColor="#A52F2F2F"
                                FontSize="18"
-                               HeightRequest="{OnPlatform Default=50,
-                                                          MacCatalyst=80}"
+                               HeightRequest="50"
                                LineBreakMode="WordWrap"
                                Text="{Binding SampleName, Mode=OneTime}"
                                TextColor="White"

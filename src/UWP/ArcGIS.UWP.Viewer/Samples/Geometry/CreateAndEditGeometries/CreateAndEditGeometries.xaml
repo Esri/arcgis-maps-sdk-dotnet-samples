@@ -1,0 +1,125 @@
+﻿<UserControl x:Name="_this"
+             x:Class="ArcGIS.UWP.Samples.CreateAndEditGeometries.CreateAndEditGeometries"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="using:ArcGIS.UWP.Viewer.Converters"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
+             xmlns:local="using:ArcGIS.UWP.Samples.CreateAndEditGeometries">
+    <UserControl.Resources>
+        <Style x:Key="IconStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24" />
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+            </Style.Setters>
+        </Style>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter" />
+    </UserControl.Resources>
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Grid Margin="10"
+              Padding="10"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Top"
+              ColumnSpacing="5"
+              RowSpacing="5">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="75" />
+            </Grid.ColumnDefinitions>
+            <Button x:Name="PointButton"
+                    Click="PointButton_Click"
+                    Content="&#xe21c;"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Point" />
+            <Button x:Name="MultipointButton"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    Click="MultipointButton_Click"
+                    Content="&#xe21c;&#xe21c;"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Multipoint" />
+            <Button x:Name="PolylineButton"
+                    Grid.Row="1"
+                    Click="PolylineButton_Click"
+                    Content="&#xe1a8;"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Polyline / no shape fill" />
+            <Button x:Name="PolygonButton"
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    Click="PolygonButton_Click"
+                    Content="&#xe220;"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Polygon / shape fill" />
+            <ComboBox x:Name="ToolComboBox"
+                      Grid.Row="2"
+                      Grid.ColumnSpan="2"
+                      HorizontalAlignment="Stretch"
+                      Background="White"
+                      DisplayMemberPath="Key"
+                      SelectionChanged="ToolComboBox_SelectionChanged"
+                      ToolTipService.ToolTip="Tools" />
+            <Border Grid.Row="3"
+                    Grid.ColumnSpan="2"
+                    Padding="3"
+                    Background="White">
+                <CheckBox x:Name="UniformScaleCheckBox"
+                          Checked="CheckBox_CheckedChanged"
+                          Content="Uniform Scale"
+                          Unchecked="CheckBox_CheckedChanged" />
+            </Border>
+            <Button Grid.Row="4"
+                    Click="UndoButton_Click"
+                    Content="&#xe2d6;"
+                    IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Undo" />
+            <Button Grid.Row="4"
+                    Grid.Column="2"
+                    Click="RedoButton_Click"
+                    Content="&#xe23e;"
+                    IsEnabled="{Binding GeometryEditor.CanRedo, ElementName=MyMapView}"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Redo" />
+            <Button Grid.Row="5"
+                    Click="DeleteSelectedButton_Click"
+                    Content="&#xe0e8;"
+                    IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Delete selected" />
+            <Button x:Name="SaveButton"
+                    Grid.Row="5"
+                    Grid.Column="1"
+                    Click="SaveButton_Click"
+                    Content="&#xe06f;"
+                    IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Save edits" />
+            <Button Grid.Row="6"
+                    Click="DiscardButton_Click"
+                    Content="&#xe080;"
+                    IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Discard edits" />
+            <Button x:Name="DeleteAllButton"
+                    Grid.Row="6"
+                    Grid.Column="1"
+                    Click="DeleteAllButton_Click"
+                    Content="&#xe2d0;"
+                    IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView, Converter={StaticResource InverseBoolConverter}}"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Delete all geometries" />
+        </Grid>
+    </Grid>
+</UserControl>

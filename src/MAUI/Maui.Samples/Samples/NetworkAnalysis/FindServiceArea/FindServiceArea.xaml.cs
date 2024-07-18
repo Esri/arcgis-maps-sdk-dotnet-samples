@@ -34,7 +34,7 @@ namespace ArcGIS.Samples.FindServiceArea
         {
             InitializeComponent();
 
-            // Create the map, graphics overlay, and sketch editor.
+            // Create the map, graphics overlay, and geometry editor.
             Initialize();
         }
 
@@ -64,7 +64,7 @@ namespace ArcGIS.Samples.FindServiceArea
         {
             try
             {
-                // Let the user tap on the map view using the point sketch mode.
+                // Let the user tap on the map view using the point geometry type.
                 _geometryType = GeometryType.Point;
 
                 // Start the geometry editor.
@@ -127,7 +127,7 @@ namespace ArcGIS.Samples.FindServiceArea
                 // Update the UI.
                 DrawBarrierButton.Text = "Finish drawing";
 
-                // Let the user draw on the map view using the polyline sketch mode.
+                // Let the user draw on the map view using the polyline geometry type.
                 _geometryType = GeometryType.Polyline;
 
                 // Start the geometry editor.

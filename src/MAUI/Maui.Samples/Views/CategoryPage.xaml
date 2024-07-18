@@ -61,7 +61,7 @@
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="viewModels:SampleViewModel">
-                <Border StrokeThickness="{OnPlatform Default=0, Android=1}">
+                <Border Margin="{OnPlatform Default=0, Android=5}" StrokeThickness="{OnPlatform Default=0, Android=1}">
                     <Border.GestureRecognizers>
                         <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
                         <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
@@ -81,6 +81,8 @@
 
                         <Button x:Name="FavoriteButton"
                                 Grid.Row="0"
+                                Margin="{OnPlatform Default=0,
+                                                    WinUI='-1'}"
                                 Padding="2"
                                 Background="#A52F2F2F"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"

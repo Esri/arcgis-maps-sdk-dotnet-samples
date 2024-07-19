@@ -16,7 +16,11 @@
     ],
     "offline_data": [],
     "redirect_from": [
+<<<<<<< HEAD
         "/net/latest/maui/sample-code/configure-basemap-style-parameters.htm"
+=======
+        "/net/latest/maui/sample-code/configurebasemapstyleparameters.htm"
+>>>>>>> c7998104a (New sample: Configure basemap style parameters (#1418))
     ],
     "relevant_apis": [
         "Basemap",

@@ -6,7 +6,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{5278F66E-D41F-45D2-8327-25EA13A11618}</ProjectGuid>
-    <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
+    <!--<ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>-->
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>ArcGISMapsSDK</RootNamespace>
@@ -131,20 +131,2635 @@
   </ItemGroup>
   <!-- Samples -->
   <ItemGroup>
-    <Compile Include="Samples\**\*.cs" DependentUpon="%(Filename)" />
-    <Content Include="Samples\*\*\*.jpg">
+    <Compile Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml.cs">
+      <DependentUpon>DistanceMeasurement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml.cs">
+      <DependentUpon>LineOfSightGeoElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml.cs">
+      <DependentUpon>LineOfSightLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml.cs">
+      <DependentUpon>QueryFeatureCountAndExtent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml.cs">
+      <DependentUpon>ViewshedCamera.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml.cs">
+      <DependentUpon>ViewshedGeoElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.xaml.cs">
+      <DependentUpon>ViewshedLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\AddFeaturesWithContingentValues\AddFeaturesWithContingentValues.xaml.cs">
+      <DependentUpon>AddFeaturesWithContingentValues.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\CreateMobileGeodatabase\CreateMobileGeodatabase.xaml.cs">
+      <DependentUpon>CreateMobileGeodatabase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml.cs">
+      <DependentUpon>EditAndSyncFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.xaml.cs">
+      <DependentUpon>EditBranchVersioning.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml.cs">
+      <DependentUpon>EditFeatureAttachments.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.xaml.cs">
+      <DependentUpon>EditFeatureLinkedAnnotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml.cs">
+      <DependentUpon>FeatureLayerQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\GenerateGeodatabaseReplica\GenerateGeodatabaseReplica.xaml.cs">
+      <DependentUpon>GenerateGeodatabaseReplica.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml.cs">
+      <DependentUpon>GeodatabaseTransactions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml.cs">
+      <DependentUpon>ListRelatedFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ManageFeatures\ManageFeatures.xaml.cs">
+      <DependentUpon>ManageFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml.cs">
+      <DependentUpon>QueryFeaturesWithArcadeExpression.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml.cs">
+      <DependentUpon>RasterLayerGeoPackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml.cs">
+      <DependentUpon>ReadGeoPackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml.cs">
+      <DependentUpon>ReadShapefileMetadata.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\StatisticalQuery\StatisticalQuery.xaml.cs">
+      <DependentUpon>StatisticalQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml.cs">
+      <DependentUpon>StatsQueryGroupAndSort.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml.cs">
+      <DependentUpon>SymbolizeShapefile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.xaml.cs">
+      <DependentUpon>ToggleBetweenFeatureRequestModes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml.cs">
+      <DependentUpon>ViewPointCloudDataOffline.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\BufferList\BufferList.xaml.cs">
+      <DependentUpon>BufferList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\Buffer\Buffer.xaml.cs">
+      <DependentUpon>Buffer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\ClipGeometry\ClipGeometry.xaml.cs">
+      <DependentUpon>ClipGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\ConvexHullList\ConvexHullList.xaml.cs">
+      <DependentUpon>ConvexHullList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\ConvexHull\ConvexHull.xaml.cs">
+      <DependentUpon>ConvexHull.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\CreateAndEditGeometries\CreateAndEditGeometries.xaml.cs">
+      <DependentUpon>CreateAndEditGeometries.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\CreateGeometries\CreateGeometries.xaml.cs">
+      <DependentUpon>CreateGeometries.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\CutGeometry\CutGeometry.xaml.cs">
+      <DependentUpon>CutGeometry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.xaml.cs">
+      <DependentUpon>DensifyAndGeneralize.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml.cs">
+      <DependentUpon>FormatCoordinates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\GeodesicOperations\GeodesicOperations.xaml.cs">
+      <DependentUpon>GeodesicOperations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\ListTransformations\ListTransformations.xaml.cs">
+      <DependentUpon>ListTransformations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\NearestVertex\NearestVertex.xaml.cs">
+      <DependentUpon>NearestVertex.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml.cs">
+      <DependentUpon>ProjectWithSpecificTransformation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\Project\Project.xaml.cs">
+      <DependentUpon>Project.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\SnapGeometryEdits\SnapGeometryEdits.xaml.cs">
+      <DependentUpon>SnapGeometryEdits.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\SpatialOperations\SpatialOperations.xaml.cs">
+      <DependentUpon>SpatialOperations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geometry\SpatialRelationships\SpatialRelationships.xaml.cs">
+      <DependentUpon>SpatialRelationships.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml.cs">
+      <DependentUpon>AnalyzeHotspots.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml.cs">
+      <DependentUpon>AnalyzeViewshed.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml.cs">
+      <DependentUpon>ListGeodatabaseVersions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml.cs">
+      <DependentUpon>AddGraphicsRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml.cs">
+      <DependentUpon>AddGraphicsWithSymbols.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml.cs">
+      <DependentUpon>Animate3DGraphic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.xaml.cs">
+      <DependentUpon>DictionaryRendererGraphicsOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml.cs">
+      <DependentUpon>IdentifyGraphics.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.xaml.cs">
+      <DependentUpon>ScenePropertiesExpressions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml.cs">
+      <DependentUpon>SurfacePlacements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml.cs">
+      <DependentUpon>AddEncExchangeSet.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml.cs">
+      <DependentUpon>ChangeEncDisplaySettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml.cs">
+      <DependentUpon>SelectEncFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\Add3dTilesLayer\Add3dTilesLayer.xaml.cs">
+      <DependentUpon>Add3dTilesLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.xaml.cs">
+      <DependentUpon>AddAnIntegratedMeshLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\AddCustomDynamicEntityDataSource\AddCustomDynamicEntityDataSource.xaml.cs">
+      <DependentUpon>AddCustomDynamicEntityDataSource.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\AddCustomDynamicEntityDataSource\SimulatedDataSource.cs">
+      <DependentUpon>SimulatedDataSource</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\AddDynamicEntityLayer\AddDynamicEntityLayer.xaml.cs">
+      <DependentUpon>AddDynamicEntityLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml.cs">
+      <DependentUpon>AddPointSceneLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\AddVectorTiledLayerFromCustomStyle\AddVectorTiledLayerFromCustomStyle.xaml.cs">
+      <DependentUpon>AddVectorTiledLayerFromCustomStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.xaml.cs">
+      <DependentUpon>ApplyMosaicRule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISMapImageLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml.cs">
+      <DependentUpon>ArcGISTiledLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.xaml.cs">
+      <DependentUpon>BrowseOAFeatureService.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml.cs">
+      <DependentUpon>BrowseWfsLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml.cs">
+      <DependentUpon>ChangeBlendRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml.cs">
+      <DependentUpon>ChangeFeatureLayerRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml.cs">
+      <DependentUpon>ChangeStretchRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml.cs">
+      <DependentUpon>ChangeSublayerRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml.cs">
+      <DependentUpon>ChangeSublayerVisibility.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ConfigureClusters\ConfigureClusters.xaml.cs">
+      <DependentUpon>ConfigureClusters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.xaml.cs">
+      <DependentUpon>ControlAnnotationSublayerVisibility.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.xaml.cs">
+      <DependentUpon>CreateAndSaveKmlFile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml.cs">
+      <DependentUpon>CreateFeatureCollectionLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.xaml.cs">
+      <DependentUpon>DisplayAnnotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayClusters\DisplayClusters.xaml.cs">
+      <DependentUpon>DisplayClusters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayDimensions\DisplayDimensions.xaml.cs">
+      <DependentUpon>DisplayDimensions.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.xaml.cs">
+      <DependentUpon>DisplayFeatureLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml.cs">
+      <DependentUpon>DisplayKmlNetworkLinks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayKml\DisplayKml.xaml.cs">
+      <DependentUpon>DisplayKml.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayOACollection\DisplayOACollection.xaml.cs">
+      <DependentUpon>DisplayOACollection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayRouteLayer\DisplayRouteLayer.xaml.cs">
+      <DependentUpon>DisplayRouteLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayScene\DisplayScene.xaml.cs">
+      <DependentUpon>DisplayScene.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.xaml.cs">
+      <DependentUpon>DisplaySubtypeFeatureLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\DisplayWfs\DisplayWfs.xaml.cs">
+      <DependentUpon>DisplayWfs.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.xaml.cs">
+      <DependentUpon>EditKmlGroundOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ExportTiles\ExportTiles.xaml.cs">
+      <DependentUpon>ExportTiles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ExportVectorTiles\ExportVectorTiles.xaml.cs">
+      <DependentUpon>ExportVectorTiles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml.cs">
+      <DependentUpon>FeatureCollectionLayerFromPortal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.xaml.cs">
+      <DependentUpon>FeatureCollectionLayerFromQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml.cs">
+      <DependentUpon>FeatureLayerDefinitionExpression.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml.cs">
+      <DependentUpon>FeatureLayerDictionaryRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml.cs">
+      <DependentUpon>FeatureLayerRenderingModeMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml.cs">
+      <DependentUpon>FeatureLayerRenderingModeScene.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml.cs">
+      <DependentUpon>FeatureLayerSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml.cs">
+      <DependentUpon>FeatureLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\GroupLayers\GroupLayers.xaml.cs">
+      <DependentUpon>GroupLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml.cs">
+      <DependentUpon>IdentifyKmlFeatures.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.xaml.cs">
+      <DependentUpon>IdentifyRasterCell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml.cs">
+      <DependentUpon>ListKmlContents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.xaml.cs">
+      <DependentUpon>LoadWebTiledLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.xaml.cs">
+      <DependentUpon>MapImageLayerTables.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml.cs">
+      <DependentUpon>MapImageSublayerQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml.cs">
+      <DependentUpon>OpenStreetMapLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml.cs">
+      <DependentUpon>PlayKmlTours.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.xaml.cs">
+      <DependentUpon>QueryCQLFilters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml.cs">
+      <DependentUpon>RasterColormapRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml.cs">
+      <DependentUpon>RasterHillshade.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml.cs">
+      <DependentUpon>RasterLayerFile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml.cs">
+      <DependentUpon>RasterLayerImageServiceRaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml.cs">
+      <DependentUpon>RasterLayerRasterFunction.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.xaml.cs">
+      <DependentUpon>RasterRenderingRule.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml.cs">
+      <DependentUpon>RasterRgbRenderer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.xaml.cs">
+      <DependentUpon>SceneLayerSelection.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml.cs">
+      <DependentUpon>SceneLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.xaml.cs">
+      <DependentUpon>ShowLabelsOnLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml.cs">
+      <DependentUpon>StyleWmsLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml.cs">
+      <DependentUpon>TimeBasedQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.xaml.cs">
+      <DependentUpon>WfsXmlQuery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml.cs">
+      <DependentUpon>WmsIdentify.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml.cs">
+      <DependentUpon>WMSLayerUrl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.xaml.cs">
+      <DependentUpon>WmsServiceCatalog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml.cs">
+      <DependentUpon>WMTSLayer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml.cs">
+      <DependentUpon>DisplayDeviceLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.xaml.cs">
+      <DependentUpon>LocationDrivenGeotriggers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Location\LocationWithNMEA\LocationWithNMEA.xaml.cs">
+      <DependentUpon>LocationWithNMEA.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml.cs">
+      <DependentUpon>ShowLocationHistory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml.cs">
+      <DependentUpon>ChangeTimeExtent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml.cs">
+      <DependentUpon>ChangeViewpoint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.xaml.cs">
+      <DependentUpon>DisplayDrawingStatus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\DisplayGrid\DisplayGrid.xaml.cs">
+      <DependentUpon>DisplayGrid.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml.cs">
+      <DependentUpon>DisplayLayerViewState.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml.cs">
+      <DependentUpon>FeatureLayerTimeOffset.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\FilterByTimeExtent\FilterByTimeExtent.xaml.cs">
+      <DependentUpon>FilterByTimeExtent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\IdentifyLayers\IdentifyLayers.xaml.cs">
+      <DependentUpon>IdentifyLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\MapRotation\MapRotation.xaml.cs">
+      <DependentUpon>MapRotation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ShowCallout\ShowCallout.xaml.cs">
+      <DependentUpon>ShowCallout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\ShowMagnifier\ShowMagnifier.xaml.cs">
+      <DependentUpon>ShowMagnifier.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\MapView\TakeScreenshot\TakeScreenshot.xaml.cs">
+      <DependentUpon>TakeScreenshot.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml.cs">
+      <DependentUpon>AccessLoadStatus.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml.cs">
+      <DependentUpon>ApplyScheduledUpdates.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\AuthorMap\AuthorMap.xaml.cs">
+      <DependentUpon>AuthorMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.xaml.cs">
+      <DependentUpon>BrowseBuildingFloors.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ChangeBasemap\ChangeBasemap.xaml.cs">
+      <DependentUpon>ChangeBasemap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ConfigureBasemapStyleParameters\ConfigureBasemapStyleParameters.xaml.cs">
+      <DependentUpon>ConfigureBasemapStyleParameters.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\CreateDynamicBasemapGallery\CreateDynamicBasemapGallery.xaml.cs">
+      <DependentUpon>CreateDynamicBasemapGallery.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\DisplayMap\DisplayMap.xaml.cs">
+      <DependentUpon>DisplayMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\DisplayOverviewMap\DisplayOverviewMap.xaml.cs">
+      <DependentUpon>DisplayOverviewMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml.cs">
+      <DependentUpon>DownloadPreplannedMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.xaml.cs">
+      <DependentUpon>GenerateOfflineMapWithOverrides.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.xaml.cs">
+      <DependentUpon>GenerateOfflineMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.xaml.cs">
+      <DependentUpon>HonorMobileMapPackageExpiration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml.cs">
+      <DependentUpon>ManageBookmarks.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.xaml.cs">
+      <DependentUpon>ManageOperationalLayers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml.cs">
+      <DependentUpon>MapReferenceScale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml.cs">
+      <DependentUpon>MobileMapSearchAndRoute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.xaml.cs">
+      <DependentUpon>OfflineBasemapByReference.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OpenMapURL\OpenMapURL.xaml.cs">
+      <DependentUpon>OpenMapURL.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\OpenMobileMap\OpenMobileMap.xaml.cs">
+      <DependentUpon>OpenMobileMap.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml.cs">
+      <DependentUpon>SearchPortalMaps.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml.cs">
+      <DependentUpon>SetInitialMapArea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml.cs">
+      <DependentUpon>SetInitialMapLocation.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml.cs">
+      <DependentUpon>SetMapSpatialReference.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetMaxExtent\SetMaxExtent.xaml.cs">
+      <DependentUpon>SetMaxExtent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml.cs">
+      <DependentUpon>SetMinMaxScale.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml.cs">
+      <DependentUpon>ClosestFacilityStatic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\ClosestFacility\ClosestFacility.xaml.cs">
+      <DependentUpon>ClosestFacility.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\FindRoute\FindRoute.xaml.cs">
+      <DependentUpon>FindRoute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml.cs">
+      <DependentUpon>FindServiceAreasForMultipleFacilities.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\FindServiceArea\FindServiceArea.xaml.cs">
+      <DependentUpon>FindServiceArea.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml.cs">
+      <DependentUpon>NavigateRouteRerouting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\NavigateRoute\NavigateRoute.xaml.cs">
+      <DependentUpon>NavigateRoute.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\OfflineRouting\OfflineRouting.xaml.cs">
+      <DependentUpon>OfflineRouting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\NetworkAnalysis\RouteAroundBarriers\RouteAroundBarriers.xaml.cs">
+      <DependentUpon>RouteAroundBarriers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml.cs">
+      <DependentUpon>AnimateImageOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.xaml.cs">
+      <DependentUpon>ChooseCameraController.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\SceneView\GeoViewSync\GeoViewSync.xaml.cs">
+      <DependentUpon>GeoViewSync.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml.cs">
+      <DependentUpon>ChangeAtmosphereEffect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceRaster.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.xaml.cs">
+      <DependentUpon>CreateTerrainSurfaceTilePackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\FilterFeaturesInScene\FilterFeaturesInScene.xaml.cs">
+      <DependentUpon>FilterFeaturesInScene.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.xaml.cs">
+      <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.xaml.cs">
+      <DependentUpon>OpenMobileScenePackage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.xaml.cs">
+      <DependentUpon>OpenScenePortalItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\ShowLabelsOnLayer3D\ShowLabelsOnLayer3D.xaml.cs">
+      <DependentUpon>ShowLabelsOnLayer3D.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\TerrainExaggeration\TerrainExaggeration.xaml.cs">
+      <DependentUpon>TerrainExaggeration.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml.cs">
+      <DependentUpon>ViewContentBeneathSurface.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Search\FindAddress\FindAddress.xaml.cs">
+      <DependentUpon>FindAddress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Search\FindPlace\FindPlace.xaml.cs">
+      <DependentUpon>FindPlace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Search\OfflineGeocode\OfflineGeocode.xaml.cs">
+      <DependentUpon>OfflineGeocode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Search\ReverseGeocode\ReverseGeocode.xaml.cs">
+      <DependentUpon>ReverseGeocode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Security\CertificateAuthenticationWithPki\CertificateAuthenticationWithPKI.xaml.cs">
+      <DependentUpon>CertificateAuthenticationWithPKI.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml.cs">
+      <DependentUpon>IntegratedWindowsAuth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Security\OAuth\OAuth.xaml.cs">
+      <DependentUpon>OAuth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml.cs">
+      <DependentUpon>TokenSecuredChallenge.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.xaml.cs">
+      <DependentUpon>CustomDictionaryStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml.cs">
+      <DependentUpon>FeatureLayerExtrusion.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.xaml.cs">
+      <DependentUpon>RenderMultilayerSymbols.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml.cs">
+      <DependentUpon>RenderPictureMarkers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml.cs">
+      <DependentUpon>RenderSimpleMarkers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml.cs">
+      <DependentUpon>RenderUniqueValues.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\SceneSymbols\SceneSymbols.xaml.cs">
+      <DependentUpon>SceneSymbols.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml.cs">
+      <DependentUpon>SimpleRenderers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml.cs">
+      <DependentUpon>SymbolsFromMobileStyle.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml.cs">
+      <DependentUpon>SymbolStylesFromWebStyles.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\UniqueValuesAlternateSymbols\UniqueValuesAlternateSymbols.xaml.cs">
+      <DependentUpon>UniqueValuesAlternateSymbols.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml.cs">
+      <DependentUpon>UseDistanceCompositeSym.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\UtilityNetwork\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml.cs">
+      <DependentUpon>ConfigureSubnetworkTrace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\UtilityNetwork\CreateLoadReport\CreateLoadReport.xaml.cs">
+      <DependentUpon>CreateLoadReport.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\UtilityNetwork\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml.cs">
+      <DependentUpon>DisplayUtilityAssociations.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.xaml.cs">
+      <DependentUpon>DisplayUtilityNetworkContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\UtilityNetwork\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml.cs">
+      <DependentUpon>PerformValveIsolationTrace.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\UtilityNetwork\TraceUtilityNetwork\TraceUtilityNetwork.xaml.cs">
+      <DependentUpon>TraceUtilityNetwork.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Samples\UtilityNetwork\ValidateUtilityNetworkTopology\ValidateUtilityNetworkTopology.xaml.cs">
+      <DependentUpon>ValidateUtilityNetworkTopology.xaml</DependentUpon>
+    </Compile>
+    <Content Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Page Include="Samples\**\*.xaml">
+    <Content Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\AddFeaturesWithContingentValues\AddFeaturesWithContingentValues.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\CreateMobileGeodatabase\CreateMobileGeodatabase.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\GenerateGeodatabaseReplica\GenerateGeodatabaseReplica.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ManageFeatures\ManageFeatures.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\StatisticalQuery\StatisticalQuery.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\BufferList\BufferList.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\Buffer\Buffer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\ClipGeometry\ClipGeometry.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\ConvexHullList\ConvexHullList.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\ConvexHull\ConvexHull.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\CreateAndEditGeometries\CreateAndEditGeometries.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\CreateGeometries\CreateGeometries.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\CutGeometry\CutGeometry.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\GeodesicOperations\GeodesicOperations.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\ListTransformations\ListTransformations.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\NearestVertex\NearestVertex.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\Project\Project.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\SnapGeometryEdits\SnapGeometryEdits.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\SpatialOperations\SpatialOperations.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\SpatialRelationships\SpatialRelationships.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\Add3dTilesLayer\Add3dTilesLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\AddCustomDynamicEntityDataSource\AddCustomDynamicEntityDataSource.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\AddDynamicEntityLayer\AddDynamicEntityLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\AddVectorTiledLayerFromCustomStyle\AddVectorTiledLayerFromCustomStyle.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ConfigureClusters\ConfigureClusters.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayClusters\DisplayClusters.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayDimensions\DisplayDimensions.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayKml\DisplayKml.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayOACollection\DisplayOACollection.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayRouteLayer\DisplayRouteLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayScene\DisplayScene.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayWfs\DisplayWfs.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ExportTiles\ExportTiles.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ExportVectorTiles\ExportVectorTiles.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\GroupLayers\GroupLayers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ListKmlContents\ListKmlContents.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\PlayKmlTours\PlayKmlTours.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterHillshade\RasterHillshade.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterLayerFile\RasterLayerFile.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WmsIdentify\WmsIdentify.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WMTSLayer\WMTSLayer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Location\LocationWithNMEA\LocationWithNMEA.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\DisplayGrid\DisplayGrid.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\FilterByTimeExtent\FilterByTimeExtent.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\IdentifyLayers\IdentifyLayers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\MapRotation\MapRotation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ShowCallout\ShowCallout.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ShowMagnifier\ShowMagnifier.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\TakeScreenshot\TakeScreenshot.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\AuthorMap\AuthorMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ChangeBasemap\ChangeBasemap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ConfigureBasemapStyleParameters\ConfigureBasemapStyleParameters.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\CreateDynamicBasemapGallery\CreateDynamicBasemapGallery.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\DisplayMap\DisplayMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\DisplayOverviewMap\DisplayOverviewMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ManageBookmarks\ManageBookmarks.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\MapReferenceScale\MapReferenceScale.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\OpenMapURL\OpenMapURL.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\OpenMobileMap\OpenMobileMap.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetMaxExtent\SetMaxExtent.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\ClosestFacilityStatic\ClosestFacilityStatic.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\ClosestFacility\ClosestFacility.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\FindRoute\FindRoute.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\FindServiceArea\FindServiceArea.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\NavigateRouteRerouting\NavigateRouteRerouting.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\NavigateRoute\NavigateRoute.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\OfflineRouting\OfflineRouting.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\RouteAroundBarriers\RouteAroundBarriers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\SceneView\GeoViewSync\GeoViewSync.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\FilterFeaturesInScene\FilterFeaturesInScene.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\ShowLabelsOnLayer3D\ShowLabelsOnLayer3D.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\TerrainExaggeration\TerrainExaggeration.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\FindAddress\FindAddress.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\FindPlace\FindPlace.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\OfflineGeocode\OfflineGeocode.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\ReverseGeocode\ReverseGeocode.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Security\CertificateAuthenticationWithPki\CertificateAuthenticationWithPKI.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Security\OAuth\OAuth.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\SceneSymbols\SceneSymbols.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\UniqueValuesAlternateSymbols\UniqueValuesAlternateSymbols.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\CreateLoadReport\CreateLoadReport.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\DisplayUtilityAssociations\DisplayUtilityAssociations.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\PerformValveIsolationTrace\PerformValveIsolationTrace.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\TraceUtilityNetwork\TraceUtilityNetwork.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\ValidateUtilityNetworkTopology\ValidateUtilityNetworkTopology.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Page Include="Samples\Analysis\DistanceMeasurement\DistanceMeasurement.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Content Include="**\*.md">
+    <Page Include="Samples\Analysis\LineOfSightGeoElement\LineOfSightGeoElement.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Analysis\LineOfSightLocation\LineOfSightLocation.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Analysis\QueryFeatureCountAndExtent\QueryFeatureCountAndExtent.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Analysis\ViewshedCamera\ViewshedCamera.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Analysis\ViewshedGeoElement\ViewshedGeoElement.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Analysis\ViewshedLocation\ViewshedLocation.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\AddFeaturesWithContingentValues\AddFeaturesWithContingentValues.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\CreateMobileGeodatabase\CreateMobileGeodatabase.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\EditAndSyncFeatures\EditAndSyncFeatures.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\EditBranchVersioning\EditBranchVersioning.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\EditFeatureAttachments\EditFeatureAttachments.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\EditFeatureLinkedAnnotation\EditFeatureLinkedAnnotation.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\FeatureLayerQuery\FeatureLayerQuery.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\GenerateGeodatabaseReplica\GenerateGeodatabaseReplica.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\GeodatabaseTransactions\GeodatabaseTransactions.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\ListRelatedFeatures\ListRelatedFeatures.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\ManageFeatures\ManageFeatures.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\QueryFeaturesWithArcadeExpression\QueryFeaturesWithArcadeExpression.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\RasterLayerGeoPackage\RasterLayerGeoPackage.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\ReadGeoPackage\ReadGeoPackage.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\ReadShapefileMetadata\ReadShapefileMetadata.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\StatisticalQuery\StatisticalQuery.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\StatsQueryGroupAndSort\StatsQueryGroupAndSort.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\SymbolizeShapefile\SymbolizeShapefile.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\ToggleBetweenFeatureRequestModes\ToggleBetweenFeatureRequestModes.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Data\ViewPointCloudDataOffline\ViewPointCloudDataOffline.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\BufferList\BufferList.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\Buffer\Buffer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\ClipGeometry\ClipGeometry.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\ConvexHullList\ConvexHullList.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\ConvexHull\ConvexHull.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\CreateAndEditGeometries\CreateAndEditGeometries.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\CreateGeometries\CreateGeometries.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\CutGeometry\CutGeometry.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\DensifyAndGeneralize\DensifyAndGeneralize.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\FormatCoordinates\FormatCoordinates.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\GeodesicOperations\GeodesicOperations.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\ListTransformations\ListTransformations.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\NearestVertex\NearestVertex.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\ProjectWithSpecificTransformation\ProjectWithSpecificTransformation.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\Project\Project.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\SnapGeometryEdits\SnapGeometryEdits.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\SpatialOperations\SpatialOperations.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geometry\SpatialRelationships\SpatialRelationships.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geoprocessing\AnalyzeHotspots\AnalyzeHotspots.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geoprocessing\AnalyzeViewshed\AnalyzeViewshed.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Geoprocessing\ListGeodatabaseVersions\ListGeodatabaseVersions.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\AddGraphicsRenderer\AddGraphicsRenderer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\AddGraphicsWithSymbols.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\Animate3DGraphic\Animate3DGraphic.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\DictionaryRendererGraphicsOverlay.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\IdentifyGraphics\IdentifyGraphics.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\ScenePropertiesExpressions.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\GraphicsOverlay\SurfacePlacements\SurfacePlacements.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Hydrography\AddEncExchangeSet\AddEncExchangeSet.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Hydrography\ChangeEncDisplaySettings\ChangeEncDisplaySettings.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Hydrography\SelectEncFeatures\SelectEncFeatures.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\Add3dTilesLayer\Add3dTilesLayer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\AddAnIntegratedMeshLayer\AddAnIntegratedMeshLayer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\AddCustomDynamicEntityDataSource\AddCustomDynamicEntityDataSource.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\AddDynamicEntityLayer\AddDynamicEntityLayer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\AddPointSceneLayer\AddPointSceneLayer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\AddVectorTiledLayerFromCustomStyle\AddVectorTiledLayerFromCustomStyle.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ApplyMosaicRule\ApplyMosaicRule.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISMapImageLayerUrl\ArcGISMapImageLayerUrl.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ArcGISTiledLayerUrl\ArcGISTiledLayerUrl.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\BrowseOAFeatureService\BrowseOAFeatureService.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\BrowseWfsLayers\BrowseWfsLayers.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ChangeBlendRenderer\ChangeBlendRenderer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ChangeFeatureLayerRenderer\ChangeFeatureLayerRenderer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ChangeStretchRenderer\ChangeStretchRenderer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ChangeSublayerRenderer\ChangeSublayerRenderer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ChangeSublayerVisibility\ChangeSublayerVisibility.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ConfigureClusters\ConfigureClusters.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ControlAnnotationSublayerVisibility\ControlAnnotationSublayerVisibility.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\CreateAndSaveKmlFile\CreateAndSaveKmlFile.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\CreateFeatureCollectionLayer\CreateFeatureCollectionLayer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\DisplayAnnotation\DisplayAnnotation.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\DisplayClusters\DisplayClusters.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\DisplayDimensions\DisplayDimensions.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\DisplayFeatureLayers\DisplayFeatureLayers.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\DisplayKmlNetworkLinks\DisplayKmlNetworkLinks.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\DisplayKml\DisplayKml.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\DisplayOACollection\DisplayOACollection.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\DisplayRouteLayer\DisplayRouteLayer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\DisplayScene\DisplayScene.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\DisplaySubtypeFeatureLayer\DisplaySubtypeFeatureLayer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\DisplayWfs\DisplayWfs.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\EditKmlGroundOverlay\EditKmlGroundOverlay.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ExportTiles\ExportTiles.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ExportVectorTiles\ExportVectorTiles.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\FeatureCollectionLayerFromPortal\FeatureCollectionLayerFromPortal.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\FeatureCollectionLayerFromQuery\FeatureCollectionLayerFromQuery.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerDefinitionExpression\FeatureLayerDefinitionExpression.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerDictionaryRenderer\FeatureLayerDictionaryRenderer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerRenderingModeMap\FeatureLayerRenderingModeMap.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerRenderingModeScene\FeatureLayerRenderingModeScene.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerSelection\FeatureLayerSelection.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\FeatureLayerUrl\FeatureLayerUrl.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\GroupLayers\GroupLayers.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\IdentifyKmlFeatures\IdentifyKmlFeatures.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\IdentifyRasterCell\IdentifyRasterCell.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ListKmlContents\ListKmlContents.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\LoadWebTiledLayer\LoadWebTiledLayer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\MapImageLayerTables\MapImageLayerTables.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\MapImageSublayerQuery\MapImageSublayerQuery.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\OpenStreetMapLayer\OpenStreetMapLayer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\PlayKmlTours\PlayKmlTours.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\QueryCQLFilters\QueryCQLFilters.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\RasterColormapRenderer\RasterColormapRenderer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\RasterHillshade\RasterHillshade.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\RasterLayerFile\RasterLayerFile.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\RasterLayerImageServiceRaster\RasterLayerImageServiceRaster.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\RasterLayerRasterFunction\RasterLayerRasterFunction.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\RasterRenderingRule\RasterRenderingRule.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\RasterRgbRenderer\RasterRgbRenderer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\SceneLayerSelection\SceneLayerSelection.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\SceneLayerUrl\SceneLayerUrl.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\ShowLabelsOnLayer\ShowLabelsOnLayer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\StyleWmsLayer\StyleWmsLayer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\TimeBasedQuery\TimeBasedQuery.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\WfsXmlQuery\WfsXmlQuery.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\WmsIdentify\WmsIdentify.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\WMSLayerUrl\WMSLayerUrl.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\WmsServiceCatalog\WmsServiceCatalog.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Layers\WMTSLayer\WMTSLayer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Location\DisplayDeviceLocation\DisplayDeviceLocation.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Location\LocationDrivenGeotriggers\LocationDrivenGeotriggers.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Location\LocationWithNMEA\LocationWithNMEA.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Location\ShowLocationHistory\ShowLocationHistory.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\MapView\ChangeTimeExtent\ChangeTimeExtent.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\MapView\ChangeViewpoint\ChangeViewpoint.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\MapView\DisplayDrawingStatus\DisplayDrawingStatus.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\MapView\DisplayGrid\DisplayGrid.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\MapView\DisplayLayerViewState\DisplayLayerViewState.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\MapView\FeatureLayerTimeOffset\FeatureLayerTimeOffset.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\MapView\FilterByTimeExtent\FilterByTimeExtent.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\MapView\IdentifyLayers\IdentifyLayers.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\MapView\MapRotation\MapRotation.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\MapView\ShowCallout\ShowCallout.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\MapView\ShowMagnifier\ShowMagnifier.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\MapView\TakeScreenshot\TakeScreenshot.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\AccessLoadStatus\AccessLoadStatus.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\ApplyScheduledUpdates\ApplyScheduledUpdates.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\AuthorMap\AuthorMap.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\BrowseBuildingFloors\BrowseBuildingFloors.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\ChangeBasemap\ChangeBasemap.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\ConfigureBasemapStyleParameters\ConfigureBasemapStyleParameters.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\CreateDynamicBasemapGallery\CreateDynamicBasemapGallery.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\DisplayMap\DisplayMap.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\DisplayOverviewMap\DisplayOverviewMap.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\DownloadPreplannedMap\DownloadPreplannedMap.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\GenerateOfflineMapWithOverrides\GenerateOfflineMapWithOverrides.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\GenerateOfflineMap\GenerateOfflineMap.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\HonorMobileMapPackageExpiration\HonorMobileMapPackageExpiration.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\ManageBookmarks\ManageBookmarks.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\ManageOperationalLayers\ManageOperationalLayers.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\MapReferenceScale\MapReferenceScale.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\MobileMapSearchAndRoute\MobileMapSearchAndRoute.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\OfflineBasemapByReference\OfflineBasemapByReference.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\OpenMapURL\OpenMapURL.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\OpenMobileMap\OpenMobileMap.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\SearchPortalMaps\SearchPortalMaps.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapArea\SetInitialMapArea.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\SetInitialMapLocation\SetInitialMapLocation.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\SetMapSpatialReference\SetMapSpatialReference.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\SetMaxExtent\SetMaxExtent.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Map\SetMinMaxScale\SetMinMaxScale.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\NetworkAnalysis\ClosestFacilityStatic\ClosestFacilityStatic.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\NetworkAnalysis\ClosestFacility\ClosestFacility.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\NetworkAnalysis\FindRoute\FindRoute.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\NetworkAnalysis\FindServiceAreasForMultipleFacilities\FindServiceAreasForMultipleFacilities.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\NetworkAnalysis\FindServiceArea\FindServiceArea.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\NetworkAnalysis\NavigateRouteRerouting\NavigateRouteRerouting.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\NetworkAnalysis\NavigateRoute\NavigateRoute.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\NetworkAnalysis\OfflineRouting\OfflineRouting.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\NetworkAnalysis\RouteAroundBarriers\RouteAroundBarriers.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\SceneView\ChooseCameraController\ChooseCameraController.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\SceneView\GeoViewSync\GeoViewSync.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Scene\ChangeAtmosphereEffect\ChangeAtmosphereEffect.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Scene\CreateTerrainSurfaceRaster\CreateTerrainSurfaceRaster.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Scene\CreateTerrainSurfaceTilePackage\CreateTerrainSurfaceTilePackage.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Scene\FilterFeaturesInScene\FilterFeaturesInScene.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Scene\GetElevationAtPoint\GetElevationAtPoint.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Scene\OpenMobileScenePackage\OpenMobileScenePackage.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Scene\OpenScenePortalItem\OpenScenePortalItem.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Scene\ShowLabelsOnLayer3D\ShowLabelsOnLayer3D.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Scene\TerrainExaggeration\TerrainExaggeration.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Scene\ViewContentBeneathSurface\ViewContentBeneathSurface.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Search\FindAddress\FindAddress.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Search\FindPlace\FindPlace.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Search\OfflineGeocode\OfflineGeocode.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Search\ReverseGeocode\ReverseGeocode.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Security\CertificateAuthenticationWithPki\CertificateAuthenticationWithPKI.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Security\IntegratedWindowsAuth\IntegratedWindowsAuth.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Security\OAuth\OAuth.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Security\TokenSecuredChallenge\TokenSecuredChallenge.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Symbology\CustomDictionaryStyle\CustomDictionaryStyle.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Symbology\FeatureLayerExtrusion\FeatureLayerExtrusion.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Symbology\RenderMultilayerSymbols\RenderMultilayerSymbols.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Symbology\RenderPictureMarkers\RenderPictureMarkers.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Symbology\RenderSimpleMarkers\RenderSimpleMarkers.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Symbology\RenderUniqueValues\RenderUniqueValues.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Symbology\SceneSymbols\SceneSymbols.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Symbology\SimpleRenderers\SimpleRenderers.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Symbology\SymbolsFromMobileStyle\SymbolsFromMobileStyle.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Symbology\SymbolStylesFromWebStyles\SymbolStylesFromWebStyles.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Symbology\UniqueValuesAlternateSymbols\UniqueValuesAlternateSymbols.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\Symbology\UseDistanceCompositeSym\UseDistanceCompositeSym.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\UtilityNetwork\ConfigureSubnetworkTrace\ConfigureSubnetworkTrace.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\UtilityNetwork\CreateLoadReport\CreateLoadReport.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\UtilityNetwork\DisplayUtilityAssociations\DisplayUtilityAssociations.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\UtilityNetwork\DisplayUtilityNetworkContainer\DisplayUtilityNetworkContainer.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\UtilityNetwork\PerformValveIsolationTrace\PerformValveIsolationTrace.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\UtilityNetwork\TraceUtilityNetwork\TraceUtilityNetwork.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Samples\UtilityNetwork\ValidateUtilityNetworkTopology\ValidateUtilityNetworkTopology.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Content Include="readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\licenses.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\DistanceMeasurement\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\LineOfSightGeoElement\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\LineOfSightLocation\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\QueryFeatureCountAndExtent\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\ViewshedCamera\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\ViewshedGeoElement\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Analysis\ViewshedLocation\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\AddFeaturesWithContingentValues\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\CreateMobileGeodatabase\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\EditAndSyncFeatures\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\EditBranchVersioning\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\EditFeatureAttachments\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\EditFeatureLinkedAnnotation\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\FeatureLayerQuery\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\GenerateGeodatabaseReplica\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\GeodatabaseTransactions\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ListRelatedFeatures\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ManageFeatures\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\QueryFeaturesWithArcadeExpression\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\RasterLayerGeoPackage\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ReadGeoPackage\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ReadShapefileMetadata\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\StatisticalQuery\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\StatsQueryGroupAndSort\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\SymbolizeShapefile\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ToggleBetweenFeatureRequestModes\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Data\ViewPointCloudDataOffline\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\BufferList\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\Buffer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\ClipGeometry\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\ConvexHullList\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\ConvexHull\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\CreateAndEditGeometries\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\CreateGeometries\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\CutGeometry\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\DensifyAndGeneralize\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\FormatCoordinates\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\GeodesicOperations\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\ListTransformations\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\NearestVertex\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\ProjectWithSpecificTransformation\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\Project\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\SnapGeometryEdits\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\SpatialOperations\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geometry\SpatialRelationships\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geoprocessing\AnalyzeHotspots\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geoprocessing\AnalyzeViewshed\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Geoprocessing\ListGeodatabaseVersions\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsRenderer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\AddGraphicsWithSymbols\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\Animate3DGraphic\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\DictionaryRendererGraphicsOverlay\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\IdentifyGraphics\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\ScenePropertiesExpressions\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\GraphicsOverlay\SurfacePlacements\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Hydrography\AddEncExchangeSet\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Hydrography\ChangeEncDisplaySettings\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Hydrography\SelectEncFeatures\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\Add3dTilesLayer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\AddAnIntegratedMeshLayer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\AddCustomDynamicEntityDataSource\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\AddDynamicEntityLayer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\AddPointSceneLayer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\AddVectorTiledLayerFromCustomStyle\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ApplyMosaicRule\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ArcGISMapImageLayerUrl\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ArcGISTiledLayerUrl\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\BrowseOAFeatureService\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\BrowseWfsLayers\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeBlendRenderer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeFeatureLayerRenderer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeStretchRenderer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeSublayerRenderer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ChangeSublayerVisibility\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ConfigureClusters\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ControlAnnotationSublayerVisibility\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\CreateAndSaveKmlFile\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\CreateFeatureCollectionLayer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayAnnotation\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayClusters\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayDimensions\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayFeatureLayers\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayKmlNetworkLinks\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayKml\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayOACollection\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayRouteLayer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayScene\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplaySubtypeFeatureLayer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\DisplayWfs\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\EditKmlGroundOverlay\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ExportTiles\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ExportVectorTiles\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureCollectionLayerFromPortal\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureCollectionLayerFromQuery\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerDefinitionExpression\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerDictionaryRenderer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeMap\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerRenderingModeScene\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerSelection\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\FeatureLayerUrl\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\GroupLayers\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\IdentifyKmlFeatures\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\IdentifyRasterCell\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ListKmlContents\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\LoadWebTiledLayer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\MapImageLayerTables\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\MapImageSublayerQuery\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\OpenStreetMapLayer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\PlayKmlTours\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\QueryCQLFilters\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterColormapRenderer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterHillshade\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterLayerFile\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterLayerImageServiceRaster\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterLayerRasterFunction\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterRenderingRule\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\RasterRgbRenderer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\SceneLayerSelection\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\SceneLayerUrl\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\ShowLabelsOnLayer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\StyleWmsLayer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\TimeBasedQuery\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WfsXmlQuery\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WmsIdentify\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WMSLayerUrl\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WmsServiceCatalog\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Layers\WMTSLayer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Location\DisplayDeviceLocation\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Location\LocationDrivenGeotriggers\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Location\LocationWithNMEA\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Location\ShowLocationHistory\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ChangeTimeExtent\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ChangeViewpoint\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\DisplayDrawingStatus\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\DisplayGrid\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\DisplayLayerViewState\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\FeatureLayerTimeOffset\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\FilterByTimeExtent\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\IdentifyLayers\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\MapRotation\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ShowCallout\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\ShowMagnifier\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\MapView\TakeScreenshot\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\AccessLoadStatus\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ApplyScheduledUpdates\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\AuthorMap\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\BrowseBuildingFloors\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ChangeBasemap\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ConfigureBasemapStyleParameters\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\CreateDynamicBasemapGallery\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\DisplayMap\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\DisplayOverviewMap\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\DownloadPreplannedMap\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\GenerateOfflineMapWithOverrides\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\GenerateOfflineMap\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\HonorMobileMapPackageExpiration\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ManageBookmarks\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\ManageOperationalLayers\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\MapReferenceScale\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\MobileMapSearchAndRoute\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\OfflineBasemapByReference\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\OpenMapURL\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\OpenMobileMap\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SearchPortalMaps\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetInitialMapArea\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetInitialMapLocation\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetMapSpatialReference\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetMaxExtent\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Map\SetMinMaxScale\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\ClosestFacilityStatic\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\ClosestFacility\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\FindRoute\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\FindServiceAreasForMultipleFacilities\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\FindServiceArea\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\NavigateRouteRerouting\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\NavigateRoute\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\OfflineRouting\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\NetworkAnalysis\RouteAroundBarriers\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\SceneView\AnimateImageOverlay\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\SceneView\ChooseCameraController\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\SceneView\GeoViewSync\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\ChangeAtmosphereEffect\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\CreateTerrainSurfaceRaster\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\CreateTerrainSurfaceTilePackage\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\FilterFeaturesInScene\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\GetElevationAtPoint\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\OpenMobileScenePackage\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\OpenScenePortalItem\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\ShowLabelsOnLayer3D\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\TerrainExaggeration\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Scene\ViewContentBeneathSurface\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\FindAddress\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\FindPlace\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\OfflineGeocode\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Search\ReverseGeocode\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Security\CertificateAuthenticationWithPki\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Security\IntegratedWindowsAuth\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Security\OAuth\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Security\TokenSecuredChallenge\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\CustomDictionaryStyle\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\FeatureLayerExtrusion\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderMultilayerSymbols\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderPictureMarkers\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderSimpleMarkers\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\RenderUniqueValues\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\SceneSymbols\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\SimpleRenderers\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\SymbolsFromMobileStyle\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\SymbolStylesFromWebStyles\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\UniqueValuesAlternateSymbols\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\Symbology\UseDistanceCompositeSym\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\ConfigureSubnetworkTrace\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\CreateLoadReport\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\DisplayUtilityAssociations\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\DisplayUtilityNetworkContainer\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\PerformValveIsolationTrace\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\TraceUtilityNetwork\readme.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\UtilityNetwork\ValidateUtilityNetworkTopology\readme.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <!-- Resources -->
   <ItemGroup>
-    <None Include="ArcGISLocalServer_100.15.AGSDeployment" />
+    <!--<None Include="ArcGISLocalServer_100.15.AGSDeployment" />-->
     <Content Include="Resources\hide-header.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -283,7 +2898,7 @@
   <!-- Packages -->
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" />
+    <!--<PackageReference Include="Esri.ArcGISRuntime.LocalServices" />-->
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" />
     <PackageReference Include="Esri.ArcGISRuntime.WPF" />
     <PackageReference Include="System.Text.Json" />

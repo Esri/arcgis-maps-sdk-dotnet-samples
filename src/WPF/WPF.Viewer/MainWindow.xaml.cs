@@ -483,14 +483,14 @@ namespace ArcGIS.Samples.Desktop
         {
             if (_feedbackWindowOpen) return;
             _feedbackWindowOpen = true;
-            var feedbackWindow = new FeedbackWindow();
-            feedbackWindow.Owner = this;
-            feedbackWindow.Closing += (send, args) =>
-            {
-                _feedbackWindowOpen = false;
-                CloseWindow();
-            };
-            feedbackWindow.Show();
+            //var feedbackWindow = new FeedbackWindow();
+            //feedbackWindow.Owner = this;
+            //feedbackWindow.Closing += (send, args) =>
+            //{
+            //    _feedbackWindowOpen = false;
+            //    CloseWindow();
+            //};
+            //feedbackWindow.Show();
         }
 
         private void CloseWindow()

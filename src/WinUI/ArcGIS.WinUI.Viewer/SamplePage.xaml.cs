@@ -101,8 +101,6 @@ namespace ArcGIS.WinUI.Viewer
                 }
                 else if (geoView is SceneView sceneView) sceneView.Scene = null;
             }
-
-            SampleManager.Current.SelectedSample = null;
         }
 
         private static IEnumerable<T> TreeWalker<T>(UIElement root)

@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using CommunityToolkit.WinUI;
 using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Security;
 using Microsoft.UI.Xaml;
@@ -33,7 +34,17 @@ namespace ArcGIS.WinUI.Samples.CertificateAuthenticationWithPKI
             InitializeComponent();
         }
 
-        public async Task<Credential> CreateCertCredentialAsync(CredentialRequestInfo info)
+        private async Task<Credential> HandleCredentialRequest(CredentialRequestInfo info)
+        {
+            if (info.AuthenticationType == AuthenticationType.Certificate)
+            {
+                // ChallengeHandler may be called from a background thread, so we need to switch to the UI thread to show the dialog.
+                return await DispatcherQueue.EnqueueAsync(async () => await CreateCertCredentialAsync(info));
+            }
+            return null;
+        }
+
+        private async Task<Credential> CreateCertCredentialAsync(CredentialRequestInfo info)
         {
             // Handle challenges for a secured resource by prompting for a client certificate.
             Credential credential = null;
@@ -55,6 +66,7 @@ namespace ArcGIS.WinUI.Samples.CertificateAuthenticationWithPKI
 
                 // Create a list view for rendering the list.
                 ListView listview = new ListView();
+                listview.SelectionMode = ListViewSelectionMode.Single;
 
                 // Use a template defined as a resource in XAML.
                 listview.ItemTemplate = (DataTemplate)this.Resources["CertificateTemplate"];
@@ -66,6 +78,7 @@ namespace ArcGIS.WinUI.Samples.CertificateAuthenticationWithPKI
                 dialog.Content = listview;
 
                 // Display the dialog.
+                dialog.XamlRoot = this.XamlRoot;
                 await dialog.ShowAsync();
 
                 // Make sure the user chose a certificate.
@@ -101,7 +114,7 @@ namespace ArcGIS.WinUI.Samples.CertificateAuthenticationWithPKI
                 _serverUrl = PortalUrlTextbox.Text;
 
                 // Configure the authentication manager.
-                AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(CreateCertCredentialAsync);
+                AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(HandleCredentialRequest);
 
                 // Create the portal.
                 ArcGISPortal portal = await ArcGISPortal.CreateAsync(new Uri(_serverUrl));

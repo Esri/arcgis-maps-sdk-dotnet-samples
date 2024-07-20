@@ -160,6 +160,7 @@ namespace ArcGIS.WinUI.Viewer
             {
                 // Failed to create new instance of the sample.
                 SamplePageContainer.Visibility = Visibility.Collapsed;
+                SampleManager.Current.SelectedSample = null;
                 SampleSelectionGrid.Visibility = Visibility.Visible;
                 CategoriesTree.SelectionMode = TreeViewSelectionMode.None;
                 await new MessageDialog2(exception.Message).ShowAsync();
@@ -219,6 +220,7 @@ namespace ArcGIS.WinUI.Viewer
             // Switch to the sample selection grid.
             SamplePageContainer.Visibility = Visibility.Collapsed;
             SamplePageContainer.Content = null;
+            SampleManager.Current.SelectedSample = null;
             SampleSelectionGrid.Visibility = Visibility.Visible;
         }
 
@@ -235,6 +237,7 @@ namespace ArcGIS.WinUI.Viewer
             {
                 SamplePageContainer.Visibility = Visibility.Collapsed;
                 SamplePageContainer.Content = null;
+                SampleManager.Current.SelectedSample = null;
                 SampleSelectionGrid.Visibility = Visibility.Visible;
                 List<SampleInfo> samples = selected.Children.ToList().Select(x => (SampleInfo)x.Content).ToList();
                 SamplesGridView.ItemsSource = samples;

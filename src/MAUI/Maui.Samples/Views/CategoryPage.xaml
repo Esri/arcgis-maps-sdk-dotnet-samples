@@ -6,8 +6,37 @@
              xmlns:models="clr-namespace:ArcGIS.Samples.Shared.Models"
              xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
              Title="{Binding SelectedCategory}"
-             Shell.FlyoutBehavior="Flyout"
-             x:DataType="viewModels:CategoryViewModel">
+             x:DataType="viewModels:CategoryViewModel"
+             Shell.FlyoutBehavior="Flyout">
+
+    <ContentPage.Resources>
+        <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
+        <converters:BoolToFavoriteGlyphConverter x:Key="BoolToFavoriteGlyphConverter" />
+        <Style x:Key="AndroidStyle" TargetType="CollectionView">
+            <Setter Property="VisualStateManager.VisualStateGroups">
+                <VisualStateGroupList>
+                    <VisualStateGroup>
+                        <VisualState x:Name="Horizontal">
+                            <VisualState.StateTriggers>
+                                <OrientationStateTrigger Orientation="Landscape" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Property="ItemsLayout" Value="{OnIdiom Phone='VerticalGrid, 2', Tablet='VerticalGrid, 3'}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Vertical">
+                            <VisualState.StateTriggers>
+                                <OrientationStateTrigger Orientation="Portrait" />
+                            </VisualState.StateTriggers>
+                            <VisualState.Setters>
+                                <Setter Property="ItemsLayout" Value="{OnIdiom Phone='VerticalGrid, 1', Tablet='VerticalGrid, 2'}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </Setter>
+        </Style>
+    </ContentPage.Resources>
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="SearchClicked"
@@ -20,10 +49,7 @@
                      IconImageSource="feedback.png"
                      Text="Feedback" />
     </ContentPage.ToolbarItems>
-    <ContentPage.Resources>
-        <converters:SampleToBitmapConverter x:Key="SampleToBitmapConverter" />
-        <converters:BoolToFavoriteGlyphConverter x:Key="BoolToFavoriteGlyphConverter" />
-    </ContentPage.Resources>
+
     <CollectionView x:Name="SamplesCollection"
                     BackgroundColor="Transparent"
                     ItemsSource="{Binding SamplesItems}">
@@ -31,14 +57,11 @@
             <GridItemsLayout x:Name="SamplesGridItemsLayout"
                              HorizontalItemSpacing="5"
                              Orientation="Vertical"
-                             Span="{OnPlatform Default=4,
-                                               iOS=1,
-                                               Android=1}"
                              VerticalItemSpacing="5" />
         </CollectionView.ItemsLayout>
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="viewModels:SampleViewModel">
-                <Border StrokeThickness="{OnPlatform Default=0, Android=1}">
+                <Border Margin="{OnPlatform Default=0, Android=5}" StrokeThickness="{OnPlatform Default=0, Android=1}">
                     <Border.GestureRecognizers>
                         <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
                         <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
@@ -58,6 +81,8 @@
 
                         <Button x:Name="FavoriteButton"
                                 Grid.Row="0"
+                                Margin="{OnPlatform Default=0,
+                                                    WinUI='-1'}"
                                 Padding="2"
                                 Background="#A52F2F2F"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"

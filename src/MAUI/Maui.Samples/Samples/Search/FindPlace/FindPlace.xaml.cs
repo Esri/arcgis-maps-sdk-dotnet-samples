@@ -137,6 +137,10 @@ namespace ArcGIS.Samples.FindPlace
 
             // Create the geocode parameters.
             GeocodeParameters parameters = new GeocodeParameters();
+
+            // Request that the "Address" attribute is included with results, to display in callouts.
+            parameters.ResultAttributeNames.Add("Address");
+
             try
             {
                 // Get the MapPoint for the current search location.
@@ -146,6 +150,9 @@ namespace ArcGIS.Samples.FindPlace
                 if (searchLocation != null)
                 {
                     parameters.PreferredSearchLocation = searchLocation;
+
+                    // Raise MinScore to a non-zero value, otherwise PreferredSearchLocation has no effect.
+                    parameters.MinScore = 1;
                 }
 
                 // Update the search area if desired.
@@ -174,24 +181,18 @@ namespace ArcGIS.Samples.FindPlace
 
                 // Create the GraphicsOverlay so that results can be drawn on the map.
                 GraphicsOverlay resultOverlay = new GraphicsOverlay();
+                var symbol = await GetPinSymbolAsync();
+
 
                 // Add each address to the map.
                 foreach (GeocodeResult location in locations)
                 {
                     // Get the Graphic to display.
-                    Graphic point = await GraphicForPoint(location.DisplayLocation);
+                    var point = new Graphic(location.DisplayLocation, symbol);
 
                     // Add the specific result data to the point.
                     point.Attributes["Match_Title"] = location.Label;
-
-                    // Get the address for the point.
-                    IReadOnlyList<GeocodeResult> addresses = await _geocoder.ReverseGeocodeAsync(location.DisplayLocation);
-
-                    // Add the first suitable address if possible.
-                    if (addresses.Any())
-                    {
-                        point.Attributes["Match_Address"] = addresses.First().Label;
-                    }
+                    point.Attributes["Match_Address"] = location.Attributes["Address"];
 
                     // Add the Graphic to the GraphicsOverlay.
                     resultOverlay.Graphics.Add(point);
@@ -212,7 +213,10 @@ namespace ArcGIS.Samples.FindPlace
             }
         }
 
-        private async Task<Graphic> GraphicForPoint(MapPoint point)
+        /// <summary>
+        /// Creates and returns a "Pin" symbol used to mark search results on the MapView.
+        /// </summary>
+        private async Task<Esri.ArcGISRuntime.Symbology.Symbol> GetPinSymbolAsync()
         {
             // Get current assembly that contains the image.
             Assembly currentAssembly = Assembly.GetExecutingAssembly();
@@ -230,7 +234,7 @@ namespace ArcGIS.Samples.FindPlace
             //     is on the point rather than the image's true center.
             pinSymbol.LeaderOffsetX = 30;
             pinSymbol.OffsetY = 14;
-            return new Graphic(point, pinSymbol);
+            return pinSymbol;
         }
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)

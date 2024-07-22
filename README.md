@@ -49,7 +49,7 @@ The following platforms are being kept for reference, but no new sample implemen
 
 ## Notes
 
-> **IMPORTANT** When you run the samples, you will need to provide an API key. You can get a free developer account and key on the [ArcGIS Developers website](developers.arcgis.com). For more information see https://links.esri.com/arcgis-runtime-security-auth.
+> **IMPORTANT** When you run the samples, you will need to provide an API key. An API key is a unique long-lived access token that is used to authenticate and monitor requests to ArcGIS location services and private portal items. You can create and manage an API key using your portal when you sign in with an ArcGIS Location Platform account or an ArcGIS Online account with administrator access or a custom role that has the Generate API keys privilege. To learn how to create and manage API keys, go to the [Create an API key](https://links.esri.com/create-an-api-key) tutorial to create a new API key.
 
 - The .NET sample viewers have a prompt for setting an API key. You can also hardcode your API key in the [`GetLocalKey() method`](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/blob/main/src/Samples.Shared/Managers/ApiKeyManager.cs#L112) of the [`ApiKeyManager class`](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/blob/main/src/Samples.Shared/Managers/ApiKeyManager.cs).
 - Before using WinUI, install the [latest Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and the [vsix plugin](https://aka.ms/windowsappsdk/stable-vsix-2022-cs).

@@ -45,6 +45,8 @@ namespace ArcGIS.WPF.Samples.OfflineRouting
         // Route task and parameters.
         private RouteTask _offlineRouteTask;
         private RouteParameters _offlineRouteParameters;
+        private bool _parametersChangedSinceLastSolve = false;
+        private Task<RouteResult> _lastSolveTask = null;
 
         // List of travel modes, like 'Fastest' and 'Shortest'.
         private List<TravelMode> _availableTravelModes;
@@ -149,51 +151,76 @@ namespace ArcGIS.WPF.Samples.OfflineRouting
 
         private async Task UpdateRoute(TravelMode selectedTravelMode)
         {
-            try
+            // Create a list of stops.
+            List<Stop> stops = new List<Stop>();
+
+            // Add a stop to the list for each graphic in the stops overlay.
+            foreach (Graphic stopGraphic in _stopsOverlay.Graphics)
             {
-                // Create a list of stops.
-                List<Stop> stops = new List<Stop>();
-
-                // Add a stop to the list for each graphic in the stops overlay.
-                foreach (Graphic stopGraphic in _stopsOverlay.Graphics)
-                {
-                    Stop stop = new Stop((MapPoint)stopGraphic.Geometry);
-                    stops.Add(stop);
-                }
-
-                if (stops.Count < 2)
-                {
-                    // Don't route, there's no where to go (and the route task would throw an exception).
-                    return;
-                }
-
-                // Configure the route parameters with the list of stops.
-                _offlineRouteParameters.SetStops(stops);
-
-                // Configure the travel mode.
-                _offlineRouteParameters.TravelMode = selectedTravelMode;
-
-                // Solve the route.
-                RouteResult offlineRouteResult = await _offlineRouteTask.SolveRouteAsync(_offlineRouteParameters);
-
-                // Clear the old route result.
-                _routeOverlay.Graphics.Clear();
-
-                // Get the geometry from the route result.
-                Polyline routeGeometry = offlineRouteResult.Routes.First().RouteGeometry;
-
-                // Note: symbology left out here because the symbology was set once on the graphics overlay.
-                Graphic routeGraphic = new Graphic(routeGeometry);
-
-                // Display the route.
-                _routeOverlay.Graphics.Add(routeGraphic);
+                Stop stop = new Stop((MapPoint)stopGraphic.Geometry);
+                stops.Add(stop);
             }
-            catch (Exception e)
+
+            if (stops.Count < 2)
             {
-                Debug.WriteLine(e);
-                ShowMessage("Couldn't update route", "There was an error updating the route. See debug output for details.");
-                _selectedStopGraphic = null;
+                // Don't route, there's no where to go (and the route task would throw an exception).
+                return;
             }
+
+            // Configure the route parameters with the list of stops.
+            _offlineRouteParameters.SetStops(stops);
+
+            // Configure the travel mode.
+            _offlineRouteParameters.TravelMode = selectedTravelMode;
+
+            // Check if a route calculation is already in progress
+            if (_lastSolveTask == null || _lastSolveTask.IsCompleted)
+            {
+                // No calculation in progress, start a new one
+                await SolveRouteAndDisplayResultsAsync();
+            }
+            else
+            {
+                // Route calculation already in progress, flag for recalculation when current task completes
+                _parametersChangedSinceLastSolve = true;
+            }
+        }
+
+        private async Task SolveRouteAndDisplayResultsAsync()
+        {
+            do
+            {
+                try
+                {
+                    // Start the route calculation
+                    _lastSolveTask = _offlineRouteTask.SolveRouteAsync(_offlineRouteParameters);
+
+                    // Reset the flag immediately after starting the task.
+                    // This ensures that any parameter changes made after this point will be caught for the next iteration.
+                    _parametersChangedSinceLastSolve = false;
+
+                    // By awaiting here, we allow the UI to remain responsive while route calculation is in progress.
+                    // Any changes to parameters during this await will have set _parametersChangedSinceTaskRun to true.
+                    RouteResult offlineRouteResult = await _lastSolveTask;
+
+                    // Clear the old route result.
+                    _routeOverlay.Graphics.Clear();
+
+                    // Get the geometry from the route result.
+                    Polyline routeGeometry = offlineRouteResult.Routes.First().RouteGeometry;
+
+                    // Note: symbology left out here because the symbology was set once on the graphics overlay.
+                    Graphic routeGraphic = new Graphic(routeGeometry);
+
+                    // Display the route.
+                    _routeOverlay.Graphics.Add(routeGraphic);
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(e);
+                    ShowMessage("Couldn't update route", "There was an error updating the route. See debug output for details.");
+                }
+            } while (_parametersChangedSinceLastSolve); // Recalculate if parameters changed during execution
         }
 
         private async Task AddStop(Point tappedPosition)

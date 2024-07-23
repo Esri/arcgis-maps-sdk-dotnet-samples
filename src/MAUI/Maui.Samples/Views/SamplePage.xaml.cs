@@ -638,6 +638,10 @@ namespace ArcGIS
             {
                 string baseContent = SourceCode = string.Empty;
                 var assembly = Assembly.GetExecutingAssembly();
+
+                // Account for case sensitivity in file paths.
+                _path = _path.Replace("Networkanalysis", "NetworkAnalysis");
+                _path = _path.Replace("Utilitynetwork", "UtilityNetwork");
 #if __ANDROID__
                 if (_path.EndsWith(".xaml"))
                 {

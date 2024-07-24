@@ -217,7 +217,6 @@ namespace ArcGIS.WinUI.Samples.OfflineRouting
                 catch (Exception e)
                 {
                     Debug.WriteLine(e);
-                    ShowMessage("Couldn't update route", "There was an error updating the route. See debug output for details.");
                 }
             } while (_parametersChangedSinceLastSolve); // Recalculate if parameters changed during execution
         }

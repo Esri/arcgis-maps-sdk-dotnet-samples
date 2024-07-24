@@ -13,7 +13,15 @@ public partial class SearchPage : ContentPage
 		InitializeComponent();
         _viewModel = new SearchViewModel();
         BindingContext = _viewModel;
-	}
+
+        // Focus search bar when page loads.
+        SampleSearchBar.Loaded += SampleSearchBar_Loaded;
+    }
+
+    private void SampleSearchBar_Loaded(object sender, EventArgs e)
+    {
+        SampleSearchBar.Focus();
+    }
 
     private void TapGestureRecognizer_SearchResultTapped(object sender, TappedEventArgs e)
     {

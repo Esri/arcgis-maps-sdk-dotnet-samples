@@ -2,7 +2,8 @@
 <ContentPage x:Class="ArcGIS.Samples.CreateDynamicBasemapGallery.CreateDynamicBasemapGallery"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Button x:Name="ShowGalleryButton"
@@ -43,7 +44,9 @@
                             SelectionChanged="BasemapStyleGallery_SelectionChanged"
                             SelectionMode="Single">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <!--  https://github.com/dotnet/maui/issues/20002  -->
+                    <!--  DataType needs to be explicitly set to display DataTemplate content in release mode configuration  -->
+                    <DataTemplate x:DataType="{x:Type mapping:BasemapStyleInfo}">
                         <StackLayout Margin="5">
                             <Label FontAttributes="Bold" Text="{Binding StyleName}" />
                             <Image HeightRequest="{OnIdiom Default=200,

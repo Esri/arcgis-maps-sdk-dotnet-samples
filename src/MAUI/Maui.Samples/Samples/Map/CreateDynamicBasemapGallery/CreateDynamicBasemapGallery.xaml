@@ -32,7 +32,7 @@
                      Background="{AppThemeBinding Light=#dfdfdf,
                                                   Dark=#303030}"
                      IsVisible="False"
-                     MaximumHeightRequest="{OnIdiom Default=800,
+                     MaximumHeightRequest="{OnIdiom Default=850,
                                                     Phone=650}"
                      MaximumWidthRequest="{OnIdiom Default=400,
                                                    Phone=300}"
@@ -65,17 +65,31 @@
             <Label Margin="5"
                    FontAttributes="Bold"
                    Text="Language:" />
-            <Picker x:Name="LanguagePicker"
-                    Margin="5"
-                    HorizontalOptions="Fill"
-                    IsEnabled="False"
-                    ItemDisplayBinding="{Binding DisplayName}" />
+            <CollectionView x:Name="LanguagePicker"
+                            Margin="5"
+                            HeightRequest="50"
+                            HorizontalOptions="Fill"
+                            IsEnabled="False"
+                            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type mapping:BasemapStyleLanguageInfo}">
+                        <Label Text="{Binding DisplayName}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             <Label FontAttributes="Bold" Text="Worldview:" />
-            <Picker x:Name="WorldviewPicker"
-                    Margin="5"
-                    HorizontalOptions="Fill"
-                    IsEnabled="False"
-                    ItemDisplayBinding="{Binding DisplayName}" />
+            <CollectionView x:Name="WorldviewPicker"
+                            Margin="5"
+                            HeightRequest="50"
+                            HorizontalOptions="Fill"
+                            IsEnabled="False"
+                            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type mapping:Worldview}">
+                        <Label Text="{Binding DisplayName}" />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             <Button Margin="5"
                     Clicked="LoadButton_Click"
                     Text="Load" />

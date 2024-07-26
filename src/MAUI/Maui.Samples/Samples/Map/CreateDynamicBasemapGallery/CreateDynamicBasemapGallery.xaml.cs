@@ -52,13 +52,16 @@ namespace ArcGIS.Samples.CreateDynamicBasemapGallery
             WorldviewPicker.ItemsSource = styleInfo.Worldviews.ToList();
 
             // Disable any pickers that have no items.
-            LanguagePicker.IsEnabled = LanguagePicker.Items.Count > 0;
-            WorldviewPicker.IsEnabled = WorldviewPicker.Items.Count > 0;
-            StrategyPicker.IsEnabled = StrategyPicker.Items.Count > 0;
+            LanguagePicker.IsEnabled = styleInfo.Languages.Any();
+            WorldviewPicker.IsEnabled = styleInfo.Worldviews.Any();
+            StrategyPicker.IsEnabled = styleInfo.LanguageStrategies.Any();
         }
 
         private void LoadButton_Click(object sender, EventArgs e)
         {
+            // Return if no basemap style is selected.
+            if (BasemapStyleGallery.SelectedItem == null) return;
+
             // Create a new basemap style parameters object.
             var basemapStyleParameters = new BasemapStyleParameters();
 

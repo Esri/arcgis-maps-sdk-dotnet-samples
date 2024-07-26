@@ -2,6 +2,7 @@
 <ContentPage x:Class="ArcGIS.Samples.BrowseWfsLayers.BrowseWfsLayers"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriOgc="clr-namespace:Esri.ArcGISRuntime.Ogc;assembly=Esri.ArcGISRuntime"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
@@ -18,7 +19,9 @@
                           SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <TextCell Text="{Binding Title}" />
+                            <!--  https://github.com/dotnet/maui/issues/20002  -->
+                            <!--  DataType needs to be explicitly set to display DataTemplate content in release mode configuration  -->
+                            <TextCell x:DataType="{x:Type esriOgc:WfsLayerInfo}" Text="{Binding Title}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

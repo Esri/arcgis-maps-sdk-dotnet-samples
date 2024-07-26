@@ -2,6 +2,7 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:networkAnalysis="clr-namespace:Esri.ArcGISRuntime.Tasks.NetworkAnalysis;assembly=Esri.ArcGISRuntime"
              xmlns:resources="clr-namespace:ArcGIS.Resources">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
@@ -10,11 +11,21 @@
                   MaximumWidthRequest="300"
                   RowDefinitions="auto,auto,auto"
                   RowSpacing="3">
-                <Label Grid.Row="0" Text="Click the map to add up to 5 stops. Route lines will be displayed automatically." HeightRequest="{OnPlatform iOS=50}" />
-                <Picker x:Name="TravelModesCombo"
-                        Grid.Row="1"
-                        HorizontalOptions="FillAndExpand"
-                        ItemDisplayBinding="{Binding Name}" />
+                <Label Grid.Row="0"
+                       HeightRequest="{OnPlatform iOS=50}"
+                       Text="Click the map to add up to 5 stops. Route lines will be displayed automatically." />
+                <CollectionView x:Name="TravelModesCollection"
+                                Grid.Row="1"
+                                HorizontalOptions="FillAndExpand"
+                                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <!--  https://github.com/dotnet/maui/issues/20002  -->
+                        <!--  DataType needs to be explicitly set to display DataTemplate content in release mode configuration  -->
+                        <DataTemplate x:DataType="{x:Type networkAnalysis:TravelMode}">
+                            <Label Margin="5" Text="{Binding Name}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 <Button Grid.Row="2"
                         Clicked="ResetButton_Click"
                         Text="Reset" />

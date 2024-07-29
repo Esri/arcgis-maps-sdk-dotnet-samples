@@ -628,22 +628,14 @@ namespace ArcGIS
             {
                 string baseContent = SourceCode = string.Empty;
                 var assembly = Assembly.GetExecutingAssembly();
-#if __ANDROID__
-                if (_path.EndsWith(".xaml"))
-                {
-                    var fileName = _path.Split('/').Last();
-                    var xamlPath = assembly.GetManifestResourceNames().Single(n => n.EndsWith($"{fileName}"));
-                    SourceCode = baseContent = await new StreamReader(assembly.GetManifestResourceStream(xamlPath)).ReadToEndAsync();
-                }
-                else
-                {
-                    using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync(_path).ConfigureAwait(false);
-                    SourceCode = baseContent = await new StreamReader(fileStream).ReadToEndAsync();
-                }
-#else
+
+                // Account for case sensitivity in file paths.
+                _path = _path.Replace("Networkanalysis", "NetworkAnalysis");
+                _path = _path.Replace("Utilitynetwork", "UtilityNetwork");
+
                 using Stream fileStream = await FileSystem.Current.OpenAppPackageFileAsync(_path).ConfigureAwait(false);
                 SourceCode = baseContent = await new StreamReader(fileStream).ReadToEndAsync();
-#endif
+
                 // For xaml files, search for dynamic resource styles, taking into account any whitespace.
                 if (_path.EndsWith(".xaml") && String.Concat(baseContent.Where(c => !Char.IsWhiteSpace(c)))
                     .Contains("Style=\"{DynamicResource"))

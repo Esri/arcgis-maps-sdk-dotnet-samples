@@ -96,6 +96,7 @@
     <MauiAsset Include="Converters\*.cs" />
     <MauiImage Include="Samples\**\*.jpg" />
     <MauiAsset Include="Samples\**\*.cs" />
+    <MauiAsset Include="Samples\**\*.xaml" />
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
   </ItemGroup>
   <ItemGroup>

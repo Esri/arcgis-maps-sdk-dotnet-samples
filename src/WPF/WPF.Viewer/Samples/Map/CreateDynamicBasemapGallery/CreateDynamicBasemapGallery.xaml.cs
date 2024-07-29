@@ -62,6 +62,9 @@ namespace ArcGIS.WPF.Samples.CreateDynamicBasemapGallery
 
         private void LoadButton_Click(object sender, RoutedEventArgs e)
         {
+            // Return if no basemap style is selected.
+            if (BasemapStyleGallery.SelectedItem == null) return;
+
             // Create a new basemap style parameters object.
             var basemapStyleParameters = new BasemapStyleParameters();
 

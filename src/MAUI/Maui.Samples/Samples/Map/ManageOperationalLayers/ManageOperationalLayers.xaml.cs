@@ -70,26 +70,6 @@ namespace ArcGIS.Samples.ManageOperationalLayers
             }
         }
 
-        private void DemoteButton_Clicked(object sender, EventArgs e)
-        {
-            try
-            {
-                // Get the clicked button.
-                Button clickedButton = (Button)sender;
-
-                // Get the clicked layer.
-                Layer clickedLayer = (Layer)clickedButton.BindingContext;
-
-                // Move the layer.
-                _viewModel.DemoteLayer(clickedLayer);
-            }
-            // Sometimes if the user clicks too quickly NREs will occur.
-            catch (Exception exception)
-            {
-                Console.WriteLine(exception);
-            }
-        }
-
         private void PromoteButton_Clicked(object sender, EventArgs e)
         {
             try
@@ -102,6 +82,26 @@ namespace ArcGIS.Samples.ManageOperationalLayers
 
                 // Move the layer.
                 _viewModel.PromoteLayer(clickedLayer);
+            }
+            // Sometimes if the user clicks too quickly NREs will occur.
+            catch (Exception exception)
+            {
+                Console.WriteLine(exception);
+            }
+        }
+
+        private void DemoteButton_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                // Get the clicked button.
+                Button clickedButton = (Button)sender;
+
+                // Get the clicked layer.
+                Layer clickedLayer = (Layer)clickedButton.BindingContext;
+
+                // Move the layer.
+                _viewModel.DemoteLayer(clickedLayer);
             }
             // Sometimes if the user clicks too quickly NREs will occur.
             catch (Exception exception)
@@ -128,7 +128,7 @@ namespace ArcGIS.Samples.ManageOperationalLayers
             Map.OperationalLayers.Add(layer);
         }
 
-        public void DemoteLayer(Layer selectedLayer)
+        public void PromoteLayer(Layer selectedLayer)
         {
             // Find the collection the layer is in.
             LayerCollection owningCollection;
@@ -155,7 +155,7 @@ namespace ArcGIS.Samples.ManageOperationalLayers
             owningCollection.Insert(layerIndex + 1, selectedLayer);
         }
 
-        public void PromoteLayer(Layer selectedLayer)
+        public void DemoteLayer(Layer selectedLayer)
         {
             // Find the collection the layer is in.
             LayerCollection owningCollection = IncludedLayers.Contains(selectedLayer) ? IncludedLayers : ExcludedLayers;

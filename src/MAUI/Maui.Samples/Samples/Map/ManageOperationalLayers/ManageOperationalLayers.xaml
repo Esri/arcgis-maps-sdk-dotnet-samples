@@ -5,63 +5,67 @@
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
              xmlns:resources="clr-namespace:ArcGIS.Resources">
     <ContentPage.Resources>
-        <DataTemplate x:Key="LayerListTemplate" x:DataType="mapping:Layer">
-            <ViewCell>
-                <Grid ColumnDefinitions="*,auto,auto,auto">
-                    <Label Grid.Column="0"
-                           LineBreakMode="NoWrap"
-                           Text="{Binding Name}"
-                           VerticalTextAlignment="Center" />
-                    <Button Grid.Column="1"
-                            Margin="2"
-                            Clicked="PromoteButton_Clicked"
-                            Text="⬆" />
-                    <Button Grid.Column="2"
-                            Margin="2"
-                            Clicked="DemoteButton_Clicked"
-                            Text="⬇" />
-                    <Button Grid.Column="3"
-                            Margin="2"
-                            Clicked="MoveButton_OnClicked"
-                            Text="➡" />
-                </Grid>
-            </ViewCell>
-        </DataTemplate>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="Background" Value="Transparent" />
+                <Setter Property="FontFamily" Value="calcite-ui-icons-24" />
+                <Setter Property="BorderColor" Value="Transparent" />
+                <Setter Property="FontSize" Value="20" />
+            </Style.Setters>
+        </Style>
     </ContentPage.Resources>
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <ScrollView HeightRequest="250">
-                <Grid Padding="5"
-                      RowDefinitions="auto,auto,auto,auto,auto"
-                      RowSpacing="5">
-                    <Label Grid.Row="0" Text="Use the buttons to re-arrange layers." />
-                    <Label Grid.Row="1"
-                           FontAttributes="Bold"
-                           HorizontalTextAlignment="Center"
-                           Text="Layers in map" />
-                    <!--
-                        Item template defined in UserControl.Resources above specifies that each listbox
-                        item's content consists of a label with the layer's Name and three buttons.
-                    -->
-                    <ListView x:Name="IncludedListView"
-                              Grid.Row="2"
-                              ItemTemplate="{StaticResource LayerListTemplate}"
-                              VerticalOptions="Start" />
-                    <Label Grid.Row="3"
-                           FontAttributes="Bold"
-                           HorizontalTextAlignment="Center"
-                           Text="Layers not in map" />
-                    <!--
-                        Item template defined in UserControl.Resources above specifies that each listbox
-                        item's content consists of a label with the layer's Name and three buttons.
-                    -->
-                    <ListView x:Name="ExcludedListView"
-                              Grid.Row="4"
-                              ItemTemplate="{StaticResource LayerListTemplate}"
-                              VerticalOptions="Start" />
-                </Grid>
-            </ScrollView>
+            <StackLayout>
+                <Label Text="Use the buttons to modify the draw order of the layers. Include and exclude operational layers from the map." />
+                <Label FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       Text="Included" />
+                <CollectionView x:Name="IncludedListView" VerticalOptions="Start">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="auto,auto,auto,*">
+                                <Button Clicked="MoveButton_OnClicked"
+                                        Style="{StaticResource ButtonStyle}"
+                                        Text="&#xe2b5;" />
+                                <Button Grid.Column="1"
+                                        Clicked="PromoteButton_Clicked"
+                                        Style="{StaticResource ButtonStyle}"
+                                        Text="&#xe04d;"
+                                        ToolTipProperties.Text="Promote layer" />
+                                <Button Grid.Column="2"
+                                        Clicked="DemoteButton_Clicked"
+                                        Style="{StaticResource ButtonStyle}"
+                                        Text="&#xe272;"
+                                        ToolTipProperties.Text="Demote layer" />
+                                <Label Grid.Column="3"
+                                       LineBreakMode="NoWrap"
+                                       Text="{Binding Name}"
+                                       VerticalTextAlignment="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Label FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       Text="Excluded" />
+                <CollectionView x:Name="ExcludedListView" VerticalOptions="Start">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="auto,*">
+                                <Button Clicked="MoveButton_OnClicked"
+                                        Style="{StaticResource ButtonStyle}"
+                                        Text="&#xe2b5;" />
+                                <Label Grid.Column="1"
+                                       LineBreakMode="NoWrap"
+                                       Text="{Binding Name}"
+                                       VerticalTextAlignment="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
         </Border>
     </Grid>
 </ContentPage>

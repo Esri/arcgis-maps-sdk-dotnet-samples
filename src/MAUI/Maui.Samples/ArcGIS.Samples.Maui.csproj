@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
-		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>ArcGIS.Samples</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -31,6 +31,7 @@
 		<RuntimeIdentifiers Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
 		<RuntimeIdentifier Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND '$(Platform)' == 'AnyCPU'">win10-x64</RuntimeIdentifier>
     <AppxPackageDir>..\..\..\output\$(RuntimeIdentifier)\</AppxPackageDir>
+    <LangVersion>preview</LangVersion>
 	</PropertyGroup>
 
     <ItemGroup>
@@ -67,7 +68,7 @@
 	</ItemGroup>
 
 	<!-- Exclude Indoor Positioning on desktop platforms -->
-	<ItemGroup Condition="$(TargetFramework.StartsWith('net8.0-maccatalyst')) or $(TargetFramework.StartsWith('net8.0-windows'))">
+	<ItemGroup Condition="$(TargetFramework.StartsWith('net9.0-maccatalyst')) or $(TargetFramework.StartsWith('net9.0-windows'))">
 	  <AndroidResource Remove="Samples\Location\IndoorPositioning\**" />
 	  <Compile Remove="Samples\Location\IndoorPositioning\**" />
 	  <MauiCss Remove="Samples\Location\IndoorPositioning\**" />
@@ -136,16 +137,16 @@
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" />
     <PackageReference Include="Markdig" />
     <PackageReference Include="System.Drawing.Common" />
-    <PackageReference Include="Microsoft.Maui.Controls"/>
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility"/>
+    <PackageReference Include="Microsoft.Maui.Controls" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" />
   </ItemGroup>
 
   <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-windows10.0.19041.0'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-windows10.0.19041.0'">
     <PackageReference Include="WinUIEx" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" />
   </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)' == 'net8.0-android'">
+  <ItemGroup Condition="'$(TargetFramework)' == 'net9.0-android'">
     <PackageReference Include="Xamarin.AndroidX.AppCompat" />
   </ItemGroup>
   <ItemGroup>

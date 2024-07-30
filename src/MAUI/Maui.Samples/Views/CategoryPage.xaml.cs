@@ -60,8 +60,10 @@ public partial class CategoryPage : ContentPage
         await Navigation.PushAsync(new SearchPage(), false);
     }
 
+    // The favorites icon can flicker when using a pen as pointer.
     private void PointerGestureRecognizer_PointerEntered(object sender, PointerEventArgs e)
     {
+#if WINDOWS || MACCATALYST
         var view = (Border)sender;
 
         var grid = (Grid)view.Content;
@@ -71,10 +73,12 @@ public partial class CategoryPage : ContentPage
         imageButton.IsVisible = true;
 
         Console.WriteLine("PointerRecognized");
+#endif
     }
 
     private void PointerGestureRecognizer_PointerExited(object sender, PointerEventArgs e)
     {
+ #if WINDOWS || MACCATALYST
         var view = (Border)sender;
 
         var grid = (Grid)view.Content;
@@ -84,6 +88,7 @@ public partial class CategoryPage : ContentPage
         string sampleName = (string)imageButton.CommandParameter;
 
         imageButton.IsVisible = false || SampleManager.Current.IsSampleFavorited(sampleName);
+#endif
     }
 
     protected override void OnNavigatedTo(NavigatedToEventArgs args)

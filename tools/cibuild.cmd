@@ -38,6 +38,9 @@ IF "%ArcGISLicenseKey%" NEQ "" (
   IF "%ArcGISUtilityNetworkLicenseKey%" NEQ "" (
     ECHO ArcGISUtilityNetworkLicenseKey = "%ArcGISUtilityNetworkLicenseKey%"; >>%licenseFile%
   )
+  IF "%ArcGISAdvancedEditingUserTypeLicenseKey%" NEQ "" (
+    ECHO ArcGISAdvancedEditingUserTypeLicenseKey = "%ArcGISAdvancedEditingUserTypeLicenseKey%"; ?? %licenseFile%
+  )
   ECHO ^}^}^} >>%licenseFile%
 )
 

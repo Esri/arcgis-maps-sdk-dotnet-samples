@@ -5,7 +5,7 @@
     <_NetWindowsTarget>net8.0-windows10.0.19041.0</_NetWindowsTarget>
     <_NetAndroidTarget>net8.0-android</_NetAndroidTarget>
     <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
-    <RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">200.4.0</RELEASE_VERSION>
+    <RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">200.5.0</RELEASE_VERSION>
     <BUILD_NUM Condition="'$(BUILD_NUM)'==''">0</BUILD_NUM>
     <ArcGISMapsSDKVersion>$(RELEASE_VERSION)</ArcGISMapsSDKVersion>
 

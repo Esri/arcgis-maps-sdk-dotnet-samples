@@ -12,7 +12,7 @@ IF "%VSINSTALLDIR%"=="" (
 )
 
 IF "%RELEASE_VERSION%" == "" (
-  SET RELEASE_VERSION=200.3.0
+  SET RELEASE_VERSION=200.5.0
 )
 
 REM Configure NuGet
@@ -37,6 +37,9 @@ IF "%ArcGISLicenseKey%" NEQ "" (
   )
   IF "%ArcGISUtilityNetworkLicenseKey%" NEQ "" (
     ECHO ArcGISUtilityNetworkLicenseKey = "%ArcGISUtilityNetworkLicenseKey%"; >>%licenseFile%
+  )
+  IF "%ArcGISAdvancedEditingUserTypeLicenseKey%" NEQ "" (
+    ECHO ArcGISAdvancedEditingUserTypeLicenseKey = "%ArcGISAdvancedEditingUserTypeLicenseKey%"; >>%licenseFile%
   )
   ECHO ^}^}^} >>%licenseFile%
 )

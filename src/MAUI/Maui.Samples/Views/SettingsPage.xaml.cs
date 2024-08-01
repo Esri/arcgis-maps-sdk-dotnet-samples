@@ -111,7 +111,7 @@ namespace ArcGIS
 
             if (ApiKeyManager.DisableApiKeyUI)
             {
-                ApiKeyButton.IsEnabled = false;
+                ToolbarItems.Remove(ApiKeyButton);
             }
         }
 

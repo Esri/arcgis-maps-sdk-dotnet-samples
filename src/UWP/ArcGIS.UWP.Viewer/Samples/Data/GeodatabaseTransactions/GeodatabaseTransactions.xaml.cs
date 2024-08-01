@@ -7,11 +7,13 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // Language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Tasks;
 using Esri.ArcGISRuntime.Tasks.Offline;
+using Esri.ArcGISRuntime.UI.Editing;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -42,6 +44,9 @@ namespace ArcGIS.UWP.Samples.GeodatabaseTransactions
         // Store references to two tables to edit: Birds and Marine points
         private GeodatabaseFeatureTable _birdTable;
         private GeodatabaseFeatureTable _marineTable;
+
+        // Store a reference to the table to be edited.
+        private GeodatabaseFeatureTable _editTable;
 
         public GeodatabaseTransactions()
         {
@@ -216,61 +221,75 @@ namespace ArcGIS.UWP.Samples.GeodatabaseTransactions
             }
         }
 
-        private async void AddNewFeature(object sender, RoutedEventArgs args)
+        private void AddNewFeature(object sender, RoutedEventArgs args)
         {
-            // See if it was the "Birds" or "Marine" button that was clicked
+            // See if it was the "Birds" or "Marine" button that was clicked.
             Button addFeatureButton = (Button)sender;
 
             try
             {
-                // Cancel execution of the sketch task if it is already active
-                if (MyMapView.SketchEditor.CancelCommand.CanExecute(null))
-                {
-                    MyMapView.SketchEditor.CancelCommand.Execute(null);
-                }
-
-                // Store the correct table to edit (for the button clicked)
-                GeodatabaseFeatureTable editTable = null;
+                // Store the correct table to edit (for the button clicked).
                 if (addFeatureButton == AddBirdButton)
                 {
-                    editTable = _birdTable;
+                    _editTable = _birdTable;
                 }
                 else
                 {
-                    editTable = _marineTable;
+                    _editTable = _marineTable;
                 }
 
-                // Inform the user which table is being edited
-                MessageTextBlock.Text = "Click the map to add a new feature to the geodatabase table '" + editTable.TableName + "'";
+                // Inform the user which table is being edited.
+                MessageTextBlock.Text = "Click the map to add a new feature to the geodatabase table '" + _editTable.TableName + "'.";
 
-                // Create a random value for the 'type' attribute (integer between 1 and 7)
-                Random random = new Random(DateTime.Now.Millisecond);
-                int featureType = random.Next(1, 7);
+                if (!MyMapView.GeometryEditor.IsStarted)
+                {
+                    // Use the geometry editor to allow the user to draw a point on the map.
+                    MyMapView.GeometryEditor.Start(GeometryType.Point);
 
-                // Use the sketch editor to allow the user to draw a point on the map
-                MapPoint clickPoint = await MyMapView.SketchEditor.StartAsync(Esri.ArcGISRuntime.UI.SketchCreationMode.Point, false) as MapPoint;
-
-                // Create a new feature (row) in the selected table
-                Feature newFeature = editTable.CreateFeature();
-
-                // Set the geometry with the point the user clicked and the 'type' with the random integer
-                newFeature.Geometry = clickPoint;
-                newFeature.SetAttributeValue("type", featureType);
-
-                // Add the new feature to the table
-                await editTable.AddFeatureAsync(newFeature);
-
-                // Clear the message
-                MessageTextBlock.Text = "New feature added to the '" + editTable.TableName + "' table";
-            }
-            catch (TaskCanceledException)
-            {
-                // Ignore if the edit was canceled
+                    MyMapView.GeometryEditor.PropertyChanged += GeometryEditor_PropertyChanged;
+                }
             }
             catch (Exception ex)
             {
-                // Report other exception messages
+                // Report other exception messages.
                 MessageTextBlock.Text = ex.Message;
+            }
+        }
+
+        private async void GeometryEditor_PropertyChanged(object sender, System.ComponentModel.PropertyChangedEventArgs e)
+        {
+            // Check if the user finished drawing a point on the map.
+            if (e.PropertyName == nameof(GeometryEditor.Geometry) && MyMapView.GeometryEditor.Geometry?.IsEmpty == false)
+            {
+                // Disconnect event handler to prevent multiple calls.
+                MyMapView.GeometryEditor.PropertyChanged -= GeometryEditor_PropertyChanged;
+
+                // Get the active geometry.
+                Geometry geometry = MyMapView.GeometryEditor.Stop();
+
+                // Create a new feature (row) in the selected table.
+                Feature newFeature = _editTable.CreateFeature();
+
+                // Create a random value for the 'type' attribute (integer between 1 and 7).
+                var random = new Random(DateTime.Now.Millisecond);
+                int featureType = random.Next(1, 7);
+
+                // Set the geometry with the point the user clicked and the 'type' with the random integer.
+                newFeature.Geometry = geometry;
+                newFeature.SetAttributeValue("type", featureType);
+
+                // Add the new feature to the table.
+                string message = string.Empty;
+                try
+                {
+                    await _editTable.AddFeatureAsync(newFeature);
+                    MessageTextBlock.Text = "New feature added to the '" + _editTable.TableName + "' table.";
+                }
+                catch (ArcGISException ex)
+                {
+                    // Report the exception message.
+                    MessageTextBlock.Text = ex.Message;
+                }
             }
         }
 

@@ -163,6 +163,7 @@
 * [Change basemap](Maui.Samples/Samples/Map/ChangeBasemap) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
 * [Configure basemap style parameters](Maui.Samples/Samples/Map/ConfigureBasemapStyleParameters) - Apply basemap style parameters customization for a basemap, such as displaying all labels in a specific language or displaying every label in their corresponding local language.
 * [Create and save map](Maui.Samples/Samples/Map/AuthorMap) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
+* [Create dynamic basemap gallery](Maui.Samples/Samples/Map/CreateDynamicBasemapGallery) - Implement a basemap gallery that automatically retrieves the latest customization options from the basemap styles service.
 * [Display map](Maui.Samples/Samples/Map/DisplayMap) - Display a map with an imagery basemap.
 * [Display overview map](Maui.Samples/Samples/Map/DisplayOverviewMap) - Include an overview or inset map as an additional map view to show the wider context of the primary view.
 * [Download preplanned map area](Maui.Samples/Samples/Map/DownloadPreplannedMap) - Take a map offline using a preplanned map area.

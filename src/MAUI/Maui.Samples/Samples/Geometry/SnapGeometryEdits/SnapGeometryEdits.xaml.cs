@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Maui;
+using Esri.ArcGISRuntime.Toolkit.Maui;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Editing;
 using Microsoft.Maui.ApplicationModel;
@@ -25,7 +26,7 @@ namespace ArcGIS.Samples.SnapGeometryEdits
         category: "Geometry",
         description: "Use the Geometry Editor to edit a geometry and align it to existing geometries on a map.",
         instructions: "To create a geometry, press the create button to choose the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry.",
-        tags: new[] { "edit", "feature", "geometry editor", "layers", "map", "snapping" })]
+        tags: new[] { "edit", "feature", "geometry editor", "graphics", "layers", "map", "snapping" })]
     public partial class SnapGeometryEdits : ContentPage
     {
         // Hold references for use in event handlers.
@@ -86,14 +87,14 @@ namespace ArcGIS.Samples.SnapGeometryEdits
                 MultipointButton
             };
 
-            // Enable magnifier on mobile platforms.
-#if ANDROID || IOS
-            MyMapView.InteractionOptions = new Esri.ArcGISRuntime.UI.MapViewInteractionOptions
+            // Hide the popup when user taps screen.
+            SnappingSettingsPopup.GestureRecognizers.Add(new TapGestureRecognizer
             {
-                IsMagnifierEnabled = true,
-                AllowMagnifierToPan = true
-            };
-#endif
+                Command = new Command(() =>
+                {
+                    SnappingSettingsPopup.IsVisible = false;
+                })
+            });
 
             // Add an event handler to detect geoview tapped events.
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
@@ -114,6 +115,9 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             // Populate lists of snap source settings for point and polyline layers.
             PointSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Point).ToList();
             PolylineSnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingVM => snapSourceSettingVM.GeometryType == GeometryType.Polyline).ToList();
+
+            // Populate a list of snap source settings for graphics overlays.
+            GraphicsOverlaySnapSettingsList.ItemsSource = snapSourceSettingsVMs.Where(snapSourceSettingsVMs => snapSourceSettingsVMs.SnapSourceSettings.Source is GraphicsOverlay).ToList();
         }
 
         private void CreateNewGraphic()
@@ -279,6 +283,18 @@ namespace ArcGIS.Samples.SnapGeometryEdits
         #endregion
 
         #region Geometry Tool Buttons Handlers
+        private void ReticleVertexToolSwitch_Toggled(object sender, ToggledEventArgs e)
+        {
+            if (ReticleVertexToolSwitch.IsToggled)
+            {
+                _geometryEditor.Tool = new ReticleVertexTool();
+            }
+            else
+            {
+                _geometryEditor.Tool = new VertexTool();
+            }
+        }
+
         private void PointButton_Click(object sender, EventArgs e)
         {
             if (_geometryEditor.IsStarted)
@@ -336,11 +352,6 @@ namespace ArcGIS.Samples.SnapGeometryEdits
         {
             SnappingSettingsPopup.IsVisible = true;
         }
-
-        private void HideSnapSettingsButton_Clicked(object sender, EventArgs e)
-        {
-            SnappingSettingsPopup.IsVisible = false;
-        }
         #endregion
     }
 
@@ -353,10 +364,18 @@ namespace ArcGIS.Samples.SnapGeometryEdits
         {
             SnapSourceSettings = snapSourceSettings;
 
-            if (snapSourceSettings.Source is FeatureLayer featureLayer && featureLayer.FeatureTable != null)
+            if (snapSourceSettings.Source is FeatureLayer featureLayer)
             {
                 Name = featureLayer.Name;
-                GeometryType = featureLayer.FeatureTable.GeometryType;
+
+                if (featureLayer.FeatureTable != null)
+                {
+                    GeometryType = featureLayer.FeatureTable.GeometryType;
+                }
+            }
+            else if (snapSourceSettings.Source is GraphicsOverlay graphicsOverlay)
+            {
+                Name = "Editor graphics overlay";
             }
 
             IsEnabled = snapSourceSettings.IsEnabled;

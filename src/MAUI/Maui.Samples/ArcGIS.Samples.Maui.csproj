@@ -100,7 +100,6 @@
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
   </ItemGroup>
   <ItemGroup>
-    <MauiImage Include="Resources\Thumbnails\placeholder_android.jpg" />
     <None Remove="Resources\Icons\*.svg" />
 	  <MauiImage Include="Resources\Icons\*.svg" />
   </ItemGroup>
@@ -109,15 +108,10 @@
     <None Remove="Resources\Fonts\calcite-ui-icons-24.ttf" />
   </ItemGroup>
   <ItemGroup>
-	  <MauiImage Include="Resources\Thumbnails\placeholder_ios.jpg" />
-    <MauiImage Include="Resources\Thumbnails\placeholder_maccatalyst.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
   </ItemGroup>
 	<ItemGroup>
-    <MauiAsset Include="Resources\Thumbnails\placeholder_windows.jpg" />
     <MauiAsset Include="SyntaxHighlighting\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiAsset>

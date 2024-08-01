@@ -5,7 +5,7 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <ContentPage.Resources>
         <DataTemplate x:Key="SnapSettingTemplate">
-            <Grid>
+            <Grid ColumnSpacing="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*" />
@@ -13,7 +13,7 @@
                 <Label Grid.Column="0"
                        Text="{Binding Path=Name}"
                        VerticalOptions="Center"
-                       WidthRequest="150" />
+                       WidthRequest="160" />
                 <Switch Grid.Column="1"
                         HorizontalOptions="End"
                         IsToggled="{Binding Path=IsEnabled, Mode=TwoWay}"
@@ -32,28 +32,51 @@
         <esriUI:MapView x:Name="MyMapView" />
         <Grid x:Name="CreateEditGeometriesPanel"
               Margin="10"
-              ColumnDefinitions="95,95"
+              ColumnDefinitions="110,110"
               ColumnSpacing="5"
               HorizontalOptions="End"
               IsVisible="False"
-              RowDefinitions="auto,auto,auto,auto,auto"
+              RowDefinitions="auto,auto,auto,auto,auto,auto"
               RowSpacing="5"
-              VerticalOptions="Start"
-              WidthRequest="200">
+              VerticalOptions="Start">
             <Button x:Name="ShowSnapSettingsButton"
                     Grid.Row="0"
                     Grid.ColumnSpan="2"
                     Clicked="ShowSnapSettingsButton_Clicked"
                     Text="Show snap settings" />
+            <Border Grid.Row="1"
+                    Grid.ColumnSpan="2"
+                    BackgroundColor="{AppThemeBinding Dark=#3C3C3C,
+                                                      Light=White}"
+                    HeightRequest="40">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Column="0"
+                           Margin="10,0"
+                           Text="Reticle vertex tool"
+                           VerticalOptions="Center" />
+                    <Switch x:Name="ReticleVertexToolSwitch"
+                            Grid.Column="1"
+                            HorizontalOptions="End"
+                            Toggled="ReticleVertexToolSwitch_Toggled"
+                            VerticalOptions="Center" />
+                </Grid>
+            </Border>
             <Button x:Name="PointButton"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="0"
                     Clicked="PointButton_Click"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe21c;"
                     ToolTipProperties.Text="Point" />
             <Button x:Name="MultipointButton"
-                    Grid.Row="1"
+                    Grid.Row="2"
                     Grid.Column="1"
                     Clicked="MultipointButton_Click"
                     FontSize="20"
@@ -61,41 +84,41 @@
                     Text="&#xe21c;&#xe21c;"
                     ToolTipProperties.Text="Multipoint" />
             <Button x:Name="PolylineButton"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.Column="0"
                     Clicked="PolylineButton_Click"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe1a8;"
                     ToolTipProperties.Text="Polyline / no shape fill" />
             <Button x:Name="PolygonButton"
-                    Grid.Row="2"
+                    Grid.Row="3"
                     Grid.Column="1"
                     Clicked="PolygonButton_Click"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe220;"
                     ToolTipProperties.Text="Polygon / shape fill" />
-            <Button Grid.Row="3"
+            <Button Grid.Row="4"
                     Grid.Column="0"
                     Clicked="DeleteButton_Click"
                     IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe0e8;"
                     ToolTipProperties.Text="Delete selected" />
-            <Button Grid.Row="3"
+            <Button Grid.Row="4"
                     Grid.Column="1"
                     Clicked="UndoButton_Click"
                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe2d6;"
                     ToolTipProperties.Text="Undo" />
-            <Button Grid.Row="4"
+            <Button Grid.Row="5"
                     Grid.Column="0"
                     Clicked="DiscardButton_Click"
                     IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
                     Style="{StaticResource IconStyle}"
                     Text="&#xe080;"
                     ToolTipProperties.Text="Discard edits" />
-            <Button Grid.Row="4"
+            <Button Grid.Row="5"
                     Grid.Column="1"
                     Clicked="SaveButton_Click"
                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
@@ -108,12 +131,13 @@
               Padding="10"
               Background="#AA333333"
               IsVisible="False">
-            <Border Margin="10"
+            <Border x:Name="SnapSettingsContainer"
+                    Margin="10"
                     Background="{AppThemeBinding Dark=Black,
                                                  Light=White}"
                     HorizontalOptions="Center"
                     MaximumHeightRequest="450"
-                    MaximumWidthRequest="250"
+                    MaximumWidthRequest="300"
                     StrokeShape="RoundRectangle 10"
                     VerticalOptions="Center">
                 <ScrollView>
@@ -122,11 +146,12 @@
                                FontAttributes="Bold"
                                FontSize="14"
                                Text="Select snap sources" />
-                        <Grid ColumnDefinitions="0.5*,auto">
+                        <Grid ColumnDefinitions="auto,*">
                             <Label Grid.Column="0"
                                    Text="Point layers:"
                                    VerticalOptions="Center" />
                             <Button Grid.Column="1"
+                                    Margin="20,0"
                                     Clicked="EnableAllPointSnapSourceButton_Click"
                                     HorizontalOptions="End"
                                     Text="Enable all"
@@ -135,12 +160,13 @@
                         <CollectionView x:Name="PointSnapSettingsList"
                                         HeightRequest="150"
                                         ItemTemplate="{StaticResource SnapSettingTemplate}"
-                                        WidthRequest="200" />
+                                        WidthRequest="250" />
                         <Grid Margin="0,10,0,0" ColumnDefinitions="0.5*,auto">
                             <Label Grid.Column="0"
                                    Text="Polyline layers:"
                                    VerticalOptions="Center" />
                             <Button Grid.Column="1"
+                                    Margin="20,0"
                                     Clicked="EnableAllPolylineSnapSourceButton_Click"
                                     HorizontalOptions="End"
                                     Text="Enable all"
@@ -149,11 +175,14 @@
                         <CollectionView x:Name="PolylineSnapSettingsList"
                                         HeightRequest="90"
                                         ItemTemplate="{StaticResource SnapSettingTemplate}"
-                                        WidthRequest="200" />
-                        <Button Margin="0,5"
-                                Clicked="HideSnapSettingsButton_Clicked"
-                                HorizontalOptions="FillAndExpand"
-                                Text="Close" />
+                                        WidthRequest="250" />
+                        <Grid Margin="0,10,0,0">
+                            <Label Text="Graphics overlays:" VerticalOptions="Center" />
+                        </Grid>
+                        <CollectionView x:Name="GraphicsOverlaySnapSettingsList"
+                                        HeightRequest="60"
+                                        ItemTemplate="{StaticResource SnapSettingTemplate}"
+                                        WidthRequest="250" />
                     </VerticalStackLayout>
                 </ScrollView>
             </Border>

@@ -38,7 +38,7 @@ namespace ArcGIS.WPF.Samples.FindServiceArea
         {
             InitializeComponent();
 
-            // Create the map, graphics overlay, and sketch editor.
+            // Create the map, graphics overlay, and geometry editor.
             Initialize();
         }
 
@@ -68,7 +68,7 @@ namespace ArcGIS.WPF.Samples.FindServiceArea
         {
             try
             {
-                // Let the user tap on the map view using the point sketch mode.
+                // Let the user tap on the map view using the point geometry type.
                 _geometryType = GeometryType.Point;
 
                 MyMapView.GeometryEditor.Start(_geometryType);
@@ -129,7 +129,7 @@ namespace ArcGIS.WPF.Samples.FindServiceArea
                 // Update the button title.
                 DrawBarrierButton.Content = "Finish barrier";
 
-                // Let the user draw on the map view using the polyline sketch mode.
+                // Let the user draw on the map view using the polyline geometry type.
                 _geometryType = GeometryType.Polyline;
 
                 MyMapView.GeometryEditor.Start(_geometryType);

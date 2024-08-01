@@ -26,6 +26,7 @@
 			<Sample>ConfigureBasemapStyleParameters</Sample>
 			<Sample>DisplayMap</Sample>
 			<Sample>DisplayOverviewMap</Sample>
+			<Sample>CreateDynamicBasemapGallery</Sample>
         </Category>
 		<Category name="Scene">
 			<Sample>FilterFeaturesInScene</Sample>

@@ -14,6 +14,8 @@ namespace ArcGIS.Samples.Shared.Managers
 
         public static string ArcGISAnalysisLicenseKey { get; } = null; // Spatial Analyst Extension License Key
 
-        public static string[] ExtensionLicenses => new[] { ArcGISUtilityNetworkLicenseKey, ArcGISAnalysisLicenseKey }.Where(l => !string.IsNullOrEmpty(l)).ToArray();
+        public static string ArcGISAdvancedEditingUserTypeLicenseKey { get; } = null; // Advanced Editing User Type Extension License Key
+
+        public static string[] ExtensionLicenses => new[] { ArcGISUtilityNetworkLicenseKey, ArcGISAnalysisLicenseKey, ArcGISAdvancedEditingUserTypeLicenseKey}.Where(l => !string.IsNullOrEmpty(l)).ToArray();
     }
 }

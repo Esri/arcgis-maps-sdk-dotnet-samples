@@ -10,6 +10,7 @@
 using ArcGIS.Samples.Managers;
 using ArcGIS.Samples.Shared.Models;
 using Esri.ArcGISRuntime;
+using ArcGIS.Samples.Shared.Managers;
 using Microsoft.Maui.ApplicationModel;
 using System.Diagnostics;
 using System.Reflection;
@@ -107,6 +108,11 @@ namespace ArcGIS
 #else
             Title = "About";
 #endif
+
+            if (ApiKeyManager.DisableApiKeyUI)
+            {
+                ToolbarItems.Remove(ApiKeyButton);
+            }
         }
 
         private async void HyperlinkClicked(object sender, WebNavigatingEventArgs e)

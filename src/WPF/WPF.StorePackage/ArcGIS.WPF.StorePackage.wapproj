@@ -40,7 +40,7 @@
   <PropertyGroup>
     <WapProjPath Condition="'$(WapProjPath)'==''">$(MSBuildExtensionsPath)\Microsoft\DesktopBridge\</WapProjPath>
     <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
-    <AppxBundle>Never</AppxBundle>
+	<AppxBundle>Never</AppxBundle>
   </PropertyGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.props" />
   <PropertyGroup>
@@ -48,13 +48,14 @@
     <TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <DefaultLanguage>en-US</DefaultLanguage>
+
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
     <AppxPackageDir>..\..\..\output\win10-$(Platform)</AppxPackageDir>
     <AppxPackageSigningEnabled>False</AppxPackageSigningEnabled>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
-    <EntryPointExe>ArcGIS.WPF.Viewer.Net\ArcGIS.exe</EntryPointExe>
-    <EntryPointProjectUniqueName>..\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj</EntryPointProjectUniqueName>
+	<EntryPointExe>ArcGIS.WPF.Viewer.Net\ArcGIS.exe</EntryPointExe>
   </PropertyGroup>
+
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
@@ -126,7 +127,10 @@
     <Content Include="Images\Wide310x150Logo.scale-400.png" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
+  
+  
   <ItemGroup>
-    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" PrivateAssets="all" Version="10.0.22621.3233"/>
+    <PackageReference Include="Microsoft.Windows.SDK.BuildTools" PrivateAssets="all" />
   </ItemGroup>
+
 </Project>

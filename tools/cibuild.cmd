@@ -15,17 +15,20 @@ IF "%RELEASE_VERSION%" == "" (
   SET RELEASE_VERSION=200.5.0
 )
 
-IF "%RELEASE_VERSION%" == "" (
- SET KeyStoreFile="esridroid.keystore"
+IF "%KeyStoreFile%" == "" (
+SET KeyStoreFile="C:\jenkins\maui-android-key\esridroid\esridroid.keystore"
 )
-
 ECHO %KeyStoreFile%
 
 IF "%KeyPass%" == "" (
   SET KeyPass="com.esri.*"
 )
-
 ECHO %KeyPass%
+
+IF "%KeyAlias%" == "" (
+  SET KeyPass="esridroid"
+)
+ECHO %KeyAlias%
 
 REM Configure NuGet
 dotnet new nugetconfig --force -o ../
@@ -67,5 +70,5 @@ IF "%ARCGIS_API_KEY%" NEQ "" (
 )
 
 
-msbuild /t:BuildMaui %~dp0GenerateApps.msbuild /p:BUILD_NUM=%BUILD_NUM% /p:RELEASE_VERSION=%RELEASE_VERSION% /p:PUBLISHER="%PUBLISHER%" /p:PFXSignaturePassword=%PFXSignaturePassword% /p:PFXSignatureFile=%PFXSignatureFile% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint%
+msbuild /t:BuildMaui %~dp0GenerateApps.msbuild /p:BUILD_NUM=%BUILD_NUM% /p:RELEASE_VERSION=%RELEASE_VERSION% /p:App_Version=%App_Version% /p:KeyStoreFile=%KeyStoreFile% /p:KeyPass=%KeyPass% /p:KeyAlias=%KeyAlias%
 

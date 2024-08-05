@@ -7,6 +7,7 @@
     <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
     <RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">200.5.0</RELEASE_VERSION>
     <BUILD_NUM Condition="'$(BUILD_NUM)'==''">0</BUILD_NUM>
+	<APP_VERSION Condition="'$(APP_VERSION)'==''">1</APP_VERSION>
     <ArcGISMapsSDKVersion>$(RELEASE_VERSION)</ArcGISMapsSDKVersion>
 
     <AppManifestNamespace>
@@ -26,7 +27,7 @@
 
   <Target Name="BuildMaui" DependsOnTargets="CreateOutputDirectory">
     <MSBuild Projects="@(MAUIProject)" Targets="Restore" Properties="ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)"/>  
-    <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetAndroidTarget);ApplicationDisplayVersion=$(RELEASE_VERSION);AndroidKeyStore=true;AndroidSigningKeyPass=com.esri.*;AndroidSigningKeyAlias=esridroid;AndroidSigningKeyStore=esridroid.keystore;AndroidSigningStorePass=com.esri.*"/>
+    <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetAndroidTarget);ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(App_Version);AndroidKeyStore=true;AndroidSigningKeyStore=$(KeyStoreFile);AndroidSigningKeyPass=$(KeyPass);AndroidSigningStorePass=$(KeyPass);AndroidSigningKeyAlias=$(KeyAlias)"/>
     <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\net8.0-android\com.esri.arcgisruntime.samples.maui-Signed.apk"
           DestinationFolder="$(MSBuildThisFileDirectory)..\output\" />
     <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\net8.0-android\com.esri.arcgisruntime.samples.maui-Signed.aab"

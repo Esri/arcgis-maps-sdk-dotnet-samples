@@ -15,8 +15,8 @@ IF "%RELEASE_VERSION%" == "" (
   SET RELEASE_VERSION=200.5.0
 )
 
-IF "%KeyStoreFile%" == "" (
-SET KeyStoreFile="esrimauisamples.keystore"
+IF "%RELEASE_VERSION%" == "" (
+ SET KeyStoreFile="esridroid.keystore"
 )
 
 ECHO %KeyStoreFile%
@@ -67,5 +67,5 @@ IF "%ARCGIS_API_KEY%" NEQ "" (
 )
 
 
-msbuild /t:BuildMaui %~dp0GenerateApps.msbuild /p:BUILD_NUM=%BUILD_NUM% /p:RELEASE_VERSION=%RELEASE_VERSION%
+msbuild /t:BuildMaui %~dp0GenerateApps.msbuild /p:BUILD_NUM=%BUILD_NUM% /p:RELEASE_VERSION=%RELEASE_VERSION% /p:PUBLISHER="%PUBLISHER%" /p:PFXSignaturePassword=%PFXSignaturePassword% /p:PFXSignatureFile=%PFXSignatureFile% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint%
 

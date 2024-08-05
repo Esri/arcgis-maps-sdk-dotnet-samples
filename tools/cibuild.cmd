@@ -26,7 +26,7 @@ IF "%KeyPass%" == "" (
 ECHO %KeyPass%
 
 IF "%KeyAlias%" == "" (
-  SET KeyPass="esridroid"
+  SET KeyAlias="esridroid"
 )
 ECHO %KeyAlias%
 

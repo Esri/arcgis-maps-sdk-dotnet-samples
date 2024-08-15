@@ -14,7 +14,7 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <ScrollView Margin="5" WidthRequest="{OnIdiom Default=-1, Desktop=400}">
+    <ScrollView Margin="5">
         <StackLayout BindingContext="{x:Reference StatsQueryGroupAndSortSample}">
             <StackLayout x:Name="QueryConfigurationLayout"
                          Padding="5"

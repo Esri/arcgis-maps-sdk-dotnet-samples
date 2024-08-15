@@ -9,8 +9,6 @@
 
 using Esri.ArcGISRuntime.Data;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using Switch = Microsoft.Maui.Controls.Switch;
 
 namespace ArcGIS.Samples.StatsQueryGroupAndSort
 {
@@ -134,19 +132,9 @@ namespace ArcGIS.Samples.StatsQueryGroupAndSort
                     _resultsGroupCollection.Add(resultGroup);
                 }
 
-                // Update the UI to display the results.
-                ObservableCollection<ResultGroup> results = null;
-#if !ANDROID
-                // Lazy loading in a grouped CollectionView is broken due to .NET MAUI bug #10078.
-                results = _resultsGroupCollection;
-#elif ANDROID
-                // Use subset since CollectionView not performant with large data sets.
-                results = new ObservableCollection<ResultGroup>(_resultsGroupCollection.Take(15));
-#endif
-                foreach (ResultGroup group in results)
+                foreach (ResultGroup group in _resultsGroupCollection)
                 {
                     ResultsGroupCollection.Add(group);
-                    Debug.WriteLine(group.GroupName);
                 }
 
                 // Hide the query configuration layout and show the results layout.
@@ -268,11 +256,8 @@ namespace ArcGIS.Samples.StatsQueryGroupAndSort
             ResultsGroupCollection.Clear();
         }
 
-        // Lazy loading a grouped CollectionView is broken due to .NET MAUI bug #10078.
-        // CollectionView not performant with large data sets on Android.
         private void StatResultsList_RemainingItemsThresholdReached(object sender, EventArgs e)
         {
-#if !ANDROID
             if (ResultsGroupCollection == null) return;
 
             // Start index will be the current number of items in the list.
@@ -286,7 +271,6 @@ namespace ArcGIS.Samples.StatsQueryGroupAndSort
             {
                 ResultsGroupCollection.Add(_resultsGroupCollection[i]);
             }
-#endif
         }
     }
 

@@ -10,16 +10,19 @@
 
 # ArcGIS Maps SDK for .NET - Samples
 
-<a href="//www.microsoft.com/store/apps/9mtp5013343h?cid=storebadge&ocid=badge"><img src="./samples_screenshot.png" title="Get the viewer from Microsoft" alt="Screenshot of the sample viewer for WPF" width="500px" /></a>
+</a> <a href='//www.microsoft.com/store/apps/9mtp5013343h?cid=storebadge&ocid=badge'><img src='https://github.com/user-attachments/assets/162689a2-fbad-4955-91a2-3055cbd9ed46' alt='Get it from Microsoft' style="float:left"/></a>
+
 <hr />
 
-**Interactive samples demonstrate the ArcGIS Maps SDK for .NET API**
+**Explore ArcGIS Maps SDK for .NET with dozens of interactive samples. Experience the SDK's powerful capabilities and learn how to incorporate them into your own apps. View the code behind each sample from within the app to see just how easy it is to use the SDK.**
 
 ## Get started
 
-If you're on Windows, the easiest way to get started is to download the viewer from the Microsoft Store:
+Download the sample viewer apps onto your devices:
 
-<a href='//www.microsoft.com/store/apps/9mtp5013343h?cid=storebadge&ocid=badge'><img src='https://developer.microsoft.com/store/badges/images/English_get-it-from-MS.png' alt='Get it from Microsoft badge' width="125" /></a>
+<a href='https://play.google.com/store/apps/details?id=com.esri.arcgisruntime.samples.maui'> <img src='https://github.com/user-attachments/assets/924c2721-9a8a-4387-8fa2-c1b6f99f6bac' alt='Get it on Google Play' width="200" /></a>
+
+<a href='//www.microsoft.com/store/apps/9mtp5013343h?cid=storebadge&ocid=badge'><img src='https://developer.microsoft.com/store/badges/images/English_get-it-from-MS.png' alt='Get it from Microsoft' width="200" /></a>
 
 Or, you can browse a searchable list of samples on the ArcGIS for developers website:
 
@@ -33,7 +36,7 @@ Or, you can browse a searchable list of samples on the ArcGIS for developers web
 If you want to modify or debug sample code, you can clone this repo and load one of the following solutions:
 
 - All: `src\ArcGIS.Viewers.All.sln`
-- .NET MAUI (iOS, Android): `src\MAUI\ArcGIS.Samples.Maui.sln`
+- .NET MAUI: `src\MAUI\ArcGIS.Samples.Maui.sln`
 
 If you are only interested in one platform, you can open a platform-specific solutions:
 

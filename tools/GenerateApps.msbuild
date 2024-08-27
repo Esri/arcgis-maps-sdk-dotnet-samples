@@ -5,7 +5,7 @@
     <_NetWindowsTarget>net8.0-windows10.0.19041.0</_NetWindowsTarget>
     <_NetAndroidTarget>net8.0-android</_NetAndroidTarget>
     <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
-    <RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">200.5.0</RELEASE_VERSION>
+    <RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">200.6.0</RELEASE_VERSION>
     <BUILD_NUM Condition="'$(BUILD_NUM)'==''">0</BUILD_NUM>
     <ArcGISMapsSDKVersion>$(RELEASE_VERSION)</ArcGISMapsSDKVersion>
 
@@ -81,7 +81,7 @@
     <MSBuild Projects="@(MAUIProject)" Targets="Restore" Properties="ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)"/>
     <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-x64;RuntimeIdentifierOverride=win10-x64;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
     <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-x86;RuntimeIdentifierOverride=win10-x86;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
-    <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-arm64;RuntimeIdentifierOverride=win10-arm64;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
+    <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);RuntimeIdentifier=win10-arm64;RuntimeIdentifierOverride=win10-arm64;UseRidGraph=true;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);AndroidKeyStore=true;AndroidSigningKeyStore=$(KeyStoreFile);AndroidSigningKeyPass=$(KeyPass);AndroidSigningStorePass=$(KeyPass);AndroidSigningKeyAlias=$(KeyAlias)" />
     <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetAndroidTarget);ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM)" />
     <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\net8.0-android\com.esri.arcgisruntime.samples.maui-Signed.apk"
           DestinationFolder="$(MSBuildThisFileDirectory)..\output\" />

@@ -14,9 +14,6 @@ IF "%VSINSTALLDIR%"=="" (
 IF "%RELEASE_VERSION%" == "" (
   SET RELEASE_VERSION=200.6.0
 )
-echo "KeyStore has been set to %KeyStoreFile%"
-echo "KeyPass has been set to %KeyPass%"
-echo "KeyAlias has been set to %KeyAlias%"
 
 REM Configure NuGet
 dotnet new nugetconfig --force -o ../

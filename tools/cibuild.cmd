@@ -18,8 +18,6 @@ echo "KeyStore has been set to %KeyStoreFile%"
 echo "KeyPass has been set to %KeyPass%"
 echo "KeyAlias has been set to %KeyAlias%"
 
-exit
-
 REM Configure NuGet
 dotnet new nugetconfig --force -o ../
 IF "%NUGET_REPO%" NEQ "" IF EXIST "%NUGET_REPO%" (

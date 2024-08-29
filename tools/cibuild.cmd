@@ -14,6 +14,11 @@ IF "%VSINSTALLDIR%"=="" (
 IF "%RELEASE_VERSION%" == "" (
   SET RELEASE_VERSION=200.6.0
 )
+echo "KeyStore has been set to %KeyStoreFile%"
+echo "KeyPass has been set to %KeyPass%"
+echo "KeyAlias has been set to %KeyAlias%"
+
+exit
 
 REM Configure NuGet
 dotnet new nugetconfig --force -o ../
@@ -55,5 +60,5 @@ IF "%ARCGIS_API_KEY%" NEQ "" (
 )
 
 
-msbuild /t:BuildAll %~dp0GenerateApps.msbuild /p:BUILD_NUM=%BUILD_NUM% /p:RELEASE_VERSION=%RELEASE_VERSION% /p:PUBLISHER="%PUBLISHER%" /p:PFXSignaturePassword=%PFXSignaturePassword% /p:PFXSignatureFile=%PFXSignatureFile% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint% /p:KeyStoreFile=%KeyStoreFile% /p:KeyPass=%KeyPass% /p:KeyAlias=%KeyAlias%
+msbuild /t:BuildMaui %~dp0GenerateApps.msbuild /p:BUILD_NUM=%BUILD_NUM% /p:RELEASE_VERSION=%RELEASE_VERSION% /p:PUBLISHER="%PUBLISHER%" /p:PFXSignaturePassword=%PFXSignaturePassword% /p:PFXSignatureFile=%PFXSignatureFile% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint% /p:KeyStoreFile=%KeyStoreFile% /p:KeyPass=%KeyPass% /p:KeyAlias=%KeyAlias%
 

@@ -28,7 +28,7 @@ namespace ArcGIS.Samples.AddDynamicEntityLayer
         tags: new[] { "data", "dynamic", "entity", "live", "purge", "real-time", "service", "stream", "track" })]
     public partial class AddDynamicEntityLayer
     {
-        // This envelope is a limited region around Sandy, Utah. It will be the extent used by the `DynamicEntityFilter`.
+        // This envelope is a limited region around Sandy, Utah. It will be the extent used by the ArcGISStreamServiceFilter.
         private Envelope _utahSandyEnvelope = new Envelope(new MapPoint(-112.110052, 40.718083, SpatialReferences.Wgs84), new MapPoint(-111.814782, 40.535247, SpatialReferences.Wgs84));
 
         private ArcGISStreamService _dynamicEntityDataSource;

@@ -23,9 +23,9 @@
     ],
     "relevant_apis": [
         "ArcGISStreamService",
+        "ArcGISStreamServiceFilter",
         "ConnectionStatus",
         "DynamicEntity",
-        "DynamicEntityFilter",
         "DynamicEntityLayer",
         "DynamicEntityPurgeOptions",
         "TrackDisplayProperties"

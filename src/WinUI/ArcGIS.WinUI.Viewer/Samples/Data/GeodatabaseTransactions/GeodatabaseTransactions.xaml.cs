@@ -220,9 +220,8 @@ namespace ArcGIS.WinUI.Samples.GeodatabaseTransactions
                 AddMarineButton.IsEnabled = e.IsInTransaction;
                 StopEditingButton.IsEnabled = e.IsInTransaction;
 
-                // These buttons should be enabled when there is NOT a transaction.
+                // This button should be enabled when there is NOT a transaction.
                 StartEditingButton.IsEnabled = !e.IsInTransaction;
-                SyncEditsButton.IsEnabled = !e.IsInTransaction;
             });
         }
 
@@ -387,66 +386,6 @@ namespace ArcGIS.WinUI.Samples.GeodatabaseTransactions
             StopEditingButton.IsEnabled = mustHaveTransaction && _localGeodatabase.IsInTransaction;
             AddBirdButton.IsEnabled = !mustHaveTransaction;
             AddMarineButton.IsEnabled = !mustHaveTransaction;
-        }
-
-        // Synchronize edits in the local geodatabase with the service.
-        public async void SynchronizeEdits(object sender, RoutedEventArgs e)
-        {
-            // Don't attempt to sync if there are no local edits.
-            if (!_localGeodatabase.HasLocalEdits())
-            {
-                MessageTextBlock.Text = "No local edits to synchronize.";
-                return;
-            }
-
-            // Show the progress bar while the sync is working.
-            LoadingProgressBar.Visibility = Visibility.Visible;
-
-            try
-            {
-                // Create a sync task with the URL of the feature service to sync.
-                GeodatabaseSyncTask syncTask = await GeodatabaseSyncTask.CreateAsync(new Uri(SyncServiceUrl));
-
-                // Create sync parameters.
-                SyncGeodatabaseParameters taskParameters = await syncTask.CreateDefaultSyncGeodatabaseParametersAsync(_localGeodatabase);
-
-                // Create a synchronize geodatabase job, pass in the parameters and the geodatabase.
-                SyncGeodatabaseJob job = syncTask.SyncGeodatabase(taskParameters, _localGeodatabase);
-
-                // Handle the JobChanged event for the job.
-                job.StatusChanged += (s, arg) =>
-                {
-                    // Report changes in the job status.
-                    if (job.Status == JobStatus.Succeeded)
-                    {
-                        // Report success ...
-                        DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () => MessageTextBlock.Text = "Synchronization is complete!");
-                    }
-                    else if (job.Status == JobStatus.Failed)
-                    {
-                        // Report failure ...
-                        DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () => MessageTextBlock.Text = job.Error.Message);
-                    }
-                    else
-                    {
-                        // Report that the job is in progress ...
-                        DispatcherQueue.TryEnqueue(Microsoft.UI.Dispatching.DispatcherQueuePriority.Normal, () => MessageTextBlock.Text = "Sync in progress ...");
-                    }
-                };
-
-                // Await the completion of the job.
-                await job.GetResultAsync();
-            }
-            catch (Exception ex)
-            {
-                // Show the message if an exception occurred.
-                MessageTextBlock.Text = "Error when synchronizing: " + ex.Message;
-            }
-            finally
-            {
-                // Hide the progress bar when the sync job is complete.
-                LoadingProgressBar.Visibility = Visibility.Collapsed;
-            }
         }
     }
 }

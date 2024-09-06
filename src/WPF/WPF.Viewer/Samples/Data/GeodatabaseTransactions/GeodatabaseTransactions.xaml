@@ -16,8 +16,11 @@
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
                     <Button x:Name="StartEditingButton"
                             Grid.Column="0"
                             Margin="0,0,0,5"
@@ -29,24 +32,15 @@
                             Click="StopEditTransaction"
                             Content="Stop Editing"
                             IsEnabled="False" />
-                    <Button x:Name="SyncEditsButton"
-                            Grid.Column="2"
-                            Click="SynchronizeEdits"
-                            Content="Synchronize"
-                            IsEnabled="True" />
-                </Grid>
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
                     <Button x:Name="AddBirdButton"
+                            Grid.Row="1"
                             Grid.Column="0"
                             Margin="0,0,0,5"
                             Click="AddNewFeature"
                             Content="Add Bird Feature"
                             IsEnabled="False" />
                     <Button x:Name="AddMarineButton"
+                            Grid.Row="1"
                             Grid.Column="1"
                             Click="AddNewFeature"
                             Content="Add Marine Feature"

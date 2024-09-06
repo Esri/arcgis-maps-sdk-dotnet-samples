@@ -10,12 +10,10 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI.Editing;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System.Linq.Expressions;
+using ArcGIS.Samples.Managers;
 
 namespace ArcGIS.Samples.GeodatabaseTransactions
 {
@@ -23,13 +21,11 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
         name: "Geodatabase transactions",
         category: "Data",
         description: "Use transactions to manage how changes are committed to a geodatabase.",
-        instructions: "When the sample loads, a feature service is taken offline as a geodatabase. When the geodatabase is ready, you can add multiple types of features. To apply edits directly, uncheck the 'Require a transaction for edits' checkbox. When using transactions, use the buttons to start editing and stop editing. When you stop editing, you can choose to commit the changes or roll them back. At any point, you can synchronize the local geodatabase with the feature service.",
+        instructions: "Tap on the map to add multiple types of features. To apply edits directly, uncheck the \"Requires Transaction\". When using transactions, use the buttons to start editing and stop editing. When you stop editing, you can choose to commit the changes or roll them back.",
         tags: new[] { "commit", "database", "geodatabase", "geometry editor", "transact", "transactions" })]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("43809fd639f242fd8045ecbafd61a579")]
     public partial class GeodatabaseTransactions : ContentPage
     {
-        // URL for the editable feature service.
-        private const string SyncServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Sync/SaveTheBaySync/FeatureServer/";
-
         // Work in a small extent south of Galveston, TX.
         private readonly Envelope _extent = new Envelope(-95.3035, 29.0100, -95.1053, 29.1298, SpatialReferences.Wgs84);
 
@@ -98,7 +94,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
         private async Task GetLocalGeodatabase()
         {
             // Get the path to the local geodatabase for this platform (temp directory, for example).
-            string localGeodatabasePath = GetGdbPath();
+            string localGeodatabasePath = DataManager.GetDataFolder("43809fd639f242fd8045ecbafd61a579", "SaveTheBay.geodatabase");
 
             try
             {
@@ -108,51 +104,11 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
                     // If the geodatabase is already available, open it, hide the progress control, and update the message.
                     _localGeodatabase = await Geodatabase.OpenAsync(localGeodatabasePath);
                     LoadingProgressBar.IsVisible = false;
-                    MessageTextBlock.Text = "Using local geodatabase from '" + _localGeodatabase.Path + "'.";
+                    MessageTextBlock.Text = "Using local geodatabase.";
                 }
                 else
                 {
-                    // Create a new GeodatabaseSyncTask with the uri of the feature server to pull from.
-                    var uri = new Uri(SyncServiceUrl);
-                    GeodatabaseSyncTask gdbTask = await GeodatabaseSyncTask.CreateAsync(uri);
-
-                    // Create parameters for the task: layers and extent to include, out spatial reference, and sync model.
-                    GenerateGeodatabaseParameters gdbParams = await gdbTask.CreateDefaultGenerateGeodatabaseParametersAsync(_extent);
-                    gdbParams.OutSpatialReference = MyMapView.SpatialReference;
-                    gdbParams.SyncModel = SyncModel.Layer;
-                    gdbParams.LayerOptions.Clear();
-                    gdbParams.LayerOptions.Add(new GenerateLayerOption(0));
-                    gdbParams.LayerOptions.Add(new GenerateLayerOption(1));
-
-                    // Create a geodatabase job that generates the geodatabase.
-                    GenerateGeodatabaseJob generateGdbJob = gdbTask.GenerateGeodatabase(gdbParams, localGeodatabasePath);
-
-                    // Handle the job changed event and check the status of the job; store the geodatabase when it's ready.
-                    generateGdbJob.StatusChanged += (s, e) =>
-                    {
-                        // See if the job succeeded.
-                        if (generateGdbJob.Status == JobStatus.Succeeded)
-                        {
-                            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
-                            {
-                                // Hide the progress control and update the message.
-                                LoadingProgressBar.IsVisible = false;
-                                MessageTextBlock.Text = "Created local geodatabase.";
-                            });
-                        }
-                        else if (generateGdbJob.Status == JobStatus.Failed)
-                        {
-                            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>
-                            {
-                                // Hide the progress control and report the exception.
-                                LoadingProgressBar.IsVisible = false;
-                                MessageTextBlock.Text = "Unable to create local geodatabase: " + generateGdbJob.Error.Message;
-                            });
-                        }
-                    };
-
-                    // Start the generate geodatabase job.
-                    _localGeodatabase = await generateGdbJob.GetResultAsync();
+                    MessageTextBlock.Text = "Missing local geodatabase.";
                 }
             }
             catch (Exception ex)
@@ -206,7 +162,6 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
             {
                 MyMapView.SetViewpoint(new Viewpoint(_marineTable.Extent));
                 StartEditingButton.IsEnabled = true;
-                SyncEditsButton.IsEnabled = true;
             });
         }
 
@@ -222,22 +177,8 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
 
                 // These buttons should be enabled when there is NOT a transaction.
                 StartEditingButton.IsEnabled = !e.IsInTransaction;
-                SyncEditsButton.IsEnabled = !e.IsInTransaction;
                 RequireTransactionCheckBox.IsEnabled = !e.IsInTransaction;
             });
-        }
-
-        private string GetGdbPath()
-        {
-            // Set the platform-specific path for storing the geodatabase.
-            string folder = string.Empty;
-#if WINDOWS
-            folder = Windows.Storage.ApplicationData.Current.LocalFolder.Path;
-#elif IOS || ANDROID || MACCATALYST
-            folder = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-#endif
-            // Set the final path.
-            return Path.Combine(folder, "savethebay.geodatabase");
         }
 
         private void BeginTransaction(object sender, EventArgs e)
@@ -384,66 +325,6 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
             StopEditingButton.IsEnabled = mustHaveTransaction && _localGeodatabase.IsInTransaction;
             AddBirdButton.IsEnabled = !mustHaveTransaction;
             AddMarineButton.IsEnabled = !mustHaveTransaction;
-        }
-
-        // Synchronize edits in the local geodatabase with the service.
-        public async void SynchronizeEdits(object sender, EventArgs e)
-        {
-            // Don't attempt to sync if there are no local edits.
-            if (!_localGeodatabase.HasLocalEdits())
-            {
-                MessageTextBlock.Text = "No local edits to synchronize.";
-                return;
-            }
-
-            // Show the progress bar while the sync is working.
-            LoadingProgressBar.IsVisible = true;
-
-            try
-            {
-                // Create a sync task with the URL of the feature service to sync.
-                GeodatabaseSyncTask syncTask = await GeodatabaseSyncTask.CreateAsync(new Uri(SyncServiceUrl));
-
-                // Create sync parameters.
-                SyncGeodatabaseParameters taskParameters = await syncTask.CreateDefaultSyncGeodatabaseParametersAsync(_localGeodatabase);
-
-                // Create a synchronize geodatabase job, pass in the parameters and the geodatabase.
-                SyncGeodatabaseJob job = syncTask.SyncGeodatabase(taskParameters, _localGeodatabase);
-
-                // Handle the JobChanged event for the job.
-                job.StatusChanged += (s, arg) =>
-                {
-                    // Report changes in the job status.
-                    if (job.Status == JobStatus.Succeeded)
-                    {
-                        // Report success ...
-                        Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => MessageTextBlock.Text = "Synchronization is complete!");
-                    }
-                    else if (job.Status == JobStatus.Failed)
-                    {
-                        // Report failure ...
-                        Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => MessageTextBlock.Text = job.Error.Message);
-                    }
-                    else
-                    {
-                        // Report that the job is in progress ...
-                        Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => MessageTextBlock.Text = "Sync in progress ...");
-                    }
-                };
-
-                // Await the completion of the job.
-                await job.GetResultAsync();
-            }
-            catch (Exception ex)
-            {
-                // Show the message if an exception occurred.
-                MessageTextBlock.Text = "Error when synchronizing: " + ex.Message;
-            }
-            finally
-            {
-                // Hide the progress bar when the sync job is complete.
-                LoadingProgressBar.IsVisible = false;
-            }
         }
     }
 }

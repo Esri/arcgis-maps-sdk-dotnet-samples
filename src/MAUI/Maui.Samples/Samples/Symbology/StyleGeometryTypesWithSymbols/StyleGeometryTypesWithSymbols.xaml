@@ -2,8 +2,205 @@
 <ContentPage x:Class="ArcGIS.Samples.StyleGeometryTypesWithSymbols.StyleGeometryTypesWithSymbols"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+             xmlns:converters="clr-namespace:ArcGIS.Converters"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:local="clr-namespace:ArcGIS.Samples.StyleGeometryTypesWithSymbols">
+    <ContentPage.Resources>
+        <Style TargetType="Picker">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            <Setter Property="HorizontalTextAlignment" Value="Center" />
+        </Style>
+        <Style TargetType="Stepper">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="VerticalOptions" Value="Center" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="Center" />
+        </Style>
+        <Style TargetType="CollectionView">
+            <Setter Property="SelectionMode" Value="Single" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="VerticalOptions" Value="Center" />
+            <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <HorizontalStackLayout Spacing="5">
+                            <Border x:Name="ColorPreview"
+                                    BackgroundColor="{Binding ., Converter={StaticResource ColorConverter}}"
+                                    WidthRequest="50" />
+                            <Label x:Name="ColorLabel"
+                                   Margin="5"
+                                   HorizontalOptions="Center"
+                                   Text="{Binding Name}"
+                                   VerticalOptions="Center" />
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="RadioButton">
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <converters:ColorConverter x:Key="ColorConverter" />
+    </ContentPage.Resources>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <ScrollView>
+                <StackLayout>
+                    <Label Margin="5"
+                           FontAttributes="Bold"
+                           FontSize="20"
+                           HorizontalOptions="Center"
+                           Text="Edit Styles"
+                           VerticalOptions="Center" />
+                    <Grid ColumnDefinitions="*,*,*">
+                        <RadioButton x:Name="PointRadioButton"
+                                     BindingContext="{x:Reference PointGrid}"
+                                     CheckedChanged="GeometryTypeRadioButton_CheckedChanged"
+                                     Content="Point" />
+                        <RadioButton Grid.Column="1"
+                                     BindingContext="{x:Reference PolylineGrid}"
+                                     CheckedChanged="GeometryTypeRadioButton_CheckedChanged"
+                                     Content="Polyline" />
+                        <RadioButton Grid.Column="2"
+                                     BindingContext="{x:Reference PolygonGrid}"
+                                     CheckedChanged="GeometryTypeRadioButton_CheckedChanged"
+                                     Content="Polygon" />
+                    </Grid>
+                    <Grid x:Name="PointGrid"
+                          ColumnDefinitions="75,*"
+                          RowDefinitions="*,*,*">
+                        <Label Margin="5"
+                               HorizontalOptions="Center"
+                               Text="Style"
+                               VerticalOptions="Center" />
+                        <Picker x:Name="PointStylePicker" Grid.Column="1" />
+                        <Label Grid.Row="1"
+                               Margin="5"
+                               HorizontalOptions="Center"
+                               Text="Color"
+                               VerticalOptions="Center" />
+                        <CollectionView x:Name="PointColorCollectionView"
+                                        Grid.Row="1"
+                                        Grid.Column="1"
+                                        SelectionChanged="ColorCollectionView_SelectionChanged" />
+                        <Label x:Name="PointSizeLabel"
+                               Grid.Row="2"
+                               Margin="5"
+                               HorizontalOptions="Center"
+                               Text="Size: 12"
+                               VerticalOptions="Center" />
+                        <Stepper x:Name="PointSizeStepper"
+                                 Grid.Row="2"
+                                 Grid.Column="1"
+                                 Maximum="15"
+                                 Minimum="5"
+                                 ValueChanged="SizeStepper_ValueChanged"
+                                 Value="12" />
+                    </Grid>
+                    <Grid x:Name="PolylineGrid"
+                          ColumnDefinitions="75,*"
+                          IsVisible="False"
+                          RowDefinitions="*,*,*">
+                        <Label Margin="5"
+                               HorizontalOptions="Center"
+                               Text="Style"
+                               VerticalOptions="Center" />
+                        <Picker x:Name="PolylineStylePicker" Grid.Column="1" />
+                        <Label Grid.Row="1"
+                               Margin="5"
+                               HorizontalOptions="Center"
+                               Text="Color"
+                               VerticalOptions="Center" />
+                        <CollectionView x:Name="PolylineColorCollectionView"
+                                        Grid.Row="1"
+                                        Grid.Column="1" />
+                        <Label x:Name="PolylineWidthLabel"
+                               Grid.Row="2"
+                               Margin="5"
+                               HorizontalOptions="Center"
+                               Text="Width: 6"
+                               VerticalOptions="Center" />
+                        <Stepper x:Name="PolylineWidthStepper"
+                                 Grid.Row="2"
+                                 Grid.Column="1"
+                                 Maximum="10"
+                                 Minimum="1"
+                                 ValueChanged="SizeStepper_ValueChanged"
+                                 Value="6" />
+                    </Grid>
+                    <Grid x:Name="PolygonGrid"
+                          ColumnDefinitions="75,*"
+                          IsVisible="False"
+                          RowDefinitions="*,*,*,*,*,*,*,*">
+                        <Label Grid.ColumnSpan="2"
+                               Margin="5"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               Text="Fill"
+                               VerticalOptions="Center" />
+                        <Label Grid.Row="1"
+                               Margin="5"
+                               HorizontalOptions="Center"
+                               Text="Style"
+                               VerticalOptions="Center" />
+                        <Picker x:Name="PolygonFillStylePicker"
+                                Grid.Row="1"
+                                Grid.Column="1" />
+                        <Label Grid.Row="2"
+                               Margin="5"
+                               HorizontalOptions="Center"
+                               Text="Color"
+                               VerticalOptions="Center" />
+                        <CollectionView x:Name="PolygonFillColorCollectionView"
+                                        Grid.Row="2"
+                                        Grid.Column="1" />
+                        <Label Grid.Row="3"
+                               Grid.ColumnSpan="2"
+                               Margin="5"
+                               FontAttributes="Bold"
+                               HorizontalOptions="Center"
+                               Text="Outline"
+                               VerticalOptions="Center" />
+                        <Label Grid.Row="4"
+                               Margin="5"
+                               HorizontalOptions="Center"
+                               Text="Style"
+                               VerticalOptions="Center" />
+                        <Picker x:Name="PolygonOutlineStylePicker"
+                                Grid.Row="4"
+                                Grid.Column="2" />
+                        <Label Grid.Row="5"
+                               Margin="5"
+                               HorizontalOptions="Center"
+                               Text="Color"
+                               VerticalOptions="Center" />
+                        <CollectionView x:Name="PolygonOutlineColorCollectionView"
+                                        Grid.Row="5"
+                                        Grid.Column="1" />
+                        <Label x:Name="PolygonOutlineWidthLabel"
+                               Grid.Row="6"
+                               Margin="5"
+                               HorizontalOptions="Center"
+                               Text="Width: 3"
+                               VerticalOptions="Center" />
+                        <Stepper x:Name="PolygonOutlineWidthStepper"
+                                 Grid.Row="6"
+                                 Grid.Column="1"
+                                 Maximum="10"
+                                 Minimum="1"
+                                 ValueChanged="SizeStepper_ValueChanged"
+                                 Value="3" />
+                    </Grid>
+                </StackLayout>
+            </ScrollView>
+
+        </Border>
     </Grid>
 </ContentPage>

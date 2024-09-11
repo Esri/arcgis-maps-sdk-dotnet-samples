@@ -250,12 +250,11 @@
 * [Custom dictionary style](Maui.Samples/Samples/Symbology/CustomDictionaryStyle) - Use a custom dictionary created from a web style or style file (.stylx) to symbolize features using a variety of attribute values.
 * [Distance composite scene symbol](Maui.Samples/Samples/Symbology/UseDistanceCompositeSym) - Change a graphic's symbol based on the camera's proximity to it.
 * [Feature layer extrusion](Maui.Samples/Samples/Symbology/FeatureLayerExtrusion) - Extrude features based on their attributes.
-* [Picture marker symbol](Maui.Samples/Samples/Symbology/RenderPictureMarkers) - Use pictures for markers.
 * [Read symbols from mobile style](Maui.Samples/Samples/Symbology/SymbolsFromMobileStyle) - Combine multiple symbols from a mobile style file into a single symbol.
 * [Render multilayer symbols](Maui.Samples/Samples/Symbology/RenderMultilayerSymbols) - Show different kinds of multilayer symbols on a map similar to some pre-defined 2D simple symbol styles.
 * [Scene symbols](Maui.Samples/Samples/Symbology/SceneSymbols) - Show various kinds of 3D symbols in a scene.
-* [Simple marker symbol](Maui.Samples/Samples/Symbology/RenderSimpleMarkers) - Show a simple marker symbol on a map.
 * [Simple renderer](Maui.Samples/Samples/Symbology/SimpleRenderers) - Display common symbols for all graphics in a graphics overlay with a renderer.
+* [Style geometry types with symbols](Maui.Samples/Samples/Symbology/StyleGeometryTypesWithSymbols) - Use a symbol to display a geometry on a map.
 * [Unique value renderer](Maui.Samples/Samples/Symbology/RenderUniqueValues) - Render features in a layer using a distinct symbol for each unique attribute value.
 
 ## Utility network

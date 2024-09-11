@@ -7,13 +7,33 @@
         "stylegeometrytypeswithsymbols.jpg"
     ],
     "keywords": [
+        "display",
+        "fill",
+        "graphics",
+        "line",
+        "marker",
+        "overlay",
+        "picture",
+        "point",
+        "symbol",
+        "visualization"
     ],
+    "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/StyleGeometryTypesWithSymbols.htm"
+        "/net/latest/maui/sample-code/style-geometry-types-with-symbols.htm"
     ],
     "relevant_apis": [
+        "Geometry",
+        "Graphic",
+        "GraphicsOverlay",
+        "PictureMarkerSymbol",
+        "SimpleFillSymbol",
+        "SimpleLineSymbol",
+        "SimpleMarkerSymbol"
     ],
     "snippets": [
+        "StyleGeometryTypesWithSymbols.xaml.cs",
+        "StyleGeometryTypesWithSymbols.xaml"
     ],
     "title": "Style geometry types with symbols"
 }

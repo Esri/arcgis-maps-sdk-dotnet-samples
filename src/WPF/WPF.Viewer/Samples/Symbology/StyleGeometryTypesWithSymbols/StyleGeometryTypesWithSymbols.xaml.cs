@@ -28,10 +28,11 @@ using Button = System.Windows.Controls.Button;
 namespace ArcGIS.WPF.Samples.StyleGeometryTypesWithSymbols
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Style geometry types with symbols",
-        "Symbology",
-        "Use a symbol to display a geometry on a map.",
-        "")]
+        name: "Style geometry types with symbols",
+        category: "Symbology",
+        description: "Use a symbol to display a geometry on a map.",
+        instructions: "Tap \"Edit Styles\" and select a geometry to edit with the picker. Use the controls to change the symbol properties for the geometry.",
+        tags: new[] { "display", "fill", "graphics", "line", "marker", "overlay", "picture", "point", "symbol", "visualization" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class StyleGeometryTypesWithSymbols
     {

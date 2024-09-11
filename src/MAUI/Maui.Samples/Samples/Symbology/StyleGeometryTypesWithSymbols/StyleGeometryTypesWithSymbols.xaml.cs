@@ -26,7 +26,7 @@ namespace ArcGIS.Samples.StyleGeometryTypesWithSymbols
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class StyleGeometryTypesWithSymbols
     {
-        // Item sources for the combo boxes.
+        // Item sources for the pickers.
         public List<SimpleMarkerSymbolStyle> SimpleMarkerSymbolStyles => Enum.GetValues(typeof(SimpleMarkerSymbolStyle)).Cast<SimpleMarkerSymbolStyle>().ToList();
         public List<SimpleLineSymbolStyle> SimpleLineSymbolStyles => Enum.GetValues(typeof(SimpleLineSymbolStyle)).Cast<SimpleLineSymbolStyle>().ToList();
         public List<SimpleFillSymbolStyle> SimpleFillSymbolStyles => Enum.GetValues(typeof(SimpleFillSymbolStyle)).Cast<SimpleFillSymbolStyle>().ToList();
@@ -201,10 +201,10 @@ namespace ArcGIS.Samples.StyleGeometryTypesWithSymbols
 
         private void StylePicker_SelectionChanged(object sender, EventArgs e)
         {
-            // Get the selected combo box item.
+            // Get the selected picker item.
             var picker = sender as Picker;
 
-            // Update the symbol style based on the selected combo box item.
+            // Update the symbol style based on the selected picker item.
             switch (_selectedGraphic.Geometry.GeometryType)
             {
                 case GeometryType.Point:

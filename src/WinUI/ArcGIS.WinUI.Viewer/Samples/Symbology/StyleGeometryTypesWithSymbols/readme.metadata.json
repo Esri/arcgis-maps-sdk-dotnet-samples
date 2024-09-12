@@ -19,9 +19,11 @@
         "visualization"
     ],
     "offline_data": [],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/style-geometry-types-with-symbols.htm"
-    ],
+  "redirect_from": [
+        "/net/latest/winui/sample-code/picture-marker-symbol.htm",
+        "/net/latest/winui/sample-code/style-geometry-types-with-symbols.htm",
+        "/net/latest/winui/sample-code/simple-marker-symbol.htm"
+  ],
     "relevant_apis": [
         "Geometry",
         "Graphic",

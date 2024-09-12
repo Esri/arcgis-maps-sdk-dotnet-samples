@@ -142,10 +142,71 @@
                     VerticalOptions="Center">
                 <ScrollView>
                     <VerticalStackLayout Margin="10">
+                        <Grid ColumnDefinitions="auto,*">
+                            <Label Padding="0,5"
+                                   FontAttributes="Bold"
+                                   FontSize="14"
+                                   Text="Snap settings" />
+                            <Button Grid.Column="1"
+                                    Margin="20,0"
+                                    Clicked="EnableAllSnapSettingsButton_Click"
+                                    HorizontalOptions="End"
+                                    Text="Enable all"
+                                    VerticalOptions="Center" />
+                        </Grid>
+                        <VerticalStackLayout HeightRequest="130" WidthRequest="250">
+                            <Grid ColumnSpacing="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                       Text="Snapping"
+                                       VerticalOptions="Center"
+                                       WidthRequest="160" />
+                                <Switch Grid.Column="1"
+                                        HorizontalOptions="End"
+                                        IsToggled="{Binding GeometryEditor.SnapSettings.IsEnabled, Source={x:Reference MyMapView}}"
+                                        VerticalOptions="Center" />
+                            </Grid>
+                            <Grid ColumnSpacing="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                       Text="Geometry guides"
+                                       VerticalOptions="Center"
+                                       WidthRequest="160" />
+                                <Switch Grid.Column="1"
+                                        HorizontalOptions="End"
+                                        IsEnabled="{Binding GeometryEditor.SnapSettings.IsEnabled, Source={x:Reference MyMapView}}"
+                                        IsToggled="{Binding GeometryEditor.SnapSettings.IsGeometryGuidesEnabled, Source={x:Reference MyMapView}}"
+                                        VerticalOptions="Center" />
+                            </Grid>
+                            <Grid ColumnSpacing="3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Label Grid.Column="0"
+                                       Text="Feature snapping"
+                                       VerticalOptions="Center"
+                                       WidthRequest="160" />
+                                <Switch Grid.Column="1"
+                                        HorizontalOptions="End"
+                                        IsEnabled="{Binding GeometryEditor.SnapSettings.IsEnabled, Source={x:Reference MyMapView}}"
+                                        IsToggled="{Binding GeometryEditor.SnapSettings.IsFeatureSnappingEnabled, Source={x:Reference MyMapView}}"
+                                        VerticalOptions="Center" />
+                            </Grid>
+                        </VerticalStackLayout>
+                        <BoxView Margin="0,0,0,5"
+                                 HeightRequest="1"
+                                 Color="White" />
                         <Label Padding="0,5"
                                FontAttributes="Bold"
                                FontSize="14"
-                               Text="Select snap sources" />
+                               Text="Snap sources" />
                         <Grid ColumnDefinitions="auto,*">
                             <Label Grid.Column="0"
                                    Text="Point layers:"

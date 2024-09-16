@@ -1,0 +1,41 @@
+{
+    "category": "Symbology",
+    "description": "Use a symbol to display a geometry on a map.",
+    "formal_name": "StyleGeometryTypesWithSymbols",
+    "ignore": false,
+    "images": [
+        "StyleGeometryTypesWithSymbols.jpg"
+    ],
+    "keywords": [
+        "display",
+        "fill",
+        "graphics",
+        "line",
+        "marker",
+        "overlay",
+        "picture",
+        "point",
+        "symbol",
+        "visualization"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/picture-marker-symbol.htm",
+        "/net/latest/wpf/sample-code/style-geometry-types-with-symbols.htm",
+        "/net/latest/wpf/sample-code/simple-marker-symbol.htm"
+    ],
+    "relevant_apis": [
+        "Geometry",
+        "Graphic",
+        "GraphicsOverlay",
+        "PictureMarkerSymbol",
+        "SimpleFillSymbol",
+        "SimpleLineSymbol",
+        "SimpleMarkerSymbol"
+    ],
+    "snippets": [
+        "StyleGeometryTypesWithSymbols.xaml.cs",
+        "StyleGeometryTypesWithSymbols.xaml"
+    ],
+    "title": "Style geometry types with symbols"
+}

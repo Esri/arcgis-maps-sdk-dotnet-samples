@@ -58,6 +58,8 @@ To snap to polygon and polyline layers, the recommended approach is to set the `
 
 Snapping can be used during interactive edits that move existing vertices using the `VertexTool` or `ReticleVertexTool`. It is also supported for adding new vertices for input devices with a hover event (such as a mouse move without a mouse button press). Using the `ReticleVertexTool` to add and move vertices allows users of touch screen devices to clearly see the visual cues for snapping.
 
+Geometry guides are enabled by default when snapping is enabled. These allow for snapping to a point coinciding with, parallel to, perpendicular to or extending an existing geometry.
+
 ## Tags
 
 edit, feature, geometry editor, graphics, layers, map, snapping

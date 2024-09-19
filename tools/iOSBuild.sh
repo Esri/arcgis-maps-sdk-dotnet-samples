@@ -34,9 +34,13 @@
     echo "Updating Release verison in Central Package Manager"
     xmlstarlet ed -P -L -u '/Project/PropertyGroup/ArcGISMapsSDKVersion' -v $release_ver "${WORKSPACE}/src/Directory.Packages.props"
 
-    # Add API key to API Key manager file in order to access basemaps (only necessary when building)
+    # Add necessary keys to API Key Manager & License Key Manager file in order to access basemaps (only necessary when building)
     echo "Adding API Key"
     sed -ie "s/\/\/ return \"YOUR_API_KEY_HERE\";/return \"${API_KEY}\";/" "${WORKSPACE}/src/Samples.Shared/Managers/ApiKeyManager.cs"
+
+    echo "Adding License Key"
+    sed -ie "s/public static string ArcGISLicenseKey { get; } = null; \/\/ ArcGIS SDK License Key/public static string ArcGISLicenseKey { get; } = ${LICENSE_KEY}; \/\/ ArcGIS SDK License Key/" "${WORKSPACE}/src/Samples.Shared/Managers/LicenseStrings.cs"
+    
 
     # dotnet publish command responsible 
     echo "Test Flight (ipa) Build Process"

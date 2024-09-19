@@ -36,7 +36,7 @@
 
     # Add API key to API Key manager file in order to access basemaps (only necessary when building)
     echo "Adding API Key"
-    sed -ie "s/\/\/ return \"YOUR_API_KEY_HERE\";/return \"${apiKey}\";/" "${WORKSPACE}/src/Samples.Shared/Managers/ApiKeyManager.cs"
+    sed -ie "s/\/\/ return \"YOUR_API_KEY_HERE\";/return \"${API_KEY}\";/" "${WORKSPACE}/src/Samples.Shared/Managers/ApiKeyManager.cs"
 
     # dotnet publish command responsible 
     echo "Test Flight (ipa) Build Process"

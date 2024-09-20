@@ -50,6 +50,5 @@
     # dotnet publish command responsible 
     echo "Test Flight (ipa) Build Process"
     dotnet publish "${WORKSPACE}/src/MAUI/Maui.Samples/ArcGIS.Samples.Maui.csproj" -f:net8.0-ios -p:Configuration="Release" -p:ArchiveOnBuild=true -p:RuntimeIdentifier=ios-arm64 -p:CodesignKey="${codesignKey_VAR}" -p:CodesignProvision="${codesignProvision_VAR}" -p:ApplicationDisplayVersion=${release_ver} -p:ApplicationVersion=${build_num}
-    _build_project
 
 }

@@ -7,10 +7,10 @@
   
   function _copy_nugets {
     # Nuget server path from which nugets will be copied to local source
-    local nuget_path="/net/runtime.esri.com/windows/api_dotnet/${release_ver}/${build_num}/output/dotnet_AnyCPU_Release/"
+    local nuget_path="/net/runtime.esri.com/windows/api_dotnet/${BUILDVER}/${BUILDNUM}/output/dotnet_AnyCPU_Release/"
     #Copying nugets
     echo "Fetching latest nugets from ${nuget_path}"
-    local tempInstallLoc=${HOME}/Desktop/nuget
+    local tempInstallLoc=/tmp/nuget/Desktop/nuget
     rm -rf ${tempInstallLoc}
     mkdir -p ${tempInstallLoc}
     rsync ${nuget_path}/NuGet/ ${tempInstallLoc}

@@ -41,6 +41,11 @@
     echo "Adding License Key"
     sed -ie "s/public static string ArcGISLicenseKey { get; } = null; \/\/ ArcGIS SDK License Key/public static string ArcGISLicenseKey { get; } = ${LICENSE_KEY}; \/\/ ArcGIS SDK License Key/" "${WORKSPACE}/src/Samples.Shared/Managers/LicenseStrings.cs"
     
+    # Disable API key tab in settings menu
+    echo "Injecting line that will remove the API Key Settings menu tab"
+    sed -i'' -e  '/string versionNumber = string.Empty;/a\
+            ToolbarItems.Remove(ApiKeyButton);
+            ' "${WORKSPACE}/src/MAUI/Maui.Samples/Views/SettingsPage.xaml.cs"
 
     # dotnet publish command responsible 
     echo "Test Flight (ipa) Build Process"

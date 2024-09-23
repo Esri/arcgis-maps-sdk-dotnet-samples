@@ -208,7 +208,15 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEdits
             _selectedGraphic = null;
         }
 
-        #region Enable Sources Button Handlers
+        #region Enable Snapping Button Handlers
+        // Enable all snap settings.
+        private void EnableAllSnapSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            _geometryEditor.SnapSettings.IsEnabled = true;
+            _geometryEditor.SnapSettings.IsGeometryGuidesEnabled = true;
+            _geometryEditor.SnapSettings.IsFeatureSnappingEnabled = true;
+        }
+
         // Enable all point layer snap sources.
         private void EnableAllPointSnapSourceButton_Click(object sender, RoutedEventArgs e)
         {

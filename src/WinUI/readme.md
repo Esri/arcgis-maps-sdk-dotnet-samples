@@ -254,12 +254,11 @@
 * [Custom dictionary style](ArcGIS.WinUI.Viewer/Samples/Symbology/CustomDictionaryStyle) - Use a custom dictionary created from a web style or style file (.stylx) to symbolize features using a variety of attribute values.
 * [Distance composite scene symbol](ArcGIS.WinUI.Viewer/Samples/Symbology/UseDistanceCompositeSym) - Change a graphic's symbol based on the camera's proximity to it.
 * [Feature layer extrusion](ArcGIS.WinUI.Viewer/Samples/Symbology/FeatureLayerExtrusion) - Extrude features based on their attributes.
-* [Picture marker symbol](ArcGIS.WinUI.Viewer/Samples/Symbology/RenderPictureMarkers) - Use pictures for markers.
 * [Read symbols from mobile style](ArcGIS.WinUI.Viewer/Samples/Symbology/SymbolsFromMobileStyle) - Combine multiple symbols from a mobile style file into a single symbol.
 * [Render multilayer symbols](ArcGIS.WinUI.Viewer/Samples/Symbology/RenderMultilayerSymbols) - Show different kinds of multilayer symbols on a map similar to some pre-defined 2D simple symbol styles.
 * [Scene symbols](ArcGIS.WinUI.Viewer/Samples/Symbology/SceneSymbols) - Show various kinds of 3D symbols in a scene.
-* [Simple marker symbol](ArcGIS.WinUI.Viewer/Samples/Symbology/RenderSimpleMarkers) - Show a simple marker symbol on a map.
 * [Simple renderer](ArcGIS.WinUI.Viewer/Samples/Symbology/SimpleRenderers) - Display common symbols for all graphics in a graphics overlay with a renderer.
+* [Style geometry types with symbols](ArcGIS.WinUI.Viewer/Samples/Symbology/StyleGeometryTypesWithSymbols) - Use a symbol to display a geometry on a map.
 * [Unique value renderer](ArcGIS.WinUI.Viewer/Samples/Symbology/RenderUniqueValues) - Render features in a layer using a distinct symbol for each unique attribute value.
 
 ## Utility network

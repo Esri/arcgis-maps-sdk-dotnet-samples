@@ -33,10 +33,6 @@
                                 IsEnabled="False"
                                 Text="Add Marine" />
                     </Grid>
-                    <Button x:Name="SyncEditsButton"
-                            Clicked="SynchronizeEdits"
-                            IsEnabled="False"
-                            Text="Sync" />
                     <Label Text="Require a transaction for edits:" />
                     <Switch x:Name="RequireTransactionCheckBox"
                             HorizontalOptions="Start"

@@ -14,7 +14,9 @@
         "transact",
         "transactions"
     ],
-    "offline_data": [],
+    "offline_data": [
+        "43809fd639f242fd8045ecbafd61a579"
+    ],
     "redirect_from": [
         "/net/latest/winui/sample-code/geodatabase-transactions.htm"
     ],

@@ -21,8 +21,6 @@ public partial class CategoriesFlyoutContent : ContentView
         try
         {
             var selectedCategory = e.CurrentSelection.FirstOrDefault() as FlyoutCategoryViewModel;
-            FlyoutMenuViewModel.CategorySelected(selectedCategory.CategoryName);
-
             var previousCategory = e.PreviousSelection.FirstOrDefault() as FlyoutCategoryViewModel;
 
             if (previousCategory == null)
@@ -30,6 +28,8 @@ public partial class CategoriesFlyoutContent : ContentView
 
             selectedCategory.IsSelected = true;
             previousCategory.IsSelected = false;
+
+            FlyoutMenuViewModel.CategorySelected(selectedCategory.CategoryName);
 
         }
         catch (Exception ex)

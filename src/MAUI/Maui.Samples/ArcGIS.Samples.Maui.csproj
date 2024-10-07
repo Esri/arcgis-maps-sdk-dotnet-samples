@@ -10,7 +10,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>ArcGIS.Samples.Maui</ApplicationTitle>
+		<ApplicationTitle>ArcGIS Maps .NET MAUI Samples</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.esri.arcgisruntime.samples.maui</ApplicationId>

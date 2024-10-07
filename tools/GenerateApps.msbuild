@@ -85,6 +85,8 @@
     <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetAndroidTarget);ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM)" />
     <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\net8.0-android\com.esri.arcgisruntime.samples.maui-Signed.apk"
           DestinationFolder="$(MSBuildThisFileDirectory)..\output\" />
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\net8.0-android\com.esri.arcgisruntime.samples.maui-Signed.aab"
+          DestinationFolder="$(MSBuildThisFileDirectory)..\output\" />
   </Target>
 
 

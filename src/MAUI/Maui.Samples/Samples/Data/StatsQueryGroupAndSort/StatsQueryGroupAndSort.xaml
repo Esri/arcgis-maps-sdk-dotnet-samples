@@ -1,209 +1,126 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="ArcGIS.Samples.StatsQueryGroupAndSort.StatsQueryGroupAndSort"
+<ContentPage x:Name="StatsQueryGroupAndSortSample"
+             x:Class="ArcGIS.Samples.StatsQueryGroupAndSort.StatsQueryGroupAndSort"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
-    <ScrollView WidthRequest="{OnIdiom Default=-1, Desktop=400}">
-        <Grid HorizontalOptions="FillAndExpand"
-              MinimumWidthRequest="400"
-              RowSpacing="3"
-              VerticalOptions="Center">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="150" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="150" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="150" />
-                <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
-            <Label Grid.Row="0"
-                   Grid.Column="1"
-                   Grid.ColumnSpan="3"
-                   Margin="25,0"
-                   FontSize="18"
-                   HorizontalOptions="Center"
-                   Text="Statistics: US States"
-                   VerticalOptions="Center" />
-            <Picker x:Name="FieldsComboBox"
-                    Title="Field"
-                    Grid.Row="1"
-                    Grid.Column="1"
-                    Margin="25,0"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="100" />
-            <Picker x:Name="StatTypeComboBox"
-                    Title="Statistic"
-                    Grid.Row="1"
-                    Grid.Column="3"
-                    Margin="5"
-                    VerticalOptions="CenterAndExpand"
-                    WidthRequest="100" />
-            <Button x:Name="AddStatisticButton"
-                    Grid.Row="1"
-                    Grid.Column="5"
-                    Margin="5"
-                    Padding="5"
-                    Clicked="AddStatisticClicked"
-                    HeightRequest="30"
-                    HorizontalOptions="Start"
-                    Text="+"
-                    VerticalOptions="End"
-                    WidthRequest="30" />
-            <ListView x:Name="StatFieldsListBox"
-                      Grid.Row="2"
-                      Grid.ColumnSpan="5"
-                      Margin="25,0"
-                      BackgroundColor="LightGray"
-                      HorizontalOptions="Fill">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition />
-                                        <ColumnDefinition />
-                                    </Grid.ColumnDefinitions>
-                                    <Label Text="{Binding OnFieldName}" />
-                                    <Label Grid.Column="1" Text="{Binding StatisticType}" />
-                                </Grid>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button x:Name="RemoveStatField"
-                    Grid.Row="3"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="5"
-                    Margin="25,0"
-                    Clicked="RemoveStatisticClicked"
-                    HorizontalOptions="Fill"
-                    Text="Remove"
-                    VerticalOptions="Start" />
-            <Label Grid.Row="4"
-                   Grid.ColumnSpan="2"
-                   Margin="25,0"
-                   HorizontalOptions="Start"
-                   Text="Group by"
-                   VerticalOptions="End" />
-            <ListView x:Name="GroupFieldsListBox"
-                      Grid.Row="5"
-                      Grid.ColumnSpan="5"
-                      Margin="25,0"
-                      BackgroundColor="LightGray">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Switch HorizontalOptions="Start" Toggled="GroupFieldCheckChanged" />
-                                    <Label Grid.Column="1"
-                                           HorizontalOptions="Start"
-                                           Text="{Binding Name}"
-                                           VerticalOptions="Center" />
-                                </Grid>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Label Grid.Row="6"
-                   Grid.ColumnSpan="2"
-                   Margin="25,0"
-                   HorizontalOptions="Start"
-                   Text="Order by"
-                   VerticalOptions="End" />
-            <ListView x:Name="OrderByFieldsListBox"
-                      Grid.Row="7"
-                      Grid.ColumnSpan="5"
-                      Margin="25,0"
-                      BackgroundColor="LightGray"
-                      MinimumWidthRequest="{OnIdiom Default=-1,
-                                                    Desktop=400}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <ViewCell.View>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50" />
-                                        <ColumnDefinition Width="2*" />
-                                        <ColumnDefinition Width="2*" />
-                                    </Grid.ColumnDefinitions>
-                                    <Switch IsToggled="{Binding OrderWith}" />
-                                    <Label Grid.Column="1"
-                                           Text="{Binding OrderInfo.FieldName}"
-                                           VerticalOptions="Center" />
-                                    <Label Grid.Column="2"
-                                           Text="{Binding OrderInfo.SortOrder}"
-                                           VerticalOptions="Center" />
-                                </Grid>
-                            </ViewCell.View>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <Button x:Name="SortOrderButton"
-                    Grid.Row="8"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="5"
-                    Margin="25,0"
-                    Clicked="ChangeFieldSortOrder"
-                    HorizontalOptions="Fill"
-                    Text="Change sort order"
-                    VerticalOptions="Start" />
-            <Button x:Name="GetStatisticsButton"
-                    Grid.Row="9"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="5"
-                    Margin="25,0,25,5"
-                    Clicked="OnExecuteStatisticsQueryClicked"
-                    HorizontalOptions="Fill"
-                    Text="Get Statistics"
-                    VerticalOptions="Fill" />
-            <Grid x:Name="ResultsGrid"
-                  Grid.Row="1"
-                  Grid.RowSpan="9"
-                  Grid.Column="0"
-                  Grid.ColumnSpan="5"
-                  BackgroundColor="LightGray"
-                  IsVisible="False">
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="50" />
-                </Grid.RowDefinitions>
-                <ListView x:Name="StatResultsList" IsGroupingEnabled="true">
-                    <ListView.GroupHeaderTemplate>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="CollectionViewStyle" TargetType="CollectionView">
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=Black, Light=White}" />
+                <Setter Property="MinimumHeightRequest" Value="50" />
+                <Setter Property="MaximumHeightRequest" Value="200" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ScrollView Margin="5">
+        <StackLayout BindingContext="{x:Reference StatsQueryGroupAndSortSample}">
+            <StackLayout x:Name="QueryConfigurationLayout"
+                         Padding="5"
+                         HorizontalOptions="Center"
+                         Spacing="10">
+                <Label FontAttributes="Bold"
+                       FontSize="Large"
+                       HorizontalOptions="Center"
+                       Text="Statistics: US States" />
+                <Label FontAttributes="Bold" Text="Add statistics" />
+                <Grid Margin="10"
+                      ColumnDefinitions="*,*,auto"
+                      ColumnSpacing="10">
+                    <Picker x:Name="FieldsComboBox" Title="Field" />
+                    <Picker x:Name="StatTypeComboBox"
+                            Title="Statistic"
+                            Grid.Column="1" />
+                    <Button x:Name="AddStatisticButton"
+                            Grid.Column="2"
+                            Clicked="AddStatistic_Clicked"
+                            Text="+"
+                            VerticalOptions="End" />
+                </Grid>
+                <CollectionView x:Name="StatFieldsListBox"
+                                SelectionMode="Single"
+                                Style="{DynamicResource CollectionViewStyle}">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <TextCell Height="30" Text="{Binding GroupName}" />
+                            <Grid ColumnDefinitions="*,*">
+                                <Label Text="{Binding OnFieldName}" />
+                                <Label Grid.Column="1" Text="{Binding StatisticType}" />
+                            </Grid>
                         </DataTemplate>
-                    </ListView.GroupHeaderTemplate>
-                    <ListView.ItemTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button x:Name="RemoveStatField"
+                        Clicked="RemoveStatistic_Clicked"
+                        Text="Remove statistic" />
+                <Label FontAttributes="Bold" Text="Group by" />
+                <CollectionView x:Name="GroupFieldsListBox" Style="{DynamicResource CollectionViewStyle}">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate>
-                            <TextCell Detail="{Binding StatValue}" Text="{Binding FieldName}" />
+                            <Grid ColumnDefinitions="50,*">
+                                <Switch HorizontalOptions="Start" Toggled="GroupField_Toggled" />
+                                <Label Grid.Column="1"
+                                       HorizontalOptions="Start"
+                                       Text="{Binding Name}"
+                                       VerticalOptions="Center" />
+                            </Grid>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
-                <Button Grid.Row="1"
-                        Margin="5"
-                        Clicked="HideResults"
-                        Text="Dismiss" />
-            </Grid>
-        </Grid>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Label FontAttributes="Bold" Text="Order by" />
+                <CollectionView x:Name="OrderByFieldsListBox" Style="{DynamicResource CollectionViewStyle}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="50, 2*, 2*">
+                                <Switch IsToggled="{Binding OrderWith}" />
+                                <Label Grid.Column="1"
+                                       Text="{Binding OrderInfo.FieldName}"
+                                       VerticalOptions="Center" />
+                                <Label Grid.Column="2"
+                                       Text="{Binding OrderInfo.SortOrder}"
+                                       VerticalOptions="Center" />
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button x:Name="SortOrderButton"
+                        Clicked="SortOrderButton_Clicked"
+                        Text="Change sort order" />
+                <Button x:Name="GetStatisticsButton"
+                        Clicked="GetStatisticsButton_Clicked"
+                        Text="Get statistics" />
+            </StackLayout>
+
+            <StackLayout x:Name="ResultsLayout"
+                         IsVisible="False"
+                         Spacing="5">
+                <Label FontAttributes="Bold"
+                       FontSize="Large"
+                       HorizontalOptions="Center"
+                       Text="Query results" />
+                <CollectionView x:Name="StatResultsList"
+                                IsGrouped="True"
+                                MaximumHeightRequest="{OnIdiom Default=800,
+                                                               Phone=600}">
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate>
+                            <Label FontAttributes="Bold"
+                                   FontSize="Medium"
+                                   Text="{Binding GroupName}" />
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout Spacing="5">
+                                <Label FontAttributes="Bold" Text="{Binding FieldName}" />
+                                <Label Text="{Binding StatValue}" />
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button Clicked="DismissResults_Clicked" Text="Dismiss" />
+            </StackLayout>
+        </StackLayout>
     </ScrollView>
+
 </ContentPage>

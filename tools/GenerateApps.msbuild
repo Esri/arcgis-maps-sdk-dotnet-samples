@@ -95,6 +95,6 @@
         <MakeDir Directories="$(MSBuildThisFileDirectory)..\output" />
     </Target>
 
-  <Target Name="BuildAll" DependsOnTargets="BuildWPF;BuildWinUI;BuildMaui;BuildUWP" />
+  <Target Name="BuildAll" DependsOnTargets="BuildWPF;BuildWinUI;BuildMaui" />
 
 </Project>

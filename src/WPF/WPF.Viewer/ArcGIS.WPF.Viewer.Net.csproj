@@ -48,6 +48,11 @@
     <Content Include="Resources\SyntaxHighlighting\*.*">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Compile Remove="Samples\LocalServer\**" />
+    <Content Remove="Samples\LocalServer\**" />
+    <EmbeddedResource Remove="Samples\LocalServer\**" />
+    <None Remove="Samples\LocalServer\**" />
+    <Page Remove="Samples\LocalServer\**" />
     <Content Remove="readme.md" />
     <None Remove="App.config" />
     <None Remove="Resources\github-markdown.css" />

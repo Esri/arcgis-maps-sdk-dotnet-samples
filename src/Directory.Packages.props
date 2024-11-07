@@ -6,7 +6,7 @@
   <ItemGroup>
     <PackageVersion Include="Esri.ArcGISRuntime" Version="$(ArcGISMapsSDKVersion)" />
     <PackageVersion Include="Esri.ArcGISRuntime.Toolkit.WPF" Version="$(ArcGISMapsSDKVersion)" />
-    <PackageVersion Include="Esri.ArcGISRuntime.WPF" Version="$(ArcGISMapsSDKVersion)" />
+    <PackageVersion Include="Esri.ArcGISRuntime.WPF" Version="200.6.0" />
     <PackageVersion Include="Esri.ArcGISRuntime.Maui" Version="$(ArcGISMapsSDKVersion)" />
     <PackageVersion Include="Esri.ArcGISRuntime.Toolkit.Maui" Version="$(ArcGISMapsSDKVersion)" />
     <PackageVersion Include="Esri.ArcGISRuntime.WinUI" Version="$(ArcGISMapsSDKVersion)" />

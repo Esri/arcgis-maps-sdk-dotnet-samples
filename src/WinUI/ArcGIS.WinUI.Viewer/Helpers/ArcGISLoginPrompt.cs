@@ -68,24 +68,6 @@ namespace ArcGIS.Helpers
             return loggedIn;
         }
 
-        // ChallengeHandler function that will be called whenever access to a secured resource is attempted
-        public static async Task<Credential> PromptCredentialAsync(CredentialRequestInfo info)
-        {
-            Credential credential = null;
-
-            try
-            {
-                // IOAuthAuthorizeHandler will challenge the user for OAuth credentials
-                credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
-            }
-            catch (OperationCanceledException)
-            {
-                // OAuth login was canceled, no need to display error to user.
-            }
-
-            return credential;
-        }
-
         public static void SetChallengeHandler(UserControl sample)
         {
             var userConfig = new OAuthUserConfiguration(new Uri(ArcGISOnlineUrl), AppClientId, new Uri(OAuthRedirectUrl));

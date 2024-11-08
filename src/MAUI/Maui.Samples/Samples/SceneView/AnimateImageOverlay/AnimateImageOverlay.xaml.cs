@@ -41,11 +41,18 @@ namespace ArcGIS.Samples.AnimateImageOverlay
         public AnimateImageOverlay()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
+            // This sample is only supported in x64 on .NET MAUI.
+            if (!Environment.Is64BitProcess)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "This sample is only supported for .NET MAUI in x64. Run the sample viewer in x64 to use this sample.", "Exit");
+                return;
+            }
+
             // Create the scene.
             MySceneView.Scene = new Scene(BasemapStyle.ArcGISDarkGray);
 
@@ -137,7 +144,7 @@ namespace ArcGIS.Samples.AnimateImageOverlay
         {
             //Stop the animation when the sample is unloaded.
             _animationStopped = true;
-            _timer.Dispose();
+            _timer?.Dispose();
         }
     }
 }

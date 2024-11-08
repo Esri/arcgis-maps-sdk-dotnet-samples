@@ -121,11 +121,10 @@ namespace ArcGIS.Samples.TokenSecuredChallenge
                 CredentialRequestInfo requestInfo = (CredentialRequestInfo)_loginTaskCompletionSrc.Task.AsyncState;
 
                 // Create a token credential using the provided username and password.
-                TokenCredential userCredentials = await AuthenticationManager.Current.GenerateCredentialAsync
+                AccessTokenCredential userCredentials = await AccessTokenCredential.CreateAsync
                                             (requestInfo.ServiceUri,
                                              e.Username,
-                                             e.Password,
-                                             requestInfo.GenerateTokenOptions);
+                                             e.Password);
 
                 // Set the task completion source result with the ArcGIS network credential.
                 // AuthenticationManager is waiting for this result and will add it to its Credentials collection.

@@ -51,7 +51,7 @@ The feature layer used in this sample is [Damage to commercial buildings](https:
 Credentials:
 
 * Username: editor01
-* Passowrd: editor01.password
+* Passowrd: S7#i2LWmYH75
 
 The name of the version must meet the following criteria:
 

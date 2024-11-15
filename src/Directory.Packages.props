@@ -26,7 +26,7 @@
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageVersion Include="WinUIEx" Version="2.3.4" />
     <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.5.240607001" Condition="'$(UseMaui)'!='true'" />
-    <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" Condition="'$(UseMaui)'!='true'" />
+    <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.3233" Condition="'$(UseMaui)'!='true'" />
     <PackageVersion Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.13" />
     <PackageVersion Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="6.1.1" />
     <PackageVersion Include="Microsoft.UI.Xaml" Version="2.5.0" />

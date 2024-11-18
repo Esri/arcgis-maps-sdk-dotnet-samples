@@ -66,7 +66,7 @@ namespace ArcGIS.WinUI.Samples.ConfigureSubnetworkTrace
                     // WARNING: Never hardcode login information in a production application. This is done solely for the sake of the sample.
                     string sampleServer7User = "viewer01";
                     string sampleServer7Pass = "I68VGU^nMurF";
-                    return await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri, sampleServer7User, sampleServer7Pass);
+                    return await AccessTokenCredential.CreateAsync(info.ServiceUri, sampleServer7User, sampleServer7Pass);
                 }
                 catch (Exception ex)
                 {

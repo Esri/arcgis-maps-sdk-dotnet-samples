@@ -45,13 +45,67 @@
                 Background="White"
                 CornerRadius="5"
                 Visibility="Collapsed">
-            <StackPanel Margin="10" Orientation="Vertical">
-                <TextBlock Padding="0,5"
-                           FontSize="14"
-                           FontWeight="Bold"
-                           Text="Select snap sources" />
-                <ScrollView MaxHeight="300">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <ScrollView Grid.Row="0" MaxHeight="300">
                     <StackPanel Margin="10" Orientation="Vertical">
+                        <TextBlock Padding="0,5"
+                                   FontSize="14"
+                                   FontWeight="Bold"
+                                   Text="Snap settings" />
+                        <ListView Width="200" Height="120">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           Width="150"
+                                           VerticalAlignment="Center"
+                                           Text="Snapping Enabled" />
+                                <CheckBox Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          IsChecked="{Binding GeometryEditor.SnapSettings.IsEnabled, ElementName=MyMapView, Mode=TwoWay}" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           Width="150"
+                                           VerticalAlignment="Center"
+                                           Text="Geometry guides" />
+                                <CheckBox Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          IsChecked="{Binding GeometryEditor.SnapSettings.IsGeometryGuidesEnabled, ElementName=MyMapView, Mode=TwoWay}"
+                                          IsEnabled="{Binding GeometryEditor.SnapSettings.IsEnabled, ElementName=MyMapView}" />
+                            </Grid>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Column="0"
+                                           Width="150"
+                                           VerticalAlignment="Center"
+                                           Text="Feature snapping" />
+                                <CheckBox Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          IsChecked="{Binding GeometryEditor.SnapSettings.IsFeatureSnappingEnabled, ElementName=MyMapView, Mode=TwoWay}"
+                                          IsEnabled="{Binding GeometryEditor.SnapSettings.IsEnabled, ElementName=MyMapView}" />
+                            </Grid>
+                        </ListView>
+                        <Button HorizontalAlignment="Stretch"
+                                Click="EnableAllSnapSettingsButton_Click"
+                                Content="Enable all" />
+                        <TextBlock Padding="0,5"
+                                   FontSize="14"
+                                   FontWeight="Bold"
+                                   Text="Select snap sources" />
                         <TextBlock Text="Point layers:" />
                         <ListView x:Name="PointSnapSettingsList"
                                   Width="200"
@@ -75,99 +129,103 @@
                                   ItemTemplate="{StaticResource SnapSettingTemplate}" />
                     </StackPanel>
                 </ScrollView>
-                <TextBlock Padding="0,10,0,5"
-                           FontSize="14"
-                           FontWeight="Bold"
-                           Text="Create and edit geometries" />
-                <Grid Width="200" HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0"
-                               VerticalAlignment="Center"
-                               Text="Reticle vertex tool" />
-                    <CheckBox x:Name="ReticleVertexToolCheckBox"
-                              Grid.Column="1"
-                              VerticalAlignment="Center"
-                              Checked="ReticleVertexToolCheckBox_CheckedChanged"
-                              Unchecked="ReticleVertexToolCheckBox_CheckedChanged" />
-                </Grid>
-                <Grid Width="200"
-                      HorizontalAlignment="Center"
-                      ColumnSpacing="5"
-                      RowSpacing="5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="95" />
-                        <ColumnDefinition Width="95" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                        <RowDefinition Height="auto" />
-                    </Grid.RowDefinitions>
-                    <ToggleButton x:Name="PointButton"
-                                  Grid.Row="0"
-                                  Grid.Column="0"
-                                  Click="PointButton_Click"
-                                  Content="&#xe21c;"
-                                  Style="{StaticResource ToggleButtonIconStyle}"
-                                  ToolTipService.ToolTip="Point" />
-                    <ToggleButton x:Name="MultipointButton"
-                                  Grid.Row="0"
+                <StackPanel Grid.Row="1"
+                            Margin="10"
+                            Orientation="Vertical">
+                    <TextBlock Padding="0,10,0,5"
+                               FontSize="14"
+                               FontWeight="Bold"
+                               Text="Create and edit geometries" />
+                    <Grid Width="200" HorizontalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0"
+                                   VerticalAlignment="Center"
+                                   Text="Reticle vertex tool" />
+                        <CheckBox x:Name="ReticleVertexToolCheckBox"
                                   Grid.Column="1"
-                                  Height="{Binding ElementName=PointButton, Path=Height}"
-                                  Click="MultipointButton_Click"
-                                  Content="&#xe21c;&#xe21c;"
-                                  FontSize="20"
-                                  Style="{StaticResource ToggleButtonIconStyle}"
-                                  ToolTipService.ToolTip="Multipoint" />
-                    <ToggleButton x:Name="PolylineButton"
-                                  Grid.Row="1"
-                                  Grid.Column="0"
-                                  Click="PolylineButton_Click"
-                                  Content="&#xe1a8;"
-                                  Style="{StaticResource ToggleButtonIconStyle}"
-                                  ToolTipService.ToolTip="Polyline / no shape fill" />
-                    <ToggleButton x:Name="PolygonButton"
-                                  Grid.Row="1"
-                                  Grid.Column="1"
-                                  Click="PolygonButton_Click"
-                                  Content="&#xe220;"
-                                  Style="{StaticResource ToggleButtonIconStyle}"
-                                  ToolTipService.ToolTip="Polygon / shape fill" />
-                    <Button Grid.Row="2"
-                            Grid.Column="0"
-                            HorizontalAlignment="Stretch"
-                            Click="DeleteButton_Click"
-                            Content="&#xe0e8;"
-                            IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
-                            Style="{StaticResource ButtonIconStyle}"
-                            ToolTipService.ToolTip="Delete selected" />
-                    <Button Grid.Row="2"
-                            Grid.Column="1"
-                            Click="UndoButton_Click"
-                            Content="&#xe2d6;"
-                            IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
-                            Style="{StaticResource ButtonIconStyle}"
-                            ToolTipService.ToolTip="Undo" />
-                    <Button Grid.Row="3"
-                            Grid.Column="0"
-                            Click="DiscardButton_Click"
-                            Content="&#xe080;"
-                            IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
-                            Style="{StaticResource ButtonIconStyle}"
-                            ToolTipService.ToolTip="Discard edits" />
-                    <Button Grid.Row="3"
-                            Grid.Column="1"
-                            Click="SaveButton_Click"
-                            Content="&#xe06f;"
-                            IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
-                            Style="{StaticResource ButtonIconStyle}"
-                            ToolTipService.ToolTip="Save edits" />
-                </Grid>
-            </StackPanel>
+                                  VerticalAlignment="Center"
+                                  Checked="ReticleVertexToolCheckBox_CheckedChanged"
+                                  Unchecked="ReticleVertexToolCheckBox_CheckedChanged" />
+                    </Grid>
+                    <Grid Width="200"
+                          HorizontalAlignment="Center"
+                          ColumnSpacing="5"
+                          RowSpacing="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="95" />
+                            <ColumnDefinition Width="95" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                            <RowDefinition Height="auto" />
+                        </Grid.RowDefinitions>
+                        <ToggleButton x:Name="PointButton"
+                                      Grid.Row="0"
+                                      Grid.Column="0"
+                                      Click="PointButton_Click"
+                                      Content="&#xe21c;"
+                                      Style="{StaticResource ToggleButtonIconStyle}"
+                                      ToolTipService.ToolTip="Point" />
+                        <ToggleButton x:Name="MultipointButton"
+                                      Grid.Row="0"
+                                      Grid.Column="1"
+                                      Height="{Binding ElementName=PointButton, Path=Height}"
+                                      Click="MultipointButton_Click"
+                                      Content="&#xe21c;&#xe21c;"
+                                      FontSize="20"
+                                      Style="{StaticResource ToggleButtonIconStyle}"
+                                      ToolTipService.ToolTip="Multipoint" />
+                        <ToggleButton x:Name="PolylineButton"
+                                      Grid.Row="1"
+                                      Grid.Column="0"
+                                      Click="PolylineButton_Click"
+                                      Content="&#xe1a8;"
+                                      Style="{StaticResource ToggleButtonIconStyle}"
+                                      ToolTipService.ToolTip="Polyline / no shape fill" />
+                        <ToggleButton x:Name="PolygonButton"
+                                      Grid.Row="1"
+                                      Grid.Column="1"
+                                      Click="PolygonButton_Click"
+                                      Content="&#xe220;"
+                                      Style="{StaticResource ToggleButtonIconStyle}"
+                                      ToolTipService.ToolTip="Polygon / shape fill" />
+                        <Button Grid.Row="2"
+                                Grid.Column="0"
+                                HorizontalAlignment="Stretch"
+                                Click="DeleteButton_Click"
+                                Content="&#xe0e8;"
+                                IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
+                                Style="{StaticResource ButtonIconStyle}"
+                                ToolTipService.ToolTip="Delete selected" />
+                        <Button Grid.Row="2"
+                                Grid.Column="1"
+                                Click="UndoButton_Click"
+                                Content="&#xe2d6;"
+                                IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
+                                Style="{StaticResource ButtonIconStyle}"
+                                ToolTipService.ToolTip="Undo" />
+                        <Button Grid.Row="3"
+                                Grid.Column="0"
+                                Click="DiscardButton_Click"
+                                Content="&#xe080;"
+                                IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
+                                Style="{StaticResource ButtonIconStyle}"
+                                ToolTipService.ToolTip="Discard edits" />
+                        <Button Grid.Row="3"
+                                Grid.Column="1"
+                                Click="SaveButton_Click"
+                                Content="&#xe06f;"
+                                IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
+                                Style="{StaticResource ButtonIconStyle}"
+                                ToolTipService.ToolTip="Save edits" />
+                    </Grid>
+                </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

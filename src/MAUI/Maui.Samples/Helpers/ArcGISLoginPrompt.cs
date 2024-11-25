@@ -74,23 +74,6 @@ namespace ArcGIS.Helpers
             AuthenticationManager.Current.OAuthUserConfigurations.Add(userConfig);
             AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize();
         }
-
-        // ChallengeHandler function that will be called whenever access to a secured resource is attempted.
-        public static async Task<Credential> PromptCredentialAsync(CredentialRequestInfo info)
-        {
-            Credential credential = null;
-
-            try
-            {
-                // IOAuthAuthorizeHandler will challenge the user for OAuth credentials.
-                credential = await AuthenticationManager.Current.GenerateCredentialAsync(info.ServiceUri);
-            }
-            // OAuth login was canceled, no need to display error to user.
-            catch (TaskCanceledException) { }
-            catch (OperationCanceledException) { }
-
-            return credential;
-        }
     }
 
     #region IOAuthAuthorizationHandler implementation

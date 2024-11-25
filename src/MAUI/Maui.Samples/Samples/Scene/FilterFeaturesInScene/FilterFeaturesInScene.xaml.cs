@@ -73,11 +73,7 @@ namespace ArcGIS.Samples.FilterFeaturesInScene
             _sceneLayerExtentPolygon = builder.ToGeometry();
 
             // Create the SceneLayerPolygonFilter to later apply to the OSM buildings layer.
-            _sceneLayerPolygonFilter = new SceneLayerPolygonFilter()
-            {
-                SpatialRelationship = SceneLayerPolygonFilterSpatialRelationship.Disjoint
-            };
-            _sceneLayerPolygonFilter.Polygons.Add(builder.ToGeometry());
+            _sceneLayerPolygonFilter = new SceneLayerPolygonFilter(new List<Polygon>() { builder.ToGeometry() }, SceneLayerPolygonFilterSpatialRelationship.Disjoint);
 
             // Create the extent graphic so we can add it later with the detailed buildings scene layer.
             var simpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 5.0f);

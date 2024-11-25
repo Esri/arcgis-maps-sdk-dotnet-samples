@@ -110,9 +110,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                     "https://sampleserver7.arcgisonline.com/portal/sharing/rest";
                 string sampleServer7User = "editor01";
                 string sampleServer7Pass = "S7#i2LWmYH75";
-                var credential = await AuthenticationManager
-                    .Current
-                    .GenerateCredentialAsync(
+                var credential = await AccessTokenCredential.CreateAsync(
                         new Uri(sampleServerPortalUrl),
                         sampleServer7User,
                         sampleServer7Pass

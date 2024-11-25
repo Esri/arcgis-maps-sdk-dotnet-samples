@@ -96,11 +96,10 @@ namespace ArcGIS.WPF.Samples.TokenSecuredChallenge
             try
             {
                 // Create a token credential using the provided username and password.
-                TokenCredential userCredentials = await AuthenticationManager.Current.GenerateCredentialAsync
+                AccessTokenCredential userCredentials = await AccessTokenCredential.CreateAsync
                                             (new Uri(loginEntry.ServiceUrl),
                                              loginEntry.UserName,
-                                             loginEntry.Password,
-                                             loginEntry.RequestInfo.GenerateTokenOptions);
+                                             loginEntry.Password);
 
                 // Set the result on the task completion source.
                 _loginTaskCompletionSource.TrySetResult(userCredentials);

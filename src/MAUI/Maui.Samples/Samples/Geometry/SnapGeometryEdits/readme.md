@@ -12,7 +12,7 @@ A field worker can create new features by editing and snapping the vertices of a
 
 To create a geometry, press the create button to choose the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) and interactively tap and drag on the map view to create the geometry.
 
-To configure snapping, press the snap settings button to enable or disable snapping and choose which snap sources to snap to.
+Snap settings can be configured by enabling and disabling snapping, feature snapping, geometry guides and snap sources.
 
 To interactively snap a vertex to a feature or graphic, ensure that snapping is enabled for the relevant snap source and move the mouse pointer or drag a vertex to nearby an existing feature or graphic. When the pointer is close to that existing geoelement, the edit position will be adjusted to coincide with (or snap to), edges and vertices of its geometry. Tap or release the touch pointer to place the vertex at the snapped location.
 
@@ -31,7 +31,8 @@ To save your edits, press the save button.
 3. Create a `GeometryEditor` and connect it to the map view.
 4. Call `SyncSourceSettings` after the map's operational layers are loaded and the geometry editor has connected to the map view.
 5. Set `SnapSettings.IsEnabled` and `SnapSourceSettings.IsEnabled` to true for the `SnapSource` of interest.
-6. Start the geometry editor with a `GeometryType`.
+6. Toggle geometry guides using `SnapSettings.IsGeometryGuidesEnabled` and feature snapping using `SnapSettings.IsFeatureSnappingEnabled`.
+7. Start the geometry editor with a `GeometryType`.
 
 ## Relevant API
 
@@ -56,6 +57,10 @@ Snapping is used to maintain data integrity between different sources of data wh
 To snap to polygon and polyline layers, the recommended approach is to set the `FeatureLayer`'s feature tiling mode to `FeatureTilingMode.EnabledWithFullResolutionWhenSupported` and use the default `ServiceFeatureTable` feature request mode `FeatureRequestMode.OnInteractionCache`. Local data sources, such as geodatabases, always provide full resolution geometries. Point and multipoint feature layers are also always full resolution.
 
 Snapping can be used during interactive edits that move existing vertices using the `VertexTool` or `ReticleVertexTool`. It is also supported for adding new vertices for input devices with a hover event (such as a mouse move without a mouse button press). Using the `ReticleVertexTool` to add and move vertices allows users of touch screen devices to clearly see the visual cues for snapping.
+
+Geometry guides are enabled by default when snapping is enabled. These allow for snapping to a point coinciding with, parallel to, perpendicular to or extending an existing geometry.
+
+On supported platforms haptic feedback on `SnapState.SnappedToFeature` and `SnapState.SnappedToGeometryGuide` is enabled by default when snapping is enabled. Custom haptic feedback can be configured by setting `SnapSettings.IsHapticFeedbackEnabled` to false and listening to `GeometryEditor.SnapChanged` events to provide specific feedback depending on the `SnapState`.
 
 ## Tags
 

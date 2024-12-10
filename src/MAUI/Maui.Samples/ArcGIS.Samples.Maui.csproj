@@ -30,8 +30,8 @@
 		<DefineConstants>$(DefineConstants);MAUI</DefineConstants>
 		<RuntimeIdentifiers Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
 		<RuntimeIdentifier Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND '$(Platform)' == 'AnyCPU'">win10-x64</RuntimeIdentifier>
-		<WindowsSdkPackageVersion>10.0.19041.38</WindowsSdkPackageVersion>
-		<AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+		<AllowUnsafeBlocks Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">True</AllowUnsafeBlocks>
+		<WindowsSdkPackageVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.38</WindowsSdkPackageVersion>
     <AppxPackageDir>..\..\..\output\$(RuntimeIdentifier)\</AppxPackageDir>
 	</PropertyGroup>
 

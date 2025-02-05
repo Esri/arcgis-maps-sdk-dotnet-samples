@@ -27,8 +27,10 @@ namespace ArcGIS.WPF.Samples.EditFeaturesUsingFeatureForms
             instructions: "Tap a feature on the map to open a sheet displaying the feature form. Select form elements in the list and perform edits to update the field values. Tap the submit icon to commit the changes on the web map.",
             tags: new[] { "edits", "feature", "featureforms", "form", "toolkit" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("516e4d6aeb4c495c87c41e11274c767f")]
-    public partial class EditFeaturesUsingFeatureForms
+    public partial class EditFeaturesUsingFeatureForms : UserControl
     {
+        private FeatureForm _featureForm;
+
         public EditFeaturesUsingFeatureForms()
         {
             InitializeComponent();
@@ -61,83 +63,73 @@ namespace ArcGIS.WPF.Samples.EditFeaturesUsingFeatureForms
                 if (feature != null)
                 {
                     // Create a feature form
-                    var featureForm = new FeatureForm(feature);
+                    _featureForm = new FeatureForm(feature);
 
                     // Create a feature form view
                     var featureFormView = new FeatureFormView
                     {
-                        FeatureForm = featureForm,
+                        FeatureForm = _featureForm,
                         Padding = new Thickness(10),
                         VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
                     };
 
-                    var saveButton = new Button
-                    {
-                        Content = "Save",
-                        HorizontalAlignment = HorizontalAlignment.Stretch,
-                        Margin = new Thickness(10),
-                    };
+                    // Add the feature form view to the scroll viewer
+                    FeatureFormScrollViewer.Content = featureFormView;
 
-                    saveButton.Click += async (o, args) =>
-                    {
-                        // Check if there are validation errors
-                        if (featureForm.ValidationErrors.Any())
-                        {
-                            return;
-                        }
-                        // Finish editing
-                        await featureForm.FinishEditingAsync();
-                        // Get the service feature table
-                        var serviceFeatureTable = (ServiceFeatureTable)feature.FeatureTable;
-                        // Get the service geodatabase
-                        var serviceGeodatabase = serviceFeatureTable.ServiceGeodatabase;
-                        // Check if the service geodatabase can apply edits
-                        if (serviceGeodatabase.ServiceInfo?.CanUseServiceGeodatabaseApplyEdits == true)
-                        {
-                            // Apply edits to the service geodatabase
-                            await serviceGeodatabase.ApplyEditsAsync();
-                        }
-                        else
-                        {
-                            // Apply edits to the service feature table
-                            await serviceFeatureTable.ApplyEditsAsync();
-                        }
-                    };
-
-                    // Wrap the stack panel in a scroll viewer
-                    var scrollViewer = new ScrollViewer
-                    {
-                        Content = featureFormView,
-                        VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                    };
-
-                    // Create a grid to hold the scroll viewer and the save button
-                    var grid = new Grid();
-                    grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-                    grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
-                    // Add the scroll viewer and the save button to the grid
-                    Grid.SetRow(scrollViewer, 0);
-                    Grid.SetRow(saveButton, 1);
-                    grid.Children.Add(scrollViewer);
-                    grid.Children.Add(saveButton);
-
-                    // Display the grid in a window
-                    var featureFormWindow = new Window
-                    {
-                        Content = grid,
-                        Width = 400,
-                        Height = 600,
-                        Title = "Edit Feature",
-                    };
-
-                    featureFormWindow.ShowDialog();
+                    // Show the feature form panel
+                    FeatureFormPanel.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Check if there are validation errors
+                if (_featureForm.ValidationErrors.Any())
+                {
+                    return;
+                }
+
+                // Finish editing
+                await _featureForm.FinishEditingAsync();
+
+                // Get the service feature table
+                var serviceFeatureTable = (ServiceFeatureTable)_featureForm.Feature.FeatureTable;
+
+                // Get the service geodatabase
+                var serviceGeodatabase = serviceFeatureTable.ServiceGeodatabase;
+
+                // Check if the service geodatabase can apply edits
+                if (serviceGeodatabase.ServiceInfo?.CanUseServiceGeodatabaseApplyEdits == true)
+                {
+                    // Apply edits to the service geodatabase
+                    await serviceGeodatabase.ApplyEditsAsync();
+                }
+                else
+                {
+                    // Apply edits to the service feature table
+                    await serviceFeatureTable.ApplyEditsAsync();
+                }
+
+                // Hide the feature form panel
+                FeatureFormPanel.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Hide the feature form panel
+            FeatureFormPanel.Visibility = Visibility.Collapsed;
         }
     }
 }

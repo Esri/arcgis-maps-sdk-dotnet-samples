@@ -68,22 +68,14 @@ namespace ArcGIS.WinUI.Viewer.Samples.EditFeaturesUsingFeatureForms
                 {
                     // Create a feature form
                     var featureForm = new FeatureForm(feature);
-                    // Create a feature form view
-                    var featureFormView = new FeatureFormView
-                    {
-                        FeatureForm = featureForm,
-                    };
-                    // Show the feature form view
-                    var dialog = new ContentDialog
-                    {
-                        Content = featureFormView,
-                        Title = "Edit feature",
-                        PrimaryButtonText = "Submit",
-                        CloseButtonText = "Cancel",
-                        XamlRoot = this.XamlRoot,
-                    };
-                    // Handle the submit button click
-                    dialog.PrimaryButtonClick += async (s, e) =>
+                    // Assign the feature form to the FeatureFormView
+                    FeatureFormViewPanel.FeatureForm = featureForm;
+
+                    // Show the ContentDialog
+                    EditFeatureDialog.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+                    var result = await EditFeatureDialog.ShowAsync();
+
+                    if (result == ContentDialogResult.Primary)
                     {
                         // Check if there are validation errors
                         if (featureForm.ValidationErrors.Any())
@@ -107,9 +99,7 @@ namespace ArcGIS.WinUI.Viewer.Samples.EditFeaturesUsingFeatureForms
                             // Apply edits to the service feature table
                             await serviceFeatureTable.ApplyEditsAsync();
                         }
-                    };
-                    // Show the dialog
-                    await dialog.ShowAsync();
+                    }
                 }
             }
             catch (Exception ex)

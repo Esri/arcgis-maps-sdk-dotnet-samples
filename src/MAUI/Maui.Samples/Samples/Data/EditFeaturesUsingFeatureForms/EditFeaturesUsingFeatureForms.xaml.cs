@@ -24,6 +24,9 @@ namespace ArcGIS.Samples.EditFeaturesUsingFeatureForms
     [ArcGIS.Samples.Shared.Attributes.OfflineData("516e4d6aeb4c495c87c41e11274c767f")]
     public partial class EditFeaturesUsingFeatureForms : ContentPage
     {
+        private ArcGISFeature _currentFeature;
+        private FeatureForm _featureForm;
+
         public EditFeaturesUsingFeatureForms()
         {
             InitializeComponent();
@@ -55,105 +58,58 @@ namespace ArcGIS.Samples.EditFeaturesUsingFeatureForms
             {
                 // Perform identify operation to get the feature
                 IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(MyMapView.Map.OperationalLayers.First(), e.Position, 12, false);
-                ArcGISFeature feature = identifyResult.GeoElements.OfType<ArcGISFeature>().FirstOrDefault();
-                if (feature != null)
+                _currentFeature = identifyResult.GeoElements.OfType<ArcGISFeature>().FirstOrDefault();
+                if (_currentFeature != null)
                 {
                     // Create a feature form
-                    var featureForm = new FeatureForm(feature);
-
-                    // Create a feature form view
-                    var featureFormView = new FeatureFormView
-                    {
-                        FeatureForm = featureForm,
-                        Padding = new Thickness(10),
-                        VerticalScrollBarVisibility = ScrollBarVisibility.Default,
-                    };
-
-                    var saveButton = new Button
-                    {
-                        Text = "Save",
-                    };
-
-                    saveButton.Clicked += async (s, e) =>
-                    {
-                        // Check if there are validation errors
-                        if (featureForm.ValidationErrors.Any())
-                        {
-                            return;
-                        }
-                        // Finish editing
-                        await featureForm.FinishEditingAsync();
-                        // Get the service feature table
-                        var serviceFeatureTable = (ServiceFeatureTable)feature.FeatureTable;
-                        // Get the service geodatabase
-                        var serviceGeodatabase = serviceFeatureTable.ServiceGeodatabase;
-                        // Check if the service geodatabase can apply edits
-                        if (serviceGeodatabase.ServiceInfo.CanUseServiceGeodatabaseApplyEdits)
-                        {
-                            // Apply edits to the service geodatabase
-                            await serviceGeodatabase.ApplyEditsAsync();
-                        }
-                        else
-                        {
-                            // Apply edits to the service feature table
-                            await serviceFeatureTable.ApplyEditsAsync();
-                        }
-                    };
-
-                    var cancelButton = new Button
-                    {
-                        Text = "Cancel",
-                    };
-
-                    cancelButton.Clicked += async (s, e) => await Shell.Current.Navigation.PopModalAsync();
-
-                    // Create a grid to hold the feature form view and the buttons
-                    var grid = new Grid();
-                    grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-                    grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-
-                    // Add the feature form view to the first row
-                    Grid.SetRow(featureFormView, 0);
-                    grid.Children.Add(featureFormView);
-
-                    // Create a grid for the buttons
-                    var buttonGrid = new Grid();
-                    buttonGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-                    buttonGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
-
-                    // Add the save button to the first column
-                    Grid.SetColumn(saveButton, 0);
-                    buttonGrid.Children.Add(saveButton);
-
-                    // Add the cancel button to the second column
-                    Grid.SetColumn(cancelButton, 1);
-                    buttonGrid.Children.Add(cancelButton);
-
-                    // Add the button grid to the second row
-                    Grid.SetRow(buttonGrid, 1);
-                    grid.Children.Add(buttonGrid);
-
-                    // Create a ContentView to hold the grid
-                    var featureFormContentView = new ContentView
-                    {
-                        Content = grid,
-                        Padding = new Thickness(20),
-                    };
-
-                    // Display the ContentView in a modal
-                    var modalPage = new ContentPage
-                    {
-                        Content = featureFormContentView,
-                        Title = "Edit Feature",
-                    };
-
-                    await Shell.Current.Navigation.PushModalAsync(modalPage);
+                    _featureForm = new FeatureForm(_currentFeature);
+                    FeatureFormView.FeatureForm = _featureForm;
+                    FeatureFormPanel.IsVisible = true;
                 }
             }
             catch (Exception ex)
             {
                 await DisplayAlert("Error", ex.Message, "OK");
             }
+        }
+
+        private async void SaveButton_Clicked(object sender, EventArgs e)
+        {
+            try
+            {
+                // Check if there are validation errors
+                if (_featureForm.ValidationErrors.Any())
+                {
+                    return;
+                }
+                // Finish editing
+                await _featureForm.FinishEditingAsync();
+                // Get the service feature table
+                var serviceFeatureTable = (ServiceFeatureTable)_currentFeature.FeatureTable;
+                // Get the service geodatabase
+                var serviceGeodatabase = serviceFeatureTable.ServiceGeodatabase;
+                // Check if the service geodatabase can apply edits
+                if (serviceGeodatabase.ServiceInfo.CanUseServiceGeodatabaseApplyEdits)
+                {
+                    // Apply edits to the service geodatabase
+                    await serviceGeodatabase.ApplyEditsAsync();
+                }
+                else
+                {
+                    // Apply edits to the service feature table
+                    await serviceFeatureTable.ApplyEditsAsync();
+                }
+                FeatureFormPanel.IsVisible = false;
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("Error", ex.Message, "OK");
+            }
+        }
+
+        private void CancelButton_Clicked(object sender, EventArgs e)
+        {
+            FeatureFormPanel.IsVisible = false;
         }
     }
 }

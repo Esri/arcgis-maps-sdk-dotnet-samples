@@ -4,5 +4,24 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Border x:Name="FeatureFormPanel" Background="White" BorderBrush="Black" BorderThickness="1" Visibility="Collapsed" Width="400" Height="600" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ScrollViewer x:Name="FeatureFormScrollViewer" VerticalScrollBarVisibility="Auto" Grid.Row="0">
+                    <!-- FeatureFormView will be added here dynamically -->
+                </ScrollViewer>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="SaveButton" Content="Save" Click="SaveButton_Click" Grid.Column="0" />
+                    <Button x:Name="CancelButton" Content="Cancel" Click="CancelButton_Click" Grid.Column="1" />
+                </Grid>
+            </Grid>
+        </Border>
     </Grid>
 </UserControl>

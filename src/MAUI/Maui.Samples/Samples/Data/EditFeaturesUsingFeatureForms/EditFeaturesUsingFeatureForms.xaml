@@ -5,7 +5,22 @@
              xmlns:toolkit="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView"
-                GeoViewTapped="MyMapView_GeoViewTapped"
-                Style="{DynamicResource EsriSampleGeoView}" />
+                        GeoViewTapped="MyMapView_GeoViewTapped"
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <Grid x:Name="FeatureFormPanel" IsVisible="False" Padding="20">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <toolkit:FeatureFormView x:Name="FeatureFormView" Padding="10" VerticalScrollBarVisibility="Default" />
+            <Grid Grid.Row="1" ColumnSpacing="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Text="Save" Clicked="SaveButton_Clicked" Grid.Column="0" />
+                <Button Text="Cancel" Clicked="CancelButton_Clicked" Grid.Column="1" />
+            </Grid>
+        </Grid>
     </Grid>
 </ContentPage>

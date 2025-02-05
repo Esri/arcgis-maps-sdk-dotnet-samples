@@ -138,7 +138,6 @@ namespace ArcGIS.Samples.EditFeaturesUsingFeatureForms
                     {
                         Content = grid,
                         Padding = new Thickness(20),
-                        BackgroundColor = Color.FromArgb("#80000000"),
                     };
 
                     // Display the ContentView in a modal

@@ -1,0 +1,11 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.EditFeaturesUsingFeatureForms.EditFeaturesUsingFeatureForms"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:toolkit="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                GeoViewTapped="MyMapView_GeoViewTapped"
+                Style="{DynamicResource EsriSampleGeoView}" />
+    </Grid>
+</ContentPage>

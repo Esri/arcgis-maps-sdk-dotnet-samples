@@ -1,0 +1,42 @@
+{
+  "category": "Edit and Manage Data",
+  "description": "Display and edit feature attributes using feature forms",
+  "formal_name": "EditFeaturesUsingFeatureForms",
+  "ignore": false,
+  "images": [
+    "EditFeaturesUsingFeatureForms.jpg"
+  ],
+  "keywords": [
+    "compose",
+    "edits",
+    "feature",
+    "featureforms",
+    "form",
+    "geoviewcompose",
+    "jetpack",
+    "toolkit",
+    "ArcGISFeature",
+    "FeatureForm",
+    "FeatureLayer",
+    "FieldFormElement",
+    "GroupFormElement",
+    "ServiceFeatureTable"
+  ],
+  "language": "dotnet",
+  "redirect_from": [
+    "/net/latest/maui/sample-code/edit-features-using-feature-forms.htm"
+  ],
+  "relevant_apis": [
+    "ArcGISFeature",
+    "FeatureForm",
+    "FeatureLayer",
+    "FieldFormElement",
+    "GroupFormElement",
+    "ServiceFeatureTable"
+  ],
+  "snippets": [
+    "EditFeaturesUsingFeatureForms.xaml",
+    "EditFeaturesUsingFeatureForms.xaml.cs"
+  ],
+  "title": "Edit features using feature forms"
+}

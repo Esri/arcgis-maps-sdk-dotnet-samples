@@ -33,6 +33,6 @@
     <PackageVersion Include="Monaco.Editor" Version="0.8.1-alpha" />
     <PackageVersion Include="Microsoft.Maui.Controls" Version="9.0.21" />
     <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.21" />
-    <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.3" />
+    <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.4" />
   </ItemGroup>
 </Project>

@@ -22,11 +22,11 @@ Tap a feature on the map to open a sheet displaying the feature form. Select for
 5. Optionally, you can add a `ValidationErrorVisibility` option to the `FeatureForm` toolkit component that determines the visibility of validation errors.
 6. Once edits are added to the form fields, check if the validation errors list are empty using `featureForm.ValidationErrors` to verify that there are no errors.
 7. To commit edits on the service geodatabase:
-    1. Call `featureForm.FinishEditing()` to save edits to the database.
+    1. Call `featureForm.FinishEditingAsync()` to save edits to the database.
     2. Retrieve the backing service feature table's geodatabase using `serviceFeatureTable?.ServiceGeodatabase`.
     3. Verify the service geodatabase can commit changes back to the service using `serviceGeodatabase.ServiceInfo?.CanUseServiceGeodatabaseApplyEdits`
-    4. If apply edits are allowed, call `serviceGeodatabase.ApplyEdits()` to apply local edits to the online service.
-    5. If edits are not allowed on the `ServiceGeodatabase`, then apply edits to the `ServiceFeatureTable` using `ServiceFeatureTable.ApplyEdits()`
+    4. If apply edits are allowed, call `serviceGeodatabase.ApplyEditsAsync()` to apply local edits to the online service.
+    5. If edits are not allowed on the `ServiceGeodatabase`, then apply edits to the `ServiceFeatureTable` using `ServiceFeatureTable.ApplyEditsAsync()`
 
 ## Relevant API
 

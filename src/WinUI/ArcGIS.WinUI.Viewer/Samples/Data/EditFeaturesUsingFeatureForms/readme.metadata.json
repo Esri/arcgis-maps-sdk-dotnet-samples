@@ -1,26 +1,17 @@
 {
     "category": "Data",
-    "description": "Display and edit feature attributes using feature forms",
+    "description": "Display and edit feature attributes using feature forms.",
     "formal_name": "EditFeaturesUsingFeatureForms",
     "ignore": false,
     "images": [
         "EditFeaturesUsingFeatureForms.jpg"
     ],
     "keywords": [
-        "compose",
         "edits",
         "feature",
         "featureforms",
         "form",
-        "geoviewcompose",
-        "jetpack",
-        "toolkit",
-        "ArcGISFeature",
-        "FeatureForm",
-        "FeatureLayer",
-        "FieldFormElement",
-        "GroupFormElement",
-        "ServiceFeatureTable"
+        "toolkit"
     ],
     "offline_data": [],
     "redirect_from": [
@@ -32,7 +23,8 @@
         "FeatureLayer",
         "FieldFormElement",
         "GroupFormElement",
-        "ServiceFeatureTable"
+        "ServiceFeatureTable",
+        "ServiceGeodatabase"
     ],
     "snippets": [
         "EditFeaturesUsingFeatureForms.xaml.cs",

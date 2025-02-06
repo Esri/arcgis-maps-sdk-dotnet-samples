@@ -16,6 +16,7 @@
 * [Create mobile geodatabase](ArcGIS.WinUI.Viewer/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.
 * [Edit and sync features](ArcGIS.WinUI.Viewer/Samples/Data/EditAndSyncFeatures) - Synchronize offline edits with a feature service.
 * [Edit feature attachments](ArcGIS.WinUI.Viewer/Samples/Data/EditFeatureAttachments) - Add, delete, and download attachments for features from a service.
+* [Edit features using feature forms](ArcGIS.WinUI.Viewer/Samples/Data/EditFeaturesUsingFeatureForms) - Display and edit feature attributes using feature forms.
 * [Edit features with feature-linked annotation](ArcGIS.WinUI.Viewer/Samples/Data/EditFeatureLinkedAnnotation) - Edit feature attributes which are linked to annotation through an expression.
 * [Edit with branch versioning](ArcGIS.WinUI.Viewer/Samples/Data/EditBranchVersioning) - Create, query and edit a specific server version using service geodatabase.
 * [Feature layer query](ArcGIS.WinUI.Viewer/Samples/Data/FeatureLayerQuery) - Find features in a feature table which match an SQL query.

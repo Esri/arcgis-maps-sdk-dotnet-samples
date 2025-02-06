@@ -11,7 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.FeatureForms;
 using Esri.ArcGISRuntime.Portal;
-using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -26,6 +26,8 @@ namespace ArcGIS.WinUI.Viewer.Samples.EditFeaturesUsingFeatureForms
         tags: new[] { "edits", "feature", "featureforms", "form", "toolkit" })]
     public partial class EditFeaturesUsingFeatureForms
     {
+        private FeatureForm _featureForm;
+
         public EditFeaturesUsingFeatureForms()
         {
             InitializeComponent();
@@ -66,52 +68,69 @@ namespace ArcGIS.WinUI.Viewer.Samples.EditFeaturesUsingFeatureForms
                 if (feature != null)
                 {
                     // Create a feature form.
-                    var featureForm = new FeatureForm(feature);
+                    _featureForm = new FeatureForm(feature);
                     // Assign the feature form to the FeatureFormView.
-                    FeatureFormViewPanel.FeatureForm = featureForm;
+                    FeatureFormViewPanel.FeatureForm = _featureForm;
 
-                    // Show the ContentDialog.
-                    EditFeatureDialog.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
-                    var result = await EditFeatureDialog.ShowAsync();
-
-                    if (result == ContentDialogResult.Primary)
-                    {
-                        // Check if there are validation errors.
-                        if (featureForm.ValidationErrors.Any())
-                        {
-                            var errors = featureForm.ValidationErrors;
-                            var errorMessages = errors.SelectMany(kvp => kvp.Value.Select(ex => $"{kvp.Key}: {ex.Message}"));
-                            string errorMessage = string.Join("\n", errorMessages);
-                            throw new Exception($"Validation errors exist.\n{errorMessage}");
-                        }
-
-                        // Finish editing.
-                        await featureForm.FinishEditingAsync();
-
-                        // Get the service feature table.
-                        var serviceFeatureTable = (ServiceFeatureTable)feature.FeatureTable;
-
-                        // Get the service geodatabase.
-                        var serviceGeodatabase = serviceFeatureTable.ServiceGeodatabase;
-
-                        // Check if the service geodatabase can apply edits.
-                        if (serviceGeodatabase.ServiceInfo?.CanUseServiceGeodatabaseApplyEdits == true)
-                        {
-                            // Apply edits to the service geodatabase.
-                            await serviceGeodatabase.ApplyEditsAsync();
-                        }
-                        else
-                        {
-                            // Apply edits to the service feature table.
-                            await serviceFeatureTable.ApplyEditsAsync();
-                        }
-                    }
+                    // Show the feature form.
+                    FeatureFormPanel.Visibility = Visibility.Visible;
                 }
             }
             catch (Exception ex)
             {
                 await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
+        }
+
+        private async void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // Check if there are validation errors.
+                if (_featureForm.ValidationErrors.Any())
+                {
+                    var errors = _featureForm.ValidationErrors;
+                    var errorMessages = errors.SelectMany(kvp => kvp.Value.Select(ex => $"{kvp.Key}: {ex.Message}"));
+                    string errorMessage = string.Join("\n", errorMessages);
+                    throw new Exception($"Validation errors exist.\n{errorMessage}");
+                }
+
+                // Finish editing.
+                await _featureForm.FinishEditingAsync();
+
+                // Get the service feature table.
+                var serviceFeatureTable = (ServiceFeatureTable)_featureForm.Feature.FeatureTable;
+
+                // Get the service geodatabase.
+                var serviceGeodatabase = serviceFeatureTable.ServiceGeodatabase;
+
+                // Check if the service geodatabase can apply edits.
+                if (serviceGeodatabase.ServiceInfo?.CanUseServiceGeodatabaseApplyEdits == true)
+                {
+                    // Apply edits to the service geodatabase.
+                    await serviceGeodatabase.ApplyEditsAsync();
+                }
+                else
+                {
+                    await serviceFeatureTable.ApplyEditsAsync();
+                }
+
+                // Hide the feature form.
+                FeatureFormPanel.Visibility = Visibility.Collapsed;
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog2(ex.Message, "Error").ShowAsync();
+            }
+        }
+
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Cancel editing.
+            _featureForm.DiscardEdits();
+
+            // Hide the feature form.
+            FeatureFormPanel.Visibility = Visibility.Collapsed;
         }
     }
 }

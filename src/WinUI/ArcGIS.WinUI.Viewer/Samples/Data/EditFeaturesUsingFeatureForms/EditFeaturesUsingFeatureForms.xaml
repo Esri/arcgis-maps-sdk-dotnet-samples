@@ -7,17 +7,34 @@
 
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
-        
-        <!-- Define the ContentDialog in XAML -->
-        <ContentDialog x:Name="EditFeatureDialog"
-                       Title="Edit feature"
-                       PrimaryButtonText="Save"
-                       CloseButtonText="Cancel"
-                       Visibility="Collapsed"
-                       IsPrimaryButtonEnabled="{Binding ElementName=FeatureFormViewPanel, Path=IsValid}">
-            <ScrollViewer>
+        <Grid x:Name="FeatureFormPanel"
+              Visibility="Collapsed"
+              Padding="20"
+              Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0" MaxWidth="400">
                 <toolkit:FeatureFormView x:Name="FeatureFormViewPanel" />
-            </ScrollViewer>
-        </ContentDialog>
+            </ScrollView>
+            <Grid Grid.Row="1" ColumnSpacing="10" MaxWidth="400">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Content="Save"
+                        Grid.Column="0"
+                        Click="SaveButton_Click"
+                        IsEnabled="{Binding ElementName=FeatureFormViewPanel, Path=IsValid}" 
+                        HorizontalContentAlignment="Center"
+                        HorizontalAlignment="Stretch" />
+                <Button Content="Cancel"
+                        Grid.Column="1"
+                        Click="CancelButton_Click"
+                        HorizontalContentAlignment="Center"
+                        HorizontalAlignment="Stretch" />
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

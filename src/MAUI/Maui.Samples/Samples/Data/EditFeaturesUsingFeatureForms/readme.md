@@ -2,7 +2,7 @@
 
 Display and edit feature attributes using feature forms.
 
-![Image of Edit features using feature forms sample](EditFeaturesUsingFeatureForms.jpg)
+![Image of Edit features using feature forms sample](editfeaturesusingfeatureforms.jpg)
 
 ## Use case
 

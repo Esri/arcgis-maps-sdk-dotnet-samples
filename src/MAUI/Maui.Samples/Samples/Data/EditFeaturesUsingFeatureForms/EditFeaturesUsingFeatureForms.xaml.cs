@@ -20,7 +20,6 @@ namespace ArcGIS.Samples.EditFeaturesUsingFeatureForms
             description: "Display and edit feature attributes using feature forms.",
             instructions: "Tap a feature on the map to open a sheet displaying the feature form. Select form elements in the list and perform edits to update the field values. Tap the submit icon to commit the changes on the web map.",
             tags: new[] { "edits", "feature", "featureforms", "form", "toolkit" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData("516e4d6aeb4c495c87c41e11274c767f")]
     public partial class EditFeaturesUsingFeatureForms : ContentPage
     {
         private FeatureForm _featureForm;

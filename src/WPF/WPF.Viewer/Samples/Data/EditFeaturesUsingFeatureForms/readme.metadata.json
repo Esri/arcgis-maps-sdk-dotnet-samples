@@ -22,6 +22,7 @@
     "GroupFormElement",
     "ServiceFeatureTable"
   ],
+  "offline_data": [],
   "redirect_from": [
     "/net/latest/wpf/sample-code/edit-features-using-feature-forms.htm"
   ],

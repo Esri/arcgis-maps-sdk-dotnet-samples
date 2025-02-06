@@ -1,0 +1,19 @@
+{
+    "category": "Geometry",
+    "description": "Perform snap geometry edits with rules",
+    "formal_name": "SnapGeometryWithRules",
+    "ignore": false,
+    "images": [
+        "SnapGeometryWithRules.jpg"
+    ],
+    "keywords": [
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/SnapGeometryWithRules.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Snap geometry with rules"
+}

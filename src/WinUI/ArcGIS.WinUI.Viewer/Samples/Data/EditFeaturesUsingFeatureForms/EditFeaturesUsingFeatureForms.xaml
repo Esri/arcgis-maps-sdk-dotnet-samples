@@ -10,6 +10,8 @@
         <Grid x:Name="FeatureFormPanel"
               Visibility="Collapsed"
               Padding="20"
+              Width="400"
+              Height="600"
               Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />

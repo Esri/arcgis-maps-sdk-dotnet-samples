@@ -15,11 +15,11 @@ using Esri.ArcGISRuntime.Portal;
 namespace ArcGIS.Samples.EditFeaturesUsingFeatureForms
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-            name: "Edit features using feature forms",
-            category: "Data",
-            description: "Display and edit feature attributes using feature forms.",
-            instructions: "Tap a feature on the map to open a sheet displaying the feature form. Select form elements in the list and perform edits to update the field values. Tap the submit icon to commit the changes on the web map.",
-            tags: new[] { "edits", "feature", "featureforms", "form", "toolkit" })]
+        name: "Edit features using feature forms",
+        category: "Data",
+        description: "Display and edit feature attributes using feature forms.",
+        instructions: "Tap a feature on the map to open a sheet displaying the feature form. Select form elements in the list and perform edits to update the field values. Tap the submit icon to commit the changes on the web map.",
+        tags: new[] { "edits", "feature", "featureforms", "form", "toolkit" })]
     public partial class EditFeaturesUsingFeatureForms : ContentPage
     {
         private FeatureForm _featureForm;

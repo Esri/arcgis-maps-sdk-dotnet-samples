@@ -18,7 +18,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="SaveButton" Content="Save" Click="SaveButton_Click" Grid.Column="0" />
+                    <Button x:Name="SaveButton" Content="Save" Click="SaveButton_Click" Grid.Column="0" IsEnabled="{Binding ElementName=FeatureFormViewPanel, Path=IsValid}" />
                     <Button x:Name="CancelButton" Content="Cancel" Click="CancelButton_Click" Grid.Column="1" />
                 </Grid>
             </Grid>

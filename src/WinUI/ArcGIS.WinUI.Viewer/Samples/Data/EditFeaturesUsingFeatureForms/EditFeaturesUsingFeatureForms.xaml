@@ -13,7 +13,8 @@
                        Title="Edit feature"
                        PrimaryButtonText="Save"
                        CloseButtonText="Cancel"
-                       Visibility="Collapsed">
+                       Visibility="Collapsed"
+                       IsPrimaryButtonEnabled="{Binding ElementName=FeatureFormViewPanel, Path=IsValid}">
             <ScrollViewer>
                 <toolkit:FeatureFormView x:Name="FeatureFormViewPanel" />
             </ScrollViewer>

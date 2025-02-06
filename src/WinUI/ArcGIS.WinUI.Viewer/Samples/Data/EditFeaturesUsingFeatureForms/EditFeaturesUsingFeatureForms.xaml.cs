@@ -59,24 +59,24 @@ namespace ArcGIS.WinUI.Viewer.Samples.EditFeaturesUsingFeatureForms
         {
             try
             {
-                // Perform identify operation to get the feature
+                // Perform identify operation to get the feature.
                 var identifyResult = await MyMapView.IdentifyLayersAsync(e.Position, 12, false);
                 var feature = identifyResult.SelectMany(result => result.GeoElements).OfType<ArcGISFeature>().FirstOrDefault();
 
                 if (feature != null)
                 {
-                    // Create a feature form
+                    // Create a feature form.
                     var featureForm = new FeatureForm(feature);
-                    // Assign the feature form to the FeatureFormView
+                    // Assign the feature form to the FeatureFormView.
                     FeatureFormViewPanel.FeatureForm = featureForm;
 
-                    // Show the ContentDialog
+                    // Show the ContentDialog.
                     EditFeatureDialog.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
                     var result = await EditFeatureDialog.ShowAsync();
 
                     if (result == ContentDialogResult.Primary)
                     {
-                        // Check if there are validation errors
+                        // Check if there are validation errors.
                         if (featureForm.ValidationErrors.Any())
                         {
                             var errors = featureForm.ValidationErrors;
@@ -85,24 +85,24 @@ namespace ArcGIS.WinUI.Viewer.Samples.EditFeaturesUsingFeatureForms
                             throw new Exception($"Validation errors exist.\n{errorMessage}");
                         }
 
-                        // Finish editing
+                        // Finish editing.
                         await featureForm.FinishEditingAsync();
 
-                        // Get the service feature table
+                        // Get the service feature table.
                         var serviceFeatureTable = (ServiceFeatureTable)feature.FeatureTable;
 
-                        // Get the service geodatabase
+                        // Get the service geodatabase.
                         var serviceGeodatabase = serviceFeatureTable.ServiceGeodatabase;
 
-                        // Check if the service geodatabase can apply edits
+                        // Check if the service geodatabase can apply edits.
                         if (serviceGeodatabase.ServiceInfo?.CanUseServiceGeodatabaseApplyEdits == true)
                         {
-                            // Apply edits to the service geodatabase
+                            // Apply edits to the service geodatabase.
                             await serviceGeodatabase.ApplyEditsAsync();
                         }
                         else
                         {
-                            // Apply edits to the service feature table
+                            // Apply edits to the service feature table.
                             await serviceFeatureTable.ApplyEditsAsync();
                         }
                     }

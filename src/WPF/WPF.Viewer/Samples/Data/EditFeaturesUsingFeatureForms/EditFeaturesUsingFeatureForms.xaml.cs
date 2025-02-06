@@ -55,19 +55,19 @@ namespace ArcGIS.WPF.Samples.EditFeaturesUsingFeatureForms
         {
             try
             {
-                // Perform identify operation to get the feature
+                // Perform identify operation to get the feature.
                 var identifyResult = await MyMapView.IdentifyLayersAsync(e.Position, 12, false);
                 var feature = identifyResult.SelectMany(result => result.GeoElements).OfType<ArcGISFeature>().FirstOrDefault();
 
                 if (feature != null)
                 {
-                    // Create a feature form
+                    // Create a feature form.
                     _featureForm = new FeatureForm(feature);
 
-                    // Add the feature form view to the scroll viewer
+                    // Add the feature form view to the scroll viewer.
                     FeatureFormViewPanel.FeatureForm = _featureForm;
 
-                    // Show the feature form panel
+                    // Show the feature form panel.
                     FeatureFormPanel.Visibility = Visibility.Visible;
                 }
             }
@@ -81,7 +81,7 @@ namespace ArcGIS.WPF.Samples.EditFeaturesUsingFeatureForms
         {
             try
             {
-                // Check if there are validation errors
+                // Check if there are validation errors.
                 if (_featureForm.ValidationErrors.Any())
                 {
                     var errors = _featureForm.ValidationErrors;
@@ -90,28 +90,28 @@ namespace ArcGIS.WPF.Samples.EditFeaturesUsingFeatureForms
                     throw new Exception($"Validation errors exist.\n{errorMessage}");
                 }
 
-                // Finish editing
+                // Finish editing.
                 await _featureForm.FinishEditingAsync();
 
-                // Get the service feature table
+                // Get the service feature table.
                 var serviceFeatureTable = (ServiceFeatureTable)_featureForm.Feature.FeatureTable;
 
-                // Get the service geodatabase
+                // Get the service geodatabase.
                 var serviceGeodatabase = serviceFeatureTable.ServiceGeodatabase;
 
-                // Check if the service geodatabase can apply edits
+                // Check if the service geodatabase can apply edits.
                 if (serviceGeodatabase.ServiceInfo?.CanUseServiceGeodatabaseApplyEdits == true)
                 {
-                    // Apply edits to the service geodatabase
+                    // Apply edits to the service geodatabase.
                     await serviceGeodatabase.ApplyEditsAsync();
                 }
                 else
                 {
-                    // Apply edits to the service feature table
+                    // Apply edits to the service feature table.
                     await serviceFeatureTable.ApplyEditsAsync();
                 }
 
-                // Hide the feature form panel
+                // Hide the feature form panel.
                 FeatureFormPanel.Visibility = Visibility.Collapsed;
             }
             catch (Exception ex)
@@ -122,10 +122,10 @@ namespace ArcGIS.WPF.Samples.EditFeaturesUsingFeatureForms
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            // Cancel editing
+            // Cancel editing.
             _featureForm.DiscardEdits();
 
-            // Hide the feature form panel
+            // Hide the feature form panel.
             FeatureFormPanel.Visibility = Visibility.Collapsed;
         }
     }

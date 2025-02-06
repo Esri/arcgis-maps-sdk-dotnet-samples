@@ -1,5 +1,5 @@
 {
-  "category": "Edit and Manage Data",
+  "category": "Data",
   "description": "Display and edit feature attributes using feature forms",
   "formal_name": "EditFeaturesUsingFeatureForms",
   "ignore": false,
@@ -22,7 +22,6 @@
     "GroupFormElement",
     "ServiceFeatureTable"
   ],
-  "language": "dotnet",
   "redirect_from": [
     "/net/latest/winui/sample-code/edit-features-using-feature-forms.htm"
   ],
@@ -35,8 +34,8 @@
     "ServiceFeatureTable"
   ],
   "snippets": [
-    "EditFeaturesUsingFeatureForms.xaml",
-    "EditFeaturesUsingFeatureForms.xaml.cs"
+    "EditFeaturesUsingFeatureForms.xaml.cs",
+    "EditFeaturesUsingFeatureForms.xaml"
   ],
   "title": "Edit features using feature forms"
 }

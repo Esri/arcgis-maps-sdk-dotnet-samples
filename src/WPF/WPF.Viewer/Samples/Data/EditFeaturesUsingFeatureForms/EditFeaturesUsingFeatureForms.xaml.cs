@@ -11,10 +11,11 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.FeatureForms;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Toolkit.UI.Controls;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -34,10 +35,10 @@ namespace ArcGIS.WPF.Samples.EditFeaturesUsingFeatureForms
         public EditFeaturesUsingFeatureForms()
         {
             InitializeComponent();
-            Initialize();
+            _ = Initialize();
         }
 
-        private async void Initialize()
+        private async Task Initialize()
         {
             // Create the ArcGIS Online portal.
             ArcGISPortal portal = await ArcGISPortal.CreateAsync();
@@ -65,16 +66,8 @@ namespace ArcGIS.WPF.Samples.EditFeaturesUsingFeatureForms
                     // Create a feature form
                     _featureForm = new FeatureForm(feature);
 
-                    // Create a feature form view
-                    var featureFormView = new FeatureFormView
-                    {
-                        FeatureForm = _featureForm,
-                        Padding = new Thickness(10),
-                        VerticalScrollBarVisibility = ScrollBarVisibility.Auto,
-                    };
-
                     // Add the feature form view to the scroll viewer
-                    FeatureFormScrollViewer.Content = featureFormView;
+                    FeatureFormViewPanel.FeatureForm = _featureForm;
 
                     // Show the feature form panel
                     FeatureFormPanel.Visibility = Visibility.Visible;
@@ -93,7 +86,10 @@ namespace ArcGIS.WPF.Samples.EditFeaturesUsingFeatureForms
                 // Check if there are validation errors
                 if (_featureForm.ValidationErrors.Any())
                 {
-                    return;
+                    var errors = _featureForm.ValidationErrors;
+                    var errorMessages = errors.SelectMany(kvp => kvp.Value.Select(ex => $"{kvp.Key}: {ex.Message}"));
+                    string errorMessage = string.Join("\n", errorMessages);
+                    throw new Exception($"Validation errors exist.\n{errorMessage}");
                 }
 
                 // Finish editing
@@ -128,6 +124,9 @@ namespace ArcGIS.WPF.Samples.EditFeaturesUsingFeatureForms
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
+            // Cancel editing
+            _featureForm.DiscardEdits();
+
             // Hide the feature form panel
             FeatureFormPanel.Visibility = Visibility.Collapsed;
         }

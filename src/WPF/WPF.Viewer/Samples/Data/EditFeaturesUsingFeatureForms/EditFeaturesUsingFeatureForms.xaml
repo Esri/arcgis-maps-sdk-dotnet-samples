@@ -10,8 +10,8 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <ScrollViewer x:Name="FeatureFormScrollViewer" VerticalScrollBarVisibility="Auto" Grid.Row="0">
-                    <!-- FeatureFormView will be added here dynamically -->
+                <ScrollViewer Grid.Row="0">
+                    <esri:FeatureFormView x:Name="FeatureFormViewPanel" />
                 </ScrollViewer>
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>

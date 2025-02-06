@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.FeatureForms;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Toolkit.Maui;
 
 namespace ArcGIS.Samples.EditFeaturesUsingFeatureForms
 {
@@ -24,7 +23,6 @@ namespace ArcGIS.Samples.EditFeaturesUsingFeatureForms
     [ArcGIS.Samples.Shared.Attributes.OfflineData("516e4d6aeb4c495c87c41e11274c767f")]
     public partial class EditFeaturesUsingFeatureForms : ContentPage
     {
-        private ArcGISFeature _currentFeature;
         private FeatureForm _featureForm;
 
         public EditFeaturesUsingFeatureForms()
@@ -38,11 +36,14 @@ namespace ArcGIS.Samples.EditFeaturesUsingFeatureForms
             try
             {
                 // Create the ArcGIS Online portal.
-                ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+                var portal = await ArcGISPortal.CreateAsync();
+
                 // Get the Naperville water web map item using its ID.
-                PortalItem webmapItem = await PortalItem.CreateAsync(portal, "516e4d6aeb4c495c87c41e11274c767f");
+                var webmapItem = await PortalItem.CreateAsync(portal, "516e4d6aeb4c495c87c41e11274c767f");
+
                 // Create a map from the web map item.
-                Map onlineMap = new Map(webmapItem);
+                var onlineMap = new Map(webmapItem);
+
                 // Display the map in the MapView.
                 MyMapView.Map = onlineMap;
             }
@@ -57,13 +58,18 @@ namespace ArcGIS.Samples.EditFeaturesUsingFeatureForms
             try
             {
                 // Perform identify operation to get the feature
-                IdentifyLayerResult identifyResult = await MyMapView.IdentifyLayerAsync(MyMapView.Map.OperationalLayers.First(), e.Position, 12, false);
-                _currentFeature = identifyResult.GeoElements.OfType<ArcGISFeature>().FirstOrDefault();
-                if (_currentFeature != null)
+                var identifyResult = await MyMapView.IdentifyLayersAsync(e.Position, 12, false);
+                var feature = identifyResult.SelectMany(result => result.GeoElements).OfType<ArcGISFeature>().FirstOrDefault();
+
+                if (feature != null)
                 {
                     // Create a feature form
-                    _featureForm = new FeatureForm(_currentFeature);
-                    FeatureFormView.FeatureForm = _featureForm;
+                    _featureForm = new FeatureForm(feature);
+
+                    // Add the feature form view to the scroll viewer
+                    FeatureFormViewPanel.FeatureForm = _featureForm;
+
+                    // Show the feature form panel
                     FeatureFormPanel.IsVisible = true;
                 }
             }
@@ -80,14 +86,21 @@ namespace ArcGIS.Samples.EditFeaturesUsingFeatureForms
                 // Check if there are validation errors
                 if (_featureForm.ValidationErrors.Any())
                 {
-                    return;
+                    var errors = _featureForm.ValidationErrors;
+                    var errorMessages = errors.SelectMany(kvp => kvp.Value.Select(ex => $"{kvp.Key}: {ex.Message}"));
+                    string errorMessage = string.Join("\n", errorMessages);
+                    throw new Exception($"Validation errors exist.\n{errorMessage}");
                 }
+
                 // Finish editing
                 await _featureForm.FinishEditingAsync();
+
                 // Get the service feature table
-                var serviceFeatureTable = (ServiceFeatureTable)_currentFeature.FeatureTable;
+                var serviceFeatureTable = (ServiceFeatureTable)_featureForm.Feature.FeatureTable;
+
                 // Get the service geodatabase
                 var serviceGeodatabase = serviceFeatureTable.ServiceGeodatabase;
+
                 // Check if the service geodatabase can apply edits
                 if (serviceGeodatabase.ServiceInfo.CanUseServiceGeodatabaseApplyEdits)
                 {
@@ -109,6 +122,10 @@ namespace ArcGIS.Samples.EditFeaturesUsingFeatureForms
 
         private void CancelButton_Clicked(object sender, EventArgs e)
         {
+            // Cancel editing
+            _featureForm.DiscardEdits();
+
+            // Hide the feature form panel
             FeatureFormPanel.IsVisible = false;
         }
     }

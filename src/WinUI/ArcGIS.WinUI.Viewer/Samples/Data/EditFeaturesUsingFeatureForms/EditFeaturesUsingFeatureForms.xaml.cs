@@ -11,7 +11,6 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.FeatureForms;
 using Esri.ArcGISRuntime.Portal;
-using Esri.ArcGISRuntime.Toolkit.UI.Controls;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Linq;
@@ -40,13 +39,13 @@ namespace ArcGIS.WinUI.Viewer.Samples.EditFeaturesUsingFeatureForms
             try
             {
                 // Create the ArcGIS Online portal.
-                ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+                var portal = await ArcGISPortal.CreateAsync();
 
                 // Get the Naperville water web map item using its ID.
-                PortalItem webmapItem = await PortalItem.CreateAsync(portal, "516e4d6aeb4c495c87c41e11274c767f");
+                var webmapItem = await PortalItem.CreateAsync(portal, "516e4d6aeb4c495c87c41e11274c767f");
 
                 // Create a map from the web map item.
-                Map onlineMap = new Map(webmapItem);
+                var onlineMap = new Map(webmapItem);
 
                 // Display the map in the MapView.
                 MyMapView.Map = onlineMap;
@@ -64,6 +63,7 @@ namespace ArcGIS.WinUI.Viewer.Samples.EditFeaturesUsingFeatureForms
                 // Perform identify operation to get the feature
                 var identifyResult = await MyMapView.IdentifyLayersAsync(e.Position, 12, false);
                 var feature = identifyResult.SelectMany(result => result.GeoElements).OfType<ArcGISFeature>().FirstOrDefault();
+
                 if (feature != null)
                 {
                     // Create a feature form
@@ -80,14 +80,21 @@ namespace ArcGIS.WinUI.Viewer.Samples.EditFeaturesUsingFeatureForms
                         // Check if there are validation errors
                         if (featureForm.ValidationErrors.Any())
                         {
-                            return;
+                            var errors = featureForm.ValidationErrors;
+                            var errorMessages = errors.SelectMany(kvp => kvp.Value.Select(ex => $"{kvp.Key}: {ex.Message}"));
+                            string errorMessage = string.Join("\n", errorMessages);
+                            throw new Exception($"Validation errors exist.\n{errorMessage}");
                         }
+
                         // Finish editing
                         await featureForm.FinishEditingAsync();
+
                         // Get the service feature table
                         var serviceFeatureTable = (ServiceFeatureTable)feature.FeatureTable;
+
                         // Get the service geodatabase
                         var serviceGeodatabase = serviceFeatureTable.ServiceGeodatabase;
+
                         // Check if the service geodatabase can apply edits
                         if (serviceGeodatabase.ServiceInfo?.CanUseServiceGeodatabaseApplyEdits == true)
                         {

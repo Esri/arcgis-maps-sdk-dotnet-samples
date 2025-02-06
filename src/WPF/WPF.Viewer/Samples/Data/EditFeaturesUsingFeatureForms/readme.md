@@ -16,7 +16,7 @@ Tap a feature on the map to open a sheet displaying the feature form. Select for
 
 1. Add a `Map` to the `MapView` using `Portal` URL and item ID.
 2. When the map is tapped, perform an identify operation to check if the tapped location is an `ArcGISFeature`.
-3. Create a `FeatureForm` object using the identified `ArcGISFeature`. 
+3. Create a `FeatureForm` object using the identified `ArcGISFeature`.
   * **Note:** If the feature's `FeatureLayer`, `ArcGISFeatureTable`, or the `SubtypeSublayer` has an authored `FeatureFormDefinition`, then this definition will be used to create the `FeatureForm`. If such a definition is not found, a default definition is generated.
 4. Use the `FeatureForm` toolkit component to display the feature form configuration by providing the created `featureForm` object.
 5. Optionally, you can add a `ValidationErrorVisibility` option to the `FeatureForm` toolkit component that determines the visibility of validation errors.

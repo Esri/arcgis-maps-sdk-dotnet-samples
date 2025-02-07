@@ -93,27 +93,27 @@ namespace ArcGIS.WPF.Samples.EditFeaturesUsingFeatureForms
                 // Finish editing.
                 await _featureForm.FinishEditingAsync();
 
-                // Get the service feature table.
-                var serviceFeatureTable = (ServiceFeatureTable)_featureForm.Feature.FeatureTable;
-
-                // Get the service geodatabase.
-                var serviceGeodatabase = serviceFeatureTable.ServiceGeodatabase;
-
-                // Check if the service geodatabase can apply edits.
-                if (serviceGeodatabase.ServiceInfo?.CanUseServiceGeodatabaseApplyEdits == true)
+                // Check if the feature table is a service feature table.
+                if (_featureForm.Feature.FeatureTable is ServiceFeatureTable serviceFeatureTable)
                 {
-                    // Apply edits to the service geodatabase.
-                    await serviceGeodatabase.ApplyEditsAsync();
-                }
-                else
-                {
-                    // Apply edits to the service feature table.
-                    await serviceFeatureTable.ApplyEditsAsync();
+                    // Get the service geodatabase.
+                    var serviceGeodatabase = serviceFeatureTable.ServiceGeodatabase;
+
+                    // Check if the service geodatabase can apply edits.
+                    if (serviceGeodatabase.ServiceInfo?.CanUseServiceGeodatabaseApplyEdits == true)
+                    {
+                        // Apply edits to the service geodatabase.
+                        await serviceGeodatabase.ApplyEditsAsync();
+                    }
+                    else
+                    {
+                        // Apply edits to the service feature table.
+                        await serviceFeatureTable.ApplyEditsAsync();
+                    }
                 }
 
                 // Hide the feature form panel.
                 FeatureFormPanel.Visibility = Visibility.Collapsed;
-            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

@@ -114,6 +114,7 @@ namespace ArcGIS.WPF.Samples.EditFeaturesUsingFeatureForms
 
                 // Hide the feature form panel.
                 FeatureFormPanel.Visibility = Visibility.Collapsed;
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);

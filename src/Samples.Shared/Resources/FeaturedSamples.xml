@@ -6,6 +6,7 @@
 		</Category>
 		<Category name="Data">
 			<Sample>ManageFeatures</Sample>
+			<Sample>EditFeaturesUsingFeatureForms</Sample>
 		</Category>
 		<Category name="Geometry">
 			<Sample>CreateAndEditGeometries</Sample>

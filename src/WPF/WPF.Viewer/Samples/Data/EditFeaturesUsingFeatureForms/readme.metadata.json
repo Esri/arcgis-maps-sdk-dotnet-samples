@@ -1,0 +1,34 @@
+{
+    "category": "Data",
+    "description": "Display and edit feature attributes using feature forms.",
+    "formal_name": "EditFeaturesUsingFeatureForms",
+    "ignore": false,
+    "images": [
+        "EditFeaturesUsingFeatureForms.jpg"
+    ],
+    "keywords": [
+        "edits",
+        "feature",
+        "featureforms",
+        "form",
+        "toolkit"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/edit-features-using-feature-forms.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISFeature",
+        "FeatureForm",
+        "FeatureLayer",
+        "FieldFormElement",
+        "GroupFormElement",
+        "ServiceFeatureTable",
+        "ServiceGeodatabase"
+    ],
+    "snippets": [
+        "EditFeaturesUsingFeatureForms.xaml.cs",
+        "EditFeaturesUsingFeatureForms.xaml"
+    ],
+    "title": "Edit features using feature forms"
+}

@@ -8,12 +8,18 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="auto" />
+                    <ColumnDefinition Width="auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0"
+                <Rectangle Grid.Column="0"
+                           Width="10"
+                           Height="10"
+                           Margin="0,0,5,0"
+                           Fill="{Binding Path=FillColor}" />
+                <TextBlock Grid.Column="1"
                            Width="150"
                            Text="{Binding Path=Name}" />
-                <CheckBox Grid.Column="1" IsChecked="{Binding Path=IsEnabled}" />
+                <CheckBox Grid.Column="2" IsChecked="{Binding Path=IsEnabled}" />
             </Grid>
         </DataTemplate>
         <Style x:Key="IconStyle" TargetType="Button">
@@ -33,6 +39,7 @@
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Border x:Name="SnappingControls"
                 Width="300"
+                Height="350"
                 Margin="10"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
@@ -43,35 +50,43 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <ScrollViewer Grid.Row="0" Height="400">
+                <ScrollViewer Grid.Row="0" Height="350">
                     <StackPanel Margin="10" Orientation="Vertical">
                         <TextBlock Padding="0,5"
                                    FontSize="14"
-                                   Text="Tap a feature to edit or pick an asset type to create"
+                                   Text="Tap to select a feature to edit or choose an asset type from the dropdown to create "
                                    TextWrapping="Wrap" />
                         <TextBlock x:Name="SelectedFeatureLabel"
-                                   Padding="0,5"
-                                   FontSize="14"
+                                   Padding="0,5,0,0"
                                    FontWeight="Bold"
-                                   Text="Feature selected:"
+                                   Text="Existing feature selected."
                                    Visibility="Collapsed" />
-                        <Grid x:Name="SelectedAssetTypeGrid" Visibility="Collapsed">
+                        <Grid x:Name="SelectedAssetTypeGrid"
+                              Margin="0,3"
+                              Visibility="Collapsed">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Column="0"
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto" />
+                                <RowDefinition Height="auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0"
+                                       Grid.Column="0"
+                                       Margin="0,0,5,0"
+                                       Text="AssetGroup:" />
+                            <TextBlock x:Name="SelectedAssetGroupLabel"
+                                       Grid.Row="0"
+                                       Grid.Column="1" />
+                            <TextBlock Grid.Row="1"
+                                       Grid.Column="0"
                                        Margin="0,0,5,0"
                                        Text="AssetType:" />
                             <TextBlock x:Name="SelectedAssetTypeLabel"
-                                       Grid.Row="0"
+                                       Grid.Row="1"
                                        Grid.Column="1" />
                         </Grid>
-                        <TextBlock x:Name="AssetTypePickerLabel"
-                                   Padding="0,5"
-                                   FontSize="14"
-                                   FontWeight="Bold"
-                                   Text="Choose an asset type" />
                         <ComboBox x:Name="AssetTypeComboBox"
                                   Width="200"
                                   SelectionChanged="AssetTypeComboBox_SelectionChanged">

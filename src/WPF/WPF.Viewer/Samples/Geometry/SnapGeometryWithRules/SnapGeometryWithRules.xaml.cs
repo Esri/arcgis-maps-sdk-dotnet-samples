@@ -43,13 +43,8 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
     [ArcGIS.Samples.Shared.Attributes.OfflineData("0fd3a39660d54c12b05d5f81f207dffd")]
     public partial class SnapGeometryWithRules : INotifyPropertyChanged
     {
-        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleGasV6/FeatureServer";
-
         // Store the local geodatabase to edit.
         private Geodatabase _localGeodatabase;
-
-        // Task to be used for generating the geodatabase.
-        private GeodatabaseSyncTask _gdbSyncTask;
 
         private const int LineLayerId = 3;
         private const int JunctionLayerId = 2;
@@ -77,6 +72,15 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
         private SubtypeSublayer _distributionPipeSubtypeSublayer;
         private SubtypeSublayer _servicePipeSubtypeSublayer;
 
+        private Renderer _defaultDistributionRenderer;
+        private Renderer _defaultServiceRenderer;
+        private Symbol _defaultGraphicsSymbol;
+
+        private UtilityAssetType _junctionAssetType;
+        private UtilityAssetType _deviceAssetType;
+
+        List<SnapSourceSettingsVM> _snapSourceSettingsVMs;
+
         private bool _isFeatureSelected = false;
         public bool IsFeatureSelected 
         { 
@@ -94,14 +98,12 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
             if (IsFeatureSelected)
             {
                 AssetTypeComboBox.Visibility = Visibility.Collapsed;
-                AssetTypePickerLabel.Visibility = Visibility.Collapsed;
                 SelectedAssetTypeGrid.Visibility = Visibility.Visible;
                 SelectedFeatureLabel.Visibility = Visibility.Visible;
             }
             else
             {
                 AssetTypeComboBox.Visibility = Visibility.Visible;
-                AssetTypePickerLabel.Visibility = Visibility.Visible;
                 SelectedAssetTypeGrid.Visibility = Visibility.Collapsed;
                 SelectedFeatureLabel.Visibility = Visibility.Collapsed;
             }
@@ -110,10 +112,10 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
         public SnapGeometryWithRules()
         {
             InitializeComponent();
-            _ = Initialize();
+            Initialize();
         }
 
-        private async Task Initialize()
+        private void Initialize()
         {
             try
             {
@@ -133,41 +135,6 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
 
                 Unloaded += SampleUnloaded;
 
-                //var gdbPath = $"{Path.GetTempFileName()}.geodatabase";
-
-                //// Create a task for generating a geodatabase (GeodatabaseSyncTask).
-                //_gdbSyncTask = await GeodatabaseSyncTask.CreateAsync(new Uri(FeatureServiceUrl));
-
-                //// Get the default parameters for the generate geodatabase task.
-                ////GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(new Envelope(-9812623.60602845, 5130750.79502501, -9809486.70602845, 5132833.59502501, SpatialReference.Create(3857)));
-                //GenerateGeodatabaseParameters generateParams = await _gdbSyncTask.CreateDefaultGenerateGeodatabaseParametersAsync(new Envelope(-9813333.7476951, 5129691.40335834, -9807059.94769511, 5133857.00335834, SpatialReference.Create(3857)));
-                //generateParams.UtilityNetworkSyncMode = UtilityNetworkSyncMode.SyncSystemTables;
-                ////Extent = { Envelope[XMin = -9813333.7476951, YMin = 5129691.40335834, XMax = -9807059.94769511, YMax = 5133857.00335834, Wkid = 3857]}
-
-                //// Create a generate geodatabase job.
-                //GenerateGeodatabaseJob generateGdbJob = _gdbSyncTask.GenerateGeodatabase(generateParams, gdbPath);
-
-                //generateGdbJob.Start();
-
-                ////Get the result.
-                //var result = await generateGdbJob.GetResultAsync();
-
-                // Create and load a service geodatabase that matches utility network.
-                //ServiceGeodatabase serviceGeodatabase = await ServiceGeodatabase.CreateAsync(new Uri(FeatureServiceUrl));
-                //_pipeLayer = new SubtypeFeatureLayer(serviceGeodatabase.GetTable(LineLayerId));
-                //MyMapView.Map.OperationalLayers.Add(_pipeLayer);
-
-                //_deviceTable = _localGeodatabase.GeodatabaseFeatureTables[DeviceLayerId];
-                //SubtypeFeatureLayer devicelayer = new SubtypeFeatureLayer(_deviceTable);
-                //MyMapView.Map.OperationalLayers.Add(devicelayer);
-
-                //_junctionTable = _localGeodatabase.GeodatabaseFeatureTables[JunctionLayerId];
-                //SubtypeFeatureLayer junctionlayer = new SubtypeFeatureLayer(_junctionTable);
-                //MyMapView.Map.OperationalLayers.Add(junctionlayer);
-
-                //// Create and load the utility network.
-                //_utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
-
                 // Create a graphics overlay and add it to the map view.
                 _graphicsOverlay = new GraphicsOverlay();
                 MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
@@ -176,31 +143,14 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
                 var graphic = new Graphic(geometry, new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Gray, 3));
                 _graphicsOverlay.Graphics.Add(graphic);
 
+                _defaultGraphicsSymbol = graphic.Symbol;
+
                 // Create and add a geometry editor to the map view.
                 _geometryEditor = new GeometryEditor();
                 MyMapView.GeometryEditor = _geometryEditor;
 
                 // Show the UI.
                 SnappingControls.Visibility = Visibility.Visible;
-
-                /* 
-                 Rough ideas for data...
-
-                Can connect to only service pipe
-                From: Excess Flow Valve + Automatic Reset 
-                To: Service Pipe + all...
-
-                Can connect to service pipe and distribution pipe
-                From: Tee + Plastic 3-Way
-                To: Service Pipe, Distribution Pipe etc...
-
-                Can't connect to anything as it is containment only
-                From: Meter Setting + Meter Set
-                To: Service Pipe etc...
-                 
-                 
-                 
-                 */
 
             }
             catch (Exception ex)
@@ -272,10 +222,24 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
             SubtypeFeatureLayer junctionlayer = new SubtypeFeatureLayer(_junctionTable);
             MyMapView.Map.OperationalLayers.Add(junctionlayer);
 
+            var assemblyTable = _localGeodatabase.GeodatabaseFeatureTables[1];
+            await assemblyTable.LoadAsync();
+
+            FeatureLayer flayer = new FeatureLayer(assemblyTable);
+            MyMapView.Map.OperationalLayers.Add(flayer);
+
             // Create and load the utility network.
             _utilityNetwork = _localGeodatabase.UtilityNetworks[0];
             MyMapView.Map.UtilityNetworks.Add(_utilityNetwork);
             await _utilityNetwork.LoadAsync();
+
+            var deviceSource = _utilityNetwork.Definition.GetNetworkSource("Pipeline Device");
+            var deviceAssetGroup = deviceSource.AssetGroups[1];
+            _deviceAssetType = deviceAssetGroup.GetAssetType("Automatic Reset");
+
+            var junctionSource = _utilityNetwork.Definition.GetNetworkSource("Pipeline Junction");
+            var junctionAssetGroup = junctionSource.AssetGroups[7];
+            _junctionAssetType = junctionAssetGroup.GetAssetType("Plastic 3-Way");
 
             // Load the map.
             await MyMapView.Map.LoadAsync();
@@ -301,11 +265,18 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
             }
         }
 
-        private void SetSnapSettings()
+        private void SetSnapSettings(SnapRules snapRules = null)
         {
             // Synchronize the snap source collection with the map's operational layers. 
             // Note that layers that have not been loaded will not synchronize.
-            _geometryEditor.SnapSettings.SyncSourceSettings();
+            if (snapRules == null)
+            {
+                _geometryEditor.SnapSettings.SyncSourceSettings();
+            }
+            else
+            {
+                _geometryEditor.SnapSettings.SyncSourceSettings(snapRules);
+            }
 
             // Enable snapping on the geometry layer.
             _geometryEditor.SnapSettings.IsEnabled = true;
@@ -315,9 +286,9 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
             pipeSubtypeFeatureLayer.IsEnabled = true;
 
             // Create a list of snap source settings with snapping disabled.
-            List<SnapSourceSettingsVM> snapSourceSettingsVMs = _geometryEditor.SnapSettings.SourceSettings.Where(sourceSetting => (sourceSetting.Source is SubtypeSublayer subtypeSublayer && (subtypeSublayer.Name == "Service Pipe" || subtypeSublayer.Name == "Distribution Pipe")) || sourceSetting.Source is GraphicsOverlay).Select(sourceSettings => new SnapSourceSettingsVM(sourceSettings) { IsEnabled = true }).ToList();
+            _snapSourceSettingsVMs = _geometryEditor.SnapSettings.SourceSettings.Where(sourceSetting => (sourceSetting.Source is SubtypeSublayer subtypeSublayer && (subtypeSublayer.Name == "Service Pipe" || subtypeSublayer.Name == "Distribution Pipe")) || sourceSetting.Source is GraphicsOverlay).Select(sourceSettings => new SnapSourceSettingsVM(sourceSettings) { IsEnabled = true }).ToList();
 
-            SnapSourcesList.ItemsSource = snapSourceSettingsVMs;
+            SnapSourcesList.ItemsSource = _snapSourceSettingsVMs;
         }
 
         private void GeometryEditorButton_Click(object sender, RoutedEventArgs e)
@@ -361,7 +332,7 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
             }
         }
 
-        private void AssetTypeComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private async void AssetTypeComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             if (_geometryEditor.IsStarted)
             {
@@ -372,52 +343,21 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
             {
                 _distributionPipeSubtypeSublayer = _pipeLayer.SubtypeSublayers.FirstOrDefault(sl => sl.Name == "Distribution Pipe");
                 _servicePipeSubtypeSublayer = _pipeLayer.SubtypeSublayers.FirstOrDefault(sl => sl.Name == "Service Pipe");
+                _defaultDistributionRenderer = _distributionPipeSubtypeSublayer.Renderer;
+                _defaultServiceRenderer = _servicePipeSubtypeSublayer.Renderer;
             }
-
-            // Set the snap source settings.
-            SetSnapSettings();
 
             switch (AssetTypeComboBox.SelectedIndex)
             {
                 case 0:
-                    _distributionPipeSubtypeSublayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 4));
-                    _servicePipeSubtypeSublayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Orange, 3));
-                    _graphicsOverlay.Graphics[0].Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Green, 3);
-
-                    foreach (var item in _geometryEditor.SnapSettings.SourceSettings)
-                    {
-                        if (item.Source is SubtypeSublayer subtypeSublayer)
-                        {
-                            if (subtypeSublayer == _distributionPipeSubtypeSublayer)
-                            {
-                                item.IsEnabled = false;
-                            }
-                            else if (subtypeSublayer == _servicePipeSubtypeSublayer)
-                            {
-                                item.IsEnabled = true;
-                            }
-                        }
-                    }
+                    var snapRules = await SnapRules.CreateSnapRulesAsync(_utilityNetwork, _deviceAssetType);
+                    SetSnapSettings(snapRules);
+                    UpdateSymbology();
                     break;
                 case 1:
-                    _distributionPipeSubtypeSublayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Orange, 4));
-                    _servicePipeSubtypeSublayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Orange, 3));
-                    _graphicsOverlay.Graphics[0].Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Green, 3);
-
-                    foreach (var item in _geometryEditor.SnapSettings.SourceSettings)
-                    {
-                        if (item.Source is SubtypeSublayer subtypeSublayer)
-                        {
-                            if (subtypeSublayer == _distributionPipeSubtypeSublayer)
-                            {
-                                item.IsEnabled = true;
-                            }
-                            else if (subtypeSublayer == _servicePipeSubtypeSublayer)
-                            {
-                                item.IsEnabled = true;
-                            }
-                        }
-                    }
+                    snapRules = await SnapRules.CreateSnapRulesAsync(_utilityNetwork, _junctionAssetType);
+                    SetSnapSettings(snapRules);
+                    UpdateSymbology();
                     break;
             }
         }
@@ -491,19 +431,74 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
                 ResetSelections();
                 return;
             }
-            else if (feature != _selectedFeature)
+            else if (_selectedFeature != null && feature != _selectedFeature)
             {
                 ResetSelections();
             }
 
             var element = _utilityNetwork?.CreateElement(feature);
+            SelectedAssetGroupLabel.Text = element?.AssetGroup.Name;
             SelectedAssetTypeLabel.Text = element?.AssetType.Name;
             _selectedFeature = feature;
             _lastLayer = identifyResult?.First().LayerContent as SubtypeFeatureLayer;
             _lastLayer?.SelectFeature(feature);
             IsFeatureSelected = true;
-            SetSnapSettings();
 
+            SnapRules snapRules = await SnapRules.CreateSnapRulesAsync(_utilityNetwork, element?.AssetType);
+
+            SetSnapSettings(snapRules);
+            UpdateSymbology();
+
+        }
+
+        private void UpdateSymbology()
+        {
+            if (_distributionPipeSubtypeSublayer == null || _servicePipeSubtypeSublayer == null)
+            {
+                _distributionPipeSubtypeSublayer = _pipeLayer.SubtypeSublayers.FirstOrDefault(sl => sl.Name == "Distribution Pipe");
+                _servicePipeSubtypeSublayer = _pipeLayer.SubtypeSublayers.FirstOrDefault(sl => sl.Name == "Service Pipe");
+                _defaultDistributionRenderer = _distributionPipeSubtypeSublayer.Renderer;
+                _defaultServiceRenderer = _servicePipeSubtypeSublayer.Renderer;
+            }
+
+            foreach (var snapSourceSettingsVM in _snapSourceSettingsVMs)
+            {
+                if (snapSourceSettingsVM.SnapSourceSettings.RulePolicy == SnapRulePolicy.None)
+                {
+                    if (snapSourceSettingsVM.SnapSourceSettings.Source is GraphicsOverlay graphicsOverlay)
+                    {
+                        graphicsOverlay.Graphics[0].Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Green, 3);
+                    }
+                    else if (snapSourceSettingsVM.SnapSourceSettings.Source is SubtypeSublayer subtypeSublayer)
+                    {
+                        subtypeSublayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Green, 3));
+                    }
+                }
+                else if (snapSourceSettingsVM.SnapSourceSettings.RulePolicy == SnapRulePolicy.Conditional)
+                {
+                    if (snapSourceSettingsVM.SnapSourceSettings.Source is GraphicsOverlay graphicsOverlay)
+                    {
+                        graphicsOverlay.Graphics[0].Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Orange, 3);
+                    }
+                    else if (snapSourceSettingsVM.SnapSourceSettings.Source is SubtypeSublayer subtypeSublayer)
+                    {
+                        subtypeSublayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Orange, 3));
+                    }
+                }
+                else
+                {
+                    if (snapSourceSettingsVM.SnapSourceSettings.Source is GraphicsOverlay graphicsOverlay)
+                    {
+                        graphicsOverlay.Graphics[0].Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 3);
+                    }
+                    else if (snapSourceSettingsVM.SnapSourceSettings.Source is SubtypeSublayer subtypeSublayer)
+                    {
+                        subtypeSublayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 3));
+                    }
+                }
+            }
+
+            return;
         }
 
         private void ResetSelections()
@@ -522,6 +517,11 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
 
             _selectedFeature = null;
             IsFeatureSelected = false;
+            AssetTypeComboBox.SelectedIndex = -1;
+            _distributionPipeSubtypeSublayer.Renderer = _defaultDistributionRenderer;
+            _servicePipeSubtypeSublayer.Renderer = _defaultServiceRenderer;
+            _graphicsOverlay.Graphics[0].Symbol = _defaultGraphicsSymbol;
+            SnapSourcesList.ItemsSource = null;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -546,15 +546,28 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
 
             if (snapSourceSettings.Source is SubtypeFeatureLayer subTypeFeatureLayer)
             {
-                Name = subTypeFeatureLayer.Name;
+                _name = subTypeFeatureLayer.Name;
             }
             else if (snapSourceSettings.Source is SubtypeSublayer subtypeSublayer)
             {
-                Name = subtypeSublayer.Name;
+                _name = subtypeSublayer.Name;
             }
             else if (snapSourceSettings.Source is GraphicsOverlay)
             {
-                Name = "Graphics overlay";
+                _name = "Graphics overlay";
+            }
+
+            switch (snapSourceSettings.RulePolicy)
+            {
+                case SnapRulePolicy.None:
+                    _fillColor = new SolidColorBrush(System.Windows.Media.Colors.Green);
+                    break;
+                case SnapRulePolicy.Conditional:
+                    _fillColor = new SolidColorBrush(System.Windows.Media.Colors.Orange);
+                    break;
+                case SnapRulePolicy.Forbidden:
+                    _fillColor = new SolidColorBrush(System.Windows.Media.Colors.Red);
+                    break;
             }
 
             IsEnabled = snapSourceSettings.IsEnabled;
@@ -566,11 +579,6 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
             get
             {
                 return _name;
-            }
-            set
-            {
-                _name = value;
-                OnPropertyChanged();
             }
         }
 
@@ -586,6 +594,15 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
                 _isEnabled = value;
                 SnapSourceSettings.IsEnabled = value;
                 OnPropertyChanged();
+            }
+        }
+
+        private SolidColorBrush _fillColor;
+        public SolidColorBrush FillColor
+        {
+            get
+            {
+                return _fillColor;
             }
         }
 

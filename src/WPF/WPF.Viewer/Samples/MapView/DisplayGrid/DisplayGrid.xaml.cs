@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using Colors = System.Drawing.Color;
@@ -27,6 +28,11 @@ namespace ArcGIS.WPF.Samples.DisplayGrid
         tags: new[] { "MGRS", "USNG", "UTM", "coordinates", "degrees", "graticule", "grid", "latitude", "longitude", "minutes", "seconds" })]
     public partial class DisplayGrid
     {
+        // URL to elevation service used to provide an interesting scene for the sample.
+        private readonly Uri _worldElevationService = new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer");
+
+        private Grid grid;
+
         public DisplayGrid()
         {
             InitializeComponent();
@@ -36,6 +42,17 @@ namespace ArcGIS.WPF.Samples.DisplayGrid
 
         private void Initialize()
         {
+            // Set up the scene view with a basemap.
+            //Scene myScene = new Scene(BasemapStyle.ArcGISImageryStandard);
+
+            Surface sceneSurface = new Surface();
+            sceneSurface.ElevationSources.Add(new ArcGISTiledElevationSource(_worldElevationService));
+
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery)
+            {
+                BaseSurface = sceneSurface
+            };
+
             // Set up the map view with a basemap.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImagery);
 
@@ -69,8 +86,14 @@ namespace ArcGIS.WPF.Samples.DisplayGrid
             ApplySettingsButton.IsEnabled = true;
 
             // Zoom to a default scale that will show the grid labels if they are enabled.
-            MyMapView.SetViewpointCenterAsync(
-                new MapPoint(-7702852.905619, 6217972.345771, SpatialReferences.WebMercator), 23227);
+
+            double targetScale = 6450785;
+            MapPoint mapPoint = new MapPoint(-10336141.70018318, 5418213.05332071, SpatialReferences.WebMercator);
+            
+            MyMapView.SetViewpointCenterAsync(mapPoint,targetScale);
+
+            //MySceneView.SetViewpointCameraAsync(new Camera(mapPoint, 23227, 0,0,0));
+
 
             // Apply default settings.
             ApplySettingsButton_Click(this, null);
@@ -78,7 +101,7 @@ namespace ArcGIS.WPF.Samples.DisplayGrid
 
         private void ApplySettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            Grid grid;
+            //Grid grid;
 
             // First, update the grid based on the type selected.
             switch (GridTypeCombo.SelectedValue.ToString())
@@ -135,7 +158,32 @@ namespace ArcGIS.WPF.Samples.DisplayGrid
                 (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), LabelPositionCombo.SelectedValue.ToString());
 
             // Apply the updated grid.
-            MyMapView.Grid = grid;
+            ////MyMapView.Grid = grid;
+            ////MySceneView.Grid = grid;
         }
+        
+        private void MapView_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (MapViewCheckbox.IsChecked.Value == false && SceneViewCheckbox.IsChecked.Value == true) 
+            {
+                SceneViewCheckbox.IsChecked = false;
+                MapViewCheckbox.IsChecked = true;
+                MyMapView.Grid = grid; 
+            }
+            return;
+
+        }
+        private void SceneView_Checked(object sender, System.Windows.RoutedEventArgs e)
+        {
+            if (SceneViewCheckbox.IsChecked.Value == false && MapViewCheckbox.IsChecked.Value == true)
+            {
+                MapViewCheckbox.IsChecked = false;
+                SceneViewCheckbox.IsChecked = true;
+                MySceneView.SetViewpointCameraAsync(new Camera(mapPoint, 23227, 0, 0, 0));
+                MySceneView.Grid = grid;
+            }
+            return;
+        }
+        
     }
 }

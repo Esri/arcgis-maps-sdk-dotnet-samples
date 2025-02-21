@@ -11,8 +11,41 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <esri:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="333*"/>
+            <ColumnDefinition Width="538*"/>
+        </Grid.ColumnDefinitions>
+        <esri:MapView x:Name="MyMapView" Grid.ColumnSpan="2" />
+        <esri:SceneView x:Name="MySceneView" Grid.ColumnSpan="2" />
+        <Border Style="{StaticResource BorderStyle}" Grid.Column="1" Margin="0,30,0,0" RenderTransformOrigin="0.501,1.369">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0"
+                       Grid.Column="0"
+                       Content="Map View" />
+                <Label Grid.Row="1"
+                       Grid.Column="0"
+                       Content="Scene View" />
+                <CheckBox x:Name="MapViewCheckbox"
+                          Grid.Row="0"
+                          Grid.Column="1"
+                          Margin="5"
+                          IsChecked="True" />
+                <CheckBox x:Name="SceneViewCheckbox"
+                          Grid.Row="1"
+                          Grid.Column="1"
+                          Margin="5" 
+                          IsChecked="False"/>
+            </Grid>
+        </Border>        
+        <Border Style="{StaticResource BorderStyle}" Grid.Column="1" Margin="0,145,0,0">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

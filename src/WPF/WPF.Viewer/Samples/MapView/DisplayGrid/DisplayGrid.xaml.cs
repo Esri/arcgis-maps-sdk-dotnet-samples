@@ -36,8 +36,14 @@ namespace ArcGIS.WPF.Samples.DisplayGrid
 
         private void Initialize()
         {
-            // Set up the map view with a basemap.
+            // Set up map and scene with basemaps.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImagery);
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImagery);
+
+            // Add an elevation source to the scene.
+            var elevationSource = new ArcGISTiledElevationSource(new Uri(
+                "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
+            MySceneView.Scene.BaseSurface.ElevationSources.Add(elevationSource);
 
             // Configure the UI options.
             GridTypeCombo.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };
@@ -138,7 +144,19 @@ namespace ArcGIS.WPF.Samples.DisplayGrid
             grid.LabelOffset = LabelOffsetSlider.Value;
 
             // Apply the updated grid.
-            MyMapView.Grid = grid;
+            // Show the correct GeoView.
+            if (MapViewRadioButton.IsChecked == true)
+            {
+                MyMapView.Grid = grid;
+                MyMapView.Visibility = Visibility.Visible;
+                MySceneView.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                MySceneView.Grid = grid;
+                MySceneView.Visibility = Visibility.Visible;
+                MyMapView.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

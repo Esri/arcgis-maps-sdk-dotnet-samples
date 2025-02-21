@@ -16,6 +16,7 @@ using System;
 using Colors = System.Drawing.Color;
 using Grid = Esri.ArcGISRuntime.UI.Grid;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
+using Microsoft.UI.Xaml;
 
 namespace ArcGIS.WinUI.Samples.DisplayGrid
 {
@@ -36,8 +37,14 @@ namespace ArcGIS.WinUI.Samples.DisplayGrid
 
         private void Initialize()
         {
-            // Set up the map view with a basemap.
+            // Set up the map and scene with basemaps.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImagery);
+            MySceneView.Scene = new Scene(BasemapStyle.ArcGISImageryStandard);
+
+            // Add an elevation source to the scene.
+            var elevationSource = new ArcGISTiledElevationSource(new Uri(
+                "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
+            MySceneView.Scene.BaseSurface.ElevationSources.Add(elevationSource);
 
             // Configure the UI options.
             gridTypeCombo.ItemsSource = new[] { "LatLong", "MGRS", "UTM", "USNG" };
@@ -132,8 +139,23 @@ namespace ArcGIS.WinUI.Samples.DisplayGrid
             // Next, apply the label position setting.
             grid.LabelPosition = (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), labelPositionCombo.SelectedValue.ToString());
 
+            // Set the label offset.
+            grid.LabelOffset = labelOffsetSlider.Value;
+
             // Apply the updated grid.
-            MyMapView.Grid = grid;
+            // Show the correct GeoView.
+            if (mapViewRadioButton.IsChecked == true)
+            {
+                MyMapView.Grid = grid;
+                MyMapView.Visibility = Visibility.Visible;
+                MySceneView.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                MySceneView.Grid = grid;
+                MySceneView.Visibility = Visibility.Visible;
+                MyMapView.Visibility = Visibility.Collapsed;
+            }
         }
     }
 }

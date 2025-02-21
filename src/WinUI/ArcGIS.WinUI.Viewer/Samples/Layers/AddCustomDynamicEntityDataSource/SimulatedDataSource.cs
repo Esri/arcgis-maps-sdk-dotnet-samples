@@ -21,13 +21,14 @@ using System.Threading.Tasks;
 
 namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
 {
+#nullable enable
     public class SimulatedDataSource : DynamicEntityDataSource
     {
         // Hold a reference to the file stream reader, the process task, and the cancellation token source.
         private Task? _processTask;
         private StreamReader? _streamReader;
         private CancellationTokenSource? _cancellationTokenSource;
-        private List<Field> _fields;
+        private List<Field>? _fields;
 
         public SimulatedDataSource(string filePath, string entityIdField, TimeSpan delay)
         {
@@ -47,15 +48,18 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
 
         protected override async Task<DynamicEntityDataSourceInfo> OnLoadAsync()
         {
-            // Derive schema from the first row in the custom data source.
-            _fields = GetSchema();
+            return await Task.Run(() =>
+            {
+                // Derive schema from the first row in the custom data source.
+                _fields = GetSchema();
 
-            // Open the file for processing.
-            Stream stream = File.OpenRead(FilePath);
-            _streamReader = new StreamReader(stream);
+                // Open the file for processing.
+                Stream stream = File.OpenRead(FilePath);
+                _streamReader = new StreamReader(stream);
 
-            // Create a new DynamicEntityDataSourceInfo using the entity ID field and the fields derived from the attributes of each observation in the custom data source.
-            return new DynamicEntityDataSourceInfo(EntityIdField, _fields) { SpatialReference = SpatialReferences.Wgs84 };
+                // Create a new DynamicEntityDataSourceInfo using the entity ID field and the fields derived from the attributes of each observation in the custom data source.
+                return new DynamicEntityDataSourceInfo(EntityIdField, _fields) { SpatialReference = SpatialReferences.Wgs84 };
+            });
         }
 
         protected override Task OnConnectAsync(CancellationToken cancellationToken)
@@ -87,7 +91,7 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
                     var processed = await ProcessNextObservation();
 
                     // If the end of the file has been reached, break out of the loop.
-                    if (_streamReader.EndOfStream) break;
+                    if (_streamReader != null && _streamReader.EndOfStream) break;
 
                     // If the observation was not processed, continue to the next observation.
                     if (!processed) continue;
@@ -197,4 +201,5 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
             };
         }
     }
+#nullable disable
 }

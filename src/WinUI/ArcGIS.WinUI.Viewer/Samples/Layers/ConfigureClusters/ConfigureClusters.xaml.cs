@@ -62,7 +62,7 @@ namespace ArcGIS.WinUI.Samples.ConfigureClusters
             PopupBackground.Tapped += (sender, args) =>
             {
                 PopupBackground.Visibility = Visibility.Collapsed;
-                PopupViewer.PopupManager = null;
+                PopupViewer.Popup = null;
             };
 
             // Enable the draw clusters button after the layer finishes loading.
@@ -177,7 +177,7 @@ namespace ArcGIS.WinUI.Samples.ConfigureClusters
             if (result.Popups.Count == 0) return;
 
             // Set the popup and make it visible.
-            PopupViewer.PopupManager = new PopupManager(result.Popups.FirstOrDefault());
+            PopupViewer.Popup = result.Popups.FirstOrDefault();
             PopupBackground.Visibility = Visibility.Visible;
         }
 

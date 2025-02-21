@@ -24,6 +24,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -54,6 +55,9 @@
                 <Label Grid.Row="7"
                        Grid.Column="0"
                        Content="Label format" />
+                <Label Grid.Row="8"
+                       Grid.Column="0"
+                       Content="Label offset" />
                 <!--  Inputs  -->
                 <ComboBox x:Name="GridTypeCombo"
                           Grid.Row="0"
@@ -83,9 +87,15 @@
                 <ComboBox x:Name="LabelFormatCombo"
                           Grid.Row="7"
                           Grid.Column="1" />
+                <Slider x:Name="LabelOffsetSlider"
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        Maximum="150"
+                        Minimum="0"
+                        Value="40" />
                 <!--  Apply  -->
                 <Button x:Name="ApplySettingsButton"
-                        Grid.Row="8"
+                        Grid.Row="9"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Content="Apply settings"

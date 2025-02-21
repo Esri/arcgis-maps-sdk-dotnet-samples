@@ -134,6 +134,9 @@ namespace ArcGIS.WPF.Samples.DisplayGrid
             grid.LabelPosition =
                 (GridLabelPosition)Enum.Parse(typeof(GridLabelPosition), LabelPositionCombo.SelectedValue.ToString());
 
+            // Set the label offset.
+            grid.LabelOffset = LabelOffsetSlider.Value;
+
             // Apply the updated grid.
             MyMapView.Grid = grid;
         }

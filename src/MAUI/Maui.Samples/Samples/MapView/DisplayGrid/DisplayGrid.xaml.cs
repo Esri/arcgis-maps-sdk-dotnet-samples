@@ -78,6 +78,15 @@ namespace ArcGIS.Samples.DisplayGrid
 
             // Apply default settings.
             ApplySettingsButton_Clicked(this, null);
+
+            // Close the settings window when user taps the greyed out GeoView.
+            GridSettingsWindowBackground.GestureRecognizers.Add(new TapGestureRecognizer
+            {
+                Command = new Command(() =>
+                {
+                    CloseGridSettingsWindow();
+                })
+            });
         }
 
         private void ApplySettingsButton_Clicked(object sender, EventArgs e)
@@ -157,11 +166,20 @@ namespace ArcGIS.Samples.DisplayGrid
                 MySceneView.IsVisible = true;
                 MyMapView.IsVisible = false;
             }
+
+            CloseGridSettingsWindow();
         }
 
-        private void ToggleSettingsVisibility_Clicked(object sender, EventArgs e)
+        private void ChangeSettingsButton_Clicked(object sender, EventArgs e)
         {
-            GridSettingsWindow.IsVisible = !GridSettingsWindow.IsVisible;
+            GridSettingsWindow.IsVisible = true;
+            GridSettingsWindowBackground.IsVisible = true;
+        }
+
+        private void CloseGridSettingsWindow()
+        {
+            GridSettingsWindowBackground.IsVisible = false;
+            GridSettingsWindow.IsVisible = false;
         }
     }
 }

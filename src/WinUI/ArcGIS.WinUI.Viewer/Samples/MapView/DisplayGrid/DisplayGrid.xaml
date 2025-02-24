@@ -61,10 +61,10 @@
                             Grid.Column="1"
                             Orientation="Horizontal">
                     <RadioButton x:Name="mapViewRadioButton"
-                                 Content="Map"
+                                 Content="MapView"
                                  GroupName="GeoViewRadioButtons"
                                  IsChecked="True" />
-                    <RadioButton Content="Scene" GroupName="GeoViewRadioButtons" />
+                    <RadioButton Content="SceneView" GroupName="GeoViewRadioButtons" />
                 </StackPanel>
                 <ComboBox x:Name="gridTypeCombo"
                           Grid.Row="1"

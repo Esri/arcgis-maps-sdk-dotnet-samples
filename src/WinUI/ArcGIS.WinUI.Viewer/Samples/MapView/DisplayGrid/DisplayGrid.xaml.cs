@@ -11,12 +11,12 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using Colors = System.Drawing.Color;
 using Grid = Esri.ArcGISRuntime.UI.Grid;
 using Symbol = Esri.ArcGISRuntime.Symbology.Symbol;
-using Microsoft.UI.Xaml;
 
 namespace ArcGIS.WinUI.Samples.DisplayGrid
 {

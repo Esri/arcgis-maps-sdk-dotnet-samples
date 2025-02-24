@@ -117,6 +117,7 @@
                             Grid.Row="9"
                             Grid.Column="1"
                             Maximum="150"
+                            MaximumWidthRequest="200"
                             Minimum="0"
                             Value="40" />
                     <!--  Apply  -->
@@ -124,6 +125,7 @@
                             Grid.Row="10"
                             Grid.ColumnSpan="2"
                             IsEnabled="False"
+                            MaximumWidthRequest="300"
                             Text="Apply settings" />
                 </Grid>
             </ScrollView>

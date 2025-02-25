@@ -261,6 +261,8 @@ def new_sample_main(full_directory):
     orchestrate_file_copy(Platforms, full_directory, category_path, sample_name, Replacements) 
 
 def copy_with_rename(platforms, root, old_cat, new_cat, old_name, new_name, Replacements):
+    old_cat = old_cat.title().replace(' ', '')
+    new_cat = new_cat.title().replace(' ', '')
     for platform in platforms:
         file_list = [old_name + ".cs", old_name + ".xaml.cs", old_name + ".xaml", "readme.md", "readme.metadata.json"]
         screenshot_file = old_name + ".jpg"
@@ -268,25 +270,25 @@ def copy_with_rename(platforms, root, old_cat, new_cat, old_name, new_name, Repl
             screenshot_file = screenshot_file.lower()
         file_list.append(screenshot_file)
         plat_root = get_platform_root(platform, root)
-        old_metadata_path = os.path.join(plat_root, "Samples", old_cat.title().replace(' ', ''), old_name, "readme.metadata.json")
+        old_metadata_path = os.path.join(plat_root, "Samples", old_cat, old_name, "readme.metadata.json")
         old_sample_friendly_name = determine_old_friendly_name(old_metadata_path)
         new_sample_friendly_name = determine_new_friendly_name(new_name)
         for filename in file_list:
-            old_path = os.path.join(plat_root, "Samples", old_cat.title().replace(' ', ''), old_name, filename)
-            new_path = os.path.join(plat_root, "Samples", new_cat.title().replace(' ', ''), new_name, filename.replace(old_name, new_name))
+            old_path = os.path.join(plat_root, "Samples", old_cat, old_name, filename)
+            new_path = os.path.join(plat_root, "Samples", new_cat, new_name, filename.replace(old_name, new_name))
             old_content = ""
             if not os.path.isfile(old_path):
                 continue
             with open(old_path, 'r+') as fd:
                 if not filename.endswith(".jpg"):
-                    old_content = fd.read().replace(old_name, new_name).replace(old_sample_friendly_name, new_sample_friendly_name)
+                    old_content = fd.read().replace(old_name, new_name).replace(old_sample_friendly_name, new_sample_friendly_name).replace(f"category: \"{old_cat}\"", f"category: \"{new_cat}\"").replace(f"\"category\": \"{old_cat}\"", f"\"category\": \"{new_cat}\"")
                     if (platform == "MAUI" and (filename.endswith(".json") or filename.endswith(".md"))):
                         old_content = old_content.replace(old_name.lower() + ".jpg", new_name.lower() + ".jpg")
                     with open(new_path, 'w') as fd:
                         fd.write(old_content)
                 else:
                     if (platform == "MAUI"):
-                         new_path = os.path.join(plat_root, "Samples", new_cat.title().replace(' ', ''), new_name, new_name.lower() + ".jpg")
+                         new_path = os.path.join(plat_root, "Samples", new_cat, new_name, new_name.lower() + ".jpg")
                     shutil.copyfile(old_path, new_path)
             # remove the copied file
             os.remove(old_path)

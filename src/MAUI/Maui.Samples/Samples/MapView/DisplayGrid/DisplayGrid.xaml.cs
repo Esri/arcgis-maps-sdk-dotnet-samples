@@ -19,8 +19,8 @@ namespace ArcGIS.Samples.DisplayGrid
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display grid",
         category: "MapView",
-        description: "Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.",
-        instructions: "Select type of grid from the types (LatLong, MGRS, UTM and USNG) and modify its properties like label visibility, grid line color, and grid label color. Press the button to apply these settings.",
+        description: "Display and customize coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view or scene view.",
+        instructions: "Use the controls to change the grid settings. You can change the view from 2D or 3D, select the type of grid from `Grid Type` (LatLong, MGRS, UTM, and USNG) and modify its properties like label visibility, grid line color, grid label color, label formatting, and label offset.",
         tags: new[] { "MGRS", "USNG", "UTM", "coordinates", "degrees", "graticule", "grid", "latitude", "longitude", "minutes", "seconds" })]
     public partial class DisplayGrid : ContentPage
     {

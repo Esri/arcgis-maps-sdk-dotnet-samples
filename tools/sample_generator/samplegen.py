@@ -1,7 +1,9 @@
+import json
 import shutil
 from datetime import datetime
 import os
 import sys
+import re
 
 # Platforms
 Platforms = ["WPF", "MAUI", "WinUI"]
@@ -265,8 +267,11 @@ def copy_with_rename(platforms, root, old_cat, new_cat, old_name, new_name, Repl
         if (platform == "MAUI"):
             screenshot_file = screenshot_file.lower()
         file_list.append(screenshot_file)
+        plat_root = get_platform_root(platform, root)
+        old_metadata_path = os.path.join(plat_root, "Samples", old_cat.title().replace(' ', ''), old_name, "readme.metadata.json")
+        old_sample_friendly_name = determine_old_friendly_name(old_metadata_path)
+        new_sample_friendly_name = determine_new_friendly_name(new_name)
         for filename in file_list:
-            plat_root = get_platform_root(platform, root)
             old_path = os.path.join(plat_root, "Samples", old_cat.title().replace(' ', ''), old_name, filename)
             new_path = os.path.join(plat_root, "Samples", new_cat.title().replace(' ', ''), new_name, filename.replace(old_name, new_name))
             old_content = ""
@@ -274,7 +279,7 @@ def copy_with_rename(platforms, root, old_cat, new_cat, old_name, new_name, Repl
                 continue
             with open(old_path, 'r+') as fd:
                 if not filename.endswith(".jpg"):
-                    old_content = fd.read().replace(old_name, new_name)
+                    old_content = fd.read().replace(old_name, new_name).replace(old_sample_friendly_name, new_sample_friendly_name)
                     if (platform == "MAUI" and (filename.endswith(".json") or filename.endswith(".md"))):
                         old_content = old_content.replace(old_name.lower() + ".jpg", new_name.lower() + ".jpg")
                     with open(new_path, 'w') as fd:
@@ -285,6 +290,20 @@ def copy_with_rename(platforms, root, old_cat, new_cat, old_name, new_name, Repl
                     shutil.copyfile(old_path, new_path)
             # remove the copied file
             os.remove(old_path)
+
+def determine_new_friendly_name(new_name: str):
+    # new sample title is the new sample name not in pascal case
+    # add a space between capital and non-capital letters
+    s = re.sub(r'([A-Z])', r' \1', new_name).strip().lower()
+    return s[0].upper() + s[1:]
+
+def determine_old_friendly_name(old_metadata_file: str):
+    with open(old_metadata_file, 'r+') as f:
+        sample_metadata = json.load(f)
+        old_sample_friendly_name = sample_metadata["title"]
+        f.close()
+    return old_sample_friendly_name
+    
 def delete_sample_folder(platforms, root, category, sample_name):
     for platform in platforms:
         plat_root = get_platform_root(platform, root)

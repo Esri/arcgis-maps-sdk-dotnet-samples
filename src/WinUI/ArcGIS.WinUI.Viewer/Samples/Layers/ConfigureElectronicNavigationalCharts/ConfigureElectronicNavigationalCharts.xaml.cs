@@ -15,18 +15,18 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ArcGIS.WinUI.Samples.ChangeEncDisplaySettings
+namespace ArcGIS.WinUI.Samples.ConfigureElectronicNavigationalCharts
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Change ENC display settings",
-        category: "Hydrography",
+        name: "Configure electronic navigational charts",
+        category: "Layers",
         description: "Configure the display of ENC content.",
         instructions: "The sample displays an electronic navigational chart when it opens. Use the options to choose variations on colors and symbology.",
         tags: new[] { "ENC", "IHO", "S-52", "S-57", "display", "hydrographic", "hydrography", "layers", "maritime", "nautical chart", "settings", "symbology" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
-    public partial class ChangeEncDisplaySettings
+    public partial class ConfigureElectronicNavigationalCharts
     {
-        public ChangeEncDisplaySettings()
+        public ConfigureElectronicNavigationalCharts()
         {
             InitializeComponent();
 

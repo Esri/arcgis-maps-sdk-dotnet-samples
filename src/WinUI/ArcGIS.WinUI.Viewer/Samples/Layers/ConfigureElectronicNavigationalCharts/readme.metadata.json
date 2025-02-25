@@ -1,10 +1,10 @@
 {
-    "category": "Hydrography",
+    "category": "Layers",
     "description": "Configure the display of ENC content.",
-    "formal_name": "ChangeEncDisplaySettings",
+    "formal_name": "ConfigureElectronicNavigationalCharts",
     "ignore": false,
     "images": [
-        "changeencdisplaysettings.jpg"
+        "ConfigureElectronicNavigationalCharts.jpg"
     ],
     "keywords": [
         "ENC",
@@ -24,7 +24,7 @@
         "9d2987a825c646468b3ce7512fb76e2d"
     ],
     "redirect_from": [
-        "/net/latest/maui/sample-code/change-enc-display-settings.htm"
+        "/net/latest/winui/sample-code/change-enc-display-settings.htm"
     ],
     "relevant_apis": [
         "EncAreaSymbolizationType",
@@ -48,8 +48,8 @@
         "EncViewingGroupSettings.ResetToDefaults"
     ],
     "snippets": [
-        "ChangeEncDisplaySettings.xaml.cs",
-        "ChangeEncDisplaySettings.xaml"
+        "ConfigureElectronicNavigationalCharts.xaml.cs",
+        "ConfigureElectronicNavigationalCharts.xaml"
     ],
-    "title": "Change ENC display settings"
+    "title": "Configure electronic navigational charts"
 }

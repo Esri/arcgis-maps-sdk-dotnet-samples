@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+﻿// Copyright 2022 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -11,23 +11,19 @@ using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows;
 
-namespace ArcGIS.WPF.Samples.ChangeEncDisplaySettings
+namespace ArcGIS.Samples.ConfigureElectronicNavigationalCharts
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Change ENC display settings",
-        category: "Hydrography",
+        name: "Configure electronic navigational charts",
+        category: "Layers",
         description: "Configure the display of ENC content.",
         instructions: "The sample displays an electronic navigational chart when it opens. Use the options to choose variations on colors and symbology.",
         tags: new[] { "ENC", "IHO", "S-52", "S-57", "display", "hydrographic", "hydrography", "layers", "maritime", "nautical chart", "settings", "symbology" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
-    public partial class ChangeEncDisplaySettings
+    public partial class ConfigureElectronicNavigationalCharts : ContentPage, IDisposable
     {
-        public ChangeEncDisplaySettings()
+        public ConfigureElectronicNavigationalCharts()
         {
             InitializeComponent();
 
@@ -37,6 +33,14 @@ namespace ArcGIS.WPF.Samples.ChangeEncDisplaySettings
 
         private async Task Initialize()
         {
+            // Add display options to UI.
+            ColorSchemePicker.ItemsSource = new List<String>() { "Day", "Dusk", "Night" };
+            AreaPicker.ItemsSource = new List<String>() { "Plain", "Symbolized" };
+            PointPicker.ItemsSource = new List<String>() { "Paper Chart", "Simplified" };
+
+            // Provide initial selection.
+            ColorSchemePicker.SelectedIndex = 0; AreaPicker.SelectedIndex = 0; PointPicker.SelectedIndex = 0;
+
             // Apply initial display settings.
             UpdateDisplaySettings();
 
@@ -49,7 +53,7 @@ namespace ArcGIS.WPF.Samples.ChangeEncDisplaySettings
 
             // Create the Exchange Set.
             // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data.
-            EncExchangeSet myEncExchangeSet = new EncExchangeSet(encPath);
+            EncExchangeSet myEncExchangeSet = new EncExchangeSet(new string[] { encPath });
 
             try
             {
@@ -62,7 +66,6 @@ namespace ArcGIS.WPF.Samples.ChangeEncDisplaySettings
                 // Add each data set as a layer.
                 foreach (EncDataset myEncDataSet in myEncExchangeSet.Datasets)
                 {
-                    // Create the cell and layer.
                     EncLayer myEncLayer = new EncLayer(new EncCell(myEncDataSet));
 
                     // Add the layer to the map.
@@ -79,33 +82,12 @@ namespace ArcGIS.WPF.Samples.ChangeEncDisplaySettings
                 Envelope fullExtent = dataSetExtents.CombineExtents();
 
                 // Set the viewpoint.
-                MyMapView.SetViewpoint(new Viewpoint(fullExtent));
-
-                // Subscribe to notifications about leaving so that settings can be re-set.
-                this.Unloaded += Sample_Unloaded;
-
-                // Enable changing the settings on user interaction.
-                DayRadioButton.Checked += Setting_Checked;
-                NightRadioButton.Checked += Setting_Checked;
-                DuskRadioButton.Checked += Setting_Checked;
-                PlainAreaRadioButton.Checked += Setting_Checked;
-                SymbolizedAreaRadioButton.Checked += Setting_Checked;
-                PaperchartRadioButton.Checked += Setting_Checked;
-                SimplifiedRadioButton.Checked += Setting_Checked;
+                await MyMapView.SetViewpointAsync(new Viewpoint(fullExtent));
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString(), "Error");
+                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
             }
-        }
-
-        private void Sample_Unloaded(object sender, RoutedEventArgs e)
-        {
-            // ENC environment settings apply to the entire application.
-            // They need to be reset after leaving the sample to avoid affecting other samples.
-            EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings.ResetToDefaults();
-            EncEnvironmentSettings.Default.DisplaySettings.ViewingGroupSettings.ResetToDefaults();
-            EncEnvironmentSettings.Default.DisplaySettings.TextGroupVisibilitySettings.ResetToDefaults();
         }
 
         private void UpdateDisplaySettings()
@@ -117,22 +99,43 @@ namespace ArcGIS.WPF.Samples.ChangeEncDisplaySettings
             EncMarinerSettings globalMarinerSettings = globalDisplaySettings.MarinerSettings;
 
             // Apply color scheme.
-            if (DayRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Day; }
-            else if (DuskRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Dusk; }
-            else if (NightRadioButton.IsChecked == true) { globalMarinerSettings.ColorScheme = EncColorScheme.Night; }
+            string selectedTheme = ColorSchemePicker.SelectedItem.ToString();
+            switch (selectedTheme)
+            {
+                case "Day":
+                    globalMarinerSettings.ColorScheme = EncColorScheme.Day;
+                    break;
+
+                case "Dusk":
+                    globalMarinerSettings.ColorScheme = EncColorScheme.Dusk;
+                    break;
+
+                case "Night":
+                    globalMarinerSettings.ColorScheme = EncColorScheme.Night;
+                    break;
+            }
 
             // Apply area symbolization.
-            if (PlainAreaRadioButton.IsChecked == true) { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Plain; }
-            else { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
+            string selectedAreaType = AreaPicker.SelectedItem.ToString();
+            globalMarinerSettings.AreaSymbolizationType = selectedAreaType == "Plain" ? EncAreaSymbolizationType.Plain : EncAreaSymbolizationType.Symbolized;
 
             // Apply point symbolization.
-            if (PaperchartRadioButton.IsChecked == true) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
-            else { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
+            string selectedPointType = PointPicker.SelectedItem.ToString();
+            globalMarinerSettings.PointSymbolizationType = selectedPointType == "Paper Chart" ? EncPointSymbolizationType.PaperChart : EncPointSymbolizationType.Simplified;
         }
 
-        private void Setting_Checked(object sender, RoutedEventArgs e)
+        private void Button_Clicked(object sender, EventArgs e)
         {
             UpdateDisplaySettings();
+        }
+
+        public void Dispose()
+        {
+            // ENC environment settings apply to the entire application.
+            // They need to be reset after leaving the sample to avoid affecting other samples.
+            EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings.ResetToDefaults();
+            EncEnvironmentSettings.Default.DisplaySettings.ViewingGroupSettings.ResetToDefaults();
+            EncEnvironmentSettings.Default.DisplaySettings.TextGroupVisibilitySettings.ResetToDefaults();
         }
     }
 }

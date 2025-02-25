@@ -1,8 +1,8 @@
-# Change ENC display settings
+# Configure electronic navigational charts
 
 Configure the display of ENC content.
 
-![Image of change ENC display settings app](ChangeEncDisplaySettings.jpg)
+![Image of change ENC display settings app](ConfigureElectronicNavigationalCharts.jpg)
 
 ## Use case
 

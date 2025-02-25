@@ -1,21 +1,17 @@
-﻿<UserControl x:Class="ArcGIS.WinUI.Samples.ChangeEncDisplaySettings.ChangeEncDisplaySettings"
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ConfigureElectronicNavigationalCharts.ConfigureElectronicNavigationalCharts"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <UserControl.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontWeight" Value="SemiBold" />
-            <Setter Property="Margin" Value="5,15,0,0" />
-        </Style>
         <Style TargetType="RadioButton">
-            <Setter Property="Margin" Value="5,5,0,0" />
+            <Setter Property="Margin" Value="0,5,5,10" />
         </Style>
     </UserControl.Resources>
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
-        <Border Style="{StaticResource BorderStyle}">
+        <esri:MapView x:Name="MyMapView" />
+        <Border Width="225" Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Text="Color scheme" />
+                <TextBlock FontWeight="Bold" Text="Color scheme" />
                 <StackPanel Orientation="Horizontal">
                     <RadioButton x:Name="DayRadioButton"
                                  Content="Day"
@@ -28,7 +24,7 @@
                                  Content="Night"
                                  GroupName="ColorScheme" />
                 </StackPanel>
-                <TextBlock Text="Area symbolization type" />
+                <TextBlock FontWeight="Bold" Text="Area symbolization type" />
                 <StackPanel Orientation="Horizontal">
                     <RadioButton x:Name="PlainAreaRadioButton"
                                  Content="Plain"
@@ -38,9 +34,9 @@
                                  Content="Symbolized"
                                  GroupName="Area" />
                 </StackPanel>
-                <TextBlock Text="Point symbolization type" />
+                <TextBlock FontWeight="Bold" Text="Point symbolization type" />
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton x:Name="PaperPointRadioButton"
+                    <RadioButton x:Name="PaperchartRadioButton"
                                  Content="Paper Chart"
                                  GroupName="Point"
                                  IsChecked="True" />

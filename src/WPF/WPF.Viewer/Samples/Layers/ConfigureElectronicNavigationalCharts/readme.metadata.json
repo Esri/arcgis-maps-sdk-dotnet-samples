@@ -1,10 +1,10 @@
 {
-    "category": "Hydrography",
+    "category": "Layers",
     "description": "Configure the display of ENC content.",
-    "formal_name": "ChangeEncDisplaySettings",
+    "formal_name": "ConfigureElectronicNavigationalCharts",
     "ignore": false,
     "images": [
-        "ChangeEncDisplaySettings.jpg"
+        "ConfigureElectronicNavigationalCharts.jpg"
     ],
     "keywords": [
         "ENC",
@@ -48,8 +48,8 @@
         "EncViewingGroupSettings.ResetToDefaults"
     ],
     "snippets": [
-        "ChangeEncDisplaySettings.xaml.cs",
-        "ChangeEncDisplaySettings.xaml"
+        "ConfigureElectronicNavigationalCharts.xaml.cs",
+        "ConfigureElectronicNavigationalCharts.xaml"
     ],
-    "title": "Change ENC display settings"
+    "title": "Configure electronic navigational charts"
 }

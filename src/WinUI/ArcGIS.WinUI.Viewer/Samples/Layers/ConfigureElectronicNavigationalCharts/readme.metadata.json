@@ -27,14 +27,16 @@
         "/net/latest/winui/sample-code/configure-electronic-navigational-charts.htm"
     ],
     "relevant_apis": [
-        "EncFeature",
-        "EncFeature.Acronym",
-        "EncFeature.Description",
+        "EncCell",
+        "EncDataset",
+        "EncDisplaySettings",
+        "EncEnvironmentSettings",
+        "EncExchangeSet",
         "EncLayer",
-        "GeometryEngine.Area",
-        "IdentifyLayerResult",
-        "IdentifyLayerResult.GeoElements",
-        "IdentifyLayerResult.LayerContent"
+        "EncMarinerSettings",
+        "EncTextGroupVisibilitySettings",
+        "EncViewingGroupSettings",
+        "IdentifyLayerResult"
     ],
     "snippets": [
         "ConfigureElectronicNavigationalCharts.xaml.cs",

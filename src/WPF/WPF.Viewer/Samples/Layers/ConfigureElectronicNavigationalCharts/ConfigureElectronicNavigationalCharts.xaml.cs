@@ -22,7 +22,7 @@ namespace ArcGIS.WPF.Samples.ConfigureElectronicNavigationalCharts
         name: "Configure electronic navigational charts",
         category: "Layers",
         description: "Display and configure electronic navigational charts per ENC specification.",
-        instructions: "Tap to select ENC features. Feature properties will be displayed in a callout.",
+        instructions: "When opened, the sample displays an electronic navigational chart. Tap on the map to select Enc features and view the feature's acronyms and descriptions shown in a callout. Tap \"Display Settings\" and use the options to adjust some of the Enc mariner display settings, such as the colors and symbology.",
         tags: new[] { "ENC", "IHO", "S-52", "S-57", "hydrography", "identify", "layers", "maritime", "nautical chart", "select", "settings", "symbology" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
     public partial class ConfigureElectronicNavigationalCharts

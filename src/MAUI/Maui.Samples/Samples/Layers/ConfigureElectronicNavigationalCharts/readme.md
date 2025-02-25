@@ -10,28 +10,36 @@ The S-52 standard defines how Electronic Navigational Chart (ENC) content should
 
 ## How to use the sample
 
-Tap to select ENC features. Feature properties will be displayed in a callout.
+When opened, the sample displays an electronic navigational chart. Tap on the map to select Enc features and view the feature's acronyms and descriptions shown in a callout. Tap "Display Settings" and use the options to adjust some of the Enc mariner display settings, such as the colors and symbology.
 
 ## How it works
 
-1. Load and display the ENC layer.
-2. When the map view is tapped, call `mapView.IdentifyLayersAsync()`, specifying the tapped position, a tolerance, and false for the `popupsOnly` parameter.
-3. Filter the list of identified layers to include only results where the `LayerContent` is an `EncLayer`.
-4. Get the first result with at least one feature.
-5. Get the first feature in the `IdentifyLayerResult`.
-6. Select that feature by calling `identifyResult.LayerContent.SelectFeature(firstFeature)`.
-7. Show the feature's acronym and description in a callout.
+1. To display Enc content:
+    1. Create an `EncExchangeSet` using a path to the local Enc exchange set files and load it.
+    2. Make an `EncCell` for each of the `EncExchangeSet.Datasets` and then make an `EncLayer` from each cell.
+    3. Add the layers to the map using `Map.OperationalLayers.Add()` and create a `MapView` to display the map.
+2. To select Enc features:
+    1. Use `GeoViewTapped()` on the map view to get the screen point from the tapped location.
+    2. Identify nearby features to the tapped location with `IdentifyLayersAsync()`.
+    3. From the resulting `IdentifyLayerResult`, get the `EncLayer` from `layerContent` and the `EncFeature`(s) from `GeoElements`.
+    4. Use `EncLayer.SelectFeature()` to select the Enc feature(s).
+3. To set Enc display settings:
+    1. Get the `EncDisplaySettings` instance from `EncEnvironmentSettings.Default.DisplaySettings`.
+    2. Use `MarinerSettings`, `TextGroupVisibilitySettings`, and `ViewingGroupSettings` to access the settings instances and set their properties.
+    3. Reset the display settings using `ResetToDefaults()` on the settings instances.
 
 ## Relevant API
 
-* EncFeature
-* EncFeature.Acronym
-* EncFeature.Description
+* EncCell
+* EncDataset
+* EncDisplaySettings
+* EncEnvironmentSettings
+* EncExchangeSet
 * EncLayer
-* GeometryEngine.Area
+* EncMarinerSettings
+* EncTextGroupVisibilitySettings
+* EncViewingGroupSettings
 * IdentifyLayerResult
-* IdentifyLayerResult.GeoElements
-* IdentifyLayerResult.LayerContent
 
 ## Offline data
 

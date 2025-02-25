@@ -11,27 +11,19 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
-using Esri.ArcGISRuntime.Security;
-using System.Diagnostics;
-using Esri.ArcGISRuntime.UtilityNetworks;
 using Esri.ArcGISRuntime.UI.Editing;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
-using System.Xml.Linq;
 using ArcGIS.Samples.Managers;
+using Esri.ArcGISRuntime.UtilityNetworks;
+using System.Collections.Generic;
 
 namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
 {
@@ -41,73 +33,41 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
         "Perform snap geometry edits with rules",
         "")]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("0fd3a39660d54c12b05d5f81f207dffd")]
-    public partial class SnapGeometryWithRules : INotifyPropertyChanged
+    public partial class SnapGeometryWithRules
     {
-        // Store the local geodatabase to edit.
-        private Geodatabase _localGeodatabase;
+        // Layer name for the pipeline subtype feature layer.
+        private const string PipelineLayerName = "PipelineLine";
 
-        private const int LineLayerId = 3;
-        private const int JunctionLayerId = 2;
-        private const int DeviceLayerId = 0;
+        // Subtype names for utility network features.
+        private const string ServicePipeLayerName = "Service Pipe";
+        private const string DistributionPipeName = "Distribution Pipe";
 
+        private const string DeviceLayerName = "PipelineDevice";
+        private const string ExcessFlowValveName = "Excess Flow Valve";
+
+        private const string JunctionLayerName = "PipelineJunction";
+        private const string ControllableTeeName = "Controllable Tee";
+
+        // Identifier for non-UN features.
+        private const string GraphicsId = "Graphics";
+
+        // Default symbology for graphic and sublayers used to restore after edit.
+        private readonly Renderer _defaultGraphicRenderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Gray, 3));
+        private Renderer _defaultDistributionRenderer = null;
+        private Renderer _defaultServiceRenderer = null;
+
+        // Hold references to the selected feature. 
         private Feature _selectedFeature;
-        private SubtypeFeatureLayer _lastLayer;
 
-        // Viewpoint in the utility network area.
-        private Viewpoint _startingViewpoint = new Viewpoint(new MapPoint(-9811055.156028448, 5131792.19502501, SpatialReferences.WebMercator), 1e4);
+        // Hold references to the subtype sublayers for the distribution and service pipe layers.
+        private SubtypeSublayer _distributionPipeLayer;
+        private SubtypeSublayer _servicePipeLayer;
+
+        // Hold a reference to the utility network geodatabase.
+        private Geodatabase _geodatabase;
 
         // Graphic json
         string graphicJson = "{\"paths\":[[[-9811826.6810284462,5132074.7700250093],[-9811786.4643617794,5132440.9533583419],[-9811384.2976951133,5132354.1700250087],[-9810372.5310284477,5132360.5200250093],[-9810353.4810284469,5132066.3033583425]]],\"spatialReference\":{\"wkid\":102100,\"latestWkid\":3857}}";
-
-        // Utility network objects.
-        private UtilityNetwork _utilityNetwork;
-
-        private GeometryEditor _geometryEditor;
-
-        private GraphicsOverlay _graphicsOverlay;
-
-        private GeodatabaseFeatureTable _deviceTable;
-        private GeodatabaseFeatureTable _junctionTable;
-        private SubtypeFeatureLayer _pipeLayer;
-        private SubtypeSublayer _distributionPipeSubtypeSublayer;
-        private SubtypeSublayer _servicePipeSubtypeSublayer;
-
-        private Renderer _defaultDistributionRenderer;
-        private Renderer _defaultServiceRenderer;
-        private Symbol _defaultGraphicsSymbol;
-
-        private UtilityAssetType _junctionAssetType;
-        private UtilityAssetType _deviceAssetType;
-
-        List<SnapSourceSettingsVM> _snapSourceSettingsVMs;
-
-        private bool _isFeatureSelected = false;
-        public bool IsFeatureSelected 
-        { 
-            get => _isFeatureSelected; 
-            set 
-            { 
-                _isFeatureSelected = value; 
-                OnPropertyChanged(nameof(IsFeatureSelected));
-                UpdateUI();
-            } 
-        }
-
-        private void UpdateUI()
-        {
-            if (IsFeatureSelected)
-            {
-                AssetTypeComboBox.Visibility = Visibility.Collapsed;
-                SelectedAssetTypeGrid.Visibility = Visibility.Visible;
-                SelectedFeatureLabel.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                AssetTypeComboBox.Visibility = Visibility.Visible;
-                SelectedAssetTypeGrid.Visibility = Visibility.Collapsed;
-                SelectedFeatureLabel.Visibility = Visibility.Collapsed;
-            }
-        }
 
         public SnapGeometryWithRules()
         {
@@ -119,499 +79,371 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
         {
             try
             {
-                MyMapView.Loaded += (s, e) =>
+                // Create a map.
+                MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight)
                 {
-                    // Create a map.
-                    MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight)
-                    {
-                        InitialViewpoint = _startingViewpoint,
-                    };
-
-                    MyMapView.Map.LoadSettings.FeatureTilingMode = FeatureTilingMode.EnabledWithFullResolutionWhenSupported;
+                    InitialViewpoint = new Viewpoint(new MapPoint(-9811055.156028448, 5131792.19502501, SpatialReferences.WebMercator), 1e4)
                 };
+
+                // Set the map load setting feature tiling mode.
+                // Enabled with full resolution when supported is used to ensure that snapping to geometries occurs in full resolution.
+                // Snapping in full resolution improves snapping accuracy.
+                MyMapView.Map.LoadSettings.FeatureTilingMode = FeatureTilingMode.EnabledWithFullResolutionWhenSupported;
 
                 // When the spatial reference changes (the map loads) add the local geodatabase tables as feature layers.
                 MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
 
-                Unloaded += SampleUnloaded;
-
                 // Create a graphics overlay and add it to the map view.
-                _graphicsOverlay = new GraphicsOverlay();
-                MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
-
-                var geometry = Geometry.FromJson(graphicJson);
-                var graphic = new Graphic(geometry, new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Gray, 3));
-                _graphicsOverlay.Graphics.Add(graphic);
-
-                _defaultGraphicsSymbol = graphic.Symbol;
+                MyMapView.GraphicsOverlays.Add(new GraphicsOverlay() { Id = GraphicsId, Renderer = _defaultGraphicRenderer });
+                MyMapView.GraphicsOverlays[0].Graphics.Add(new Graphic(Geometry.FromJson(graphicJson)));
 
                 // Create and add a geometry editor to the map view.
-                _geometryEditor = new GeometryEditor();
-                MyMapView.GeometryEditor = _geometryEditor;
+                MyMapView.GeometryEditor = new GeometryEditor();
+
+                // Enable snapping on the geometry layer.
+                MyMapView.GeometryEditor.SnapSettings.IsEnabled = true;
+                MyMapView.GeometryEditor.SnapSettings.IsFeatureSnappingEnabled = true;
 
                 // Show the UI.
                 SnappingControls.Visibility = Visibility.Visible;
-
             }
             catch (Exception ex)
             {
-
-                throw;
+                // Show an error message.
+                MessageBox.Show(ex.Message);
             }
-        }
-
-        private void SampleUnloaded(object sender, RoutedEventArgs e)
-        {
-            _localGeodatabase.RollbackTransaction();
-            _localGeodatabase?.Close();
         }
 
         private async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
         {
-            // Call a function (and await it) to get the local geodatabase (or generate it from the feature service).
-            await GetLocalGeodatabase();
-
-            // Once the local geodatabase is available, load the tables as layers to the map.
-            _ = LoadLocalGeodatabaseTables();
-
-            MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
-        }
-
-        private async Task GetLocalGeodatabase()
-        {
-            // Get the path to the local geodatabase for this platform (temp directory, for example).
-            string localGeodatabasePath = DataManager.GetDataFolder("0fd3a39660d54c12b05d5f81f207dffd", "NapervilleGasUtilities.geodatabase");
-
             try
             {
-                // See if the geodatabase file is already present.
-                if (File.Exists(localGeodatabasePath))
+                if (MyMapView.Map == null)
                 {
-                    // If the geodatabase is already available, open it, hide the progress control, and update the message.
-                    _localGeodatabase = await Geodatabase.OpenAsync(localGeodatabasePath);
+                    return;
+                }
 
-                    if (!_localGeodatabase.IsInTransaction)
+                // Unhook the event.
+                MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
+
+                // Get the path to the local geodatabase for this platform (temp directory, for example).
+                string geodatabasePath = DataManager.GetDataFolder("0fd3a39660d54c12b05d5f81f207dffd", "NapervilleGasUtilities.geodatabase");
+
+                // See if the geodatabase file is already present.
+                if (File.Exists(geodatabasePath))
+                {
+                    // Open the geodatabase.
+                    _geodatabase = await Geodatabase.OpenAsync(geodatabasePath);
+
+                    // Subscribe to the unloaded event to close the geodatabase when the sample is closed.
+                    Unloaded += SampleUnloaded;
+
+                    // Get and load feature tables from the geodatabase. 
+                    // Create subtype feature layers from the feature tables and add them to the map.
+                    var pipeTable = _geodatabase.GetGeodatabaseFeatureTable(PipelineLayerName);
+                    await pipeTable.LoadAsync();
+
+                    var pipeLayer = new SubtypeFeatureLayer(pipeTable);
+                    MyMapView.Map.OperationalLayers.Add(pipeLayer);
+
+                    var deviceTable = _geodatabase.GetGeodatabaseFeatureTable(DeviceLayerName);
+                    await deviceTable.LoadAsync();
+
+                    SubtypeFeatureLayer devicelayer = new SubtypeFeatureLayer(deviceTable);
+                    MyMapView.Map.OperationalLayers.Add(devicelayer);
+
+                    var junctionTable = _geodatabase.GetGeodatabaseFeatureTable(JunctionLayerName);
+                    await junctionTable.LoadAsync();
+
+                    SubtypeFeatureLayer junctionlayer = new SubtypeFeatureLayer(junctionTable);
+                    MyMapView.Map.OperationalLayers.Add(junctionlayer);
+
+                    // Add the utility network to the map and load it.
+                    var utilityNetwork = _geodatabase.UtilityNetworks.FirstOrDefault();
+                    MyMapView.Map.UtilityNetworks.Add(utilityNetwork);
+                    await utilityNetwork.LoadAsync();
+
+                    // Load the map.
+                    await MyMapView.Map.LoadAsync();
+
+                    // Ensure all layers are loaded.
+                    await Task.WhenAll(MyMapView.Map.OperationalLayers.ToList().Select(layer => layer.LoadAsync()).ToList());
+
+                    // Set the visibility of the sublayers and store the default renderer for the distribution and service pipe layers.
+                    // In this sample we will only set a small subset of sublayers to be visible.
+                    foreach (var sublayer in pipeLayer.SubtypeSublayers)
                     {
-                        _localGeodatabase.BeginTransaction();
+                        switch (sublayer.Name)
+                        {
+                            case DistributionPipeName:
+                                _distributionPipeLayer = sublayer;
+                                _defaultDistributionRenderer = sublayer.Renderer;
+                                break;
+                            case ServicePipeLayerName:
+                                _servicePipeLayer = sublayer;
+                                _defaultServiceRenderer = sublayer.Renderer;
+                                break;
+                            default:
+                                sublayer.IsVisible = false;
+                                break;
+                        }
+                    }
+
+                    // To avoid too much visual clutter, only show the Excess Flow Valve and Controllable Tee sublayers in the device layer.
+                    foreach (var sublayer in devicelayer.SubtypeSublayers)
+                    {
+                        switch (sublayer.Name)
+                        {
+                            case ExcessFlowValveName:
+                            case ControllableTeeName:
+                                sublayer.IsVisible = true;
+                                break;
+                            default:
+                                sublayer.IsVisible = false;
+                                break;
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
-                throw;
+                // Show an error message.
+                MessageBox.Show(ex.Message);
             }
         }
 
-        private async Task LoadLocalGeodatabaseTables()
+        private async Task SetSnapSettings(UtilityAssetType assetType)
         {
-            var pipeTable = _localGeodatabase.GeodatabaseFeatureTables[LineLayerId];
-            await pipeTable.LoadAsync();
+            // Get the snap rules associated with the asset type.
+            SnapRules snapRules = await SnapRules.CreateSnapRulesAsync(MyMapView.Map.UtilityNetworks[0], assetType);
 
-            _pipeLayer = new SubtypeFeatureLayer(pipeTable);
-            MyMapView.Map.OperationalLayers.Add(_pipeLayer);
+            // Synchronize the snap source collection with the map's operational layers using the snap rules. 
+            MyMapView.GeometryEditor.SnapSettings.SyncSourceSettings(snapRules);
 
-            _deviceTable = _localGeodatabase.GeodatabaseFeatureTables[DeviceLayerId];
-            await _deviceTable.LoadAsync();
+            // Enable snapping for the pipeline subtype feature layer. This is required for snapping of the subtype sublayers contained on this subtype feature layer.
+            SnapSourceSettings pipelineSnapSourceSettings = MyMapView.GeometryEditor.SnapSettings.SourceSettings.FirstOrDefault(sourceSetting => sourceSetting.Source is SubtypeFeatureLayer subtypeFeatureLayer && subtypeFeatureLayer.Name == PipelineLayerName);
+            pipelineSnapSourceSettings.IsEnabled = true;
 
-            SubtypeFeatureLayer devicelayer = new SubtypeFeatureLayer(_deviceTable);
-            MyMapView.Map.OperationalLayers.Add(devicelayer);
+            var snapSources = new List<SnapSourceSettingsVM>();
 
-            _junctionTable = _localGeodatabase.GeodatabaseFeatureTables[JunctionLayerId];
-            await _junctionTable.LoadAsync();
-
-            SubtypeFeatureLayer junctionlayer = new SubtypeFeatureLayer(_junctionTable);
-            MyMapView.Map.OperationalLayers.Add(junctionlayer);
-
-            var assemblyTable = _localGeodatabase.GeodatabaseFeatureTables[1];
-            await assemblyTable.LoadAsync();
-
-            FeatureLayer flayer = new FeatureLayer(assemblyTable);
-            MyMapView.Map.OperationalLayers.Add(flayer);
-
-            // Create and load the utility network.
-            _utilityNetwork = _localGeodatabase.UtilityNetworks[0];
-            MyMapView.Map.UtilityNetworks.Add(_utilityNetwork);
-            await _utilityNetwork.LoadAsync();
-
-            var deviceSource = _utilityNetwork.Definition.GetNetworkSource("Pipeline Device");
-            var deviceAssetGroup = deviceSource.AssetGroups[1];
-            _deviceAssetType = deviceAssetGroup.GetAssetType("Automatic Reset");
-
-            var junctionSource = _utilityNetwork.Definition.GetNetworkSource("Pipeline Junction");
-            var junctionAssetGroup = junctionSource.AssetGroups[7];
-            _junctionAssetType = junctionAssetGroup.GetAssetType("Plastic 3-Way");
-
-            // Load the map.
-            await MyMapView.Map.LoadAsync();
-
-            // Ensure all layers are loaded before setting the snap settings.
-            // If this is not awaited there is a risk that operational layers may not have loaded and therefore would not have been included in the snap sources.
-            await Task.WhenAll(MyMapView.Map.OperationalLayers.ToList().Select(layer => layer.LoadAsync()).ToList());
-
-            foreach (var sublayer in _pipeLayer.SubtypeSublayers)
+            foreach (var sourceSetting in MyMapView.GeometryEditor.SnapSettings.SourceSettings)
             {
-                if (sublayer.Name != "Service Pipe" && sublayer.Name != "Distribution Pipe")
+                if (sourceSetting.Source is GraphicsOverlay graphicsOverlay)
                 {
-                    sublayer.IsVisible = false;
+                    snapSources.Add(new SnapSourceSettingsVM(sourceSetting));
+                }
+                else if (sourceSetting.Source is SubtypeFeatureLayer subtypeFeatureLayer && subtypeFeatureLayer.Name == PipelineLayerName)
+                {
+                    foreach (var subtypeSublayer in sourceSetting.ChildSourceSettings)
+                    {
+                        switch ((subtypeSublayer.Source as SubtypeSublayer).Name)
+                        {
+                            case ServicePipeLayerName:
+                            case DistributionPipeName:
+                                snapSources.Add(new SnapSourceSettingsVM(subtypeSublayer));
+                                break;
+                        }
+                    }
                 }
             }
 
-            foreach (var sublayer in devicelayer.SubtypeSublayers)
-            {
-                if (sublayer.Name != "Excess Flow Valve" && sublayer.Name != "Controllable Tee")
-                {
-                    sublayer.IsVisible = false;
-                }
-            }
-        }
-
-        private void SetSnapSettings(SnapRules snapRules = null)
-        {
-            // Synchronize the snap source collection with the map's operational layers. 
-            // Note that layers that have not been loaded will not synchronize.
-            if (snapRules == null)
-            {
-                _geometryEditor.SnapSettings.SyncSourceSettings();
-            }
-            else
-            {
-                _geometryEditor.SnapSettings.SyncSourceSettings(snapRules);
-            }
-
-            // Enable snapping on the geometry layer.
-            _geometryEditor.SnapSettings.IsEnabled = true;
-            _geometryEditor.SnapSettings.IsFeatureSnappingEnabled = true;
-
-            var pipeSubtypeFeatureLayer = _geometryEditor.SnapSettings.SourceSettings.FirstOrDefault(sourceSetting => sourceSetting.Source is SubtypeFeatureLayer subtypeFeatureLayer && subtypeFeatureLayer.Name == "PipelineLine");
-            pipeSubtypeFeatureLayer.IsEnabled = true;
-
-            // Create a list of snap source settings with snapping disabled.
-            _snapSourceSettingsVMs = _geometryEditor.SnapSettings.SourceSettings.Where(sourceSetting => (sourceSetting.Source is SubtypeSublayer subtypeSublayer && (subtypeSublayer.Name == "Service Pipe" || subtypeSublayer.Name == "Distribution Pipe")) || sourceSetting.Source is GraphicsOverlay).Select(sourceSettings => new SnapSourceSettingsVM(sourceSettings) { IsEnabled = true }).ToList();
-
-            SnapSourcesList.ItemsSource = _snapSourceSettingsVMs;
+            // Create a list of snap source settings with snapping enabled.
+            SnapSourcesList.ItemsSource = snapSources; 
         }
 
         private void GeometryEditorButton_Click(object sender, RoutedEventArgs e)
         {
-            if (IsFeatureSelected)
+            // Get the symbol for the selected feature.
+            Symbol symbol = ((GeodatabaseFeatureTable)_selectedFeature.FeatureTable).LayerInfo?.DrawingInfo?.Renderer?.GetSymbol(_selectedFeature);
+
+            // Set the vertex symbol for the geometry editor tool.
+            MyMapView.GeometryEditor.Tool.Style.VertexSymbol = MyMapView.GeometryEditor.Tool.Style.FeedbackVertexSymbol = MyMapView.GeometryEditor.Tool.Style.SelectedVertexSymbol = symbol;
+            MyMapView.GeometryEditor.Tool.Style.VertexTextSymbol = null;
+
+            // Hide the selected feature.
+            if (_selectedFeature != null && _selectedFeature.FeatureTable?.Layer is FeatureLayer selectedFeatureLayer)
             {
-                var symbol = ((GeodatabaseFeatureTable)_selectedFeature.FeatureTable).LayerInfo?.DrawingInfo?.Renderer?.GetSymbol(_selectedFeature);
-                _geometryEditor.Tool.Style.VertexSymbol = _geometryEditor.Tool.Style.FeedbackVertexSymbol = _geometryEditor.Tool.Style.SelectedVertexSymbol = symbol;
-                _geometryEditor.Tool.Style.VertexTextSymbol = null;
-
-                _lastLayer.SetFeatureVisible(_selectedFeature, false);
-
-                _geometryEditor.Start(_selectedFeature.Geometry);
-            }
-            else
-            {
-                if (AssetTypeComboBox.SelectedItem == null)
-                {
-                    MessageBox.Show("Please select an asset type before starting the geometry editor");
-                    return;
-                }
-
-                string featureType = string.Empty;
-
-                switch (AssetTypeComboBox.Text)
-                {
-                    case "Automatic Reset":
-                        featureType = "Excess Flow Valve";
-                        break;
-                    case "Plastic 3-Way":
-                        featureType = "Controllable Tee";
-                        break;
-                }
-
-                var feature = _deviceTable.CreateFeature(_deviceTable.FeatureTypes.First(f => f.Name == featureType));
-                var symbol = _deviceTable.LayerInfo?.DrawingInfo?.Renderer?.GetSymbol(feature);
-                _geometryEditor.Tool.Style.VertexSymbol = _geometryEditor.Tool.Style.FeedbackVertexSymbol = _geometryEditor.Tool.Style.SelectedVertexSymbol = symbol;
-                _geometryEditor.Tool.Style.VertexTextSymbol = null;
-
-                _geometryEditor.Start(geometryType: GeometryType.Point);
-            }
-        }
-
-        private async void AssetTypeComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            if (_geometryEditor.IsStarted)
-            {
-                _geometryEditor.Stop();
+                selectedFeatureLayer.SetFeatureVisible(_selectedFeature, false);
             }
 
-            if (_distributionPipeSubtypeSublayer == null || _servicePipeSubtypeSublayer == null)
-            {
-                _distributionPipeSubtypeSublayer = _pipeLayer.SubtypeSublayers.FirstOrDefault(sl => sl.Name == "Distribution Pipe");
-                _servicePipeSubtypeSublayer = _pipeLayer.SubtypeSublayers.FirstOrDefault(sl => sl.Name == "Service Pipe");
-                _defaultDistributionRenderer = _distributionPipeSubtypeSublayer.Renderer;
-                _defaultServiceRenderer = _servicePipeSubtypeSublayer.Renderer;
-            }
-
-            switch (AssetTypeComboBox.SelectedIndex)
-            {
-                case 0:
-                    var snapRules = await SnapRules.CreateSnapRulesAsync(_utilityNetwork, _deviceAssetType);
-                    SetSnapSettings(snapRules);
-                    UpdateSymbology();
-                    break;
-                case 1:
-                    snapRules = await SnapRules.CreateSnapRulesAsync(_utilityNetwork, _junctionAssetType);
-                    SetSnapSettings(snapRules);
-                    UpdateSymbology();
-                    break;
-            }
+            // Start the geometry editor.
+            MyMapView.GeometryEditor.Start(_selectedFeature.Geometry);
         }
 
         private void DiscardButton_Click(object sender, RoutedEventArgs e)
         {
-            _geometryEditor.Stop();
+            // Discard the current edit.
+            MyMapView.GeometryEditor.Stop();
+
+            // Reset the selection.
             ResetSelections();
         }
 
         private async void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            var geometry = _geometryEditor.Stop();
+            // Stop the geometry editor and get the updated geometry.
+            Geometry geometry = MyMapView.GeometryEditor.Stop();
 
-            if (IsFeatureSelected)
-            {
-                _selectedFeature.Geometry = geometry;
-                await ((GeodatabaseFeatureTable)_selectedFeature.FeatureTable).UpdateFeatureAsync(_selectedFeature);
-            }
-            else
-            {
-                switch (AssetTypeComboBox.SelectedIndex)
-                {
-                    case 0:
-                        var feature = _deviceTable.CreateFeature(_deviceTable.FeatureTypes.First(f => f.Name == "Excess Flow Valve"));
-                        feature.SetAttributeValue("ASSETGROUP", 1);
-                        feature.SetAttributeValue("ASSETTYPE", (Int16)1);
-                        feature.Geometry = geometry;
-                        await _deviceTable.AddFeatureAsync(feature);
-                        var element = _utilityNetwork.CreateElement(feature);
-                        break;
-                    case 1:
-                        var feature2 = _junctionTable.CreateFeature(_junctionTable.FeatureTypes.First(f => f.Name == "Tee"));
+            // Update the feature with the new geometry.
+            _selectedFeature.Geometry = geometry;
+            await ((GeodatabaseFeatureTable)_selectedFeature.FeatureTable).UpdateFeatureAsync(_selectedFeature);
 
-
-
-                        var networkSource = _utilityNetwork.Definition?.GetNetworkSource("Pipeline Junction");
-
-                        var subtypeName = feature2.GetFeatureSubtype()?.Name;
-                        var assetGroup = networkSource?.GetAssetGroup(subtypeName);
-
-                        var assetTypeCode = (Int16)feature2.Attributes["ASSETTYPE"];
-                        var assetType = assetGroup?.AssetTypes?.FirstOrDefault(t => t.Code == (Int16)1);
-
-
-                        feature2.SetAttributeValue("ASSETGROUP", 7);
-                        feature2.SetAttributeValue("ASSETTYPE", (Int16)243);
-                        feature2.Geometry = geometry;
-                        await _junctionTable.AddFeatureAsync(feature2);
-                    break;
-                }
-            }
-
+            // Reset the selection.
             ResetSelections();
         }
 
         private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            if (_geometryEditor.IsStarted) return;
-            
+            if (MyMapView.GeometryEditor.IsStarted) return;
+
+            // Identify the feature at the tapped location.
             var identifyResult = await MyMapView.IdentifyLayersAsync(e.Position, 5, false);
-            ArcGISFeature feature = identifyResult?.FirstOrDefault()?.GeoElements?.FirstOrDefault() as ArcGISFeature;
 
-            if (feature == null)
-            {
-                feature = identifyResult?.FirstOrDefault()?.SublayerResults?.FirstOrDefault()?.GeoElements?.FirstOrDefault() as ArcGISFeature;
-            }
+            // As we are using subtype feature layers in this sample the returned features are contained in the sublayer results.
+            ArcGISFeature feature = identifyResult?.FirstOrDefault()?.SublayerResults?.FirstOrDefault()?.GeoElements?.FirstOrDefault() as ArcGISFeature;
 
+            // In this sample we only allow selection of point features.
+            // If the identified feature is null or the feature is not a point feature then reset the selection and return.
             if (feature == null || feature.FeatureTable.GeometryType != GeometryType.Point)
             {
                 ResetSelections();
                 return;
             }
-            else if (_selectedFeature != null && feature != _selectedFeature)
+            else if (_selectedFeature != null && feature != _selectedFeature && _selectedFeature.FeatureTable?.Layer is FeatureLayer selectedFeatureLayer)
             {
-                ResetSelections();
+                // If a feature is already selected and the tapped feature is not the selected feature then clear the previous selection.
+                selectedFeatureLayer.ClearSelection();
             }
 
-            var element = _utilityNetwork?.CreateElement(feature);
+            // Update the selected feature.
+            _selectedFeature = feature;
+
+            // Select the feature on the layer.
+            (_selectedFeature.FeatureTable?.Layer as FeatureLayer).SelectFeature(_selectedFeature);
+
+            // Create a utility element for the selected feature using the utility network.
+            UtilityElement element = MyMapView.Map.UtilityNetworks[0]?.CreateElement(feature);
+
+            // Update the UI visibility.
+            UpdateUI();
+
+            // Update the UI with the selected feature information.
             SelectedAssetGroupLabel.Text = element?.AssetGroup.Name;
             SelectedAssetTypeLabel.Text = element?.AssetType.Name;
-            _selectedFeature = feature;
-            _lastLayer = identifyResult?.First().LayerContent as SubtypeFeatureLayer;
-            _lastLayer?.SelectFeature(feature);
-            IsFeatureSelected = true;
 
-            SnapRules snapRules = await SnapRules.CreateSnapRulesAsync(_utilityNetwork, element?.AssetType);
-
-            SetSnapSettings(snapRules);
-            UpdateSymbology();
-
-        }
-
-        private void UpdateSymbology()
-        {
-            if (_distributionPipeSubtypeSublayer == null || _servicePipeSubtypeSublayer == null)
-            {
-                _distributionPipeSubtypeSublayer = _pipeLayer.SubtypeSublayers.FirstOrDefault(sl => sl.Name == "Distribution Pipe");
-                _servicePipeSubtypeSublayer = _pipeLayer.SubtypeSublayers.FirstOrDefault(sl => sl.Name == "Service Pipe");
-                _defaultDistributionRenderer = _distributionPipeSubtypeSublayer.Renderer;
-                _defaultServiceRenderer = _servicePipeSubtypeSublayer.Renderer;
-            }
-
-            foreach (var snapSourceSettingsVM in _snapSourceSettingsVMs)
-            {
-                if (snapSourceSettingsVM.SnapSourceSettings.RulePolicy == SnapRulePolicy.None)
-                {
-                    if (snapSourceSettingsVM.SnapSourceSettings.Source is GraphicsOverlay graphicsOverlay)
-                    {
-                        graphicsOverlay.Graphics[0].Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Green, 3);
-                    }
-                    else if (snapSourceSettingsVM.SnapSourceSettings.Source is SubtypeSublayer subtypeSublayer)
-                    {
-                        subtypeSublayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Green, 3));
-                    }
-                }
-                else if (snapSourceSettingsVM.SnapSourceSettings.RulePolicy == SnapRulePolicy.Conditional)
-                {
-                    if (snapSourceSettingsVM.SnapSourceSettings.Source is GraphicsOverlay graphicsOverlay)
-                    {
-                        graphicsOverlay.Graphics[0].Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Orange, 3);
-                    }
-                    else if (snapSourceSettingsVM.SnapSourceSettings.Source is SubtypeSublayer subtypeSublayer)
-                    {
-                        subtypeSublayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Orange, 3));
-                    }
-                }
-                else
-                {
-                    if (snapSourceSettingsVM.SnapSourceSettings.Source is GraphicsOverlay graphicsOverlay)
-                    {
-                        graphicsOverlay.Graphics[0].Symbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 3);
-                    }
-                    else if (snapSourceSettingsVM.SnapSourceSettings.Source is SubtypeSublayer subtypeSublayer)
-                    {
-                        subtypeSublayer.Renderer = new SimpleRenderer(new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 3));
-                    }
-                }
-            }
-
-            return;
+            await SetSnapSettings(element.AssetType);
         }
 
         private void ResetSelections()
         {
-            foreach (var layer in MyMapView.Map.OperationalLayers)
+            if (_selectedFeature != null && _selectedFeature.FeatureTable?.Layer is FeatureLayer selectedFeatureLayer)
             {
-                if (layer is SubtypeFeatureLayer subtypeLayer)
-                {
-                    subtypeLayer.ClearSelection();
-                    if (_selectedFeature != null && subtypeLayer.FeatureTable == _selectedFeature.FeatureTable)
-                    {
-                        subtypeLayer.SetFeatureVisible(_selectedFeature, true);
-                    }
-                }
+                // Clear the existing selection and show the selected feature;
+                selectedFeatureLayer.ClearSelection();
+                selectedFeatureLayer.SetFeatureVisible(_selectedFeature, true);
             }
 
+            // Reset the selected feature and layer.
             _selectedFeature = null;
-            IsFeatureSelected = false;
-            AssetTypeComboBox.SelectedIndex = -1;
-            _distributionPipeSubtypeSublayer.Renderer = _defaultDistributionRenderer;
-            _servicePipeSubtypeSublayer.Renderer = _defaultServiceRenderer;
-            _graphicsOverlay.Graphics[0].Symbol = _defaultGraphicsSymbol;
+
+            // Update the UI visibility.
+            UpdateUI();
+
+            // Revert back to the default renderer for the distribution and service pipe layers and graphics overlay.
+            _distributionPipeLayer.Renderer = _defaultDistributionRenderer;
+            _servicePipeLayer.Renderer = _defaultServiceRenderer;
+            MyMapView.GraphicsOverlays[0].Renderer = _defaultGraphicRenderer;
+
+            // Clear the snap sources list.
             SnapSourcesList.ItemsSource = null;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string propertyName)
+        private void UpdateUI()
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            InstructionsLabel.Visibility = _selectedFeature != null ? Visibility.Collapsed : Visibility.Visible;
+            SelectedFeaturePanel.Visibility = SnapSourcesPanel.Visibility = _selectedFeature != null ? Visibility.Visible : Visibility.Collapsed;
         }
+
+        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        {
+            // Close the geodatabase when the sample closes.
+            _geodatabase.Close();
+        }
+
     }
 
-    public class SnapSourceSettingsVM : INotifyPropertyChanged
+    public class SnapSourceSettingsVM
     {
-        public SnapSourceSettings SnapSourceSettings { get; set; }
+        public SnapSourceSettings SnapSourceSettings { get; }
+        private Symbol _rulesPreventSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 4);
+        private Symbol _rulesLimitSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Orange, 3);
+        private Symbol _noneSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.Green, 3);
 
         // Wrap the snap source settings in a view model to expose them to the UI.
         public SnapSourceSettingsVM(SnapSourceSettings snapSourceSettings)
         {
             SnapSourceSettings = snapSourceSettings;
 
-            if (snapSourceSettings.Source is SubtypeFeatureLayer subTypeFeatureLayer)
-            {
-                _name = subTypeFeatureLayer.Name;
-            }
-            else if (snapSourceSettings.Source is SubtypeSublayer subtypeSublayer)
-            {
-                _name = subtypeSublayer.Name;
-            }
-            else if (snapSourceSettings.Source is GraphicsOverlay)
-            {
-                _name = "Graphics overlay";
-            }
+            // Set the symbol for the snap source displayed in the UI.
+            _ = SetSymbolAsync();
 
-            switch (snapSourceSettings.RulePolicy)
-            {
-                case SnapRulePolicy.None:
-                    _fillColor = new SolidColorBrush(System.Windows.Media.Colors.Green);
-                    break;
-                case SnapRulePolicy.Conditional:
-                    _fillColor = new SolidColorBrush(System.Windows.Media.Colors.Orange);
-                    break;
-                case SnapRulePolicy.Forbidden:
-                    _fillColor = new SolidColorBrush(System.Windows.Media.Colors.Red);
-                    break;
-            }
-
-            IsEnabled = snapSourceSettings.IsEnabled;
+            // Enable snapping.
+            SnapSourceSettings.IsEnabled = true;
         }
 
-        private string _name;
+        private async Task SetSymbolAsync()
+        {
+            Symbol symbol = null;
+
+            switch (SnapSourceSettings.RuleBehavior)
+            {
+                case SnapRuleBehavior.None:
+                    symbol = _noneSymbol;
+                    break;
+                case SnapRuleBehavior.RulesLimitSnapping:
+                    symbol = _rulesLimitSymbol;
+                    break;
+                case SnapRuleBehavior.RulesPreventSnapping:
+                    symbol = _rulesPreventSymbol;
+                    break;
+            }
+
+            if (SnapSourceSettings.Source is SubtypeSublayer sublayer)
+            {
+                sublayer.Renderer = new SimpleRenderer(symbol);
+            }
+            else if (SnapSourceSettings.Source is GraphicsOverlay graphicsOverlay)
+            {
+                graphicsOverlay.Renderer = new SimpleRenderer(symbol);
+            }
+
+            if (symbol != null)
+            {
+                var swatch = await symbol.CreateSwatchAsync();
+                _symbol = await swatch.ToImageSourceAsync();
+            }
+        }
+
+        private ImageSource _symbol;
+
+        public ImageSource Symbol => _symbol;
+
         public string Name
         {
             get
             {
-                return _name;
-            }
-        }
+                if (SnapSourceSettings.Source is ILayerContent content)
+                {
+                    return content.Name;
+                }
 
-        private bool _isEnabled;
-        public bool IsEnabled
-        {
-            get
-            {
-                return _isEnabled;
-            }
-            set
-            {
-                _isEnabled = value;
-                SnapSourceSettings.IsEnabled = value;
-                OnPropertyChanged();
-            }
-        }
+                if (SnapSourceSettings.Source is GraphicsOverlay overlay)
+                {
+                    return overlay.Id ?? string.Empty;
+                }
 
-        private SolidColorBrush _fillColor;
-        public SolidColorBrush FillColor
-        {
-            get
-            {
-                return _fillColor;
+                return string.Empty;
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

@@ -7,19 +7,17 @@
         <DataTemplate x:Key="SnapSettingTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
                     <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Rectangle Grid.Column="0"
-                           Width="10"
-                           Height="10"
-                           Margin="0,0,5,0"
-                           Fill="{Binding Path=FillColor}" />
-                <TextBlock Grid.Column="1"
-                           Width="150"
-                           Text="{Binding Path=Name}" />
-                <CheckBox Grid.Column="2" IsChecked="{Binding Path=IsEnabled}" />
+                <CheckBox Grid.Column="0"
+                          Content="{Binding Path=Name}"
+                          IsChecked="{Binding Path=SnapSourceSettings.IsEnabled}" />
+                <Image Grid.Column="1"
+                       Width="15"
+                       Height="15"
+                       Margin="1"
+                       Source="{Binding Path=Symbol}" />
             </Grid>
         </DataTemplate>
         <Style x:Key="IconStyle" TargetType="Button">
@@ -38,8 +36,6 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Border x:Name="SnappingControls"
-                Width="300"
-                Height="350"
                 Margin="10"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
@@ -50,20 +46,20 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <ScrollViewer Grid.Row="0" Height="350">
-                    <StackPanel Margin="10" Orientation="Vertical">
-                        <TextBlock Padding="0,5"
+                <StackPanel Grid.Row="0"
+                            Margin="10"
+                            Orientation="Vertical">
+                    <TextBlock x:Name="InstructionsLabel"
+                               Padding="0,5"
+                               FontSize="14"
+                               Text="Tap a point feature to edit."
+                               TextWrapping="Wrap" />
+                    <StackPanel x:Name="SelectedFeaturePanel" Visibility="Collapsed">
+                        <TextBlock Padding="0,5,0,0"
                                    FontSize="14"
-                                   Text="Tap to select a feature to edit or choose an asset type from the dropdown to create "
-                                   TextWrapping="Wrap" />
-                        <TextBlock x:Name="SelectedFeatureLabel"
-                                   Padding="0,5,0,0"
                                    FontWeight="Bold"
-                                   Text="Existing feature selected."
-                                   Visibility="Collapsed" />
-                        <Grid x:Name="SelectedAssetTypeGrid"
-                              Margin="0,3"
-                              Visibility="Collapsed">
+                                   Text="Feature selected" />
+                        <Grid Margin="0,3">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="auto" />
                                 <ColumnDefinition Width="*" />
@@ -87,12 +83,6 @@
                                        Grid.Row="1"
                                        Grid.Column="1" />
                         </Grid>
-                        <ComboBox x:Name="AssetTypeComboBox"
-                                  Width="200"
-                                  SelectionChanged="AssetTypeComboBox_SelectionChanged">
-                            <ComboBoxItem Content="Automatic Reset" />
-                            <ComboBoxItem Content="Plastic 3-Way" />
-                        </ComboBox>
                         <Button x:Name="GeometryEditorButton"
                                 Width="200"
                                 Click="GeometryEditorButton_Click"
@@ -117,16 +107,47 @@
                                     Style="{StaticResource IconStyle}"
                                     ToolTipService.ToolTip="Save edits" />
                         </Grid>
+                    </StackPanel>
+                    <StackPanel x:Name="SnapSourcesPanel" Visibility="Collapsed">
                         <TextBlock Padding="0,5"
                                    FontSize="14"
                                    FontWeight="Bold"
                                    Text="Snap sources" />
                         <ListView x:Name="SnapSourcesList"
+                                  Grid.Column="1"
                                   Width="200"
                                   Height="80"
                                   ItemTemplate="{StaticResource SnapSettingTemplate}" />
+                        <TextBlock Padding="0,5"
+                                   FontSize="14"
+                                   FontWeight="Bold"
+                                   Text="Key" />
+                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                            <Rectangle Grid.Column="0"
+                                       Width="10"
+                                       Height="10"
+                                       Margin="0,0,5,0"
+                                       Fill="Green" />
+                            <TextBlock Text="SnapRuleBehavior.None" />
+                        </StackPanel>
+                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                            <Rectangle Grid.Column="0"
+                                       Width="10"
+                                       Height="10"
+                                       Margin="0,0,5,0"
+                                       Fill="Orange" />
+                            <TextBlock Text="SnapRuleBehavior.RulesLimitSnapping" />
+                        </StackPanel>
+                        <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
+                            <Rectangle Grid.Column="0"
+                                       Width="10"
+                                       Height="10"
+                                       Margin="0,0,5,0"
+                                       Fill="Red" />
+                            <TextBlock Text="SnapRuleBehavior.RulesPreventSnapping" />
+                        </StackPanel>
                     </StackPanel>
-                </ScrollViewer>
+                </StackPanel>
             </Grid>
         </Border>
     </Grid>

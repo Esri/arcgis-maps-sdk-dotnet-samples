@@ -194,7 +194,7 @@
 * [Change time extent](ArcGIS.WinUI.Viewer/Samples/MapView/ChangeTimeExtent) - Filter data in layers by applying a time extent to a MapView.
 * [Change viewpoint](ArcGIS.WinUI.Viewer/Samples/MapView/ChangeViewpoint) - Set the map view to a new viewpoint.
 * [Display draw status](ArcGIS.WinUI.Viewer/Samples/MapView/DisplayDrawingStatus) - Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.
-* [Display grid](ArcGIS.WinUI.Viewer/Samples/MapView/DisplayGrid) - Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.
+* [Display grid](ArcGIS.WinUI.Viewer/Samples/MapView/DisplayGrid) - Display and customize coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view or scene view.
 * [Display layer view state](ArcGIS.WinUI.Viewer/Samples/MapView/DisplayLayerViewState) - Determine if a layer is currently being viewed.
 * [Feature layer time offset](ArcGIS.WinUI.Viewer/Samples/MapView/FeatureLayerTimeOffset) - Display a time-enabled feature layer with a time offset.
 * [Identify layers](ArcGIS.WinUI.Viewer/Samples/MapView/IdentifyLayers) - Identify features in all layers in a map.

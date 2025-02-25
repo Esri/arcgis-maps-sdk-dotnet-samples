@@ -29,6 +29,9 @@
 			<Sample>DisplayOverviewMap</Sample>
 			<Sample>CreateDynamicBasemapGallery</Sample>
         </Category>
+		<Category name="MapView">
+			<Sample>DisplayGrid</Sample>
+		</Category>
 		<Category name="Scene">
 			<Sample>FilterFeaturesInScene</Sample>
 			<Sample>ShowLabelsOnLayer3D</Sample>

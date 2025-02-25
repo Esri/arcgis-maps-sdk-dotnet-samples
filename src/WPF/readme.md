@@ -71,11 +71,6 @@
 * [Scene properties expressions](WPF.Viewer/Samples/GraphicsOverlay/ScenePropertiesExpressions) - Update the orientation of a graphic using expressions based on its attributes.
 * [Surface placement](WPF.Viewer/Samples/GraphicsOverlay/SurfacePlacements) - Position graphics relative to a surface using different surface placement modes.
 
-## Hydrography
-
-* [Add ENC exchange set](WPF.Viewer/Samples/Hydrography/AddEncExchangeSet) - Display nautical charts per the ENC specification.
-* [Select ENC features](WPF.Viewer/Samples/Hydrography/SelectEncFeatures) - Select features in an ENC layer.
-
 ## Layers
 
 * [Add 3d tiles layer](WPF.Viewer/Samples/Layers/Add3dTilesLayer) - Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.

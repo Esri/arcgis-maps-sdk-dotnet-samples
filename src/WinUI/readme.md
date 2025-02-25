@@ -71,11 +71,6 @@
 * [Scene properties expressions](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/ScenePropertiesExpressions) - Update the orientation of a graphic using expressions based on its attributes.
 * [Surface placement](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/SurfacePlacements) - Position graphics relative to a surface using different surface placement modes.
 
-## Hydrography
-
-* [Add ENC exchange set](ArcGIS.WinUI.Viewer/Samples/Hydrography/AddEncExchangeSet) - Display nautical charts per the ENC specification.
-* [Select ENC features](ArcGIS.WinUI.Viewer/Samples/Hydrography/SelectEncFeatures) - Select features in an ENC layer.
-
 ## Layers
 
 * [Add 3d tiles layer](ArcGIS.WinUI.Viewer/Samples/Layers/Add3dTilesLayer) - Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.

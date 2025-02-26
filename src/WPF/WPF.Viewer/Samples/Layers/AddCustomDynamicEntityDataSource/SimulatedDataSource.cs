@@ -43,19 +43,22 @@ namespace ArcGIS.WPF.Samples.AddCustomDynamicEntityDataSource
         public string EntityIdField { get; }
         public TimeSpan Delay { get; }
 
-        #endregion
+        #endregion Properties
 
-        protected override async Task<DynamicEntityDataSourceInfo> OnLoadAsync()
+        protected override Task<DynamicEntityDataSourceInfo> OnLoadAsync()
         {
-            // Derive schema from the first row in the custom data source.
-            _fields = GetSchema();
+            return Task.Run(() =>
+            {
+                // Derive schema from the first row in the custom data source.
+                _fields = GetSchema();
 
-            // Open the file for processing.
-            Stream stream = File.OpenRead(FilePath);
-            _streamReader = new StreamReader(stream);
+                // Open the file for processing.
+                Stream stream = File.OpenRead(FilePath);
+                _streamReader = new StreamReader(stream);
 
-            // Create a new DynamicEntityDataSourceInfo using the entity ID field and the fields derived from the attributes of each observation in the custom data source.
-            return new DynamicEntityDataSourceInfo(EntityIdField, _fields) { SpatialReference = SpatialReferences.Wgs84 };
+                // Create a new DynamicEntityDataSourceInfo using the entity ID field and the fields derived from the attributes of each observation in the custom data source.
+                return new DynamicEntityDataSourceInfo(EntityIdField, _fields) { SpatialReference = SpatialReferences.Wgs84 };
+            });
         }
 
         protected override Task OnConnectAsync(CancellationToken cancellationToken)

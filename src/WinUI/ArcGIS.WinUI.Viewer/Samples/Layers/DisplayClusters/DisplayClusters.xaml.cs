@@ -56,7 +56,7 @@ namespace ArcGIS.WinUI.Samples.DisplayClusters
             {
                 PopupBackground.Visibility = Visibility.Collapsed;
                 GeoElementsPanel.Visibility = Visibility.Collapsed;
-                PopupViewer.PopupManager = null;
+                PopupViewer.Popup = null;
                 GeoElementsGrid.ItemsSource = null;
             };
         }
@@ -75,7 +75,7 @@ namespace ArcGIS.WinUI.Samples.DisplayClusters
             if (results.Popups.FirstOrDefault() is Popup popup)
             {
                 // Set the popup and make it visible.
-                PopupViewer.PopupManager = new PopupManager(results.Popups.FirstOrDefault());
+                PopupViewer.Popup = results.Popups.FirstOrDefault();
                 PopupBackground.Visibility = Visibility.Visible;
             }
 

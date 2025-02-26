@@ -71,12 +71,6 @@
 * [Scene properties expressions](WPF.Viewer/Samples/GraphicsOverlay/ScenePropertiesExpressions) - Update the orientation of a graphic using expressions based on its attributes.
 * [Surface placement](WPF.Viewer/Samples/GraphicsOverlay/SurfacePlacements) - Position graphics relative to a surface using different surface placement modes.
 
-## Hydrography
-
-* [Add ENC exchange set](WPF.Viewer/Samples/Hydrography/AddEncExchangeSet) - Display nautical charts per the ENC specification.
-* [Change ENC display settings](WPF.Viewer/Samples/Hydrography/ChangeEncDisplaySettings) - Configure the display of ENC content.
-* [Select ENC features](WPF.Viewer/Samples/Hydrography/SelectEncFeatures) - Select features in an ENC layer.
-
 ## Layers
 
 * [Add 3d tiles layer](WPF.Viewer/Samples/Layers/Add3dTilesLayer) - Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.
@@ -96,6 +90,7 @@
 * [Change sublayer renderer](WPF.Viewer/Samples/Layers/ChangeSublayerRenderer) - Apply a renderer to a sublayer.
 * [Colormap renderer](WPF.Viewer/Samples/Layers/RasterColormapRenderer) - Apply a colormap renderer to a raster.
 * [Configure clusters](WPF.Viewer/Samples/Layers/ConfigureClusters) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
+* [Configure electronic navigational charts](WPF.Viewer/Samples/Layers/ConfigureElectronicNavigationalCharts) - Display and configure electronic navigational charts per ENC specification.
 * [Control annotation sublayer visibility](WPF.Viewer/Samples/Layers/ControlAnnotationSublayerVisibility) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](WPF.Viewer/Samples/Layers/CreateAndSaveKmlFile) - Construct a KML document and save it as a KMZ file.
 * [Create feature collection layer (Portal item)](WPF.Viewer/Samples/Layers/FeatureCollectionLayerFromPortal) - Create a feature collection layer from a portal item.

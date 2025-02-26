@@ -8,22 +8,24 @@
 // language governing permissions and limitations under the License.
 
 using ArcGIS.Samples.Managers;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 
-namespace ArcGIS.Samples.ChangeEncDisplaySettings
+namespace ArcGIS.Samples.ConfigureElectronicNavigationalCharts
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Change ENC display settings",
-        category: "Hydrography",
-        description: "Configure the display of ENC content.",
-        instructions: "The sample displays an electronic navigational chart when it opens. Use the options to choose variations on colors and symbology.",
-        tags: new[] { "ENC", "IHO", "S-52", "S-57", "display", "hydrographic", "hydrography", "layers", "maritime", "nautical chart", "settings", "symbology" })]
+        name: "Configure electronic navigational charts",
+        category: "Layers",
+        description: "Display and configure electronic navigational charts per ENC specification.",
+        instructions: "When opened, the sample displays an electronic navigational chart. Tap on the map to select Enc features and view the feature's acronyms and descriptions shown in a callout. Tap \"Display Settings\" and use the options to adjust some of the Enc mariner display settings, such as the colors and symbology.",
+        tags: new[] { "ENC", "IHO", "S-52", "S-57", "hydrography", "identify", "layers", "maritime", "nautical chart", "select", "settings", "symbology" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
-    public partial class ChangeEncDisplaySettings : ContentPage, IDisposable
+    public partial class ConfigureElectronicNavigationalCharts : ContentPage, IDisposable
     {
-        public ChangeEncDisplaySettings()
+        public ConfigureElectronicNavigationalCharts()
         {
             InitializeComponent();
 
@@ -127,6 +129,59 @@ namespace ArcGIS.Samples.ChangeEncDisplaySettings
         private void Button_Clicked(object sender, EventArgs e)
         {
             UpdateDisplaySettings();
+        }
+
+        private void ClearAllSelections()
+        {
+            // For each layer in the operational layers that is an ENC layer
+            foreach (EncLayer layer in MyMapView.Map.OperationalLayers.OfType<EncLayer>())
+            {
+                // Clear the layer's selection
+                layer.ClearSelection();
+            }
+
+            // Clear the callout
+            MyMapView.DismissCallout();
+        }
+
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
+        {
+            // First clear any existing selections
+            ClearAllSelections();
+
+            try
+            {
+                // Perform the identify operation.
+                IReadOnlyList<IdentifyLayerResult> results = await MyMapView.IdentifyLayersAsync(e.Position, 10, false);
+
+                // Return if there are no results.
+                if (results.Count < 1) { return; }
+
+                // Get the results that are from ENC layers.
+                IEnumerable<IdentifyLayerResult> encResults = results.Where(result => result.LayerContent is EncLayer);
+
+                // Get the first result with ENC features. (Depending on the data, there may be more than one IdentifyLayerResult that contains ENC features.)
+                IdentifyLayerResult firstResult = encResults.First();
+
+                // Get the layer associated with this set of results.
+                EncLayer containingLayer = (EncLayer)firstResult.LayerContent;
+
+                // Get the GeoElement identified in this layer.
+                EncFeature encFeature = (EncFeature)firstResult.GeoElements.First();
+
+                // Select the feature.
+                containingLayer.SelectFeature(encFeature);
+
+                // Create the callout definition.
+                CalloutDefinition definition = new CalloutDefinition(encFeature.Acronym, encFeature.Description);
+
+                // Show the callout.
+                MyMapView.ShowCalloutAt(e.Location, definition);
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+            }
         }
 
         public void Dispose()

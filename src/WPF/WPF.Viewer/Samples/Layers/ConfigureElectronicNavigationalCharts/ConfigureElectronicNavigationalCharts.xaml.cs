@@ -8,29 +8,33 @@
 // language governing permissions and limitations under the License.
 
 using ArcGIS.Samples.Managers;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
-namespace ArcGIS.WinUI.Samples.ChangeEncDisplaySettings
+namespace ArcGIS.WPF.Samples.ConfigureElectronicNavigationalCharts
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Change ENC display settings",
-        category: "Hydrography",
-        description: "Configure the display of ENC content.",
-        instructions: "The sample displays an electronic navigational chart when it opens. Use the options to choose variations on colors and symbology.",
-        tags: new[] { "ENC", "IHO", "S-52", "S-57", "display", "hydrographic", "hydrography", "layers", "maritime", "nautical chart", "settings", "symbology" })]
+        name: "Configure electronic navigational charts",
+        category: "Layers",
+        description: "Display and configure electronic navigational charts per ENC specification.",
+        instructions: "When opened, the sample displays an electronic navigational chart. Tap on the map to select Enc features and view the feature's acronyms and descriptions shown in a callout. Tap \"Display Settings\" and use the options to adjust some of the Enc mariner display settings, such as the colors and symbology.",
+        tags: new[] { "ENC", "IHO", "S-52", "S-57", "hydrography", "identify", "layers", "maritime", "nautical chart", "select", "settings", "symbology" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("9d2987a825c646468b3ce7512fb76e2d")]
-    public partial class ChangeEncDisplaySettings
+    public partial class ConfigureElectronicNavigationalCharts
     {
-        public ChangeEncDisplaySettings()
+        public ConfigureElectronicNavigationalCharts()
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization.
+            // Create the UI, setup the control references and execute initialization.
             _ = Initialize();
         }
 
@@ -48,7 +52,7 @@ namespace ArcGIS.WinUI.Samples.ChangeEncDisplaySettings
 
             // Create the Exchange Set.
             // Note: this constructor takes an array of paths because so that update sets can be loaded alongside base data.
-            EncExchangeSet myEncExchangeSet = new EncExchangeSet(new string[] { encPath });
+            EncExchangeSet myEncExchangeSet = new EncExchangeSet(encPath);
 
             try
             {
@@ -81,24 +85,24 @@ namespace ArcGIS.WinUI.Samples.ChangeEncDisplaySettings
                 MyMapView.SetViewpoint(new Viewpoint(fullExtent));
 
                 // Subscribe to notifications about leaving so that settings can be re-set.
-                this.Unloaded += SampleUnloaded;
+                this.Unloaded += Sample_Unloaded;
 
-                // Enable the setting change UI.
+                // Enable changing the settings on user interaction.
                 DayRadioButton.Checked += Setting_Checked;
-                DuskRadioButton.Checked += Setting_Checked;
                 NightRadioButton.Checked += Setting_Checked;
-                PaperPointRadioButton.Checked += Setting_Checked;
-                SymbolizedAreaRadioButton.Checked += Setting_Checked;
+                DuskRadioButton.Checked += Setting_Checked;
                 PlainAreaRadioButton.Checked += Setting_Checked;
+                SymbolizedAreaRadioButton.Checked += Setting_Checked;
+                PaperchartRadioButton.Checked += Setting_Checked;
                 SimplifiedRadioButton.Checked += Setting_Checked;
             }
             catch (Exception e)
             {
-                await new MessageDialog2(e.ToString(), "Error").ShowAsync();
+                MessageBox.Show(e.ToString(), "Error");
             }
         }
 
-        private void SampleUnloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        private void Sample_Unloaded(object sender, RoutedEventArgs e)
         {
             // ENC environment settings apply to the entire application.
             // They need to be reset after leaving the sample to avoid affecting other samples.
@@ -125,14 +129,66 @@ namespace ArcGIS.WinUI.Samples.ChangeEncDisplaySettings
             else { globalMarinerSettings.AreaSymbolizationType = EncAreaSymbolizationType.Symbolized; }
 
             // Apply point symbolization.
-            if (PaperPointRadioButton.IsChecked == true) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
+            if (PaperchartRadioButton.IsChecked == true) { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.PaperChart; }
             else { globalMarinerSettings.PointSymbolizationType = EncPointSymbolizationType.Simplified; }
         }
 
-        private void Setting_Checked(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        private void Setting_Checked(object sender, RoutedEventArgs e)
         {
-            // Apply display settings.
             UpdateDisplaySettings();
+        }
+
+        private void ClearAllSelections()
+        {
+            // For each layer in the operational layers that is an ENC layer.
+            foreach (EncLayer layer in MyMapView.Map.OperationalLayers.OfType<EncLayer>())
+            {
+                // Clear the layer's selection.
+                layer.ClearSelection();
+            }
+
+            // Clear the callout.
+            MyMapView.DismissCallout();
+        }
+
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        {
+            // First clear any existing selections.
+            ClearAllSelections();
+
+            try
+            {
+                // Perform the identify operation.
+                IReadOnlyList<IdentifyLayerResult> results = await MyMapView.IdentifyLayersAsync(e.Position, 10, false);
+
+                // Return if there are no results.
+                if (results.Count < 1) { return; }
+
+                // Get the results that are from ENC layers.
+                IEnumerable<IdentifyLayerResult> encResults = results.Where(result => result.LayerContent is EncLayer);
+
+                // Get the first result with ENC features. (Depending on the data, there may be more than one IdentifyLayerResult that contains ENC features.)
+                IdentifyLayerResult firstResult = encResults.First();
+
+                // Get the layer associated with this set of results.
+                EncLayer containingLayer = (EncLayer)firstResult.LayerContent;
+
+                // Get the GeoElement identified in this layer.
+                EncFeature encFeature = (EncFeature)firstResult.GeoElements.First();
+
+                // Select the feature.
+                containingLayer.SelectFeature(encFeature);
+
+                // Create the callout definition.
+                CalloutDefinition definition = new CalloutDefinition(encFeature.Acronym, encFeature.Description);
+
+                // Show the callout.
+                MyMapView.ShowCalloutAt(e.Location, definition);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
         }
     }
 }

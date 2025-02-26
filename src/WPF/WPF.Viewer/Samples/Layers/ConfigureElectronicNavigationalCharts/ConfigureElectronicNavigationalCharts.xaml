@@ -8,7 +8,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <esri:MapView x:Name="MyMapView" />
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Border Width="225" Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock FontWeight="Bold" Text="Color scheme" />

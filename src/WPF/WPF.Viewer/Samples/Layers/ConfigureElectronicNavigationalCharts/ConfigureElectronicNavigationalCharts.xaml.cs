@@ -8,11 +8,14 @@
 // language governing permissions and limitations under the License.
 
 using ArcGIS.Samples.Managers;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -133,6 +136,59 @@ namespace ArcGIS.WPF.Samples.ConfigureElectronicNavigationalCharts
         private void Setting_Checked(object sender, RoutedEventArgs e)
         {
             UpdateDisplaySettings();
+        }
+
+        private void ClearAllSelections()
+        {
+            // For each layer in the operational layers that is an ENC layer.
+            foreach (EncLayer layer in MyMapView.Map.OperationalLayers.OfType<EncLayer>())
+            {
+                // Clear the layer's selection.
+                layer.ClearSelection();
+            }
+
+            // Clear the callout.
+            MyMapView.DismissCallout();
+        }
+
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.UI.Controls.GeoViewInputEventArgs e)
+        {
+            // First clear any existing selections.
+            ClearAllSelections();
+
+            try
+            {
+                // Perform the identify operation.
+                IReadOnlyList<IdentifyLayerResult> results = await MyMapView.IdentifyLayersAsync(e.Position, 10, false);
+
+                // Return if there are no results.
+                if (results.Count < 1) { return; }
+
+                // Get the results that are from ENC layers.
+                IEnumerable<IdentifyLayerResult> encResults = results.Where(result => result.LayerContent is EncLayer);
+
+                // Get the first result with ENC features. (Depending on the data, there may be more than one IdentifyLayerResult that contains ENC features.)
+                IdentifyLayerResult firstResult = encResults.First();
+
+                // Get the layer associated with this set of results.
+                EncLayer containingLayer = (EncLayer)firstResult.LayerContent;
+
+                // Get the GeoElement identified in this layer.
+                EncFeature encFeature = (EncFeature)firstResult.GeoElements.First();
+
+                // Select the feature.
+                containingLayer.SelectFeature(encFeature);
+
+                // Create the callout definition.
+                CalloutDefinition definition = new CalloutDefinition(encFeature.Acronym, encFeature.Description);
+
+                // Show the callout.
+                MyMapView.ShowCalloutAt(e.Location, definition);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
         }
     }
 }

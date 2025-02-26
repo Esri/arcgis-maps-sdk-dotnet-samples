@@ -12,7 +12,7 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+        <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock Text="Color scheme" />

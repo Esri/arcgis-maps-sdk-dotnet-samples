@@ -8,11 +8,15 @@
 // language governing permissions and limitations under the License.
 
 using ArcGIS.Samples.Managers;
+using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Hydrography;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI.Controls;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ArcGIS.WinUI.Samples.ConfigureElectronicNavigationalCharts
@@ -98,15 +102,6 @@ namespace ArcGIS.WinUI.Samples.ConfigureElectronicNavigationalCharts
             }
         }
 
-        private void SampleUnloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
-        {
-            // ENC environment settings apply to the entire application.
-            // They need to be reset after leaving the sample to avoid affecting other samples.
-            EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings.ResetToDefaults();
-            EncEnvironmentSettings.Default.DisplaySettings.ViewingGroupSettings.ResetToDefaults();
-            EncEnvironmentSettings.Default.DisplaySettings.TextGroupVisibilitySettings.ResetToDefaults();
-        }
-
         private void UpdateDisplaySettings()
         {
             // Hold a reference to the application-wide ENC Display Settings.
@@ -133,6 +128,68 @@ namespace ArcGIS.WinUI.Samples.ConfigureElectronicNavigationalCharts
         {
             // Apply display settings.
             UpdateDisplaySettings();
+        }
+
+        private void ClearAllSelections()
+        {
+            // For each layer in the operational layers that is an ENC layer
+            foreach (EncLayer layer in MyMapView.Map.OperationalLayers.OfType<EncLayer>())
+            {
+                // Clear the layer's selection
+                layer.ClearSelection();
+            }
+
+            // Clear the callout
+            MyMapView.DismissCallout();
+        }
+
+        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        {
+            // First clear any existing selections
+            ClearAllSelections();
+
+            try
+            {
+                // Perform the identify operation.
+                IReadOnlyList<IdentifyLayerResult> results = await MyMapView.IdentifyLayersAsync(e.Position, 10, false);
+
+                // Return if there are no results.
+                if (results.Count < 1) { return; }
+
+                // Get the results that are from ENC layers.
+                IEnumerable<IdentifyLayerResult> encResults = results.Where(result => result.LayerContent is EncLayer);
+
+                // Get the first result with ENC features. (Depending on the data, there may be more than one IdentifyLayerResult that contains ENC features.)
+                IdentifyLayerResult firstResult = encResults.First();
+
+                // Get the layer associated with this set of results.
+                EncLayer containingLayer = (EncLayer)firstResult.LayerContent;
+
+                // Get the GeoElement identified in this layer.
+                EncFeature encFeature = (EncFeature)firstResult.GeoElements.First();
+
+                // Select the feature.
+                containingLayer.SelectFeature(encFeature);
+
+                // Create the callout definition.
+                CalloutDefinition definition = new CalloutDefinition(encFeature.Acronym, encFeature.Description);
+
+                // Show the callout.
+                MyMapView.ShowCalloutAt(e.Location, definition);
+            }
+            catch (Exception ex)
+            {
+                await new MessageDialog2(ex.ToString(), "Error").ShowAsync();
+            }
+        }
+
+        private void SampleUnloaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            // ENC environment settings apply to the entire application.
+            // They need to be reset after leaving the sample to avoid affecting other samples.
+            EncEnvironmentSettings.Default.DisplaySettings.MarinerSettings.ResetToDefaults();
+            EncEnvironmentSettings.Default.DisplaySettings.ViewingGroupSettings.ResetToDefaults();
+            EncEnvironmentSettings.Default.DisplaySettings.TextGroupVisibilitySettings.ResetToDefaults();
         }
     }
 }

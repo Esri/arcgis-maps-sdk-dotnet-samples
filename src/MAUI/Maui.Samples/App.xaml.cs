@@ -8,7 +8,11 @@ public partial class App : Application
     {
         InitializeComponent();
 
-        MainPage = new AppShell();
         Current = this;
+    }
+
+    protected override Window CreateWindow(IActivationState activationState)
+    {
+        return new Window(new AppShell());
     }
 }

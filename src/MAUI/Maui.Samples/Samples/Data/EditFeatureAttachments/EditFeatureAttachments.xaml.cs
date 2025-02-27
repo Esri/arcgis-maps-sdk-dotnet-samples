@@ -66,7 +66,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                await DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -110,7 +110,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error selecting feature", ex.ToString(), "OK");
+                await DisplayAlert("Error selecting feature", ex.ToString(), "OK");
             }
         }
 
@@ -143,7 +143,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
 
                 if (!_filename.EndsWith(".jpg") && !_filename.EndsWith(".jpeg"))
                 {
-                    await Application.Current.MainPage.DisplayAlert("Try again!", "This sample only allows uploading jpg files.", "OK");
+                    await DisplayAlert("Try again!", "This sample only allows uploading jpg files.", "OK");
                     return;
                 }
                 filename = _filename;
@@ -157,7 +157,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
 
                 if (!fileData.FileName.EndsWith(".jpg") && !fileData.FileName.EndsWith(".jpeg"))
                 {
-                    await Application.Current.MainPage.DisplayAlert("Try again!", "This sample only allows uploading jpg files.", "OK");
+                    await DisplayAlert("Try again!", "This sample only allows uploading jpg files.", "OK");
                     return;
                 }
 
@@ -185,11 +185,11 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                 _selectedFeature.Refresh();
                 AttachmentsListBox.ItemsSource = await GetJpegAttachmentsAsync(_selectedFeature);
 
-                await Application.Current.MainPage.DisplayAlert("Success!", "Successfully added attachment", "OK");
+                await DisplayAlert("Success!", "Successfully added attachment", "OK");
             }
             catch (Exception exception)
             {
-                await Application.Current.MainPage.DisplayAlert("Error adding attachment", exception.Message, "OK");
+                await DisplayAlert("Error adding attachment", exception.Message, "OK");
             }
             finally
             {
@@ -223,11 +223,11 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                 AttachmentsListBox.ItemsSource = await GetJpegAttachmentsAsync(_selectedFeature);
 
                 // Show success message.
-                await Application.Current.MainPage.DisplayAlert("Success!", "Successfully deleted attachment", "OK");
+                await DisplayAlert("Success!", "Successfully deleted attachment", "OK");
             }
             catch (Exception exception)
             {
-                await Application.Current.MainPage.DisplayAlert("Error deleting attachment", exception.ToString(), "OK");
+                await DisplayAlert("Error deleting attachment", exception.ToString(), "OK");
             }
             finally
             {
@@ -254,16 +254,16 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                     Stream contentStream = await selectedAttachment.GetDataAsync();
                     imageView.Source = ImageSource.FromStream(() => contentStream);
                     previewPage.Content = imageView;
-                    await Application.Current.MainPage.Navigation.PushAsync(previewPage);
+                    await Navigation.PushAsync(previewPage);
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Can't show attachment", "This sample can only show image attachments.", "OK");
+                    await DisplayAlert("Can't show attachment", "This sample can only show image attachments.", "OK");
                 }
             }
             catch (Exception exception)
             {
-                await Application.Current.MainPage.DisplayAlert("Error reading attachment", exception.ToString(), "OK");
+                await DisplayAlert("Error reading attachment", exception.ToString(), "OK");
             }
         }
 

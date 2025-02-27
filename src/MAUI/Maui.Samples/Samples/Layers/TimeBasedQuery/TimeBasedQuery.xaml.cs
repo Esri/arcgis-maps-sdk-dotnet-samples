@@ -86,7 +86,7 @@ namespace ArcGIS.Samples.TimeBasedQuery
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                await DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

@@ -112,7 +112,7 @@ namespace ArcGIS
             base.OnNavigatedFrom(args);
 
             // Check that the navigation is backward from the sample and not forward into another page in the sample.
-            if (!Application.Current.MainPage.Navigation.NavigationStack.OfType<SamplePage>().Any())
+            if (!Navigation.NavigationStack.OfType<SamplePage>().Any())
             {
                 // Explicit cleanup of the Map and SceneView instead of waiting for garbage collector can help when
                 // lots of geoviews are being opened and closed
@@ -223,7 +223,7 @@ namespace ArcGIS
 #if IOS
                 // Need to set the viewport on iOS to scale page correctly.
                 "<meta name=\"viewport\" content=\"width=" +
-                Application.Current.MainPage.Width +
+                Width +
                 ", shrink-to-fit=YES\">" +
 #endif
                 "</head><body class=\"markdown-body\">" +

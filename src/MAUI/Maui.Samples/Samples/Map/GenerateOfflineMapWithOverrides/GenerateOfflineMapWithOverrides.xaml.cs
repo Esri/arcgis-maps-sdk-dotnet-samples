@@ -88,7 +88,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Alert", ex.ToString(), "OK");
+                await DisplayAlert("Alert", ex.ToString(), "OK");
             }
         }
 
@@ -158,7 +158,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
                         // Check for job failure (writing the output was denied, e.g.).
                         if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
                         {
-                            await Application.Current.MainPage.DisplayAlert("Alert", "Generate offline map package failed.", "OK");
+                            await DisplayAlert("Alert", "Generate offline map package failed.", "OK");
                             BusyIndicator.IsVisible = false;
                         }
 
@@ -174,7 +174,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
 
                             // Show layer errors.
                             string errorText = errorBuilder.ToString();
-                            await Application.Current.MainPage.DisplayAlert("Alert", errorText, "OK");
+                            await DisplayAlert("Alert", errorText, "OK");
                         }
 
                         // Display the offline map.
@@ -187,19 +187,19 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
                         MyMapView.InteractionOptions.IsEnabled = true;
 
                         // Show a message that the map is offline.
-                        await Application.Current.MainPage.DisplayAlert("Alert", "Map is offline.", "OK");
+                        await DisplayAlert("Alert", "Map is offline.", "OK");
 
                         TakeMapOfflineButton.IsEnabled = false;
                     }
                     catch (TaskCanceledException)
                     {
                         // Generate offline map task was canceled.
-                        await Application.Current.MainPage.DisplayAlert("Alert", "Taking map offline was canceled.", "OK");
+                        await DisplayAlert("Alert", "Taking map offline was canceled.", "OK");
                     }
                     catch (Exception ex)
                     {
                         // Exception while taking the map offline.
-                        await Application.Current.MainPage.DisplayAlert("Alert", ex.ToString(), "OK");
+                        await DisplayAlert("Alert", ex.ToString(), "OK");
                     }
                     finally
                     {
@@ -213,7 +213,7 @@ namespace ArcGIS.Samples.GenerateOfflineMapWithOverrides
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Alert", ex.ToString(), "OK");
+                await DisplayAlert("Alert", ex.ToString(), "OK");
             }
         }
 

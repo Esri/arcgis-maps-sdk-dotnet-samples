@@ -72,7 +72,7 @@ namespace ArcGIS.Samples.RasterColormapRenderer
             catch (Exception e)
             {
                 Debug.WriteLine(e.Message);
-                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
+                await DisplayAlert("Error", e.Message, "OK");
             }
         }
     }

@@ -58,7 +58,7 @@ namespace ArcGIS.Samples.ReverseGeocode
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await DisplayAlert("Error", e.ToString(), "OK");
             }
 
             // Set the initial viewpoint.
@@ -103,7 +103,7 @@ namespace ArcGIS.Samples.ReverseGeocode
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Application.Current.MainPage.DisplayAlert("No results", "No results found", "OK");
+                await DisplayAlert("No results", "No results found", "OK");
             }
         }
 

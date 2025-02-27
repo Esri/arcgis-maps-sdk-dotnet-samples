@@ -35,7 +35,6 @@ namespace ArcGIS
     {
         private ContentPage _sampleContent;
         private Assembly _assembly;
-        private int _lastViewedFileIndex;
 
         // single-instance webviews reused on each view, to avoid a memory leak in webview
         private static WebView DescriptionView = new WebView();
@@ -487,10 +486,11 @@ namespace ArcGIS
 
         private void OpenSourceCodePage()
         {
+            // Initially show the C# code.
             if (SourceFiles.Any())
             {
-                _selectedFile = SourceFiles[_lastViewedFileIndex];
-                FilePicker.SelectedIndex = _lastViewedFileIndex;
+                _selectedFile = SourceFiles[0];
+                FilePicker.SelectedIndex = 0;
             }
 
             SourceCodePage.IsVisible = true;

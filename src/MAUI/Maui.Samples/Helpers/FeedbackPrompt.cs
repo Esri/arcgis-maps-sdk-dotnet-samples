@@ -20,7 +20,7 @@ namespace ArcGIS.Helpers
 
         public async static Task ShowFeedbackPromptAsync()
         {
-            await DisplayActionSheet("Open an issue on GitHub:", "Cancel", null, [BugReport, FeatureRequest]).ContinueWith((result) =>
+            await Application.Current.Windows[0].Page.DisplayActionSheet("Open an issue on GitHub:", "Cancel", null, [BugReport, FeatureRequest]).ContinueWith((result) =>
             {
                 switch (result.Result)
                 {

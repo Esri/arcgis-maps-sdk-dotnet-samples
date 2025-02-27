@@ -62,7 +62,7 @@ namespace ArcGIS.Helpers
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Login failed", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Login failed", ex.Message, "OK");
             }
 
             return loggedIn;

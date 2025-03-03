@@ -1,7 +1,9 @@
+import json
 import shutil
 from datetime import datetime
 import os
 import sys
+import re
 
 # Platforms
 Platforms = ["WPF", "MAUI", "WinUI"]
@@ -259,32 +261,51 @@ def new_sample_main(full_directory):
     orchestrate_file_copy(Platforms, full_directory, category_path, sample_name, Replacements) 
 
 def copy_with_rename(platforms, root, old_cat, new_cat, old_name, new_name, Replacements):
+    old_cat = old_cat.title().replace(' ', '')
+    new_cat = new_cat.title().replace(' ', '')
     for platform in platforms:
         file_list = [old_name + ".cs", old_name + ".xaml.cs", old_name + ".xaml", "readme.md", "readme.metadata.json"]
         screenshot_file = old_name + ".jpg"
         if (platform == "MAUI"):
             screenshot_file = screenshot_file.lower()
         file_list.append(screenshot_file)
+        plat_root = get_platform_root(platform, root)
+        old_metadata_path = os.path.join(plat_root, "Samples", old_cat, old_name, "readme.metadata.json")
+        old_sample_friendly_name = determine_old_friendly_name(old_metadata_path)
+        new_sample_friendly_name = determine_new_friendly_name(new_name)
         for filename in file_list:
-            plat_root = get_platform_root(platform, root)
-            old_path = os.path.join(plat_root, "Samples", old_cat.title().replace(' ', ''), old_name, filename)
-            new_path = os.path.join(plat_root, "Samples", new_cat.title().replace(' ', ''), new_name, filename.replace(old_name, new_name))
+            old_path = os.path.join(plat_root, "Samples", old_cat, old_name, filename)
+            new_path = os.path.join(plat_root, "Samples", new_cat, new_name, filename.replace(old_name, new_name))
             old_content = ""
             if not os.path.isfile(old_path):
                 continue
             with open(old_path, 'r+') as fd:
                 if not filename.endswith(".jpg"):
-                    old_content = fd.read().replace(old_name, new_name)
+                    old_content = fd.read().replace(old_name, new_name).replace(old_sample_friendly_name, new_sample_friendly_name).replace(f"category: \"{old_cat}\"", f"category: \"{new_cat}\"").replace(f"\"category\": \"{old_cat}\"", f"\"category\": \"{new_cat}\"")
                     if (platform == "MAUI" and (filename.endswith(".json") or filename.endswith(".md"))):
                         old_content = old_content.replace(old_name.lower() + ".jpg", new_name.lower() + ".jpg")
                     with open(new_path, 'w') as fd:
                         fd.write(old_content)
                 else:
                     if (platform == "MAUI"):
-                         new_path = os.path.join(plat_root, "Samples", new_cat.title().replace(' ', ''), new_name, new_name.lower() + ".jpg")
+                         new_path = os.path.join(plat_root, "Samples", new_cat, new_name, new_name.lower() + ".jpg")
                     shutil.copyfile(old_path, new_path)
             # remove the copied file
             os.remove(old_path)
+
+def determine_new_friendly_name(new_name: str):
+    # new sample title is the new sample name not in pascal case
+    # add a space between capital and non-capital letters
+    s = re.sub(r'([A-Z])', r' \1', new_name).strip().lower()
+    return s[0].upper() + s[1:]
+
+def determine_old_friendly_name(old_metadata_file: str):
+    with open(old_metadata_file, 'r+') as f:
+        sample_metadata = json.load(f)
+        old_sample_friendly_name = sample_metadata["title"]
+        f.close()
+    return old_sample_friendly_name
+    
 def delete_sample_folder(platforms, root, category, sample_name):
     for platform in platforms:
         plat_root = get_platform_root(platform, root)

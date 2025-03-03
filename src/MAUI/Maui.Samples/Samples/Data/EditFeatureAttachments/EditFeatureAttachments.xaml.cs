@@ -27,6 +27,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
         tags: new[] { "JPEG", "PDF", "PNG", "TXT", "data", "image", "picture" })]
     public partial class EditFeatureAttachments : ContentPage
     {
+#pragma warning disable CA1422
         // URL to the feature service.
         private const string FeatureServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0";
 
@@ -419,4 +420,5 @@ namespace ArcGIS.Samples.EditFeatureAttachments
         }
 #endif
     }
+#pragma warning restore CA1422
 }

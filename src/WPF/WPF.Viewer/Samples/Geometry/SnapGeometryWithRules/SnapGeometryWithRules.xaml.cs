@@ -72,10 +72,10 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
         public SnapGeometryWithRules()
         {
             InitializeComponent();
-            Initialize();
+            _ = InitializeAsync();
         }
 
-        private void Initialize()
+        private async Task InitializeAsync()
         {
             try
             {
@@ -90,8 +90,7 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
                 // Snapping in full resolution improves snapping accuracy.
                 MyMapView.Map.LoadSettings.FeatureTilingMode = FeatureTilingMode.EnabledWithFullResolutionWhenSupported;
 
-                // When the spatial reference changes (the map loads) add the local geodatabase tables as feature layers.
-                MyMapView.SpatialReferenceChanged += MyMapView_SpatialReferenceChanged;
+                await AddLayersToMapFromGeodatabase();
 
                 // Create a graphics overlay and add it to the map view.
                 MyMapView.GraphicsOverlays.Add(new GraphicsOverlay() { Id = GraphicsId, Renderer = _defaultGraphicRenderer });
@@ -114,115 +113,100 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
             }
         }
 
-        private async void MyMapView_SpatialReferenceChanged(object sender, EventArgs e)
+        private async Task AddLayersToMapFromGeodatabase()
         {
-            try
+            // Get the path to the local geodatabase for this platform (temp directory, for example).
+            string geodatabasePath = DataManager.GetDataFolder("0fd3a39660d54c12b05d5f81f207dffd", "NapervilleGasUtilities.geodatabase");
+
+            // See if the geodatabase file is already present.
+            if (File.Exists(geodatabasePath))
             {
-                if (MyMapView.Map == null)
+                // Open the geodatabase.
+                _geodatabase = await Geodatabase.OpenAsync(geodatabasePath);
+
+                // Subscribe to the unloaded event to close the geodatabase when the sample is closed.
+                Unloaded += SampleUnloaded;
+
+                // Get and load feature tables from the geodatabase. 
+                // Create subtype feature layers from the feature tables and add them to the map.
+                var pipeTable = _geodatabase.GetGeodatabaseFeatureTable(PipelineLayerName);
+                await pipeTable.LoadAsync();
+
+                var pipeLayer = new SubtypeFeatureLayer(pipeTable);
+                MyMapView.Map.OperationalLayers.Add(pipeLayer);
+
+                var deviceTable = _geodatabase.GetGeodatabaseFeatureTable(DeviceLayerName);
+                await deviceTable.LoadAsync();
+
+                SubtypeFeatureLayer devicelayer = new SubtypeFeatureLayer(deviceTable);
+                MyMapView.Map.OperationalLayers.Add(devicelayer);
+
+                var junctionTable = _geodatabase.GetGeodatabaseFeatureTable(JunctionLayerName);
+                await junctionTable.LoadAsync();
+
+                SubtypeFeatureLayer junctionlayer = new SubtypeFeatureLayer(junctionTable);
+                MyMapView.Map.OperationalLayers.Add(junctionlayer);
+
+                // Add the utility network to the map and load it.
+                var utilityNetwork = _geodatabase.UtilityNetworks.FirstOrDefault();
+                MyMapView.Map.UtilityNetworks.Add(utilityNetwork);
+                await utilityNetwork.LoadAsync();
+
+                // Load the map.
+                await MyMapView.Map.LoadAsync();
+
+                // Ensure all layers are loaded.
+                await Task.WhenAll(MyMapView.Map.OperationalLayers.ToList().Select(layer => layer.LoadAsync()).ToList());
+
+                // Set the visibility of the sublayers and store the default renderer for the distribution and service pipe layers.
+                // In this sample we will only set a small subset of sublayers to be visible.
+                foreach (var sublayer in pipeLayer.SubtypeSublayers)
                 {
-                    return;
-                }
-
-                // Unhook the event.
-                MyMapView.SpatialReferenceChanged -= MyMapView_SpatialReferenceChanged;
-
-                // Get the path to the local geodatabase for this platform (temp directory, for example).
-                string geodatabasePath = DataManager.GetDataFolder("0fd3a39660d54c12b05d5f81f207dffd", "NapervilleGasUtilities.geodatabase");
-
-                // See if the geodatabase file is already present.
-                if (File.Exists(geodatabasePath))
-                {
-                    // Open the geodatabase.
-                    _geodatabase = await Geodatabase.OpenAsync(geodatabasePath);
-
-                    // Subscribe to the unloaded event to close the geodatabase when the sample is closed.
-                    Unloaded += SampleUnloaded;
-
-                    // Get and load feature tables from the geodatabase. 
-                    // Create subtype feature layers from the feature tables and add them to the map.
-                    var pipeTable = _geodatabase.GetGeodatabaseFeatureTable(PipelineLayerName);
-                    await pipeTable.LoadAsync();
-
-                    var pipeLayer = new SubtypeFeatureLayer(pipeTable);
-                    MyMapView.Map.OperationalLayers.Add(pipeLayer);
-
-                    var deviceTable = _geodatabase.GetGeodatabaseFeatureTable(DeviceLayerName);
-                    await deviceTable.LoadAsync();
-
-                    SubtypeFeatureLayer devicelayer = new SubtypeFeatureLayer(deviceTable);
-                    MyMapView.Map.OperationalLayers.Add(devicelayer);
-
-                    var junctionTable = _geodatabase.GetGeodatabaseFeatureTable(JunctionLayerName);
-                    await junctionTable.LoadAsync();
-
-                    SubtypeFeatureLayer junctionlayer = new SubtypeFeatureLayer(junctionTable);
-                    MyMapView.Map.OperationalLayers.Add(junctionlayer);
-
-                    // Add the utility network to the map and load it.
-                    var utilityNetwork = _geodatabase.UtilityNetworks.FirstOrDefault();
-                    MyMapView.Map.UtilityNetworks.Add(utilityNetwork);
-                    await utilityNetwork.LoadAsync();
-
-                    // Load the map.
-                    await MyMapView.Map.LoadAsync();
-
-                    // Ensure all layers are loaded.
-                    await Task.WhenAll(MyMapView.Map.OperationalLayers.ToList().Select(layer => layer.LoadAsync()).ToList());
-
-                    // Set the visibility of the sublayers and store the default renderer for the distribution and service pipe layers.
-                    // In this sample we will only set a small subset of sublayers to be visible.
-                    foreach (var sublayer in pipeLayer.SubtypeSublayers)
+                    switch (sublayer.Name)
                     {
-                        switch (sublayer.Name)
-                        {
-                            case DistributionPipeName:
-                                _distributionPipeLayer = sublayer;
-                                _defaultDistributionRenderer = sublayer.Renderer;
-                                break;
-                            case ServicePipeLayerName:
-                                _servicePipeLayer = sublayer;
-                                _defaultServiceRenderer = sublayer.Renderer;
-                                break;
-                            default:
-                                sublayer.IsVisible = false;
-                                break;
-                        }
-                    }
-
-                    // To avoid too much visual clutter, only show the Excess Flow Valve and Controllable Tee sublayers in the device layer.
-                    foreach (var sublayer in devicelayer.SubtypeSublayers)
-                    {
-                        switch (sublayer.Name)
-                        {
-                            case ExcessFlowValveName:
-                            case ControllableTeeName:
-                                sublayer.IsVisible = true;
-                                break;
-                            default:
-                                sublayer.IsVisible = false;
-                                break;
-                        }
+                        case DistributionPipeName:
+                            _distributionPipeLayer = sublayer;
+                            _defaultDistributionRenderer = sublayer.Renderer;
+                            break;
+                        case ServicePipeLayerName:
+                            _servicePipeLayer = sublayer;
+                            _defaultServiceRenderer = sublayer.Renderer;
+                            break;
+                        default:
+                            sublayer.IsVisible = false;
+                            break;
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                // Show an error message.
-                MessageBox.Show(ex.Message);
+
+                // To avoid too much visual clutter, only show the Excess Flow Valve and Controllable Tee sublayers in the device layer.
+                foreach (var sublayer in devicelayer.SubtypeSublayers)
+                {
+                    switch (sublayer.Name)
+                    {
+                        case ExcessFlowValveName:
+                        case ControllableTeeName:
+                            sublayer.IsVisible = true;
+                            break;
+                        default:
+                            sublayer.IsVisible = false;
+                            break;
+                    }
+                }
             }
         }
 
         private async Task SetSnapSettings(UtilityAssetType assetType)
         {
             // Get the snap rules associated with the asset type.
-            SnapRules snapRules = await SnapRules.CreateSnapRulesAsync(MyMapView.Map.UtilityNetworks[0], assetType);
+            SnapRules snapRules = await SnapRules.CreateAsync(MyMapView.Map.UtilityNetworks[0], assetType);
 
-            // Synchronize the snap source collection with the map's operational layers using the snap rules. 
-            MyMapView.GeometryEditor.SnapSettings.SyncSourceSettings(snapRules);
+            // Synchronize the snap source collection with the map's operational layers using the snap rules.
+            // Setting SnapSourceEnablingBehavior.SetFromRules will enable snapping for the layers and sublayers specified in the snap rules.
+            MyMapView.GeometryEditor.SnapSettings.SyncSourceSettings(snapRules, SnapSourceEnablingBehavior.SetFromRules);
 
-            // Enable snapping for the pipeline subtype feature layer. This is required for snapping of the subtype sublayers contained on this subtype feature layer.
-            SnapSourceSettings pipelineSnapSourceSettings = MyMapView.GeometryEditor.SnapSettings.SourceSettings.FirstOrDefault(sourceSetting => sourceSetting.Source is SubtypeFeatureLayer subtypeFeatureLayer && subtypeFeatureLayer.Name == PipelineLayerName);
-            pipelineSnapSourceSettings.IsEnabled = true;
+            // Enable snapping for the graphics overlay.
+            var graphicsSourceSetting = MyMapView.GeometryEditor.SnapSettings.SourceSettings.First(sourceSetting => sourceSetting.Source is GraphicsOverlay);
+            graphicsSourceSetting.IsEnabled = true;
 
             var snapSources = new List<SnapSourceSettingsVM>();
 
@@ -386,9 +370,6 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
 
             // Set the symbol for the snap source displayed in the UI.
             _ = SetSymbolAsync();
-
-            // Enable snapping.
-            SnapSourceSettings.IsEnabled = true;
         }
 
         private async Task SetSymbolAsync()

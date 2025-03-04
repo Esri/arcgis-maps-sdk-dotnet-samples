@@ -27,7 +27,6 @@ namespace ArcGIS.Samples.EditFeatureAttachments
         tags: new[] { "JPEG", "PDF", "PNG", "TXT", "data", "image", "picture" })]
     public partial class EditFeatureAttachments : ContentPage
     {
-#pragma warning disable CA1422
         // URL to the feature service.
         private const string FeatureServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/DamageAssessment/FeatureServer/0";
 
@@ -287,8 +286,10 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             // Create and define UIImagePickerController.
             _imagePicker = new UIImagePickerController
             {
+#pragma warning disable CA1422
                 SourceType = UIImagePickerControllerSourceType.PhotoLibrary,
                 MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary)
+#pragma warning restore CA1422
             };
 
             // Set event handlers.
@@ -296,7 +297,10 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             _imagePicker.Canceled += OnImagePickerCancelled;
 
             // Present UIImagePickerController.
-            UIWindow window = UIApplication.SharedApplication.KeyWindow;
+            UIWindow window = UIApplication.SharedApplication.ConnectedScenes
+                .OfType<UIWindowScene>()
+                .SelectMany(s => s.Windows)
+                .FirstOrDefault(w => w.IsKeyWindow);
             var viewController = window.RootViewController;
             viewController.PresentViewController(_imagePicker, true, null);
 
@@ -364,7 +368,10 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             _imagePicker.WasCancelled += DocumentCancelled;
 
             // Present the UIDocumentPickerViewController.
-            UIWindow window = UIApplication.SharedApplication.KeyWindow;
+            UIWindow window = UIApplication.SharedApplication.ConnectedScenes
+                .OfType<UIWindowScene>()
+                .SelectMany(s => s.Windows)
+                .FirstOrDefault(w => w.IsKeyWindow);
             var viewController = window.RootViewController;
             viewController.PresentViewController(_imagePicker, true, null);
 
@@ -420,5 +427,4 @@ namespace ArcGIS.Samples.EditFeatureAttachments
         }
 #endif
     }
-#pragma warning restore CA1422
 }

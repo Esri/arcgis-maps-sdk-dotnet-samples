@@ -21,7 +21,7 @@ When opened, the sample displays an electronic navigational chart. Tap on the ma
 2. To select Enc features:
     1. Use `GeoViewTapped()` on the map view to get the screen point from the tapped location.
     2. Identify nearby features to the tapped location with `IdentifyLayersAsync()`.
-    3. From the resulting `IdentifyLayerResult`, get the `EncLayer` from `layerContent` and the `EncFeature`(s) from `GeoElements`.
+    3. From the resulting `IdentifyLayerResult`, get the `EncLayer` from `LayerContent` and the `EncFeature`(s) from `GeoElements`.
     4. Use `EncLayer.SelectFeature()` to select the Enc feature(s).
 3. To set Enc display settings:
     1. Get the `EncDisplaySettings` instance from `EncEnvironmentSettings.Default.DisplaySettings`.

@@ -101,7 +101,7 @@ namespace ArcGIS.Samples.CreateMobileGeodatabase
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 
@@ -131,7 +131,7 @@ namespace ArcGIS.Samples.CreateMobileGeodatabase
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 
@@ -178,7 +178,7 @@ namespace ArcGIS.Samples.CreateMobileGeodatabase
             }
             catch (Exception ex)
             {
-                Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 
@@ -195,7 +195,7 @@ namespace ArcGIS.Samples.CreateMobileGeodatabase
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 

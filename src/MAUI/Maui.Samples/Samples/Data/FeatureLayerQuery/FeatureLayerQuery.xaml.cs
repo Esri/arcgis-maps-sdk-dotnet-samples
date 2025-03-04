@@ -128,12 +128,12 @@ namespace ArcGIS.Samples.FeatureLayerQuery
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("State Not Found!", "Add a valid state name.", "OK");
+                    await DisplayAlert("State Not Found!", "Add a valid state name.", "OK");
                 }
             }
             catch (Exception)
             {
-                await Application.Current.MainPage.DisplayAlert("Sample error", "An error occurred", "OK");
+                await DisplayAlert("Sample error", "An error occurred", "OK");
             }
         }
     }

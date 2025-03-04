@@ -68,7 +68,7 @@ namespace ArcGIS
 #if IOS
             // Need to set the viewport on iOS to scale page correctly.
             string viewportHTML = "<meta name=\"viewport\" content=\"width=" +
-                Application.Current.MainPage.Width +
+                Width +
                 ", shrink-to-fit=YES\">";
 #endif
             string htmlStart = $"<!doctype html><head><style>{cssContent}body {{padding: 10px; }}</style>";
@@ -152,12 +152,12 @@ namespace ArcGIS
                 }
                 catch (OperationCanceledException)
                 {
-                    await Application.Current.MainPage.DisplayAlert(string.Empty, "Download canceled", "OK");
+                    await DisplayAlert(string.Empty, "Download canceled", "OK");
                 }
                 catch (Exception exception)
                 {
                     Debug.WriteLine(exception);
-                    await Application.Current.MainPage.DisplayAlert("Error", "Couldn't download data for that sample", "OK");
+                    await DisplayAlert("Error", "Couldn't download data for that sample", "OK");
                 }
                 finally
                 {
@@ -207,12 +207,12 @@ namespace ArcGIS
                             Debug.WriteLine(ex.Message);
                         }
                     }
-                    await Application.Current.MainPage.DisplayAlert("Success", $"Offline data deleted for {sampleInfo.SampleName}", "OK");
+                    await DisplayAlert("Success", $"Offline data deleted for {sampleInfo.SampleName}", "OK");
                 }
                 catch (Exception exception)
                 {
                     Debug.WriteLine(exception);
-                    await Application.Current.MainPage.DisplayAlert("Error", $"Couldn't delete offline data.", "OK");
+                    await DisplayAlert("Error", $"Couldn't delete offline data.", "OK");
                 }
                 finally
                 {
@@ -248,7 +248,7 @@ namespace ArcGIS
                             }
                             catch (OperationCanceledException)
                             {
-                                await Application.Current.MainPage.DisplayAlert(string.Empty, "Download canceled", "OK");
+                                await DisplayAlert(string.Empty, "Download canceled", "OK");
                                 return;
                             }
                             catch (Exception ex)
@@ -259,12 +259,12 @@ namespace ArcGIS
                         }
                     }
                 }
-                await Application.Current.MainPage.DisplayAlert(string.Empty, "All data downloaded", "OK");
+                await DisplayAlert(string.Empty, "All data downloaded", "OK");
             }
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                await Application.Current.MainPage.DisplayAlert("Error", exception.Message, "OK");
+                await DisplayAlert("Error", exception.Message, "OK");
             }
             finally
             {
@@ -293,12 +293,12 @@ namespace ArcGIS
                     }
                 }
 
-                await Application.Current.MainPage.DisplayAlert("Success", "All data deleted", "OK");
+                await DisplayAlert("Success", "All data deleted", "OK");
             }
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                await Application.Current.MainPage.DisplayAlert("Error", exception.Message, "OK");
+                await DisplayAlert("Error", exception.Message, "OK");
             }
             finally
             {

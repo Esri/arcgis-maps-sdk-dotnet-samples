@@ -101,7 +101,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
         {
             try
             {
-                IsBusy.IsVisible = true;
+                BusyIndicator.IsVisible = true;
                 Status.Text = "Loading a webmap...";
 
                 // Add credential for this webmap.
@@ -137,7 +137,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                 var sgdb =
                     utilityNetwork.ServiceGeodatabase
                     ?? throw new InvalidOperationException("Expected a service geodatabase");
-                IsBusy.IsVisible = true;
+                BusyIndicator.IsVisible = true;
 
                 // Restrict editing and tracing on a random branch.
                 var parameters = new ServiceVersionParameters();
@@ -237,7 +237,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             }
             finally
             {
-                IsBusy.IsVisible = false;
+                BusyIndicator.IsVisible = false;
             }
         }
 
@@ -251,7 +251,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
 
                 if (utilityNetwork.Definition.Capabilities.SupportsNetworkState)
                 {
-                    IsBusy.IsVisible = true;
+                    BusyIndicator.IsVisible = true;
                     Status.Text = "Getting utility network state...";
 
                     var state = await utilityNetwork.GetStateAsync();
@@ -287,7 +287,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             }
             finally
             {
-                IsBusy.IsVisible = false;
+                BusyIndicator.IsVisible = false;
             }
         }
 
@@ -306,7 +306,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                     ?.Extent
                     ?? throw new InvalidOperationException("Expected current extent");
 
-                IsBusy.IsVisible = true;
+                BusyIndicator.IsVisible = true;
                 Status.Text = "Validating utility network topology...";
 
                 // Get the validation result.
@@ -328,7 +328,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             }
             finally
             {
-                IsBusy.IsVisible = false;
+                BusyIndicator.IsVisible = false;
             }
         }
 
@@ -336,7 +336,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
         {
             try
             {
-                IsBusy.IsVisible = true;
+                BusyIndicator.IsVisible = true;
                 Status.Text = "Identifying feature to edit...";
 
                 // Perform an identify to determine if a user tapped on a feature.
@@ -408,7 +408,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             }
             finally
             {
-                IsBusy.IsVisible = false;
+                BusyIndicator.IsVisible = false;
             }
         }
 
@@ -432,7 +432,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                     return;
                 }
 
-                IsBusy.IsVisible = true;
+                BusyIndicator.IsVisible = true;
 
                 Status.Text = "Updating feature...";
                 _featureToEdit.Attributes[fieldName] = codedValue.Code;
@@ -473,7 +473,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
                 AttributePicker.IsVisible = false;
                 ClearBtn.IsEnabled = false;
                 ValidateBtn.IsEnabled = true;
-                IsBusy.IsVisible = false;
+                BusyIndicator.IsVisible = false;
             }
         }
 
@@ -486,7 +486,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             try
             {
                 // Update the UI.
-                IsBusy.IsVisible = true;
+                BusyIndicator.IsVisible = true;
                 Status.Text = $"Running a downstream trace...";
 
                 // Clear previous selection from the layers.
@@ -528,7 +528,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             }
             finally
             {
-                IsBusy.IsVisible = false;
+                BusyIndicator.IsVisible = false;
             }
         }
 

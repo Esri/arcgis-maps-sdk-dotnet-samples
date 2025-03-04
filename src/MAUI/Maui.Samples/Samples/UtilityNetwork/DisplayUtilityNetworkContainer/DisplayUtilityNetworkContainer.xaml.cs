@@ -105,7 +105,7 @@ namespace ArcGIS.Samples.DisplayUtilityNetworkContainer
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {
@@ -201,7 +201,7 @@ namespace ArcGIS.Samples.DisplayUtilityNetworkContainer
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

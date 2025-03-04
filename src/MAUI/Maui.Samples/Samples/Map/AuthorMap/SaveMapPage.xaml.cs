@@ -52,19 +52,19 @@ namespace ArcGIS.Samples.AuthorMap
                 OnSaveClicked?.Invoke(this, mapSavedArgs);
 
                 // Close the dialog
-                Application.Current.MainPage.Navigation.PopAsync();
+                Navigation.PopAsync();
             }
             catch (Exception ex)
             {
                 // Show the exception message (dialog will stay open so user can try again)
-                Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
         private void CancelButtonClicked(object sender, EventArgs e)
         {
             // If the user cancels, just navigate back to the previous page
-            Application.Current.MainPage.Navigation.PopAsync();
+            Navigation.PopAsync();
         }
     }
 

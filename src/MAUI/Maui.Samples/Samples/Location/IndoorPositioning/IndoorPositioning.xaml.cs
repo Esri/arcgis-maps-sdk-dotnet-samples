@@ -92,7 +92,7 @@ namespace ArcGIS.Samples.IndoorPositioning
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 
@@ -155,7 +155,7 @@ namespace ArcGIS.Samples.IndoorPositioning
             get
             {
                 // Devices running Android 12 or higher need the `BluetoothScan` permission. Android 11 and below require the `Bluetooth` and `BluetoothAdmin` permissions.
-                if (Android.OS.Build.VERSION.SdkInt > Android.OS.BuildVersionCodes.S)
+                if (OperatingSystem.IsAndroidVersionAtLeast(31))
                 {
                     return new List<(string androidPermission, bool isRuntime)>
                     {

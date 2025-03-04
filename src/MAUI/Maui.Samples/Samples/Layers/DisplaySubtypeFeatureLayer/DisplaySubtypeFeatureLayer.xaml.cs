@@ -121,7 +121,7 @@ namespace ArcGIS.Samples.DisplaySubtypeFeatureLayer
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 

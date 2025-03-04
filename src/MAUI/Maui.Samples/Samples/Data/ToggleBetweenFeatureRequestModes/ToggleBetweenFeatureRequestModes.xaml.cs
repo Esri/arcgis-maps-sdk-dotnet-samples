@@ -68,7 +68,7 @@ namespace ArcGIS.Samples.ToggleBetweenFeatureRequestModes
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -129,7 +129,7 @@ namespace ArcGIS.Samples.ToggleBetweenFeatureRequestModes
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

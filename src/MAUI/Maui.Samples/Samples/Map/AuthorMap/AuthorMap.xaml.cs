@@ -79,7 +79,7 @@ namespace ArcGIS.Samples.AuthorMap
             mapInputForm.OnSaveClicked += SaveMapAsync;
 
             // Navigate to the SaveMapPage UI.
-            Application.Current.MainPage.Navigation.PushAsync(mapInputForm);
+            Navigation.PushAsync(mapInputForm);
         }
 
         // Event handler to get information entered by the user and save the map.
@@ -121,7 +121,7 @@ namespace ArcGIS.Samples.AuthorMap
                     await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumbnailImage);
 
                     // Report a successful save.
-                    await Application.Current.MainPage.DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
+                    await DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
                 }
                 else
                 {
@@ -136,13 +136,13 @@ namespace ArcGIS.Samples.AuthorMap
                     await myMap.SaveAsync();
 
                     // Report update was successful.
-                    await Application.Current.MainPage.DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
+                    await DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message.
-                await Application.Current.MainPage.DisplayAlert("Unable to save map", ex.Message, "OK");
+                await DisplayAlert("Unable to save map", ex.Message, "OK");
             }
             finally
             {
@@ -162,7 +162,7 @@ namespace ArcGIS.Samples.AuthorMap
         {
             try
             {
-                string selectionName = await Application.Current.MainPage.DisplayActionSheet("Select basemap", "Cancel", null, _basemaps.Keys.ToArray());
+                string selectionName = await DisplayActionSheet("Select basemap", "Cancel", null, _basemaps.Keys.ToArray());
 
                 if (selectionName == "Cancel") return;
 
@@ -181,7 +181,7 @@ namespace ArcGIS.Samples.AuthorMap
             {
                 string[] inMapNames = MyMapView.Map.OperationalLayers.Select(l => l.Name).ToArray();
                 string[] optionNames = _operationalLayerUrls.Where(l => !inMapNames.Contains(l.Key)).Select(l => l.Key).ToArray();
-                string selectionName = await Application.Current.MainPage.DisplayActionSheet("Select layer to add", "Cancel", null, optionNames);
+                string selectionName = await DisplayActionSheet("Select layer to add", "Cancel", null, optionNames);
 
                 if (selectionName == "Cancel") return;
 
@@ -204,7 +204,7 @@ namespace ArcGIS.Samples.AuthorMap
         {
             try
             {
-                string selectionName = await Application.Current.MainPage.DisplayActionSheet("Select layer to remove", "Cancel", null, MyMapView.Map.OperationalLayers.Select(l => l.Name).ToArray());
+                string selectionName = await DisplayActionSheet("Select layer to remove", "Cancel", null, MyMapView.Map.OperationalLayers.Select(l => l.Name).ToArray());
 
                 if (selectionName == "Cancel") return;
 

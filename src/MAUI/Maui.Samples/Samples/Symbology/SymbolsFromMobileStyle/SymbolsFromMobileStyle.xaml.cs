@@ -97,7 +97,7 @@ namespace ArcGIS.Samples.SymbolsFromMobileStyle
                     // Create an image source from the swatch.
                     Stream imageBuffer = await swatch.GetEncodedBufferAsync();
                     byte[] imageData = new byte[imageBuffer.Length];
-                    imageBuffer.Read(imageData, 0, imageData.Length);
+                    imageBuffer.ReadExactly(imageData);
                     ImageSource symbolImage = ImageSource.FromStream(() => new MemoryStream(imageData));
 
                     // Create a symbol layer info object to represent the symbol in the list.
@@ -157,7 +157,7 @@ namespace ArcGIS.Samples.SymbolsFromMobileStyle
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -174,7 +174,7 @@ namespace ArcGIS.Samples.SymbolsFromMobileStyle
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

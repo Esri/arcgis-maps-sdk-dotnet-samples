@@ -47,7 +47,7 @@ namespace ArcGIS.Samples.TakeScreenshot
                 // Create image bitmap by getting stream from the exported image.
                 var buffer = await exportedImage.GetEncodedBufferAsync();
                 byte[] data = new byte[buffer.Length];
-                buffer.Read(data, 0, data.Length);
+                buffer.ReadExactly(data);
                 var bitmap = ImageSource.FromStream(() => new MemoryStream(data));
 
                 // Add elements into the layout.
@@ -57,7 +57,7 @@ namespace ArcGIS.Samples.TakeScreenshot
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                await DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 

@@ -37,7 +37,7 @@
                        Grid.Row="2"
                        Grid.ColumnSpan="2"
                        Text="Loading sample..." />
-                <ActivityIndicator x:Name="IsBusy"
+                <ActivityIndicator x:Name="BusyIndicator"
                                    Grid.Row="3"
                                    Grid.ColumnSpan="2"
                                    Height="15"

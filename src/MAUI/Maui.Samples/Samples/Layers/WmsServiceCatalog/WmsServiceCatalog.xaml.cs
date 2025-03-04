@@ -66,7 +66,7 @@ namespace ArcGIS.Samples.WmsServiceCatalog
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -107,7 +107,7 @@ namespace ArcGIS.Samples.WmsServiceCatalog
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

@@ -79,7 +79,7 @@ namespace ArcGIS.Helpers
                     await Shell.Current.Navigation.PopModalAsync(false);
                 }
 
-                await Application.Current.MainPage.DisplayAlert("", "Download cancelled", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("", "Download cancelled", "OK");
             }
             catch (Exception ex)
             {

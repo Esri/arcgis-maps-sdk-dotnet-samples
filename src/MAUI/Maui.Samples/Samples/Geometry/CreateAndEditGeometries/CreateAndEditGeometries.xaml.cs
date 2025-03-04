@@ -293,7 +293,7 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             catch (Exception ex)
             {
                 // Report exceptions.
-                await Application.Current.MainPage.DisplayAlert("Error editing", ex.Message, "OK");
+                await DisplayAlert("Error editing", ex.Message, "OK");
 
                 ResetFromEditingSession();
                 return;

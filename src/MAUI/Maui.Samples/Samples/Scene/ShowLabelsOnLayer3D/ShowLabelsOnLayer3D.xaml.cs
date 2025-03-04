@@ -65,7 +65,7 @@ namespace ArcGIS.Samples.ShowLabelsOnLayer3D
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
+                await DisplayAlert("Error", e.Message, "OK");
             }
         }
     }

@@ -86,7 +86,7 @@ namespace ArcGIS.Samples.RasterRenderingRule
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -95,7 +95,7 @@ namespace ArcGIS.Samples.RasterRenderingRule
             try
             {
                 // Display a picker to the user to choose among the available rendering rules for the image service raster
-                string myRenderingRuleInfoName = await Application.Current.MainPage.DisplayActionSheet("Select a Rendering Rule", "Cancel", null, _names.ToArray());
+                string myRenderingRuleInfoName = await DisplayActionSheet("Select a Rendering Rule", "Cancel", null, _names.ToArray());
 
                 // Loop through each rendering rule info in the image service raster
                 foreach (RenderingRuleInfo myRenderingRuleInfo in _myReadOnlyListRenderRuleInfos)
@@ -126,7 +126,7 @@ namespace ArcGIS.Samples.RasterRenderingRule
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

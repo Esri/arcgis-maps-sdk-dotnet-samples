@@ -74,7 +74,7 @@ namespace ArcGIS.Samples.GroupLayers
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
 
             // Add rows for any children of this layer if it is a group layer.

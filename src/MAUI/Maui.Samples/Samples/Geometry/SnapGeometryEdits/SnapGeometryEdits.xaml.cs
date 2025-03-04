@@ -180,7 +180,7 @@ namespace ArcGIS.Samples.SnapGeometryEdits
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error editing", ex.Message, "OK");
+                await DisplayAlert("Error editing", ex.Message, "OK");
 
                 // Reset the UI.
                 ResetFromEditingSession();

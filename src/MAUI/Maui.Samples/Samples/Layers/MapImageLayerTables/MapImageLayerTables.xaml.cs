@@ -84,7 +84,7 @@ namespace ArcGIS.Samples.MapImageLayerTables
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -125,7 +125,7 @@ namespace ArcGIS.Samples.MapImageLayerTables
                 ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
                 if (serviceRequestFeature == null)
                 {
-                    await Application.Current.MainPage.DisplayAlert("No Feature", "Related feature not found.", "OK");
+                    await DisplayAlert("No Feature", "Related feature not found.", "OK");
                     return;
                 }
 
@@ -147,7 +147,7 @@ namespace ArcGIS.Samples.MapImageLayerTables
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                await DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

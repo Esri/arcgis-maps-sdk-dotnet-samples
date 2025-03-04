@@ -48,7 +48,7 @@ namespace ArcGIS.Samples.OpenMapURL
             try
             {
                 // Show sheet and get title from the selection
-                string selectedMapTitle = await Application.Current.MainPage.DisplayActionSheet("Select map", "Cancel", null, _titles);
+                string selectedMapTitle = await DisplayActionSheet("Select map", "Cancel", null, _titles);
 
                 // If selected cancel do nothing
                 if (selectedMapTitle == null || selectedMapTitle == "Cancel") return;
@@ -61,7 +61,7 @@ namespace ArcGIS.Samples.OpenMapURL
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
     }

@@ -72,7 +72,7 @@ namespace ArcGIS.Samples.BrowseWfsLayers
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Application.Current.MainPage.DisplayAlert(ex.Message, "Error loading service", "OK");
+                await DisplayAlert(ex.Message, "Error loading service", "OK");
             }
             finally
             {
@@ -131,7 +131,7 @@ namespace ArcGIS.Samples.BrowseWfsLayers
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Application.Current.MainPage.DisplayAlert(ex.Message, "Error loading service", "OK");
+                await DisplayAlert(ex.Message, "Error loading service", "OK");
             }
             finally
             {

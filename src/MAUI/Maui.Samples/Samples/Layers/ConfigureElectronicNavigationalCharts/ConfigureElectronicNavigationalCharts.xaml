@@ -9,6 +9,7 @@
                         Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout Padding="5" Spacing="5">
+                <Label FontAttributes="Bold" Text="Tap on the map to select Enc features. Use the controls to adjust Enc mariner display settings." />
                 <Label Text="Color Scheme" />
                 <Picker x:Name="ColorSchemePicker" VerticalOptions="CenterAndExpand" />
                 <Label Text="Area Symbolization Type" />

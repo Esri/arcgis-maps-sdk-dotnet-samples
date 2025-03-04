@@ -15,6 +15,9 @@
         <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Border Style="{StaticResource BorderStyle}">
             <StackPanel>
+                <TextBlock FontWeight="Bold"
+                           Text="Tap on the map to select Enc features. Use the controls to adjust Enc mariner display settings."
+                           TextWrapping="WrapWholeWords" />
                 <TextBlock Text="Color scheme" />
                 <StackPanel Orientation="Horizontal">
                     <RadioButton x:Name="DayRadioButton"

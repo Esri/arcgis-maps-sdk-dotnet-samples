@@ -11,7 +11,10 @@
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Border Width="225" Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock FontWeight="Bold" Text="Color scheme" />
+                <TextBlock FontWeight="Bold"
+                           Text="Tap on the map to select Enc features. Use the controls to adjust Enc mariner display settings."
+                           TextWrapping="Wrap" />
+                <TextBlock Text="Color scheme" />
                 <StackPanel Orientation="Horizontal">
                     <RadioButton x:Name="DayRadioButton"
                                  Content="Day"
@@ -24,7 +27,7 @@
                                  Content="Night"
                                  GroupName="ColorScheme" />
                 </StackPanel>
-                <TextBlock FontWeight="Bold" Text="Area symbolization type" />
+                <TextBlock Text="Area symbolization type" />
                 <StackPanel Orientation="Horizontal">
                     <RadioButton x:Name="PlainAreaRadioButton"
                                  Content="Plain"
@@ -34,7 +37,7 @@
                                  Content="Symbolized"
                                  GroupName="Area" />
                 </StackPanel>
-                <TextBlock FontWeight="Bold" Text="Point symbolization type" />
+                <TextBlock Text="Point symbolization type" />
                 <StackPanel Orientation="Horizontal">
                     <RadioButton x:Name="PaperchartRadioButton"
                                  Content="Paper Chart"

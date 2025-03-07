@@ -199,12 +199,11 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                 _selectedFeature.Refresh();
                 AttachmentsListBox.ItemsSource = await GetJpegAttachmentsAsync(_selectedFeature);
 
-                // Show success message.
-                await DisplayAlert("Success!", "Successfully deleted attachment", "OK");
+                Debug.WriteLine("Successfully deleted attachment.");
             }
             catch (Exception exception)
             {
-                await DisplayAlert("Error deleting attachment", exception.ToString(), "OK");
+                Debug.WriteLine($"Error deleting attachment: {exception.Message}");
             }
         }
 

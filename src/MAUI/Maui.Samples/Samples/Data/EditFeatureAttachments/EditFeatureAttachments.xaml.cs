@@ -123,7 +123,6 @@ namespace ArcGIS.Samples.EditFeatureAttachments
 
             // Adjust the UI.
             AddAttachmentButton.IsEnabled = false;
-            AttachmentActivityIndicator.IsVisible = true;
 
             // Get the file.
             string contentType = "image/jpeg";
@@ -195,14 +194,11 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             {
                 // Adjust the UI.
                 AddAttachmentButton.IsEnabled = true;
-                AttachmentActivityIndicator.IsVisible = false;
             }
         }
 
         private async void DeleteAttachment_Click(object sender, EventArgs e)
         {
-            AttachmentActivityIndicator.IsVisible = true;
-
             try
             {
                 // Get the attachment that should be deleted.
@@ -228,10 +224,6 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             catch (Exception exception)
             {
                 await DisplayAlert("Error deleting attachment", exception.ToString(), "OK");
-            }
-            finally
-            {
-                AttachmentActivityIndicator.IsVisible = false;
             }
         }
 

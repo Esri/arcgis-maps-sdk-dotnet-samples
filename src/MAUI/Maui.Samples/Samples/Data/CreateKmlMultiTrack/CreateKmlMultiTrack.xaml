@@ -3,7 +3,68 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+    <ContentPage.Resources>
+        <Style x:Key="IconStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="calcite-ui-icons-24" />
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="Margin" Value="5" />
+            </Style.Setters>
+        </Style>
+    </ContentPage.Resources>
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <StackLayout>
+                <StackLayout x:Name="RecordingUI">
+                    <Label x:Name="ElementsCountLabel" Text="Clicked record to capture KML track elements." />
+                    <Label x:Name="TracksCountLabel" Text="Number of tracks in MultiTrack: 0" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="RecenterButton"
+                                Clicked="RecenterButton_Clicked"
+                                IsEnabled="False"
+                                Style="{StaticResource IconStyle}"
+                                Text="&#xe13c;"
+                                ToolTipProperties.Text="Recenter" />
+                        <Button x:Name="RecordTrackButton"
+                                Grid.Column="1"
+                                Margin="5"
+                                Clicked="RecordTrackButton_Clicked"
+                                Text="Record Track" />
+                        <Button x:Name="SaveButton"
+                                Grid.Column="2"
+                                Clicked="SaveButton_Clicked"
+                                IsEnabled="False"
+                                Style="{StaticResource IconStyle}"
+                                Text="&#xe262;"
+                                ToolTipProperties.Text="Save" />
+                    </Grid>
+                </StackLayout>
+                <StackLayout x:Name="ViewingUI" IsVisible="False">
+                    <Label Text="Displaying contents of saved HikingTracks.kmz file." />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="auto" />
+                        </Grid.ColumnDefinitions>
+                        <Picker x:Name="TracksPicker"
+                                Margin="5"
+                                HorizontalTextAlignment="Center"
+                                SelectedIndexChanged="TracksPicker_SelectionChanged"
+                                VerticalTextAlignment="Center" />
+                        <Button Grid.Column="1"
+                                Clicked="ResetButton_Clicked"
+                                Style="{StaticResource IconStyle}"
+                                Text="&#xe243;"
+                                ToolTipProperties.Text="Reset" />
+                    </Grid>
+                </StackLayout>
+            </StackLayout>
+        </Border>
     </Grid>
 </ContentPage>

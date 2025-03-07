@@ -10,12 +10,7 @@
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-
-// Custom code is needed for presenting the image picker on iOS.
-#if IOS || MACCATALYST
-using Foundation;
-using UIKit;
-#endif
+using System.Diagnostics;
 
 namespace ArcGIS.Samples.EditFeatureAttachments
 {
@@ -132,23 +127,9 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                 byte[] attachmentData;
                 string filename;
 
-                // Microsoft.Maui.Storage.FilePicker shows the iCloud picker (not photo picker) on iOS.
-                
-#if IOS || MACCATALYST
-                attachmentData = await GetImageBytesAsync();
+                // Show a photo picker.
+                FileResult fileData = await MediaPicker.PickPhotoAsync(new MediaPickerOptions { Title = "Please select a jpeg photo." });
 
-                // Return if no image was loaded.
-                if (attachmentData == null) return;
-
-                if (!_filename.EndsWith(".jpg") && !_filename.EndsWith(".jpeg"))
-                {
-                    await DisplayAlert("Try again!", "This sample only allows uploading jpg files.", "OK");
-                    return;
-                }
-                filename = _filename;
-#else
-                // Show a file picker
-                FileResult fileData = await FilePicker.PickAsync(new PickOptions { FileTypes = FilePickerFileType.Jpeg });
                 if (fileData == null)
                 {
                     return;
@@ -156,7 +137,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
 
                 if (!fileData.FileName.EndsWith(".jpg") && !fileData.FileName.EndsWith(".jpeg"))
                 {
-                    await DisplayAlert("Try again!", "This sample only allows uploading jpg files.", "OK");
+                    Debug.WriteLine("Sample only suports jpeg images.");
                     return;
                 }
 
@@ -169,7 +150,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                     }
                 }
                 filename = fileData.FileName;
-#endif
+
                 // Add the attachment.
                 // The contentType string is the MIME type for JPEG files, image/jpeg.
                 await _selectedFeature.AddAttachmentAsync(filename, contentType, attachmentData);
@@ -184,11 +165,11 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                 _selectedFeature.Refresh();
                 AttachmentsListBox.ItemsSource = await GetJpegAttachmentsAsync(_selectedFeature);
 
-                await DisplayAlert("Success!", "Successfully added attachment", "OK");
+                Debug.WriteLine("Successfully added attachment.");
             }
             catch (Exception exception)
             {
-                await DisplayAlert("Error adding attachment", exception.Message, "OK");
+                Debug.WriteLine($"Error adding attachment: {exception.Message}");
             }
             finally
             {
@@ -264,159 +245,5 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             IReadOnlyList<Attachment> attachments = await feature.GetAttachmentsAsync();
             return attachments.Where(attachment => attachment.ContentType == "image/jpeg").ToList();
         }
-
-        // Image picker implementation for iOS using UIImagePickerController.
-        // Microsoft.Maui.Storage.FilePicker shows an iCloud file picker; comment this out
-        // and use the cross-platform implementation if that's what you want.
-#if IOS
-        private TaskCompletionSource<byte[]> _taskCompletionSource;
-        private UIImagePickerController _imagePicker;
-        private string _filename;
-
-        private Task<byte[]> GetImageBytesAsync()
-        {
-            // Create and define UIImagePickerController.
-            _imagePicker = new UIImagePickerController
-            {
-#pragma warning disable CA1422
-                SourceType = UIImagePickerControllerSourceType.PhotoLibrary,
-                MediaTypes = UIImagePickerController.AvailableMediaTypes(UIImagePickerControllerSourceType.PhotoLibrary)
-#pragma warning restore CA1422
-            };
-
-            // Set event handlers.
-            _imagePicker.FinishedPickingMedia += OnImagePickerFinishedPickingMedia;
-            _imagePicker.Canceled += OnImagePickerCancelled;
-
-            // Present UIImagePickerController.
-            UIWindow window = UIApplication.SharedApplication.ConnectedScenes
-                .OfType<UIWindowScene>()
-                .SelectMany(s => s.Windows)
-                .FirstOrDefault(w => w.IsKeyWindow);
-            var viewController = window.RootViewController;
-            viewController.PresentViewController(_imagePicker, true, null);
-
-            // Return Task object.
-            _taskCompletionSource = new TaskCompletionSource<byte[]>();
-            return _taskCompletionSource.Task;
-        }
-
-        private void OnImagePickerFinishedPickingMedia(object sender, UIImagePickerMediaPickedEventArgs args)
-        {
-            // The picker can have values for an edited image and an original image. We use the edited image if it is not null.
-            UIImage image = args.EditedImage ?? args.OriginalImage;
-
-            // Set the filename for later use.
-            _filename = args.ImageUrl.LastPathComponent;
-
-            if (image != null)
-            {
-                // Get the image data.
-                NSData data = image.AsJPEG(1);
-
-                // Set the byte array as the completion of the Task.
-                _taskCompletionSource.SetResult(data.ToArray());
-            }
-            else
-            {
-                _taskCompletionSource.SetResult(null);
-            }
-
-            UnregisterEventHandlers();
-        }
-
-        private void OnImagePickerCancelled(object sender, EventArgs args)
-        {
-            UnregisterEventHandlers();
-            _taskCompletionSource.SetResult(null);
-        }
-
-        private void UnregisterEventHandlers()
-        {
-            _imagePicker.FinishedPickingMedia -= OnImagePickerFinishedPickingMedia;
-            _imagePicker.Canceled -= OnImagePickerCancelled;
-            _imagePicker.DismissViewController(true, null);
-        }
-#endif
-
-        // Image picker implementation for Mac using UIDocumentPickerViewController.
-#if MACCATALYST
-        private TaskCompletionSource<byte[]> _taskCompletionSource;
-        private UIDocumentPickerViewController _imagePicker;
-        private string _filename;
-
-        public async Task<byte[]> GetImageBytesAsync()
-        {
-            var allowedTypes = new UniformTypeIdentifiers.UTType[]
-            {
-              UniformTypeIdentifiers.UTTypes.Image,
-            };
-
-            _imagePicker = new UIDocumentPickerViewController(allowedTypes) { AllowsMultipleSelection = false };
-            _taskCompletionSource = new TaskCompletionSource<byte[]>();
-
-            _imagePicker.DidPickDocument += DocumentPicked;
-            _imagePicker.DidPickDocumentAtUrls += DocumentAtUrlsPicked;
-            _imagePicker.WasCancelled += DocumentCancelled;
-
-            // Present the UIDocumentPickerViewController.
-            UIWindow window = UIApplication.SharedApplication.ConnectedScenes
-                .OfType<UIWindowScene>()
-                .SelectMany(s => s.Windows)
-                .FirstOrDefault(w => w.IsKeyWindow);
-            var viewController = window.RootViewController;
-            viewController.PresentViewController(_imagePicker, true, null);
-
-            return await _taskCompletionSource.Task;
-        }
-
-        private void DocumentPicked(object sender, UIDocumentPickedEventArgs e)
-        {
-            PickDocumentAsync(e.Url);
-        }
-        private void DocumentAtUrlsPicked(object sender, UIDocumentPickedAtUrlsEventArgs e)
-        {
-            PickDocumentAsync(e.Urls[0]);
-        }
-
-        private void DocumentCancelled(object sender, EventArgs e)
-        {
-            // A null result will cancel without presenting an error message.
-            _taskCompletionSource.TrySetResult(null);
-            UnregisterEventHandlers();
-        }
-
-        private void PickDocumentAsync(NSUrl url)
-        {
-            try
-            {
-                // Set the filename for later use.
-                _filename = url.LastPathComponent;
-
-                // Load the data from the local file.
-                NSData data = NSData.FromUrl(url);
-
-                // Set the byte array as the completion of the Task.
-                _taskCompletionSource.TrySetResult(data.ToArray());
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.Print(ex.Message);
-                _taskCompletionSource.TrySetException(ex);
-            }
-            finally
-            {
-                UnregisterEventHandlers();
-            }
-        }
-
-        private void UnregisterEventHandlers()
-        {
-            _imagePicker.DidPickDocument -= DocumentPicked;
-            _imagePicker.DidPickDocumentAtUrls -= DocumentAtUrlsPicked;
-            _imagePicker.WasCancelled -= DocumentCancelled;
-            _imagePicker.DismissViewController(true, null);
-        }
-#endif
     }
 }

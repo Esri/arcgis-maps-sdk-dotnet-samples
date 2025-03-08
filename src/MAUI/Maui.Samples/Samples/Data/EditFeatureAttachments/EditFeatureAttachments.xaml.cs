@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using CommunityToolkit.Maui.Storage;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -217,25 +218,25 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                 // Get the attachment from the button's DataContext. The button's DataContext is set by the list view.
                 Attachment selectedAttachment = (Attachment)sendingButton.BindingContext;
 
-                if (selectedAttachment.ContentType.Contains("image"))
+                // Load the data into a stream.
+                Stream attachmentDataStream = await selectedAttachment.GetDataAsync();
+
+                // Show a save dialog.
+                var fileSaverResult = await FileSaver.Default.SaveAsync(selectedAttachment.Name, attachmentDataStream);
+
+                // Take action if the user selected a file.
+                if (fileSaverResult.IsSuccessful)
                 {
-                    // Create a preview and show it.
-                    ContentPage previewPage = new ContentPage();
-                    previewPage.Title = "Attachment preview";
-                    Image imageView = new Image();
-                    Stream contentStream = await selectedAttachment.GetDataAsync();
-                    imageView.Source = ImageSource.FromStream(() => contentStream);
-                    previewPage.Content = imageView;
-                    await Navigation.PushAsync(previewPage);
-                }
-                else
-                {
-                    await DisplayAlert("Can't show attachment", "This sample can only show image attachments.", "OK");
+                    // Launch the file.
+#if !IOS
+                    Process.Start(new ProcessStartInfo(fileSaverResult.FilePath) { UseShellExecute = true });
+#endif
+                    Debug.WriteLine("Successfully downloaded attachment.");
                 }
             }
             catch (Exception exception)
             {
-                await DisplayAlert("Error reading attachment", exception.ToString(), "OK");
+                Debug.WriteLine($"Error reading attachment: {exception.Message}");
             }
         }
 

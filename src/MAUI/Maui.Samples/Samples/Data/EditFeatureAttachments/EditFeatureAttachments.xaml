@@ -28,12 +28,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
+                                <Grid RowDefinitions="auto" ColumnDefinitions="*,auto,auto">
                                     <Label Margin="5"
                                            Text="{Binding Name}"
                                            VerticalTextAlignment="Center" />

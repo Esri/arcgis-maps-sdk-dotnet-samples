@@ -28,7 +28,7 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid RowDefinitions="auto" ColumnDefinitions="*,auto,auto">
+                                <Grid ColumnDefinitions="*,auto,auto" RowDefinitions="auto">
                                     <Label Margin="5"
                                            Text="{Binding Name}"
                                            VerticalTextAlignment="Center" />

@@ -15,6 +15,7 @@
 		<Category name="Layers">
 			<Sample>Add3dTilesLayer</Sample>
 			<Sample>ConfigureClusters</Sample>
+			<Sample>ConfigureElectronicNavigationalCharts</Sample>
 			<Sample>AddCustomDynamicEntityDataSource</Sample>
 			<Sample>AddDynamicEntityLayer</Sample>
 			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>

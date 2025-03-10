@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ConfigureElectronicNavigationalCharts.ConfigureElectronicNavigationalCharts"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <UserControl.Resources>
+        <Style TargetType="RadioButton">
+            <Setter Property="Margin" Value="0,5,5,10" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Border Width="225" Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock FontWeight="Bold"
+                           Text="Tap on the map to select Enc features. Use the controls to adjust Enc mariner display settings."
+                           TextWrapping="Wrap" />
+                <TextBlock Text="Color scheme" />
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton x:Name="DayRadioButton"
+                                 Content="Day"
+                                 GroupName="ColorScheme"
+                                 IsChecked="True" />
+                    <RadioButton x:Name="DuskRadioButton"
+                                 Content="Dusk"
+                                 GroupName="ColorScheme" />
+                    <RadioButton x:Name="NightRadioButton"
+                                 Content="Night"
+                                 GroupName="ColorScheme" />
+                </StackPanel>
+                <TextBlock Text="Area symbolization type" />
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton x:Name="PlainAreaRadioButton"
+                                 Content="Plain"
+                                 GroupName="Area"
+                                 IsChecked="True" />
+                    <RadioButton x:Name="SymbolizedAreaRadioButton"
+                                 Content="Symbolized"
+                                 GroupName="Area" />
+                </StackPanel>
+                <TextBlock Text="Point symbolization type" />
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton x:Name="PaperchartRadioButton"
+                                 Content="Paper Chart"
+                                 GroupName="Point"
+                                 IsChecked="True" />
+                    <RadioButton x:Name="SimplifiedRadioButton"
+                                 Content="Simplified"
+                                 GroupName="Point" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

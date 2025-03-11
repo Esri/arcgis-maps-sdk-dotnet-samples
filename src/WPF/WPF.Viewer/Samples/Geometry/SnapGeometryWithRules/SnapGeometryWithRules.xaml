@@ -121,14 +121,14 @@
                         <TextBlock Padding="0,5"
                                    FontSize="14"
                                    FontWeight="Bold"
-                                   Text="Key" />
+                                   Text="SnapRuleBehavior" />
                         <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                             <Rectangle Grid.Column="0"
                                        Width="10"
                                        Height="10"
                                        Margin="0,0,5,0"
                                        Fill="Green" />
-                            <TextBlock Text="SnapRuleBehavior.None" />
+                            <TextBlock Text="None" />
                         </StackPanel>
                         <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                             <Rectangle Grid.Column="0"
@@ -136,7 +136,7 @@
                                        Height="10"
                                        Margin="0,0,5,0"
                                        Fill="Orange" />
-                            <TextBlock Text="SnapRuleBehavior.RulesLimitSnapping" />
+                            <TextBlock Text="RulesLimitSnapping" />
                         </StackPanel>
                         <StackPanel Margin="20,0,0,0" Orientation="Horizontal">
                             <Rectangle Grid.Column="0"
@@ -144,7 +144,7 @@
                                        Height="10"
                                        Margin="0,0,5,0"
                                        Fill="Red" />
-                            <TextBlock Text="SnapRuleBehavior.RulesPreventSnapping" />
+                            <TextBlock Text="RulesPreventSnapping" />
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

@@ -7,20 +7,20 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Ogc;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.UI.Xaml;
-using Esri.ArcGISRuntime.Location;
-using Esri.ArcGISRuntime.Ogc;
+using Microsoft.UI.Xaml.Controls;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using Microsoft.UI.Xaml.Controls;
-using ArcGIS.Samples.Managers;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ArcGIS.WinUI.Samples.CreateKmlMultiTrack
 {

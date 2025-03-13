@@ -2,7 +2,7 @@
 
 Create, save and preview a KML multi-track, captured from a location data source.
 
-![Create KML multi-track](create-kml-multi-track.png)
+![Create KML multi-track](CreateKmlMultiTrack.jpg)
 
 ## Use case
 
@@ -21,7 +21,7 @@ Tap **Start Navigation** to begin moving along a simulated trail. Tap **Record T
 5. Combine one or more `KmlTrack` objects into a `KmlMultiTrack`.
 6. Save the `KmlMultiTrack` inside a `KmlDocument`, then export the document to a `.kmz` file.
 7. Load the saved `.kmz` file into a `KmlDataset` and locate the `KmlDocument` in the dataset's `RootNodes`. From the document's `ChildNodes` get the `KmlPlacemark` and retrieve the `KmlMultiTrack` geometry.
-8. Retrieve the geometry of each track in the `KmlMultiTrack` by iterating through the list of tracks and obtaining the respective `KmlTrack.Geometry`. 
+8. Retrieve the geometry of each track in the `KmlMultiTrack` by iterating through the list of tracks and obtaining the respective `KmlTrack.Geometry`.
 
 ## Relevant API
 

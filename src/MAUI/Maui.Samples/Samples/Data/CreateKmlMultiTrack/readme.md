@@ -1,41 +1,38 @@
-# Create and save KML file
+# Create KML multi-track
 
-Construct a KML document and save it as a KMZ file.
+Create, save and preview a KML multi-track, captured from a location data source.
 
-![Image of create and save KML file](CreateAndSaveKmlFile.jpg)
+![Create KML multi-track](create-kml-multi-track.png)
 
 ## Use case
 
-If you need to create and save data on the fly, you can use KML to create points, lines, and polygons by sketching on the map, customizing the style, and serializing them as KML nodes in a KML Document. Once complete, you can share the KML data with others that are using a KML reading application, such as ArcGIS Earth.
+When capturing location data for outdoor activities such as hiking or skiing, it can be useful to record and share your path. This sample demonstrates how you can collect individual KML tracks during a navigation session, then combine and export them as a KML multi-track.
 
 ## How to use the sample
 
-Tap on one of the buttons in the middle row to start adding a geometry. Tap on the map view to place vertices. Tap the "Complete Sketch" button to add the geometry to the KML document as a new KML placemark. Use the style interface to edit the style of the placemark. If you do not wish to set a style, tap the "Don't Apply Style" button. When you are finished adding KML nodes, tap on the "Save KMZ file" button to save the active KML document as a .kmz file on your system. Use the "Reset" button to clear the current KML document and start a new one.
+Tap **Start Navigation** to begin moving along a simulated trail. Tap **Record Track** to start recording your current path. Tap **Stop Recording** to end recording and capture a KML track. Repeat these steps to capture multiple KML tracks in a single session. Tap the **Save** button to save your recorded tracks as a `.kmz` file to local storage. Then load the created `.kmz` file containing your KML multi-track to view all created tracks on the map.
 
 ## How it works
 
-1. Create a `KmlDocument`
-2. Create a `KmlDataset` using the `KmlDocument`.
-3. Create a `KmlLayer` using the `KmlDataset` and add it to `Map.OperationalLayers`.
-4. Create `Geometry` using `SketchEditor`.
-5. Create a `KmlGeometry` object using that projected `Geometry`.
-6. Create a `KmlPlacemark` using the `KmlGeometry`.
-7. Add the `KmlPlacemark` to the `KmlDocument`.
-8. Set the `KmlStyle` for the `KmlPlacemark`.
-9. When finished with adding `KmlPlacemark` nodes to the `KmlDocument`, save the `KmlDocument` to a file using the `SaveAsAsync` method.
+1. Create an `ArcGISMap` with a basemap and a `GraphicsOverlay` to display the path geometry for your navigation route.
+2. Create a `SimulatedLocationDataSource` to drive the `LocationDisplay`.
+3. As you receive `Location` updates, add each point to a list of `KmlTrackElement` objects while recording.
+4. Once recording stops, create a `KmlTrack` using one or more `KmlTrackElement` objects.
+5. Combine one or more `KmlTrack` objects into a `KmlMultiTrack`.
+6. Save the `KmlMultiTrack` inside a `KmlDocument`, then export the document to a `.kmz` file.
+7. Load the saved `.kmz` file into a `KmlDataset` and locate the `KmlDocument` in the dataset's `RootNodes`. From the document's `ChildNodes` get the `KmlPlacemark` and retrieve the `KmlMultiTrack` geometry.
+8. Retrieve the geometry of each track in the `KmlMultiTrack` by iterating through the list of tracks and obtaining the respective `KmlTrack.Geometry`. 
 
 ## Relevant API
 
-* GeometryEngine.Project
 * KmlDataset
 * KmlDocument
-* KmlGeometry
-* KmlLayer
-* KmlNode.SaveAsASync
+* KmlMultiTrack
 * KmlPlacemark
-* KmlStyle
-* SketchEditor
+* KmlTrack
+* LocationDisplay
+* SimulatedLocationDataSource
 
 ## Tags
 
-Keyhole, KML, KMZ, OGC
+export, geoview-compose, hiking, kml, kmz, multi-track, record, track

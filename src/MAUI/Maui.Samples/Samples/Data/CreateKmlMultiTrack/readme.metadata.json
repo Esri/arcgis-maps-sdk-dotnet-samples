@@ -1,35 +1,37 @@
 {
     "category": "Data",
-    "description": "Construct a KML document and save it as a KMZ file.",
+    "description": "Create, save and preview a KML multi-track, captured from a location data source.",
     "formal_name": "CreateKmlMultiTrack",
     "ignore": false,
     "images": [
-        "CreateAndSaveKmlFile.jpg"
+        "create-kml-multi-track.png"
     ],
     "keywords": [
-        "KML",
-        "KMZ",
-        "Keyhole",
-        "OGC"
+        "export",
+        "geoview-compose",
+        "hiking",
+        "kml",
+        "kmz",
+        "multi-track",
+        "record",
+        "track"
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/create-and-save-kml-file.htm"
+        "/net/latest/maui/sample-code/create-kml-multi-track.htm"
     ],
     "relevant_apis": [
-        "GeometryEngine.Project",
         "KmlDataset",
         "KmlDocument",
-        "KmlGeometry",
-        "KmlLayer",
-        "KmlNode.SaveAsASync",
+        "KmlMultiTrack",
         "KmlPlacemark",
-        "KmlStyle",
-        "SketchEditor"
+        "KmlTrack",
+        "LocationDisplay",
+        "SimulatedLocationDataSource"
     ],
     "snippets": [
         "CreateKmlMultiTrack.xaml.cs",
         "CreateKmlMultiTrack.xaml"
     ],
-    "title": "Create and save KML file"
+    "title": "Create KML multi-track"
 }

@@ -22,11 +22,11 @@ using System.ComponentModel;
 namespace ArcGIS.Samples.CreateKmlMultiTrack
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Create and save KML file",
+        name: "Create KML multi-track",
         category: "Data",
-        description: "Construct a KML document and save it as a KMZ file.",
-        instructions: "Tap on one of the buttons in the middle row to start adding a geometry. Tap on the map view to place vertices. Tap the \"Complete Sketch\" button to add the geometry to the KML document as a new KML placemark. Use the style interface to edit the style of the placemark. If you do not wish to set a style, tap the \"Don't Apply Style\" button. When you are finished adding KML nodes, tap on the \"Save KMZ file\" button to save the active KML document as a .kmz file on your system. Use the \"Reset\" button to clear the current KML document and start a new one.",
-        tags: new[] { "KML", "KMZ", "Keyhole", "OGC" })]
+        description: "Create, save and preview a KML multi-track, captured from a location data source.",
+        instructions: "Tap **Start Navigation** to begin moving along a simulated trail. Tap **Record Track** to start recording your current path. Tap **Stop Recording** to end recording and capture a KML track. Repeat these steps to capture multiple KML tracks in a single session. Tap the **Save** button to save your recorded tracks as a `.kmz` file to local storage. Then load the created `.kmz` file containing your KML multi-track to view all created tracks on the map.",
+        tags: new[] { "export", "geoview-compose", "hiking", "kml", "kmz", "multi-track", "record", "track" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class CreateKmlMultiTrack
     {

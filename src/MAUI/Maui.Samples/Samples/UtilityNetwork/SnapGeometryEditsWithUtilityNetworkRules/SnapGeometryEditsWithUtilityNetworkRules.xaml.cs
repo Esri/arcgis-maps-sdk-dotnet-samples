@@ -25,10 +25,11 @@ using System.Threading.Tasks;
 namespace ArcGIS.Samples.SnapGeometryEditsWithUtilityNetworkRules
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Basic readme template",
+        name: "Snap geometry edits with utility network rules",
         category: "Utility network",
-        description: "",
-        instructions: "")]
+        description: "Use the Geometry Editor to edit geometries using utility network connectivity rules.",
+        instructions: "To edit a geometry, tap a point geometry to be edited in the map to select it. Then edit the geometry by clicking the button to start the geometry editor.",
+        tags: new[] { "edit", "feature", "geometry editor", "graphics", "layers", "map", "snapping", "utility network" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class SnapGeometryEditsWithUtilityNetworkRules
     {

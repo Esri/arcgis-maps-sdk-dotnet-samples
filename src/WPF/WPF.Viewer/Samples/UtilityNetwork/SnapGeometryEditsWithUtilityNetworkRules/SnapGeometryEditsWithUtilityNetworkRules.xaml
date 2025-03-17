@@ -31,7 +31,6 @@
             </Style.Setters>
         </Style>
         <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
-        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />

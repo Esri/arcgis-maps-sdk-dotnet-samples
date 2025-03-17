@@ -259,11 +259,11 @@
 
 ## Utility network
 
-* [Basic readme template](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/SnapGeometryEditsWithUtilityNetworkRules) - 
 * [Configure subnetwork trace](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/ConfigureSubnetworkTrace) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
 * [Create load report](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/CreateLoadReport) - Demonstrates the creation of a simple electric distribution report. It traces downstream from a given point and adds up the count of customers and total load per phase.
 * [Display content of utility network container](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/DisplayUtilityNetworkContainer) - A utility network container allows a dense collection of features to be represented by a single feature, which can be used to reduce map clutter.
 * [Display utility associations](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/DisplayUtilityAssociations) - Create graphics for utility associations in a utility network.
 * [Perform valve isolation trace](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/PerformValveIsolationTrace) - Run a filtered trace to locate operable features that will isolate an area from the flow of network resources.
+* [Snap geometry edits with utility network rules](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/SnapGeometryEditsWithUtilityNetworkRules) - Use the Geometry Editor to edit geometries using utility network connectivity rules.
 * [Trace utility network](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/TraceUtilityNetwork) - Discover connected features in a utility network using connected, subnetwork, upstream, and downstream traces.
 * [Validate utility network topology](ArcGIS.WinUI.Viewer/Samples/UtilityNetwork/ValidateUtilityNetworkTopology) - Demonstrates the workflow of getting the network state and validating the topology of a utility network.

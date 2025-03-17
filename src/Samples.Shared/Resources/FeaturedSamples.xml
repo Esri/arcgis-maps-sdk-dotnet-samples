@@ -43,6 +43,7 @@
 		<Category name="UtilityNetwork">
 			<Sample>CreateLoadReport</Sample>
 			<Sample>ValidateUtilityNetworkTopology</Sample>
+			<Sample>SnapGeometryEditsWithUtilityNetworkRules</Sample>
 		</Category>
 	</Categories>
 </FeaturedSamples>

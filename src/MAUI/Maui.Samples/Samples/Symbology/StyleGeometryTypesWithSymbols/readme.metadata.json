@@ -20,7 +20,9 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/style-geometry-types-with-symbols.htm"
+        "/net/latest/maui/sample-code/picture-marker-symbol.htm",
+        "/net/latest/maui/sample-code/style-geometry-types-with-symbols.htm",
+        "/net/latest/maui/sample-code/simple-marker-symbol.htm"
     ],
     "relevant_apis": [
         "Geometry",

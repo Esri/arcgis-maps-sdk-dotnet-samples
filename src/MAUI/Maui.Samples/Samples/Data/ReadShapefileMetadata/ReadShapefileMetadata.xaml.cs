@@ -50,7 +50,7 @@ namespace ArcGIS.Samples.ReadShapefileMetadata
                 // Read the thumbnail image data into a byte array.
                 Stream imageStream = await fileInfo.Thumbnail.GetEncodedBufferAsync();
                 byte[] imageData = new byte[imageStream.Length];
-                imageStream.Read(imageData, 0, imageData.Length);
+                imageStream.ReadExactly(imageData);
 
                 // Create a new image source from the thumbnail data.
                 ImageSource streamImageSource = ImageSource.FromStream(() => new MemoryStream(imageData));
@@ -83,7 +83,7 @@ namespace ArcGIS.Samples.ReadShapefileMetadata
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

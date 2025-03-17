@@ -66,12 +66,12 @@ namespace ArcGIS.Samples.FeatureCollectionLayerFromPortal
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", "OK");
+                    await DisplayAlert("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", "OK");
                 }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, "OK");
+                await DisplayAlert("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, "OK");
             }
         }
 
@@ -83,7 +83,7 @@ namespace ArcGIS.Samples.FeatureCollectionLayerFromPortal
             // Make sure an Id was entered.
             if (String.IsNullOrEmpty(collectionItemId))
             {
-                _ = Application.Current.MainPage.DisplayAlert("Feature Collection ID", "Please enter a portal item ID", "OK");
+                _ = DisplayAlert("Feature Collection ID", "Please enter a portal item ID", "OK");
                 return;
             }
 

@@ -23,7 +23,7 @@ namespace ArcGIS.Samples.Shared.Models
 #if NETFX_CORE
         private string _pathStub = Windows.ApplicationModel.Package.Current.Installed­Location.Path;
 #else
-        private string _pathStub = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+        private string _pathStub = System.IO.Path.GetDirectoryName(AppContext.BaseDirectory);
 #endif
 
         /// <summary>

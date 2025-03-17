@@ -82,7 +82,7 @@ namespace ArcGIS.Samples.ApplyScheduledUpdates
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -112,7 +112,7 @@ namespace ArcGIS.Samples.ApplyScheduledUpdates
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -161,7 +161,7 @@ namespace ArcGIS.Samples.ApplyScheduledUpdates
                         }
                         else
                         {
-                            await Application.Current.MainPage.DisplayAlert("Error", "Failed to load the mobile map package.", "OK");
+                            await DisplayAlert("Error", "Failed to load the mobile map package.", "OK");
                         }
                     }
 
@@ -170,12 +170,12 @@ namespace ArcGIS.Samples.ApplyScheduledUpdates
                 }
                 else
                 {
-                    await Application.Current.MainPage.DisplayAlert("Error", "Error syncing the offline map.", "OK");
+                    await DisplayAlert("Error", "Error syncing the offline map.", "OK");
                 }
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
     }

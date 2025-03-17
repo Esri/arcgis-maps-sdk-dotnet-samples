@@ -70,7 +70,7 @@ namespace ArcGIS.Samples.FindAddress
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -119,7 +119,7 @@ namespace ArcGIS.Samples.FindAddress
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -152,7 +152,7 @@ namespace ArcGIS.Samples.FindAddress
             try
             {
                 // Display the list of suggestions; returns the selected option
-                string action = await Application.Current.MainPage.DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
+                string action = await DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
 
                 if (action == "Cancel")
                 {
@@ -165,7 +165,7 @@ namespace ArcGIS.Samples.FindAddress
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -200,7 +200,7 @@ namespace ArcGIS.Samples.FindAddress
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                await DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

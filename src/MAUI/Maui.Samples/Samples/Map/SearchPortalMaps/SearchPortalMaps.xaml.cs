@@ -75,7 +75,7 @@ namespace ArcGIS.Samples.SearchPortalMaps
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -116,7 +116,7 @@ namespace ArcGIS.Samples.SearchPortalMaps
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -148,7 +148,7 @@ namespace ArcGIS.Samples.SearchPortalMaps
                 Exception err = map.LoadError;
                 if (err != null)
                 {
-                    Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => Application.Current.MainPage.DisplayAlert(err.Message, "Map Load Error", "OK"));
+                    Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => DisplayAlert(err.Message, "Map Load Error", "OK"));
                 }
             }
         }

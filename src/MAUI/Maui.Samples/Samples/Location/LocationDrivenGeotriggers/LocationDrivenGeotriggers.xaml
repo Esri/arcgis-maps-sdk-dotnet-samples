@@ -14,13 +14,12 @@
                         Text="Pause" />
             </StackLayout>
         </Border>
-        <Frame x:Name="PopupPage"
+        <Border x:Name="PopupPage"
                Grid.RowSpan="4"
                Grid.ColumnSpan="4"
                Padding="0"
                BackgroundColor="{AppThemeBinding Light=#dfdfdf,
                                                  Dark=#303030}"
-               CornerRadius="0"
                IsVisible="False">
             <ScrollView>
                 <StackLayout>
@@ -37,6 +36,6 @@
                             Text="Close" />
                 </StackLayout>
             </ScrollView>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

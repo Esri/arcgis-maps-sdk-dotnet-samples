@@ -92,7 +92,7 @@ namespace ArcGIS.Samples.ConvexHull
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem adding user tapped graphics.
-                Application.Current.MainPage.DisplayAlert("Error", "Can't add user tapped graphic: " + ex.Message, "OK");
+                DisplayAlert("Error", "Can't add user tapped graphic: " + ex.Message, "OK");
             }
         }
 
@@ -134,7 +134,7 @@ namespace ArcGIS.Samples.ConvexHull
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating convex hull operation.
-                Application.Current.MainPage.DisplayAlert("Geometry Engine Failed", "Error performing convex hull: " + ex.Message, "OK");
+                DisplayAlert("Geometry Engine Failed", "Error performing convex hull: " + ex.Message, "OK");
             }
         }
 

@@ -16,6 +16,7 @@
 * [Create mobile geodatabase](ArcGIS.WinUI.Viewer/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.
 * [Edit and sync features](ArcGIS.WinUI.Viewer/Samples/Data/EditAndSyncFeatures) - Synchronize offline edits with a feature service.
 * [Edit feature attachments](ArcGIS.WinUI.Viewer/Samples/Data/EditFeatureAttachments) - Add, delete, and download attachments for features from a service.
+* [Edit features using feature forms](ArcGIS.WinUI.Viewer/Samples/Data/EditFeaturesUsingFeatureForms) - Display and edit feature attributes using feature forms.
 * [Edit features with feature-linked annotation](ArcGIS.WinUI.Viewer/Samples/Data/EditFeatureLinkedAnnotation) - Edit feature attributes which are linked to annotation through an expression.
 * [Edit with branch versioning](ArcGIS.WinUI.Viewer/Samples/Data/EditBranchVersioning) - Create, query and edit a specific server version using service geodatabase.
 * [Feature layer query](ArcGIS.WinUI.Viewer/Samples/Data/FeatureLayerQuery) - Find features in a feature table which match an SQL query.
@@ -70,12 +71,6 @@
 * [Scene properties expressions](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/ScenePropertiesExpressions) - Update the orientation of a graphic using expressions based on its attributes.
 * [Surface placement](ArcGIS.WinUI.Viewer/Samples/GraphicsOverlay/SurfacePlacements) - Position graphics relative to a surface using different surface placement modes.
 
-## Hydrography
-
-* [Add ENC exchange set](ArcGIS.WinUI.Viewer/Samples/Hydrography/AddEncExchangeSet) - Display nautical charts per the ENC specification.
-* [Change ENC display settings](ArcGIS.WinUI.Viewer/Samples/Hydrography/ChangeEncDisplaySettings) - Configure the display of ENC content.
-* [Select ENC features](ArcGIS.WinUI.Viewer/Samples/Hydrography/SelectEncFeatures) - Select features in an ENC layer.
-
 ## Layers
 
 * [Add 3d tiles layer](ArcGIS.WinUI.Viewer/Samples/Layers/Add3dTilesLayer) - Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.
@@ -95,6 +90,7 @@
 * [Change sublayer renderer](ArcGIS.WinUI.Viewer/Samples/Layers/ChangeSublayerRenderer) - Apply a renderer to a sublayer.
 * [Colormap renderer](ArcGIS.WinUI.Viewer/Samples/Layers/RasterColormapRenderer) - Apply a colormap renderer to a raster.
 * [Configure clusters](ArcGIS.WinUI.Viewer/Samples/Layers/ConfigureClusters) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
+* [Configure electronic navigational charts](ArcGIS.WinUI.Viewer/Samples/Layers/ConfigureElectronicNavigationalCharts) - Display and configure electronic navigational charts per ENC specification.
 * [Control annotation sublayer visibility](ArcGIS.WinUI.Viewer/Samples/Layers/ControlAnnotationSublayerVisibility) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](ArcGIS.WinUI.Viewer/Samples/Layers/CreateAndSaveKmlFile) - Construct a KML document and save it as a KMZ file.
 * [Create feature collection layer (Portal item)](ArcGIS.WinUI.Viewer/Samples/Layers/FeatureCollectionLayerFromPortal) - Create a feature collection layer from a portal item.
@@ -193,7 +189,7 @@
 * [Change time extent](ArcGIS.WinUI.Viewer/Samples/MapView/ChangeTimeExtent) - Filter data in layers by applying a time extent to a MapView.
 * [Change viewpoint](ArcGIS.WinUI.Viewer/Samples/MapView/ChangeViewpoint) - Set the map view to a new viewpoint.
 * [Display draw status](ArcGIS.WinUI.Viewer/Samples/MapView/DisplayDrawingStatus) - Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.
-* [Display grid](ArcGIS.WinUI.Viewer/Samples/MapView/DisplayGrid) - Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.
+* [Display grid](ArcGIS.WinUI.Viewer/Samples/MapView/DisplayGrid) - Display and customize coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view or scene view.
 * [Display layer view state](ArcGIS.WinUI.Viewer/Samples/MapView/DisplayLayerViewState) - Determine if a layer is currently being viewed.
 * [Feature layer time offset](ArcGIS.WinUI.Viewer/Samples/MapView/FeatureLayerTimeOffset) - Display a time-enabled feature layer with a time offset.
 * [Identify layers](ArcGIS.WinUI.Viewer/Samples/MapView/IdentifyLayers) - Identify features in all layers in a map.

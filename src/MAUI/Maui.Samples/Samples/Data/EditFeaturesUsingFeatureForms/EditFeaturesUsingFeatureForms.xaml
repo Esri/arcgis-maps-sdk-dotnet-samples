@@ -1,0 +1,35 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.EditFeaturesUsingFeatureForms.EditFeaturesUsingFeatureForms"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:toolkit="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView"
+                        GeoViewTapped="MyMapView_GeoViewTapped"
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <Grid x:Name="FeatureFormPanel"
+              IsVisible="False" Padding="20"
+              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0" MaximumWidthRequest="400">
+                <toolkit:FeatureFormView x:Name="FeatureFormViewPanel" />
+            </ScrollView>
+            <Grid Grid.Row="1" ColumnSpacing="10" MaximumWidthRequest="400">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Text="Save"
+                        Grid.Column="0"
+                        Clicked="SaveButton_Clicked"
+                        IsEnabled="{Binding Source={x:Reference FeatureFormView}, Path=IsValid}" />
+                <Button Text="Cancel"
+                        Grid.Column="1"
+                        Clicked="CancelButton_Clicked" />
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

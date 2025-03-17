@@ -16,6 +16,7 @@
 * [Create mobile geodatabase](Maui.Samples/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.
 * [Edit and sync features](Maui.Samples/Samples/Data/EditAndSyncFeatures) - Synchronize offline edits with a feature service.
 * [Edit feature attachments](Maui.Samples/Samples/Data/EditFeatureAttachments) - Add, delete, and download attachments for features from a service.
+* [Edit features using feature forms](Maui.Samples/Samples/Data/EditFeaturesUsingFeatureForms) - Display and edit feature attributes using feature forms.
 * [Edit features with feature-linked annotation](Maui.Samples/Samples/Data/EditFeatureLinkedAnnotation) - Edit feature attributes which are linked to annotation through an expression.
 * [Edit with branch versioning](Maui.Samples/Samples/Data/EditBranchVersioning) - Create, query and edit a specific server version using service geodatabase.
 * [Feature layer query](Maui.Samples/Samples/Data/FeatureLayerQuery) - Find features in a feature table which match an SQL query.
@@ -70,12 +71,6 @@
 * [Scene properties expressions](Maui.Samples/Samples/GraphicsOverlay/ScenePropertiesExpressions) - Update the orientation of a graphic using expressions based on its attributes.
 * [Surface placement](Maui.Samples/Samples/GraphicsOverlay/SurfacePlacements) - Position graphics relative to a surface using different surface placement modes.
 
-## Hydrography
-
-* [Add ENC exchange set](Maui.Samples/Samples/Hydrography/AddEncExchangeSet) - Display nautical charts per the ENC specification.
-* [Change ENC display settings](Maui.Samples/Samples/Hydrography/ChangeEncDisplaySettings) - Configure the display of ENC content.
-* [Select ENC features](Maui.Samples/Samples/Hydrography/SelectEncFeatures) - Select features in an ENC layer.
-
 ## Layers
 
 * [Add 3d tiles layer](Maui.Samples/Samples/Layers/Add3dTilesLayer) - Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.
@@ -95,6 +90,7 @@
 * [Change sublayer renderer](Maui.Samples/Samples/Layers/ChangeSublayerRenderer) - Apply a renderer to a sublayer.
 * [Colormap renderer](Maui.Samples/Samples/Layers/RasterColormapRenderer) - Apply a colormap renderer to a raster.
 * [Configure clusters](Maui.Samples/Samples/Layers/ConfigureClusters) - Add client side feature reduction on a point feature layer that is not pre-configured with clustering.
+* [Configure electronic navigational charts](Maui.Samples/Samples/Layers/ConfigureElectronicNavigationalCharts) - Display and configure electronic navigational charts per ENC specification.
 * [Control annotation sublayer visibility](Maui.Samples/Samples/Layers/ControlAnnotationSublayerVisibility) - Use annotation sublayers to gain finer control of annotation layer subtypes.
 * [Create and save KML file](Maui.Samples/Samples/Layers/CreateAndSaveKmlFile) - Construct a KML document and save it as a KMZ file.
 * [Create feature collection layer (Portal item)](Maui.Samples/Samples/Layers/FeatureCollectionLayerFromPortal) - Create a feature collection layer from a portal item.
@@ -190,7 +186,7 @@
 * [Change time extent](Maui.Samples/Samples/MapView/ChangeTimeExtent) - Filter data in layers by applying a time extent to a MapView.
 * [Change viewpoint](Maui.Samples/Samples/MapView/ChangeViewpoint) - Set the map view to a new viewpoint.
 * [Display draw status](Maui.Samples/Samples/MapView/DisplayDrawingStatus) - Get the draw status of your map view or scene view to know when all layers in the map or scene have finished drawing.
-* [Display grid](Maui.Samples/Samples/MapView/DisplayGrid) - Display coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view. Also, toggle label visibility and change the color of grid lines and grid labels.
+* [Display grid](Maui.Samples/Samples/MapView/DisplayGrid) - Display and customize coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view or scene view.
 * [Display layer view state](Maui.Samples/Samples/MapView/DisplayLayerViewState) - Determine if a layer is currently being viewed.
 * [Feature layer time offset](Maui.Samples/Samples/MapView/FeatureLayerTimeOffset) - Display a time-enabled feature layer with a time offset.
 * [Filter by time extent](Maui.Samples/Samples/MapView/FilterByTimeExtent) - The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.

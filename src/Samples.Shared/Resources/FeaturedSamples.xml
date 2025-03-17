@@ -6,6 +6,7 @@
 		</Category>
 		<Category name="Data">
 			<Sample>ManageFeatures</Sample>
+			<Sample>EditFeaturesUsingFeatureForms</Sample>
 		</Category>
 		<Category name="Geometry">
 			<Sample>CreateAndEditGeometries</Sample>
@@ -14,6 +15,7 @@
 		<Category name="Layers">
 			<Sample>Add3dTilesLayer</Sample>
 			<Sample>ConfigureClusters</Sample>
+			<Sample>ConfigureElectronicNavigationalCharts</Sample>
 			<Sample>AddCustomDynamicEntityDataSource</Sample>
 			<Sample>AddDynamicEntityLayer</Sample>
 			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>
@@ -28,6 +30,9 @@
 			<Sample>DisplayOverviewMap</Sample>
 			<Sample>CreateDynamicBasemapGallery</Sample>
         </Category>
+		<Category name="MapView">
+			<Sample>DisplayGrid</Sample>
+		</Category>
 		<Category name="Scene">
 			<Sample>FilterFeaturesInScene</Sample>
 			<Sample>ShowLabelsOnLayer3D</Sample>

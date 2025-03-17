@@ -7,27 +7,23 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.UI.Controls;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
 using Esri.ArcGISRuntime.UI.Editing;
 using Esri.ArcGISRuntime.UtilityNetworks;
+using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media;
+using System;
 using System.Collections.Generic;
-using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 using System.IO;
-using ArcGIS.Samples.Managers;
+using System.Linq;
+using System.Threading.Tasks;
+using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 
 namespace ArcGIS.WinUI.Samples.SnapGeometryEditsWithUtilityNetworkRules
 {
@@ -358,7 +354,6 @@ namespace ArcGIS.WinUI.Samples.SnapGeometryEditsWithUtilityNetworkRules
             // Close the geodatabase when the sample closes.
             _geodatabase.Close();
         }
-
     }
 
     public class SnapSourceSettingsVM

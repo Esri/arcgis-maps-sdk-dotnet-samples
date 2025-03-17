@@ -2,8 +2,186 @@
 <ContentPage x:Class="ArcGIS.Samples.SnapGeometryEditsWithUtilityNetworkRules.SnapGeometryEditsWithUtilityNetworkRules"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <ContentPage.Resources>
+        <DataTemplate x:Key="SnapSettingTemplate">
+            <Grid ColumnDefinitions="auto,130,*" ColumnSpacing="10">
+                <Image Grid.Column="0"
+                       HeightRequest="15"
+                       HorizontalOptions="Start"
+                       Source="{Binding Path=Symbol}"
+                       VerticalOptions="Center"
+                       WidthRequest="15" />
+                <Label Grid.Column="1"
+                       Text="{Binding Path=Name}"
+                       VerticalOptions="Center" />
+                <CheckBox Grid.Column="2"
+                          IsChecked="{Binding Path=SnapSourceSettings.IsEnabled}"
+                          VerticalOptions="Center" />
+            </Grid>
+        </DataTemplate>
+        <Style x:Key="IconStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="calcite-ui-icons-24" />
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#3C3C3C, Light=White}" />
+            </Style.Setters>
+        </Style>
+        <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+    </ContentPage.Resources>
     <Grid>
-        <esriUI:MapView x:Name="MyMapView" />
+        <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Border x:Name="SnappingControls"
+                Margin="10"
+                HorizontalOptions="End"
+                IsVisible="False"
+                StrokeThickness="0"
+                VerticalOptions="Start"
+                WidthRequest="250">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0"
+                             Orientation="Vertical"
+                             Spacing="5">
+                    <Border Background="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Dark}}" StrokeThickness="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
+                        <StackLayout>
+                            <Label x:Name="InstructionsLabel"
+                                   Padding="10"
+                                   FontSize="14"
+                                   Text="Tap a point feature to edit." />
+                        </StackLayout>
+                    </Border>
+                    <StackLayout x:Name="SelectedFeaturePanel"
+                                 IsVisible="False"
+                                 Spacing="5">
+                        <Border Padding="10"
+                                Background="{AppThemeBinding Light={StaticResource White},
+                                                             Dark={StaticResource Dark}}"
+                                StrokeThickness="0">
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
+                            <StackLayout>
+                                <Label Margin="0,0,0,5"
+                                       FontAttributes="Bold"
+                                       FontSize="14"
+                                       Text="Feature selected" />
+                                <Grid RowSpacing="5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
+                                    </Grid.RowDefinitions>
+                                    <Label Grid.Row="0"
+                                           Grid.Column="0"
+                                           Margin="0,0,5,0"
+                                           Text="AssetGroup:" />
+                                    <Label x:Name="SelectedAssetGroupLabel"
+                                           Grid.Row="0"
+                                           Grid.Column="1" />
+                                    <Label Grid.Row="1"
+                                           Grid.Column="0"
+                                           Margin="0,0,5,0"
+                                           Text="AssetType:" />
+                                    <Label x:Name="SelectedAssetTypeLabel"
+                                           Grid.Row="1"
+                                           Grid.Column="1" />
+                                </Grid>
+                            </StackLayout>
+                        </Border>
+                        <Button x:Name="SnapSourcesButton"
+                                Clicked="SnapSourcesButton_Clicked"
+                                Text="Snap sources" />
+                        <Button x:Name="GeometryEditorButton"
+                                Clicked="GeometryEditorButton_Click"
+                                IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
+                                Text="Start editor" />
+                        <Grid ColumnSpacing="5">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.5*" />
+                                <ColumnDefinition Width="0.5*" />
+                            </Grid.ColumnDefinitions>
+                            <Button Grid.Column="0"
+                                    Clicked="DiscardButton_Click"
+                                    IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                                    Style="{StaticResource IconStyle}"
+                                    Text="&#xe080;"
+                                    ToolTipProperties.Text="Discard edits" />
+                            <Button x:Name="SaveButton"
+                                    Grid.Column="1"
+                                    Clicked="SaveButton_Click"
+                                    IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                                    Style="{StaticResource IconStyle}"
+                                    Text="&#xe06f;"
+                                    ToolTipProperties.Text="Save edits" />
+                        </Grid>
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+        </Border>
+        <Grid x:Name="SnapSourcesPopup"
+              Grid.ColumnSpan="2"
+              Padding="10"
+              Background="#AA333333"
+              IsVisible="False">
+            <Border Margin="10"
+                    Background="{AppThemeBinding Dark=Black,
+                                                 Light=White}"
+                    HorizontalOptions="Center"
+                    StrokeShape="RoundRectangle 10"
+                    VerticalOptions="Center"
+                    WidthRequest="300">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer />
+                </Border.GestureRecognizers>
+                <StackLayout Padding="10" Spacing="10">
+                    <Label Padding="0,5"
+                           FontAttributes="Bold"
+                           FontSize="14"
+                           Text="Snap sources" />
+                    <CollectionView x:Name="SnapSourcesList"
+                                    Margin="15,0"
+                                    ItemTemplate="{StaticResource SnapSettingTemplate}" />
+                    <Label FontAttributes="Bold"
+                           FontSize="14"
+                           Text="SnapRuleBehavior" />
+                    <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                        <Rectangle Grid.Column="0"
+                                   Margin="0,0,5,0"
+                                   Fill="Green"
+                                   HeightRequest="10"
+                                   WidthRequest="10" />
+                        <Label Text="None" />
+                    </StackLayout>
+                    <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                        <Rectangle Grid.Column="0"
+                                   Margin="0,0,5,0"
+                                   Fill="Orange"
+                                   HeightRequest="10"
+                                   WidthRequest="10" />
+                        <Label Text="RulesLimitSnapping" />
+                    </StackLayout>
+                    <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                        <Rectangle Grid.Column="0"
+                                   Margin="0,0,5,0"
+                                   Fill="Red"
+                                   HeightRequest="10"
+                                   WidthRequest="10" />
+                        <Label Text="RulesPreventSnapping" />
+                    </StackLayout>
+                    <Button Clicked="SnapSourcesButton_Clicked" Text="Close" />
+                </StackLayout>
+            </Border>
+        </Grid>
     </Grid>
 </ContentPage>

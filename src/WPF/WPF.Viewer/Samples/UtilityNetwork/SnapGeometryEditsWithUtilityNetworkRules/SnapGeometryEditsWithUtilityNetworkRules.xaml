@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ArcGIS.WPF.Samples.SnapGeometryWithRules.SnapGeometryWithRules"
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.SnapGeometryEditsWithUtilityNetworkRules.SnapGeometryEditsWithUtilityNetworkRules"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="clr-namespace:ArcGIS.WPF.Viewer.Converters"

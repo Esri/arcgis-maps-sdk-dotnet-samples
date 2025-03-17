@@ -24,10 +24,7 @@
         "9d2987a825c646468b3ce7512fb76e2d"
     ],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/configure-electronic-navigational-charts.htm",
-        "net/latest/wpf/sample-code/select-enc-features.htm",
-        "net/latest/wpf/sample-code/change-enc-display-settings.htm",
-        "net/latest/wpf/sample-code/add-enc-exchange-set.htm"
+        "/net/latest/maui/sample-code/configure-electronic-navigational-charts.htm"
     ],
     "relevant_apis": [
         "EncCell",

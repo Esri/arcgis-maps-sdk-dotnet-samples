@@ -264,6 +264,7 @@
 
 ## Utility network
 
+* [Basic readme template](WPF.Viewer/Samples/UtilityNetwork/SnapGeometryEditsWithUtilityNetworkRules) - 
 * [Configure subnetwork trace](WPF.Viewer/Samples/UtilityNetwork/ConfigureSubnetworkTrace) - Get a server-defined trace configuration for a given tier and modify its traversability scope, add new condition barriers and control what is included in the subnetwork trace result.
 * [Create load report](WPF.Viewer/Samples/UtilityNetwork/CreateLoadReport) - Demonstrates the creation of a simple electric distribution report. It traces downstream from a given point and adds up the count of customers and total load per phase.
 * [Display content of utility network container](WPF.Viewer/Samples/UtilityNetwork/DisplayUtilityNetworkContainer) - A utility network container allows a dense collection of features to be represented by a single feature, which can be used to reduce map clutter.

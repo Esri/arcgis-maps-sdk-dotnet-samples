@@ -25,15 +25,15 @@ using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using System.Collections.Generic;
 
-namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
+namespace ArcGIS.WPF.Samples.SnapGeometryEditsWithUtilityNetworkRules
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Snap geometry with rules",
-        "Geometry",
-        "Perform snap geometry edits with rules",
-        "")]
+        name: "Basic readme template",
+        category: "Utility network",
+        description: "",
+        instructions: "")]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("0fd3a39660d54c12b05d5f81f207dffd")]
-    public partial class SnapGeometryWithRules
+    public partial class SnapGeometryEditsWithUtilityNetworkRules
     {
         // Layer name for the pipeline subtype feature layer.
         private const string PipelineLayerName = "PipelineLine";
@@ -69,7 +69,7 @@ namespace ArcGIS.WPF.Samples.SnapGeometryWithRules
         // Graphic json
         string graphicJson = "{\"paths\":[[[-9811826.6810284462,5132074.7700250093],[-9811786.4643617794,5132440.9533583419],[-9811384.2976951133,5132354.1700250087],[-9810372.5310284477,5132360.5200250093],[-9810353.4810284469,5132066.3033583425]]],\"spatialReference\":{\"wkid\":102100,\"latestWkid\":3857}}";
 
-        public SnapGeometryWithRules()
+        public SnapGeometryEditsWithUtilityNetworkRules()
         {
             InitializeComponent();
             _ = InitializeAsync();

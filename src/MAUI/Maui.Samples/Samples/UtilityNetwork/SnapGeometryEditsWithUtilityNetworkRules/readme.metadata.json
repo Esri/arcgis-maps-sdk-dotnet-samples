@@ -1,0 +1,18 @@
+{
+    "category": "Utility network",
+    "description": "",
+    "formal_name": "SnapGeometryEditsWithUtilityNetworkRules",
+    "ignore": false,
+    "images": [],
+    "keywords": [],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/basic-readme-template.htm"
+    ],
+    "relevant_apis": [],
+    "snippets": [
+        "SnapGeometryEditsWithUtilityNetworkRules.xaml.cs",
+        "SnapGeometryEditsWithUtilityNetworkRules.xaml"
+    ],
+    "title": "Basic readme template"
+}

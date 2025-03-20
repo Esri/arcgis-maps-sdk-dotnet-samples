@@ -134,6 +134,9 @@
               Padding="10"
               Background="#AA333333"
               IsVisible="False">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer Tapped="SnapSourcesPopup_Tapped" />
+            </Grid.GestureRecognizers>
             <Border Margin="10"
                     Background="{AppThemeBinding Dark=Black,
                                                  Light=White}"
@@ -144,43 +147,44 @@
                 <Border.GestureRecognizers>
                     <TapGestureRecognizer />
                 </Border.GestureRecognizers>
-                <StackLayout Padding="10" Spacing="10">
-                    <Label Padding="0,5"
-                           FontAttributes="Bold"
-                           FontSize="14"
-                           Text="Snap sources" />
-                    <CollectionView x:Name="SnapSourcesList"
-                                    Margin="15,0"
-                                    ItemTemplate="{StaticResource SnapSettingTemplate}" />
-                    <Label FontAttributes="Bold"
-                           FontSize="14"
-                           Text="SnapRuleBehavior" />
-                    <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
-                        <Rectangle Grid.Column="0"
-                                   Margin="0,0,5,0"
-                                   Fill="Green"
-                                   HeightRequest="10"
-                                   WidthRequest="10" />
-                        <Label Text="None" />
+                <ScrollView>
+                    <StackLayout Padding="10" Spacing="10">
+                        <Label Padding="0,5"
+                               FontAttributes="Bold"
+                               FontSize="14"
+                               Text="Snap sources" />
+                        <CollectionView x:Name="SnapSourcesList"
+                                        Margin="15,0"
+                                        ItemTemplate="{StaticResource SnapSettingTemplate}" />
+                        <Label FontAttributes="Bold"
+                               FontSize="14"
+                               Text="SnapRuleBehavior" />
+                        <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                            <Rectangle Grid.Column="0"
+                                       Margin="0,0,5,0"
+                                       Fill="Green"
+                                       HeightRequest="10"
+                                       WidthRequest="10" />
+                            <Label Text="None" />
+                        </StackLayout>
+                        <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                            <Rectangle Grid.Column="0"
+                                       Margin="0,0,5,0"
+                                       Fill="Orange"
+                                       HeightRequest="10"
+                                       WidthRequest="10" />
+                            <Label Text="RulesLimitSnapping" />
+                        </StackLayout>
+                        <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
+                            <Rectangle Grid.Column="0"
+                                       Margin="0,0,5,0"
+                                       Fill="Red"
+                                       HeightRequest="10"
+                                       WidthRequest="10" />
+                            <Label Text="RulesPreventSnapping" />
+                        </StackLayout>
                     </StackLayout>
-                    <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
-                        <Rectangle Grid.Column="0"
-                                   Margin="0,0,5,0"
-                                   Fill="Orange"
-                                   HeightRequest="10"
-                                   WidthRequest="10" />
-                        <Label Text="RulesLimitSnapping" />
-                    </StackLayout>
-                    <StackLayout Margin="20,0,0,0" Orientation="Horizontal">
-                        <Rectangle Grid.Column="0"
-                                   Margin="0,0,5,0"
-                                   Fill="Red"
-                                   HeightRequest="10"
-                                   WidthRequest="10" />
-                        <Label Text="RulesPreventSnapping" />
-                    </StackLayout>
-                    <Button Clicked="SnapSourcesButton_Clicked" Text="Close" />
-                </StackLayout>
+                </ScrollView>
             </Border>
         </Grid>
     </Grid>

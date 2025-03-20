@@ -14,7 +14,7 @@ To edit a geometry, tap a point geometry to be edited in the map to select it. T
 
 Snap sources can be enabled and disabled. Snapping will not occur when `SnapRuleBehavior.RulesPreventSnapping` even when the source is enabled.
 
-To interactively snap a vertex to a feature or graphic, ensure that snapping is enabled for the relevant snap source, then move the mouse pointer or drag a vertex to nearby an existing feature or graphic. If the existing feature or graphic has valid utility network connectivity rules for the asset type that is being created or edited, the edit position will be adjusted to coincide with (or snap to) edges and vertices of its geometry. Click or release the touch pointer to place the vertex at the snapped location.
+To interactively snap a vertex to a feature or graphic, ensure that snapping is enabled for the relevant snap source, then move the mouse pointer or drag a vertex close to an existing feature or graphic. If the existing feature or graphic has valid utility network connectivity rules for the asset type that is being created or edited, the edit position will be adjusted to coincide with (or snap to) edges and vertices of its geometry. Click or release the touch pointer to place the vertex at the snapped location.
 
 To discard changes and stop the geometry editor, press the discard button.
 
@@ -24,13 +24,13 @@ To save your edits, press the save button.
 
 1. Create a map with `LoadSettings.FeatureTilingMode` set to `EnabledWithFullResolutionWhenSupported`.
 2. Create a `Geodatabase` using the mobile geodatabase file location.
-3. Display `Geodatabase.featureTables` on the map using subtype feature layers.
+3. Display `Geodatabase.FeatureTables` on the map using subtype feature layers.
 4. Create a `GeometryEditor` and connect it to the map view.
 5. When editing a feature:
 
     a. Call `SnapRules.CreateAsync(UtilityNetwork, UtilityAssetType)` to get the snap rules associated with a given `UtilityAssetType`.
 
-    b. Use `SyncSourceSettings(SnapRules, SnapSourceEnablingBehavior.setFromRules)` to populate the `SnapSettings.SourceSettings` with `SnapSourceSettings` enabling the sources with rules.
+    b. Use `SyncSourceSettings(SnapRules, SnapSourceEnablingBehavior.SetFromRules)` to populate the `SnapSettings.SourceSettings` with `SnapSourceSettings` enabling the sources with rules.
 
 6. Start the geometry editor with an existing geometry or `GeometryType.Point`.
 

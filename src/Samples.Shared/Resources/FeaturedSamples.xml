@@ -5,6 +5,7 @@
 			<Sample>DistanceMeasurement</Sample>
 		</Category>
 		<Category name="Data">
+			<Sample>CreateKmlMultiTrack</Sample>
 			<Sample>ManageFeatures</Sample>
 			<Sample>EditFeaturesUsingFeatureForms</Sample>
 		</Category>

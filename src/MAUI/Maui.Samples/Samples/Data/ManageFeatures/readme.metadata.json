@@ -29,7 +29,11 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/manage-features.htm"
+        "/net/latest/maui/sample-code/manage-features.htm",
+        "/net/latest/maui/sample-code/add-features.htm",
+        "/net/latest/maui/sample-code/delete-features.htm",
+        "/net/latest/maui/sample-code/update-attributes.htm",
+        "/net/latest/maui/sample-code/update-geometries.htm"
     ],
     "relevant_apis": [
         "Feature",

@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.CreateKmlMultiTrack.CreateKmlMultiTrack"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <UserControl.Resources>
+        <Style x:Key="IconStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24" />
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Margin" Value="5" />
+            </Style.Setters>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <StackPanel x:Name="RecordingUI">
+                    <TextBlock x:Name="ElementsCountTextBox" Text="Click record to capture KML track elements." />
+                    <TextBlock x:Name="TracksCountTextBlock" Text="Number of tracks in MultiTrack: 0" />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="5*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Button x:Name="RecenterButton"
+                                Click="RecenterButton_Click"
+                                Content="&#xe13c;"
+                                IsEnabled="False"
+                                Style="{StaticResource IconStyle}"
+                                ToolTip="Recenter" />
+                        <Button x:Name="RecordTrackButton"
+                                Grid.Column="1"
+                                Margin="5"
+                                Click="RecordTrackButton_Click"
+                                Content="Record Track" />
+                        <Button x:Name="SaveButton"
+                                Grid.Column="2"
+                                Click="SaveButton_Click"
+                                Content="&#xe262;"
+                                IsEnabled="False"
+                                Style="{StaticResource IconStyle}"
+                                ToolTip="Save" />
+                    </Grid>
+                </StackPanel>
+                <StackPanel x:Name="ViewingUI" Visibility="Collapsed">
+                    <TextBlock Text="Displaying contents of saved HikingTracks.kmz file." />
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="6*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ComboBox x:Name="TracksComboBox"
+                                  Margin="5"
+                                  HorizontalContentAlignment="Center"
+                                  VerticalContentAlignment="Center"
+                                  DisplayMemberPath="Key"
+                                  SelectionChanged="TracksComboBox_SelectionChanged" />
+                        <Button Grid.Column="1"
+                                Click="ResetButton_Click"
+                                Content="&#xe243;"
+                                Style="{StaticResource IconStyle}"
+                                ToolTip="Reset" />
+                    </Grid>
+
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

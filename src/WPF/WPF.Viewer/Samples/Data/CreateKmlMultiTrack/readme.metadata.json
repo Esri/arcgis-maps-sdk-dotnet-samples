@@ -1,0 +1,37 @@
+{
+    "category": "Data",
+    "description": "Create, save and preview a KML multi-track, captured from a location data source.",
+    "formal_name": "CreateKmlMultiTrack",
+    "ignore": false,
+    "images": [
+        "CreateKmlMultiTrack.jpg"
+    ],
+    "keywords": [
+        "export",
+        "geoview-compose",
+        "hiking",
+        "kml",
+        "kmz",
+        "multi-track",
+        "record",
+        "track"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/create-kml-multi-track.htm"
+    ],
+    "relevant_apis": [
+        "KmlDataset",
+        "KmlDocument",
+        "KmlMultiTrack",
+        "KmlPlacemark",
+        "KmlTrack",
+        "LocationDisplay",
+        "SimulatedLocationDataSource"
+    ],
+    "snippets": [
+        "CreateKmlMultiTrack.xaml.cs",
+        "CreateKmlMultiTrack.xaml"
+    ],
+    "title": "Create KML multi-track"
+}

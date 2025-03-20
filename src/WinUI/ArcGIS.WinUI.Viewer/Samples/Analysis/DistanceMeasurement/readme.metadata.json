@@ -13,11 +13,12 @@
         "measure"
     ],
     "offline_data": [],
-    "redirect_from": [
-        "net/latest/wpf/sample-code/select-enc-features.htm",
-        "net/latest/wpf/sample-code/change-enc-display-settings.htm",
-        "net/latest/wpf/sample-code/add-enc-exchange-set.htm"
-    ],
+  "redirect_from": [
+    "/net/latest/wpf/sample-code/configure-electronic-navigational-charts.htm",
+    "net/latest/wpf/sample-code/select-enc-features.htm",
+    "net/latest/wpf/sample-code/change-enc-display-settings.htm",
+    "net/latest/wpf/sample-code/add-enc-exchange-set.htm"
+  ],
     "relevant_apis": [
         "AnalysisOverlay",
         "LocationDistanceMeasurement",

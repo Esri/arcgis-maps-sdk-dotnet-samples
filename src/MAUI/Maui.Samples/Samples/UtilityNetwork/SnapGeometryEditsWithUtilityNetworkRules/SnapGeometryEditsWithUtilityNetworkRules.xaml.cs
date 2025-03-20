@@ -351,14 +351,16 @@ namespace ArcGIS.Samples.SnapGeometryEditsWithUtilityNetworkRules
             _geodatabase.Close();
         }
 
-        private void SnapSourcesPopup_Tapped(object sender, TappedEventArgs e)
+        private void SnapSourcesPopupBackground_Tapped(object sender, TappedEventArgs e)
         {
             SnapSourcesPopup.IsVisible = false;
+            SnapSourcesPopupBackground.IsVisible = false;
         }
 
         private void SnapSourcesButton_Clicked(object sender, EventArgs e)
         {
             SnapSourcesPopup.IsVisible = true;
+            SnapSourcesPopupBackground.IsVisible = true;
         }
     }
 

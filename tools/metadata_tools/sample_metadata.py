@@ -90,10 +90,6 @@ class sample_metadata:
         redirect_string = f"/net/latest/{real_platform.lower()}/sample-code/{slugged_sample_name}.htm"
         self.redirect_from.append(redirect_string)
 
-        # In cases where the sample name changes the previous name can be added as a redirect following the pattern below.
-        # if self.formal_name == "NewFormalSampleName":
-        #     self.redirect_from.append(f"/net/{real_platform.lower()}/sample-code/old-slugged-sample-name/")
-
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]
 
@@ -152,6 +148,11 @@ class sample_metadata:
         data["offline_data"] = self.offline_data
         data["formal_name"] = self.formal_name
 
+        with open(path_to_json, 'r') as json_file:
+            existing_metadata = json.load(json_file)
+            if set(data["redirect_from"]).issubset(set(existing_metadata["redirect_from"])):
+                data["redirect_from"] = existing_metadata["redirect_from"]
+    
         with open(path_to_json, 'w+') as json_file:
             json.dump(data, json_file, indent=4, sort_keys=True)
 

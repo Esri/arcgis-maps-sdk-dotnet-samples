@@ -31,7 +31,7 @@
                         Grid.Row="1"
                         IsVisible="False"
                         MaximumHeightRequest="400">
-                <Grid ColumnDefinitions="auto, auto"
+                <Grid ColumnDefinitions="*, *"
                       ColumnSpacing="5"
                       RowDefinitions="auto, auto, auto, auto, auto, auto, auto"
                       RowSpacing="5">
@@ -79,12 +79,14 @@
                         <Border.StrokeShape>
                             <RoundRectangle CornerRadius="5" />
                         </Border.StrokeShape>
-                        <HorizontalStackLayout>
+                        <Grid ColumnDefinitions="35,*">
                             <CheckBox x:Name="UniformScaleCheckBox"
                                       Margin="3,0,5,0"
                                       CheckedChanged="CheckBox_CheckedChanged" />
-                            <Label Text="Uniform Scale" VerticalOptions="Center" />
-                        </HorizontalStackLayout>
+                            <Label Grid.Column="1"
+                                   Text="Uniform Scale"
+                                   VerticalOptions="Center" />
+                        </Grid>
                     </Border>
                     <Button Grid.Row="4"
                             Clicked="UndoButton_Click"

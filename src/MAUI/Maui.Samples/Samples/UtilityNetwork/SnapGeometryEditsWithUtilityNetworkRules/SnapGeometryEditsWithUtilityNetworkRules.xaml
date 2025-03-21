@@ -39,6 +39,9 @@
                 StrokeThickness="0"
                 VerticalOptions="Start"
                 WidthRequest="250">
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="5"/>
+        </Border.StrokeShape>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -144,6 +147,7 @@
                                              Light=White}"
                 HorizontalOptions="Center"
                 IsVisible="False"
+                HeightRequest="250"
                 StrokeShape="RoundRectangle 10"
                 VerticalOptions="Center"
                 WidthRequest="300">

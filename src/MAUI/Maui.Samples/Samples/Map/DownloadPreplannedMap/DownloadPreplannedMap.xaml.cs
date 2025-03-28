@@ -94,7 +94,7 @@ namespace ArcGIS.Samples.DownloadPreplannedMap
             {
                 // Something unexpected happened, show the error message.
                 Debug.WriteLine(ex);
-                await DisplayAlert("There was an error.", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("There was an error.", ex.Message, "OK");
             }
         }
 
@@ -140,7 +140,7 @@ namespace ArcGIS.Samples.DownloadPreplannedMap
                 catch (Exception e)
                 {
                     Debug.WriteLine(e);
-                    await DisplayAlert("Couldn't open offline area. Proceeding to take area offline.", e.Message, "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Couldn't open offline area. Proceeding to take area offline.", e.Message, "OK");
                 }
             }
 
@@ -181,7 +181,7 @@ namespace ArcGIS.Samples.DownloadPreplannedMap
                     }
 
                     // Show the message.
-                    await DisplayAlert("Warning!", errors, "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Warning!", errors, "OK");
                 }
 
                 // Show the downloaded map.
@@ -196,7 +196,7 @@ namespace ArcGIS.Samples.DownloadPreplannedMap
             {
                 // Report any errors.
                 Debug.WriteLine(ex);
-                await DisplayAlert("Downloading map area failed.", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Downloading map area failed.", ex.Message, "OK");
             }
             finally
             {
@@ -253,7 +253,7 @@ namespace ArcGIS.Samples.DownloadPreplannedMap
             catch (Exception ex)
             {
                 // Report the error.
-                await DisplayAlert("Deleting map areas failed.", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Deleting map areas failed.", ex.Message, "OK");
             }
             finally
             {

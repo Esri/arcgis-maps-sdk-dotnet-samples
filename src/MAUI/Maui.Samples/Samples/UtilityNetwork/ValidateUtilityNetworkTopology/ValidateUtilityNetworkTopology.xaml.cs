@@ -233,7 +233,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             catch (Exception ex)
             {
                 Status.Text = "Initialization failed.";
-                await DisplayAlert(ex.Message, ex.GetType().Name, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.Message, ex.GetType().Name, "OK");
             }
             finally
             {
@@ -283,7 +283,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             }
             catch (Exception ex)
             {
-                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
             finally
             {
@@ -324,7 +324,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             catch (Exception ex)
             {
                 Status.Text = "Validate network topology failed.";
-                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
             finally
             {
@@ -404,7 +404,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             catch (Exception ex)
             {
                 Status.Text = "Identifying feature to edit failed.";
-                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
             finally
             {
@@ -458,7 +458,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             catch (Exception ex)
             {
                 Status.Text = "Apply edits failed.";
-                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
             finally
             {
@@ -524,7 +524,7 @@ namespace ArcGIS.Samples.ValidateUtilityNetworkTopology
             {
                 Status.Text = "Trace failed.\n" +
                     "Click 'Get State' to check the updated network state.";
-                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
             finally
             {

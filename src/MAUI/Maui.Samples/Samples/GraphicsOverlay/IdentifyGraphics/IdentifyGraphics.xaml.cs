@@ -102,13 +102,13 @@ namespace ArcGIS.Samples.IdentifyGraphics
                     // Make sure that the UI changes are done in the UI thread
                     Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () =>
                     {
-                        await DisplayAlert("", "Tapped on graphic", "OK");
+                        await Application.Current.Windows[0].Page.DisplayAlert("", "Tapped on graphic", "OK");
                     });
                 }
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

@@ -79,7 +79,7 @@ namespace ArcGIS.Samples.ChooseCameraController
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
-                await DisplayAlert("Error", "Loading plane model failed. Sample failed to initialize.", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Loading plane model failed. Sample failed to initialize.", "OK");
                 return;
             }
 
@@ -145,7 +145,7 @@ namespace ArcGIS.Samples.ChooseCameraController
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

@@ -63,7 +63,7 @@ namespace ArcGIS.Samples.HonorMobileMapPackageExpiration
                     }
                     else if (expiration.Type == ExpirationType.PreventExpiredAccess)
                     {
-                        await DisplayAlert("Error", "The author of this mobile map package has disallowed access after the expiration date.", "OK");
+                        await Application.Current.Windows[0].Page.DisplayAlert("Error", "The author of this mobile map package has disallowed access after the expiration date.", "OK");
                     }
                 }
                 else if (mobileMapPackage.Maps.Any())
@@ -73,7 +73,7 @@ namespace ArcGIS.Samples.HonorMobileMapPackageExpiration
                 }
                 else
                 {
-                    await DisplayAlert("Error", "Failed to load the mobile map package.", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Error", "Failed to load the mobile map package.", "OK");
                 }
             }
             catch (Exception e)

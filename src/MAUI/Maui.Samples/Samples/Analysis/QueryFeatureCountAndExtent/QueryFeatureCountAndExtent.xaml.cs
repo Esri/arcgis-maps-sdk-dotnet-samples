@@ -79,7 +79,7 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
             }
             catch (Exception e)
             {
-                await DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -107,7 +107,7 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -134,7 +134,7 @@ namespace ArcGIS.Samples.QueryFeatureCountAndExtent
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

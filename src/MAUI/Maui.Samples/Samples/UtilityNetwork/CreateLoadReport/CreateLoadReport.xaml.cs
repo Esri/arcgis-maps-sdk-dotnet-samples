@@ -83,7 +83,7 @@ namespace ArcGIS.Samples.CreateLoadReport
                 }
                 catch (Exception ex)
                 {
-                    await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
                     return null;
                 }
             });
@@ -136,7 +136,7 @@ namespace ArcGIS.Samples.CreateLoadReport
             }
             catch (Exception ex)
             {
-                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 
@@ -178,7 +178,7 @@ namespace ArcGIS.Samples.CreateLoadReport
                             {
                                 if (result.Warnings.Count > 0)
                                 {
-                                    await DisplayAlert("Trace Result Warnings", string.Join("\n", result.Warnings), "OK");
+                                    await Application.Current.Windows[0].Page.DisplayAlert("Trace Result Warnings", string.Join("\n", result.Warnings), "OK");
                                 }
                                 if (result is UtilityElementTraceResult elementResult)
                                 {
@@ -196,7 +196,7 @@ namespace ArcGIS.Samples.CreateLoadReport
             }
             catch (Exception ex)
             {
-                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
     }

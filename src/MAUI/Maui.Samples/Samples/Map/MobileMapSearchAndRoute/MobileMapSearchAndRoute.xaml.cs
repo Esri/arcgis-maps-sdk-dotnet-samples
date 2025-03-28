@@ -113,7 +113,7 @@ namespace ArcGIS.Samples.MobileMapSearchAndRoute
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                await DisplayAlert("Error", "Couldn't geocode or route.", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Couldn't geocode or route.", "OK");
             }
         }
 
@@ -211,7 +211,7 @@ namespace ArcGIS.Samples.MobileMapSearchAndRoute
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                await DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
     }

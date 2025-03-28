@@ -102,7 +102,7 @@ namespace ArcGIS.Samples.ExportTiles
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -199,7 +199,7 @@ namespace ArcGIS.Samples.ExportTiles
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -266,7 +266,7 @@ namespace ArcGIS.Samples.ExportTiles
             else if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
             {
                 // Notify the user.
-                await DisplayAlert("Error", "Job Failed", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Job Failed", "OK");
 
                 // Update the UI.
                 MyExportPreviewButton.Text = "Export Tiles";
@@ -335,7 +335,7 @@ namespace ArcGIS.Samples.ExportTiles
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

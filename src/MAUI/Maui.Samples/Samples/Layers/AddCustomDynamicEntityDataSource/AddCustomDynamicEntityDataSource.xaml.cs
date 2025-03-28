@@ -140,7 +140,7 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error identifying dynamic entity.", ex.ToString(), "Ok");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error identifying dynamic entity.", ex.ToString(), "Ok");
             }
         }
     }

@@ -46,7 +46,7 @@ namespace ArcGIS.Samples.OpenMobileScenePackage
             }
             catch (Exception e)
             {
-                await DisplayAlert("Couldn't open scene", e.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Couldn't open scene", e.Message, "OK");
                 Debug.WriteLine(e);
             }
         }

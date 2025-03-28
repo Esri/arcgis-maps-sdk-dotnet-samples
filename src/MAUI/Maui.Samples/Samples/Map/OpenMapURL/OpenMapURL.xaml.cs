@@ -61,7 +61,7 @@ namespace ArcGIS.Samples.OpenMapURL
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
     }

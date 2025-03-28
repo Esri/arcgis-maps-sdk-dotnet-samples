@@ -135,7 +135,7 @@ namespace ArcGIS.Samples.AddFeaturesWithContingentValues
             }
             catch (Exception e)
             {
-                await DisplayAlert("Error", e.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.Message, "OK");
             }
         }
 
@@ -163,7 +163,7 @@ namespace ArcGIS.Samples.AddFeaturesWithContingentValues
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -197,7 +197,7 @@ namespace ArcGIS.Samples.AddFeaturesWithContingentValues
             }
             catch (Exception e)
             {
-                await DisplayAlert("Error", e.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.Message, "OK");
             }
 
             return contingentValuesNamesList;
@@ -250,7 +250,7 @@ namespace ArcGIS.Samples.AddFeaturesWithContingentValues
             }
             catch (Exception e)
             {
-                await DisplayAlert("Error", e.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.Message, "OK");
             }
         }
 
@@ -274,13 +274,13 @@ namespace ArcGIS.Samples.AddFeaturesWithContingentValues
                         break;
 
                     default:
-                        await DisplayAlert("Error", $"{field} not found in any of the data dictionaries.", "OK");
+                        await Application.Current.Windows[0].Page.DisplayAlert("Error", $"{field} not found in any of the data dictionaries.", "OK");
                         break;
                 }
             }
             catch (Exception e)
             {
-                await DisplayAlert("Error", e.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.Message, "OK");
             }
         }
 
@@ -344,7 +344,7 @@ namespace ArcGIS.Samples.AddFeaturesWithContingentValues
             }
             else
             {
-                await DisplayAlert("Error", $"Error saving feature. {numberOfViolations} violation(s) in field group(s) {string.Join(", ", fieldGroupNames)}.", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", $"Error saving feature. {numberOfViolations} violation(s) in field group(s) {string.Join(", ", fieldGroupNames)}.", "OK");
             }
         }
 

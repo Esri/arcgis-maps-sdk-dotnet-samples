@@ -175,7 +175,7 @@ namespace ArcGIS.Samples.ShowLocationHistory
 
         private async Task ShowMessage(string title, string detail)
         {
-            await DisplayAlert(title, detail, "OK");
+            await Application.Current.Windows[0].Page.DisplayAlert(title, detail, "OK");
         }
 
         public void Dispose()

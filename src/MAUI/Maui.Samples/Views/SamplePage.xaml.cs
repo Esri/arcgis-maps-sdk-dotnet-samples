@@ -418,7 +418,7 @@ namespace ArcGIS
 
         private async void VerticalHandle_Clicked(object sender, EventArgs e)
         {
-            await DisplayActionSheet("", "Cancel", null, [LiveSample, Description, SourceCode, ViewOnGitHub, BugReport, FeatureRequest]).ContinueWith((result) =>
+            await Application.Current.Windows[0].Page.DisplayActionSheet("", "Cancel", null, [LiveSample, Description, SourceCode, ViewOnGitHub, BugReport, FeatureRequest]).ContinueWith((result) =>
             {
                 if (result.Result != "Cancel")
                 {

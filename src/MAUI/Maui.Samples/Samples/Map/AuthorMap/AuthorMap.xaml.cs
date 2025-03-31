@@ -162,7 +162,7 @@ namespace ArcGIS.Samples.AuthorMap
         {
             try
             {
-                string selectionName = await DisplayActionSheet("Select basemap", "Cancel", null, _basemaps.Keys.ToArray());
+                string selectionName = await Application.Current.Windows[0].Page.DisplayActionSheet("Select basemap", "Cancel", null, _basemaps.Keys.ToArray());
 
                 if (selectionName == "Cancel") return;
 
@@ -181,7 +181,7 @@ namespace ArcGIS.Samples.AuthorMap
             {
                 string[] inMapNames = MyMapView.Map.OperationalLayers.Select(l => l.Name).ToArray();
                 string[] optionNames = _operationalLayerUrls.Where(l => !inMapNames.Contains(l.Key)).Select(l => l.Key).ToArray();
-                string selectionName = await DisplayActionSheet("Select layer to add", "Cancel", null, optionNames);
+                string selectionName = await Application.Current.Windows[0].Page.DisplayActionSheet("Select layer to add", "Cancel", null, optionNames);
 
                 if (selectionName == "Cancel") return;
 
@@ -204,7 +204,7 @@ namespace ArcGIS.Samples.AuthorMap
         {
             try
             {
-                string selectionName = await DisplayActionSheet("Select layer to remove", "Cancel", null, MyMapView.Map.OperationalLayers.Select(l => l.Name).ToArray());
+                string selectionName = await Application.Current.Windows[0].Page.DisplayActionSheet("Select layer to remove", "Cancel", null, MyMapView.Map.OperationalLayers.Select(l => l.Name).ToArray());
 
                 if (selectionName == "Cancel") return;
 

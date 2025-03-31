@@ -118,7 +118,7 @@ namespace ArcGIS.Samples.SpatialRelationships
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
 
             // Return if there are no results

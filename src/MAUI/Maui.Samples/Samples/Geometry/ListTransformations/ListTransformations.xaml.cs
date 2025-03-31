@@ -95,7 +95,7 @@ namespace ArcGIS.Samples.ListTransformations
             }
             catch (Exception e)
             {
-                await DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

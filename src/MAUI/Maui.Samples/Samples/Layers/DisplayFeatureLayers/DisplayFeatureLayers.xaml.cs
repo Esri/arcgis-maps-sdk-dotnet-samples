@@ -87,7 +87,7 @@ namespace ArcGIS.Samples.DisplayFeatureLayers
             }
             catch (Exception e)
             {
-                await DisplayAlert("Error", e.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.Message, "OK");
             }
         }
 

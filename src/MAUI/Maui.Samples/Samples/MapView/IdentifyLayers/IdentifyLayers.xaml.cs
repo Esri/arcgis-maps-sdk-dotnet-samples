@@ -53,7 +53,7 @@ namespace ArcGIS.Samples.IdentifyLayers
             }
             catch (Exception e)
             {
-                await DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -74,12 +74,12 @@ namespace ArcGIS.Samples.IdentifyLayers
 
                 if (!String.IsNullOrEmpty(result))
                 {
-                    await DisplayAlert("Identify result", result, "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Identify result", result, "OK");
                 }
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 

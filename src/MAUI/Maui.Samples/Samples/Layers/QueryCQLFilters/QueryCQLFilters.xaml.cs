@@ -100,7 +100,7 @@ namespace ArcGIS.Samples.QueryCQLFilters
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {
@@ -164,7 +164,7 @@ namespace ArcGIS.Samples.QueryCQLFilters
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {

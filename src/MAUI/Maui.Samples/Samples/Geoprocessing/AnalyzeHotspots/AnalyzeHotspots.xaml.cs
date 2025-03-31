@@ -51,7 +51,7 @@ namespace ArcGIS.Samples.AnalyzeHotspots
             }
             catch (Exception e)
             {
-                await DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -111,11 +111,11 @@ namespace ArcGIS.Samples.AnalyzeHotspots
                 // Display error messages if the geoprocessing task fails
                 if (_hotspotJob.Status == JobStatus.Failed && _hotspotJob.Error != null)
                 {
-                    await DisplayAlert("Geoprocessing error", "Executing geoprocessing failed. " + _hotspotJob.Error.Message, "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Geoprocessing error", "Executing geoprocessing failed. " + _hotspotJob.Error.Message, "OK");
                 }
                 else
                 {
-                    await DisplayAlert("Sample error", "An error occurred. " + ex.ToString(), "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Sample error", "An error occurred. " + ex.ToString(), "OK");
                 }
             }
             finally

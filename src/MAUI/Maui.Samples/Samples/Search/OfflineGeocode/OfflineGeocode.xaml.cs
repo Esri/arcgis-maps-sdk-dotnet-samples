@@ -78,7 +78,7 @@ namespace ArcGIS.Samples.OfflineGeocode
             }
             catch (Exception e)
             {
-                await DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -110,7 +110,7 @@ namespace ArcGIS.Samples.OfflineGeocode
                 // Stop if there are no suggestions.
                 if (!geocodeResults.Any())
                 {
-                    await DisplayAlert("No results", "No results found.", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("No results", "No results found.", "OK");
                     return;
                 }
 
@@ -133,7 +133,7 @@ namespace ArcGIS.Samples.OfflineGeocode
             }
             catch (Exception e)
             {
-                await DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -170,7 +170,7 @@ namespace ArcGIS.Samples.OfflineGeocode
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -195,7 +195,7 @@ namespace ArcGIS.Samples.OfflineGeocode
                 // Skip if there are no results.
                 if (!addresses.Any())
                 {
-                    await DisplayAlert("No results", "No results found.", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("No results", "No results found.", "OK");
                     return;
                 }
 
@@ -214,7 +214,7 @@ namespace ArcGIS.Samples.OfflineGeocode
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

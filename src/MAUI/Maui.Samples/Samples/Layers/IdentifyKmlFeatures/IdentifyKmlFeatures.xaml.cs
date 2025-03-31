@@ -84,7 +84,7 @@ namespace ArcGIS.Samples.IdentifyKmlFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

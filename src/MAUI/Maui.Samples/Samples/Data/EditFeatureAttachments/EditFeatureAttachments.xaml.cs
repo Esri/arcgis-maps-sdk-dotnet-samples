@@ -62,7 +62,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -106,7 +106,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error selecting feature", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error selecting feature", ex.ToString(), "OK");
             }
         }
 

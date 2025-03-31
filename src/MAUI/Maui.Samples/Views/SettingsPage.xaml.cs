@@ -152,12 +152,12 @@ namespace ArcGIS
                 }
                 catch (OperationCanceledException)
                 {
-                    await DisplayAlert(string.Empty, "Download canceled", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert(string.Empty, "Download canceled", "OK");
                 }
                 catch (Exception exception)
                 {
                     Debug.WriteLine(exception);
-                    await DisplayAlert("Error", "Couldn't download data for that sample", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Error", "Couldn't download data for that sample", "OK");
                 }
                 finally
                 {
@@ -207,12 +207,12 @@ namespace ArcGIS
                             Debug.WriteLine(ex.Message);
                         }
                     }
-                    await DisplayAlert("Success", $"Offline data deleted for {sampleInfo.SampleName}", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Success", $"Offline data deleted for {sampleInfo.SampleName}", "OK");
                 }
                 catch (Exception exception)
                 {
                     Debug.WriteLine(exception);
-                    await DisplayAlert("Error", $"Couldn't delete offline data.", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Error", $"Couldn't delete offline data.", "OK");
                 }
                 finally
                 {
@@ -248,7 +248,7 @@ namespace ArcGIS
                             }
                             catch (OperationCanceledException)
                             {
-                                await DisplayAlert(string.Empty, "Download canceled", "OK");
+                                await Application.Current.Windows[0].Page.DisplayAlert(string.Empty, "Download canceled", "OK");
                                 return;
                             }
                             catch (Exception ex)
@@ -259,12 +259,12 @@ namespace ArcGIS
                         }
                     }
                 }
-                await DisplayAlert(string.Empty, "All data downloaded", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(string.Empty, "All data downloaded", "OK");
             }
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                await DisplayAlert("Error", exception.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", exception.Message, "OK");
             }
             finally
             {
@@ -293,12 +293,12 @@ namespace ArcGIS
                     }
                 }
 
-                await DisplayAlert("Success", "All data deleted", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Success", "All data deleted", "OK");
             }
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                await DisplayAlert("Error", exception.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", exception.Message, "OK");
             }
             finally
             {

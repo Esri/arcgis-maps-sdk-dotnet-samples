@@ -86,7 +86,7 @@ namespace ArcGIS.Samples.PlayKmlTours
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
-                await DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

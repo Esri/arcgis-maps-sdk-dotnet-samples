@@ -77,7 +77,7 @@ namespace ArcGIS.Samples.FindPlace
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await DisplayAlert("Couldn't start location", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Couldn't start location", ex.Message, "OK");
             }
                 
 
@@ -209,7 +209,7 @@ namespace ArcGIS.Samples.FindPlace
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -264,7 +264,7 @@ namespace ArcGIS.Samples.FindPlace
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

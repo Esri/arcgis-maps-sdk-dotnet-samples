@@ -131,7 +131,7 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
             }
             catch (ArgumentException)
             {
-                await DisplayAlert("Error", "Unsupported Geometry", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Unsupported Geometry", "OK");
             }
         }
 
@@ -310,7 +310,7 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
             catch (Exception ex)
             {
                 Debug.Write(ex.Message);
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -327,7 +327,7 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
             }
             catch (Exception ex)
             {
-                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 

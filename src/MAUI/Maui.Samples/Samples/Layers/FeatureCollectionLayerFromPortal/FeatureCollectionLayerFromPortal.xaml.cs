@@ -66,12 +66,12 @@ namespace ArcGIS.Samples.FeatureCollectionLayerFromPortal
                 }
                 else
                 {
-                    await DisplayAlert("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Feature Collection", "Portal item with ID '" + itemId + "' is not a feature collection.", "OK");
                 }
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Unable to open item with ID '" + itemId + "': " + ex.Message, "OK");
             }
         }
 

@@ -118,7 +118,7 @@ namespace ArcGIS.Samples.Buffer
             catch (System.Exception ex)
             {
                 // Display an error message if there is a problem generating the buffers.
-                await DisplayAlert("Error creating buffers", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error creating buffers", ex.Message, "OK");
             }
         }
 

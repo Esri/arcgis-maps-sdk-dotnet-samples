@@ -115,7 +115,7 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
                 // Note for MacCatalyst: while on ethernet, without an external GPS device connected,
                 // location will be unknown.
                 Debug.WriteLine(ex);
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
             finally
             {

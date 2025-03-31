@@ -155,7 +155,7 @@ namespace ArcGIS.Samples.ExportVectorTiles
             else if (_job.Status == Esri.ArcGISRuntime.Tasks.JobStatus.Failed)
             {
                 // Notify the user.
-                await DisplayAlert("Error", "Job failed", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Job failed", "OK");
 
                 // Update the UI.
                 MyExportPreviewButton.Text = "Export Tiles";
@@ -272,7 +272,7 @@ namespace ArcGIS.Samples.ExportVectorTiles
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

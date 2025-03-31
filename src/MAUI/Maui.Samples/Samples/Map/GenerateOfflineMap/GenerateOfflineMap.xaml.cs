@@ -81,7 +81,7 @@ namespace ArcGIS.Samples.GenerateOfflineMap
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Alert", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Alert", ex.ToString(), "OK");
             }
         }
 
@@ -140,7 +140,7 @@ namespace ArcGIS.Samples.GenerateOfflineMap
                 // Check for job failure (writing the output was denied, e.g.).
                 if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
                 {
-                    await DisplayAlert("Alert", "Generate offline map package failed.", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Alert", "Generate offline map package failed.", "OK");
                     busyIndicator.IsVisible = false;
                 }
 
@@ -156,7 +156,7 @@ namespace ArcGIS.Samples.GenerateOfflineMap
 
                     // Show layer errors.
                     string errorText = errorBuilder.ToString();
-                    await DisplayAlert("Alert", errorText, "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Alert", errorText, "OK");
                 }
 
                 // Display the offline map.
@@ -177,12 +177,12 @@ namespace ArcGIS.Samples.GenerateOfflineMap
             catch (TaskCanceledException)
             {
                 // Generate offline map task was canceled.
-                await DisplayAlert("Alert", "Taking map offline was canceled", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Alert", "Taking map offline was canceled", "OK");
             }
             catch (Exception ex)
             {
                 // Exception while taking the map offline.
-                await DisplayAlert("Alert", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Alert", ex.Message, "OK");
             }
             finally
             {

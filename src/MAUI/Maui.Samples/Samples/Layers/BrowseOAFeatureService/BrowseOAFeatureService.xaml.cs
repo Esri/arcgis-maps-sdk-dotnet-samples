@@ -70,7 +70,7 @@ namespace ArcGIS.Samples.BrowseOAFeatureService
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await DisplayAlert(ex.Message, "Error loading service", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.Message, "Error loading service", "OK");
             }
             finally
             {
@@ -124,7 +124,7 @@ namespace ArcGIS.Samples.BrowseOAFeatureService
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await DisplayAlert(ex.Message, "Error loading service", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.Message, "Error loading service", "OK");
             }
             finally
             {

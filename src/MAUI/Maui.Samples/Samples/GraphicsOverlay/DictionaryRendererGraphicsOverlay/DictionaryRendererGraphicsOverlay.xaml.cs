@@ -74,7 +74,7 @@ namespace ArcGIS.Samples.DictionaryRendererGraphicsOverlay
             }
             catch (Exception ex)
             {
-                await DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 

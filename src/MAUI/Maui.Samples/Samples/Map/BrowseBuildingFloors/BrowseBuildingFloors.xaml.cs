@@ -47,7 +47,7 @@ namespace ArcGIS.Samples.BrowseBuildingFloors
                 // Checks to see if the layer is floor aware.
                 if (MyMapView.Map.FloorDefinition == null)
                 {
-                    await DisplayAlert("Alert", "The layer is not floor aware.", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Alert", "The layer is not floor aware.", "OK");
                     return;
                 }
 
@@ -65,7 +65,7 @@ namespace ArcGIS.Samples.BrowseBuildingFloors
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Alert", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Alert", ex.Message, "OK");
             }
         }
 

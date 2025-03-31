@@ -93,7 +93,7 @@ namespace ArcGIS.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -122,11 +122,11 @@ namespace ArcGIS.Samples.ManageFeatures
                 feature.Refresh();
 
                 // Confirm feature addition.
-                await DisplayAlert("Success", $"Created feature {feature.Attributes["objectid"]}", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Success", $"Created feature {feature.Attributes["objectid"]}", "OK");
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -163,7 +163,7 @@ namespace ArcGIS.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -179,11 +179,11 @@ namespace ArcGIS.Samples.ManageFeatures
                 await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
 
                 // Show a message confirming the deletion.
-                await DisplayAlert("Success", $"Deleted feature with ID {_selectedFeature.Attributes["objectid"]}", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Success", $"Deleted feature with ID {_selectedFeature.Attributes["objectid"]}", "OK");
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
             finally
             {
@@ -229,7 +229,7 @@ namespace ArcGIS.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 
@@ -260,11 +260,11 @@ namespace ArcGIS.Samples.ManageFeatures
                 Instructions.Text = _instructions[2];
                 DamageTypePicker.IsVisible = false;
 
-                await DisplayAlert("Success", $"Edited feature {_selectedFeature.Attributes["objectid"]}", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Success", $"Edited feature {_selectedFeature.Attributes["objectid"]}", "OK");
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
             finally
             {
@@ -312,11 +312,11 @@ namespace ArcGIS.Samples.ManageFeatures
                 // Push the update to the service with the service geodatabase.
                 var serviceTable = (ServiceFeatureTable)_selectedFeature.FeatureTable;
                 await serviceTable.ServiceGeodatabase.ApplyEditsAsync();
-                await DisplayAlert("Success", $"Moved feature {_selectedFeature.Attributes["objectid"]}", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Success", $"Moved feature {_selectedFeature.Attributes["objectid"]}", "OK");
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
             finally
             {
@@ -406,7 +406,7 @@ namespace ArcGIS.Samples.ManageFeatures
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
                 return null;
             }
         }

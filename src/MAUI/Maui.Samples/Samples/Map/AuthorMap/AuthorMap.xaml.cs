@@ -121,7 +121,7 @@ namespace ArcGIS.Samples.AuthorMap
                     await myMap.SaveAsAsync(agsOnline, null, title, description, tags, thumbnailImage);
 
                     // Report a successful save.
-                    await DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Map Saved", "Saved '" + title + "' to ArcGIS Online!", "OK");
                 }
                 else
                 {
@@ -136,13 +136,13 @@ namespace ArcGIS.Samples.AuthorMap
                     await myMap.SaveAsync();
 
                     // Report update was successful.
-                    await DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Updates Saved", "Saved changes to '" + myMap.Item.Title + "'", "OK");
                 }
             }
             catch (Exception ex)
             {
                 // Show the exception message.
-                await DisplayAlert("Unable to save map", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Unable to save map", ex.Message, "OK");
             }
             finally
             {

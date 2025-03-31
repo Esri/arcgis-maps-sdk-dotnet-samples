@@ -101,7 +101,7 @@ namespace ArcGIS.Samples.SnapGeometryEditsWithUtilityNetworkRules
             catch (Exception ex)
             {
                 // Show an error message.
-                await DisplayAlert("Error", ex.Message, "Ok");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "Ok");
             }
         }
 

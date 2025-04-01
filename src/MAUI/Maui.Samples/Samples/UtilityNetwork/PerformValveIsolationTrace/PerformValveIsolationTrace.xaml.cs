@@ -209,7 +209,7 @@ namespace ArcGIS.Samples.PerformValveIsolationTrace
         {
             // Load the terminals into a DisplayActionSheet and await the user's selection.
             var terminalArray = terminals.Select(x => x.Name).ToArray();
-            string choice = await DisplayActionSheet("Choose junction.", "Cancel", null, terminalArray);
+            string choice = await Application.Current.Windows[0].Page.DisplayActionSheet("Choose junction.", "Cancel", null, terminalArray);
             if (terminalArray.Contains(choice))
             {
                 return terminals.Single(x => x.Name == choice);

@@ -76,7 +76,7 @@ namespace ArcGIS.Samples.ChangeViewpoint
             {
                 // Show sheet and get title from the selection
                 string selectedMapTitle =
-                    await DisplayActionSheet("Select viewpoint", "Cancel", null, titles);
+                    await Application.Current.Windows[0].Page.DisplayActionSheet("Select viewpoint", "Cancel", null, titles);
 
                 // If selected cancel do nothing
                 if (selectedMapTitle == "Cancel") return;

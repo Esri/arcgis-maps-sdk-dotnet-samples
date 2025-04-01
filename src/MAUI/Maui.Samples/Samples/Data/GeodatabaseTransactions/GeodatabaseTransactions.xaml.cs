@@ -275,7 +275,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
             try
             {
                 // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction).
-                string choice = await DisplayActionSheet("Transaction", "Cancel", null, "Commit", "Rollback");
+                string choice = await Application.Current.Windows[0].Page.DisplayActionSheet("Transaction", "Cancel", null, "Commit", "Rollback");
 
                 if (choice == "Commit")
                 {

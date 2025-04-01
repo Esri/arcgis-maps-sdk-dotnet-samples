@@ -163,7 +163,7 @@ namespace ArcGIS.Samples.OfflineGeocode
             try
             {
                 // Display the list of suggestions; returns the selected option
-                string action = await DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
+                string action = await Application.Current.Windows[0].Page.DisplayActionSheet("Choose an address to geocode", "Cancel", null, _addresses);
                 // Update the search
                 MySearchBar.Text = action;
                 _ = UpdateSearchAsync();

@@ -222,7 +222,7 @@ namespace ArcGIS.Samples.TraceUtilityNetwork
         {
             // Load the terminals into a DisplayActionSheet and await the user's selection.
             var terminalArray = terminals.Select(x => x.Name).ToArray();
-            string choice = await DisplayActionSheet("Choose junction.", "Cancel", null, terminalArray);
+            string choice = await Application.Current.Windows[0].Page.DisplayActionSheet("Choose junction.", "Cancel", null, terminalArray);
             if (terminalArray.Contains(choice))
             {
                 return terminals.Single(x => x.Name == choice);
@@ -314,7 +314,7 @@ namespace ArcGIS.Samples.TraceUtilityNetwork
             {
                 // Prompt the user to select a type of trace.
                 var traceTypes = new string[] { "Connected", "Subnetwork", "Upstream", "Downstream" };
-                string choice = await DisplayActionSheet("Choose type of trace", "Cancel", null, traceTypes);
+                string choice = await Application.Current.Windows[0].Page.DisplayActionSheet("Choose type of trace", "Cancel", null, traceTypes);
 
                 // Set the selected trace type.
                 _selectedTraceType = (UtilityTraceType)Enum.Parse(typeof(UtilityTraceType), choice);

@@ -135,7 +135,7 @@ namespace ArcGIS.Samples.ChooseCameraController
             {
                 // Show sheet and get the camera controller from the selection.
                 string selectedCamera =
-                    await DisplayActionSheet("Select camera controller", "Cancel", null, _controllers);
+                    await Application.Current.Windows[0].Page.DisplayActionSheet("Select camera controller", "Cancel", null, _controllers);
 
                 // If selected cancel then do nothing.
                 if (selectedCamera == "Cancel") return;

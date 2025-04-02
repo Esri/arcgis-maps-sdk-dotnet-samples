@@ -307,7 +307,7 @@ namespace ArcGIS.Samples.RouteAroundBarriers
 
         private async Task ShowDirectionsTask()
         {
-            await Navigation.PushAsync(_directionsPage);
+            await Shell.Current.Navigation.PushAsync(_directionsPage);
         }
 
         private async Task<PictureMarkerSymbol> GetPictureMarker()

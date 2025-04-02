@@ -80,7 +80,7 @@ namespace ArcGIS.Samples.IdentifyKmlFeatures
                 }
 
                 // Show a page with the HTML content
-                await Navigation.PushAsync(new KmlIdentifyResultDisplayPage(firstIdentifiedPlacemark.BalloonContent));
+                await Shell.Current.Navigation.PushAsync(new KmlIdentifyResultDisplayPage(firstIdentifiedPlacemark.BalloonContent), false);
             }
             catch (Exception ex)
             {

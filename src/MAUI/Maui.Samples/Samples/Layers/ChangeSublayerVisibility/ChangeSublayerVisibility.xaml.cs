@@ -98,7 +98,7 @@ namespace ArcGIS.Samples.ChangeSublayerVisibility
                 };
 
                 // Navigate to the sublayers page
-                await Navigation.PushAsync(sublayersPage);
+                await Shell.Current.Navigation.PushAsync(sublayersPage);
             }
             catch (Exception ex)
             {

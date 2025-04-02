@@ -5,8 +5,7 @@
              xmlns:toolkit="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui">
     <Grid>
         <esriUI:MapView x:Name="MyMapView"
-                        GeoViewTapped="MyMapView_GeoViewTapped"
-                        Style="{DynamicResource EsriSampleGeoView}" />
+                        GeoViewTapped="MyMapView_GeoViewTapped" />
         <Grid x:Name="FeatureFormPanel"
               IsVisible="False" Padding="20"
               BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
@@ -25,7 +24,7 @@
                 <Button Text="Save"
                         Grid.Column="0"
                         Clicked="SaveButton_Clicked"
-                        IsEnabled="{Binding Source={x:Reference FeatureFormView}, Path=IsValid}" />
+                        IsEnabled="{Binding Source={x:Reference FeatureFormViewPanel}, Path=IsValid}" />
                 <Button Text="Cancel"
                         Grid.Column="1"
                         Clicked="CancelButton_Clicked" />

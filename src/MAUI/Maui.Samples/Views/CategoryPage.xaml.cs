@@ -60,12 +60,12 @@ public partial class CategoryPage : ContentPage
 
     private async void SettingsClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new SettingsPage(), true);
+        await Shell.Current.Navigation.PushAsync(new SettingsPage(), true);
     }
 
     private async void SearchClicked(object sender, EventArgs e)
     {
-        await Navigation.PushAsync(new SearchPage(), false);
+        await Shell.Current.Navigation.PushAsync(new SearchPage(), false);
     }
 
     // The favorites icon can flicker when using a pen as pointer.

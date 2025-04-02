@@ -79,7 +79,7 @@ namespace ArcGIS.Samples.AuthorMap
             mapInputForm.OnSaveClicked += SaveMapAsync;
 
             // Navigate to the SaveMapPage UI.
-            Navigation.PushAsync(mapInputForm);
+            Shell.Current.Navigation.PushAsync(mapInputForm);
         }
 
         // Event handler to get information entered by the user and save the map.

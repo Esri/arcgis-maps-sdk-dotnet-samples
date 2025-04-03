@@ -98,6 +98,7 @@ namespace ArcGIS.WinUI.Samples.ChangeSublayerVisibility
                 dialog.PrimaryButtonClick += (s, a) => dialog.Hide();
 
                 // Show dialog as a full screen overlay.
+                dialog.XamlRoot = this.XamlRoot;
                 await dialog.ShowAsync();
             }
             catch (Exception ex)

@@ -65,7 +65,6 @@
                       Grid.ColumnSpan="2"
                       HorizontalAlignment="Stretch"
                       Background="White"
-                      DisplayMemberPath="Key"
                       SelectionChanged="ToolComboBox_SelectionChanged"
                       ToolTipService.ToolTip="Tools" />
             <Border Grid.Row="3"

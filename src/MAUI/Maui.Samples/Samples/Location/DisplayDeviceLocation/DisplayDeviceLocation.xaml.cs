@@ -104,6 +104,10 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
                     {
                         await MyMapView.LocationDisplay.DataSource.StartAsync();
                     }
+                    else
+                    {
+                        await Application.Current.Windows[0].Page.DisplayAlert("Location not authorized", "Please allow access to the device location.", "OK");
+                    }
                 }
             }
             catch (Exception ex)

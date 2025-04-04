@@ -71,13 +71,13 @@ namespace ArcGIS.WinUI.Samples.AuthorMap
             // Update the UI with basemaps and layers
             BasemapListBox.ItemsSource = _basemapNames;
 
-            OperationalLayerListBox.ItemsSource = _operationalLayerUrls;
-
             // Add a listener for changes in the selected basemap.
             BasemapListBox.SelectionChanged += BasemapSelectionChanged;
 
             // Update the extent labels whenever the view point (extent) changes
             MyMapView.ViewpointChanged += (s, evt) => UpdateViewExtentLabels();
+
+            OperationalLayerListBox.ItemsSource = _operationalLayerUrls;
         }
 
         #region UI event handlers

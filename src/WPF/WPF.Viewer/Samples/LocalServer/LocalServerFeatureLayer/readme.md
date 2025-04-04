@@ -43,7 +43,7 @@ This sample downloads the following items from ArcGIS Online automatically:
 
 ## Additional information
 
-Local Server can be downloaded for Windows and Linux platforms from the [developers website](https://developers.arcgis.com/downloads/apis-and-sdks?product=local-server#arcgis-runtime-local-server). Local Server is not supported on macOS.
+**Deprecation of Local Server**: ArcGIS Maps SDK for Local Server is deprecated. For more information, see the [deprecation announcement](https://support.esri.com/en-us/knowledge-base/deprecation-arcgis-maps-sdk-for-local-server-000034908).
 
 ## Tags
 

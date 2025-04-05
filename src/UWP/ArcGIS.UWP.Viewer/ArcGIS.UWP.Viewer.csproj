@@ -380,8 +380,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <!-- MISC -->
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <Content Include="Resources\PictureMarkerSymbols\pin_blue.png" />
+    <Content Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Assets\banner-background-black.png" />
     <Content Include="Default.rd.xml" />
     <Content Include="Properties\Default.rd.xml" />

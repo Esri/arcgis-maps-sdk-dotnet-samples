@@ -51,7 +51,7 @@
 
         private void CancelButtonClicked(object sender, EventArgs e)
         {
-            // Fire the OnCanceled event to let the calling code no the login was canceled.
+            // Fire the OnCanceled event to let the calling code know the login was canceled.
             if (OnCanceled != null)
             {
                 OnCanceled(this, null);

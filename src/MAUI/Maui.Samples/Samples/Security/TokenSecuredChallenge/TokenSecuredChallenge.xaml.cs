@@ -138,9 +138,9 @@ namespace ArcGIS.Samples.TokenSecuredChallenge
             finally
             {
                 // Dismiss the login controls.
-                if (Navigation.NavigationStack.OfType<LoginPage>().Any())
+                if (Shell.Current.Navigation.NavigationStack.OfType<LoginPage>().Any())
                 {
-                    await Navigation.PopAsync();
+                    _ = Shell.Current.Navigation.PopAsync();
                 }
             }
         }
@@ -148,7 +148,7 @@ namespace ArcGIS.Samples.TokenSecuredChallenge
         private void LoginCanceled(object sender, EventArgs e)
         {
             // Dismiss the login controls.
-            Navigation.PopAsync();
+            _ = Shell.Current.Navigation.PopAsync();
 
             // Cancel the task completion source task.
             _loginTaskCompletionSrc.TrySetCanceled();

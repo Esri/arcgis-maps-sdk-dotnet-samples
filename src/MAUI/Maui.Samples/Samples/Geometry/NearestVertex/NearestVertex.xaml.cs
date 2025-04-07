@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
 using Colors = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
@@ -37,10 +38,10 @@ namespace ArcGIS.Samples.NearestVertex
         {
             InitializeComponent();
 
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
             // Planar distances are only accurate for geometries that have a defined projected coordinate system.
             // Create a spatial reference using the California zone 5 (ftUS) state plane coordinate system.
@@ -51,8 +52,9 @@ namespace ArcGIS.Samples.NearestVertex
             MyMapView.Map = new Map(californiaZone5SpatialReference);
 
             // Create the feature layer.
-            Uri uriLayerSource = new Uri("https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_States_Generalized/FeatureServer/0");
-            FeatureLayer usaStatesFeatureLayer = new FeatureLayer(uriLayerSource);
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+            var portalItem = await PortalItem.CreateAsync(portal, "8c2d6d7df8fa4142b0a1211c8dd66903");
+            FeatureLayer usaStatesFeatureLayer = new FeatureLayer(portalItem);
 
             // Add the feature layer to the MapView.
             MyMapView.Map.OperationalLayers.Add(usaStatesFeatureLayer);

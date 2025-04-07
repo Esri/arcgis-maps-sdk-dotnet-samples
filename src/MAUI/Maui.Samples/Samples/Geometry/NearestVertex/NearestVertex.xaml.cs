@@ -23,6 +23,7 @@ namespace ArcGIS.Samples.NearestVertex
         description: "Find the closest vertex and coordinate of a geometry to a point.",
         instructions: "Tap anywhere on the map. An orange cross will show at that location. A blue circle will show the polygon's nearest vertex to the point that was clicked. A red diamond will appear at the coordinate on the geometry that is nearest to the point that was clicked. If tapped inside the geometry, the red and orange markers will overlap. The information box showing distance between the tapped point and the nearest vertex/coordinate will be updated with every new location clicked.",
         tags: new[] { "analysis", "coordinate", "geometry", "nearest", "proximity", "vertex" })]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("8c2d6d7df8fa4142b0a1211c8dd66903")]
     public partial class NearestVertex
     {
         // Hold references to the graphics overlay and the polygon graphic.
@@ -53,7 +54,7 @@ namespace ArcGIS.Samples.NearestVertex
 
             // Create the feature layer.
             ArcGISPortal portal = await ArcGISPortal.CreateAsync();
-            var portalItem = await PortalItem.CreateAsync(portal, "8c2d6d7df8fa4142b0a1211c8dd66903");
+            PortalItem portalItem = await PortalItem.CreateAsync(portal, "8c2d6d7df8fa4142b0a1211c8dd66903");
             FeatureLayer usaStatesFeatureLayer = new FeatureLayer(portalItem);
 
             // Add the feature layer to the MapView.

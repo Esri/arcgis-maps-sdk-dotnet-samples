@@ -123,7 +123,7 @@ namespace ArcGIS.UWP.Samples.FindAddress
                 // Place a marker on the map - 1. Create the overlay.
                 GraphicsOverlay resultOverlay = new GraphicsOverlay();
                 // 2. Get the Graphic to display.
-                Graphic point = await GraphicForPoint(addresses.First().DisplayLocation);
+                Graphic point = GraphicForPoint(addresses.First().DisplayLocation);
                 // 3. Add the Graphic to the GraphicsOverlay.
                 resultOverlay.Graphics.Add(point);
                 // 4. Add the GraphicsOverlay to the MapView.
@@ -141,18 +141,11 @@ namespace ArcGIS.UWP.Samples.FindAddress
         /// <summary>
         /// Creates and returns a Graphic associated with the given MapPoint.
         /// </summary>
-        private async Task<Graphic> GraphicForPoint(MapPoint point)
+        private Graphic GraphicForPoint(MapPoint point)
         {
-            // Get current assembly that contains the image.
-            Assembly currentAssembly = GetType().GetTypeInfo().Assembly;
-
-            // Get image as a stream from the resources.
-            // Picture is defined as EmbeddedResource and DoNotCopy.
-            Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
-
-            // Create new symbol using asynchronous factory method from stream.
-            PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
+            // Create a picture marker symbol from the bundled image.
+            // "ms-appx" is a URI scheme that points to the app's package and can be used to open files with "Content" build action.
+            PictureMarkerSymbol pinSymbol = new PictureMarkerSymbol(new Uri("ms-appx:///Resources/PictureMarkerSymbols/pin_star_blue.png"));
             pinSymbol.Width = 60;
             pinSymbol.Height = 60;
             // The image is a pin; offset the image so that the pinpoint

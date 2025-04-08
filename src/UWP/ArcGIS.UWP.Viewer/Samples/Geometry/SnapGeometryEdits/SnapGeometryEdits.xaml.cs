@@ -52,6 +52,7 @@ namespace ArcGIS.UWP.Samples.SnapGeometryEdits
         public SnapGeometryEdits()
         {
             InitializeComponent();
+            SnappingControls.Visibility = Visibility.Collapsed;
             _ = Initialize();
         }
 

@@ -1896,7 +1896,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Fonts\calcite-ui-icons-24new.ttf" />
+    <Content Include="Resources\Fonts\calcite-ui-icons-24.ttf" />
   </ItemGroup>
   <!-- Imports -->
   <Import Project="..\..\Samples.Shared\ArcGIS.Samples.Shared.projitems" Label="Shared" />

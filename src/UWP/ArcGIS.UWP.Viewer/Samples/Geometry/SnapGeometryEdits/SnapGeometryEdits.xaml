@@ -6,33 +6,21 @@
              xmlns:local="using:ArcGIS.UWP.Samples.SnapGeometryEdits">
     <UserControl.Resources>
         <DataTemplate x:Key="SnapSettingTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock Grid.Column="0"
-                           Width="150"
-                           VerticalAlignment="Center"
-                           Text="{Binding Path=Name}" />
-                <CheckBox Grid.Column="1"
-                          VerticalAlignment="Center"
-                          IsChecked="{Binding Path=IsEnabled, Mode=TwoWay}" />
-            </Grid>
+            <CheckBox VerticalAlignment="Center"
+                      Content="{Binding Name}"
+                      IsChecked="{Binding IsEnabled, Mode=TwoWay}" />
         </DataTemplate>
         <Style x:Key="ButtonIconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24" />
+                <Setter Property="FontFamily" Value="ms-appx:///Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24" />
                 <Setter Property="FontSize" Value="20" />
-                <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
             </Style.Setters>
         </Style>
         <Style x:Key="ToggleButtonIconStyle" TargetType="ToggleButton">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24" />
+                <Setter Property="FontFamily" Value="ms-appx:///Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24" />
                 <Setter Property="FontSize" Value="20" />
-                <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
             </Style.Setters>
         </Style>
@@ -43,64 +31,52 @@
                 Margin="10"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
-                Background="White"
-                CornerRadius="5"
-                Visibility="Collapsed">
+                Background="{ThemeResource PrimaryBackgroundColor}"
+                CornerRadius="5">
             <StackPanel Margin="10" Orientation="Vertical">
-                <TextBlock Padding="0,5"
+                <TextBlock Padding="0,0,5,0"
                            FontSize="14"
                            FontWeight="Bold"
                            Text="Select snap sources" />
-                <ScrollViewer MaxHeight="300">
-                    <StackPanel Margin="10" Orientation="Vertical">
-                        <TextBlock Text="Point layers:" />
-                        <ListView x:Name="PointSnapSettingsList"
-                                  Width="200"
-                                  Height="120"
-                                  ItemTemplate="{StaticResource SnapSettingTemplate}" />
+                <ScrollViewer MaxHeight="300" VerticalScrollBarVisibility="Visible">
+                    <StackPanel Orientation="Vertical" Padding="10,0,20,0">
+                        <TextBlock Margin="0,10,0,5" Text="Point layers:" />
+                        <ItemsControl x:Name="PointSnapSettingsList"
+                                      Width="190"
+                                      ItemTemplate="{StaticResource SnapSettingTemplate}" />
                         <Button HorizontalAlignment="Stretch"
                                 Click="EnableAllPointSnapSourceButton_Click"
                                 Content="Enable all" />
-                        <TextBlock Margin="0,10,0,0" Text="Polyline layers:" />
-                        <ListView x:Name="PolylineSnapSettingsList"
-                                  Width="200"
-                                  Height="80"
-                                  ItemTemplate="{StaticResource SnapSettingTemplate}" />
+                        <TextBlock Margin="0,10,0,5" Text="Polyline layers:" />
+                        <ItemsControl x:Name="PolylineSnapSettingsList"
+                                      Width="190"
+                                      ItemTemplate="{StaticResource SnapSettingTemplate}" />
                         <Button HorizontalAlignment="Stretch"
                                 Click="EnableAllPolylineSnapSourceButton_Click"
                                 Content="Enable all" />
-                        <TextBlock Margin="0,10,0,0" Text="Graphics overlays:" />
-                        <ListView x:Name="GraphicsOverlaySnapSettingsList"
-                                  Width="200"
-                                  Height="50"
-                                  ItemTemplate="{StaticResource SnapSettingTemplate}" />
+                        <TextBlock Margin="0,10,0,5" Text="Graphics overlays:" />
+                        <ItemsControl x:Name="GraphicsOverlaySnapSettingsList"
+                                      Width="190"
+                                      ItemTemplate="{StaticResource SnapSettingTemplate}" />
                     </StackPanel>
                 </ScrollViewer>
                 <TextBlock Padding="0,10,0,5"
                            FontSize="14"
                            FontWeight="Bold"
                            Text="Create and edit geometries" />
-                <Grid Width="200" HorizontalAlignment="Center">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="150" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0"
-                               VerticalAlignment="Center"
-                               Text="Reticle vertex tool" />
-                    <CheckBox x:Name="ReticleVertexToolCheckBox"
-                              Grid.Column="1"
-                              VerticalAlignment="Center"
-                              Checked="ReticleVertexToolCheckBox_CheckedChanged"
-                              Unchecked="ReticleVertexToolCheckBox_CheckedChanged" />
-                </Grid>
+                <CheckBox x:Name="ReticleVertexToolCheckBox"
+                          Width="200"
+                          HorizontalAlignment="Center"
+                          Content="Reticle vertex tool"
+                          Checked="ReticleVertexToolCheckBox_CheckedChanged"
+                          Unchecked="ReticleVertexToolCheckBox_CheckedChanged" />
                 <Grid Width="200"
                       HorizontalAlignment="Center"
                       ColumnSpacing="5"
                       RowSpacing="5">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="95" />
-                        <ColumnDefinition Width="95" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="auto" />
@@ -118,7 +94,6 @@
                     <ToggleButton x:Name="MultipointButton"
                                   Grid.Row="0"
                                   Grid.Column="1"
-                                  Height="{Binding ElementName=PointButton, Path=Height}"
                                   Click="MultipointButton_Click"
                                   Content="&#xe21c;&#xe21c;"
                                   FontSize="20"

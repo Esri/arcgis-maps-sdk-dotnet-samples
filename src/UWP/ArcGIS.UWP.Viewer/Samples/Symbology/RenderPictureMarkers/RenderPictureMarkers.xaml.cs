@@ -36,7 +36,7 @@ namespace ArcGIS.UWP.Samples.RenderPictureMarkers
             Initialize();
         }
 
-        private async void Initialize()
+        private void Initialize()
         {
             // Create new Map with basemap
             Map myMap = new Map(BasemapStyle.ArcGISTopographic);
@@ -58,14 +58,7 @@ namespace ArcGIS.UWP.Samples.RenderPictureMarkers
 
             // Add graphics using different source types
             CreatePictureMarkerSymbolFromUrl(overlay);
-            try
-            {
-                await CreatePictureMarkerSymbolFromResources(overlay);
-            }
-            catch (Exception e)
-            {
-                await new MessageDialog(e.ToString(), "Error").ShowAsync();
-            }
+            CreatePictureMarkerSymbolFromResources(overlay);
         }
 
         private void CreatePictureMarkerSymbolFromUrl(GraphicsOverlay overlay)
@@ -91,18 +84,13 @@ namespace ArcGIS.UWP.Samples.RenderPictureMarkers
             overlay.Graphics.Add(campsiteGraphic);
         }
 
-        private async Task CreatePictureMarkerSymbolFromResources(GraphicsOverlay overlay)
+        private void CreatePictureMarkerSymbolFromResources(GraphicsOverlay overlay)
         {
-            // Get current assembly that contains the image
-            Assembly currentAssembly = GetType().GetTypeInfo().Assembly;
+            // "ms-appx" is a URI scheme that points to the app's package and can be used to open files with "Content" build action.
+            Uri resourceUri = new Uri("ms-appx:///Resources/PictureMarkerSymbols/pin_star_blue.png");
 
-            // Get image as a stream from the resources
-            // Picture is defined as EmbeddedResource and DoNotCopy
-            Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_star_blue.png");
-
-            // Create new symbol using asynchronous factory method from stream
-            PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
+            // Create a picture marker symbol from the bundled image.
+            PictureMarkerSymbol pinSymbol = new PictureMarkerSymbol(resourceUri);
             pinSymbol.Width = 50;
             pinSymbol.Height = 50;
 

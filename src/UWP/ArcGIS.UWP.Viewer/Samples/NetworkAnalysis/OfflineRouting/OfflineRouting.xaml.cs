@@ -195,7 +195,7 @@ namespace ArcGIS.UWP.Samples.OfflineRouting
             }
         }
 
-        private async void AddStop(Point tappedPosition)
+        private void AddStop(Point tappedPosition)
         {
             try
             {
@@ -206,7 +206,7 @@ namespace ArcGIS.UWP.Samples.OfflineRouting
                 string stopName = $"{_stopsOverlay.Graphics.Count + 1}";
 
                 // Create a pushpin marker for the stop.
-                PictureMarkerSymbol pushpinMarker = await GetPictureMarker();
+                PictureMarkerSymbol pushpinMarker = GetPictureMarker();
 
                 // Create the text symbol for labeling the stop.
                 TextSymbol stopSymbol = new TextSymbol(stopName, System.Drawing.Color.White, 15,
@@ -232,18 +232,11 @@ namespace ArcGIS.UWP.Samples.OfflineRouting
             }
         }
 
-        private async Task<PictureMarkerSymbol> GetPictureMarker()
+        private PictureMarkerSymbol GetPictureMarker()
         {
-            // Get current assembly that contains the image.
-            Assembly currentAssembly = Assembly.GetExecutingAssembly();
-
-            // Get image as a stream from the resources.
-            // Picture is defined as EmbeddedResource and DoNotCopy.
-            Stream resourceStream = currentAssembly.GetManifestResourceStream(
-                "ArcGISRuntime.Resources.PictureMarkerSymbols.pin_blue.png");
-
-            // Create new symbol using asynchronous factory method from stream.
-            PictureMarkerSymbol pinSymbol = await PictureMarkerSymbol.CreateAsync(resourceStream);
+            // Create a picture marker symbol from the bundled image.
+            // "ms-appx" is a URI scheme that points to the app's package and can be used to open files with "Content" build action.
+            PictureMarkerSymbol pinSymbol = new PictureMarkerSymbol(new Uri("ms-appx:///Resources/PictureMarkerSymbols/pin_blue.png"));
             pinSymbol.Width = 50;
             pinSymbol.Height = 50;
             pinSymbol.LeaderOffsetX = 30;

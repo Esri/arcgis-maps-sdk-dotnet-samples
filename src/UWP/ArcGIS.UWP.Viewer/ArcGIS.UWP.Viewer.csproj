@@ -380,8 +380,8 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <!-- MISC -->
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <Content Include="Resources\PictureMarkerSymbols\pin_blue.png" />
+    <Content Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
     <Content Include="Assets\banner-background-black.png" />
     <Content Include="Default.rd.xml" />
     <Content Include="Properties\Default.rd.xml" />
@@ -418,6 +418,7 @@
     <Compile Include="ApiKeyPrompt.xaml.cs">
       <DependentUpon>ApiKeyPrompt.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Samples\Map\MobileMapSearchAndRoute\AsyncImageLoader.cs" />
     <Compile Include="Samples\SceneView\AnimateImageOverlay\AnimateImageOverlay.xaml.cs">
       <DependentUpon>AnimateImageOverlay.xaml</DependentUpon>
     </Compile>
@@ -471,9 +472,6 @@
       <DependentUpon>GetElevationAtPoint.xaml</DependentUpon>
     </Compile>
     <Compile Include="Samples\Map\MapReferenceScale\DoubleToScaleStringConverter.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="Samples\Map\MobileMapSearchAndRoute\ItemToImageSourceConverter.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Samples\Map\MobileMapSearchAndRoute\NullOrEmptyToVisibilityConverter.cs">

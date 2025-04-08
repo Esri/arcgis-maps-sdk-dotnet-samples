@@ -10,6 +10,7 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.UI;
 using Colors = System.Drawing.Color;
 using PointCollection = Esri.ArcGISRuntime.Geometry.PointCollection;
@@ -22,6 +23,7 @@ namespace ArcGIS.Samples.NearestVertex
         description: "Find the closest vertex and coordinate of a geometry to a point.",
         instructions: "Tap anywhere on the map. An orange cross will show at that location. A blue circle will show the polygon's nearest vertex to the point that was clicked. A red diamond will appear at the coordinate on the geometry that is nearest to the point that was clicked. If tapped inside the geometry, the red and orange markers will overlap. The information box showing distance between the tapped point and the nearest vertex/coordinate will be updated with every new location clicked.",
         tags: new[] { "analysis", "coordinate", "geometry", "nearest", "proximity", "vertex" })]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("8c2d6d7df8fa4142b0a1211c8dd66903")]
     public partial class NearestVertex
     {
         // Hold references to the graphics overlay and the polygon graphic.
@@ -37,10 +39,10 @@ namespace ArcGIS.Samples.NearestVertex
         {
             InitializeComponent();
 
-            Initialize();
+            _ = Initialize();
         }
 
-        private void Initialize()
+        private async Task Initialize()
         {
             // Planar distances are only accurate for geometries that have a defined projected coordinate system.
             // Create a spatial reference using the California zone 5 (ftUS) state plane coordinate system.
@@ -51,8 +53,9 @@ namespace ArcGIS.Samples.NearestVertex
             MyMapView.Map = new Map(californiaZone5SpatialReference);
 
             // Create the feature layer.
-            Uri uriLayerSource = new Uri("https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_States_Generalized/FeatureServer/0");
-            FeatureLayer usaStatesFeatureLayer = new FeatureLayer(uriLayerSource);
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+            PortalItem portalItem = await PortalItem.CreateAsync(portal, "8c2d6d7df8fa4142b0a1211c8dd66903");
+            FeatureLayer usaStatesFeatureLayer = new FeatureLayer(portalItem);
 
             // Add the feature layer to the MapView.
             MyMapView.Map.OperationalLayers.Add(usaStatesFeatureLayer);

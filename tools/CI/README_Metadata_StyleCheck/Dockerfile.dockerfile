@@ -1,4 +1,4 @@
-FROM alpine:3.12
+FROM alpine:3.19
 LABEL author="Hamish Duff <hduff@esri.com>"
 ENV PYTHONUNBUFFERED=1
 # Add scripts for the check.

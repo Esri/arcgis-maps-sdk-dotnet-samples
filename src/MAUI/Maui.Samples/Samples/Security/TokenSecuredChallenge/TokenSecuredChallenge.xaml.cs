@@ -97,7 +97,7 @@ namespace ArcGIS.Samples.TokenSecuredChallenge
 
             // Show the login controls on the UI thread.
             // OnLoginInfoEntered event will return the values entered (username and password).
-            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () => await Application.Current.MainPage.Navigation.PushAsync(_loginPage));
+            Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () => await Shell.Current.Navigation.PushAsync(_loginPage));
 
             // Return the login task, the result will be ready when completed (user provides login info and clicks the "Login" button)
             return await _loginTaskCompletionSrc.Task;
@@ -138,9 +138,9 @@ namespace ArcGIS.Samples.TokenSecuredChallenge
             finally
             {
                 // Dismiss the login controls.
-                if (Application.Current.MainPage.Navigation.NavigationStack.OfType<LoginPage>().Any())
+                if (Shell.Current.Navigation.NavigationStack.OfType<LoginPage>().Any())
                 {
-                    await Application.Current.MainPage.Navigation.PopAsync();
+                    _ = Shell.Current.Navigation.PopAsync();
                 }
             }
         }
@@ -148,7 +148,7 @@ namespace ArcGIS.Samples.TokenSecuredChallenge
         private void LoginCanceled(object sender, EventArgs e)
         {
             // Dismiss the login controls.
-            Application.Current.MainPage.Navigation.PopAsync();
+            _ = Shell.Current.Navigation.PopAsync();
 
             // Cancel the task completion source task.
             _loginTaskCompletionSrc.TrySetCanceled();

@@ -1,0 +1,43 @@
+{
+    "category": "Utility network",
+    "description": "Use the Geometry Editor to edit geometries using utility network connectivity rules.",
+    "formal_name": "SnapGeometryEditsWithUtilityNetworkRules",
+    "ignore": false,
+    "images": [
+        "SnapGeometryEditsWithUtilityNetworkRules.jpg"
+    ],
+    "keywords": [
+        "edit",
+        "feature",
+        "geometry editor",
+        "graphics",
+        "layers",
+        "map",
+        "snapping",
+        "utility network"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/snap-geometry-edits-with-utility-network-rules.htm"
+    ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "Geometry",
+        "GeometryEditor",
+        "GeometryEditorStyle",
+        "GraphicsOverlay",
+        "MapView",
+        "SnapRuleBehavior",
+        "SnapRules",
+        "SnapSettings",
+        "SnapSource",
+        "SnapSourceEnablingBehavior",
+        "SnapSourceSettings",
+        "UtilityNetwork"
+    ],
+    "snippets": [
+        "SnapGeometryEditsWithUtilityNetworkRules.xaml.cs",
+        "SnapGeometryEditsWithUtilityNetworkRules.xaml"
+    ],
+    "title": "Snap geometry edits with utility network rules"
+}

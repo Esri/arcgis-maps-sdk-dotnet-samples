@@ -55,7 +55,7 @@ namespace ArcGIS.Samples.QueryFeaturesWithArcadeExpression
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.Message, "OK");
             }
 
             // Load the map.
@@ -128,7 +128,7 @@ namespace ArcGIS.Samples.QueryFeaturesWithArcadeExpression
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

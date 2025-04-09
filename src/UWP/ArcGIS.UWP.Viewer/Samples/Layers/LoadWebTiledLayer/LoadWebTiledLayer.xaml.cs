@@ -7,8 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Mapping;
-using System.Collections.Generic;
 
 namespace ArcGIS.UWP.Samples.LoadWebTiledLayer
 {
@@ -17,30 +17,29 @@ namespace ArcGIS.UWP.Samples.LoadWebTiledLayer
         category: "Layers",
         description: "Display a tiled web layer.",
         instructions: "Run the sample and a map will appear. As you navigate the map, map tiles will be fetched automatically and displayed on the map.",
-        tags: new[] { "OGC", "Open Street Map", "OpenStreetMap", "layer", "stamen.com", "tiled", "tiles" })]
+        tags: new[] { "OGC", "layer", "tiled", "tiles" })]
     public partial class LoadWebTiledLayer
     {
-        // Templated URL to the tile service
-        private readonly string _templateUri = "https://stamen-tiles-{subdomain}.a.ssl.fastly.net/watercolor/{level}/{col}/{row}.jpg";
+        // Templated URL to the tile service.
+        private readonly string _templateUri = "https://server.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{level}/{row}/{col}.jpg";
 
-        // List of subdomains for use when constructing the web tiled layer
-        private readonly List<string> _tiledLayerSubdomains = new List<string> { "a", "b", "c", "d" };
-
-        // Attribution string for the Stamen service
-        private readonly string _attribution = "Map tiles by Stamen Design, under CC BY 3.0. Data by OpenStreetMap, under CC BY SA.";
+        // Attribution string.
+        private readonly string _attribution = "Map tiles by <a href=\"https://livingatlas.arcgis.com\">ArcGIS Living Atlas of the World</a>, " +
+                                               "under <a href=\"https://www.esri.com/en-us/legal/terms/full-master-agreement\">Esri Master License Agreement</a>. " +
+                                               "Data by Esri, Garmin, GEBCO, NOAA NGDC, and other contributors.";
 
         public LoadWebTiledLayer()
         {
             InitializeComponent();
 
-            // Setup the control references and execute initialization
+            // Create the UI, setup the control references and execute initialization.
             Initialize();
         }
 
         private void Initialize()
         {
             // Create the layer from the URL and the subdomain list
-            WebTiledLayer myBaseLayer = new WebTiledLayer(_templateUri, _tiledLayerSubdomains);
+            WebTiledLayer myBaseLayer = new WebTiledLayer(_templateUri);
 
             // Create a basemap from the layer
             Basemap layerBasemap = new Basemap(myBaseLayer);

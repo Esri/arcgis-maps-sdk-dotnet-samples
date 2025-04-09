@@ -32,7 +32,7 @@ WMS services often contain many layers and sublayers. Presenting the layers and 
 
 ## About the data
 
-This sample shows [forecasts guidance warnings](https://idpgis.ncep.noaa.gov/arcgis/rest/services/NWS_Forecasts_Guidance_Warnings/natl_fcst_wx_chart/MapServer) from an ArcGIS REST service produced by the U.S. National Weather Service. The map shows fronts, highs, and lows, as well as areas of forecast precipitation.
+This sample shows [forecasts guidance warnings](https://nowcoast.noaa.gov/geoserver/weather_radar/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities) from an ArcGIS REST service produced by the U.S. National Weather Service. The map shows fronts, highs, and lows, as well as areas of forecast precipitation.
 
 ## Tags
 

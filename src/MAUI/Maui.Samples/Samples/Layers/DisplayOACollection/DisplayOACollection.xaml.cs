@@ -77,7 +77,7 @@ namespace ArcGIS.Samples.DisplayOACollection
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -106,7 +106,7 @@ namespace ArcGIS.Samples.DisplayOACollection
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Couldn't populate table.", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Couldn't populate table.", ex.Message, "OK");
             }
             finally
             {

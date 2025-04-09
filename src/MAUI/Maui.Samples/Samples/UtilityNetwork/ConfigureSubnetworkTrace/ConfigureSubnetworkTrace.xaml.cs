@@ -100,7 +100,7 @@ namespace ArcGIS.Samples.ConfigureSubnetworkTrace
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -199,11 +199,11 @@ namespace ArcGIS.Samples.ConfigureSubnetworkTrace
                 UtilityElementTraceResult elementResult = results?.FirstOrDefault() as UtilityElementTraceResult;
 
                 // Display the number of elements found by the trace.
-                await Application.Current.MainPage.DisplayAlert("Trace Result", $"`{elementResult?.Elements?.Count ?? 0}` elements found.", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Trace Result", $"`{elementResult?.Elements?.Count ?? 0}` elements found.", "OK");
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", $"{ex.Message}\nFor a working barrier condition, try \"Transformer Load\" Equal \"15\".", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", $"{ex.Message}\nFor a working barrier condition, try \"Transformer Load\" Equal \"15\".", "OK");
             }
         }
 
@@ -257,7 +257,7 @@ namespace ArcGIS.Samples.ConfigureSubnetworkTrace
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 

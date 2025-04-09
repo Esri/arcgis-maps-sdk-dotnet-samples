@@ -70,7 +70,7 @@ namespace ArcGIS.Samples.OfflineBasemapByReference
             }
 
             // Wait for the user to choose whether to use the offline basemap.
-            bool useBasemap = await Application.Current.MainPage.DisplayAlert("Basemap choice", "Use the offline basemap?", "Yes", "No");
+            bool useBasemap = await Application.Current.Windows[0].Page.DisplayAlert("Basemap choice", "Use the offline basemap?", "Yes", "No");
 
             if (useBasemap)
             {
@@ -122,7 +122,7 @@ namespace ArcGIS.Samples.OfflineBasemapByReference
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Alert", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Alert", ex.ToString(), "OK");
             }
         }
 
@@ -184,7 +184,7 @@ namespace ArcGIS.Samples.OfflineBasemapByReference
                 // Check for job failure (writing the output was denied, e.g.).
                 if (_generateOfflineMapJob.Status != JobStatus.Succeeded)
                 {
-                    await Application.Current.MainPage.DisplayAlert("Alert", "Generate offline map package failed.", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Alert", "Generate offline map package failed.", "OK");
                     BusyIndicator.IsVisible = false;
                 }
 
@@ -200,7 +200,7 @@ namespace ArcGIS.Samples.OfflineBasemapByReference
 
                     // Show layer errors.
                     string errorText = errorBuilder.ToString();
-                    await Application.Current.MainPage.DisplayAlert("Alert", errorText, "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlert("Alert", errorText, "OK");
                 }
 
                 // Display the offline map.
@@ -216,17 +216,17 @@ namespace ArcGIS.Samples.OfflineBasemapByReference
                 TakeMapOfflineButton.IsEnabled = false;
 
                 // Show a message that the map is offline.
-                await Application.Current.MainPage.DisplayAlert("Alert", "Map is offline.", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Alert", "Map is offline.", "OK");
             }
             catch (TaskCanceledException)
             {
                 // Generate offline map task was canceled.
-                await Application.Current.MainPage.DisplayAlert("Alert", "Taking map offline was canceled", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Alert", "Taking map offline was canceled", "OK");
             }
             catch (Exception ex)
             {
                 // Exception while taking the map offline.
-                await Application.Current.MainPage.DisplayAlert("Alert", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Alert", ex.Message, "OK");
             }
             finally
             {

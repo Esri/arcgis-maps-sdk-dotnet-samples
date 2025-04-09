@@ -69,7 +69,7 @@ namespace ArcGIS.Samples.StatsQueryGroupAndSort
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -79,7 +79,7 @@ namespace ArcGIS.Samples.StatsQueryGroupAndSort
             // Verify that there is at least one statistic definition.
             if (!_statDefinitions.Any())
             {
-                _ = Application.Current.MainPage.DisplayAlert("Please define at least one statistic for the query.", "Statistical Query", "OK");
+                _ = DisplayAlert("Please define at least one statistic for the query.", "Statistical Query", "OK");
                 return;
             }
 
@@ -138,7 +138,7 @@ namespace ArcGIS.Samples.StatsQueryGroupAndSort
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
 

@@ -6,7 +6,10 @@ namespace ArcGIS.Platforms.Helpers
     {
         public static void HideKeyboard()
         {
-            UIApplication.SharedApplication.KeyWindow.EndEditing(true);
+            UIApplication.SharedApplication.ConnectedScenes
+                .OfType<UIWindowScene>()
+                .SelectMany(s => s.Windows)
+                .FirstOrDefault(w => w.IsKeyWindow).EndEditing(true);
         }
     }
 }

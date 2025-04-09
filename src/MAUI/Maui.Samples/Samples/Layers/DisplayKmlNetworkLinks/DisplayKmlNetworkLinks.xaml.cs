@@ -56,7 +56,7 @@ namespace ArcGIS.Samples.DisplayKmlNetworkLinks
             // The dispatcher takes an Action, provided here as a lambda function.
             Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () =>
             {
-                await Application.Current.MainPage.DisplayAlert("KML layer message", e.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("KML layer message", e.Message, "OK");
             });
         }
     }

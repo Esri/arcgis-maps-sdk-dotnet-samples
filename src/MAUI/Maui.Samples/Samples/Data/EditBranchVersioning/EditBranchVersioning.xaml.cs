@@ -178,7 +178,7 @@ namespace ArcGIS.Samples.EditBranchVersioning
 
         private void ShowAlert(string alertText, string titleText = "Alert")
         {
-            Application.Current.MainPage.DisplayAlert(titleText, alertText, "OK");
+            DisplayAlert(titleText, alertText, "OK");
         }
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)

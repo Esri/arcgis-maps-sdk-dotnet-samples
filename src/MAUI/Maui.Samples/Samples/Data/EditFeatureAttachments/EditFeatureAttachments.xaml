@@ -2,67 +2,65 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <ContentPage.Resources>
+        <Style x:Key="IconStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="calcite-ui-icons-24" />
+                <Setter Property="FontSize" Value="20" />
+                <Setter Property="Margin" Value="5" />
+            </Style.Setters>
+        </Style>
+    </ContentPage.Resources>
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView"
                         GeoViewTapped="MapView_Tapped"
                         Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                    <RowDefinition Height="auto" />
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0"
-                       Margin="0,0,0,5"
+            <StackLayout>
+                <Label Margin="5"
                        FontAttributes="Bold"
                        HorizontalTextAlignment="Center"
-                       Text="Tap features to select." />
+                       Text="Tap features to select. Download, upload, or delete attachments." />
                 <ListView x:Name="AttachmentsListBox"
-                          Grid.Row="1"
                           HeightRequest="100"
                           IsEnabled="False">
                     <!--  ItemTemplate defines how each item (Attachment) is rendered.  -->
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Label Margin="5,0,5,0"
+                                <Grid ColumnDefinitions="*,auto,auto" RowDefinitions="auto">
+                                    <Label Margin="5"
                                            Text="{Binding Name}"
                                            VerticalTextAlignment="Center" />
                                     <!--  DataTemplate sets the item as the button's DataContext automatically.  -->
                                     <Button Grid.Column="1"
-                                            Margin="0,0,5,0"
                                             Clicked="DownloadAttachment_Click"
-                                            Text="🔎"
-                                            VerticalOptions="End" />
-                                    <!--  These symbols are emojis. Use Win+. on Windows to open the emoji picker.  -->
+                                            Style="{StaticResource IconStyle}"
+                                            Text="&#xe0cc;"
+                                            ToolTipProperties.Text="Download" />
                                     <Button Grid.Column="2"
                                             Clicked="DeleteAttachment_Click"
-                                            Text="🗑"
-                                            VerticalOptions="End" />
+                                            Style="{StaticResource IconStyle}"
+                                            Text="&#xe2d0;"
+                                            ToolTipProperties.Text="Delete" />
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-                <Button x:Name="AddAttachmentButton"
-                        Grid.Row="3"
-                        Margin="0,5,0,5"
-                        Clicked="AddAttachment_Click"
-                        IsEnabled="False"
-                        Text="Add attachment" />
-                <ActivityIndicator x:Name="AttachmentActivityIndicator"
-                                   Grid.Row="4"
-                                   IsRunning="True"
-                                   IsVisible="False" />
-            </Grid>
+                <Grid ColumnDefinitions="auto,auto">
+                    <Label Grid.Column="1"
+                           HorizontalOptions="End"
+                           Text="Add attachment"
+                           VerticalOptions="Center" />
+                    <Button x:Name="AddAttachmentButton"
+                            Clicked="AddAttachment_Click"
+                            IsEnabled="False"
+                            Style="{StaticResource IconStyle}"
+                            Text="&#xe2dd;"
+                            ToolTipProperties.Text="Add attachment" />
+                </Grid>
+            </StackLayout>
         </Border>
     </Grid>
 </ContentPage>

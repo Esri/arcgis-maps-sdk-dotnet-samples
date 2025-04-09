@@ -35,7 +35,6 @@ namespace ArcGIS
     {
         private ContentPage _sampleContent;
         private Assembly _assembly;
-        private int _lastViewedFileIndex;
 
         // single-instance webviews reused on each view, to avoid a memory leak in webview
         private static WebView DescriptionView = new WebView();
@@ -112,7 +111,7 @@ namespace ArcGIS
             base.OnNavigatedFrom(args);
 
             // Check that the navigation is backward from the sample and not forward into another page in the sample.
-            if (!Application.Current.MainPage.Navigation.NavigationStack.OfType<SamplePage>().Any())
+            if (!Navigation.NavigationStack.OfType<SamplePage>().Any())
             {
                 // Explicit cleanup of the Map and SceneView instead of waiting for garbage collector can help when
                 // lots of geoviews are being opened and closed
@@ -223,7 +222,7 @@ namespace ArcGIS
 #if IOS
                 // Need to set the viewport on iOS to scale page correctly.
                 "<meta name=\"viewport\" content=\"width=" +
-                Application.Current.MainPage.Width +
+                Width +
                 ", shrink-to-fit=YES\">" +
 #endif
                 "</head><body class=\"markdown-body\">" +
@@ -419,7 +418,7 @@ namespace ArcGIS
 
         private async void VerticalHandle_Clicked(object sender, EventArgs e)
         {
-            await DisplayActionSheet("", "Cancel", null, [LiveSample, Description, SourceCode, ViewOnGitHub, BugReport, FeatureRequest]).ContinueWith((result) =>
+            await Application.Current.Windows[0].Page.DisplayActionSheet("", "Cancel", null, [LiveSample, Description, SourceCode, ViewOnGitHub, BugReport, FeatureRequest]).ContinueWith((result) =>
             {
                 if (result.Result != "Cancel")
                 {
@@ -487,10 +486,11 @@ namespace ArcGIS
 
         private void OpenSourceCodePage()
         {
+            // Initially show the C# code.
             if (SourceFiles.Any())
             {
-                _selectedFile = SourceFiles[_lastViewedFileIndex];
-                FilePicker.SelectedIndex = _lastViewedFileIndex;
+                _selectedFile = SourceFiles[0];
+                FilePicker.SelectedIndex = 0;
             }
 
             SourceCodePage.IsVisible = true;

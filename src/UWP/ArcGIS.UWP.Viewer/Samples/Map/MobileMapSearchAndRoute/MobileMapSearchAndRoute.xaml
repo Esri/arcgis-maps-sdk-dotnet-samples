@@ -6,7 +6,6 @@
     xmlns:mapping="using:Esri.ArcGISRuntime.Mapping"
     xmlns:local="using:ArcGIS.UWP.Samples.MobileMapSearchAndRoute">
     <UserControl.Resources>
-        <local:ItemToImageSourceConverter x:Key="ItemToImageSourceConverter" />
         <local:NullOrEmptyToVisibilityConverter x:Key="NullToVisibilityConverter" />
     </UserControl.Resources>
     <Grid>
@@ -33,7 +32,7 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
                                 <Image Grid.Column="0"
-                                       Source="{Binding Item, Converter={StaticResource ItemToImageSourceConverter}}" />
+                                       local:AsyncImageLoader.AsyncSource="{Binding Item}"/>
                                 <Image Grid.Column="1" Source="ms-appx:///Assets/routingSymbol.png"
                                        Height="50" Width="50"
                                        Margin="5"

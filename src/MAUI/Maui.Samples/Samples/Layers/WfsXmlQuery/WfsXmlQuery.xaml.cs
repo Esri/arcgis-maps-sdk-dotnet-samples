@@ -83,7 +83,7 @@ namespace ArcGIS.Samples.WfsXmlQuery
             catch (Exception e)
             {
                 Debug.WriteLine(e.ToString());
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "Couldn't populate table with XML query.");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "Couldn't populate table with XML query.");
             }
         }
     }

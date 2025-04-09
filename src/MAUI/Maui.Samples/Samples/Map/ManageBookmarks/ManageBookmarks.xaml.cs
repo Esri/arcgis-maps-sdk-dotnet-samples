@@ -94,7 +94,7 @@ namespace ArcGIS.Samples.ManageBookmarks
             try
             {
                 // Prompt the user for the new bookmark name.
-                string name = await Application.Current.MainPage.DisplayPromptAsync("New bookmark", "Enter name for new bookmark");
+                string name = await Application.Current.Windows[0].Page.DisplayPromptAsync("New bookmark", "Enter name for new bookmark");
 
                 // Exit if the name is empty
                 if (string.IsNullOrEmpty(name))

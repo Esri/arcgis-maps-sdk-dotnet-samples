@@ -4,14 +4,15 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
-        <Frame x:Name="FeatureAttributesPopup"
-               Margin="30"
-               Padding="0"
-               CornerRadius="0"
-               HorizontalOptions="Center"
-               IsVisible="False"
-               VerticalOptions="Start"
-               WidthRequest="300">
+        <Border x:Name="FeatureAttributesPopup"
+                Margin="30"
+                Padding="0"
+                BackgroundColor="{AppThemeBinding Dark=Black,
+                                                  Light=White}"
+                HorizontalOptions="Center"
+                IsVisible="False"
+                VerticalOptions="Start"
+                WidthRequest="300">
             <StackLayout Margin="5"
                          Padding="15"
                          Spacing="5">
@@ -46,6 +47,6 @@
                         Text="Discard"
                         WidthRequest="240" />
             </StackLayout>
-        </Frame>
+        </Border>
     </Grid>
 </ContentPage>

@@ -27,7 +27,7 @@ namespace ArcGIS.WinUI.Samples.WmsServiceCatalog
     {
         // Hold the URL to the WMS service providing the US NOAA National Weather Service forecast weather chart.
         private readonly Uri _wmsUrl = new Uri(
-            "https://nowcoast.noaa.gov/geoserver/observations/weather_radar/wms?SERVICE=WMS&REQUEST=GetCapabilities");
+            "https://nowcoast.noaa.gov/geoserver/weather_radar/wms?SERVICE=WMS&VERSION=1.3.0&REQUEST=GetCapabilities");
 
         // Hold a list of LayerDisplayVM; this is the ViewModel.
         private ObservableCollection<LayerDisplayVM> _viewModelList = new ObservableCollection<LayerDisplayVM>();

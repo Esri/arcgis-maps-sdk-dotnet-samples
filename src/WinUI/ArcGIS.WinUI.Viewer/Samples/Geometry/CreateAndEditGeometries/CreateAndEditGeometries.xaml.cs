@@ -107,7 +107,7 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
             MyMapView.GeometryEditor = _geometryEditor;
 
             // Create vertex and freehand tools for the combo box.
-            ToolComboBox.ItemsSource = _toolDictionary = new Dictionary<string, object>()
+            _toolDictionary = new Dictionary<string, object>()
             {
                 { "Vertex Tool", new VertexTool() },
                 { "Reticle Vertex Tool", new ReticleVertexTool() },
@@ -117,6 +117,8 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
                 { "Rectangle Shape Tool", ShapeTool.Create(ShapeToolType.Rectangle) },
                 { "Triangle Shape Tool", ShapeTool.Create(ShapeToolType.Triangle) }
             };
+
+            ToolComboBox.ItemsSource = _toolDictionary.Keys;
 
             // Have the vertex tool selected by default.
             ToolComboBox.SelectedIndex = 0;
@@ -196,7 +198,8 @@ namespace ArcGIS.WinUI.Samples.CreateAndEditGeometries
         private void ToolComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Set the geometry editor tool based on the new selection.
-            _geometryEditor.Tool = ((KeyValuePair<string, object>)ToolComboBox.SelectedItem).Value as GeometryEditorTool;
+            GeometryEditorTool tool = _toolDictionary[ToolComboBox.SelectedItem.ToString()] as GeometryEditorTool;
+            _geometryEditor.Tool = tool;
 
             // Account for case when vertex tool is selected and geometry editor is started with a polyline or polygon geometry type.
             // Ensure point and multipoint buttons are only enabled when the selected tool is a vertex tool.

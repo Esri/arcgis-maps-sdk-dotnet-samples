@@ -68,7 +68,7 @@ namespace ArcGIS.Samples.DisplayRouteLayer
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
     }

@@ -91,7 +91,7 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
             catch (Exception ex)
             {
                 // Report exceptions.
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -105,7 +105,7 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
             catch (Exception ex)
             {
                 // Report exceptions.
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -157,7 +157,7 @@ namespace ArcGIS.Samples.AddVectorTiledLayerFromCustomStyle
             catch (Exception ex)
             {
                 // Report exceptions.
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
                 return null;
             }
         }

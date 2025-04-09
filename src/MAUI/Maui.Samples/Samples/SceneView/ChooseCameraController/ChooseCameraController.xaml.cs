@@ -79,7 +79,7 @@ namespace ArcGIS.Samples.ChooseCameraController
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine(ex.Message);
-                await Application.Current.MainPage.DisplayAlert("Error", "Loading plane model failed. Sample failed to initialize.", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Loading plane model failed. Sample failed to initialize.", "OK");
                 return;
             }
 
@@ -135,7 +135,7 @@ namespace ArcGIS.Samples.ChooseCameraController
             {
                 // Show sheet and get the camera controller from the selection.
                 string selectedCamera =
-                    await Application.Current.MainPage.DisplayActionSheet("Select camera controller", "Cancel", null, _controllers);
+                    await Application.Current.Windows[0].Page.DisplayActionSheet("Select camera controller", "Cancel", null, _controllers);
 
                 // If selected cancel then do nothing.
                 if (selectedCamera == "Cancel") return;
@@ -145,7 +145,7 @@ namespace ArcGIS.Samples.ChooseCameraController
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
             }
         }
     }

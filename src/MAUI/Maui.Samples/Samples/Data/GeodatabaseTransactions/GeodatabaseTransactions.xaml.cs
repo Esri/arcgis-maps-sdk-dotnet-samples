@@ -275,7 +275,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
             try
             {
                 // Ask the user if they want to commit or rollback the transaction (or cancel to keep working in the transaction).
-                string choice = await Application.Current.MainPage.DisplayActionSheet("Transaction", "Cancel", null, "Commit", "Rollback");
+                string choice = await Application.Current.Windows[0].Page.DisplayActionSheet("Transaction", "Cancel", null, "Commit", "Rollback");
 
                 if (choice == "Commit")
                 {
@@ -299,7 +299,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
             }
         }
 
@@ -315,7 +315,7 @@ namespace ArcGIS.Samples.GeodatabaseTransactions
             // Warn the user if disabling transactions while a transaction is active.
             if (!mustHaveTransaction && _localGeodatabase.IsInTransaction)
             {
-                Application.Current.MainPage.DisplayAlert("Stop editing to end the current transaction.", "Current Transaction", "OK");
+                DisplayAlert("Stop editing to end the current transaction.", "Current Transaction", "OK");
                 RequireTransactionCheckBox.IsToggled = true;
                 return;
             }

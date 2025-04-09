@@ -65,7 +65,7 @@ namespace ArcGIS.Samples.IdentifyRasterCell
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
 
             // Listen for mouse movement to start the identify operation.
@@ -118,7 +118,7 @@ namespace ArcGIS.Samples.IdentifyRasterCell
             }
             catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
 

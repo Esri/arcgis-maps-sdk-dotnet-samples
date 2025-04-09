@@ -66,7 +66,7 @@ namespace ArcGIS.Samples.ChangeStretchRenderer
             }
             catch (Exception e)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 
@@ -143,7 +143,7 @@ namespace ArcGIS.Samples.ChangeStretchRenderer
             }
             catch (Exception ex)
             {
-                Application.Current.MainPage.DisplayAlert("Alert", ex.Message, "OK");
+                DisplayAlert("Alert", ex.Message, "OK");
                 return;
             }
 

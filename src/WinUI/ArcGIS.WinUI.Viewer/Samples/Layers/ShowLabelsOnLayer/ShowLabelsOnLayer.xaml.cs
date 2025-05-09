@@ -41,7 +41,7 @@ namespace ArcGIS.WinUI.Samples.ShowLabelsOnLayer
             MyMapView.Map = sampleMap;
 
             // Define the URL string for the feature layer.
-            string layerUrl = "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_115th_Congressional_Districts/FeatureServer/0";
+            string layerUrl = "https://services.arcgis.com/P3ePLMYs2RVChkJx/arcgis/rest/services/USA_116th_Congressional_Districts/FeatureServer/0";
 
             // Create a service feature table from the URL.
             ServiceFeatureTable featureTable = new ServiceFeatureTable(new Uri(layerUrl));

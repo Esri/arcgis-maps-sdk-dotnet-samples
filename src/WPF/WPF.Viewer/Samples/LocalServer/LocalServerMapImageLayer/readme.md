@@ -20,10 +20,10 @@ The Local Server and local map service will automatically be started and, once r
     1. Instantiate `LocalMapService(Url)` to create a local map service with the given URL path to the map package (`mpkx` file).
     2. Start the service asynchronously with `LocalMapService.StartAsync()`. The service is added to the Local Server automatically.
 4. Create an ArcGIS map image layer from local map service.
-   1. Create a `ArcGISMapImageLayer(Url)` from local map service url provided by the `LocalMapService.Url` property.
-   2. Add the layer to the map's operational layers. 
-   3. Wait for the layer to load with `await myImageLayer.LoadAsync()`
-   4. Set the map view's extent to the layer's full extent.
+    1. Create a `ArcGISMapImageLayer(Url)` from local map service url provided by the `LocalMapService.Url` property.
+    2. Add the layer to the map's operational layers. 
+    3. Wait for the layer to load with `await myImageLayer.LoadAsync()`
+    4. Set the map view's extent to the layer's full extent.
 
 ## Relevant API
 

@@ -19,9 +19,8 @@ Tap a feature on the map to open a sheet displaying the feature form. Select for
 3. Create a `FeatureForm` object using the identified `ArcGISFeature`.
   * **Note:** If the feature's `FeatureLayer`, `ArcGISFeatureTable`, or the `SubtypeSublayer` has an authored `FeatureFormDefinition`, then this definition will be used to create the `FeatureForm`. If such a definition is not found, a default definition is generated.
 4. Use the `FeatureForm` toolkit component to display the feature form configuration by providing the created `featureForm` object.
-5. Optionally, you can add a `ValidationErrorVisibility` option to the `FeatureForm` toolkit component that determines the visibility of validation errors.
-6. Once edits are added to the form fields, check if the validation errors list are empty using `featureForm.ValidationErrors` to verify that there are no errors.
-7. To commit edits on the service geodatabase:
+5. Once edits are added to the form fields, check if the validation errors list are empty using `featureForm.ValidationErrors` to verify that there are no errors.
+6. To commit edits on the service geodatabase:
     1. Call `FinishEditingAsync()` to save edits to the database.
     2. Retrieve the backing service feature table's geodatabase using `serviceFeatureTable?.ServiceGeodatabase`.
     3. Verify the service geodatabase can commit changes back to the service using `serviceGeodatabase.ServiceInfo?.CanUseServiceGeodatabaseApplyEdits`

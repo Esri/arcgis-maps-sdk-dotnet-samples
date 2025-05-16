@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+  <style name="Maui.MainTheme" parent="Theme.MaterialComponents.DayNight">
+    <item name="android:colorPressedHighlight">@color/ListViewSelected</item>  
+    <item name="android:colorFocusedHighlight">@color/ListViewSelected</item>  
+    <item name="android:colorActivatedHighlight">@color/ListViewSelected</item>  
+    <item name="android:activatedBackgroundIndicator">@color/ListViewSelected</item>
+    <item name="android:colorAccent">@color/colorAccent</item>
+    <item name="android:colorControlActivated">@color/colorAccent</item>
+  </style>
+</resources>

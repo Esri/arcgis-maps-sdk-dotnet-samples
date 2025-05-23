@@ -75,14 +75,14 @@ namespace ArcGIS.WPF.Samples.ConfigureClusters
             // Add a class break for each intended value range and define a symbol to display for features in that range.
             // In this case, the average building height ranges from 0 to 8 storeys.
             // For each cluster of features with a given average building height, a symbol is defined with a specified color.
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("0", "0", 0.0, 1.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(4, 251, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("1", "1", 1.0, 2.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(44, 211, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("2", "2", 2.0, 3.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(74, 181, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("3", "3", 3.0, 4.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(120, 135, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("4", "4", 4.0, 5.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(165, 90, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("5", "5", 5.0, 6.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(194, 61, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("6", "6", 6.0, 7.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(224, 31, 255) }));
-            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("7", "7", 7.0, 8.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.FromArgb(254, 1, 255) }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("0", "0", 0.0, 1.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.Aqua }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("1", "1", 1.0, 2.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.LightSkyBlue }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("2", "2", 2.0, 3.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.DeepSkyBlue}));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("3", "3", 3.0, 4.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.RoyalBlue}));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("4", "4", 4.0, 5.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.BlueViolet }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("5", "5", 5.0, 6.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.MediumOrchid }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("6", "6", 6.0, 7.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.Magenta }));
+            classBreaksRenderer.ClassBreaks.Add(new ClassBreak("7", "7", 7.0, 8.0, new SimpleMarkerSymbol() { Color = System.Drawing.Color.Fuchsia }));
 
             // Define a default symbol to use for features that do not fall within any of the ranges defined by the class breaks.
             classBreaksRenderer.DefaultSymbol = new SimpleMarkerSymbol() { Color = System.Drawing.Color.Pink };

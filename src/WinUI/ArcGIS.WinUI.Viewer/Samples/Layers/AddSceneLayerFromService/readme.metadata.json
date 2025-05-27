@@ -1,10 +1,10 @@
 {
     "category": "Layers",
     "description": "Display an ArcGIS scene layer from a URL.",
-    "formal_name": "SceneLayerUrl",
+    "formal_name": "AddSceneLayerFromService",
     "ignore": false,
     "images": [
-        "SceneLayerUrl.jpg"
+        "AddSceneLayerFromService.jpg"
     ],
     "keywords": [
         "3D",
@@ -17,16 +17,18 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/scene-layer-url.htm"
+        "/net/latest/winui/sample-code/add-scene-layer-from-service.htm"
     ],
     "relevant_apis": [
         "ArcGISScene",
-        "ArcGISSceneLayer",
-        "SceneView"
+        "ArcGISTiledElevationSource",
+        "Scene",
+        "SceneView",
+        "Surface"
     ],
     "snippets": [
-        "SceneLayerUrl.xaml.cs",
-        "SceneLayerUrl.xaml"
+        "AddSceneLayerFromService.xaml.cs",
+        "AddSceneLayerFromService.xaml"
     ],
-    "title": "Scene layer (URL)"
+    "title": "Add scene layer from service"
 }

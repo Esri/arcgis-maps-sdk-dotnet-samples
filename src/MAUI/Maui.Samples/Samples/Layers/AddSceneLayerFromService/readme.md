@@ -1,8 +1,8 @@
-# Scene layer (URL)
+# Add scene layer from service
 
 Display an ArcGIS scene layer from a URL.
 
-![Image of scene layer URL](scenelayerurl.jpg)
+![Image of Add scene layer from service](AddSceneLayerFromService.jpg)
 
 ## Use case
 

@@ -10,15 +10,15 @@
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 
-namespace ArcGIS.Samples.SceneLayerUrl
+namespace ArcGIS.Samples.AddSceneLayerFromService
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Scene layer (URL)",
+        name: "Add scene layer from service",
         category: "Layers",
         description: "Display an ArcGIS scene layer from a URL.",
         instructions: "Pan and zoom to explore the scene.",
         tags: new[] { "3D", "Portland", "URL", "buildings", "model", "scene", "service" })]
-    public partial class SceneLayerUrl : ContentPage
+    public partial class AddSceneLayerFromService : ContentPage
     {
         // URL for a service to use as an elevation source.
         private readonly Uri _elevationSourceUrl = new Uri(
@@ -28,7 +28,7 @@ namespace ArcGIS.Samples.SceneLayerUrl
         private readonly Uri _serviceUri = new Uri(
             "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Portland/SceneServer");
 
-        public SceneLayerUrl()
+        public AddSceneLayerFromService()
         {
             InitializeComponent();
             _ = Initialize();

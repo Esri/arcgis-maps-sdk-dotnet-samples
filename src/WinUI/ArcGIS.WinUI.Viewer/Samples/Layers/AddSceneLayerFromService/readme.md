@@ -2,7 +2,7 @@
 
 Display an ArcGIS scene layer from a URL.
 
-![Image of Add scene layer from service](AddSceneLayerFromService.jpg)
+![Image of Add scene layer from service](addscenelayerfromservice.jpg)
 
 ## Use case
 

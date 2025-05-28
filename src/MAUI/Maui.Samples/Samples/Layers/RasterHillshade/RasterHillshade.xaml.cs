@@ -19,7 +19,7 @@ namespace ArcGIS.Samples.RasterHillshade
         description: "Apply a hillshade renderer to a raster.",
         instructions: "Choose and adjust the settings to update the hillshade renderer on the raster layer. The sample allows you to change the Altitude, Azimuth, and Slope Type.",
         tags: new[] { "altitude", "angle", "azimuth", "raster", "slope", "visualization" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData("134d60f50e184e8fa56365f44e5ce3fb")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("ae9739163a76437ea02482e1a807b806")]
     public partial class RasterHillshade : ContentPage
     {
         // Constant to store a z-factor (conversion constant) applied to the hillshade.
@@ -112,7 +112,7 @@ namespace ArcGIS.Samples.RasterHillshade
 
         private static string GetRasterPath()
         {
-            return DataManager.GetDataFolder("134d60f50e184e8fa56365f44e5ce3fb", "srtm-hillshade", "srtm.tiff");
+            return DataManager.GetDataFolder("ae9739163a76437ea02482e1a807b806", "srtm.tiff");
         }
     }
 }

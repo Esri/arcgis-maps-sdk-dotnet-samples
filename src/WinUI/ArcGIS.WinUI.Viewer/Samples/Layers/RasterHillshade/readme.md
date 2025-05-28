@@ -29,7 +29,7 @@ Choose and adjust the settings to update the hillshade renderer on the raster la
 
 ## Offline data
 
-This sample uses a [digital elevation map](https://www.arcgis.com/home/item.html?id=134d60f50e184e8fa56365f44e5ce3fb) from ArcGIS Online.
+This sample downloads the [Hillshade raster](https://arcgis.com/home/item.html?id=ae9739163a76437ea02482e1a807b806) portal item from ArcGIS Online automatically.
 
 ## Tags
 

@@ -35,6 +35,10 @@ Once the map image layer loads, a list view will be populated with comment data 
 * RelationshipInfo
 * ServiceFeatureTable
 
+## About the data
+
+This sample uses the [ServiceRequests map image server](https://sampleserver6.arcgisonline.com/arcgis/rest/services/ServiceRequest/MapServer), which is used to collect non-emergency requests for service from the general public.
+
 ## Additional information
 
 You can use `arcGISMapImageLayer.LoadTablesAndLayersAsync()` to recursively load all sublayers and tables associated with a map image layer.

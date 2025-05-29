@@ -1,4 +1,4 @@
-// Copyright 2018 Esri.
+// Copyright 2022 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -11,23 +11,19 @@ using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Rasters;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Windows;
 
-namespace ArcGIS.WPF.Samples.ReadGeoPackage
+namespace ArcGIS.Samples.AddRastersAndFeatureTablesFromGeopackage
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Read GeoPackage",
+        name: "Add rasters and feature tables from geopackage",
         category: "Data",
         description: "Add rasters and feature tables from a GeoPackage to a map.",
         instructions: "When the sample loads, the feature tables and rasters from the GeoPackage will be shown on the map.",
         tags: new[] { "OGC", "container", "layer", "map", "package", "raster", "table" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("68ec42517cdd439e81b036210483e8e7")]
-    public partial class ReadGeoPackage
+    public partial class AddRastersAndFeatureTablesFromGeopackage : ContentPage
     {
-        public ReadGeoPackage()
+        public AddRastersAndFeatureTablesFromGeopackage()
         {
             InitializeComponent();
             _ = Initialize();
@@ -79,7 +75,7 @@ namespace ArcGIS.WPF.Samples.ReadGeoPackage
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.ToString(), "Error");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
             }
         }
 

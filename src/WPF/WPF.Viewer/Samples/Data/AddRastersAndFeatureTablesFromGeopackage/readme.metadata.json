@@ -1,10 +1,10 @@
 {
     "category": "Data",
     "description": "Add rasters and feature tables from a GeoPackage to a map.",
-    "formal_name": "ReadGeoPackage",
+    "formal_name": "AddRastersAndFeatureTablesFromGeopackage",
     "ignore": false,
     "images": [
-        "readgeopackage.jpg"
+        "AddRastersAndFeatureTablesFromGeopackage.jpg"
     ],
     "keywords": [
         "OGC",
@@ -19,8 +19,8 @@
         "68ec42517cdd439e81b036210483e8e7"
     ],
     "redirect_from": [
-        "/net/latest/maui/sample-code/read-geopackage.htm"
-    ],
+      "/net/latest/wpf/sample-code/add-rasters-and-feature-tables-from-geopackage.htm"
+  ],
     "relevant_apis": [
         "GeoPackage",
         "GeoPackage.GeoPackageFeatureTables",
@@ -29,8 +29,8 @@
         "GeoPackageRaster"
     ],
     "snippets": [
-        "ReadGeoPackage.xaml.cs",
-        "ReadGeoPackage.xaml"
+        "AddRastersAndFeatureTablesFromGeopackage.xaml.cs",
+        "AddRastersAndFeatureTablesFromGeopackage.xaml"
     ],
-    "title": "Read GeoPackage"
+    "title": "Add rasters and feature tables from geopackage"
 }

@@ -80,6 +80,7 @@
 * [Add dynamic entity layer](WPF.Viewer/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](WPF.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
 * [Add vector tiled layer from custom style](WPF.Viewer/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - Load ArcGIS vector tiled layers using custom styles.
+* [Add scene layer from service](WPF.Viewer/Samples/Layers/AddSceneLayerFromService) - Display an ArcGIS scene layer from a URL.
 * [Apply mosaic rule to rasters](WPF.Viewer/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](WPF.Viewer/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.
 * [ArcGIS map image layer](WPF.Viewer/Samples/Layers/ArcGISMapImageLayerUrl) - Add an ArcGIS Map Image Layer from a URL to a map.
@@ -100,7 +101,6 @@
 * [Display KML network links](WPF.Viewer/Samples/Layers/DisplayKmlNetworkLinks) - Display a file with a KML network link, including displaying any network link control messages at launch.
 * [Display OGC API collection](WPF.Viewer/Samples/Layers/DisplayOACollection) - Display an OGC API feature collection and query features while navigating the map view.
 * [Display WFS layer](WPF.Viewer/Samples/Layers/DisplayWfs) - Display a layer from a WFS service, requesting only features for the current extent.
-* [Display a scene](WPF.Viewer/Samples/Layers/DisplayScene) - Display a scene with a terrain surface and some imagery.
 * [Display annotation](WPF.Viewer/Samples/Layers/DisplayAnnotation) - Display annotation from a feature service URL.
 * [Display clusters](WPF.Viewer/Samples/Layers/DisplayClusters) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display dimensions](WPF.Viewer/Samples/Layers/DisplayDimensions) - Display dimension features from a mobile map package.
@@ -134,7 +134,6 @@
 * [Raster layer (file)](WPF.Viewer/Samples/Layers/RasterLayerFile) - Create and use a raster layer made from a local raster file.
 * [Raster layer (service)](WPF.Viewer/Samples/Layers/RasterLayerImageServiceRaster) - Create a raster layer from a raster image service.
 * [Raster rendering rule](WPF.Viewer/Samples/Layers/RasterRenderingRule) - Display a raster on a map and apply different rendering rules to that raster.
-* [Scene layer (URL)](WPF.Viewer/Samples/Layers/SceneLayerUrl) - Display an ArcGIS scene layer from a URL.
 * [Scene layer selection](WPF.Viewer/Samples/Layers/SceneLayerSelection) - Identify features in a scene to select.
 * [Show labels on layers](WPF.Viewer/Samples/Layers/ShowLabelsOnLayer) - Display custom labels on a feature layer.
 * [Stretch renderer](WPF.Viewer/Samples/Layers/ChangeStretchRenderer) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.

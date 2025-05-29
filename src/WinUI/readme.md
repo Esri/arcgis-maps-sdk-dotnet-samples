@@ -79,6 +79,7 @@
 * [Add custom dynamic entity data source](ArcGIS.WinUI.Viewer/Samples/Layers/AddCustomDynamicEntityDataSource) - Create a custom dynamic entity data source and display it using a dynamic entity layer.
 * [Add dynamic entity layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
+* [Add scene layer from service](ArcGIS.WinUI.Viewer/Samples/Layers/AddSceneLayerFromService) - Display an ArcGIS scene layer from a URL.
 * [Add vector tiled layer from custom style](ArcGIS.WinUI.Viewer/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - Load ArcGIS vector tiled layers using custom styles.
 * [Apply mosaic rule to rasters](ArcGIS.WinUI.Viewer/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](ArcGIS.WinUI.Viewer/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.
@@ -100,7 +101,6 @@
 * [Display KML network links](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayKmlNetworkLinks) - Display a file with a KML network link, including displaying any network link control messages at launch.
 * [Display OGC API collection](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayOACollection) - Display an OGC API feature collection and query features while navigating the map view.
 * [Display WFS layer](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayWfs) - Display a layer from a WFS service, requesting only features for the current extent.
-* [Display a scene](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayScene) - Display a scene with a terrain surface and some imagery.
 * [Display annotation](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayAnnotation) - Display annotation from a feature service URL.
 * [Display clusters](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayClusters) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display dimensions](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayDimensions) - Display dimension features from a mobile map package.
@@ -134,7 +134,6 @@
 * [Raster layer (file)](ArcGIS.WinUI.Viewer/Samples/Layers/RasterLayerFile) - Create and use a raster layer made from a local raster file.
 * [Raster layer (service)](ArcGIS.WinUI.Viewer/Samples/Layers/RasterLayerImageServiceRaster) - Create a raster layer from a raster image service.
 * [Raster rendering rule](ArcGIS.WinUI.Viewer/Samples/Layers/RasterRenderingRule) - Display a raster on a map and apply different rendering rules to that raster.
-* [Scene layer (URL)](ArcGIS.WinUI.Viewer/Samples/Layers/SceneLayerUrl) - Display an ArcGIS scene layer from a URL.
 * [Scene layer selection](ArcGIS.WinUI.Viewer/Samples/Layers/SceneLayerSelection) - Identify features in a scene to select.
 * [Show labels on layers](ArcGIS.WinUI.Viewer/Samples/Layers/ShowLabelsOnLayer) - Display custom labels on a feature layer.
 * [Stretch renderer](ArcGIS.WinUI.Viewer/Samples/Layers/ChangeStretchRenderer) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.

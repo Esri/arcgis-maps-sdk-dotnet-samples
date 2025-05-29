@@ -1,8 +1,8 @@
-# Map image layer tables
+# Query related features from non spatial table
 
 Find features in a spatial table related to features in a non-spatial table.
 
-![Image of map image layer tables](mapimagelayertables.jpg)
+![Image of map image layer tables](queryrelatedfeaturesfromnonspatialtable.jpg)
 
 ## Use case
 

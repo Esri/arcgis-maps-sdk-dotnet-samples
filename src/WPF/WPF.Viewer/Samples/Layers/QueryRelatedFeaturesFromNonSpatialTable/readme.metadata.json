@@ -1,10 +1,10 @@
 {
     "category": "Layers",
     "description": "Find features in a spatial table related to features in a non-spatial table.",
-    "formal_name": "MapImageLayerTables",
+    "formal_name": "QueryRelatedFeaturesFromNonSpatialTable",
     "ignore": false,
     "images": [
-        "MapImageLayerTables.jpg"
+        "QueryRelatedFeaturesFromNonSpatialTable.jpg"
     ],
     "keywords": [
         "features",
@@ -28,8 +28,8 @@
         "ServiceFeatureTable"
     ],
     "snippets": [
-        "MapImageLayerTables.xaml.cs",
-        "MapImageLayerTables.xaml"
+        "QueryRelatedFeaturesFromNonSpatialTable.xaml.cs",
+        "QueryRelatedFeaturesFromNonSpatialTable.xaml"
     ],
-    "title": "Map image layer tables"
+    "title": "Query related features from non spatial table"
 }

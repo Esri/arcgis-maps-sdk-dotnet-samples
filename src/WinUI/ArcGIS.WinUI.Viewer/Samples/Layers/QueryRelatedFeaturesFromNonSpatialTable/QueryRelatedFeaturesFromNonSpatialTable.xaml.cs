@@ -19,20 +19,20 @@ using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ArcGIS.WinUI.Samples.MapImageLayerTables
+namespace ArcGIS.WinUI.Samples.QueryRelatedFeaturesFromNonSpatialTable
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Map image layer tables",
+        name: "Query related features from non spatial table",
         category: "Layers",
         description: "Find features in a spatial table related to features in a non-spatial table.",
         instructions: "Once the map image layer loads, a list view will be populated with comment data from non-spatial features. Click on one of the comments to query related spatial features and display the first result on the map.",
         tags: new[] { "features", "query", "related features", "search" })]
-    public partial class MapImageLayerTables
+    public partial class QueryRelatedFeaturesFromNonSpatialTable
     {
         // A graphics overlay for showing selected features.
         private GraphicsOverlay _selectedFeaturesOverlay;
 
-        public MapImageLayerTables()
+        public QueryRelatedFeaturesFromNonSpatialTable()
         {
             InitializeComponent();
 

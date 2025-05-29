@@ -23,7 +23,6 @@ Once the map image layer loads, a list view will be populated with comment data 
 7. Now create `RelatedQueryParameters` passing in the `RelationshipInfo`. To query related features, use `table.QueryRelatedFeaturesAsync(feature, relatedQueryParameters)`.
 8. This returns a list of `RelatedFeatureQueryResult` objects, each containing a set of related features.
 
-
 ## Relevant API
 
 * ArcGISFeature
@@ -35,7 +34,6 @@ Once the map image layer loads, a list view will be populated with comment data 
 * RelatedQueryParameters
 * RelationshipInfo
 * ServiceFeatureTable
-
 
 ## About the data
 

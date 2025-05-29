@@ -30,5 +30,5 @@
         "OpenStreetMapLayer.xaml.cs",
         "OpenStreetMapLayer.xaml"
     ],
-    "title": "OpenStreetMap layer (eprecated in 200.8)"
+    "title": "OpenStreetMap layer (deprecated in 200.8)"
 }

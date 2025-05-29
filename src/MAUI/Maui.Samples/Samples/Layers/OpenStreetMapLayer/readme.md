@@ -1,4 +1,4 @@
-# OpenStreetMap layer (Deprecated in 200.8)
+# OpenStreetMap layer (deprecated in 200.8)
 
 Add OpenStreetMap as a basemap layer.
 

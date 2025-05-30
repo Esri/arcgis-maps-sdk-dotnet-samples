@@ -13,15 +13,15 @@ using System;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGIS.WPF.Samples.AddSceneLayerFromService
+namespace ArcGIS.WPF.Samples.SceneLayerUrl
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Add scene layer from service",
+        name: "Scene layer (URL)",
         category: "Layers",
         description: "Display an ArcGIS scene layer from a URL.",
         instructions: "Pan and zoom to explore the scene.",
         tags: new[] { "3D", "Portland", "URL", "buildings", "model", "scene", "service" })]
-    public partial class AddSceneLayerFromService
+    public partial class SceneLayerUrl
     {
         // URL for a service to use as an elevation source.
         private readonly Uri _elevationSourceUrl = new Uri(
@@ -31,7 +31,7 @@ namespace ArcGIS.WPF.Samples.AddSceneLayerFromService
         private readonly Uri _serviceUri = new Uri(
             "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Portland/SceneServer");
 
-        public AddSceneLayerFromService()
+        public SceneLayerUrl()
         {
             InitializeComponent();
             _ = Initialize();

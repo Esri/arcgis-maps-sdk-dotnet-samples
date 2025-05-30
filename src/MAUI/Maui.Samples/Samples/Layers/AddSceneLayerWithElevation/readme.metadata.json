@@ -1,10 +1,10 @@
 {
     "category": "Layers",
     "description": "Display an ArcGIS scene layer from a URL.",
-    "formal_name": "SceneLayerUrl",
+    "formal_name": "AddSceneLayerWithElevation",
     "ignore": false,
     "images": [
-        "SceneLayerUrl.jpg"
+        "addscenelayerwithelevation.jpg"
     ],
     "keywords": [
         "3D",
@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/scene-layer-url.htm"
+        "/net/latest/maui/sample-code/scene-layer-url.htm"
     ],
     "relevant_apis": [
         "ArcGISScene",
@@ -25,8 +25,8 @@
         "SceneView"
     ],
     "snippets": [
-        "SceneLayerUrl.xaml.cs",
-        "SceneLayerUrl.xaml"
+        "AddSceneLayerWithElevation.xaml.cs",
+        "AddSceneLayerWithElevation.xaml"
     ],
-    "title": "Scene layer (URL)"
+    "title": "Add scene layer with elevation"
 }

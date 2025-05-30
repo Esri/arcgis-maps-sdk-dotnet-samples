@@ -1,8 +1,8 @@
-# Scene layer (URL)
+# Add scene layer with elevation
 
 Display an ArcGIS scene layer from a URL.
 
-![Image of scene layer URL](SceneLayerUrl.jpg)
+![Image of scene layer URL](addscenelayerwithelevation.jpg)
 
 ## Use case
 

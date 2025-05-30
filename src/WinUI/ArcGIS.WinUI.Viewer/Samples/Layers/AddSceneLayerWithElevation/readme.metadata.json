@@ -20,10 +20,12 @@
         "/net/latest/winui/sample-code/scene-layer-url.htm"
     ],
     "relevant_apis": [
-        "ArcGISScene",
         "ArcGISSceneLayer",
-        "SceneView"
-    ],
+        "ArcGISTiledElevationSource",
+        "Scene",
+        "SceneView",
+        "Surface"
+  ],
     "snippets": [
         "AddSceneLayerWithElevation.xaml.cs",
         "AddSceneLayerWithElevation.xaml"

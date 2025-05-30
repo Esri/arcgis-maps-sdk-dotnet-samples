@@ -28,8 +28,8 @@ Tap on a building in the scene layer to select it. Deselect buildings by clickin
 
 ## About the data
 
-This sample shows a [Brest, France Scene](https://www.arcgis.com/home/item.html?id=ae142fec36b64f01b9d7871c8f694bbf) hosted on ArcGIS Online.
+This sample shows a [Brest France Buildings Scene](https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0) hosted on ArcGIS Online.
 
 ## Tags
 
-3D, Brest, buildings, identify, model, query, search, select
+3D, buildings, identify, model, query, search, select

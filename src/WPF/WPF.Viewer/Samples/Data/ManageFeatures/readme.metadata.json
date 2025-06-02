@@ -29,11 +29,11 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/manage-features.htm",
-        "/net/latest/wpf/sample-code/add-features.htm",
-        "/net/latest/wpf/sample-code/delete-features.htm",
-        "/net/latest/wpf/sample-code/update-attributes.htm",
-        "/net/latest/wpf/sample-code/update-geometries.htm"
+        "/net/wpf/sample-code/manage-features.htm",
+        "/net/wpf/sample-code/add-features.htm",
+        "/net/wpf/sample-code/delete-features.htm",
+        "/net/wpf/sample-code/update-attributes.htm",
+        "/net/wpf/sample-code/update-geometries.htm"
     ],
     "relevant_apis": [
         "Feature",

@@ -1,12 +1,12 @@
-# Read GeoPackage
+# Add rasters and feature tables from geopackage
 
 Add rasters and feature tables from a GeoPackage to a map.
 
-![Image of read GeoPackage](ReadGeoPackage.jpg)
+![Image of add rasters and feature tables from geopackage](AddRastersAndFeatureTablesFromGeopackage.jpg)
 
 ## Use case
 
-The OGC GeoPackage specification defines an open standard for sharing raster and vector data. You may want to use GeoPackage files to support file-based sharing of geographic data.
+The OGC GeoPackage specification defines an open standard for sharing raster and vector data. GeoPackages are designed to simplify file management and transfer. An end-user wishing to transfer rasters from ArcGIS Pro or between ArcGIS Maps SDK apps, might need to import raster files from GeoPackages into their map to view and analyze the data.
 
 ## How to use the sample
 
@@ -22,19 +22,17 @@ When the sample loads, the feature tables and rasters from the GeoPackage will b
 
 ## Relevant API
 
+* FeatureLayer
 * GeoPackage
 * GeoPackage.GeoPackageFeatureTables
 * GeoPackage.GeoPackageRasters
 * GeoPackageFeatureTable
 * GeoPackageRaster
+* RasterLayer
 
 ## Offline data
 
-The [Aurora Colorado GeoPackage](https://www.arcgis.com/home/item.html?id=68ec42517cdd439e81b036210483e8e7) holds datasets that cover Aurora, Colorado.
-
-## About the data
-
-This sample features a GeoPackage with datasets that cover Aurora, Colorado: Public art (points), Bike trails (lines), Subdivisions (polygons), Airport noise (raster), and liquour license density (raster).
+This sample features a [Aurora Colorado GeoPackage](https://www.arcgis.com/home/item.html?id=68ec42517cdd439e81b036210483e8e7) that holds datasets that cover Aurora, Colorado. It has various data including Public art (points), Bike trails (lines), Subdivisions (polygons), Airport noise (raster), and liquor license density (raster).
 
 ## Additional information
 

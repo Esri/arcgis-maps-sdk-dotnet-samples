@@ -9,8 +9,8 @@
     "keywords": [
         "basemap",
         "map",
-        "Basemap.Style",
-        "BasemapGallery",
+        "basemap style",
+        "basemap gallery",
         "toolkit"
   ],
     "offline_data": [],
@@ -18,8 +18,8 @@
         "/net/latest/winui/sample-code/set-basemap.htm"
     ],
     "relevant_apis": [
-        "Basemap.Style",
         "BasemapGallery",
+        "Basemap.Style",
         "Map",
         "MapView"
   ],

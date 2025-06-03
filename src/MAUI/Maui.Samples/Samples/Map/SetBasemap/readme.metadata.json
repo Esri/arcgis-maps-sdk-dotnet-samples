@@ -19,7 +19,7 @@
     ],
     "relevant_apis": [
       "BasemapGallery",
-      "Basemap.Style",
+      "BasemapStyle",
       "Map",
       "MapView"
   ],

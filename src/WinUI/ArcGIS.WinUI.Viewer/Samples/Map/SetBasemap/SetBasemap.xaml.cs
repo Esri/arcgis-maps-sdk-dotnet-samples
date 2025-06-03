@@ -11,15 +11,15 @@ using Esri.ArcGISRuntime.Mapping;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
 
-namespace ArcGIS.WinUI.Samples.ChangeBasemap
+namespace ArcGIS.WinUI.Samples.SetBasemap
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Change basemap",
+        name: "Set basemap",
         category: "Map",
         description: "Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.",
         instructions: "Use the drop down menu to select the active basemap from the list of available basemaps.",
         tags: new[] { "basemap", "map" })]
-    public partial class ChangeBasemap
+    public partial class SetBasemap
     {
         // Dictionary that associates names with basemaps.
         private readonly Dictionary<string, Basemap> _basemapOptions = new Dictionary<string, Basemap>()
@@ -34,7 +34,7 @@ namespace ArcGIS.WinUI.Samples.ChangeBasemap
             {"OpenStreetMap", new Basemap(BasemapStyle.OSMStandard)}
         };
 
-        public ChangeBasemap()
+        public SetBasemap()
         {
             InitializeComponent();
 

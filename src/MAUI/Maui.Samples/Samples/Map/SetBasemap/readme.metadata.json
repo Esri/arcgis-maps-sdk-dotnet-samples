@@ -1,0 +1,30 @@
+{
+    "category": "Map",
+    "description": "Change a map's basemap.",
+    "formal_name": "SetBasemap",
+    "ignore": false,
+    "images": [
+        "setbasemap.jpg"
+    ],
+    "keywords": [
+        "basemap style",
+        "basemap gallery",
+        "map",
+        "toolkit"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/set-basemap.htm"
+    ],
+    "relevant_apis": [
+        "Basemap.Style",
+        "BasemapGallery",
+        "Map",
+        "MapView"
+    ],
+    "snippets": [
+        "SetBasemap.xaml.cs",
+        "SetBasemap.xaml"
+    ],
+    "title": "Set basemap"
+}

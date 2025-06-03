@@ -7,9 +7,10 @@
         "SetBasemap.jpg"
     ],
     "keywords": [
-        "basemap gallery",
-        "basemap style",
+        "basemap",
         "map",
+        "Basemap.Style",
+        "BasemapGallery",
         "toolkit"
   ],
     "offline_data": [],
@@ -17,10 +18,10 @@
         "/net/latest/wpf/sample-code/set-basemap.htm"
     ],
     "relevant_apis": [
-      "BasemapGallery",
-      "Basemap.Style",
-      "Map",
-      "MapView"
+        "Basemap.Style",
+        "BasemapGallery",
+        "Map",
+        "MapView"
   ],
     "snippets": [
         "SetBasemap.xaml.cs",

@@ -7,9 +7,10 @@
         "setbasemap.jpg"
     ],
     "keywords": [
-        "basemap gallery",
-        "basemap style",
+        "basemap",
         "map",
+        "Basemap.Style",
+        "BasemapGallery",
         "toolkit"
   ],
     "offline_data": [],
@@ -17,11 +18,11 @@
         "/net/latest/maui/sample-code/set-basemap.htm"
     ],
     "relevant_apis": [
-        "BasemapGallery",
         "Basemap.Style",
+        "BasemapGallery",
         "Map",
         "MapView"
-    ],
+  ],
     "snippets": [
         "SetBasemap.xaml.cs",
         "SetBasemap.xaml"

@@ -149,14 +149,8 @@ namespace ArcGIS.Samples.ManageFeatures
                     return;
                 }
 
-                // Otherwise, get the ID of the first result.
-                var featureId = (long)identifyResult.GeoElements[0].Attributes["objectid"];
-
-                // Get the feature by constructing a query and running it.
-                var queryParameters = new QueryParameters();
-                queryParameters.ObjectIds.Add(featureId);
-                FeatureQueryResult queryResult = await _damageLayer.FeatureTable.QueryFeaturesAsync(queryParameters);
-                Feature tappedFeature = queryResult.First();
+                // Otherwise, get the first feature returned.
+                var tappedFeature = identifyResult.GeoElements.OfType<Feature>().FirstOrDefault();
 
                 // Show the deletion button.
                 DeleteButton.IsVisible = true;

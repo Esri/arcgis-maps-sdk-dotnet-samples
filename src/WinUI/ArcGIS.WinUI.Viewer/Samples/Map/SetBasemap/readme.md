@@ -36,4 +36,4 @@ See [Customize basemaps](https://enterprise.arcgis.com/en/portal/latest/administ
 
 ## Tags
 
-basemap, map, basemap style, basemap gallery, toolkit
+basemap, basemap gallery, basemap style, map, toolkit

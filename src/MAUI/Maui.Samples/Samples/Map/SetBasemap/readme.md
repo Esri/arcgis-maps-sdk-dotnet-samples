@@ -21,8 +21,8 @@ Use the drop down menu to select the active basemap from the list of available b
 
 ## Relevant API
 
-* Basemap.Style
 * BasemapGallery
+* Basemap.Style
 * Map
 * MapView
 
@@ -36,4 +36,4 @@ See [Customize basemaps](https://enterprise.arcgis.com/en/portal/latest/administ
 
 ## Tags
 
-basemap style, basemap gallery, map, toolkit
+basemap gallery, basemap style, map, toolkit

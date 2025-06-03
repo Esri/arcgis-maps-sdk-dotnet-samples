@@ -7,18 +7,18 @@
         "SetBasemap.jpg"
     ],
     "keywords": [
-        "basemap style",
-        "basemap gallery",
-        "map",
-        "toolkit"
+      "basemap gallery",
+      "basemap style",
+      "map",
+      "toolkit"
   ],
     "offline_data": [],
     "redirect_from": [
         "/net/latest/winui/sample-code/set-basemap.htm"
     ],
     "relevant_apis": [
-        "Basemap.Style",
         "BasemapGallery",
+        "Basemap.Style",
         "Map",
         "MapView"
   ],

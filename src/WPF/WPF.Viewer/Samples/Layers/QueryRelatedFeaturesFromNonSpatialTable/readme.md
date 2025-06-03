@@ -1,8 +1,8 @@
-# Map image layer tables
+# Query related features from non spatial table
 
 Find features in a spatial table related to features in a non-spatial table.
 
-![Image of map image layer tables](MapImageLayerTables.jpg)
+![Image of map image layer tables](QueryRelatedFeaturesFromNonSpatialTable.jpg)
 
 ## Use case
 
@@ -34,6 +34,10 @@ Once the map image layer loads, a list view will be populated with comment data 
 * RelatedQueryParameters
 * RelationshipInfo
 * ServiceFeatureTable
+
+## About the data
+
+This sample uses the [ServiceRequests map image server](https://sampleserver6.arcgisonline.com/arcgis/rest/services/ServiceRequest/MapServer), which is used to collect non-emergency requests for service from the general public.
 
 ## Additional information
 

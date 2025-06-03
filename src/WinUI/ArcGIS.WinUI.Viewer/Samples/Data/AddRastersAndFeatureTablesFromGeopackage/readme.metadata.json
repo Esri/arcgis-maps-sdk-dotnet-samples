@@ -1,0 +1,38 @@
+{
+    "category": "Data",
+    "description": "Add rasters and feature tables from a GeoPackage to a map.",
+    "formal_name": "AddRastersAndFeatureTablesFromGeopackage",
+    "ignore": false,
+    "images": [
+        "AddRastersAndFeatureTablesFromGeopackage.jpg"
+    ],
+    "keywords": [
+        "OGC",
+        "container",
+        "layer",
+        "map",
+        "package",
+        "raster",
+        "table"
+    ],
+    "offline_data": [
+        "68ec42517cdd439e81b036210483e8e7"
+    ],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/add-rasters-and-feature-tables-from-geopackage.htm"
+  ],
+    "relevant_apis": [
+        "FeatureLayer",
+        "GeoPackage",
+        "GeoPackage.GeoPackageFeatureTables",
+        "GeoPackage.GeoPackageRasters",
+        "GeoPackageFeatureTable",
+        "GeoPackageRaster",
+        "RasterLayer"
+  ],
+    "snippets": [
+        "AddRastersAndFeatureTablesFromGeopackage.xaml.cs",
+        "AddRastersAndFeatureTablesFromGeopackage.xaml"
+    ],
+    "title": "Add rasters and feature tables from geopackage"
+}

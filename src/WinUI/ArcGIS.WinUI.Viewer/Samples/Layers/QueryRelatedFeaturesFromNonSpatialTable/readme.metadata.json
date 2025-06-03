@@ -1,0 +1,35 @@
+{
+    "category": "Layers",
+    "description": "Find features in a spatial table related to features in a non-spatial table.",
+    "formal_name": "QueryRelatedFeaturesFromNonSpatialTable",
+    "ignore": false,
+    "images": [
+        "QueryRelatedFeaturesFromNonSpatialTable.jpg"
+    ],
+    "keywords": [
+        "features",
+        "query",
+        "related features",
+        "search"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/query-related-features-from-non-spatial-table.htm"
+  ],
+    "relevant_apis": [
+        "ArcGISFeature",
+        "ArcGISMapImageLayer",
+        "Feature",
+        "FeatureQueryResult",
+        "QueryParameters",
+        "RelatedFeatureQueryResult",
+        "RelatedQueryParameters",
+        "RelationshipInfo",
+        "ServiceFeatureTable"
+    ],
+    "snippets": [
+        "QueryRelatedFeaturesFromNonSpatialTable.xaml.cs",
+        "QueryRelatedFeaturesFromNonSpatialTable.xaml"
+    ],
+    "title": "Query related features from non spatial table"
+}

@@ -1,4 +1,4 @@
-# OpenStreetMap layer (deprecated in 200.8)
+# OpenStreetMap layer
 
 Add OpenStreetMap as a basemap layer.
 
@@ -27,6 +27,8 @@ When the sample opens, it will automatically display the map with the OpenStreet
 * OpenStreetMapLayer
 
 ## Additional information
+
+ArcGIS Maps SDK OpenStreetMap Styles is deprecated and will be retired in 2030. The last release will be ArcGIS Maps SDK 200.8, in Q3 2025. For more information, see the deprecation announcement.
 
 The attribution text will be set to the required OpenStreetMap attribution automatically.
 

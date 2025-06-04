@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/maui/sample-code/add-scene-layer-with-elevation.htm"
+        "/net/maui/sample-code/add-scene-layer-with-elevation.htm"
     ],
     "relevant_apis": [
         "ArcGISSceneLayer",

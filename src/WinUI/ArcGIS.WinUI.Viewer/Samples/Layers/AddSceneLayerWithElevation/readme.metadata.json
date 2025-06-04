@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/winui/sample-code/add-scene-layer-with-elevation.htm"
+        "/net/winui/sample-code/add-scene-layer-with-elevation.htm"
   ],
     "relevant_apis": [
         "ArcGISSceneLayer",

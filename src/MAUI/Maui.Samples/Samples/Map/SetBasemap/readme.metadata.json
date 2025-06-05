@@ -15,13 +15,15 @@
   ],
     "offline_data": [],
     "redirect_from": [
+        "/net/maui/sample-code/change-basemap.htm",
+        "/net/latest/maui/sample-code/change-basemap.htm",
         "/net/maui/sample-code/set-basemap.htm"
-    ],
+  ],
     "relevant_apis": [
-      "BasemapGallery",
-      "BasemapStyle",
-      "Map",
-      "MapView"
+        "BasemapGallery",
+        "BasemapStyle",
+        "Map",
+        "MapView"
   ],
     "snippets": [
         "SetBasemap.xaml.cs",

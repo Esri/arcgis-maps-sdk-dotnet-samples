@@ -25,10 +25,11 @@ namespace ArcGIS.Samples.GeodesicOperations
         tags: new[] { "densify", "distance", "geodesic", "geodetic" })]
     public partial class GeodesicOperations : ContentPage
     {
-        // Hold references to the graphics.
+        // Hold references to the graphics and start point.
         private Graphic _startLocationGraphic;
         private Graphic _endLocationGraphic;
         private Graphic _pathGraphic;
+        private MapPoint _startPoint;
 
         public GeodesicOperations()
         {
@@ -47,9 +48,9 @@ namespace ArcGIS.Samples.GeodesicOperations
             MyMapView.GraphicsOverlays.Add(graphicsOverlay);
 
             // Add a graphic at JFK to serve as the origin.
-            MapPoint start = new MapPoint(-73.7781, 40.6413, SpatialReferences.Wgs84);
+            _startPoint = new MapPoint(-73.7781, 40.6413, SpatialReferences.Wgs84);
             SimpleMarkerSymbol startMarker = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, Colors.Blue, 10);
-            _startLocationGraphic = new Graphic(start, startMarker);
+            _startLocationGraphic = new Graphic(_startPoint, startMarker);
 
             // Create the graphic for the destination.
             _endLocationGraphic = new Graphic
@@ -97,8 +98,8 @@ namespace ArcGIS.Samples.GeodesicOperations
             _pathGraphic.Geometry = pathGeometry;
 
             // Calculate and show the distance.
-            double distance = pathGeometry.LengthGeodetic(LinearUnits.Kilometers, GeodeticCurveType.Geodesic);
-            ResultsLabel.Text = $"{(int)distance} kilometers";
+            GeodeticDistanceResult geodeticDistance = _startPoint.DistanceGeodetic(destination, LinearUnits.Kilometers, AngularUnits.Grads, GeodeticCurveType.Geodesic);
+            ResultsLabel.Text = $"{(int)geodeticDistance.Distance} kilometers";
         }
     }
 }

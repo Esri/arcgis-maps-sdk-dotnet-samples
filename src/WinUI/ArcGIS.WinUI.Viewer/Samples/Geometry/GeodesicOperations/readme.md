@@ -18,7 +18,7 @@ Click anywhere on the map. A line graphic will display the geodesic line between
 2. When a click occurs on the `MapView`, a new `Point` is obtained from the mouse click. This `Point` is added as a `Graphic`.
 3. A `Polyline` is created with the two `Point` objects.
 4. `GeometryEngine.DensifyGeodetic` is called from the `Polyline` object, and the returned `Geometry` is stored as `pathGeometry`.
-5. `GeometryEngine.DistanceGeodetic` is called from `pathGeometry`, and the returned number is displayed on the screen.
+5. `GeometryEngine.DistanceGeodetic` is called from the start `Point` object, and the returned `GeodeticDistanceResult` object's distance number is displayed on the screen.
 
 ## Relevant API
 

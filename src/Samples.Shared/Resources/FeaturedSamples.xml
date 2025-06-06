@@ -15,6 +15,7 @@
 		</Category>
 		<Category name="Layers">
 			<Sample>Add3dTilesLayer</Sample>
+			<Sample>AddSceneLayerWithElevation</Sample>
 			<Sample>ConfigureClusters</Sample>
 			<Sample>ConfigureElectronicNavigationalCharts</Sample>
 			<Sample>AddCustomDynamicEntityDataSource</Sample>

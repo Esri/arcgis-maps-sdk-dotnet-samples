@@ -87,7 +87,7 @@ class sample_metadata:
 
         # populate redirect_from; it is based on a pattern
         real_platform = platform
-        redirect_string = f"/net/latest/{real_platform.lower()}/sample-code/{slugged_sample_name}.htm"
+        redirect_string = f"/net/{real_platform.lower()}/sample-code/{slugged_sample_name}.htm"
         self.redirect_from.append(redirect_string)
 
         # category is the name of the folder containing the sample folder

@@ -1,0 +1,36 @@
+{
+    "category": "Layers",
+    "description": "Display an ArcGIS scene layer from a URL.",
+    "formal_name": "AddSceneLayerWithElevation",
+    "ignore": false,
+    "images": [
+        "addscenelayerwithelevation.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "Portland",
+        "URL",
+        "buildings",
+        "model",
+        "scene",
+        "service"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/maui/sample-code/scene-layer-url.htm",
+        "/net/latest/maui/sample-code/scene-layer-url.htm",
+        "/net/maui/sample-code/add-scene-layer-with-elevation.htm"
+  ],
+    "relevant_apis": [
+        "ArcGISSceneLayer",
+        "ArcGISTiledElevationSource",
+        "Scene",
+        "SceneView",
+        "Surface"
+  ],
+    "snippets": [
+        "AddSceneLayerWithElevation.xaml.cs",
+        "AddSceneLayerWithElevation.xaml"
+    ],
+    "title": "Add scene layer with elevation"
+}

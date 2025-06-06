@@ -1,0 +1,33 @@
+{
+    "category": "Map",
+    "description": "Change a map's basemap.",
+    "formal_name": "SetBasemap",
+    "ignore": false,
+    "images": [
+        "SetBasemap.jpg"
+    ],
+    "keywords": [
+        "basemap",
+        "basemap gallery",
+        "basemap style",
+        "map",
+        "toolkit"
+  ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/winui/sample-code/change-basemap.htm",
+        "/net/latest/winui/sample-code/change-basemap.htm",
+        "/net/winui/sample-code/set-basemap.htm"
+  ],
+    "relevant_apis": [
+        "BasemapGallery",
+        "BasemapStyle",
+        "Map",
+        "MapView"
+  ],
+    "snippets": [
+        "SetBasemap.xaml.cs",
+        "SetBasemap.xaml"
+    ],
+    "title": "Set basemap"
+}

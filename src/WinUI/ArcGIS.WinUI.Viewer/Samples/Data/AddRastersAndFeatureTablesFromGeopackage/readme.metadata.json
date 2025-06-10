@@ -18,8 +18,10 @@
     "offline_data": [
         "68ec42517cdd439e81b036210483e8e7"
     ],
-    "redirect_from": [
-        "/net/latest/winui/sample-code/add-rasters-and-feature-tables-from-geopackage.htm"
+  "redirect_from": [
+    "/net/winui/sample-code/read-geopackage.htm",
+    "/net/latest/winui/sample-code/read-geopackage.htm",
+    "/net/winui/sample-code/add-rasters-and-feature-tables-from-geopackage.htm"
   ],
     "relevant_apis": [
         "FeatureLayer",

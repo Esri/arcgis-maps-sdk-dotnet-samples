@@ -17,7 +17,7 @@
         "/net/maui/sample-code/map-image-layer-tables.htm",
         "/net/latest/maui/sample-code/map-image-layer-tables.htm",
         "/net/latest/maui/sample-code/query-related-features-from-non-spatial-table.htm"
-  ],
+    ],
     "relevant_apis": [
         "ArcGISFeature",
         "ArcGISMapImageLayer",

@@ -13,9 +13,9 @@
         "measure"
     ],
     "offline_data": [],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/distance-measurement-analysis.htm",
-    "/net/winui/sample-code/distance-measurement-analysis.htm"
+    "redirect_from": [
+        "/net/latest/winui/sample-code/distance-measurement-analysis.htm",
+        "/net/winui/sample-code/distance-measurement-analysis.htm"
     ],
     "relevant_apis": [
         "AnalysisOverlay",

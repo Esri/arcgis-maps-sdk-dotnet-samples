@@ -14,8 +14,10 @@
     ],
     "offline_data": [],
     "redirect_from": [
+        "/net/winui/sample-code/map-image-layer-tables.htm",
+        "/net/latest/winui/sample-code/map-image-layer-tables.htm",
         "/net/latest/winui/sample-code/query-related-features-from-non-spatial-table.htm"
-  ],
+    ],
     "relevant_apis": [
         "ArcGISFeature",
         "ArcGISMapImageLayer",

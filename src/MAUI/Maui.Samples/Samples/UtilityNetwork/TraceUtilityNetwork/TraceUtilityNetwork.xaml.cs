@@ -27,9 +27,6 @@ namespace ArcGIS.Samples.TraceUtilityNetwork
         tags: new[] { "condition barriers", "downstream trace", "network analysis", "subnetwork trace", "toolkit", "trace configuration", "traversability", "upstream trace", "utility network", "validate consistency" })]
     public partial class TraceUtilityNetwork : ContentPage
     {
-        // Feature service for an electric utility network in Naperville, Illinois.
-        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
-
         private const int LineLayerId = 3;
         private const int DeviceLayerId = 0;
 
@@ -79,30 +76,26 @@ namespace ArcGIS.Samples.TraceUtilityNetwork
                 Status.Text = "Loading Utility Network...";
 
                 // Create a map.
-                MyMapView.Map = new Map(BasemapStyle.ArcGISDarkGray)
+                MyMapView.Map = new Map(new Uri("https://sampleserver7.arcgisonline.com/portal/home/item.html?id=be0e4637620a453584118107931f718b"))
                 {
                     InitialViewpoint = _startingViewpoint
                 };
 
-                // Create and load a service geodatabase that matches utility network.
-                ServiceGeodatabase serviceGeodatabase = await ServiceGeodatabase.CreateAsync(new Uri(FeatureServiceUrl));
+                await MyMapView.Map.LoadAsync();
+
+                _utilityNetwork = MyMapView.Map.UtilityNetworks.FirstOrDefault();
+                await _utilityNetwork.LoadAsync();
+
+                var serviceGeodatabase = _utilityNetwork.ServiceGeodatabase;
 
                 // Add the layer with electric distribution lines.
-                FeatureLayer lineLayer = new FeatureLayer(serviceGeodatabase.GetTable(LineLayerId));
+                FeatureLayer lineLayer = serviceGeodatabase.GetTable(LineLayerId)?.Layer as FeatureLayer;
                 UniqueValue mediumVoltageValue = new UniqueValue("N/A", "Medium Voltage", new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkCyan, 3), 5);
                 UniqueValue lowVoltageValue = new UniqueValue("N/A", "Low Voltage", new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.DarkCyan, 3), 3);
                 lineLayer.Renderer = new UniqueValueRenderer(new List<string>() { "ASSETGROUP" }, new List<UniqueValue>() { mediumVoltageValue, lowVoltageValue }, "", new SimpleLineSymbol());
-                MyMapView.Map.OperationalLayers.Add(lineLayer);
-
-                // Add the layer with electric devices.
-                FeatureLayer electricDevicelayer = new FeatureLayer(serviceGeodatabase.GetTable(DeviceLayerId));
-                MyMapView.Map.OperationalLayers.Add(electricDevicelayer);
 
                 // Set the selection color for features in the map view.
                 MyMapView.SelectionProperties = new SelectionProperties(System.Drawing.Color.Yellow);
-
-                // Create and load the utility network.
-                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
 
                 // Get the utility tier used for traces in this network. For this data set, the "Medium Voltage Radial" tier from the "ElectricDistribution" domain network is used.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork("ElectricDistribution");

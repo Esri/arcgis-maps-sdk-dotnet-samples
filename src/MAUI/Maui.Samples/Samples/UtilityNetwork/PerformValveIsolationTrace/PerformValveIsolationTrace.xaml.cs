@@ -26,9 +26,6 @@ namespace ArcGIS.Samples.PerformValveIsolationTrace
     public partial class PerformValveIsolationTrace : ContentPage
     {
         // Feature service for an electric utility network in Naperville, Illinois.
-        private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleGas/FeatureServer";
-        private const int LineLayerId = 3;
-        private const int DeviceLayerId = 0;
         private UtilityNetwork _utilityNetwork;
 
         // For creating the default trace configuration.
@@ -80,16 +77,14 @@ namespace ArcGIS.Samples.PerformValveIsolationTrace
                 // Disable the UI.
                 FilterOptions.IsVisible = false;
 
-                // Create and load a service geodatabase that matches utility network.
-                ServiceGeodatabase serviceGeodatabase = await ServiceGeodatabase.CreateAsync(new Uri(FeatureServiceUrl));
-
                 // Create a map with layers in this utility network.
-                MyMapView.Map = new Map(BasemapStyle.ArcGISStreetsNight);
-                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(serviceGeodatabase.GetTable(LineLayerId)));
-                MyMapView.Map.OperationalLayers.Add(new FeatureLayer(serviceGeodatabase.GetTable(DeviceLayerId)));
+                MyMapView.Map = new Map(new Uri("https://sampleserver7.arcgisonline.com/portal/home/item.html?id=f439b4724bb54ac088a2c21eaf70da7b"));
+
+                await MyMapView.Map.LoadAsync();
 
                 // Create and load the utility network.
-                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl), MyMapView.Map);
+                _utilityNetwork = MyMapView.Map.UtilityNetworks.FirstOrDefault();
+                await _utilityNetwork.LoadAsync();
 
                 // Get a trace configuration from a tier.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName) ?? throw new ArgumentException(DomainNetworkName);

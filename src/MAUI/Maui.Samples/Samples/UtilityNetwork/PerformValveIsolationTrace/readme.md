@@ -23,7 +23,8 @@ Tap on one or more features to use as filter barriers or create and set the conf
 7. Populate the choice list for the 'Filter Barrier: Category exists' from `UtilityNetworkDefinition.Categories`.Add commentMore actions
 8. When the MapView is tapped, identify which features are at the tap location and add a `Graphic` that represents a filter barrier.
 9. Create a `UtilityElement` for the identified feature and add this `UtilityElement` to a collection of filter barriers.
-      * If an edge, set its `FractionAlongLine` property using `GeometryEngine.FractionAlong`.  
+      * If the element is a junction with more than one terminal, display a terminal picker. Then set the junction's `Terminal` property with the selected terminal.
+      * If an edge, set its `FractionAlongLine` property using `GeometryEngine.FractionAlong`.
 10. If 'Trace' is tapped without filter barriers:
       * Create a new `UtilityCategoryComparison` with the selected category and `UtilityCategoryComparisonOperator.Exists`.
       * Create a new `UtilityTraceFilter` with this condition as `Barriers` to set `Filter` and update `IncludeIsolatedFeatures` properties of the default configuration from step 5.

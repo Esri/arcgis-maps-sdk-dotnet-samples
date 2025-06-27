@@ -14,17 +14,18 @@ Choose phases to be included in the report. Click 'Run Report' to initiate a dow
 
 ## How it works
 
-1. Create and load a `UtilityNetwork` with a feature service URL, then get an asset type, tier, network attributes, and category by their names.
-2. Create a `UtilityElement` from the asset type to use as the starting location for the trace.
-3. Get a base condition from the `UtilityTier.TraceConfiguration.Traversability.Barriers`.
-4. Create `UtilityTraceParameters` passing in `UtilityTraceType.downstream` and the default starting location. Set its `UtilityTraceConfiguration` with the `UtilityTier.traceConfiguration`.
-5. Create a `UtilityCategoryComparison` where `"Service Point"` category exists.
-6. Reset `UtilityTraceConfiguration.functions` with a new `UtilityTraceFunction` adding a `Service Load` network attribute where this category comparison applies. This will limit the function results.
-7. Set `UtilityTraceConfiguration.outputCondition` with this category comparison to limit the element results.
-8. Populate the choice list for `Phases` using the network attribute's `CodedValueDomain.codedValues`.
-9. When the "Add Phase" button is clicked, add the selected `CodedValue.name` to a phases list.
-10. When the "Run Report" button is clicked, run a trace for every `CodedValue` in the phases list. Do this by creating a `UtilityTraceOrCondition` with the base condition and a `UtilityNetworkAttributeComparison` where the "Phases Current" network attribute does not include the `CodedValue.code` value.
-11. Display the count of "Total Customers" using `UtilityElementTraceResult.elements` and the result of "Total Load", the first and only `UtilityFunctionTraceResult.functionOutputs`.
+1. Create a `ServiceGeodatabase` with a feature service URL.
+2. Create and load a `UtilityNetwork` using the service geodatabase, then get an asset type, tier, network attributes, and category by their names.
+3. Create a `UtilityElement` from the asset type to use as the starting location for the trace.
+4. Get a base condition from the `UtilityTier.defaultTraceConfiguration.traversability.barriers`.
+5. Create `UtilityTraceParameters` passing in `UtilityTraceType.downstream` and the default starting location. Set its `UtilityTraceConfiguration` with the `UtilityTier.defaultTraceConfiguration` and `IncludeBarriers` to `false`.
+6. Create a `UtilityCategoryComparison` where `"Service Point"` category exists.
+7. Reset `UtilityTraceConfiguration.functions` with a new `UtilityTraceFunction` adding a `Service Load` network attribute where this category comparison applies. This will limit the function results.
+8. Set `UtilityTraceConfiguration.outputCondition` with this category comparison to limit the element results.
+9. Populate the choice list for `Phases` using the network attribute's `CodedValueDomain.codedValues`.
+10. When the "Add Phase" button is clicked, add the selected `CodedValue.name` to a phases list.
+11. When the "Run Report" button is clicked, run a trace for every `CodedValue` in the phases list. Do this by creating a `UtilityTraceOrCondition` with the base condition and a `UtilityNetworkAttributeComparison` where the "Phases Current" network attribute does not include the `CodedValue.code` value.
+12. Display the count of "Total Customers" using `UtilityElementTraceResult.elements` and the result of "Total Load", the first and only `UtilityFunctionTraceResult.functionOutputs`.
 
 ## Relevant API
 

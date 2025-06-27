@@ -99,15 +99,13 @@ namespace ArcGIS.WinUI.Samples.DisplayUtilityNetworkContainer
 
             try
             {
+
                 // Create a new map from the web map URL (includes ArcGIS Pro subtype group layers with only container features visible).
-                MyMapView.Map = new Map(new Uri("https://sampleserver7.arcgisonline.com/portal/home/item.html?id=813eda749a9444e4a9d833a4db19e1c8"));
+                MyMapView.Map = new Map(new Uri("https://sampleserver7.arcgisonline.com/portal/home/item.html?id=0e38e82729f942a19e937b31bfac1b8d"));
+                await MyMapView.Map.LoadAsync();
 
-                // The feature service url contains a utility network used to find associations shown in this sample.
-                Uri featureServiceURL = new Uri("https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer");
-
-                _utilityNetwork = new UtilityNetwork(featureServiceURL);
-                MyMapView.Map.UtilityNetworks.Add(_utilityNetwork);
-
+                // The feature service url contains a utility network used to find associations shown in this sample.Add commentMore actions
+                _utilityNetwork = MyMapView.Map.UtilityNetworks.FirstOrDefault();
                 await _utilityNetwork.LoadAsync();
 
                 // Set the starting viewpoint.

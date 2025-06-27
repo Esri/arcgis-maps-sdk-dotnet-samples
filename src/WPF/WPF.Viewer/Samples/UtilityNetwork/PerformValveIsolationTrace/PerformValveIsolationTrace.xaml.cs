@@ -85,8 +85,8 @@ namespace ArcGIS.WPF.Samples.PerformValveIsolationTrace
 
                 // Create a map with layers in this utility network.
                 MyMapView.Map = new Map(new Uri("https://sampleserver7.arcgisonline.com/portal/home/item.html?id=f439b4724bb54ac088a2c21eaf70da7b"));
-
                 await MyMapView.Map.LoadAsync();
+
                 // Create and load the utility network.
                 _utilityNetwork = MyMapView.Map.UtilityNetworks.FirstOrDefault();
                 await _utilityNetwork.LoadAsync();

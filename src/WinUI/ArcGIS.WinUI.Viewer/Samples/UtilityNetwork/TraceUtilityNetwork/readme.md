@@ -52,6 +52,7 @@ Tap on one or more features while 'Add starting locations' or 'Add barriers' is 
 ## About the data
 
 The [Naperville Electric Map](https://sampleserver7.arcgisonline.com/portal/home/item.html?id=be0e4637620a453584118107931f718b) web map contains a utility network used to run the subnetwork-based trace shown in this sample. Authentication is required and handled within the sample code.
+
 ## Additional information
 
 Using utility network on ArcGIS Enterprise 10.8 requires an ArcGIS Enterprise member account licensed with the [Utility Network user type extension](https://enterprise.arcgis.com/en/portal/latest/administer/windows/license-user-type-extensions.htm#ESRI_SECTION1_41D78AD9691B42E0A8C227C113C0C0BF). Please refer to the [utility network services documentation](https://enterprise.arcgis.com/en/server/latest/publish-services/windows/utility-network-services.htm).

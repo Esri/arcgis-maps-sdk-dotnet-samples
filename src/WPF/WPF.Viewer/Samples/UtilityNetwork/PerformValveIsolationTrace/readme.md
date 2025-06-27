@@ -29,7 +29,7 @@ Tap on one or more features to use as filter barriers or create and set the conf
       * Create a new `UtilityCategoryComparison` with the selected category and `UtilityCategoryComparisonOperator.Exists`.
       * Create a new `UtilityTraceFilter` with this condition as `Barriers` to set `Filter` and update `IncludeIsolatedFeatures` properties of the default configuration from step 5.
       * Run a `UtilityNetwork.TraceAsync`.
-  
+
     If 'Trace' is clicked with filter barriers:
       * Update `IncludeIsolatedFeatures` property of the default configuration from step 5.
       * Run a `UtilityNetwork.TraceAsync`.

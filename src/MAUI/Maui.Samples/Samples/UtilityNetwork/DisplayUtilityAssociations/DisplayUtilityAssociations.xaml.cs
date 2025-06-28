@@ -72,7 +72,7 @@ namespace ArcGIS.Samples.DisplayUtilityAssociations
                 MyMapView.Map = new Map(new Uri("https://sampleserver7.arcgisonline.com/portal/home/item.html?id=be0e4637620a453584118107931f718b"));
                 await MyMapView.Map.LoadAsync();
 
-                // Get the utility network from the map.Add commentMore actions
+                // Get the utility network from the map.
                 _utilityNetwork = MyMapView.Map.UtilityNetworks.FirstOrDefault();
                 await _utilityNetwork.LoadAsync();
 

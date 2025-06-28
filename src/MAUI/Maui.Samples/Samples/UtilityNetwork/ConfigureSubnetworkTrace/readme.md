@@ -22,7 +22,7 @@ Example barrier conditions for the default dataset:
 
 1. Create a `ServiceGeodatabase` with a feature service URL.
 2. Create and load a `UtilityNetwork` using the service geodatabase, then get an asset type and a tier by their names.
-3. Populate the choice list for the comparison source with the non-system defined `Definition.NetworkAttributes`.  Populate the choice list for the comparison operator with the enum values from `UtilityAttributeComparisonOperator`.Add commentMore actions
+3. Populate the choice list for the comparison source with the non-system defined `Definition.NetworkAttributes`.  Populate the choice list for the comparison operator with the enum values from `UtilityAttributeComparisonOperator`.
 4. Create a `UtilityElement` from this asset type to use as the starting location for the trace.
 5. Update the selected barrier expression and the checked options in the UI using this tier's `TraceConfiguration`.
 6. When 'Network Attribute' is selected, if its `Domain` is a `CodedValueDomain`, populate the choice list for the comparison value with its `CodedValues`.  Otherwise, display a free-form textbox for entering an attribute value.

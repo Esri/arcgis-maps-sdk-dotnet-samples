@@ -20,7 +20,7 @@ Tap on one or more features to use as filter barriers or create and set the conf
 4. Create `UtilityTraceParameters` with `UtilityTraceType.Isolation` and a starting location from a given asset type and global ID.
 5. Get a default `UtilityTraceConfiguration` from a given tier in a domain network to set `UtilityTraceParameters.TraceConfiguration`.
 6. Add a `GraphicsOverlay` with a `Graphic` that represents this starting location; and another `GraphicsOverlay` for filter barriers.
-7. Populate the choice list for the 'Filter Barrier: Category exists' from `UtilityNetworkDefinition.Categories`.Add commentMore actions
+7. Populate the choice list for the 'Filter Barrier: Category exists' from `UtilityNetworkDefinition.Categories`.
 8. When the MapView is tapped, identify which features are at the tap location and add a `Graphic` that represents a filter barrier.
 9. Create a `UtilityElement` for the identified feature and add this `UtilityElement` to a collection of filter barriers.
       * If the element is a junction with more than one terminal, display a terminal picker. Then set the junction's `Terminal` property with the selected terminal.

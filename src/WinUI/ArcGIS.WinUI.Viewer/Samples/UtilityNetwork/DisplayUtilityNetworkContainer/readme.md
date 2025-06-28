@@ -14,7 +14,7 @@ Tap on a container feature to show all features inside the container. The contai
 
 ## How it works
 
-1. Create and load a web map that includes ArcGIS Pro [Subtype Group Layers](https://pro.arcgis.com/en/pro-app/help/mapping/layer-properties/subtype-layers.htm) with only container features visible (i.e. fuse bank, switch bank, transformer bank, hand hole and junction box).Add commentMore actions
+1. Create and load a web map that includes ArcGIS Pro [Subtype Group Layers](https://pro.arcgis.com/en/pro-app/help/mapping/layer-properties/subtype-layers.htm) with only container features visible (i.e. fuse bank, switch bank, transformer bank, hand hole and junction box).
 2. Get and load the first `UtilityNetwork` from the web map.
 3. Add a `GraphicsOverlay` for displaying a container view.
 4. Add an event handler for the `GeoViewTapped` event of the `MapView`.

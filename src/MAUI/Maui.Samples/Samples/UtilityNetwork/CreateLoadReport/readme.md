@@ -18,7 +18,7 @@ Choose phases to be included in the report. Tap 'Run Report' to initiate a downs
 2. Create and load a `UtilityNetwork` using the service geodatabase, then get an asset type, tier, network attributes, and category by their names.
 3. Create a `UtilityElement` from the asset type to use as the starting location for the trace.
 4. Get a base condition from the `UtilityTier.defaultTraceConfiguration.traversability.barriers`.
-5. Create `UtilityTraceParameters` passing in `UtilityTraceType.downstream` and the default starting location. Set its `UtilityTraceConfiguration` with the `UtilityTier.defaultTraceConfiguration` and `IncludeBarriers` to `false`.Add commentMore actions
+5. Create `UtilityTraceParameters` passing in `UtilityTraceType.downstream` and the default starting location. Set its `UtilityTraceConfiguration` with the `UtilityTier.defaultTraceConfiguration` and `IncludeBarriers` to `false`.
 6. Create a `UtilityCategoryComparison` where `"Service Point"` category exists.
 7. Reset `UtilityTraceConfiguration.functions` with a new `UtilityTraceFunction` adding a `Service Load` network attribute where this category comparison applies. This will limit the function results.
 8. Set `UtilityTraceConfiguration.outputCondition` with this category comparison to limit the element results.

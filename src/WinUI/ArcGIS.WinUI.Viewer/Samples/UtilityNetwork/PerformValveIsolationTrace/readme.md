@@ -15,7 +15,7 @@ Tap on one or more features to use as filter barriers or create and set the conf
 ## How it works
 
 1. Create a `MapView` and subscribe to its `GeoViewTapped` event.
-2. Create and load a `Map` with a web map item URL that contains a `UtilityNetwork`.Add commentMore actions
+2. Create and load a `Map` with a web map item URL that contains a `UtilityNetwork`.
 3. Get and load the first `UtilityNetwork` from the web map.
 4. Create `UtilityTraceParameters` with `UtilityTraceType.Isolation` and a starting location from a given asset type and global ID.
 5. Get a default `UtilityTraceConfiguration` from a given tier in a domain network to set `UtilityTraceParameters.TraceConfiguration`.

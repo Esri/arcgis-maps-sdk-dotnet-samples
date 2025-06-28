@@ -96,7 +96,7 @@ namespace ArcGIS.WinUI.Samples.TraceUtilityNetwork
 
                 var serviceGeodatabase = _utilityNetwork.ServiceGeodatabase;
 
-                // Add the layer with electric distribution lines.
+                // Get the layer with electric distribution lines.
                 FeatureLayer lineLayer = serviceGeodatabase.GetTable(LineLayerId)?.Layer as FeatureLayer;
                 UniqueValue mediumVoltageValue = new UniqueValue("N/A", "Medium Voltage", new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.DarkCyan, 3), 5);
                 UniqueValue lowVoltageValue = new UniqueValue("N/A", "Low Voltage", new SimpleLineSymbol(SimpleLineSymbolStyle.Dash, System.Drawing.Color.DarkCyan, 3), 3);

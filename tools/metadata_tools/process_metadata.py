@@ -184,15 +184,18 @@ def main():
                 sample = sample_metadata()
                 path_to_readme = os.path.join(r, sample_dir, "readme.md")
 
+                path_to_json = os.path.join(r, sample_dir, "readme.metadata.json")
                 if not os.path.exists(path_to_readme):
                     print(f"skipping path; does not exist: {path_to_readme}")
                     continue
-                sample.populate_from_readme(platform, path_to_readme)
+                if not os.path.exists(path_to_json):
+                    print(f"skipping path; does not exist: {path_to_json}")
+                    continue
+                sample.populate_from_readme(platform, path_to_readme, path_to_json)
                 sample.populate_snippets_from_folder(platform, path_to_readme)
                 sample.populate_snippets_from_class(platform, path_to_readme)
 
                 # read existing packages from metadata
-                path_to_json = os.path.join(r, sample_dir, "readme.metadata.json")
                 if os.path.exists(path_to_json):
                     metadata_based_sample = sample_metadata()
                     metadata_based_sample.populate_from_json(path_to_json)

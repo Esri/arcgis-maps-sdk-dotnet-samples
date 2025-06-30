@@ -21,7 +21,7 @@
     "redirect_from": [
         "/net/wpf/sample-code/read-geopackage.htm",
         "/net/latest/wpf/sample-code/read-geopackage.htm",
-        "/net/wpf/sample-code/add-rasters-and-feature-tables-from-geopackage.htm"
+        "/net/latest/wpf/sample-code/add-rasters-and-feature-tables-from-geopackage.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",

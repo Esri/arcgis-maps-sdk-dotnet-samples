@@ -21,7 +21,7 @@ namespace ArcGIS.WinUI.Samples.SceneLayerSelection
         category: "Layers",
         description: "Identify features in a scene to select.",
         instructions: "Click on a building in the scene layer to select it. Deselect buildings by clicking away from the buildings.",
-        tags: new[] { "3D", "Brest", "buildings", "identify", "model", "query", "search", "select" })]
+        tags: new[] { "3D", "buildings", "identify", "model", "query", "search", "select" })]
     public partial class SceneLayerSelection
     {
         public SceneLayerSelection()

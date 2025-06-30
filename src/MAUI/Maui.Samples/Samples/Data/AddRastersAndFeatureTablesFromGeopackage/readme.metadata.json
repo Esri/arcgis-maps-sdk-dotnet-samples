@@ -21,7 +21,7 @@
     "redirect_from": [
         "/net/maui/sample-code/read-geopackage.htm",
         "/net/latest/maui/sample-code/read-geopackage.htm",
-        "/net/maui/sample-code/add-rasters-and-feature-tables-from-geopackage.htm"
+        "/net/latest/maui/sample-code/add-rasters-and-feature-tables-from-geopackage.htm"
     ],
     "relevant_apis": [
         "FeatureLayer",
@@ -31,8 +31,7 @@
         "GeoPackageFeatureTable",
         "GeoPackageRaster",
         "RasterLayer"
-
-  ],
+    ],
     "snippets": [
         "AddRastersAndFeatureTablesFromGeopackage.xaml.cs",
         "AddRastersAndFeatureTablesFromGeopackage.xaml"

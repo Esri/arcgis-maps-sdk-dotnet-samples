@@ -13,6 +13,7 @@
 ## Data
 
 * [Add features with contingent values](Maui.Samples/Samples/Data/AddFeaturesWithContingentValues) - Create and add features whose attribute values satisfy a predefined set of contingencies.
+* [Add rasters and feature tables from geopackage](Maui.Samples/Samples/Data/AddRastersAndFeatureTablesFromGeopackage) - Add rasters and feature tables from a GeoPackage to a map.
 * [Create KML multi-track](Maui.Samples/Samples/Data/CreateKmlMultiTrack) - Create, save and preview a KML multi-track, captured from a location data source.
 * [Create mobile geodatabase](Maui.Samples/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.
 * [Edit and sync features](Maui.Samples/Samples/Data/EditAndSyncFeatures) - Synchronize offline edits with a feature service.
@@ -26,8 +27,6 @@
 * [List related features](Maui.Samples/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
 * [Manage features](Maui.Samples/Samples/Data/ManageFeatures) - Create, update, and delete features to manage a feature layer.
 * [Query features with Arcade expression](Maui.Samples/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
-* [Raster layer (GeoPackage)](Maui.Samples/Samples/Data/RasterLayerGeoPackage) - Display a raster contained in a GeoPackage.
-* [Read GeoPackage](Maui.Samples/Samples/Data/ReadGeoPackage) - Add rasters and feature tables from a GeoPackage to a map.
 * [Read shapefile metadata](Maui.Samples/Samples/Data/ReadShapefileMetadata) - Read a shapefile and display its metadata.
 * [Statistical query](Maui.Samples/Samples/Data/StatisticalQuery) - Query a table to get aggregated statistics back for a specific field.
 * [Statistical query group and sort](Maui.Samples/Samples/Data/StatsQueryGroupAndSort) - Query a feature table for statistics, grouping and sorting by different fields.
@@ -79,6 +78,7 @@
 * [Add custom dynamic entity data source](Maui.Samples/Samples/Layers/AddCustomDynamicEntityDataSource) - Create a custom dynamic entity data source and display it using a dynamic entity layer.
 * [Add dynamic entity layer](Maui.Samples/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](Maui.Samples/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
+* [Add scene layer with elevation](Maui.Samples/Samples/Layers/AddSceneLayerWithElevation) - Display an ArcGIS scene layer from a URL.
 * [Add vector tiled layer from custom style](Maui.Samples/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - Load ArcGIS vector tiled layers using custom styles.
 * [Apply mosaic rule to rasters](Maui.Samples/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](Maui.Samples/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.
@@ -100,7 +100,6 @@
 * [Display KML network links](Maui.Samples/Samples/Layers/DisplayKmlNetworkLinks) - Display a file with a KML network link, including displaying any network link control messages at launch.
 * [Display OGC API collection](Maui.Samples/Samples/Layers/DisplayOACollection) - Display an OGC API feature collection and query features while navigating the map view.
 * [Display WFS layer](Maui.Samples/Samples/Layers/DisplayWfs) - Display a layer from a WFS service, requesting only features for the current extent.
-* [Display a scene](Maui.Samples/Samples/Layers/DisplayScene) - Display a scene with a terrain surface and some imagery.
 * [Display annotation](Maui.Samples/Samples/Layers/DisplayAnnotation) - Display annotation from a feature service URL.
 * [Display clusters](Maui.Samples/Samples/Layers/DisplayClusters) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display dimensions](Maui.Samples/Samples/Layers/DisplayDimensions) - Display dimension features from a mobile map package.
@@ -125,16 +124,15 @@
 * [List KML contents](Maui.Samples/Samples/Layers/ListKmlContents) - List the contents of a KML file.
 * [Load WFS with XML query](Maui.Samples/Samples/Layers/WfsXmlQuery) - Load a WFS feature table using an XML query.
 * [Map image layer sublayer visibility](Maui.Samples/Samples/Layers/ChangeSublayerVisibility) - Change the visibility of sublayers.
-* [Map image layer tables](Maui.Samples/Samples/Layers/MapImageLayerTables) - Find features in a spatial table related to features in a non-spatial table.
 * [OpenStreetMap layer](Maui.Samples/Samples/Layers/OpenStreetMapLayer) - Add OpenStreetMap as a basemap layer.
 * [Play KML tour](Maui.Samples/Samples/Layers/PlayKmlTours) - Play tours in KML files.
 * [Query map image sublayer](Maui.Samples/Samples/Layers/MapImageSublayerQuery) - Find features in a sublayer based on attributes and location.
+* [Query related features from non spatial table](Maui.Samples/Samples/Layers/QueryRelatedFeaturesFromNonSpatialTable) - Find features in a spatial table related to features in a non-spatial table.
 * [Query with CQL filters](Maui.Samples/Samples/Layers/QueryCQLFilters) - Query data from an OGC API feature service using CQL filters.
 * [RGB renderer](Maui.Samples/Samples/Layers/RasterRgbRenderer) - Apply an RGB renderer to a raster layer to enhance feature visibility.
 * [Raster layer (file)](Maui.Samples/Samples/Layers/RasterLayerFile) - Create and use a raster layer made from a local raster file.
 * [Raster layer (service)](Maui.Samples/Samples/Layers/RasterLayerImageServiceRaster) - Create a raster layer from a raster image service.
 * [Raster rendering rule](Maui.Samples/Samples/Layers/RasterRenderingRule) - Display a raster on a map and apply different rendering rules to that raster.
-* [Scene layer (URL)](Maui.Samples/Samples/Layers/SceneLayerUrl) - Display an ArcGIS scene layer from a URL.
 * [Scene layer selection](Maui.Samples/Samples/Layers/SceneLayerSelection) - Identify features in a scene to select.
 * [Show labels on layers](Maui.Samples/Samples/Layers/ShowLabelsOnLayer) - Display custom labels on a feature layer.
 * [Stretch renderer](Maui.Samples/Samples/Layers/ChangeStretchRenderer) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.
@@ -157,7 +155,6 @@
 
 * [Apply scheduled updates to preplanned map area](Maui.Samples/Samples/Map/ApplyScheduledUpdates) - Apply scheduled updates to a downloaded preplanned map area.
 * [Browse building floors](Maui.Samples/Samples/Map/BrowseBuildingFloors) - Display and browse through building floors from a floor-aware web map.
-* [Change basemap](Maui.Samples/Samples/Map/ChangeBasemap) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
 * [Configure basemap style parameters](Maui.Samples/Samples/Map/ConfigureBasemapStyleParameters) - Apply basemap style parameters customization for a basemap, such as displaying all labels in a specific language or displaying every label in their corresponding local language.
 * [Create and save map](Maui.Samples/Samples/Map/AuthorMap) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
 * [Create dynamic basemap gallery](Maui.Samples/Samples/Map/CreateDynamicBasemapGallery) - Implement a basemap gallery that automatically retrieves the latest customization options from the basemap styles service.
@@ -178,6 +175,7 @@
 * [Open map URL](Maui.Samples/Samples/Map/OpenMapURL) - Display a web map.
 * [Open mobile map package](Maui.Samples/Samples/Map/OpenMobileMap) - Display a map from a mobile map package.
 * [Search for webmap](Maui.Samples/Samples/Map/SearchPortalMaps) - Find webmap portal items by using a search term.
+* [Set basemap](Maui.Samples/Samples/Map/SetBasemap) - Change a map's basemap.
 * [Set initial map location](Maui.Samples/Samples/Map/SetInitialMapLocation) - Display a basemap centered at an initial location and scale.
 * [Set max extent](Maui.Samples/Samples/Map/SetMaxExtent) - Limit the view of a map to a particular area.
 * [Set min & max scale](Maui.Samples/Samples/Map/SetMinMaxScale) - Restrict zooming between specific scale ranges.

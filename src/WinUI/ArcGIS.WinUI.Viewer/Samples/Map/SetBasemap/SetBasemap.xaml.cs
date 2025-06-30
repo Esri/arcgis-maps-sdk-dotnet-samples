@@ -16,9 +16,9 @@ namespace ArcGIS.WinUI.Samples.SetBasemap
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Set basemap",
         category: "Map",
-        description: "Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.",
+        description: "Change a map's basemap.",
         instructions: "Use the drop down menu to select the active basemap from the list of available basemaps.",
-        tags: new[] { "basemap", "map" })]
+        tags: new[] { "basemap", "basemap gallery", "basemap style", "map", "toolkit" })]
     public partial class SetBasemap
     {
         // Dictionary that associates names with basemaps.

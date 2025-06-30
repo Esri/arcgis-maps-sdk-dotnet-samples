@@ -13,6 +13,7 @@
 ## Data
 
 * [Add features with contingent values](ArcGIS.WinUI.Viewer/Samples/Data/AddFeaturesWithContingentValues) - Create and add features whose attribute values satisfy a predefined set of contingencies.
+* [Add rasters and feature tables from geopackage](ArcGIS.WinUI.Viewer/Samples/Data/AddRastersAndFeatureTablesFromGeopackage) - Add rasters and feature tables from a GeoPackage to a map.
 * [Create KML multi-track](ArcGIS.WinUI.Viewer/Samples/Data/CreateKmlMultiTrack) - Create, save and preview a KML multi-track, captured from a location data source.
 * [Create mobile geodatabase](ArcGIS.WinUI.Viewer/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.
 * [Edit and sync features](ArcGIS.WinUI.Viewer/Samples/Data/EditAndSyncFeatures) - Synchronize offline edits with a feature service.
@@ -26,8 +27,6 @@
 * [List related features](ArcGIS.WinUI.Viewer/Samples/Data/ListRelatedFeatures) - List features related to the selected feature.
 * [Manage features](ArcGIS.WinUI.Viewer/Samples/Data/ManageFeatures) - Create, update, and delete features to manage a feature layer.
 * [Query features with Arcade expression](ArcGIS.WinUI.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
-* [Raster layer (GeoPackage)](ArcGIS.WinUI.Viewer/Samples/Data/RasterLayerGeoPackage) - Display a raster contained in a GeoPackage.
-* [Read GeoPackage](ArcGIS.WinUI.Viewer/Samples/Data/ReadGeoPackage) - Add rasters and feature tables from a GeoPackage to a map.
 * [Read shapefile metadata](ArcGIS.WinUI.Viewer/Samples/Data/ReadShapefileMetadata) - Read a shapefile and display its metadata.
 * [Statistical query](ArcGIS.WinUI.Viewer/Samples/Data/StatisticalQuery) - Query a table to get aggregated statistics back for a specific field.
 * [Statistical query group and sort](ArcGIS.WinUI.Viewer/Samples/Data/StatsQueryGroupAndSort) - Query a feature table for statistics, grouping and sorting by different fields.
@@ -79,6 +78,7 @@
 * [Add custom dynamic entity data source](ArcGIS.WinUI.Viewer/Samples/Layers/AddCustomDynamicEntityDataSource) - Create a custom dynamic entity data source and display it using a dynamic entity layer.
 * [Add dynamic entity layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
+* [Add scene layer with elevation](ArcGIS.WinUI.Viewer/Samples/Layers/AddSceneLayerWithElevation) - Display an ArcGIS scene layer from a URL.
 * [Add vector tiled layer from custom style](ArcGIS.WinUI.Viewer/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - Load ArcGIS vector tiled layers using custom styles.
 * [Apply mosaic rule to rasters](ArcGIS.WinUI.Viewer/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](ArcGIS.WinUI.Viewer/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.
@@ -100,7 +100,6 @@
 * [Display KML network links](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayKmlNetworkLinks) - Display a file with a KML network link, including displaying any network link control messages at launch.
 * [Display OGC API collection](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayOACollection) - Display an OGC API feature collection and query features while navigating the map view.
 * [Display WFS layer](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayWfs) - Display a layer from a WFS service, requesting only features for the current extent.
-* [Display a scene](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayScene) - Display a scene with a terrain surface and some imagery.
 * [Display annotation](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayAnnotation) - Display annotation from a feature service URL.
 * [Display clusters](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayClusters) - Display a web map with a point feature layer that has feature reduction enabled to aggregate points into clusters.
 * [Display dimensions](ArcGIS.WinUI.Viewer/Samples/Layers/DisplayDimensions) - Display dimension features from a mobile map package.
@@ -125,16 +124,15 @@
 * [List KML contents](ArcGIS.WinUI.Viewer/Samples/Layers/ListKmlContents) - List the contents of a KML file.
 * [Load WFS with XML query](ArcGIS.WinUI.Viewer/Samples/Layers/WfsXmlQuery) - Load a WFS feature table using an XML query.
 * [Map image layer sublayer visibility](ArcGIS.WinUI.Viewer/Samples/Layers/ChangeSublayerVisibility) - Change the visibility of sublayers.
-* [Map image layer tables](ArcGIS.WinUI.Viewer/Samples/Layers/MapImageLayerTables) - Find features in a spatial table related to features in a non-spatial table.
 * [OpenStreetMap layer](ArcGIS.WinUI.Viewer/Samples/Layers/OpenStreetMapLayer) - Add OpenStreetMap as a basemap layer.
 * [Play KML tour](ArcGIS.WinUI.Viewer/Samples/Layers/PlayKmlTours) - Play tours in KML files.
 * [Query map image sublayer](ArcGIS.WinUI.Viewer/Samples/Layers/MapImageSublayerQuery) - Find features in a sublayer based on attributes and location.
+* [Query related features from non spatial table](ArcGIS.WinUI.Viewer/Samples/Layers/QueryRelatedFeaturesFromNonSpatialTable) - Find features in a spatial table related to features in a non-spatial table.
 * [Query with CQL filters](ArcGIS.WinUI.Viewer/Samples/Layers/QueryCQLFilters) - Query data from an OGC API feature service using CQL filters.
 * [RGB renderer](ArcGIS.WinUI.Viewer/Samples/Layers/RasterRgbRenderer) - Apply an RGB renderer to a raster layer to enhance feature visibility.
 * [Raster layer (file)](ArcGIS.WinUI.Viewer/Samples/Layers/RasterLayerFile) - Create and use a raster layer made from a local raster file.
 * [Raster layer (service)](ArcGIS.WinUI.Viewer/Samples/Layers/RasterLayerImageServiceRaster) - Create a raster layer from a raster image service.
 * [Raster rendering rule](ArcGIS.WinUI.Viewer/Samples/Layers/RasterRenderingRule) - Display a raster on a map and apply different rendering rules to that raster.
-* [Scene layer (URL)](ArcGIS.WinUI.Viewer/Samples/Layers/SceneLayerUrl) - Display an ArcGIS scene layer from a URL.
 * [Scene layer selection](ArcGIS.WinUI.Viewer/Samples/Layers/SceneLayerSelection) - Identify features in a scene to select.
 * [Show labels on layers](ArcGIS.WinUI.Viewer/Samples/Layers/ShowLabelsOnLayer) - Display custom labels on a feature layer.
 * [Stretch renderer](ArcGIS.WinUI.Viewer/Samples/Layers/ChangeStretchRenderer) - Use a stretch renderer to enhance the visual contrast of raster data for analysis.
@@ -161,7 +159,6 @@
 
 * [Apply scheduled updates to preplanned map area](ArcGIS.WinUI.Viewer/Samples/Map/ApplyScheduledUpdates) - Apply scheduled updates to a downloaded preplanned map area.
 * [Browse building floors](ArcGIS.WinUI.Viewer/Samples/Map/BrowseBuildingFloors) - Display and browse through building floors from a floor-aware web map.
-* [Change basemap](ArcGIS.WinUI.Viewer/Samples/Map/ChangeBasemap) - Change a map's basemap. A basemap is beneath all layers on a `Map` and is used to provide visual reference for the operational layers.
 * [Configure basemap style parameters](ArcGIS.WinUI.Viewer/Samples/Map/ConfigureBasemapStyleParameters) - Apply basemap style parameters customization for a basemap, such as displaying all labels in a specific language or displaying every label in their corresponding local language.
 * [Create and save map](ArcGIS.WinUI.Viewer/Samples/Map/AuthorMap) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
 * [Create dynamic basemap gallery](ArcGIS.WinUI.Viewer/Samples/Map/CreateDynamicBasemapGallery) - Implement a basemap gallery that automatically retrieves the latest customization options from the basemap styles service.
@@ -181,6 +178,7 @@
 * [Open map URL](ArcGIS.WinUI.Viewer/Samples/Map/OpenMapURL) - Display a web map.
 * [Open mobile map package](ArcGIS.WinUI.Viewer/Samples/Map/OpenMobileMap) - Display a map from a mobile map package.
 * [Search for webmap](ArcGIS.WinUI.Viewer/Samples/Map/SearchPortalMaps) - Find webmap portal items by using a search term.
+* [Set basemap](ArcGIS.WinUI.Viewer/Samples/Map/SetBasemap) - Change a map's basemap.
 * [Set initial map location](ArcGIS.WinUI.Viewer/Samples/Map/SetInitialMapLocation) - Display a basemap centered at an initial location and scale.
 * [Set max extent](ArcGIS.WinUI.Viewer/Samples/Map/SetMaxExtent) - Limit the view of a map to a particular area.
 * [Set min & max scale](ArcGIS.WinUI.Viewer/Samples/Map/SetMinMaxScale) - Restrict zooming between specific scale ranges.

@@ -24,7 +24,7 @@ Tap on one or more features to use as filter barriers or create and set the conf
 8. When the MapView is tapped, identify which features are at the tap location and add a `Graphic` that represents a filter barrier.
 9. Create a `UtilityElement` for the identified feature and add this `UtilityElement` to a collection of filter barriers.
       * If the element is a junction with more than one terminal, display a terminal picker. Then set the junction's `Terminal` property with the selected terminal.
-      * If an edge, set its `FractionAlongLine` property using `GeometryEngine.FractionAlong`.
+      * If an edge, set its `FractionAlongLine` property using `GeometryEngine.FractionAlong`.  
 10. If 'Trace' is tapped without filter barriers:
       * Create a new `UtilityCategoryComparison` with the selected category and `UtilityCategoryComparisonOperator.Exists`.
       * Create a new `UtilityTraceFilter` with this condition as `Barriers` to set `Filter` and update `IncludeIsolatedFeatures` properties of the default configuration from step 5.
@@ -56,7 +56,7 @@ Tap on one or more features to use as filter barriers or create and set the conf
 
 ## About the data
 
-The [Naperville gas](https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleGas/FeatureServer) network feature service contains a utility network used to run the isolation trace shown in this sample. Authentication is required and handled within the sample code.
+The [Naperville Gas with UN](https://sampleserver7.arcgisonline.com/portal/home/item.html?id=f439b4724bb54ac088a2c21eaf70da7b) web map contains a utility network used to run the isolation trace shown in this sample. Authentication is required and handled within the sample code.
 
 ## Additional information
 

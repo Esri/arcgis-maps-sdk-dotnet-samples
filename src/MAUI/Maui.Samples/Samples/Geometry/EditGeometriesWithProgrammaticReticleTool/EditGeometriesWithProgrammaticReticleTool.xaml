@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool.EditGeometriesWithProgrammaticReticleTool"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <ContentPage.Resources>
+        <Style x:Key="IconStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="calcite-ui-icons-24" />
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="HeightRequest" Value="40" />
+            </Style.Setters>
+        </Style>
+        <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <converters:IsNotNullConverter x:Key="IsNotNullConverter" />
+        <converters:VariableMultiValueConverter x:Key="VariableMultiValueConverter" ConditionType="Any" />
+    </ContentPage.Resources>
+    <Grid RowDefinitions="auto,*,auto">
+
+        <Grid Grid.Row="0" Padding="5">
+            <StackLayout HorizontalOptions="Center"
+                         Orientation="Horizontal"
+                         Spacing="10"
+                         VerticalOptions="Start">
+                <Label Text="Allow vertex creation" VerticalOptions="Center" />
+                <Switch x:Name="AllowVertexCreationSwitch" IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}" />
+            </StackLayout>
+        </Grid>
+        <esriUI:MapView x:Name="MyMapView"
+                        Grid.Row="1"
+                        GeoViewTapped="MyMapView_GeoViewTapped" />
+        <StackLayout Grid.Row="2" Padding="5">
+            <Grid ColumnDefinitions="0.2*,0.2*,0.2*,0.2*,0.2*"
+                  ColumnSpacing="5"
+                  RowDefinitions="*,auto"
+                  RowSpacing="5">
+                <Button Grid.Row="1"
+                        Grid.Column="0"
+                        Clicked="DeleteAllButton_Click"
+                        IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
+                        Style="{StaticResource IconStyle}"
+                        Text="&#xe2d0;"
+                        ToolTipProperties.Text="Delete all geometries" />
+                <Button Grid.Row="2"
+                        Grid.Column="0"
+                        Clicked="DiscardButton_Click"
+                        IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                        Style="{StaticResource IconStyle}"
+                        Text="&#xe080;"
+                        ToolTipProperties.Text="Discard edits" />
+                <Button Grid.Row="2"
+                        Grid.Column="1"
+                        Clicked="SaveButton_Click"
+                        IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                        IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                        Style="{StaticResource IconStyle}"
+                        Text="&#xe06f;"
+                        ToolTipProperties.Text="Save edits" />
+                <Button Grid.Row="2"
+                        Grid.Column="2"
+                        Clicked="DeleteSelectedButton_Click"
+                        IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
+                        IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                        Style="{StaticResource IconStyle}"
+                        Text="&#xe0e8;"
+                        ToolTipProperties.Text="Delete selected" />
+                <Button Grid.Row="2"
+                        Grid.Column="3"
+                        Clicked="UndoButton_Click"
+                        IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                        Style="{StaticResource IconStyle}"
+                        Text="&#xe2d6;"
+                        ToolTipProperties.Text="Undo">
+                    <Button.IsEnabled>
+                        <MultiBinding Converter="{StaticResource VariableMultiValueConverter}">
+                            <Binding Converter="{StaticResource IsNotNullConverter}"
+                                     Path="GeometryEditor.PickedUpElement"
+                                     Source="{x:Reference MyMapView}" />
+                            <Binding Path="GeometryEditor.CanUndo" Source="{x:Reference MyMapView}" />
+                        </MultiBinding>
+                    </Button.IsEnabled>
+                </Button>
+                <Button Grid.Row="2"
+                        Grid.Column="4"
+                        Clicked="RedoButton_Click"
+                        IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}}"
+                        IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                        Style="{StaticResource IconStyle}"
+                        Text="&#xe23e;"
+                        ToolTipProperties.Text="Redo" />
+                <StackLayout Grid.Row="1"
+                             Grid.Column="1"
+                             Grid.ColumnSpan="4"
+                             Margin="20,0,0,0"
+                             IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
+                             Orientation="Horizontal"
+                             Spacing="10">
+                    <Label Text="Geometry type" VerticalOptions="Center" />
+                    <Picker x:Name="GeometryTypePicker" WidthRequest="120" />
+                </StackLayout>
+                <Button x:Name="MultifunctionButton"
+                        Grid.Row="0"
+                        Grid.ColumnSpan="5"
+                        Clicked="MultifunctionButton_Clicked"
+                        HeightRequest="40"
+                        Text="Start geometry editor" />
+            </Grid>
+
+        </StackLayout>
+    </Grid>
+</ContentPage>

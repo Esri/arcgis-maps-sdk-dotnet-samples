@@ -1,0 +1,19 @@
+{
+    "category": "Geometry",
+    "description": "Edit geometries with programmatic operations to facilitate button driven workflows",
+    "formal_name": "EditGeometriesWithProgrammaticReticleTool",
+    "ignore": false,
+    "images": [
+        "EditGeometriesWithProgrammaticReticleTool.jpg"
+    ],
+    "keywords": [
+    ],
+    "redirect_from": [
+        "/net/wpf/sample-code/EditGeometriesWithProgrammaticReticleTool.htm"
+    ],
+    "relevant_apis": [
+    ],
+    "snippets": [
+    ],
+    "title": "Edit geometries with programmatic reticle tool"
+}

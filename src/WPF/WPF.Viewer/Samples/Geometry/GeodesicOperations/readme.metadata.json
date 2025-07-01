@@ -18,7 +18,7 @@
     ],
     "relevant_apis": [
         "GeometryEngine.DensifyGeodetic",
-        "GeometryEngine.LengthGeodetic"
+        "GeometryEngine.DistanceGeodetic"
     ],
     "snippets": [
         "GeodesicOperations.xaml.cs",

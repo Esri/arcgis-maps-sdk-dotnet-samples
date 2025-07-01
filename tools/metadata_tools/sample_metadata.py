@@ -58,7 +58,7 @@ class sample_metadata:
 
         return
     
-    def populate_from_readme(self, platform, path_to_readme):
+    def populate_from_readme(self, platform, path_to_readme, path_to_json):
         
         # read the readme content into a string
         readme_contents = ""
@@ -85,10 +85,18 @@ class sample_metadata:
         self.formal_name = pathparts[-2]
         slugged_sample_name = slugify(self.friendly_name)
 
+        # Load existing metadata if present
+        if os.path.exists(path_to_json):
+            with open(path_to_json, 'r') as json_file:
+                existing_metadata = json.load(json_file)
+                if "redirect_from" in existing_metadata:
+                    self.redirect_from = existing_metadata["redirect_from"]
+
         # populate redirect_from; it is based on a pattern
         real_platform = platform
         redirect_string = f"/net/latest/{real_platform.lower()}/sample-code/{slugged_sample_name}.htm"
-        self.redirect_from.append(redirect_string)
+        if redirect_string not in self.redirect_from:
+            self.redirect_from.append(redirect_string)
 
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]

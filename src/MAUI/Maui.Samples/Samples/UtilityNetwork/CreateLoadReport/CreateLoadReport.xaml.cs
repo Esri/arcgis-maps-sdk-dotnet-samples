@@ -92,7 +92,9 @@ namespace ArcGIS.Samples.CreateLoadReport
             {
                 ReportView.ItemsSource = _phaseSummaries;
                 Phases.Text = $"Phases: {string.Join(", ", _phases)}";
-                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
+
+                _utilityNetwork = new UtilityNetwork(new ServiceGeodatabase(new Uri(FeatureServiceUrl)));
+                await _utilityNetwork.LoadAsync();
 
                 // Create default starting location.
                 UtilityNetworkSource networkSource = _utilityNetwork.Definition.GetNetworkSource(NetworkSourceName);

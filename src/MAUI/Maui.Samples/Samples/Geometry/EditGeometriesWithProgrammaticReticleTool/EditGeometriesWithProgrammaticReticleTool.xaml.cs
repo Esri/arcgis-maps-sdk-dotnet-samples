@@ -7,36 +7,26 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.Editing;
 using Microsoft.Maui.ApplicationModel;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Map = Esri.ArcGISRuntime.Mapping.Map;
 using Color = System.Drawing.Color;
+using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Edit geometries with programmatic reticle tool",
-        "Geometry",
-        "Edit geometries with programmatic operations to facilitate button driven workflows",
-        "")]
+        name: "Edit geometries with programmatic reticle tool",
+        category: "Geometry",
+        description: "Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate workflows such as those using buttons rather than tap interactions.",
+        instructions: "To create a new geometry, select the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) in the settngs view. Press the button to start the geometry editor, pan the map to position the reticle then press the button to place a vertex. To edit an existing geometry, tap the geometry to be edited in the map and perform edits by positioning the reticle over a vertex and pressing the button to pick it up. The vertex can be moved by panning the map and dropped in a new position by pressing the button again.",
+        tags: new[] { "draw", "edit", "freehand", "geometry editor", "programmatic", "reticle", "sketch", "vertex" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
-    public partial class EditGeometriesWithProgrammaticReticleTool : INotifyPropertyChanged
+    public partial class EditGeometriesWithProgrammaticReticleTool
     {
         private GeometryEditor _geometryEditor = new GeometryEditor();
         private ProgrammaticReticleTool _programmaticReticleTool = new ProgrammaticReticleTool();
@@ -82,7 +72,7 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             MyMapView.Map = new Map()
             {
                 Basemap = new Basemap(BasemapStyle.ArcGISImagery),
-                InitialViewpoint = new Viewpoint(51.523806, -0.775395, 1.4e4)
+                InitialViewpoint = new Viewpoint(51.523806, -0.775395, 2e4)
             };
 
             // Create a graphics overlay and add it to the map view.
@@ -121,54 +111,30 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
                 {
                     MultifunctionButton.IsEnabled = true;
 
-                    if (MyMapView.GeometryEditor.HoveredElement != null)
+                    if (MyMapView.GeometryEditor.PickedUpElement != null)
                     {
-                        if (MyMapView.GeometryEditor.HoveredElement is GeometryEditorGeometry || MyMapView.GeometryEditor.HoveredElement is GeometryEditorPart)
-                        {
-                            if (MyMapView.GeometryEditor.PickedUpElement != null)
-                            {
-                                MultifunctionButton.Text = "Drop element";
-                            }
-                            else
-                            {
-                                MultifunctionButton.Text = "Insert element";
-                            }
-                        }
-                        else
-                        {
-                            MultifunctionButton.Text = "Pick up element";
-                        }
+                        MultifunctionButton.Text = "Drop point";
+                    }
+                    else if (MyMapView.GeometryEditor.HoveredElement != null && (MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex || MyMapView.GeometryEditor.HoveredElement is GeometryEditorMidVertex))
+                    {
+                        MultifunctionButton.Text = "Pick up point";
                     }
                     else
                     {
-                        if (MyMapView.GeometryEditor.PickedUpElement == null)
-                        {
-                            MultifunctionButton.Text = "Insert element";
-
-                        }
-                        else
-                        {
-                            MultifunctionButton.Text = "Drop element";
-
-                        }
+                        MultifunctionButton.Text = "Insert point";
                     }
                 }
                 else
                 {
-                    if (MyMapView.GeometryEditor.HoveredElement == null && MyMapView.GeometryEditor.PickedUpElement == null)
+                    if (MyMapView.GeometryEditor.PickedUpElement != null)
                     {
-                        MultifunctionButton.Text = "Pick up element";
-                        MultifunctionButton.IsEnabled = false;
-                    }
-                    else if (MyMapView.GeometryEditor.HoveredElement != null)
-                    {
-                        MultifunctionButton.Text = "Pick up element";
-                        MultifunctionButton.IsEnabled = MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex;
-                    }
-                    else if (MyMapView.GeometryEditor.PickedUpElement != null)
-                    {
-                        MultifunctionButton.Text = "Drop element";
+                        MultifunctionButton.Text = "Drop point";
                         MultifunctionButton.IsEnabled = true;
+                    }
+                    else
+                    {
+                        MultifunctionButton.Text = "Pick up point";
+                        MultifunctionButton.IsEnabled = MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex;
                     }
                 }
             });
@@ -185,17 +151,10 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
 
             if (_allowVertexCreation)
             {
-                if (MyMapView.GeometryEditor.HoveredElement != null)
+                if (MyMapView.GeometryEditor.PickedUpElement == null && MyMapView.GeometryEditor.HoveredElement != null && (MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex || MyMapView.GeometryEditor.HoveredElement is GeometryEditorMidVertex))
                 {
-                    if (MyMapView.GeometryEditor.HoveredElement is GeometryEditorGeometry || MyMapView.GeometryEditor.HoveredElement is GeometryEditorPart)
-                    {
-                        _programmaticReticleTool.PlaceElementAtReticle();
-                    }
-                    else
-                    {
-                        _programmaticReticleTool.SelectElementAtReticle();
-                        _programmaticReticleTool.PickUpSelectedElement();
-                    }
+                    _programmaticReticleTool.SelectElementAtReticle();
+                    _programmaticReticleTool.PickUpSelectedElement();
                 }
                 else
                 {
@@ -204,7 +163,7 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             }
             else
             {
-                if (MyMapView.GeometryEditor.HoveredElement != null && MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex && MyMapView.GeometryEditor.PickedUpElement == null)
+                if (MyMapView.GeometryEditor.PickedUpElement == null && MyMapView.GeometryEditor.HoveredElement != null && MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex)
                 {
                     _programmaticReticleTool.SelectElementAtReticle();
                     _programmaticReticleTool.PickUpSelectedElement();
@@ -288,7 +247,7 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
                     MyMapView.SetViewpoint(new Viewpoint(point, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
                 }
             }
-                _selectedGraphic.IsVisible = false;
+            _selectedGraphic.IsVisible = false;
         }
 
         // Reset the UI after the editor stops.
@@ -367,53 +326,11 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             return null;
         }
 
-        // Starts the geometry editor with the point geometry type.
-        private void PointButton_Click(object sender, EventArgs e)
-        {
-            if (!_geometryEditor.IsStarted)
-            {
-                _geometryEditor.Start(GeometryType.Point);
-            }
-        }
-
-        // Start the geometry editor with the multipoint geometry type.
-        private void MultipointButton_Click(object sender, EventArgs e)
-        {
-            if (!_geometryEditor.IsStarted)
-            {
-                _geometryEditor.Start(GeometryType.Multipoint);
-            }
-        }
-
-        // Start the geometry editor with the polyline geometry type.
-        private void PolylineButton_Click(object sender, EventArgs e)
-        {
-            if (!_geometryEditor.IsStarted)
-            {
-                _geometryEditor.Start(GeometryType.Polyline);
-            }
-        }
-
-        // Start the geometry editor with the polygon geometry type.
-        private void PolygonButton_Click(object sender, EventArgs e)
-        {
-            if (!_geometryEditor.IsStarted)
-            {
-                _geometryEditor.Start(GeometryType.Polygon);
-            }
-        }
-
         // Stop the geometry editor without saving the geometry stored within.
         private void DiscardButton_Click(object sender, EventArgs e)
         {
             _geometryEditor.Stop();
             ResetFromEditingSession();
-        }
-
-        // Remove all graphics from the graphics overlay.
-        private void DeleteAllButton_Click(object sender, EventArgs e)
-        {
-            _graphicsOverlay.Graphics.Clear();
         }
 
         // Undo the last change made to the geometry while editing is active.
@@ -440,7 +357,21 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             _programmaticReticleTool.VertexCreationPreviewEnabled = e.Value;
             _programmaticReticleTool.Style.GrowEffect.ApplyToMidVertices = e.Value;
             _allowVertexCreation = e.Value;
-            SetButtonText();
+
+            if (_geometryEditor.IsStarted)
+            {
+                SetButtonText();
+            }
+        }
+
+        private void SettingsButton_Clicked(object sender, EventArgs e)
+        {
+            SettingsPopup.IsVisible = true;
+        }
+
+        private void ClosePopupButton_Clicked(object sender, EventArgs e)
+        {
+            SettingsPopup.IsVisible = false;
         }
 
         // Delete the currently selected element of the geometry editor.

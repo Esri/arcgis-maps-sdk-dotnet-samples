@@ -17,96 +17,96 @@
         <converters:VariableMultiValueConverter x:Key="VariableMultiValueConverter" ConditionType="Any" />
     </ContentPage.Resources>
     <Grid RowDefinitions="auto,*,auto">
-
-        <Grid Grid.Row="0" Padding="5">
-            <StackLayout HorizontalOptions="Center"
-                         Orientation="Horizontal"
-                         Spacing="10"
-                         VerticalOptions="Start">
-                <Label Text="Allow vertex creation" VerticalOptions="Center" />
-                <Switch x:Name="AllowVertexCreationSwitch" IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}" />
-            </StackLayout>
+        <Grid Grid.Row="0"
+              Padding="5"
+              ColumnDefinitions="*,*,*">
+            <Button Grid.Column="0"
+                    Margin="10,0"
+                    Background="Transparent"
+                    BorderWidth="0"
+                    Clicked="DiscardButton_Click"
+                    HeightRequest="40"
+                    HorizontalOptions="Start"
+                    IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                    Text="Cancel" />
+            <Button x:Name="SettingsButton"
+                    Grid.Column="1"
+                    Background="Transparent"
+                    BorderWidth="0"
+                    Clicked="SettingsButton_Clicked"
+                    HeightRequest="40"
+                    HorizontalOptions="Center"
+                    Text="Settings" />
+            <Button Grid.Column="2"
+                    Margin="10,0"
+                    Background="Transparent"
+                    BorderWidth="0"
+                    Clicked="SaveButton_Click"
+                    HeightRequest="40"
+                    HorizontalOptions="End"
+                    IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                    IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                    Text="Done" />
         </Grid>
         <esriUI:MapView x:Name="MyMapView"
                         Grid.Row="1"
                         GeoViewTapped="MyMapView_GeoViewTapped" />
-        <StackLayout Grid.Row="2" Padding="5">
-            <Grid ColumnDefinitions="0.2*,0.2*,0.2*,0.2*,0.2*"
-                  ColumnSpacing="5"
-                  RowDefinitions="*,auto"
-                  RowSpacing="5">
-                <Button Grid.Row="1"
-                        Grid.Column="0"
-                        Clicked="DeleteAllButton_Click"
-                        IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
-                        Style="{StaticResource IconStyle}"
-                        Text="&#xe2d0;"
-                        ToolTipProperties.Text="Delete all geometries" />
-                <Button Grid.Row="2"
-                        Grid.Column="0"
-                        Clicked="DiscardButton_Click"
-                        IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
-                        Style="{StaticResource IconStyle}"
-                        Text="&#xe080;"
-                        ToolTipProperties.Text="Discard edits" />
-                <Button Grid.Row="2"
-                        Grid.Column="1"
-                        Clicked="SaveButton_Click"
-                        IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
-                        IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
-                        Style="{StaticResource IconStyle}"
-                        Text="&#xe06f;"
-                        ToolTipProperties.Text="Save edits" />
-                <Button Grid.Row="2"
-                        Grid.Column="2"
-                        Clicked="DeleteSelectedButton_Click"
-                        IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
-                        IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
-                        Style="{StaticResource IconStyle}"
-                        Text="&#xe0e8;"
-                        ToolTipProperties.Text="Delete selected" />
-                <Button Grid.Row="2"
-                        Grid.Column="3"
-                        Clicked="UndoButton_Click"
-                        IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
-                        Style="{StaticResource IconStyle}"
-                        Text="&#xe2d6;"
-                        ToolTipProperties.Text="Undo">
-                    <Button.IsEnabled>
-                        <MultiBinding Converter="{StaticResource VariableMultiValueConverter}">
-                            <Binding Converter="{StaticResource IsNotNullConverter}"
-                                     Path="GeometryEditor.PickedUpElement"
-                                     Source="{x:Reference MyMapView}" />
-                            <Binding Path="GeometryEditor.CanUndo" Source="{x:Reference MyMapView}" />
-                        </MultiBinding>
-                    </Button.IsEnabled>
-                </Button>
-                <Button Grid.Row="2"
-                        Grid.Column="4"
-                        Clicked="RedoButton_Click"
-                        IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}}"
-                        IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
-                        Style="{StaticResource IconStyle}"
-                        Text="&#xe23e;"
-                        ToolTipProperties.Text="Redo" />
-                <StackLayout Grid.Row="1"
-                             Grid.Column="1"
-                             Grid.ColumnSpan="4"
-                             Margin="20,0,0,0"
-                             IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
-                             Orientation="Horizontal"
-                             Spacing="10">
-                    <Label Text="Geometry type" VerticalOptions="Center" />
-                    <Picker x:Name="GeometryTypePicker" WidthRequest="120" />
+        <Grid Grid.Row="2" Padding="5">
+            <Button x:Name="MultifunctionButton"
+                    Clicked="MultifunctionButton_Clicked"
+                    HeightRequest="40"
+                    Text="Start geometry editor" />
+        </Grid>
+        <Grid x:Name="SettingsPopup"
+              Grid.RowSpan="3"
+              Background="#AA333333"
+              IsVisible="false">
+            <Border Background="{AppThemeBinding Dark=Black,
+                                                 Light=White}"
+                    HorizontalOptions="Center"
+                    StrokeShape="RoundRectangle 10"
+                    VerticalOptions="Center"
+                    WidthRequest="250">
+                <StackLayout Margin="10" Spacing="5">
+                    <StackLayout HorizontalOptions="Center"
+                                 Orientation="Horizontal"
+                                 Spacing="10">
+                        <Label Text="Allow vertex creation" VerticalOptions="Center" />
+                        <Switch x:Name="AllowVertexCreationSwitch" />
+                    </StackLayout>
+                    <StackLayout IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
+                                 Orientation="Horizontal"
+                                 Spacing="10">
+                        <Label Text="Geometry type" VerticalOptions="Center" />
+                        <Picker x:Name="GeometryTypePicker" WidthRequest="120" />
+                    </StackLayout>
+                    <Button Grid.Row="2"
+                            Grid.Column="3"
+                            Clicked="UndoButton_Click"
+                            IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                            Text="Undo">
+                        <Button.IsEnabled>
+                            <MultiBinding Converter="{StaticResource VariableMultiValueConverter}">
+                                <Binding Converter="{StaticResource IsNotNullConverter}"
+                                         Path="GeometryEditor.PickedUpElement"
+                                         Source="{x:Reference MyMapView}" />
+                                <Binding Path="GeometryEditor.CanUndo" Source="{x:Reference MyMapView}" />
+                            </MultiBinding>
+                        </Button.IsEnabled>
+                    </Button>
+                    <Button Clicked="RedoButton_Click"
+                            IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}}"
+                            IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                            Text="Redo" />
+                    <Button Clicked="DeleteSelectedButton_Click"
+                            IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
+                            IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                            Text="Delete" />
+                    <Button x:Name="ClosePopupButton"
+                            Clicked="ClosePopupButton_Clicked"
+                            Text="Close" />
                 </StackLayout>
-                <Button x:Name="MultifunctionButton"
-                        Grid.Row="0"
-                        Grid.ColumnSpan="5"
-                        Clicked="MultifunctionButton_Clicked"
-                        HeightRequest="40"
-                        Text="Start geometry editor" />
-            </Grid>
-
-        </StackLayout>
+            </Border>
+        </Grid>
     </Grid>
 </ContentPage>

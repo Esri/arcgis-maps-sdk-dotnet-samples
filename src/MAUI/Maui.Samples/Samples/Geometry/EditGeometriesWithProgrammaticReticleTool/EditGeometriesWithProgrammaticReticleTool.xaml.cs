@@ -81,10 +81,6 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
                 InitialViewpoint = new Viewpoint(51.523806, -0.775395, 2e4)
             };
 
-            // Create a graphics overlay and add it to the map view.
-            _graphicsOverlay = new GraphicsOverlay();
-            MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
-
             // Create the geometry editor and add it to the map view.
             _geometryEditor = new GeometryEditor();
             MyMapView.GeometryEditor = _geometryEditor;
@@ -97,13 +93,17 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             MyMapView.GeometryEditor.HoveredElementChanged += GeometryEditor_HoveredElementChanged;
             MyMapView.GeometryEditor.PickedUpElementChanged += GeometryEditor_PickedUpElementChanged;
 
-            // Set the geometry type picker and its default value.
-            GeometryTypePicker.ItemsSource = _geometryTypes.Keys.ToList();
-            GeometryTypePicker.SelectedIndex = 0;
-
             // Enable vertex creation by default and set up the switch.
             AllowVertexCreationSwitch.IsToggled = true;
             AllowVertexCreationSwitch.Toggled += AllowVertexCreationSwitch_Toggled;
+
+            // Create a graphics overlay and add it to the map view.
+            _graphicsOverlay = new GraphicsOverlay();
+            MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
+
+            // Set the geometry type picker and its default value.
+            GeometryTypePicker.ItemsSource = _geometryTypes.Keys.ToList();
+            GeometryTypePicker.SelectedIndex = 0;
 
             // Create the initial graphics for the sample.
             CreateInitialGraphics();
@@ -270,7 +270,7 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
                 if (_geometryEditor.IsStarted)
                 {
                     // Identify the geometry editor result at the tapped position.
-                    IdentifyGeometryEditorResult result = await MyMapView.IdentifyGeometryEditorResultAsync(e.Position, 5);
+                    IdentifyGeometryEditorResult result = await MyMapView.IdentifyGeometryEditorResultAsync(e.Position, 10);
 
                     if (result != null && result.Elements.Count > 0)
                     {
@@ -293,8 +293,8 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
                     return;
                 }
 
-                // Identify graphics in the graphics overlay using the mouse point.
-                IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 5, false);
+                // Identify graphics in the graphics overlay using the tapped position.
+                IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 10, false);
 
                 // Try to get the first graphic from the first result.
                 _selectedGraphic = results.FirstOrDefault()?.Graphics?.FirstOrDefault();
@@ -327,21 +327,20 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             }
             else
             {
-                if (_selectedGraphic.Geometry is Polygon polygon)
+                switch (_selectedGraphic.Geometry)
                 {
-                    MyMapView.SetViewpoint(new Viewpoint(polygon.Parts[0].EndPoint, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
-                }
-                else if (_selectedGraphic.Geometry is Polyline polyline)
-                {
-                    MyMapView.SetViewpoint(new Viewpoint(polyline.Parts[0].EndPoint, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
-                }
-                else if (_selectedGraphic.Geometry is Multipoint multiPoint)
-                {
-                    MyMapView.SetViewpoint(new Viewpoint(multiPoint.Points.Last(), MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
-                }
-                else if (_selectedGraphic.Geometry is MapPoint point)
-                {
-                    MyMapView.SetViewpoint(new Viewpoint(point, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                    case Polygon polygon:
+                        MyMapView.SetViewpoint(new Viewpoint(polygon.Parts[0].EndPoint, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                        break;
+                    case Polyline polyline:
+                        MyMapView.SetViewpoint(new Viewpoint(polyline.Parts[0].EndPoint, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                        break;
+                    case Multipoint multiPoint:
+                        MyMapView.SetViewpoint(new Viewpoint(multiPoint.Points.Last(), MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                        break;
+                    case MapPoint point:
+                        MyMapView.SetViewpoint(new Viewpoint(point, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                        break;
                 }
             }
 

@@ -23,17 +23,22 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
         name: "Edit geometries with programmatic reticle tool",
         category: "Geometry",
         description: "Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate workflows such as those using buttons rather than tap interactions.",
-        instructions: "To create a new geometry, select the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) in the settngs view. Press the button to start the geometry editor, pan the map to position the reticle then press the button to place a vertex. To edit an existing geometry, tap the geometry to be edited in the map and perform edits by positioning the reticle over a vertex and pressing the button to pick it up. The vertex can be moved by panning the map and dropped in a new position by pressing the button again.",
+        instructions: "To create a new geometry, select the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) in the settings view. Press the button to start the geometry editor, pan the map to position the reticle then press the button to place a vertex. To edit an existing geometry, tap the geometry to be edited in the map and perform edits by positioning the reticle over a vertex and pressing the button to pick it up. The vertex can be moved by panning the map and dropped in a new position by pressing the button again.",
         tags: new[] { "draw", "edit", "freehand", "geometry editor", "programmatic", "reticle", "sketch", "vertex" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class EditGeometriesWithProgrammaticReticleTool
     {
+        // Hold references to the geometry editor and programmatic reticle tool.
         private GeometryEditor _geometryEditor = new GeometryEditor();
         private ProgrammaticReticleTool _programmaticReticleTool = new ProgrammaticReticleTool();
+
+        // Hold references to the graphics overlay and selected graphic.
         private Graphic _selectedGraphic;
         private GraphicsOverlay _graphicsOverlay;
+
+        // Flag to indicate whether vertex creation is allowed.
         private bool _allowVertexCreation = true;
 
+        // Hold references to the symbols used for displaying  geometries.
         private SimpleFillSymbol _polygonSymbol;
         private SimpleLineSymbol _polylineSymbol;
         private SimpleMarkerSymbol _pointSymbol, _multiPointSymbol;
@@ -53,6 +58,7 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
                     [-86831.019903597829,6714398.4128562529],[-86854.105933315877,6714396.1957954112],
                     [-86800.624094892439,6713992.3374453448]],""spatialReference"":{""wkid"":102100,""latestWkid"":3857}}";
 
+        // Dictionary to map geometry type names to GeometryType enum values.
         private readonly Dictionary<string, GeometryType> _geometryTypes = new Dictionary<string, GeometryType>()
         {
             {"Point", GeometryType.Point },
@@ -79,34 +85,37 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             _graphicsOverlay = new GraphicsOverlay();
             MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
 
+            // Create the geometry editor and add it to the map view.
+            _geometryEditor = new GeometryEditor();
             MyMapView.GeometryEditor = _geometryEditor;
-            MyMapView.GeometryEditor.Tool = _programmaticReticleTool;
 
+            // Create the programmatic reticle tool and set it as the geometry editor tool.
+            _programmaticReticleTool = new ProgrammaticReticleTool();
+            _geometryEditor.Tool = _programmaticReticleTool;
+
+            // Add event handlers for geometry editor events.
             MyMapView.GeometryEditor.HoveredElementChanged += GeometryEditor_HoveredElementChanged;
             MyMapView.GeometryEditor.PickedUpElementChanged += GeometryEditor_PickedUpElementChanged;
 
+            // Set the geometry type picker and its default value.
             GeometryTypePicker.ItemsSource = _geometryTypes.Keys.ToList();
             GeometryTypePicker.SelectedIndex = 0;
+
+            // Enable vertex creation by default and set up the switch.
             AllowVertexCreationSwitch.IsToggled = true;
             AllowVertexCreationSwitch.Toggled += AllowVertexCreationSwitch_Toggled;
 
+            // Create the initial graphics for the sample.
             CreateInitialGraphics();
-        }
-
-        private void GeometryEditor_PickedUpElementChanged(object sender, PickedUpElementChangedEventArgs e)
-        {
-            SetButtonText();
-        }
-
-        private void GeometryEditor_HoveredElementChanged(object sender, HoveredElementChangedEventArgs e)
-        {
-            SetButtonText();
         }
 
         private void SetButtonText()
         {
+            // Update the multifunction button text based on the geometry editor state and hovered/picked up elements.
             MainThread.BeginInvokeOnMainThread(() =>
             {
+                // When vertex creation is allowed, the button text changes based on the hovered or picked up element. Vertices and mid-vertices can be picked up.
+                // When vertex creation is not allowed, the button text changes based on the picked up element only. Only vertices can be picked up, mid-vertices cannot be picked up.
                 if (_allowVertexCreation)
                 {
                     MultifunctionButton.IsEnabled = true;
@@ -128,126 +137,18 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
                 {
                     if (MyMapView.GeometryEditor.PickedUpElement != null)
                     {
+                        // If a vertex is picked up, the button text indicates that it can be dropped.
                         MultifunctionButton.Text = "Drop point";
                         MultifunctionButton.IsEnabled = true;
                     }
                     else
                     {
+                        // If no vertex is picked up, the button text indicates that a point can be picked up if the hovered element is a geometry editor vertex.
                         MultifunctionButton.Text = "Pick up point";
                         MultifunctionButton.IsEnabled = MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex;
                     }
                 }
             });
-        }
-
-        private void MultifunctionButton_Clicked(object sender, EventArgs e)
-        {
-            if (!_geometryEditor.IsStarted)
-            {
-                _geometryEditor.Start(_geometryTypes[(string)GeometryTypePicker.SelectedItem]);
-                SetButtonText();
-                return;
-            }
-
-            if (_allowVertexCreation)
-            {
-                if (MyMapView.GeometryEditor.PickedUpElement == null && MyMapView.GeometryEditor.HoveredElement != null && (MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex || MyMapView.GeometryEditor.HoveredElement is GeometryEditorMidVertex))
-                {
-                    _programmaticReticleTool.SelectElementAtReticle();
-                    _programmaticReticleTool.PickUpSelectedElement();
-                }
-                else
-                {
-                    _programmaticReticleTool.PlaceElementAtReticle();
-                }
-            }
-            else
-            {
-                if (MyMapView.GeometryEditor.PickedUpElement == null && MyMapView.GeometryEditor.HoveredElement != null && MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex)
-                {
-                    _programmaticReticleTool.SelectElementAtReticle();
-                    _programmaticReticleTool.PickUpSelectedElement();
-                }
-                else if (MyMapView.GeometryEditor.PickedUpElement != null)
-                {
-                    _programmaticReticleTool.PlaceElementAtReticle();
-                }
-            }
-        }
-
-        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
-        {
-            try
-            {
-                if (_geometryEditor.IsStarted)
-                {
-                    var result = await MyMapView.IdentifyGeometryEditorResultAsync(e.Position, 5);
-
-                    if (result != null && result.Elements.Count > 0)
-                    {
-                        var firstElement = result.Elements[0];
-                        if (firstElement is GeometryEditorVertex vertex)
-                        {
-                            MyMapView.SetViewpoint(new Viewpoint(new MapPoint(vertex.Point.X, vertex.Point.Y, vertex.Point.SpatialReference)));
-                            _geometryEditor.SelectVertex(vertex.PartIndex, vertex.VertexIndex);
-                        }
-                        else if (firstElement is GeometryEditorMidVertex midVertex && _allowVertexCreation)
-                        {
-                            MyMapView.SetViewpoint(new Viewpoint(new MapPoint(midVertex.Point.X, midVertex.Point.Y, midVertex.Point.SpatialReference)));
-                            _geometryEditor.SelectMidVertex(midVertex.PartIndex, midVertex.SegmentIndex);
-                        }
-                    }
-
-                    return;
-                }
-
-                // Identify graphics in the graphics overlay using the mouse point.
-                IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 5, false);
-
-                // Try to get the first graphic from the first result.
-                _selectedGraphic = results.FirstOrDefault()?.Graphics?.FirstOrDefault();
-            }
-            catch (Exception ex)
-            {
-                // Report exceptions.
-                await Application.Current.Windows[0].Page.DisplayAlert("Error editing", ex.Message, "OK");
-
-                ResetFromEditingSession();
-                return;
-            }
-
-            // Return since no graphic was selected.
-            if (_selectedGraphic == null) return;
-
-            _selectedGraphic.IsSelected = true;
-
-            // Hide the selected graphic and start an editing session with a copy of it.
-            _geometryEditor.Start(_selectedGraphic.Geometry);
-            SetButtonText();
-            if (_allowVertexCreation)
-            {
-                MyMapView.SetViewpoint(new Viewpoint(_selectedGraphic.Geometry.Extent.GetCenter(), MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
-            }
-            else
-            {
-                if (_selectedGraphic.Geometry is Polygon polygon)
-                {
-                    MyMapView.SetViewpoint(new Viewpoint(polygon.Parts[0].EndPoint, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
-                }
-                else if (_selectedGraphic.Geometry is Polyline polyline)
-                {
-                    MyMapView.SetViewpoint(new Viewpoint(polyline.Parts[0].EndPoint, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
-                }
-                else if (_selectedGraphic.Geometry is Multipoint multiPoint)
-                {
-                    MyMapView.SetViewpoint(new Viewpoint(multiPoint.Points.Last(), MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
-                }
-                else if (_selectedGraphic.Geometry is MapPoint point)
-                {
-                    MyMapView.SetViewpoint(new Viewpoint(point, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
-                }
-            }
-            _selectedGraphic.IsVisible = false;
         }
 
         // Reset the UI after the editor stops.
@@ -261,29 +162,9 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             }
             _selectedGraphic = null;
 
+            // Update the multifunction button text and enable it.
             MultifunctionButton.Text = "Start geometry editor";
             MultifunctionButton.IsEnabled = true;
-        }
-
-        private void SaveButton_Click(object sender, EventArgs e)
-        {
-            Geometry geometry = _geometryEditor.Stop();
-
-            if (geometry != null)
-            {
-                if (_selectedGraphic != null)
-                {
-                    // Update the geometry of the graphic being edited and make it visible again.
-                    _selectedGraphic.Geometry = geometry;
-                }
-                else
-                {
-                    // Create a new graphic based on the geometry and add it to the graphics overlay.
-                    _graphicsOverlay.Graphics.Add(new Graphic(geometry, GetSymbol(geometry.GeometryType)));
-                }
-            }
-
-            ResetFromEditingSession();
         }
 
         private void CreateInitialGraphics()
@@ -326,9 +207,174 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             return null;
         }
 
+        #region Event handlers
+
+
+        private void GeometryEditor_PickedUpElementChanged(object sender, PickedUpElementChangedEventArgs e)
+        {
+            // Update the button text based on the picked up element.
+            SetButtonText();
+        }
+
+        private void GeometryEditor_HoveredElementChanged(object sender, HoveredElementChangedEventArgs e)
+        {
+            // Update the button text based on the hovered element.
+            SetButtonText();
+        }
+
+        private void MultifunctionButton_Clicked(object sender, EventArgs e)
+        {
+            // If the geometry editor is not started, start it with the selected geometry type.
+            if (!_geometryEditor.IsStarted)
+            {
+                _geometryEditor.Start(_geometryTypes[(string)GeometryTypePicker.SelectedItem]);
+
+                // Set the button text to indicate that the editor is active.
+                SetButtonText();
+                return;
+            }
+
+            // When vertex creation is allowed vertices and mid-vertices can be picked up, new vertices can be inserted.
+            // When vertex creation is not allowed functionality is limited to picking up and moving existing vertices, mid-vertices cannot be picked up.
+            if (_allowVertexCreation)
+            {
+                if (MyMapView.GeometryEditor.PickedUpElement == null && MyMapView.GeometryEditor.HoveredElement != null && (MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex || MyMapView.GeometryEditor.HoveredElement is GeometryEditorMidVertex))
+                {
+                    _programmaticReticleTool.SelectElementAtReticle();
+                    _programmaticReticleTool.PickUpSelectedElement();
+                }
+                else
+                {
+                    _programmaticReticleTool.PlaceElementAtReticle();
+                }
+            }
+            else
+            {
+                if (MyMapView.GeometryEditor.PickedUpElement == null && MyMapView.GeometryEditor.HoveredElement != null && MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex)
+                {
+                    _programmaticReticleTool.SelectElementAtReticle();
+                    _programmaticReticleTool.PickUpSelectedElement();
+                }
+                else if (MyMapView.GeometryEditor.PickedUpElement != null)
+                {
+                    _programmaticReticleTool.PlaceElementAtReticle();
+                }
+            }
+        }
+
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
+        {
+            try
+            {
+                // If the geometry editor is started, identify the geometry editor result at the tapped position.
+                if (_geometryEditor.IsStarted)
+                {
+                    // Identify the geometry editor result at the tapped position.
+                    IdentifyGeometryEditorResult result = await MyMapView.IdentifyGeometryEditorResultAsync(e.Position, 5);
+
+                    if (result != null && result.Elements.Count > 0)
+                    {
+                        // Get the first element from the result.
+                        GeometryEditorElement element = result.Elements.FirstOrDefault();
+
+                        // If the element is a vertex or mid-vertex, set the viewpoint to its position and select it.
+                        if (element is GeometryEditorVertex vertex)
+                        {
+                            MyMapView.SetViewpoint(new Viewpoint(new MapPoint(vertex.Point.X, vertex.Point.Y, vertex.Point.SpatialReference)));
+                            _geometryEditor.SelectVertex(vertex.PartIndex, vertex.VertexIndex);
+                        }
+                        else if (element is GeometryEditorMidVertex midVertex && _allowVertexCreation)
+                        {
+                            MyMapView.SetViewpoint(new Viewpoint(new MapPoint(midVertex.Point.X, midVertex.Point.Y, midVertex.Point.SpatialReference)));
+                            _geometryEditor.SelectMidVertex(midVertex.PartIndex, midVertex.SegmentIndex);
+                        }
+                    }
+
+                    return;
+                }
+
+                // Identify graphics in the graphics overlay using the mouse point.
+                IReadOnlyList<IdentifyGraphicsOverlayResult> results = await MyMapView.IdentifyGraphicsOverlaysAsync(e.Position, 5, false);
+
+                // Try to get the first graphic from the first result.
+                _selectedGraphic = results.FirstOrDefault()?.Graphics?.FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                // Report exceptions.
+                await Application.Current.Windows[0].Page.DisplayAlert("Error editing", ex.Message, "OK");
+
+                ResetFromEditingSession();
+                return;
+            }
+
+            // Return since no graphic was selected.
+            if (_selectedGraphic == null) return;
+
+            _selectedGraphic.IsSelected = true;
+
+            // Hide the selected graphic and start an editing session with a copy of it.
+            _geometryEditor.Start(_selectedGraphic.Geometry);
+
+            // Set the button text to indicate that the editor is active.
+            SetButtonText();
+
+            // If vertex creation is allowed, set the viewpoint to the center of the selected graphic's geometry.
+            // Otherwise, set the viewpoint to the end point of the first part of the geometry.
+            if (_allowVertexCreation)
+            {
+                MyMapView.SetViewpoint(new Viewpoint(_selectedGraphic.Geometry.Extent.GetCenter(), MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+            }
+            else
+            {
+                if (_selectedGraphic.Geometry is Polygon polygon)
+                {
+                    MyMapView.SetViewpoint(new Viewpoint(polygon.Parts[0].EndPoint, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                }
+                else if (_selectedGraphic.Geometry is Polyline polyline)
+                {
+                    MyMapView.SetViewpoint(new Viewpoint(polyline.Parts[0].EndPoint, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                }
+                else if (_selectedGraphic.Geometry is Multipoint multiPoint)
+                {
+                    MyMapView.SetViewpoint(new Viewpoint(multiPoint.Points.Last(), MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                }
+                else if (_selectedGraphic.Geometry is MapPoint point)
+                {
+                    MyMapView.SetViewpoint(new Viewpoint(point, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                }
+            }
+
+            // Hide the selected graphic while editing.
+            _selectedGraphic.IsVisible = false;
+        }
+
+        private void SaveButton_Click(object sender, EventArgs e)
+        {
+            // Stop the geometry editor and get the resulting geometry.
+            Geometry geometry = _geometryEditor.Stop();
+
+            if (geometry != null)
+            {
+                if (_selectedGraphic != null)
+                {
+                    // Update the geometry of the graphic being edited and make it visible again.
+                    _selectedGraphic.Geometry = geometry;
+                }
+                else
+                {
+                    // Create a new graphic based on the geometry and add it to the graphics overlay.
+                    _graphicsOverlay.Graphics.Add(new Graphic(geometry, GetSymbol(geometry.GeometryType)));
+                }
+            }
+
+            ResetFromEditingSession();
+        }
+
         // Stop the geometry editor without saving the geometry stored within.
         private void DiscardButton_Click(object sender, EventArgs e)
         {
+            // Stop the geometry editor and discard the geometry.
             _geometryEditor.Stop();
             ResetFromEditingSession();
         }
@@ -354,10 +400,10 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
 
         private void AllowVertexCreationSwitch_Toggled(object sender, ToggledEventArgs e)
         {
-            _programmaticReticleTool.VertexCreationPreviewEnabled = e.Value;
-            _programmaticReticleTool.Style.GrowEffect.ApplyToMidVertices = e.Value;
-            _allowVertexCreation = e.Value;
+            // Update the programmatic reticle tool and geometry editor settings based on the switch state.
+            _programmaticReticleTool.VertexCreationPreviewEnabled = _programmaticReticleTool.Style.GrowEffect.ApplyToMidVertices = _allowVertexCreation = e.Value;
 
+            // If the geometry editor is started, update the button text to reflect the new state.
             if (_geometryEditor.IsStarted)
             {
                 SetButtonText();
@@ -379,5 +425,6 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
         {
             _geometryEditor.DeleteSelectedElement();
         }
+#endregion
     }
 }

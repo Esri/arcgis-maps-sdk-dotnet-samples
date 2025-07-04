@@ -22,7 +22,7 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit geometries with programmatic reticle tool",
         category: "Geometry",
-        description: "Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate workflows such as those using buttons rather than tap interactions.",
+        description: "Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate customized workflows such as those using buttons rather than tap interactions.",
         instructions: "To create a new geometry, select the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) in the settings view. Press the button to start the geometry editor, pan the map to position the reticle then press the button to place a vertex. To edit an existing geometry, tap the geometry to be edited in the map and perform edits by positioning the reticle over a vertex and pressing the button to pick it up. The vertex can be moved by panning the map and dropped in a new position by pressing the button again.",
         tags: new[] { "draw", "edit", "freehand", "geometry editor", "programmatic", "reticle", "sketch", "vertex" })]
     public partial class EditGeometriesWithProgrammaticReticleTool
@@ -238,7 +238,10 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             // When vertex creation is not allowed functionality is limited to picking up and moving existing vertices, mid-vertices cannot be picked up.
             if (_allowVertexCreation)
             {
-                if (MyMapView.GeometryEditor.PickedUpElement == null && MyMapView.GeometryEditor.HoveredElement != null && (MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex || MyMapView.GeometryEditor.HoveredElement is GeometryEditorMidVertex))
+                if (MyMapView.GeometryEditor.PickedUpElement == null && 
+                    MyMapView.GeometryEditor.HoveredElement != null && 
+                    (MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex || 
+                    MyMapView.GeometryEditor.HoveredElement is GeometryEditorMidVertex))
                 {
                     _programmaticReticleTool.SelectElementAtReticle();
                     _programmaticReticleTool.PickUpSelectedElement();
@@ -250,7 +253,9 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             }
             else
             {
-                if (MyMapView.GeometryEditor.PickedUpElement == null && MyMapView.GeometryEditor.HoveredElement != null && MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex)
+                if (MyMapView.GeometryEditor.PickedUpElement == null && 
+                    MyMapView.GeometryEditor.HoveredElement != null && 
+                    MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex)
                 {
                     _programmaticReticleTool.SelectElementAtReticle();
                     _programmaticReticleTool.PickUpSelectedElement();
@@ -280,12 +285,12 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
                         // If the element is a vertex or mid-vertex, set the viewpoint to its position and select it.
                         if (element is GeometryEditorVertex vertex)
                         {
-                            MyMapView.SetViewpoint(new Viewpoint(new MapPoint(vertex.Point.X, vertex.Point.Y, vertex.Point.SpatialReference)));
+                            await MyMapView.SetViewpointAsync(new Viewpoint(new MapPoint(vertex.Point.X, vertex.Point.Y, vertex.Point.SpatialReference)), TimeSpan.FromSeconds(0.3));
                             _geometryEditor.SelectVertex(vertex.PartIndex, vertex.VertexIndex);
                         }
                         else if (element is GeometryEditorMidVertex midVertex && _allowVertexCreation)
                         {
-                            MyMapView.SetViewpoint(new Viewpoint(new MapPoint(midVertex.Point.X, midVertex.Point.Y, midVertex.Point.SpatialReference)));
+                            await MyMapView.SetViewpointAsync(new Viewpoint(new MapPoint(midVertex.Point.X, midVertex.Point.Y, midVertex.Point.SpatialReference)), TimeSpan.FromSeconds(0.3));
                             _geometryEditor.SelectMidVertex(midVertex.PartIndex, midVertex.SegmentIndex);
                         }
                     }
@@ -323,23 +328,23 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             // Otherwise, set the viewpoint to the end point of the first part of the geometry.
             if (_allowVertexCreation)
             {
-                MyMapView.SetViewpoint(new Viewpoint(_selectedGraphic.Geometry.Extent.GetCenter(), MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                await MyMapView.SetViewpointAsync(new Viewpoint(_selectedGraphic.Geometry.Extent.GetCenter(), MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale), TimeSpan.FromSeconds(0.3));
             }
             else
             {
                 switch (_selectedGraphic.Geometry)
                 {
                     case Polygon polygon:
-                        MyMapView.SetViewpoint(new Viewpoint(polygon.Parts[0].EndPoint, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                        await MyMapView.SetViewpointAsync(new Viewpoint(polygon.Parts[0].EndPoint, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale), TimeSpan.FromSeconds(0.3));
                         break;
                     case Polyline polyline:
-                        MyMapView.SetViewpoint(new Viewpoint(polyline.Parts[0].EndPoint, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                        await MyMapView.SetViewpointAsync(new Viewpoint(polyline.Parts[0].EndPoint, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale), TimeSpan.FromSeconds(0.3));
                         break;
                     case Multipoint multiPoint:
-                        MyMapView.SetViewpoint(new Viewpoint(multiPoint.Points.Last(), MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                        await MyMapView.SetViewpointAsync(new Viewpoint(multiPoint.Points.Last(), MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale), TimeSpan.FromSeconds(0.3));
                         break;
                     case MapPoint point:
-                        MyMapView.SetViewpoint(new Viewpoint(point, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale));
+                        await MyMapView.SetViewpointAsync(new Viewpoint(point, MyMapView.GetCurrentViewpoint(ViewpointType.CenterAndScale).TargetScale), TimeSpan.FromSeconds(0.3));
                         break;
                 }
             }

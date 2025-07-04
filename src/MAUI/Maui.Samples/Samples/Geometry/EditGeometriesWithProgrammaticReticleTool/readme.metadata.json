@@ -1,6 +1,6 @@
 {
     "category": "Geometry",
-    "description": "Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate workflows such as those using buttons rather than tap interactions.",
+    "description": "Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate customized workflows such as those using buttons rather than tap interactions.",
     "formal_name": "EditGeometriesWithProgrammaticReticleTool",
     "ignore": false,
     "images": [

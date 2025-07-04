@@ -1,6 +1,6 @@
 # Edit geometries with programmatic reticle tool
 
-Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate workflows such as those using buttons rather than tap interactions.
+Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate customized workflows such as those using buttons rather than tap interactions.
 
 ![EditGeometriesWithProgrammaticReticleTool](editgeometrieswithprogrammaticreticletool.jpg)
 
@@ -14,9 +14,9 @@ To create a new geometry, select the geometry type you want to create (i.e. poin
 
 Vertices can be selected and the viewpoint can be updated to their position by tapping them.
 
-Vertex creation can be disabled using the switch in the settings view, when this switch is toggled off the feedback vertex and feedback lines under the reticle will no longer be visible. New vertex creation is prevented, existing vertices can be picked up and moved but mid-vertices cannot be selected or picked up and will not grow when hovered.
+Vertex creation can be disabled using the switch in the settings view. When this switch is toggled off new vertex creation is prevented, existing vertices can be picked up and moved, but mid-vertices cannot be selected or picked up and will not grow when hovered. The feedback vertex and feedback lines under the reticle will also no longer be visible.
 
-Use the buttons in the settings view to undo or redo changes made to the geometry and the cancel and done buttons to discard and save changes.
+Use the buttons in the settings view to undo or redo changes made to the geometry and the cancel and done buttons to discard and save changes, respectively.
 
 ## How it works
 
@@ -39,10 +39,10 @@ Use the buttons in the settings view to undo or redo changes made to the geometr
         * Update the viewpoint using `MapView.SetViewpoint(...)`.
 6. Enable and disable the vertex creation preview using `ProgrammaticReticleTool.VertexCreationPreviewEnabled`.
     * To prevent mid-vertex growth when hovered use `ProgrammaticReticleTool.Style.GrowEffect.ApplyToMidVertices`.
-6. Check to see if undo and redo are possible during an editing session using `GeometryEditor.CanUndo` and `GeometryEditor.CanRedo`. If it's possible, use `GeometryEditor.Undo()` and `GeometryEditor.Redo()`.
-    * A picked up element can be returned to its previous position using `GeometryEditor.CancelCurrentAction()`, this can be useful to undo a pick up without undoing any change to the geometry.
-7. Check whether the currently selected `GeometryEditorElement` can be deleted (`GeometryEditor.SelectedElement.CanDelete`). If the element can be deleted, delete using `GeometryEditor.DeleteSelectedElement()`.
-8. Call `GeometryEditor.Stop()` to finish the editing session and store the `Graphic`. The `GeometryEditor` does not automatically handle the visualization of a geometry output from an editing session. This must be done manually by propagating the geometry returned into a `Graphic` added to a `GraphicsOverlay`.
+7. Check to see if undo and redo are possible during an editing session using `GeometryEditor.CanUndo` and `GeometryEditor.CanRedo`. If it's possible, use `GeometryEditor.Undo()` and `GeometryEditor.Redo()`.
+    * A picked up element can be returned to its previous position using `GeometryEditor.CancelCurrentAction()`. This can be useful to undo a pick up without undoing any change to the geometry. Use the `GeometryEditor.PickedUpElement` property to check for a picked up element.
+8. Check whether the currently selected `GeometryEditorElement` can be deleted (`GeometryEditor.SelectedElement.CanDelete`). If the element can be deleted, delete using `GeometryEditor.DeleteSelectedElement()`.
+9. Call `GeometryEditor.Stop()` to finish the editing session and store the `Graphic`. The `GeometryEditor` does not automatically handle the visualization of a geometry output from an editing session. This must be done manually by propagating the geometry returned into a `Graphic` added to a `GraphicsOverlay`.
     * To create a new `Graphic` in the `GraphicsOverlay`:
         * Using `Graphic(Geometry)`, create a new Graphic with the geometry returned by the `GeometryEditor.Stop()` method.
         * Append the `Graphic` to the `GraphicsOverlay`(i.e. `GraphicsOverlay.Graphics.Add(Graphic)`).
@@ -64,7 +64,7 @@ The sample demonstrates a number of workflows which can be altered depending on 
 
 * picking up a hovered element combines selection and pick up, this can be separated into two steps to require selection before pick up.
 
-* tapping a vertex or mid-vertex selects it and updates the viewpoint to its position, this could be changed to not update the viewpoint or also pick up the element.
+* tapping a vertex or mid-vertex selects it and updates the viewpoint to its position. This could be changed to not update the viewpoint or also pick up the element.
 
 With the hovered and picked up element changed events and the programmatic APIs on the `ProgrammaticReticleTool` a broad range of editing experiences can be implemented.
 

@@ -29,7 +29,7 @@ namespace ArcGIS.WPF.Samples.EditGeometriesWithProgrammaticReticleTool
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Edit geometries with programmatic reticle tool",
         category: "Geometry",
-        description: "Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate workflows such as those using buttons rather than tap interactions.",
+        description: "Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate customized workflows such as those using buttons rather than tap interactions.",
         instructions: "To create a new geometry, select the geometry type you want to create (i.e. points, multipoints, polyline, or polygon) in the settings view. Press the button to start the geometry editor, pan the map to position the reticle then press the button to place a vertex. To edit an existing geometry, tap the geometry to be edited in the map and perform edits by positioning the reticle over a vertex and pressing the button to pick it up. The vertex can be moved by panning the map and dropped in a new position by pressing the button again.",
         tags: new[] { "draw", "edit", "freehand", "geometry editor", "programmatic", "reticle", "sketch", "vertex" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]

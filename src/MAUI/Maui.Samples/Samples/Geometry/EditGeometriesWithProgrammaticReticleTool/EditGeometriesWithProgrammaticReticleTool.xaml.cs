@@ -38,6 +38,9 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
         // Flag to indicate whether vertex creation is allowed.
         private bool _allowVertexCreation = true;
 
+        // Reticle state to determine the current action of the programmatic reticle tool.
+        private ReticleState _reticleState = ReticleState.Default;
+
         // Hold references to the symbols used for displaying  geometries.
         private SimpleFillSymbol _polygonSymbol;
         private SimpleLineSymbol _polylineSymbol;
@@ -61,7 +64,7 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
         // Dictionary to map geometry type names to GeometryType enum values.
         private readonly Dictionary<string, GeometryType> _geometryTypes = new Dictionary<string, GeometryType>()
         {
-            {"Point", GeometryType.Point },
+            { "Point", GeometryType.Point },
             { "Multipoint", GeometryType.Multipoint },
             { "Polygon", GeometryType.Polygon },
             { "Polyline", GeometryType.Polyline },
@@ -114,8 +117,17 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
             // Update the multifunction button text based on the geometry editor state and hovered/picked up elements.
             MainThread.BeginInvokeOnMainThread(() =>
             {
+                // Picked up elements can be dropped, so the button text indicates that a point can be dropped.
+                if (MyMapView.GeometryEditor.PickedUpElement != null)
+                {
+                    // If a vertex is picked up, the button text indicates that it can be dropped.
+                    MultifunctionButton.Text = "Drop point";
+                    MultifunctionButton.IsEnabled = true;
+                    _reticleState = ReticleState.PickedUp;
+                    return;
+                }
+
                 // When vertex creation is allowed, the button text changes based on the hovered or picked up element. Vertices and mid-vertices can be picked up.
-                // When vertex creation is not allowed, the button text changes based on the picked up element only. Only vertices can be picked up, mid-vertices cannot be picked up.
                 if (_allowVertexCreation)
                 {
                     MultifunctionButton.IsEnabled = true;
@@ -123,30 +135,26 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
                     if (MyMapView.GeometryEditor.PickedUpElement != null)
                     {
                         MultifunctionButton.Text = "Drop point";
+                        _reticleState = ReticleState.PickedUp;
                     }
                     else if (MyMapView.GeometryEditor.HoveredElement != null && (MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex || MyMapView.GeometryEditor.HoveredElement is GeometryEditorMidVertex))
                     {
                         MultifunctionButton.Text = "Pick up point";
+                        _reticleState = MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex ? ReticleState.HoveringVertex : ReticleState.HoveringMidVertex;
                     }
                     else
                     {
                         MultifunctionButton.Text = "Insert point";
+                        _reticleState = ReticleState.Default;
                     }
                 }
+                // When vertex creation is not allowed, the button text changes based on the picked up element only. Only vertices can be picked up, mid-vertices cannot be picked up.
                 else
                 {
-                    if (MyMapView.GeometryEditor.PickedUpElement != null)
-                    {
-                        // If a vertex is picked up, the button text indicates that it can be dropped.
-                        MultifunctionButton.Text = "Drop point";
-                        MultifunctionButton.IsEnabled = true;
-                    }
-                    else
-                    {
-                        // If no vertex is picked up, the button text indicates that a point can be picked up if the hovered element is a geometry editor vertex.
-                        MultifunctionButton.Text = "Pick up point";
-                        MultifunctionButton.IsEnabled = MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex;
-                    }
+                    // If no vertex is picked up, the button text indicates that a point can be picked up if the hovered element is a geometry editor vertex.
+                    MultifunctionButton.Text = "Pick up point";
+                    MultifunctionButton.IsEnabled = MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex;
+                    _reticleState = MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex ? ReticleState.HoveringVertex : ReticleState.HoveringMidVertex;
                 }
             });
         }
@@ -234,35 +242,37 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
                 return;
             }
 
-            // When vertex creation is allowed vertices and mid-vertices can be picked up, new vertices can be inserted.
-            // When vertex creation is not allowed functionality is limited to picking up and moving existing vertices, mid-vertices cannot be picked up.
             if (_allowVertexCreation)
             {
-                if (MyMapView.GeometryEditor.PickedUpElement == null && 
-                    MyMapView.GeometryEditor.HoveredElement != null && 
-                    (MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex || 
-                    MyMapView.GeometryEditor.HoveredElement is GeometryEditorMidVertex))
+                // When vertex creation is allowed vertices and mid-vertices can be picked up, new vertices can be inserted.
+                switch (_reticleState)
                 {
-                    _programmaticReticleTool.SelectElementAtReticle();
-                    _programmaticReticleTool.PickUpSelectedElement();
-                }
-                else
-                {
-                    _programmaticReticleTool.PlaceElementAtReticle();
+                    case ReticleState.Default:
+                    case ReticleState.PickedUp:
+                        _programmaticReticleTool.PlaceElementAtReticle();
+                        break;
+                    case ReticleState.HoveringVertex:
+                    case ReticleState.HoveringMidVertex:
+                        _programmaticReticleTool.SelectElementAtReticle();
+                        _programmaticReticleTool.PickUpSelectedElement();
+                        break;
                 }
             }
             else
             {
-                if (MyMapView.GeometryEditor.PickedUpElement == null && 
-                    MyMapView.GeometryEditor.HoveredElement != null && 
-                    MyMapView.GeometryEditor.HoveredElement is GeometryEditorVertex)
+                // When vertex creation is not allowed functionality is limited to picking up and moving existing vertices, mid-vertices cannot be picked up.
+                switch (_reticleState)
                 {
-                    _programmaticReticleTool.SelectElementAtReticle();
-                    _programmaticReticleTool.PickUpSelectedElement();
-                }
-                else if (MyMapView.GeometryEditor.PickedUpElement != null)
-                {
-                    _programmaticReticleTool.PlaceElementAtReticle();
+                    case ReticleState.PickedUp:
+                        _programmaticReticleTool.PlaceElementAtReticle();
+                        break;
+                    case ReticleState.HoveringVertex:
+                        _programmaticReticleTool.SelectElementAtReticle();
+                        _programmaticReticleTool.PickUpSelectedElement();
+                        break;
+                    default:
+                        // In edit mode, only picked up vertices can be placed and only vertices can be picked up.
+                        break;
                 }
             }
         }
@@ -429,6 +439,14 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
         {
             _geometryEditor.DeleteSelectedElement();
         }
-#endregion
+        #endregion
+    }
+
+    public enum ReticleState
+    {
+        Default,
+        PickedUp,
+        HoveringVertex,
+        HoveringMidVertex,
     }
 }

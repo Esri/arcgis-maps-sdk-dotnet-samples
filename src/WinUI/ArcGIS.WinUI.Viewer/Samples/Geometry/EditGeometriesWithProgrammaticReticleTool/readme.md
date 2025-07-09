@@ -2,7 +2,7 @@
 
 Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate customized workflows such as those using buttons rather than tap interactions.
 
-![EditGeometriesWithProgrammaticReticleTool](editgeometrieswithprogrammaticreticletool.jpg)
+![EditGeometriesWithProgrammaticReticleTool](EditGeometriesWithProgrammaticReticleTool.jpg)
 
 ## Use case
 

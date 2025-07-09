@@ -36,7 +36,7 @@ Use the buttons in the settings view to undo or redo changes made to the geometr
         * Access the `MapView.IdentifyGeometryEditorAsync(...)`.
         * Find the desired element in the `results.Elements.FirstOrDefault()` list.
         * Depending on whether or not the element is a `GeometryEditorVertex` or `GeometryEditorMidVertex` use `GeometryEditor.SelectVertex(...)` or `GeometryEditor.SelectMidVertex(...)` to select it.
-        * Update the viewpoint using `MapView.SetViewpoint(...)`.
+        * Update the viewpoint using `MapView.SetViewpointAsync(...)`.
 6. Enable and disable the vertex creation preview using `ProgrammaticReticleTool.VertexCreationPreviewEnabled`.
     * To prevent mid-vertex growth when hovered use `ProgrammaticReticleTool.Style.GrowEffect.ApplyToMidVertices`.
 7. Check to see if undo and redo are possible during an editing session using `GeometryEditor.CanUndo` and `GeometryEditor.CanRedo`. If it's possible, use `GeometryEditor.Undo()` and `GeometryEditor.Redo()`.

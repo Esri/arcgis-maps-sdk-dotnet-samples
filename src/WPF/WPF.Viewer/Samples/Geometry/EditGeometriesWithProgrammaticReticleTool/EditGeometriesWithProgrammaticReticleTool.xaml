@@ -1,8 +1,107 @@
 ﻿<UserControl x:Class="ArcGIS.WPF.Samples.EditGeometriesWithProgrammaticReticleTool.EditGeometriesWithProgrammaticReticleTool"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:ArcGIS.WPF.Viewer.Converters"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+
+    <UserControl.Resources>
+        <Style x:Key="IconStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24" />
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Padding" Value="3" />
+                <Setter Property="Margin" Value="3" />
+            </Style.Setters>
+        </Style>
+        <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
+    </UserControl.Resources>
+
     <Grid>
-        <esri:MapView x:Name="MyMapView"/>
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
+        <Grid Margin="10"
+              HorizontalAlignment="Right"
+              VerticalAlignment="Top">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="85" />
+                <ColumnDefinition Width="85" />
+            </Grid.ColumnDefinitions>
+            <Border Grid.Row="0"
+                    Grid.ColumnSpan="2"
+                    Margin="5"
+                    Background="White">
+                <StackPanel>
+                    <Label Content="Geometry type:" />
+                    <ComboBox x:Name="GeometryTypePicker"
+                              Grid.Row="1"
+                              Grid.ColumnSpan="2"
+                              Margin="5"
+                              DisplayMemberPath="Key"
+                              IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView, Converter={StaticResource BoolNegationConverter}}"
+                              ToolTipService.ToolTip="Geometry types" />
+                </StackPanel>
+            </Border>
+            <Border Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    Margin="5"
+                    Background="White">
+                <CheckBox x:Name="AllowVertexCreationCheckBox"
+                          Margin="5"
+                          Checked="AllowVertexCreationCheckBox_Checked"
+                          Content="Allow vertex creation"
+                          Unchecked="AllowVertexCreationCheckBox_Checked" />
+            </Border>
+            <Button x:Name="UndoButton"
+                    Grid.Row="3"
+                    Click="UndoButton_Click"
+                    Content="&#xe2d6;"
+                    IsEnabled="False"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Undo" />
+            <Button Grid.Row="3"
+                    Grid.Column="1"
+                    Click="RedoButton_Click"
+                    Content="&#xe23e;"
+                    IsEnabled="{Binding GeometryEditor.CanRedo, ElementName=MyMapView}"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Redo" />
+            <Button Grid.Row="4"
+                    Click="DeleteSelectedButton_Click"
+                    Content="&#xe0e8;"
+                    IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Delete selected" />
+            <Button x:Name="SaveButton"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    Click="SaveButton_Click"
+                    Content="&#xe06f;"
+                    IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Save edits" />
+            <Button Grid.Row="5"
+                    Click="DiscardButton_Click"
+                    Content="&#xe080;"
+                    IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
+                    Style="{StaticResource IconStyle}"
+                    ToolTipService.ToolTip="Discard edits" />
+            <Button x:Name="MultifunctionButton"
+                    Grid.Row="6"
+                    Grid.ColumnSpan="2"
+                    Height="30"
+                    Margin="3"
+                    Padding="3"
+                    Click="MultifunctionButton_Click" />
+        </Grid>
     </Grid>
 </UserControl>

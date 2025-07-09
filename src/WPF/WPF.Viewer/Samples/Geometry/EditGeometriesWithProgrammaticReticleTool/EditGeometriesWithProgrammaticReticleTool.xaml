@@ -30,7 +30,6 @@
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="auto" />
-                <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="85" />
@@ -38,7 +37,7 @@
             </Grid.ColumnDefinitions>
             <Border Grid.Row="0"
                     Grid.ColumnSpan="2"
-                    Margin="5"
+                    Margin="3,5"
                     Background="White">
                 <StackPanel>
                     <Label Content="Geometry type:" />
@@ -51,9 +50,9 @@
                               ToolTipService.ToolTip="Geometry types" />
                 </StackPanel>
             </Border>
-            <Border Grid.Row="2"
+            <Border Grid.Row="1"
                     Grid.ColumnSpan="2"
-                    Margin="5"
+                    Margin="3,5"
                     Background="White">
                 <CheckBox x:Name="AllowVertexCreationCheckBox"
                           Margin="5"
@@ -62,41 +61,41 @@
                           Unchecked="AllowVertexCreationCheckBox_Checked" />
             </Border>
             <Button x:Name="UndoButton"
-                    Grid.Row="3"
+                    Grid.Row="2"
                     Click="UndoButton_Click"
                     Content="&#xe2d6;"
                     IsEnabled="False"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Undo" />
-            <Button Grid.Row="3"
+            <Button Grid.Row="2"
                     Grid.Column="1"
                     Click="RedoButton_Click"
                     Content="&#xe23e;"
                     IsEnabled="{Binding GeometryEditor.CanRedo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Redo" />
-            <Button Grid.Row="4"
+            <Button Grid.Row="3"
                     Click="DeleteSelectedButton_Click"
                     Content="&#xe0e8;"
                     IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Delete selected" />
             <Button x:Name="SaveButton"
-                    Grid.Row="4"
+                    Grid.Row="3"
                     Grid.Column="1"
                     Click="SaveButton_Click"
                     Content="&#xe06f;"
                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Save edits" />
-            <Button Grid.Row="5"
+            <Button Grid.Row="4"
                     Click="DiscardButton_Click"
                     Content="&#xe080;"
                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Discard edits" />
             <Button x:Name="MultifunctionButton"
-                    Grid.Row="6"
+                    Grid.Row="5"
                     Grid.ColumnSpan="2"
                     Height="30"
                     Margin="3"

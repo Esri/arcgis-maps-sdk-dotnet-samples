@@ -11,6 +11,7 @@
 		</Category>
 		<Category name="Geometry">
 			<Sample>CreateAndEditGeometries</Sample>
+			<Sample>EditGeometriesWithProgrammaticReticleTool</Sample>
       <Sample>SnapGeometryEdits</Sample>
 		</Category>
 		<Category name="Layers">

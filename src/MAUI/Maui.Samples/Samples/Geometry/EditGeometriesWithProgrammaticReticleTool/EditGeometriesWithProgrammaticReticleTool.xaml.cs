@@ -216,8 +216,6 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
         }
 
         #region Event handlers
-
-
         private void GeometryEditor_PickedUpElementChanged(object sender, PickedUpElementChangedEventArgs e)
         {
             // Update the button text based on the picked up element.

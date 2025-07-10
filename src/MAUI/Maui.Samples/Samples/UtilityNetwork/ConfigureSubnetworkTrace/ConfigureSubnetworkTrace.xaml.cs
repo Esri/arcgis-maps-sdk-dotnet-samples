@@ -69,7 +69,8 @@ namespace ArcGIS.Samples.ConfigureSubnetworkTrace
             try
             {
                 // Create and load the utility network.
-                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServiceUrl));
+                _utilityNetwork = new UtilityNetwork(new ServiceGeodatabase(new Uri(FeatureServiceUrl)));
+                await _utilityNetwork.LoadAsync();
 
                 // Build the choice lists for network attribute comparison.
                 Attributes.ItemsSource = _utilityNetwork.Definition.NetworkAttributes.Where(i => i.IsSystemDefined == false).ToList();

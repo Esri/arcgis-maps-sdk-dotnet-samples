@@ -32,9 +32,6 @@ namespace ArcGIS.WinUI.Samples.DisplayUtilityAssociations
         tags: new[] { "associating", "association", "attachment", "connectivity", "containment", "relationships" })]
     public partial class DisplayUtilityAssociations
     {
-        // Feature server for the utility network.
-        private const string FeatureServerUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
-
         // This viewpoint shows several associations clearly in the utility network.
         private readonly Viewpoint InitialViewpoint = new Viewpoint(new MapPoint(-9812698.37297436, 5131928.33743317, SpatialReferences.WebMercator), 22d);
 
@@ -74,33 +71,13 @@ namespace ArcGIS.WinUI.Samples.DisplayUtilityAssociations
 
             try
             {
-                // Create the utility network.
-                _utilityNetwork = await UtilityNetwork.CreateAsync(new Uri(FeatureServerUrl));
-
                 // Create the map.
-                MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
+                MyMapView.Map = new Map(new Uri("https://sampleserver7.arcgisonline.com/portal/home/item.html?id=be0e4637620a453584118107931f718b"));
+                await MyMapView.Map.LoadAsync();
 
-                // Get all of the edges and junctions in the network.
-                IEnumerable<UtilityNetworkSource> edges = _utilityNetwork.Definition.NetworkSources.Where(n => n.SourceType == UtilityNetworkSourceType.Edge);
-                IEnumerable<UtilityNetworkSource> junctions = _utilityNetwork.Definition.NetworkSources.Where(n => n.SourceType == UtilityNetworkSourceType.Junction);
-
-                // Add all edges that are not subnet lines to the map.
-                foreach (UtilityNetworkSource source in edges)
-                {
-                    if (source.SourceUsageType != UtilityNetworkSourceUsageType.SubnetLine && source.FeatureTable != null)
-                    {
-                        MyMapView.Map.OperationalLayers.Add(new FeatureLayer(source.FeatureTable));
-                    }
-                }
-
-                // Add all junctions to the map.
-                foreach (UtilityNetworkSource source in junctions)
-                {
-                    if (source.FeatureTable != null)
-                    {
-                        MyMapView.Map.OperationalLayers.Add(new FeatureLayer(source.FeatureTable));
-                    }
-                }
+                // Get the utility network from the map.
+                _utilityNetwork = MyMapView.Map.UtilityNetworks.FirstOrDefault();
+                await _utilityNetwork.LoadAsync();
 
                 // Create a graphics overlay for associations.
                 _associationsOverlay = new GraphicsOverlay();

@@ -283,7 +283,7 @@ namespace ArcGIS.Samples.EditGeometriesWithProgrammaticReticleTool
                 if (_geometryEditor.IsStarted)
                 {
                     // Identify the geometry editor result at the tapped position.
-                    IdentifyGeometryEditorResult result = await MyMapView.IdentifyGeometryEditorResultAsync(e.Position, 10);
+                    IdentifyGeometryEditorResult result = await MyMapView.IdentifyGeometryEditorAsync(e.Position, 10);
 
                     if (result != null && result.Elements.Count > 0)
                     {

@@ -28,7 +28,7 @@ namespace ArcGIS.WPF.Samples.OpenStreetMapLayer
         private void Initialize()
         {
             // Create the OpenStreetMap basemap.
-            Basemap osmBasemap = new Basemap(BasemapStyle.OSMStandard);
+            Basemap osmBasemap = new Basemap(BasemapStyle.OpenOSMStyle);
 
             // Create the map with the OpenStreetMap basemap.
             Map osmMap = new Map(osmBasemap);

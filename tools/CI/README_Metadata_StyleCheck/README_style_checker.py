@@ -22,7 +22,6 @@ exception_proper_nouns = {
     'Network Link',
     'OAuth',
     'OAuth2',
-    'Open Street Map',
     'OpenStreetMap',
     'Play a KML Tour',
     'Portal',

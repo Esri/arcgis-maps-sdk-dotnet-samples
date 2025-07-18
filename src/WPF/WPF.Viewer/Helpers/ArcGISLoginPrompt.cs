@@ -33,26 +33,17 @@ namespace ArcGIS.Helpers
 
         public static async Task<bool> EnsureAGOLCredentialAsync()
         {
-            bool loggedIn = false;
+            Credential currentCredential = AuthenticationManager.Current.FindCredential(new Uri(ArcGISOnlineUrl), AuthenticationType.Token);
+            if (currentCredential != null)
+            {
+                return true; // already logged in
+            }
 
             try
             {
-                // Create a challenge request for portal credentials (OAuth credential request for arcgis.com)
-                CredentialRequestInfo challengeRequest = new CredentialRequestInfo
-                {
-                    // Use the OAuth authorization code workflow.
-                    GenerateTokenOptions = new GenerateTokenOptions
-                    {
-                        TokenAuthenticationType = TokenAuthenticationType.OAuthAuthorizationCode
-                    },
-
-                    // Indicate the url (portal) to authenticate with (ArcGIS Online)
-                    ServiceUri = new Uri(ArcGISOnlineUrl)
-                };
-
-                // Call GetCredentialAsync on the AuthenticationManager to invoke the challenge handler
-                Credential cred = await AuthenticationManager.Current.GetCredentialAsync(challengeRequest, false);
-                loggedIn = cred != null;
+                var userConfig = new OAuthUserConfiguration(new Uri(ArcGISOnlineUrl), AppClientId, new Uri(OAuthRedirectUrl));
+                Credential cred = await OAuthUserCredential.CreateAsync(userConfig);
+                AuthenticationManager.Current.AddCredential(cred);
             }
             catch (OperationCanceledException)
             {
@@ -63,8 +54,7 @@ namespace ArcGIS.Helpers
                 // Login failure
                 MessageBox.Show("Login failed: " + ex.Message);
             }
-
-            return loggedIn;
+            return false;
         }
 
         public static void SetChallengeHandler()

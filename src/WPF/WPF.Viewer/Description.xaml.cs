@@ -36,7 +36,8 @@ namespace ArcGIS.WPF.Viewer
             // Set the html in web browser.
             DescriptionView.DocumentText = htmlString;
 
-            // Disable hyperlink navigation in the web browser control.
+            // Disable navigation in the web browser control.
+            // This prevents script errors when users click links in READMEs.
             DescriptionView.AllowNavigation = false;
         }
     }

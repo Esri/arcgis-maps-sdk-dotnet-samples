@@ -36,30 +36,8 @@ namespace ArcGIS.WPF.Viewer
             // Set the html in web browser.
             DescriptionView.DocumentText = htmlString;
 
-            // Remove the exisiting handler.
-            DescriptionView.Document.Click -= HyperlinkClick;
-
-            // Add an event handler for hyperlink clicks.
-            DescriptionView.Document.Click += HyperlinkClick;
-
-            // Create an event handler for canceling the default hyperlink behavior.
-            DescriptionView.NewWindow += (s, e) => { e.Cancel = true; };
-        }
-
-        private void HyperlinkClick(object sender, System.Windows.Forms.HtmlElementEventArgs e)
-        {
-            // Get the html element that the user clicked on.
-            System.Windows.Forms.HtmlElement src = DescriptionView.Document?.GetElementFromPoint(e.ClientMousePosition);
-
-            // Check if the element is a hyperlink.
-            if (src?.OuterHtml.StartsWith("<A href=") == true)
-            {
-                // Parse the url from the hyperlink html.
-                string url = src.OuterHtml.Split('\"')[1];
-
-                // Open the url.
-                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
-            }
+            // Disable hyperlink navigation in the web browser control.
+            DescriptionView.AllowNavigation = false;
         }
     }
 }

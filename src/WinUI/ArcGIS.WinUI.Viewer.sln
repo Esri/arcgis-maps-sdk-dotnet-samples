@@ -9,7 +9,7 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGIS.Samples.Shared", "..
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-	    Debug|Any CPU = Debug|Any CPU
+		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM64 = Debug|ARM64
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86

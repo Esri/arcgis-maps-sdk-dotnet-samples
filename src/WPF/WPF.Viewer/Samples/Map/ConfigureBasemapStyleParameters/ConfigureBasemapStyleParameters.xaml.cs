@@ -83,7 +83,7 @@ namespace ArcGIS.WPF.Samples.ConfigureBasemapStyleParameters
                     break;
             }
 
-            MyMapView.Map.Basemap = new Basemap(BasemapStyle.OpenLightGray, basemapStyleParameters);
+            MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISLightGray, basemapStyleParameters);
         }
 
         private void LanguagePicker_SelectionChanged(object sender, SelectionChangedEventArgs e)

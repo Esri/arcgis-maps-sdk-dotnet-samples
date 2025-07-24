@@ -28,10 +28,16 @@
 		<RootNamespace>ArcGIS</RootNamespace>
 		<AssemblyName>ArcGIS</AssemblyName>
 		<DefineConstants>$(DefineConstants);MAUI</DefineConstants>
-		<RuntimeIdentifiers Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">win-x86;win-x64;win-arm64</RuntimeIdentifiers>
-		<RuntimeIdentifier Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows' AND '$(Platform)' == 'AnyCPU'">win-x64</RuntimeIdentifier>
 		<AppxPackageDir>..\..\..\output\$(RuntimeIdentifier)\</AppxPackageDir>
 		<NoWarn>$(NoWarn);XC0022;XC0025</NoWarn> <!-- Disable XamlC warnings until addressed -->
+		<Platforms>AnyCPU;x86;x64;ARM64</Platforms>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+		<RuntimeIdentifier Condition="'$(Platform)' == 'x86'">win-x86</RuntimeIdentifier>
+		<RuntimeIdentifier Condition="'$(Platform)' == 'x64'">win-x64</RuntimeIdentifier>
+		<RuntimeIdentifier Condition="'$(Platform)' == 'ARM64'">win-arm64</RuntimeIdentifier>
+		<RuntimeIdentifier Condition="'$(Platform)' == 'AnyCPU'">win-x64</RuntimeIdentifier>
 	</PropertyGroup>
 
     <ItemGroup>
@@ -137,8 +143,8 @@
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" />
     <PackageReference Include="Markdig" />
     <PackageReference Include="System.Drawing.Common" />
-    <PackageReference Include="Microsoft.Maui.Controls"/>
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility"/>
+    <PackageReference Include="Microsoft.Maui.Controls" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" />
   </ItemGroup>
 
   <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->

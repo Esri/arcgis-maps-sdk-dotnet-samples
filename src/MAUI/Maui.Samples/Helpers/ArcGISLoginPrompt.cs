@@ -60,6 +60,8 @@ namespace ArcGIS.Helpers
 
         public static void SetChallengeHandler()
         {
+            var userConfig = new OAuthUserConfiguration(new Uri(ArcGISOnlineUrl), AppClientId, new Uri(OAuthRedirectUrl));
+            AuthenticationManager.Current.OAuthUserConfigurations.Add(userConfig);
             AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize();
         }
     }

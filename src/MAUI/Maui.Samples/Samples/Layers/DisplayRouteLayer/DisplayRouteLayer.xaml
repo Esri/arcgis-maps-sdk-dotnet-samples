@@ -22,7 +22,7 @@
                             <Grid ColumnDefinitions="20,25,*">
                                 <Label HorizontalOptions="End" Text="{Binding Attributes[Sequence], StringFormat='{}{0}.'}" />
                                 <Label Grid.Column="1"
-                                       FontFamily="calcite-ui-icons-24"
+                                       FontFamily="CalciteUIIconsMediumFontFamily"
                                        FontSize="20"
                                        Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
                                 <Label Grid.Column="2"

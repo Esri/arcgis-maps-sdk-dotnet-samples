@@ -12,7 +12,7 @@ namespace ArcGIS.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is true ? (char)0xe2a8 : (char)0xe2a9;
+            return value is true ? (char)0xeabf : (char)Esri.Calcite.Maui.CalciteIcon.Star;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

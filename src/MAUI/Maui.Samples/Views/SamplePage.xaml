@@ -24,10 +24,10 @@
                             Background="Transparent"
                             BorderWidth="0"
                             Clicked="CopyCodeButton_Clicked"
-                            FontFamily="calcite-ui-icons-24"
+                            FontFamily="CalciteUIIconsMediumFontFamily"
                             FontSize="20"
                             HorizontalOptions="End"
-                            Text="&#xe0a6;"
+                            Text="&#xe7eb;"
                             ToolTipProperties.Text="Copy code to clipboard" />
                 </Grid>
                 <Border x:Name="SourceCodeViewContainer" VerticalOptions="FillAndExpand" />

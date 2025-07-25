@@ -23,7 +23,7 @@
         </DataTemplate>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="calcite-ui-icons-24" />
+                <Setter Property="FontFamily" Value="CalciteUIIconsMediumFontFamily" />
                 <Setter Property="FontSize" Value="25" />
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#3C3C3C, Light=White}" />
             </Style.Setters>
@@ -118,14 +118,14 @@
                                     Clicked="DiscardButton_Click"
                                     IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
                                     Style="{StaticResource IconStyle}"
-                                    Text="&#xe080;"
+                                    Text="&#xe7ac;"
                                     ToolTipProperties.Text="Discard edits" />
                             <Button x:Name="SaveButton"
                                     Grid.Column="1"
                                     Clicked="SaveButton_Click"
                                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
                                     Style="{StaticResource IconStyle}"
-                                    Text="&#xe06f;"
+                                    Text="&#xe795;"
                                     ToolTipProperties.Text="Save edits" />
                         </Grid>
                     </StackLayout>

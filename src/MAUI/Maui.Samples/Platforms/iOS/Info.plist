@@ -45,5 +45,7 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+    <key>NSCameraUsageDescription</key>
+    <string>Adding attachments</string>
 </dict>
 </plist>

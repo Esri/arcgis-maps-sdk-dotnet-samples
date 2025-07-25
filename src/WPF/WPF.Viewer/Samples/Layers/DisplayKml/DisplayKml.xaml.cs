@@ -62,7 +62,7 @@ namespace ArcGIS.WPF.Samples.DisplayKml
                 {
                     case "URL":
                     default:
-                        layer = new KmlLayer(new Uri("https://www.wpc.ncep.noaa.gov/kml/noaa_chart/WPC_Day1_SigWx.kml"));
+                        layer = new KmlLayer(new Uri("https://www.spc.noaa.gov/products/outlook/SPC_outlooks.kml"));
                         break;
 
                     case "Local file":

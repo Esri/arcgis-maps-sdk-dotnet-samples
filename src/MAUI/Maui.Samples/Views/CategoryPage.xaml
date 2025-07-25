@@ -88,7 +88,7 @@
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
                                 CommandParameter="{Binding SampleFormalName}"
                                 CornerRadius="0"
-                                FontFamily="calcite-ui-icons-24"
+                                FontFamily="CalciteUIIconsMediumFontFamily"
                                 FontSize="{OnPlatform Default=25,
                                                       iOS=40,
                                                       Android=40}"

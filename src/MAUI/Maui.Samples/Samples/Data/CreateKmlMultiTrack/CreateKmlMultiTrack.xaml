@@ -6,7 +6,7 @@
     <ContentPage.Resources>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="calcite-ui-icons-24" />
+                <Setter Property="FontFamily" Value="CalciteUIIconsMediumFontFamily" />
                 <Setter Property="FontSize" Value="25" />
                 <Setter Property="Margin" Value="5" />
             </Style.Setters>
@@ -29,7 +29,7 @@
                                 Clicked="RecenterButton_Clicked"
                                 IsEnabled="False"
                                 Style="{StaticResource IconStyle}"
-                                Text="&#xe13c;"
+                                Text="&#xe8ad;"
                                 ToolTipProperties.Text="Recenter" />
                         <Button x:Name="RecordTrackButton"
                                 Grid.Column="1"
@@ -41,7 +41,7 @@
                                 Clicked="SaveButton_Clicked"
                                 IsEnabled="False"
                                 Style="{StaticResource IconStyle}"
-                                Text="&#xe262;"
+                                Text="&#xea65;"
                                 ToolTipProperties.Text="Save" />
                     </Grid>
                 </StackLayout>

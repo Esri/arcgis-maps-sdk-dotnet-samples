@@ -104,10 +104,6 @@
     <None Remove="Resources\Icons\*.svg" />
 	  <MauiImage Include="Resources\Icons\*.svg" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Resources\Fonts\calcite-ui-icons-24.ttf" />
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
     <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
@@ -135,6 +131,7 @@
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
     <PackageReference Include="Esri.ArcGISRuntime.Maui" />
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.Maui" />
+    <PackageReference Include="Esri.Calcite.Maui" />
     <PackageReference Include="Markdig" />
     <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="Microsoft.Maui.Controls"/>
@@ -171,9 +168,6 @@
     <MauiXaml Update="Controls\CategoriesFlyoutContent.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>
-    <MauiFont Update="Resources\Fonts\calcite-ui-icons-24.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </MauiFont>
   </ItemGroup>
 
   <!-- Apple Privacy Manifest file, more information: https://aka.ms/maui-privacy-manifest -->

@@ -22,7 +22,7 @@
         </DataTemplate>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="calcite-ui-icons-24" />
+                <Setter Property="FontFamily" Value="CalciteUIIconsMediumFontFamily" />
                 <Setter Property="FontSize" Value="25" />
                 <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#3C3C3C, Light=White}" />
             </Style.Setters>
@@ -73,7 +73,7 @@
                     Grid.Column="0"
                     Clicked="PointButton_Click"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe21c;"
+                    Text="&#xe9f9;"
                     ToolTipProperties.Text="Point" />
             <Button x:Name="MultipointButton"
                     Grid.Row="2"
@@ -81,49 +81,49 @@
                     Clicked="MultipointButton_Click"
                     FontSize="20"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe21c;&#xe21c;"
+                    Text="&#xe9f9;&#xe9f9;"
                     ToolTipProperties.Text="Multipoint" />
             <Button x:Name="PolylineButton"
                     Grid.Row="3"
                     Grid.Column="0"
                     Clicked="PolylineButton_Click"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe1a8;"
+                    Text="&#xe93f;"
                     ToolTipProperties.Text="Polyline / no shape fill" />
             <Button x:Name="PolygonButton"
                     Grid.Row="3"
                     Grid.Column="1"
                     Clicked="PolygonButton_Click"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe220;"
+                    Text="&#xe9fb;"
                     ToolTipProperties.Text="Polygon / shape fill" />
             <Button Grid.Row="4"
                     Grid.Column="0"
                     Clicked="DeleteButton_Click"
                     IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe0e8;"
+                    Text="&#xe83e;"
                     ToolTipProperties.Text="Delete selected" />
             <Button Grid.Row="4"
                     Grid.Column="1"
                     Clicked="UndoButton_Click"
                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe2d6;"
+                    Text="&#xeb0b;"
                     ToolTipProperties.Text="Undo" />
             <Button Grid.Row="5"
                     Grid.Column="0"
                     Clicked="DiscardButton_Click"
                     IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe080;"
+                    Text="&#xe7ac;"
                     ToolTipProperties.Text="Discard edits" />
             <Button Grid.Row="5"
                     Grid.Column="1"
                     Clicked="SaveButton_Click"
                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe06f;"
+                    Text="&#xe795;"
                     ToolTipProperties.Text="Save edits" />
         </Grid>
         <Grid x:Name="SnappingSettingsPopup"

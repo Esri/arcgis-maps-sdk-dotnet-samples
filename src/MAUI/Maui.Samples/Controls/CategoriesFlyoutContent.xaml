@@ -26,7 +26,7 @@
                         </DataTrigger>
                     </HorizontalStackLayout.Triggers>
                     <Label Margin="20,0"
-                           FontFamily="calcite-ui-icons-24"
+                           FontFamily="CalciteUIIconsMediumFontFamily"
                            FontSize="25"
                            Text="{Binding CategoryIcon}"
                            TextColor="White"

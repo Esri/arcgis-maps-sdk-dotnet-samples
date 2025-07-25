@@ -11,11 +11,11 @@
                 Background="#AA333333"
                 BorderColor="Transparent"
                 Clicked="ShowGallery_Clicked"
-                FontFamily="calcite-ui-icons-24"
+                FontFamily="CalciteUIIconsMediumFontFamily"
                 FontSize="{OnIdiom Default=80,
                                    Phone=50}"
                 HorizontalOptions="Start"
-                Text="&#xe019;"
+                Text="&#xe74d;"
                 TextColor="White"
                 ToolTipProperties.Text="Show Gallery"
                 VerticalOptions="Start" />

@@ -60,7 +60,7 @@
                         <Button Grid.Column="1"
                                 Clicked="ResetButton_Clicked"
                                 Style="{StaticResource IconStyle}"
-                                Text="&#xe243;"
+                                Text="&#xeb66;"
                                 ToolTipProperties.Text="Reset" />
                     </Grid>
                 </StackLayout>

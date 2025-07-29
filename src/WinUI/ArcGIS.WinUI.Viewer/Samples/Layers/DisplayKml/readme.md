@@ -26,8 +26,8 @@ Use the UI to select a source. A KML file from that source will be loaded and di
 
 ## Offline data
 
-Link | Local Location
----------|-------|
+| Link | Local Location |
+|---------|-------|
 |[US State Capitals](https://www.arcgis.com/home/item.html?id=324e4742820e46cfbe5029ff2c32cb1f)| `<userhome>/ArcGIS/Runtime/Data/kml/US_State_Capitals.kml` |
 
 ## About the data

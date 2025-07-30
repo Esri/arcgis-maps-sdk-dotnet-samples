@@ -4,7 +4,6 @@
     <TargetFrameworks>net8.0-windows10.0.19041.0;net472</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
-    <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
     <RootNamespace>ArcGIS</RootNamespace>
     <AssemblyName>ArcGIS</AssemblyName>
     <ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>

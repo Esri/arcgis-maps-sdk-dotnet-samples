@@ -6,7 +6,7 @@
     <_NetWindowsMauiTarget>net9.0-windows10.0.19041.0</_NetWindowsMauiTarget>
     <_NetAndroidTarget>net9.0-android</_NetAndroidTarget>
     <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
-    <RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">200.7.0</RELEASE_VERSION>
+    <RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">300.0.0</RELEASE_VERSION>
     <BUILD_NUM Condition="'$(BUILD_NUM)'==''">0</BUILD_NUM>
     <ArcGISMapsSDKVersion>$(RELEASE_VERSION)</ArcGISMapsSDKVersion>
 

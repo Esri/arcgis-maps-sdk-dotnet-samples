@@ -60,7 +60,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" />
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" />
     <PackageReference Include="Esri.ArcGISRuntime.WPF" />
     <PackageReference Include="Markdig" />

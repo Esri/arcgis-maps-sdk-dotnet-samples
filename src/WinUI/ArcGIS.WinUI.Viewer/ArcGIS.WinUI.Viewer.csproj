@@ -62,7 +62,6 @@
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
     <PackageReference Include="Esri.ArcGISRuntime.WinUI" />
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" />
     <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" />

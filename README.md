@@ -28,7 +28,6 @@ Or, you can browse a searchable list of samples on the ArcGIS for developers web
 
 [![Link: WPF](https://img.shields.io/badge/WPF-0078d6?style=flat-square&labelColor=gray&logo=windowsxp)](https://developers.arcgis.com/net/wpf/sample-code/)
 [![Link: WinUI](https://img.shields.io/badge/WinUI-0E53BD?style=flat-square&labelColor=gray&logo=windows)](https://developers.arcgis.com/net/winui/sample-code/)
-[![Link: UWP](https://img.shields.io/badge/UWP-(Legacy)-202020?style=flat-square&labelColor=gray&logo=windows)](https://developers.arcgis.com/net/uwp/sample-code/)
 [![Link: .NET MAUI](https://img.shields.io/badge/MAUI-512BD4?style=square&labelColor=gray&logo=dotnet)](https://developers.arcgis.com/net/maui/sample-code/)
 
 ### Build the samples locally
@@ -45,10 +44,6 @@ If you are only interested in one platform, you can open a platform-specific sol
 - [WinUI](src/WinUI/readme.md): `src\WinUI\ArcGIS.WinUI.Viewer.sln`
 
 When the `ArcGIS.Viewers.All.sln` and `WPF.Viewer.Net.sln` are opened in Visual Studio, you can change the framework to .NET Framework from the debug button dropdown menu.
-
-The following platforms are being kept for reference, but no new sample implementations are being added:
-
-- [UWP](src/UWP/readme.md): `src\Windows\ArcGIS.UWP.Viewer.sln`
 
 ## Notes
 

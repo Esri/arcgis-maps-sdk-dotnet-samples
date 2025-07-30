@@ -357,11 +357,11 @@ namespace ArcGIS.Samples.CreateAndEditGeometries
             var boundaryCoordinates = (Polygon)Geometry.FromJson(_boundaryCoordinatesJson);
 
             // Add new example graphics from the geometries and symbols to the graphics overlay.
-            _graphicsOverlay.Graphics.Add(new Graphic(houseCoordinates) { Symbol = _pointSymbol });
-            _graphicsOverlay.Graphics.Add(new Graphic(outbuildingCoordinates) { Symbol = _multiPointSymbol });
+            _graphicsOverlay.Graphics.Add(new Graphic(boundaryCoordinates) { Symbol = _polygonSymbol });
             _graphicsOverlay.Graphics.Add(new Graphic(road1Coordinates) { Symbol = _polylineSymbol });
             _graphicsOverlay.Graphics.Add(new Graphic(road2Coordinates) { Symbol = _polylineSymbol });
-            _graphicsOverlay.Graphics.Add(new Graphic(boundaryCoordinates) { Symbol = _polygonSymbol });
+            _graphicsOverlay.Graphics.Add(new Graphic(houseCoordinates) { Symbol = _pointSymbol });
+            _graphicsOverlay.Graphics.Add(new Graphic(outbuildingCoordinates) { Symbol = _multiPointSymbol });
         }
 
         // Reset the UI after the editor stops.

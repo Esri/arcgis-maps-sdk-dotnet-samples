@@ -59,7 +59,6 @@ namespace ArcGIS.Samples.ConfigureClusters
                 Command = new Command(() =>
                 {
                     PopupBackground.IsVisible = false;
-                    PopupViewer.Popup = null;
                 })
             });
 

@@ -17,7 +17,7 @@ namespace ArcGIS.Samples.ConfigureBasemapStyleParameters
         name: "Configure basemap style parameters",
         category: "Map",
         description: "Apply basemap style parameters customization for a basemap, such as displaying all labels in a specific language or displaying every label in their corresponding local language.",
-        instructions: "This sample showcases the workflow of configuring basemap style parameters by displaying a basemap with labels in different languages and launches with a `Viewpoint` set over Bulgaria, Greece and Turkey, as they use three different alphabets: Cyrillic, Greek, and Latin, respectively. By default, the `BasemapStyleLanguageStrategy` is set to `Local` which displays all labels in their corresponding local language. This can be changed to `Global`, which displays all labels in English. The `SpecificLanguage` setting sets all labels to a selected language and overrides the `BasemapStyleLanguageStrategy` settings.",
+        instructions: "This sample showcases the workflow of configuring basemap style parameters by displaying a basemap with labels in different languages and launches with a `Viewpoint` near Bulgaria, Greece and Turkey, as they use three different alphabets: Cyrillic, Greek, and Latin, respectively. By default, the `BasemapStyleLanguageStrategy` is set to `Local`, which displays all labels in their corresponding local language. This can be changed to `Global`, which displays all labels in English. The `SpecificLanguage` setting sets all labels to a selected language and overrides the `BasemapStyleLanguageStrategy` settings.",
         tags: new[] { "basemap style", "language", "language strategy", "map", "point", "viewpoint" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class ConfigureBasemapStyleParameters
@@ -81,7 +81,7 @@ namespace ArcGIS.Samples.ConfigureBasemapStyleParameters
                     break;
             }
 
-            MyMapView.Map.Basemap = new Basemap(BasemapStyle.OSMLightGray, basemapStyleParameters);
+            MyMapView.Map.Basemap = new Basemap(BasemapStyle.ArcGISLightGray, basemapStyleParameters);
         }
 
         private void LanguagePicker_SelectionChanged(object sender, EventArgs e)

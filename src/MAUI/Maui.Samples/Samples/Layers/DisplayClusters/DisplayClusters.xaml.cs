@@ -52,7 +52,6 @@ namespace ArcGIS.Samples.DisplayClusters
                 Command = new Command(() =>
                 {
                     PopupBackground.IsVisible = false;
-                    PopupViewer.Popup = null;
                     GeoElementsGrid.ItemsSource = null;
                     GeoElementsPanel.IsVisible = false;
                 })

@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System.Collections.ObjectModel;
+using Esri.Calcite.Maui;
 
 namespace ArcGIS.ViewModels
 {
@@ -11,25 +12,25 @@ namespace ArcGIS.ViewModels
     {
         private readonly Dictionary<string, char> _categoryIcons = new Dictionary<string, char>()
         {
-            { "Featured", (char)0xe0dc },
-            { "Favorites", (char)0xe2a9 },
-            { "Analysis", (char)0xe003 },
-            { "Data", (char)0xe0b7 },
-            { "Geometry", (char)0xe190 },
-            { "Geoprocessing", (char)0xe180 },
-            { "GraphicsOverlay", (char)0xe16a },
-            { "Hydrography", (char)0xe0e1 },
-            { "Layers", (char)0xe192 },
-            { "Location", (char)0xe092 },
-            { "Map", (char)0xe164 },
-            { "MapView", (char)0xe011 },
-            { "Network analysis", (char)0xe2ce },
-            { "Scene", (char)0xe139 },
-            { "SceneView", (char)0xe018 },
-            { "Search", (char)0xe18e },
-            { "Security", (char)0xe1b6 },
-            { "Symbology", (char)0xe1de },
-            { "Utility network", (char)0xe26b },
+            { "Featured", (char)CalciteIcon.Effects },
+            { "Favorites", (char)CalciteIcon.Star },
+            { "Analysis", (char)CalciteIcon._3DGlasses },
+            { "Data", (char)CalciteIcon.DataFolder },
+            { "Geometry", (char)CalciteIcon.LayersEditable },
+            { "Geoprocessing", (char)CalciteIcon.LayerBasemap },
+            { "GraphicsOverlay", (char)CalciteIcon.Images },
+            { "Hydrography", (char)CalciteIcon.WaterDrop },
+            { "Layers", (char)CalciteIcon.Layers },
+            { "Location", (char)CalciteIcon.CompassNeedle },
+            { "Map", (char)CalciteIcon.ImagePin },
+            { "MapView", (char)CalciteIcon.Analysis },
+            { "Network analysis", (char)CalciteIcon.Tour },
+            { "Scene", (char)CalciteIcon.Globe },
+            { "SceneView", (char)CalciteIcon.Applications },
+            { "Search", (char)CalciteIcon.LayerZoomTo },
+            { "Security", (char)CalciteIcon.Lock },
+            { "Symbology", (char)CalciteIcon.MultipleVariables },
+            { "Utility network", (char)CalciteIcon.SelectRange },
         };
 
         public FlyoutMenuViewModel()

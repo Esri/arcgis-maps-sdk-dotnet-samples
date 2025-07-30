@@ -5,7 +5,7 @@
     <ContentPage.Resources>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="calcite-ui-icons-24" />
+                <Setter Property="FontFamily" Value="CalciteUIIconsMediumFontFamily" />
                 <Setter Property="FontSize" Value="20" />
                 <Setter Property="Margin" Value="5" />
             </Style.Setters>
@@ -36,12 +36,12 @@
                                     <Button Grid.Column="1"
                                             Clicked="DownloadAttachment_Click"
                                             Style="{StaticResource IconStyle}"
-                                            Text="&#xe0cc;"
+                                            Text="&#xeb5c;"
                                             ToolTipProperties.Text="Download" />
                                     <Button Grid.Column="2"
                                             Clicked="DeleteAttachment_Click"
                                             Style="{StaticResource IconStyle}"
-                                            Text="&#xe2d0;"
+                                            Text="&#xeb04;"
                                             ToolTipProperties.Text="Delete" />
                                 </Grid>
                             </ViewCell>
@@ -57,7 +57,7 @@
                             Clicked="AddAttachment_Click"
                             IsEnabled="False"
                             Style="{StaticResource IconStyle}"
-                            Text="&#xe2dd;"
+                            Text="&#xeb17;"
                             ToolTipProperties.Text="Add attachment" />
                 </Grid>
             </StackLayout>

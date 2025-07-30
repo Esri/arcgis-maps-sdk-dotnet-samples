@@ -103,7 +103,7 @@ namespace ArcGIS.Samples.NearestVertex
             MyMapView.GeoViewTapped += MapViewTapped;
 
             // Center the map on the polygon
-            MyMapView.SetViewpointCenterAsync(polygonGeometry.Extent.GetCenter(), 8000000);
+            await MyMapView.SetViewpointCenterAsync(polygonGeometry.Extent.GetCenter(), 8000000);
         }
 
         private void MapViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs geoViewInputEventArgs)

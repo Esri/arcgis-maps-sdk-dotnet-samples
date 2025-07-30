@@ -31,7 +31,7 @@ namespace ArcGIS.WinUI.Samples.SetBasemap
             {"Dark Gray Canvas", new Basemap(BasemapStyle.ArcGISDarkGray)},
             {"Light Gray Canvas", new Basemap(BasemapStyle.ArcGISLightGray)},
             {"Navigation", new Basemap(BasemapStyle.ArcGISNavigation)},
-            {"OpenStreetMap", new Basemap(BasemapStyle.OSMStandard)}
+            {"OpenStreetMap", new Basemap(BasemapStyle.OpenOSMStyle)}
         };
 
         public SetBasemap()

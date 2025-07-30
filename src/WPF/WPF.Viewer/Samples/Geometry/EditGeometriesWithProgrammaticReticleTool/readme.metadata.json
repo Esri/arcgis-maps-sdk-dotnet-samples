@@ -1,0 +1,37 @@
+{
+    "category": "Geometry",
+    "description": "Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate customized workflows such as those using buttons rather than tap interactions.",
+    "formal_name": "EditGeometriesWithProgrammaticReticleTool",
+    "ignore": false,
+    "images": [
+        "EditGeometriesWithProgrammaticReticleTool.jpg"
+    ],
+    "keywords": [
+        "draw",
+        "edit",
+        "freehand",
+        "geometry editor",
+        "programmatic",
+        "reticle",
+        "sketch",
+        "vertex"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/wpf/sample-code/EditGeometriesWithProgrammaticReticleTool.htm",
+        "/net/latest/wpf/sample-code/edit-geometries-with-programmatic-reticle-tool.htm"
+    ],
+    "relevant_apis": [
+        "Geometry",
+        "GeometryEditor",
+        "Graphic",
+        "GraphicsOverlay",
+        "MapView",
+        "ProgrammaticReticleTool"
+    ],
+    "snippets": [
+        "EditGeometriesWithProgrammaticReticleTool.xaml.cs",
+        "EditGeometriesWithProgrammaticReticleTool.xaml"
+    ],
+    "title": "Edit geometries with programmatic reticle tool"
+}

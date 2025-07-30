@@ -15,9 +15,9 @@ Tap on one or more features while 'Add starting locations' or 'Add barriers' is 
 ## How it works
 
 1. Create a `MapView` and subscribe to its `GeoViewTapped` event.
-2. Create and load a `ServiceGeodatabase` with a feature service URL and get tables by their layer IDs.
-3. Create a `Map` that contains `FeatureLayer`(s) created from the `ServiceGeodatabase`'s tables.
-4. Create and load a `UtilityNetwork` with the same feature service URL and this `Map`.
+2. Create and load a `Map` with a web map item URL that contains a `UtilityNetwork`.
+3. Get and load the first `UtilityNetwork` from the web map.
+4. Get the `ServiceGeodatabase` from the utility network and fetch the line `FeatureLayer` from the `ServiceGeodatabase`'s tables.
 5. Add a `GraphicsOverlay` with symbology that distinguishes starting locations from barriers.
 6. Identify features on the map and add a `Graphic` that represents its purpose (starting location or barrier) at the tapped location.
 7. Create a `UtilityElement` for the identified feature.
@@ -51,7 +51,7 @@ Tap on one or more features while 'Add starting locations' or 'Add barriers' is 
 
 ## About the data
 
-The [Naperville electrical](https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer) network feature service contains a utility network used to run the subnetwork-based trace shown in this sample. Authentication is required and handled within the sample code.
+The [Naperville Electric Web Map](https://sampleserver7.arcgisonline.com/portal/home/item.html?id=be0e4637620a453584118107931f718b) contains a utility network used to run the subnetwork-based trace shown in this sample. Authentication is required and handled within the sample code.
 
 ## Additional information
 

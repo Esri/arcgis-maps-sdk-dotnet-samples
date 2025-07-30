@@ -4,7 +4,6 @@
     <TargetFrameworks>net8.0-windows10.0.19041.0;net472</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
-    <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
     <RootNamespace>ArcGIS</RootNamespace>
     <AssemblyName>ArcGIS</AssemblyName>
     <ApplicationIcon>Assets\ApplicationIcons\windows-desktop-256.ico</ApplicationIcon>
@@ -60,7 +59,6 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
-    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" />
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" />
     <PackageReference Include="Esri.ArcGISRuntime.WPF" />
     <PackageReference Include="Markdig" />

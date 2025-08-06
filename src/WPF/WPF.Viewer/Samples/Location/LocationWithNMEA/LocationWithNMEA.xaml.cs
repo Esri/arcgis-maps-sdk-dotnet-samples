@@ -17,6 +17,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows;
@@ -141,7 +142,7 @@ namespace ArcGIS.WPF.Samples.LocationWithNMEA
     {
         private const int DefaultInterval = 1000; // he default interval in milliseconds between bursts of NMEA data.
 
-        private readonly Timer _timer;
+        private readonly System.Timers.Timer _timer;
 
         private readonly StreamReader _sr;
 
@@ -151,7 +152,7 @@ namespace ArcGIS.WPF.Samples.LocationWithNMEA
         {
             // Populate an array with all of the mock NMEA data.
             _sr = new StreamReader(file);
-            _timer = new Timer(DefaultInterval);            
+            _timer = new System.Timers.Timer(DefaultInterval);            
             _timer.Elapsed += TimerElapsed;
             _timer.Start();
         }

@@ -138,7 +138,8 @@ namespace ArcGIS.WinUI.Samples.LocationWithNMEA
 
     public class SimulatedNmeaStream : Stream
     {
-        private const int DefaultInterval = 1000; // he default interval in milliseconds between bursts of NMEA data.
+        // The default interval in milliseconds between bursts of NMEA data.
+        private const int DefaultInterval = 1000;
 
         private readonly System.Timers.Timer _timer;
 
@@ -174,7 +175,8 @@ namespace ArcGIS.WinUI.Samples.LocationWithNMEA
         public override int Read(byte[] buffer, int offset, int count)
         {
             if (_pendingBursts == 0)
-                return 0; //Nothing in the buffer to read
+                //Nothing in the buffer to read
+                return 0;
 
             // Read all the pending bursts of data until we fill up the buffer
             var start = _sr.BaseStream.Position;
@@ -182,7 +184,8 @@ namespace ArcGIS.WinUI.Samples.LocationWithNMEA
             while (sb.Length < count && !_sr.EndOfStream && _pendingBursts > 0)
             {
                 string line = _sr.ReadLine();
-                if (line.StartsWith("$GPGGA,") && Interlocked.Decrement(ref _pendingBursts) == 0) // In this sample we pause the burst of messages for each GGA message to simulate the break in the nmea stream on a receiver
+                // In this sample we pause the burst of messages for each GGA message to simulate the break in the nmea stream on a receiver
+                if (line.StartsWith("$GPGGA,") && Interlocked.Decrement(ref _pendingBursts) == 0)
                 {
                     break;
                 }
@@ -194,7 +197,8 @@ namespace ArcGIS.WinUI.Samples.LocationWithNMEA
             byte[] data = System.Text.Encoding.UTF8.GetBytes(sb.ToString());
             count = Math.Min(count, data.Length);
             Array.Copy(data, 0, buffer, offset, count);
-            _sr.BaseStream.Seek(start + count, SeekOrigin.Begin); // move the stream position forward only the amount of data we read
+            // move the stream position forward only the amount of data we read
+            _sr.BaseStream.Seek(start + count, SeekOrigin.Begin);
             return count;
         }
 

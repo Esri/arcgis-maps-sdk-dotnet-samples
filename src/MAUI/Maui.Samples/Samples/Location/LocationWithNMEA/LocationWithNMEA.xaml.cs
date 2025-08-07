@@ -11,6 +11,7 @@ using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Location;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Maui;
 using Esri.ArcGISRuntime.UI;
 using System.Text;
 using System.Timers;
@@ -61,7 +62,12 @@ namespace ArcGIS.Samples.LocationWithNMEA
             _nmeaSource.SentenceReceived += UpdateNmeaMessageLabel;
 
             // Load the map and assign the location datasource.
-            MyMapView.LocationDisplay.DataSource = _nmeaSource;
+            MyMapView.PropertyChanged += (s, e) =>
+            {
+                if (e.PropertyName == nameof(MapView.LocationDisplay))
+                    MyMapView.LocationDisplay.DataSource = _nmeaSource;
+            };
+
             try
             {
                 await MyMapView.Map.LoadAsync();
@@ -151,7 +157,8 @@ namespace ArcGIS.Samples.LocationWithNMEA
 
     public class SimulatedNmeaStream : Stream
     {
-        private const int DefaultInterval = 1000; // he default interval in milliseconds between bursts of NMEA data.
+        // The default interval in milliseconds between bursts of NMEA data.
+        private const int DefaultInterval = 1000;
 
         private readonly Timer _timer;
 
@@ -187,7 +194,8 @@ namespace ArcGIS.Samples.LocationWithNMEA
         public override int Read(byte[] buffer, int offset, int count)
         {
             if (_pendingBursts == 0)
-                return 0; //Nothing in the buffer to read
+                //Nothing in the buffer to read
+                return 0; 
 
             // Read all the pending bursts of data until we fill up the buffer
             var start = _sr.BaseStream.Position;
@@ -195,7 +203,8 @@ namespace ArcGIS.Samples.LocationWithNMEA
             while (sb.Length < count && !_sr.EndOfStream && _pendingBursts > 0)
             {
                 string line = _sr.ReadLine();
-                if (line.StartsWith("$GPGGA,") && Interlocked.Decrement(ref _pendingBursts) == 0) // In this sample we pause the burst of messages for each GGA message to simulate the break in the nmea stream on a receiver
+                // In this sample we pause the burst of messages for each GGA message to simulate the break in the nmea stream on a receiver
+                if (line.StartsWith("$GPGGA,") && Interlocked.Decrement(ref _pendingBursts) == 0) 
                 {
                     break;
                 }
@@ -207,7 +216,8 @@ namespace ArcGIS.Samples.LocationWithNMEA
             byte[] data = System.Text.Encoding.UTF8.GetBytes(sb.ToString());
             count = Math.Min(count, data.Length);
             Array.Copy(data, 0, buffer, offset, count);
-            _sr.BaseStream.Seek(start + count, SeekOrigin.Begin); // move the stream position forward only the amount of data we read
+            // move the stream position forward only the amount of data we read
+            _sr.BaseStream.Seek(start + count, SeekOrigin.Begin); 
             return count;
         }
 

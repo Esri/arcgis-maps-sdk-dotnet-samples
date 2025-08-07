@@ -61,7 +61,7 @@ namespace ArcGIS.Samples.LocationWithNMEA
             _nmeaSource.LocationChanged += LocationChanged;
             _nmeaSource.SentenceReceived += UpdateNmeaMessageLabel;
 
-            // Load the map and assign the location datasource.
+            // Load the map and assign the location data source.
             MyMapView.PropertyChanged += (s, e) =>
             {
                 if (e.PropertyName == nameof(MapView.LocationDisplay))

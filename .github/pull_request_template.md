@@ -16,7 +16,6 @@ Summary of the change and any relevant info.
 <!--- Delete any that don't apply -->
 
 - [ ] WPF .NET 8
-- [ ] WPF Framework
 - [ ] WinUI
 - [ ] MAUI WinUI
 - [ ] MAUI Android

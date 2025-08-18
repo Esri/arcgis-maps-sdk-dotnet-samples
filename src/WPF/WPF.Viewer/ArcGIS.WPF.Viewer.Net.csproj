@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFrameworks>net8.0-windows10.0.19041.0;net472</TargetFrameworks>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
     <UseWPF>true</UseWPF>
     <UseWindowsForms>true</UseWindowsForms>
     <RootNamespace>ArcGIS</RootNamespace>
@@ -11,12 +11,11 @@
     <PublishTrimmed>false</PublishTrimmed>
     <PublishSingleFile Condition="'$(RuntimeIdentifier)' != ''">true</PublishSingleFile>
     <Platforms>AnyCPU;x64;x86;ARM64</Platforms>
-    <RuntimeIdentifiers Condition="'$(Platform)'!='' OR '$(Platform)'=='AnyCPU' AND '$(TargetFramework)'!='net472'">win-x64;win-x86;win-arm64</RuntimeIdentifiers>
-    <RuntimeIdentifier Condition="'$(Platform)'!='' AND '$(Platform)'!='AnyCPU' AND '$(TargetFramework)'!='net472'">win-$(Platform.ToLower())</RuntimeIdentifier>
+    <RuntimeIdentifiers Condition="'$(Platform)'!='' OR '$(Platform)'=='AnyCPU'">win-x64;win-x86;win-arm64</RuntimeIdentifiers>
+    <RuntimeIdentifier Condition="'$(Platform)'!='' AND '$(Platform)'!='AnyCPU'">win-$(Platform.ToLower())</RuntimeIdentifier>
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
     <DefineConstants>$(DefineConstants);TRACE;WPF</DefineConstants>
     <NoWarn>1701;1702;CA1416</NoWarn>
-    <PlatformTarget Condition="'$(TargetFramework)'=='net472'">AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Resources\github-markdown.css">
@@ -63,11 +62,6 @@
     <PackageReference Include="Esri.ArcGISRuntime.WPF" />
     <PackageReference Include="Markdig" />
     <PackageReference Include="System.Speech" />
-  </ItemGroup>
-  <ItemGroup Condition="'$(TargetFramework)'=='net472'">
-    <PackageReference Include="System.Text.Json" />
-    <Reference Include="System.Security" />
-    <Reference Include="System.IO.Compression" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Converters\*.cs">

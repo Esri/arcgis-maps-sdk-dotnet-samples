@@ -31,11 +31,6 @@
   <Target Name="BuildWPF" DependsOnTargets="CreateOutputDirectory">
     <!-- Note: Due to bug in WAP build tasks, multi-targeted projects are not working - we're modifying project target framework properties here to work around the problem -->
     <MSBuild Projects="@(WPFProject)" Targets="Restore" Properties="ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)" />
-    <!-- .NET Framework -->
-    <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetFrameworkTarget)" />
-    <ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\Release\net472" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetFrameworkTarget)_$(Configuration)_AnyCPU.zip" Overwrite="true" />
-    <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetFrameworkTarget);Platform=ARM64;PlatformTarget=ARM64" />
-    <ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\ARM64\Release\net472" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetFrameworkTarget)_$(Configuration)_ARM64.zip" Overwrite="true" />
 
     <!-- .NET -->
     <XmlPoke XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"

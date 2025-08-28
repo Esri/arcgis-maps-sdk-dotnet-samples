@@ -35,7 +35,6 @@ Or, you can browse a searchable list of samples on the ArcGIS for developers web
 If you want to modify or debug sample code, you can clone this repo and load one of the following solutions:
 
 - All: `src\ArcGIS.Viewers.All.sln`
-- .NET MAUI: `src\MAUI\ArcGIS.Samples.Maui.sln`
 
 If you are only interested in one platform, you can open a platform-specific solutions:
 
@@ -43,15 +42,13 @@ If you are only interested in one platform, you can open a platform-specific sol
 - [.NET MAUI](src/MAUI/readme.md): `src\MAUI\ArcGIS.Samples.Maui.sln`
 - [WinUI](src/WinUI/readme.md): `src\WinUI\ArcGIS.WinUI.Viewer.sln`
 
-When the `ArcGIS.Viewers.All.sln` and `WPF.Viewer.Net.sln` are opened in Visual Studio, you can change the framework to .NET Framework from the debug button dropdown menu.
-
 ## Notes
 
 > **IMPORTANT** When you run the samples, you will need to provide an API key. An API key is a unique long-lived access token that is used to authenticate and monitor requests to ArcGIS location services and private portal items. You can create and manage an API key using your portal when you sign in with an ArcGIS Location Platform account or an ArcGIS Online account with administrator access or a custom role that has the Generate API keys privilege. To learn how to create and manage API keys, go to the [Create an API key](https://links.esri.com/create-an-api-key) tutorial to create a new API key.
 
 - The .NET sample viewers have a prompt for setting an API key. You can also hardcode your API key in the [`GetLocalKey() method`](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/blob/main/src/Samples.Shared/Managers/ApiKeyManager.cs#L112) of the [`ApiKeyManager class`](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/blob/main/src/Samples.Shared/Managers/ApiKeyManager.cs).
 - Before using WinUI, install the [latest Windows SDK](https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/) and the [vsix plugin](https://aka.ms/windowsappsdk/stable-vsix-2022-cs).
-- When compiling Universal Windows Platform or WinUI samples, make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
+- When compiling WinUI samples, make sure that you are compiling against x86/x64/ARM platform and not using AnyCPU.
 
 ### Offline data
 

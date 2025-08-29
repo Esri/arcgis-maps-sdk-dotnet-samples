@@ -381,9 +381,7 @@ namespace ArcGIS.Samples.Desktop
 
         private void GitHub_Click(object sender, RoutedEventArgs e)
         {
-#if NETFRAMEWORK
-            System.Diagnostics.Process.Start(SampleManager.Current.SelectedSample.GetGitHubUrl());
-#elif NETCOREAPP
+#if NETCOREAPP
             System.Diagnostics.Process.Start(new ProcessStartInfo
             {
                 FileName = SampleManager.Current.SelectedSample.GetGitHubUrl(),

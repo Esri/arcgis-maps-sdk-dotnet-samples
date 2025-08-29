@@ -53,8 +53,8 @@ namespace ArcGIS.WinUI.Samples.LocationWithNMEA
 
             // Create the NMEA data source.
             _nmeaSource = NmeaLocationDataSource.FromStreamCreator((datasource) => Task.FromResult<Stream>(new SimulatedNmeaStream(nmeaMockDataPath)));
-            // To create a NmeaLocationDataSource for a bluetooth device, use the `FromBluetooth` constructor. https://developers.arcgis.com/net/api-reference/api/uwp/Esri.ArcGISRuntime/Esri.ArcGISRuntime.Location.NmeaLocationDataSource.FromBluetooth.html
-            // To create a NmeaLocationDataSource from a serial port, use the `FromSerialPort` constructor. https://developers.arcgis.com/net/api-reference/api/uwp/Esri.ArcGISRuntime/Esri.ArcGISRuntime.Location.NmeaLocationDataSource.FromSerialPort.html
+            // To create a NmeaLocationDataSource for a bluetooth device, use the `FromBluetooth` constructor. https://developers.arcgis.com/net/api-reference/api/netwin/Esri.ArcGISRuntime/Esri.ArcGISRuntime.Location.NmeaLocationDataSource.FromBluetooth.html
+            // To create a NmeaLocationDataSource from a serial port, use the `FromSerialPort` constructor. https://developers.arcgis.com/net/api-reference/api/netwin/Esri.ArcGISRuntime/Esri.ArcGISRuntime.Location.NmeaLocationDataSource.FromSerialPort.html
 
             // Create an event handler to update the UI when the location changes.
             _nmeaSource.SatellitesChanged += SatellitesChanged;

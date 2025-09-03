@@ -25,7 +25,7 @@ namespace ArcGIS.Samples.OfflineRouting
         description: "Solve a route on-the-fly using offline data.",
         instructions: "Tap near a road to start adding a stop to the route, tap again to place it on the map. A number graphic will show its order in the route. After adding at least 2 stops, a route will display. Choose \"Fastest\" or \"Shortest\" to control how the route is optimized. The route will update on-the-fly while moving stops. The green box marks the boundary of the routable area provided by the offline data. This sample limits routes to 5 stops for performance reasons.",
         tags: new[] { "connectivity", "disconnected", "fastest", "locator", "navigation", "network analysis", "offline", "routing", "shortest", "turn-by-turn" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData("567e14f3420d40c5a206e5c0284cf8fc")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("df193653ed39449195af0c9725701dca")]
     public partial class OfflineRouting : ContentPage
     {
         // Graphics overlays for holding graphics.
@@ -54,8 +54,8 @@ namespace ArcGIS.Samples.OfflineRouting
             try
             {
                 // Get the paths to resources used by the sample.
-                string basemapTilePath = DataManager.GetDataFolder("567e14f3420d40c5a206e5c0284cf8fc", "streetmap_SD.tpkx");
-                string networkGeodatabasePath = DataManager.GetDataFolder("567e14f3420d40c5a206e5c0284cf8fc", "sandiego.geodatabase");
+                string basemapTilePath = DataManager.GetDataFolder("df193653ed39449195af0c9725701dca", "streetmap_SD.tpkx");
+                string networkGeodatabasePath = DataManager.GetDataFolder("df193653ed39449195af0c9725701dca", "sandiego.geodatabase");
 
                 // Create the tile cache representing the offline basemap.
                 TileCache tiledBasemapCache = new TileCache(basemapTilePath);

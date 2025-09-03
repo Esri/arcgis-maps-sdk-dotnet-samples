@@ -43,7 +43,7 @@ Tap 'Navigate' to simulate traveling and to receive directions from a preset sta
 
 ## Offline data
 
-A geodatabase contains a road network for San Diego. [San Diego Geodatabase](https://arcgisruntime.maps.arcgis.com/home/item.html?id=567e14f3420d40c5a206e5c0284cf8fc)
+A geodatabase contains a road network for San Diego. [San Diego Geodatabase](https://arcgisruntime.maps.arcgis.com/home/item.html?id=df193653ed39449195af0c9725701dca)
 
 ## About the data
 

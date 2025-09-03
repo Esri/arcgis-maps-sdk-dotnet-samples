@@ -11,7 +11,6 @@ namespace ArcGIS.Samples.Shared.Managers
         // Name for file on windows systems.
         private const string _screenshotSettingsFileName = "screenshotSettings";
 
-#if !(WINDOWS_UWP)
         private static ScreenshotSettings _screenshotSettings = GetScreenshotSettings();
 
         public static ScreenshotSettings ScreenshotSettings
@@ -28,21 +27,12 @@ namespace ArcGIS.Samples.Shared.Managers
                 if (File.Exists(Path.Combine(GetScreenshotSettingsFolder(), _screenshotSettingsFileName)))
                 {
                     string settings = File.ReadAllText(Path.Combine(GetScreenshotSettingsFolder(), _screenshotSettingsFileName));
-
-#if NETFRAMEWORK
-                    _screenshotSettings = DeserializeScreenshotSettingsJson(settings);
-#else
                     _screenshotSettings = System.Text.Json.JsonSerializer.Deserialize(settings, typeof(ScreenshotSettings)) as ScreenshotSettings;
-#endif
                 }
                 else
                 {
                     string settings;
-#if NETFRAMEWORK
-                    settings = SerializeScreenshotSettings(_screenshotSettings);
-#else
                     settings = System.Text.Json.JsonSerializer.Serialize(_screenshotSettings, typeof(ScreenshotSettings));
-#endif
                     File.WriteAllText(Path.Combine(GetScreenshotSettingsFolder(), _screenshotSettingsFileName), settings);
                 }
             }
@@ -61,11 +51,7 @@ namespace ArcGIS.Samples.Shared.Managers
             try
             {
                 string settings;
-#if NETFRAMEWORK
-                settings = SerializeScreenshotSettings(screenshotSettings);
-#else
                 settings = System.Text.Json.JsonSerializer.Serialize(_screenshotSettings, typeof(ScreenshotSettings));
-#endif
                 File.WriteAllText(Path.Combine(GetScreenshotSettingsFolder(), _screenshotSettingsFileName), settings);
             }
             catch (Exception ex)
@@ -84,30 +70,5 @@ namespace ArcGIS.Samples.Shared.Managers
 
             return screenshotSettingsFolder;
         }
-
-#if NETFRAMEWORK
-        public static string SerializeScreenshotSettings(ScreenshotSettings screenshotSettings)
-        {
-            // Create a stream to serialize the object to.
-            var ms = new MemoryStream();
-
-            var ser = new DataContractJsonSerializer(typeof(ScreenshotSettings));
-            ser.WriteObject(ms, screenshotSettings);
-            byte[] json = ms.ToArray();
-            ms.Close();
-            return Encoding.UTF8.GetString(json, 0, json.Length);
-        }
-
-        public static ScreenshotSettings DeserializeScreenshotSettingsJson(string json)
-        {
-            var deserializedUser = new ScreenshotSettings();
-            var ms = new MemoryStream(Encoding.UTF8.GetBytes(json));
-            var ser = new DataContractJsonSerializer(deserializedUser.GetType());
-            deserializedUser = ser.ReadObject(ms) as ScreenshotSettings;
-            ms.Close();
-            return deserializedUser;
-        }
-#endif
-#endif
     }
 }

@@ -89,7 +89,7 @@ namespace ArcGIS.Samples.Managers
             FullTree.Items.Insert(0, GetSearchableTreeNodeFromFile("FeaturedSamples.xml", "Featured"));
 #endif
 
-#if !(WinUI || WINDOWS_UWP)
+#if !(WinUI)
             // Get favorite samples if they exist. This feature is only available on WPF.
             AddFavoritesCategory();
 #endif
@@ -221,7 +221,7 @@ namespace ArcGIS.Samples.Managers
                    sample.Tags.Any(tag => tag.Contains(searchText));
         }
 
-#if !(WinUI || WINDOWS_UWP)
+#if !(WinUI)
         public bool IsSampleFavorited(string sampleFormalName)
         {
             return GetFavoriteSampleNames().Contains(sampleFormalName);

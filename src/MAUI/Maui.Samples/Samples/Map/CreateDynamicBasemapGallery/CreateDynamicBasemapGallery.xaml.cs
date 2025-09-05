@@ -52,9 +52,9 @@ namespace ArcGIS.Samples.CreateDynamicBasemapGallery
             WorldviewPicker.ItemsSource = styleInfo.Worldviews.ToList();
 
             // Disable any pickers that have no items.
-            LanguagePicker.IsEnabled = styleInfo.Languages.Any();
-            WorldviewPicker.IsEnabled = styleInfo.Worldviews.Any();
-            StrategyPicker.IsEnabled = styleInfo.LanguageStrategies.Any();
+            LanguagePicker.IsEnabled = LanguagePicker.Items.Count > 0;
+            WorldviewPicker.IsEnabled = WorldviewPicker.Items.Count > 0;
+            StrategyPicker.IsEnabled = StrategyPicker.Items.Count > 0;
         }
 
         private void LoadButton_Click(object sender, EventArgs e)

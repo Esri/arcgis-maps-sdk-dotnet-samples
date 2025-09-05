@@ -19,9 +19,7 @@
                           SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <!--  https://github.com/dotnet/maui/issues/20002  -->
-                            <!--  DataType needs to be explicitly set to display DataTemplate content in release mode configuration  -->
-                            <TextCell x:DataType="{x:Type esriOgc:WfsLayerInfo}" Text="{Binding Title}" />
+                            <TextCell Text="{Binding Title}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>

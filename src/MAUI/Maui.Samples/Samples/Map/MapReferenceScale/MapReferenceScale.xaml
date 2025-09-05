@@ -27,9 +27,7 @@
                               SelectionMode="None"
                               VerticalOptions="Center">
                         <ListView.ItemTemplate>
-                            <!--  https://github.com/dotnet/maui/issues/20002  -->
-                            <!--  DataType needs to be explicitly set to display DataTemplate content in release mode configuration  -->
-                            <DataTemplate x:DataType="{x:Type mapping:FeatureLayer}">
+                            <DataTemplate>
                                 <ViewCell>
                                     <!--
                                         When the user interacts with the switch,

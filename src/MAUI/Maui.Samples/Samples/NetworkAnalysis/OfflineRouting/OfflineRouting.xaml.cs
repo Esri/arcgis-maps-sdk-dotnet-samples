@@ -94,8 +94,8 @@ namespace ArcGIS.Samples.OfflineRouting
                 _availableTravelModes = _offlineRouteTask.RouteTaskInfo.TravelModes.ToList();
 
                 // Update the UI with the travel modes list.
-                TravelModesCombo.ItemsSource = _availableTravelModes.ToList();
-                TravelModesCombo.SelectedIndex = 0;
+                TravelModesPicker.ItemsSource = _availableTravelModes.ToList();
+                TravelModesPicker.SelectedIndex = 0;
 
                 // Create the default parameters.
                 _offlineRouteParameters = await _offlineRouteTask.CreateDefaultParametersAsync();
@@ -105,7 +105,7 @@ namespace ArcGIS.Samples.OfflineRouting
 
                 // Now that the sample is ready, hook up the tap event.
                 MyMapView.GeoViewTapped += MapView_Tapped;
-                TravelModesCombo.SelectedIndexChanged += TravelMode_SelectionChanged;
+                TravelModesPicker.SelectedIndexChanged += TravelMode_SelectionChanged;
             }
             catch (Exception e)
             {
@@ -254,7 +254,7 @@ namespace ArcGIS.Samples.OfflineRouting
             _ = AddStop(e.Position);
 
             // Update the route with the final list of stops.
-            _ = UpdateRoute((TravelMode)TravelModesCombo.SelectedItem);
+            _ = UpdateRoute((TravelMode)TravelModesPicker.SelectedItem);
         }
 
         private void ShowMessage(string title, string detail)
@@ -267,13 +267,13 @@ namespace ArcGIS.Samples.OfflineRouting
             try
             {
                 // Enforce selection to prevent errors.
-                if (TravelModesCombo.SelectedItem == null)
+                if (TravelModesPicker.SelectedItem == null)
                 {
-                    TravelModesCombo.SelectedItem = _availableTravelModes.First();
+                    TravelModesPicker.SelectedItem = _availableTravelModes.First();
                 }
 
                 // Update the route.
-                _ = UpdateRoute((TravelMode)TravelModesCombo.SelectedItem);
+                _ = UpdateRoute((TravelMode)TravelModesPicker.SelectedItem);
             }
             catch (Exception ex)
             {

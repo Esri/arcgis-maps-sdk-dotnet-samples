@@ -94,8 +94,8 @@ namespace ArcGIS.Samples.OfflineRouting
                 _availableTravelModes = _offlineRouteTask.RouteTaskInfo.TravelModes.ToList();
 
                 // Update the UI with the travel modes list.
-                TravelModesCollection.ItemsSource = _availableTravelModes.ToList();
-                TravelModesCollection.SelectedItem = _availableTravelModes.First();
+                TravelModesPicker.ItemsSource = _availableTravelModes.ToList();
+                TravelModesPicker.SelectedIndex = 0;
 
                 // Create the default parameters.
                 _offlineRouteParameters = await _offlineRouteTask.CreateDefaultParametersAsync();
@@ -105,7 +105,7 @@ namespace ArcGIS.Samples.OfflineRouting
 
                 // Now that the sample is ready, hook up the tap event.
                 MyMapView.GeoViewTapped += MapView_Tapped;
-                TravelModesCollection.SelectionChanged += TravelModesCollection_SelectionChanged;
+                TravelModesPicker.SelectedIndexChanged += TravelMode_SelectionChanged;
             }
             catch (Exception e)
             {
@@ -254,26 +254,26 @@ namespace ArcGIS.Samples.OfflineRouting
             _ = AddStop(e.Position);
 
             // Update the route with the final list of stops.
-            _ = UpdateRoute((TravelMode)TravelModesCollection.SelectedItem);
+            _ = UpdateRoute((TravelMode)TravelModesPicker.SelectedItem);
         }
 
         private void ShowMessage(string title, string detail)
         {
-            DisplayAlert(title, detail, "OK");
+            Application.Current.MainPage.DisplayAlert(title, detail, "OK");
         }
 
-        private void TravelModesCollection_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void TravelMode_SelectionChanged(object sender, EventArgs e)
         {
             try
             {
                 // Enforce selection to prevent errors.
-                if (TravelModesCollection.SelectedItem == null)
+                if (TravelModesPicker.SelectedItem == null)
                 {
-                    TravelModesCollection.SelectedItem = _availableTravelModes.First();
+                    TravelModesPicker.SelectedItem = _availableTravelModes.First();
                 }
 
                 // Update the route.
-                _ = UpdateRoute((TravelMode)TravelModesCollection.SelectedItem);
+                _ = UpdateRoute((TravelMode)TravelModesPicker.SelectedItem);
             }
             catch (Exception ex)
             {

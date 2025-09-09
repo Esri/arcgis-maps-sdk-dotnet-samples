@@ -44,9 +44,7 @@
                             SelectionChanged="BasemapStyleGallery_SelectionChanged"
                             SelectionMode="Single">
                 <CollectionView.ItemTemplate>
-                    <!--  https://github.com/dotnet/maui/issues/20002  -->
-                    <!--  DataType needs to be explicitly set to display DataTemplate content in release mode configuration  -->
-                    <DataTemplate x:DataType="{x:Type mapping:BasemapStyleInfo}">
+                    <DataTemplate>
                         <StackLayout Margin="5">
                             <Label FontAttributes="Bold" Text="{Binding StyleName}" />
                             <Image HeightRequest="{OnIdiom Default=200,
@@ -65,31 +63,17 @@
             <Label Margin="5"
                    FontAttributes="Bold"
                    Text="Language:" />
-            <CollectionView x:Name="LanguagePicker"
-                            Margin="5"
-                            HeightRequest="50"
-                            HorizontalOptions="Fill"
-                            IsEnabled="False"
-                            SelectionMode="Single">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Type mapping:BasemapStyleLanguageInfo}">
-                        <Label Text="{Binding DisplayName}" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <Picker x:Name="LanguagePicker"
+                    Margin="5"
+                    HorizontalOptions="Fill"
+                    IsEnabled="False"
+                    ItemDisplayBinding="{Binding DisplayName}" />
             <Label FontAttributes="Bold" Text="Worldview:" />
-            <CollectionView x:Name="WorldviewPicker"
-                            Margin="5"
-                            HeightRequest="50"
-                            HorizontalOptions="Fill"
-                            IsEnabled="False"
-                            SelectionMode="Single">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Type mapping:Worldview}">
-                        <Label Text="{Binding DisplayName}" />
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
+            <Picker x:Name="WorldviewPicker"
+                    Margin="5"
+                    HorizontalOptions="Fill"
+                    IsEnabled="False"
+                    ItemDisplayBinding="{Binding DisplayName}" />
             <Button Margin="5"
                     Clicked="LoadButton_Click"
                     Text="Load" />

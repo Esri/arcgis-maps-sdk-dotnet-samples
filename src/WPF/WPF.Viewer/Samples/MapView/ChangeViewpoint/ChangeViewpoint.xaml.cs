@@ -53,6 +53,7 @@ namespace ArcGIS.WPF.Samples.ChangeViewpoint
         public ChangeViewpoint()
         {
             InitializeComponent();
+            MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
         }
 
         private async void OnButtonClick(object sender, RoutedEventArgs e)
@@ -83,7 +84,7 @@ namespace ArcGIS.WPF.Samples.ChangeViewpoint
 
                         // Navigate to full extent of the first baselayer before animating to specified geometry
                         await MyMapView.SetViewpointAsync(
-                            new Viewpoint(Basemap.FullExtent));
+                            new Viewpoint(MyMapView.Map.Basemap.BaseLayers[0].FullExtent));
 
                         // Create a new Viewpoint using the specified geometry
                         Viewpoint viewpoint = new Viewpoint(_edinburghEnvelope);

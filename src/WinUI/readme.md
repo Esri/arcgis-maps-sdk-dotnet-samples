@@ -83,6 +83,7 @@
 * [Add vector tiled layer from custom style](ArcGIS.WinUI.Viewer/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - Load ArcGIS vector tiled layers using custom styles.
 * [Apply mosaic rule to rasters](ArcGIS.WinUI.Viewer/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](ArcGIS.WinUI.Viewer/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.
+* [Apply renderers to scene layer](ArcGIS.WinUI.Viewer/Samples/Layers/ApplyRenderersToSceneLayer) - Change the appearance of a 3D object scene layer with different renderers.
 * [ArcGIS map image layer](ArcGIS.WinUI.Viewer/Samples/Layers/ArcGISMapImageLayerUrl) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](ArcGIS.WinUI.Viewer/Samples/Layers/ArcGISTiledLayerUrl) - Load an ArcGIS tiled layer from a URL.
 * [Blend renderer](ArcGIS.WinUI.Viewer/Samples/Layers/ChangeBlendRenderer) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.
@@ -143,11 +144,6 @@
 * [WMS service catalog](ArcGIS.WinUI.Viewer/Samples/Layers/WmsServiceCatalog) - Connect to a WMS service and show the available layers and sublayers.
 * [WMTS layer](ArcGIS.WinUI.Viewer/Samples/Layers/WMTSLayer) - Display a layer from a Web Map Tile Service.
 * [Web tiled layer](ArcGIS.WinUI.Viewer/Samples/Layers/LoadWebTiledLayer) - Display a tiled web layer.
-
-## Local Server
-
-* [Generate elevation profile with Local Server](ArcGIS.WinUI.Viewer/Samples/LocalServer/LocalServerGenerateElevationProfile) - Create an elevation profile using a geoprocessing package executed with Local Server.
-* [Local Server map image layer](ArcGIS.WinUI.Viewer/Samples/LocalServer/LocalServerMapImageLayer) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.
 
 ## Location
 

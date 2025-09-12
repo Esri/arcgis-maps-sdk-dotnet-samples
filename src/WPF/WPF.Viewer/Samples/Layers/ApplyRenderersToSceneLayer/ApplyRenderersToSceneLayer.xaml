@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ApplyRenderersToSceneLayer.ApplyRenderersToSceneLayer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:SceneView x:Name="MySceneView" />
+
+        <Border MaxWidth="230" Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock Margin="0,0,0,5"
+                           HorizontalAlignment="Center"
+                           FontWeight="SemiBold"
+                           Text="Select renderer:"
+                           TextWrapping="Wrap" />
+                <ComboBox x:Name="RendererCombo" SelectionChanged="RendererCombo_SelectionChanged" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

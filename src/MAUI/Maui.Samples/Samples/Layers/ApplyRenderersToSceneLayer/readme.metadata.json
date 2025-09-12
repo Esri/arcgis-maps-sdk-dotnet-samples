@@ -1,0 +1,38 @@
+{
+    "category": "Layers",
+    "description": "Change the appearance of a 3D object scene layer with different renderers.",
+    "formal_name": "ApplyRenderersToSceneLayer",
+    "ignore": false,
+    "images": [
+        "applyrendererstoscenelayer.jpg"
+    ],
+    "keywords": [
+        "3d tiles",
+        "OGC",
+        "OGC API",
+        "layers",
+        "scene",
+        "service"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/wpf/sample-code/ApplyRenderersToSceneLayer.htm",
+        "/net/latest/maui/sample-code/basic-readme-template.htm",
+        "/net/latest/maui/sample-code/apply-renderers-to-scene-layer.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISScene",
+        "ArcGISSceneLayer",
+        "ClassBreaksRenderer",
+        "MultilayerMeshSymbol",
+        "SceneView",
+        "SimpleRenderer",
+        "SymbolLayerEdges3D",
+        "UniqueValueRenderer"
+    ],
+    "snippets": [
+        "ApplyRenderersToSceneLayer.xaml.cs",
+        "ApplyRenderersToSceneLayer.xaml"
+    ],
+    "title": "Apply renderers to scene layer"
+}

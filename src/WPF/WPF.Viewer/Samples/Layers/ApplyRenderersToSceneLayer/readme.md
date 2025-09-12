@@ -2,7 +2,7 @@
 
 Change the appearance of a 3D object scene layer with different renderers.
 
-![Apply renderers to scene layer](applyrendererstoscenelayer.jpg.jpg)
+![Apply renderers to scene layer](applyrendererstoscenelayer.jpg)
 
 ## Use case
 

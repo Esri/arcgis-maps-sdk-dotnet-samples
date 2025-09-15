@@ -12,11 +12,12 @@
 		<Category name="Geometry">
 			<Sample>CreateAndEditGeometries</Sample>
 			<Sample>EditGeometriesWithProgrammaticReticleTool</Sample>
-      <Sample>SnapGeometryEdits</Sample>
+			<Sample>SnapGeometryEdits</Sample>
 		</Category>
 		<Category name="Layers">
 			<Sample>Add3dTilesLayer</Sample>
 			<Sample>AddSceneLayerWithElevation</Sample>
+			<Sample>ApplyRenderersToSceneLayer</Sample>
 			<Sample>ConfigureClusters</Sample>
 			<Sample>ConfigureElectronicNavigationalCharts</Sample>
 			<Sample>AddCustomDynamicEntityDataSource</Sample>
@@ -32,7 +33,7 @@
 			<Sample>DisplayMap</Sample>
 			<Sample>DisplayOverviewMap</Sample>
 			<Sample>CreateDynamicBasemapGallery</Sample>
-        </Category>
+		</Category>
 		<Category name="MapView">
 			<Sample>DisplayGrid</Sample>
 		</Category>

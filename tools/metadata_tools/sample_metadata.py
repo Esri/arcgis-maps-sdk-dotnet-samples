@@ -3,7 +3,6 @@ import subprocess
 import sys
 import os
 import re
-from slugify import slugify
 
 class sample_metadata:
     
@@ -28,11 +27,6 @@ class sample_metadata:
 
     def __init__(self):
         self.reset_props()
-        try:
-            import slugify
-        except ModuleNotFoundError:
-            print("Module `slugify` is not installed")
-            self.install("python-slugify")
 
     def install(self, package):
         subprocess.check_call([sys.executable, "-m", "pip", "install", package])
@@ -83,7 +77,6 @@ class sample_metadata:
         # formal name is the name of the folder containing the json
         pathparts = sample_metadata.splitall(path_to_readme)
         self.formal_name = pathparts[-2]
-        slugged_sample_name = slugify(self.friendly_name)
 
         # Load existing metadata if present
         if os.path.exists(path_to_json):
@@ -91,12 +84,6 @@ class sample_metadata:
                 existing_metadata = json.load(json_file)
                 if "redirect_from" in existing_metadata:
                     self.redirect_from = existing_metadata["redirect_from"]
-
-        # populate redirect_from; it is based on a pattern
-        real_platform = platform
-        redirect_string = f"/net/latest/{real_platform.lower()}/sample-code/{slugged_sample_name}.htm"
-        if redirect_string not in self.redirect_from:
-            self.redirect_from.append(redirect_string)
 
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]

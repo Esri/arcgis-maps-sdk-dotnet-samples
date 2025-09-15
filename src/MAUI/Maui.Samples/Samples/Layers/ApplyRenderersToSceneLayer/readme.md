@@ -25,7 +25,6 @@ Wait for the scene layer to load. The original scene layer displays 3D textured 
 
 ## Relevant API
 
-* ArcGISSceneLayer  
 * ArcGISScene
 * ArcGISSceneLayer
 * ClassBreaksRenderer

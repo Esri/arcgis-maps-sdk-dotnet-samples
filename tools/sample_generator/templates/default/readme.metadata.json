@@ -6,12 +6,9 @@
     "images": [
         "sample_name.jpg"
     ],
-    "keywords": [
-    ],
+    "keywords": [],
     "redirect_from": [],
-    "relevant_apis": [
-    ],
-    "snippets": [
-    ],
+    "relevant_apis": [],
+    "snippets": [],
     "title": "friendly_name"
 }

@@ -16,7 +16,7 @@ namespace ArcGIS.Samples.ApplyRenderersToSceneLayer
         name: "Apply renderers to scene layer",
         category: "Layers",
         description: "Change the appearance of a 3D object scene layer with different renderers.",
-        instructions: "Wait for the scene layer to load. The original scene layer displays 3D textured buildings. Tap on the \"Select Renderer\"",
+        instructions: "Wait for the scene layer to load. The original scene layer displays 3D textured buildings. Tap on the \"Select Renderer\" dropdown menu and choose a different renderer to change how the buildings are visualized. Each renderer applies different symbology to the scene layer. Setting the renderer to null will remove any applied symbology, reverting the buildings to their original textured appearance.",
         tags: new[] { "3d tiles", "OGC", "OGC API", "layers", "scene", "service" })]
     public partial class ApplyRenderersToSceneLayer
     {

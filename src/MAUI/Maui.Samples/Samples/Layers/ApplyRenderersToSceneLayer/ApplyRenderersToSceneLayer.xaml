@@ -6,16 +6,17 @@
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:SceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Grid Padding="5"
-                  ColumnDefinitions="auto,auto"
-                  ColumnSpacing="5"
-                  RowDefinitions="auto">
-                <Label Grid.Column="0"
+            <Grid Padding="5" RowSpacing="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0"
                        Text="Select Renderer: "
                        VerticalTextAlignment="Center" />
                 <Picker x:Name="RendererPicker"
-                        Grid.Column="1"
-                        MinimumWidthRequest="200"
+                        Grid.Row="1"
+                        MinimumWidthRequest="350"
                         SelectedIndexChanged="RendererPicker_SelectionChanged" />
             </Grid>
         </Border>

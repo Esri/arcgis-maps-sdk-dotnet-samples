@@ -6,7 +6,7 @@
     <Grid>
         <esriUI:SceneView x:Name="MySceneView" />
 
-        <Border MaxWidth="230" Style="{StaticResource BorderStyle}">
+        <Border MaxWidth="375" Style="{StaticResource BorderStyle}">
             <StackPanel>
                 <TextBlock Margin="0,0,0,5"
                            HorizontalAlignment="Center"

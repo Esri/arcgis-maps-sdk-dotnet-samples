@@ -16,7 +16,6 @@
                        VerticalTextAlignment="Center" />
                 <Picker x:Name="RendererPicker"
                         Grid.Row="1"
-                        MinimumWidthRequest="350"
                         SelectedIndexChanged="RendererPicker_SelectionChanged" />
             </Grid>
         </Border>

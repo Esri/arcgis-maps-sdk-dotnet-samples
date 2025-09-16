@@ -3,6 +3,7 @@ import subprocess
 import sys
 import os
 import re
+from slugify import slugify
 
 class sample_metadata:
     
@@ -27,6 +28,11 @@ class sample_metadata:
 
     def __init__(self):
         self.reset_props()
+        try:
+            import slugify
+        except ModuleNotFoundError:
+            print("Module `slugify` is not installed")
+            self.install("python-slugify")
 
     def install(self, package):
         subprocess.check_call([sys.executable, "-m", "pip", "install", package])
@@ -77,6 +83,7 @@ class sample_metadata:
         # formal name is the name of the folder containing the json
         pathparts = sample_metadata.splitall(path_to_readme)
         self.formal_name = pathparts[-2]
+        slugged_sample_name = slugify(self.friendly_name)
 
         # Load existing metadata if present
         if os.path.exists(path_to_json):

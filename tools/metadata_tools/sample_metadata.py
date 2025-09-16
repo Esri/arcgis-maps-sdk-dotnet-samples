@@ -92,12 +92,6 @@ class sample_metadata:
                 if "redirect_from" in existing_metadata:
                     self.redirect_from = existing_metadata["redirect_from"]
 
-        # populate redirect_from; it is based on a pattern
-        real_platform = platform
-        redirect_string = f"/net/latest/{real_platform.lower()}/sample-code/{slugged_sample_name}.htm"
-        if redirect_string not in self.redirect_from:
-            self.redirect_from.append(redirect_string)
-
         # category is the name of the folder containing the sample folder
         self.category = pathparts[-3]
 

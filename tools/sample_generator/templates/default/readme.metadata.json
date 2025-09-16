@@ -6,14 +6,9 @@
     "images": [
         "sample_name.jpg"
     ],
-    "keywords": [
-    ],
-    "redirect_from": [
-        "/net/wpf/sample-code/sample_name.htm"
-    ],
-    "relevant_apis": [
-    ],
-    "snippets": [
-    ],
+    "keywords": [],
+    "redirect_from": [],
+    "relevant_apis": [],
+    "snippets": [],
     "title": "friendly_name"
 }

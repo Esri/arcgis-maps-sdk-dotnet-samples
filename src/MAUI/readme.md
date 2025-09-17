@@ -83,6 +83,7 @@
 * [Add vector tiled layer from custom style](Maui.Samples/Samples/Layers/AddVectorTiledLayerFromCustomStyle) - Load ArcGIS vector tiled layers using custom styles.
 * [Apply mosaic rule to rasters](Maui.Samples/Samples/Layers/ApplyMosaicRule) - Apply mosaic rule to a mosaic dataset of rasters.
 * [Apply raster function to raster from service](Maui.Samples/Samples/Layers/RasterLayerRasterFunction) - Load a raster from a service, then apply a function to it.
+* [Apply renderers to scene layer](Maui.Samples/Samples/Layers/ApplyRenderersToSceneLayer) - Change the appearance of a 3D object scene layer with different renderers.
 * [ArcGIS map image layer](Maui.Samples/Samples/Layers/ArcGISMapImageLayerUrl) - Add an ArcGIS Map Image Layer from a URL to a map.
 * [ArcGIS tiled layer](Maui.Samples/Samples/Layers/ArcGISTiledLayerUrl) - Load an ArcGIS tiled layer from a URL.
 * [Blend renderer](Maui.Samples/Samples/Layers/ChangeBlendRenderer) - Blend a hillshade with a raster by specifying the elevation data. The resulting raster looks similar to the original raster, but with some terrain shading, giving it a textured look.

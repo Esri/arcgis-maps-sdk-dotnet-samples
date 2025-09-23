@@ -4,14 +4,6 @@
     <VisualStudioVersion>15.0</VisualStudioVersion>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|x86">
-      <Configuration>Debug</Configuration>
-      <Platform>x86</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|x86">
-      <Configuration>Release</Configuration>
-      <Platform>x86</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
@@ -64,7 +56,6 @@
   <ItemGroup>
     <ProjectReference Include="..\WPF.Viewer\ArcGIS.WPF.Viewer.Net.csproj" AdditionalProperties="TargetFramework=net8.0-windows10.0.19041.0">
       <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Properties\PublishProfiles\win-x64-release.pubxml</PublishProfile>
-      <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|x86'">Properties\PublishProfiles\win-x86-release.pubxml</PublishProfile>
       <PublishProfile Condition="'$(Configuration)|$(Platform)'=='Release|ARM64'">Properties\PublishProfiles\win-arm64-release.pubxml</PublishProfile>
     </ProjectReference>
   </ItemGroup>

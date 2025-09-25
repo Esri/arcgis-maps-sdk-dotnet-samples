@@ -110,9 +110,7 @@
               Grid.RowSpan="2"
               Grid.Column="0"
               Grid.ColumnSpan="2"
-              HorizontalOptions="FillAndExpand"
-              IsVisible="False"
-              VerticalOptions="FillAndExpand">
+              IsVisible="False">
             <Label HorizontalOptions="Center"
                    Text="Calculating route"
                    VerticalOptions="Center" />

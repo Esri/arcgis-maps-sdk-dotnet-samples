@@ -94,7 +94,6 @@
                                         HeightRequest="25"
                                         Source="{AppThemeBinding Light=download.png,
                                                                  Dark=downloaddark.png}"
-                                        VerticalOptions="CenterAndExpand"
                                         WidthRequest="25" />
                                     <ImageButton
                                         Grid.Column="2"
@@ -104,7 +103,6 @@
                                         HeightRequest="25"
                                         Source="{AppThemeBinding Light=applications.png,
                                                                  Dark=applicationsdark.png}"
-                                        VerticalOptions="CenterAndExpand"
                                         WidthRequest="25" />
                                     <ImageButton
                                         Grid.Column="3"
@@ -116,7 +114,6 @@
                                         IsVisible="True"
                                         Source="{AppThemeBinding Light=trash.png,
                                                                  Dark=trashdark.png}"
-                                        VerticalOptions="CenterAndExpand"
                                         WidthRequest="25" />
                                 </Grid>
                             </ViewCell>

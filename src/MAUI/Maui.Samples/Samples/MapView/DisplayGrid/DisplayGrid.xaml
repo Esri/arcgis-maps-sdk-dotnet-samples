@@ -71,8 +71,7 @@
                            VerticalTextAlignment="Center" />
                     <!--  Inputs  -->
                     <VerticalStackLayout Grid.Row="0"
-                                         Grid.Column="1"
-                                         VerticalOptions="CenterAndExpand">
+                                         Grid.Column="1">
                         <RadioButton x:Name="MapViewRadioButton"
                                      Content="MapView"
                                      GroupName="GeoViewRadioButtons"
@@ -81,8 +80,7 @@
                     </VerticalStackLayout>
                     <Picker x:Name="GridTypePicker"
                             Grid.Row="1"
-                            Grid.Column="1"
-                            VerticalOptions="CenterAndExpand" />
+                            Grid.Column="1" />
                     <Switch x:Name="LabelVisibilitySwitch"
                             Grid.Row="2"
                             Grid.Column="1"
@@ -95,24 +93,19 @@
                             IsToggled="True" />
                     <Picker x:Name="GridColorPicker"
                             Grid.Row="4"
-                            Grid.Column="1"
-                            VerticalOptions="CenterAndExpand" />
+                            Grid.Column="1" />
                     <Picker x:Name="LabelColorPicker"
                             Grid.Row="5"
-                            Grid.Column="1"
-                            VerticalOptions="CenterAndExpand" />
+                            Grid.Column="1" />
                     <Picker x:Name="HaloColorPicker"
                             Grid.Row="6"
-                            Grid.Column="1"
-                            VerticalOptions="CenterAndExpand" />
+                            Grid.Column="1" />
                     <Picker x:Name="LabelPositionPicker"
                             Grid.Row="7"
-                            Grid.Column="1"
-                            VerticalOptions="CenterAndExpand" />
+                            Grid.Column="1" />
                     <Picker x:Name="LabelFormatPicker"
                             Grid.Row="8"
-                            Grid.Column="1"
-                            VerticalOptions="CenterAndExpand" />
+                            Grid.Column="1" />
                     <Slider x:Name="LabelOffsetSlider"
                             Grid.Row="9"
                             Grid.Column="1"

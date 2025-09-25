@@ -193,10 +193,6 @@ namespace ArcGIS.WPF.Samples.ClosestFacilityStatic
                 // Enable the reset button.
                 ResetButton.IsEnabled = true;
             }
-            catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
-            {
-                System.Windows.MessageBox.Show("An ArcGIS web exception occurred.\n" + exception.Message, "Sample error");
-            }
             catch (Exception ex)
             {
                 System.Windows.MessageBox.Show(ex.Message, "Error");

@@ -169,16 +169,9 @@ namespace ArcGIS.WPF.Samples.ClosestFacility
                 _incidentGraphicsOverlay.Graphics.Add(new Graphic(_incidentPoint, _incidentSymbol));
                 _incidentGraphicsOverlay.Graphics.Add(new Graphic(route.RouteGeometry, _routeSymbol));
             }
-            catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
+            catch (Exception exception)
             {
-                if (exception.Message.Equals("Unable to complete operation."))
-                {
-                    System.Windows.MessageBox.Show("Incident not within San Diego area!", "Sample error");
-                }
-                else
-                {
-                    System.Windows.MessageBox.Show("An ArcGIS web exception occurred. \n" + exception.Message.ToString(), "Sample error");
-                }
+                System.Windows.MessageBox.Show("An exception has occurred. The incident may not be within the San Diego area.. \n" + exception.Message.ToString(), "Sample error");
             }
         }
     }

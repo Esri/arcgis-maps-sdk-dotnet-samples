@@ -3,8 +3,8 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <StackLayout Orientation="Vertical">
-        <Label Text="Tap to set a destination for the vehicle." VerticalOptions="Start" />
-        <esriUI:SceneView x:Name="MySceneView" VerticalOptions="FillAndExpand" />
-    </StackLayout>
+    <Grid RowDefinitions="Auto,*">
+        <Label Grid.Row="0" Text="Tap to set a destination for the vehicle." VerticalOptions="Start" />
+        <esriUI:SceneView Grid.Row="1" x:Name="MySceneView"/>
+    </Grid>
 </ContentPage>

@@ -8,18 +8,16 @@
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackLayout Grid.Row="0"
-                     HorizontalOptions="FillAndExpand"
-                     Orientation="Horizontal">
+        <Grid Grid.Row="0"
+              ColumnDefinitions="*,*">
             <Button Margin="5"
                     Clicked="ShowSearchUI"
-                    HorizontalOptions="FillAndExpand"
                     Text="Search Maps" />
-            <Button Margin="5"
+            <Button Grid.Column="1"
+                    Margin="5"
                     Clicked="GetMyMaps"
-                    HorizontalOptions="FillAndExpand"
                     Text="My Maps" />
-        </StackLayout>
+        </Grid>
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
         <Border x:Name="SearchMapsUI"
                 Grid.Row="1"
@@ -49,12 +47,10 @@
                         Grid.Column="0"
                         Margin="20,0"
                         Clicked="CancelSearchClicked"
-                        HorizontalOptions="FillAndExpand"
                         Text="Cancel" />
                 <Button Grid.Row="1"
                         Grid.Column="1"
                         Clicked="SearchMapsClicked"
-                        HorizontalOptions="FillAndExpand"
                         Text="Search" />
             </Grid>
         </Border>

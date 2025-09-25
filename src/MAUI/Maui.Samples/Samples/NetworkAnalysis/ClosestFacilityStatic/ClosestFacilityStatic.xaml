@@ -13,12 +13,10 @@
                 <Button x:Name="SolveRoutesButton"
                         Grid.Row="0"
                         Clicked="SolveRoutesClick"
-                        HorizontalOptions="FillAndExpand"
                         Text="Solve Routes" />
                 <Button x:Name="ResetButton"
                         Grid.Row="1"
                         Clicked="ResetClick"
-                        HorizontalOptions="FillAndExpand"
                         Text="Reset" />
             </Grid>
         </Border>

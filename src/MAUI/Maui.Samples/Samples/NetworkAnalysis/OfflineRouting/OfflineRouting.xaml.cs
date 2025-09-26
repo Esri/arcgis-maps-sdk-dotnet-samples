@@ -259,7 +259,7 @@ namespace ArcGIS.Samples.OfflineRouting
 
         private void ShowMessage(string title, string detail)
         {
-            Application.Current.MainPage.DisplayAlert(title, detail, "OK");
+            Application.Current.Windows[0].Page.DisplayAlert(title, detail, "OK");
         }
 
         private void TravelMode_SelectionChanged(object sender, EventArgs e)

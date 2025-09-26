@@ -13,12 +13,10 @@
                 <Button x:Name="SolveRouteButton"
                             Grid.Row="0"
                             Clicked="SolveRouteClick"
-                            HorizontalOptions="FillAndExpand"
                             Text="Solve Route" />
                 <Button x:Name="ResetButton"
                         Grid.Row="1"
                         Clicked="ResetClick"
-                        HorizontalOptions="FillAndExpand"
                         Text="Reset" />
                 <Button x:Name="ShowHideDirectionsButton"
                         Grid.Row="2"
@@ -32,8 +30,7 @@
                     <Label Grid.Row="0" Text="Route directions:" />
                     <ListView x:Name="DirectionsListBox"
                               Grid.Row="1"
-                              HeightRequest="300"
-                              HorizontalOptions="CenterAndExpand" />
+                              HeightRequest="300" />
                 </Grid>
             </Grid>
         </Border>

@@ -14,8 +14,6 @@
         <esriUI:MapView x:Name="MyMapView" Grid.Row="1" />
         <ActivityIndicator x:Name="MyActivityIndicator"
                            Grid.Row="1"
-                           HorizontalOptions="CenterAndExpand"
-                           IsVisible="False"
-                           VerticalOptions="CenterAndExpand" />
+                           IsVisible="False" />
     </Grid>
 </ContentPage>

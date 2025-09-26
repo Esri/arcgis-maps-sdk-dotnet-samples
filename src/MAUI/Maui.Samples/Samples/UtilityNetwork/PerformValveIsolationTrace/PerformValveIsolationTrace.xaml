@@ -42,10 +42,8 @@
         <ActivityIndicator x:Name="LoadingIndicator"
                            Grid.RowSpan="2"
                            Grid.ColumnSpan="2"
-                           HorizontalOptions="CenterAndExpand"
                            IsRunning="True"
-                           IsVisible="True"
-                           VerticalOptions="CenterAndExpand" />
+                           IsVisible="True" />
         <Border Grid.RowSpan="2"
                 Grid.ColumnSpan="2"
                 BackgroundColor="{AppThemeBinding Light=#dfdfdf,
@@ -55,9 +53,7 @@
             <Grid x:Name="PickerUI"
                   Grid.RowSpan="2"
                   Grid.ColumnSpan="2"
-                  HorizontalOptions="CenterAndExpand"
-                  IsVisible="False"
-                  VerticalOptions="CenterAndExpand">
+                  IsVisible="False">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />

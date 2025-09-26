@@ -24,7 +24,6 @@
                 <Label x:Name="Status"
                        Grid.Row="0"
                        Margin="5"
-                       HorizontalOptions="FillAndExpand"
                        Text="Select the type of feature you would like to add."
                        TextColor="White" />
             </Grid>

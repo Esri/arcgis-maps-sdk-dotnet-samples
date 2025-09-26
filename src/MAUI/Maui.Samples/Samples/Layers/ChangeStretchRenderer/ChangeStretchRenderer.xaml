@@ -12,30 +12,30 @@
                 <ListView x:Name="RendererTypes"
                           Grid.Row="1"
                           ItemSelected="RendererTypes_SelectionChanged" />
-                <StackLayout Grid.Row="2"
-                             Orientation="Horizontal"
-                             Spacing="5">
+                <Grid Grid.Row="2"
+                      ColumnDefinitions="auto,*">
                     <Label x:Name="Label_Parameter1"
+                           Grid.Column="0"
                            Text="Parameter1"
-                           VerticalOptions="Center" />
+                           VerticalOptions="Center"/>
                     <Entry x:Name="Input_Parameter1"
+                           Grid.Column="1"
                            Margin="5"
-                           HorizontalOptions="FillAndExpand"
                            Keyboard="Numeric"
                            Text="EnterValue1" />
-                </StackLayout>
-                <StackLayout Grid.Row="3"
-                             Orientation="Horizontal"
-                             Spacing="5">
+                </Grid>
+                <Grid Grid.Row="3"
+                      ColumnDefinitions="auto,*">
                     <Label x:Name="Label_Parameter2"
+                           Grid.Column="0"
                            Text="Parameter2"
                            VerticalOptions="Center" />
                     <Entry x:Name="Input_Parameter2"
+                           Grid.Column="1"
                            Margin="5"
-                           HorizontalOptions="FillAndExpand"
                            Keyboard="Numeric"
                            Text="EnterValue2" />
-                </StackLayout>
+                </Grid>
                 <Button x:Name="UpdateRenderer"
                         Grid.Row="4"
                         Clicked="OnUpdateRendererClicked"

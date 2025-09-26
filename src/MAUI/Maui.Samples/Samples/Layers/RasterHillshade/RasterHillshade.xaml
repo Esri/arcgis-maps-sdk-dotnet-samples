@@ -17,9 +17,7 @@
                 <Picker x:Name="SlopeTypePicker"
                         Grid.Row="0"
                         Grid.Column="1"
-                        MinimumWidthRequest="100"
-                        HorizontalOptions="StartAndExpand"
-                        VerticalOptions="CenterAndExpand" />
+                        MinimumWidthRequest="100" />
                 <Label Grid.Row="1"
                        Grid.Column="0"
                        HorizontalTextAlignment="End"
@@ -45,7 +43,7 @@
                         Grid.ColumnSpan="2"
                         Margin="20,0"
                         Clicked="ApplyHillshadeButton_Click"
-                        HorizontalOptions="CenterAndExpand"
+                        HorizontalOptions="Center"
                         Text="Apply hillshade"
                         VerticalOptions="Center" />
             </Grid>

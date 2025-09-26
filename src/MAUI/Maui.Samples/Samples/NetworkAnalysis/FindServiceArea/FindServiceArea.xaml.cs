@@ -253,16 +253,9 @@ namespace ArcGIS.Samples.FindServiceArea
                     }
                 }
             }
-            catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
+            catch (Exception exception)
             {
-                if (exception.Message.ToString().Equals("Unable to complete operation."))
-                {
-                    await Application.Current.Windows[0].Page.DisplayAlert("Error", "Facility not within San Diego area!", "OK");
-                }
-                else
-                {
-                    await Application.Current.Windows[0].Page.DisplayAlert("Error", "An ArcGIS web exception occurred. \n" + exception.Message, "OK");
-                }
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", "An exception has occurred. The facility may not be within the San Diego area. \n" + exception.Message, "OK");
             }
         }
 

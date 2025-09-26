@@ -104,12 +104,6 @@ namespace ArcGIS.WinUI.Samples.CertificateAuthenticationWithPKI
         {
             try
             {
-                // Workaround for HTTP client bug affecting System.Net.HttpClient.
-                // https://github.com/dotnet/corefx/issues/37598
-                var httpClient = new Windows.Web.Http.HttpClient();
-                await httpClient.GetStringAsync(new Uri(PortalUrlTextbox.Text));
-                // End workaround
-
                 // Store the server URL for later reference.
                 _serverUrl = PortalUrlTextbox.Text;
 

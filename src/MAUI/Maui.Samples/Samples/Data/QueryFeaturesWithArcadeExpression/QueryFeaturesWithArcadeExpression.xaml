@@ -5,8 +5,10 @@
     <Grid>
         <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Grid x:Name="MyLoadingGrid"
+              HorizontalOptions="FillAndExpand"
               IsVisible="False"
-              Opacity="0.5">
+              Opacity="0.5"
+              VerticalOptions="FillAndExpand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="auto" />
                 <RowDefinition Height="*" />
@@ -14,6 +16,7 @@
             <Label Grid.Row="0"
                    Padding="0,3"
                    BackgroundColor="Black"
+                   HorizontalOptions="FillAndExpand"
                    HorizontalTextAlignment="Center"
                    Text="Loading..."
                    TextColor="White"

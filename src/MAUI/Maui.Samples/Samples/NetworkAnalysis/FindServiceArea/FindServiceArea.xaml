@@ -15,21 +15,25 @@
                         Grid.Row="0"
                         Grid.Column="0"
                         Clicked="PlaceFacilityButton_Click"
+                        HorizontalOptions="FillAndExpand"
                         Text="Place facility" />
                 <Button x:Name="DrawBarrierButton"
                         Grid.Row="0"
                         Grid.Column="1"
                         Clicked="DrawBarrierButton_Click"
+                        HorizontalOptions="FillAndExpand"
                         Text="Draw barrier" />
                 <Button x:Name="ShowServiceAreasButton"
                         Grid.Row="1"
                         Grid.ColumnSpan="2"
                         Clicked="ShowServiceAreasButton_Click"
+                        HorizontalOptions="FillAndExpand"
                         Text="Show service areas" />
                 <Button x:Name="ResetButton"
                         Grid.Row="2"
                         Grid.ColumnSpan="2"
                         Clicked="Reset_Click"
+                        HorizontalOptions="FillAndExpand"
                         Text="Reset" />
             </Grid>
         </Border>

@@ -15,7 +15,7 @@
             <Picker x:Name="BookmarkPicker"
                     ItemDisplayBinding="{Binding Path=Name}"
                     SelectedIndexChanged="BookmarkPicker_SelectedIndexChanged"
-                    Margin="5"
+                    VerticalOptions="CenterAndExpand"
                     WidthRequest="200" />
             <Button x:Name="ButtonAddBookmark"
                     Margin="5"

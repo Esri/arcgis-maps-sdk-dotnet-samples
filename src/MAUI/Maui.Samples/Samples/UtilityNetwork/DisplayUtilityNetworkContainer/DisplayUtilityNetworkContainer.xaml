@@ -51,7 +51,9 @@
             </Grid>
         </Border>
         <ActivityIndicator x:Name="LoadingIndicator"
+                           HorizontalOptions="CenterAndExpand"
                            IsRunning="True"
-                           IsVisible="True"/>
+                           IsVisible="True"
+                           VerticalOptions="CenterAndExpand" />
     </Grid>
 </ContentPage>

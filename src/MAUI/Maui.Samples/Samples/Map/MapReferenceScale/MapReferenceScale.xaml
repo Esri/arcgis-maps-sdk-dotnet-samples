@@ -33,15 +33,15 @@
                                         When the user interacts with the switch,
                                         the two-way binding will update the ScaleSymbols (bool) property automatically.
                                     -->
-                                    <Grid ColumnDefinitions="Auto, *">
+                                    <StackLayout Orientation="Horizontal">
                                         <Switch Margin="2"
                                                 IsToggled="{Binding ScaleSymbols}"
                                                 VerticalOptions="Center" />
-                                        <Label Grid.Column="1"
+                                        <Label HorizontalOptions="CenterAndExpand"
                                                HorizontalTextAlignment="Center"
                                                Text="{Binding Name}"
                                                VerticalOptions="Center" />
-                                    </Grid>
+                                    </StackLayout>
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>

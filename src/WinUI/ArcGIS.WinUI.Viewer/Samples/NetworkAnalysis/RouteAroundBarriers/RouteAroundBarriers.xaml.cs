@@ -152,8 +152,11 @@ namespace ArcGIS.WinUI.Samples.RouteAroundBarriers
             }
         }
 
-        private void ConfigureThenRoute()
+        private async Task ConfigureThenRoute()
         {
+            // Show calculating dialog
+            UpdateInterfaceState(SampleState.Routing);
+
             // Guard against error conditions.
             if (_routeParameters == null)
             {
@@ -227,7 +230,10 @@ namespace ArcGIS.WinUI.Samples.RouteAroundBarriers
             _routeParameters.PreserveLastStop = PreserveLastStopCheckbox.IsChecked == true;
 
             // Calculate and show the route.
-            _ = CalculateAndShowRoute();
+            await CalculateAndShowRoute();
+
+            // Hide calculating dialog
+            UpdateInterfaceState(SampleState.Ready);
         }
 
         private async Task CalculateAndShowRoute()
@@ -284,9 +290,7 @@ namespace ArcGIS.WinUI.Samples.RouteAroundBarriers
 
         private void RouteButton_Clicked(object sender, RoutedEventArgs e)
         {
-            UpdateInterfaceState(SampleState.Routing);
-            ConfigureThenRoute();
-            UpdateInterfaceState(SampleState.Ready);
+            _ = ConfigureThenRoute();
         }
 
         private async Task<PictureMarkerSymbol> GetPictureMarker()

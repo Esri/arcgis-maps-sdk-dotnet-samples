@@ -235,7 +235,7 @@
 * [Find address](ArcGIS.WinUI.Viewer/Samples/Search/FindAddress) - Find the location for an address.
 * [Find place](ArcGIS.WinUI.Viewer/Samples/Search/FindPlace) - Find places of interest near a location or within a specific area.
 * [Offline geocode](ArcGIS.WinUI.Viewer/Samples/Search/OfflineGeocode) - Geocode addresses to locations and reverse geocode locations to addresses offline.
-* [Query Dynamic Entities](ArcGIS.WinUI.Viewer/Samples/Search/QueryDynamicEntities) - Find dynamic entities from a data source that match a query.
+* [Query dynamic entities](ArcGIS.WinUI.Viewer/Samples/Search/QueryDynamicEntities) - Find dynamic entities from a data source that match a query.
 * [Reverse geocode](ArcGIS.WinUI.Viewer/Samples/Search/ReverseGeocode) - Use an online service to find the address for a tapped point.
 
 ## Security

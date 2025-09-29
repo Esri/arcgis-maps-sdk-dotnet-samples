@@ -32,7 +32,7 @@ using System.Threading.Tasks;
 namespace ArcGIS.WinUI.Samples.QueryDynamicEntities
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        name: "Query Dynamic Entities",
+        name: "Query dynamic entities",
         category: "Search",
         description: "Find dynamic entities from a data source that match a query.",
         instructions: "Tap the \"Query Flights\" button and select a query to perform from the menu. Once the query is complete, a list of the resulting flights will be displayed. Tap on a flight to see its latest attributes in real-time.",

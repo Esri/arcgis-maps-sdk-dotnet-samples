@@ -46,6 +46,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Content Remove="Samples\Search\QueryDynamicEntities\QueryDynamicEntities.jpg" />
+  </ItemGroup>
+  <ItemGroup>
     <None Remove="Resources\Fonts\calcite-ui-icons-24.ttf" />
     <None Remove="Resources\github-mark.png" />
     <None Remove="ScreenshotTab.xaml" />
@@ -90,6 +93,12 @@
 
   <ItemGroup>
     <EmbeddedResource Include="Assets\github-mark.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.Windows.Forms.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

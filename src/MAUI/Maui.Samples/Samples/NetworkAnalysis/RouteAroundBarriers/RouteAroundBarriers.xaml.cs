@@ -147,8 +147,11 @@ namespace ArcGIS.Samples.RouteAroundBarriers
             }
         }
 
-        private void ConfigureThenRoute()
+        private async Task ConfigureThenRoute()
         {
+            // Show calculating dialog
+            UpdateInterfaceState(SampleState.Routing);
+
             // Guard against error conditions.
             if (_routeParameters == null)
             {
@@ -222,7 +225,10 @@ namespace ArcGIS.Samples.RouteAroundBarriers
             _routeParameters.PreserveLastStop = PreserveLastStopCheckbox.IsToggled;
 
             // Calculate and show the route.
-            _ = CalculateAndShowRoute();
+            await CalculateAndShowRoute();
+
+            // Hide calculating dialog
+            UpdateInterfaceState(SampleState.Ready);
         }
 
         private async Task CalculateAndShowRoute()
@@ -288,9 +294,7 @@ namespace ArcGIS.Samples.RouteAroundBarriers
 
         private void RouteButton_Clicked(object sender, EventArgs e)
         {
-            UpdateInterfaceState(SampleState.Routing);
-            ConfigureThenRoute();
-            UpdateInterfaceState(SampleState.Ready);
+            _ = ConfigureThenRoute();
         }
 
         private void ShowDirections_Clicked(object sender, EventArgs e)
@@ -369,6 +373,14 @@ namespace ArcGIS.Samples.RouteAroundBarriers
                     break;
 
                 case SampleState.Routing:
+                    AddStopButton.IsEnabled = false;
+                    AddBarrierButton.IsEnabled = false;
+                    ResetRoutingButton.IsEnabled = false;
+                    AllowReorderStopsCheckbox.IsEnabled = false;
+                    PreserveFirstStopCheckbox.IsEnabled = false;
+                    PreserveLastStopCheckbox.IsEnabled = false;
+                    ShowDirectionsButton.IsEnabled = false;
+                    CalculateRouteButton.IsEnabled = false;
                     BusyOverlay.IsVisible = true;
                     break;
             }

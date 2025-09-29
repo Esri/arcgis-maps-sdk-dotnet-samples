@@ -1,4 +1,4 @@
-# Query Dynamic Entities
+# Query dynamic entities
 
 Find dynamic entities from a data source that match a query.
 

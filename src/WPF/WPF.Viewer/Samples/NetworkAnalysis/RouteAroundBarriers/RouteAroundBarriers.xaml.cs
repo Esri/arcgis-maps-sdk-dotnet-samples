@@ -156,9 +156,6 @@ namespace ArcGIS.WPF.Samples.RouteAroundBarriers
 
         private async Task ConfigureThenRoute()
         {
-            // Show calculating dialog
-            UpdateInterfaceState(SampleState.Routing);
-
             // Guard against error conditions.
             if (_routeParameters == null)
             {
@@ -171,6 +168,9 @@ namespace ArcGIS.WPF.Samples.RouteAroundBarriers
                 ShowMessage("Not enough stops", "Add at least two stops before solving a route.");
                 return;
             }
+
+            // Show calculating dialog
+            UpdateInterfaceState(SampleState.Routing);
 
             // Clear any existing route from the map.
             _routeOverlay.Graphics.Clear();

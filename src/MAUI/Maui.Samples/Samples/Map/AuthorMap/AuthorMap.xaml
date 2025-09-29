@@ -12,13 +12,15 @@
                            IsRunning="True"
                            IsVisible="False" />
         <Border MinimumWidthRequest="360" Style="{DynamicResource EsriSampleControlPanel}">
-            <HorizontalStackLayout Padding="5" Spacing="5">
-                <Button Clicked="Basemap_Clicked" Text="Basemap" />
-                <Button Clicked="Add_Clicked" Text="Add" />
-                <Button Clicked="Remove_Clicked" Text="Remove" />
-                <Button Clicked="NewMapButtonClick" Text="New" />
-                <Button Clicked="ShowSaveMapUI" Text="Save" />
-            </HorizontalStackLayout>
+            <ScrollView Orientation="Horizontal">
+                <HorizontalStackLayout Padding="5" Spacing="5">
+                    <Button Clicked="Basemap_Clicked" Text="Basemap" />
+                    <Button Clicked="Add_Clicked" Text="Add" />
+                    <Button Clicked="Remove_Clicked" Text="Remove" />
+                    <Button Clicked="NewMapButtonClick" Text="New" />
+                    <Button Clicked="ShowSaveMapUI" Text="Save" />
+                </HorizontalStackLayout>
+            </ScrollView>
         </Border>
     </Grid>
 </ContentPage>

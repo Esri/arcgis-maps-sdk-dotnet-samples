@@ -106,14 +106,19 @@
             </Grid>
         </Border>
         <Grid x:Name="BusyOverlay"
-              Grid.Row="0"
               Grid.RowSpan="2"
-              Grid.Column="0"
               Grid.ColumnSpan="2"
               IsVisible="False">
             <Label HorizontalOptions="Center"
                    Text="Calculating route"
-                   VerticalOptions="Center" />
+                   FontAttributes="Bold"
+                   FontSize="Medium"
+                   TextColor="White"
+                   VerticalOptions="Center">
+                <Label.Shadow>
+                    <Shadow Brush="Black" Radius="10" Opacity="1" />
+                </Label.Shadow>
+            </Label>
         </Grid>
     </Grid>
 </ContentPage>

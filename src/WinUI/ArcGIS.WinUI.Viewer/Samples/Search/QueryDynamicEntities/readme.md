@@ -15,15 +15,15 @@ Tap the "Query Flights" button and select a query to perform from the menu. Once
 ## How it works
 
 1. Create a `DynamicEntityDataSource` to stream dynamic entity events.
-1. Create a `DynamicEntityLayer` using the data source and add it to the map's operational layers.
-2. Create `DynamicEntityQueryParameters` and set its properties to specify the parameters for the query:
+2. Create a `DynamicEntityLayer` using the data source and add it to the map's operational layers.
+3. Create `DynamicEntityQueryParameters` and set its properties to specify the parameters for the query:
     1. To spatially filter results, set the `geometry` and `spatialRelationship`. The spatial relationship is `intersects` by default.
     2. To query entities with certain attribute values, set the `whereClause`.
     3. To get entities with specific track IDs, modify the `trackIDs` collection.
-3. To perform a dynamic entities query, call `DynamicEntityDataSource.QueryDynamicEntitiesAsync()` passing in the parameters.
-4. When complete, iterate through the returned collection of `DynamicEntity` objects from the result.
-5. Use the `DynamicEntity.DynamicEntityChanged` event to get real-time updates when entity attributes change.
-6. Get the new observation from the resulting `DynamicEntityChangedEventArgs` using the `ReceivedObservation` property to update the UI with current information.
+4. To perform a dynamic entities query, call `DynamicEntityDataSource.QueryDynamicEntitiesAsync()` passing in the parameters.
+5. When complete, iterate through the returned collection of `DynamicEntity` objects from the result.
+6. Use the `DynamicEntity.DynamicEntityChanged` event to get real-time updates when entity attributes change.
+7. Get the new observation from the resulting `DynamicEntityChangedEventArgs` using the `ReceivedObservation` property to update the UI with current information.
 
 ## Relevant API
 

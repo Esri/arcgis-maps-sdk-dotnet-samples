@@ -39,12 +39,11 @@ namespace ArcGIS.WinUI.Samples.AuthorMap
             "Ocean"
         };
 
-        // Dictionary of operational layer names and URLs
-        private readonly Dictionary<string, string> _operationalLayerUrls = new Dictionary<string, string>
-        {
-            {"World Elevations", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"},
-            {"World Cities", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/" },
-            {"US Census Data", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"}
+        // Key value pairs of operational layer names and URLs
+        private readonly KeyValuePair<string, string>[] _operationalLayerUrls = {
+            KeyValuePair.Create("World Elevations", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Elevation/WorldElevations/MapServer"),
+            KeyValuePair.Create("World Cities", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/SampleWorldCities/MapServer/"),
+            KeyValuePair.Create("US Census Data", "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer"),
         };
 
         public AuthorMap()

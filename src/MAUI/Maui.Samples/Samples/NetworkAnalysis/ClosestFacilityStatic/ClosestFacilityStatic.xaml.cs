@@ -187,9 +187,9 @@ namespace ArcGIS.Samples.ClosestFacilityStatic
                 // Enable the reset button.
                 ResetButton.IsEnabled = true;
             }
-            catch (Esri.ArcGISRuntime.Http.ArcGISWebException exception)
+            catch (Exception exception)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", "An ArcGIS web exception occurred.\n" + exception.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", "An exception occurred.\n" + exception.Message, "OK");
             }
         }
 

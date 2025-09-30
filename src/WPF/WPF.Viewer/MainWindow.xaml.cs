@@ -97,7 +97,7 @@ namespace ArcGIS.Samples.Desktop
 
         private void PromptForKey()
         {
-            var keyPrompt = new Window() { Width = 500, Height = 220, Title = "Edit API key" };
+            var keyPrompt = new Window() { Width = 500, Height = 300, Title = "Edit API key" };
             keyPrompt.Content = new ApiKeyPrompt();
             keyPrompt.Show();
         }

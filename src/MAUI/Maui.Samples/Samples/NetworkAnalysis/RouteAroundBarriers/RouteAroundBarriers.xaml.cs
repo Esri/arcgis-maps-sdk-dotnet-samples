@@ -149,9 +149,6 @@ namespace ArcGIS.Samples.RouteAroundBarriers
 
         private async Task ConfigureThenRoute()
         {
-            // Show calculating dialog
-            UpdateInterfaceState(SampleState.Routing);
-
             // Guard against error conditions.
             if (_routeParameters == null)
             {
@@ -164,6 +161,9 @@ namespace ArcGIS.Samples.RouteAroundBarriers
                 ShowMessage("Not enough stops", "Add at least two stops before solving a route.");
                 return;
             }
+
+            // Show calculating dialog
+            UpdateInterfaceState(SampleState.Routing);
 
             // Clear any existing route from the map.
             _routeOverlay.Graphics.Clear();
@@ -398,7 +398,7 @@ namespace ArcGIS.Samples.RouteAroundBarriers
 
         private void ShowMessage(string title, string detail)
         {
-            DisplayAlert(title, detail, "OK");
+            Application.Current.Windows[0].Page.DisplayAlert(title, detail, "OK");
         }
     }
 }

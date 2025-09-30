@@ -175,7 +175,7 @@
                 Padding="0,10,0,0"
                 Background="#FFF8F8F8"
                 BorderBrush="Transparent"
-                FontSize="18"
+                FontSize="16"
                 ItemsSource="{Binding}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 SelectedItemChanged="categories_SelectedItemChanged"

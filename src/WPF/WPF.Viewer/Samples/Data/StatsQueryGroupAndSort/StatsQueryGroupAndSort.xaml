@@ -14,13 +14,13 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="40" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="50" />
+            <ColumnDefinition Width="60" />
             <ColumnDefinition Width="300" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="30" />
-            <RowDefinition Height="30" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*" />
             <RowDefinition Height="30" />
             <RowDefinition Height="30" />
@@ -99,6 +99,8 @@
         <Button x:Name="RemoveStatField"
                 Grid.Row="4"
                 Grid.Column="3"
+                Grid.ColumnSpan="2"
+                Margin="0,0,25,0"
                 Height="20"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
@@ -194,7 +196,9 @@
                   Grid.Row="1"
                   Grid.RowSpan="8"
                   Grid.Column="5"
-                  Margin="20,0,0,0">
+                  Margin="20,0,0,0"
+                  BorderBrush="Black"
+                  BorderThickness="1">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding}">
                     <TextBlock Text="{Binding Key}" />
@@ -203,14 +207,11 @@
                             <ItemsControl ItemsSource="{Binding}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition />
-                                                <ColumnDefinition />
-                                            </Grid.ColumnDefinitions>
-                                            <TextBlock Text="{Binding Key, StringFormat={}{0} :}" />
-                                            <TextBlock Grid.Column="1" Text="{Binding Value, StringFormat={} {0}}" />
-                                        </Grid>
+                                        <TextBlock>
+                                            <Run Text="{Binding Key, Mode=OneWay}" />
+                                            <Run Text=": " />
+                                            <Run Text="{Binding Value, Mode=OneWay}" />
+                                        </TextBlock>
                                     </DataTemplate>
                                 </ItemsControl.ItemTemplate>
                             </ItemsControl>

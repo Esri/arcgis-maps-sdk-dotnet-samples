@@ -123,8 +123,8 @@
 
     <Style x:Key="EsriSampleFrameStyle" TargetType="Grid">
         <Setter Property="Margin" Value="{OnIdiom Phone=0, Desktop=20, Tablet=20}" />
-        <Setter Property="HorizontalOptions" Value="{OnIdiom Phone=FillAndExpand, Desktop=End, Tablet=End}" />
-        <Setter Property="VerticalOptions" Value="{OnIdiom Phone=FillAndExpand, Desktop=Start, Tablet=Start}" />
+        <Setter Property="HorizontalOptions" Value="{OnIdiom Phone=Fill, Desktop=End, Tablet=End}" />
+        <Setter Property="VerticalOptions" Value="{OnIdiom Phone=Fill, Desktop=Start, Tablet=Start}" />
         <Setter Property="WidthRequest" Value="{OnIdiom Phone=-1, Desktop=300, Tablet=300}" />
     </Style>
 
@@ -242,12 +242,6 @@
                 </VisualStateGroup>
             </VisualStateGroupList>
         </Setter>
-    </Style>
-
-    <Style TargetType="Frame">
-        <Setter Property="HasShadow" Value="False" />
-        <Setter Property="BorderColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
-        <Setter Property="CornerRadius" Value="8" />
     </Style>
 
     <Style TargetType="ImageButton">

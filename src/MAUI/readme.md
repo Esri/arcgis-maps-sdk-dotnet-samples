@@ -233,6 +233,7 @@
 * [Find address](Maui.Samples/Samples/Search/FindAddress) - Find the location for an address.
 * [Find place](Maui.Samples/Samples/Search/FindPlace) - Find places of interest near a location or within a specific area.
 * [Offline geocode](Maui.Samples/Samples/Search/OfflineGeocode) - Geocode addresses to locations and reverse geocode locations to addresses offline.
+* [Query dynamic entities](Maui.Samples/Samples/Search/QueryDynamicEntities) - Find dynamic entities from a data source that match a query.
 * [Reverse geocode](Maui.Samples/Samples/Search/ReverseGeocode) - Use an online service to find the address for a tapped point.
 
 ## Security

@@ -134,8 +134,8 @@
     <PackageReference Include="Esri.Calcite.Maui" />
     <PackageReference Include="Markdig" />
     <PackageReference Include="System.Drawing.Common" />
-    <PackageReference Include="Microsoft.Maui.Controls"/>
-    <PackageReference Include="Microsoft.Maui.Controls.Compatibility"/>
+    <PackageReference Include="Microsoft.Maui.Controls" />
+    <PackageReference Include="Microsoft.Maui.Controls.Compatibility" />
   </ItemGroup>
 
   <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->
@@ -165,6 +165,12 @@
     <MauiAsset Update="Converters\*.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiAsset>
+    <Compile Update="Samples\Search\QueryDynamicEntities\CustomStreamService.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Update="Samples\Search\QueryDynamicEntities\FlightInfo.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
     <MauiXaml Update="Controls\CategoriesFlyoutContent.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

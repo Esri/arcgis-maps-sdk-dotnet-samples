@@ -34,7 +34,10 @@ namespace ArcGIS.WPF.Viewer
             string htmlString = "<!doctype html><head><base href=\"" + readmePath + "\"><link rel=\"stylesheet\" href=\"" + cssPath + "\" /><link rel=\"stylesheet\" href=\"" + overrideCssPath + "\" /></head><body class=\"markdown-body\">" + readmeContent + "</body>";
 
             // Set the html in web browser.
-            DescriptionView.DocumentText = htmlString;
+            DescriptionView.Navigate("about:blank");
+            DescriptionView.Document.OpenNew(false);
+            DescriptionView.Document.Write(htmlString);
+            DescriptionView.Refresh();
 
             // Disable navigation in the web browser control.
             // This prevents script errors when users click links in READMEs.

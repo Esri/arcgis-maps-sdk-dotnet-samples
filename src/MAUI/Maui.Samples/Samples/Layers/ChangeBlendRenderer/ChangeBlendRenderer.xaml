@@ -52,7 +52,6 @@
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Clicked="OnUpdateRendererClicked"
-                        HorizontalOptions="FillAndExpand"
                         IsEnabled="True"
                         Text="Update Renderer" />
             </Grid>

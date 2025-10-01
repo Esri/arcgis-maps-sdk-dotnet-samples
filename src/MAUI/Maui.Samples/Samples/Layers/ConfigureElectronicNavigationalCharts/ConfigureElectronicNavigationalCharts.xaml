@@ -11,11 +11,11 @@
             <StackLayout Padding="5" Spacing="5">
                 <Label FontAttributes="Bold" Text="Tap on the map to select Enc features. Use the controls to adjust Enc mariner display settings." />
                 <Label Text="Color Scheme" />
-                <Picker x:Name="ColorSchemePicker" VerticalOptions="CenterAndExpand" />
+                <Picker x:Name="ColorSchemePicker" />
                 <Label Text="Area Symbolization Type" />
-                <Picker x:Name="AreaPicker" VerticalOptions="CenterAndExpand" />
+                <Picker x:Name="AreaPicker" />
                 <Label Text="Point Symbolization Type" />
-                <Picker x:Name="PointPicker" VerticalOptions="CenterAndExpand" />
+                <Picker x:Name="PointPicker" />
                 <Button Clicked="Button_Clicked" Text="Apply" />
             </StackLayout>
         </Border>

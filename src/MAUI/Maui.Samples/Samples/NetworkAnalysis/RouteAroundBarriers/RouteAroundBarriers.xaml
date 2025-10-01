@@ -106,11 +106,9 @@
             </Grid>
         </Border>
         <Grid x:Name="BusyOverlay"
-              Grid.RowSpan="6"
-              Grid.ColumnSpan="3"
-              HorizontalOptions="FillAndExpand"
-              IsVisible="False"
-              VerticalOptions="FillAndExpand">
+              Grid.RowSpan="2"
+              Grid.ColumnSpan="2"
+              IsVisible="False">
             <Label HorizontalOptions="Center"
                    Text="Calculating route"
                    FontAttributes="Bold"

@@ -9,7 +9,6 @@
         <Style TargetType="Picker">
             <Setter Property="Margin" Value="5" />
             <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="HorizontalOptions" Value="FillAndExpand" />
             <Setter Property="HorizontalTextAlignment" Value="Center" />
         </Style>
         <Style TargetType="Stepper">
@@ -25,7 +24,6 @@
             <Setter Property="SelectionMode" Value="Single" />
             <Setter Property="Margin" Value="5" />
             <Setter Property="VerticalOptions" Value="Center" />
-            <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
             <Setter Property="ItemTemplate">
                 <Setter.Value>
                     <DataTemplate>

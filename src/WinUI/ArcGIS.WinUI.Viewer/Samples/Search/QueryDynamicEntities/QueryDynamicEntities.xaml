@@ -1,0 +1,142 @@
+<UserControl x:Class="ArcGIS.WinUI.Samples.QueryDynamicEntities.QueryDynamicEntities"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="using:Esri.ArcGISRuntime"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+
+        <!--  Query Controls  -->
+        <Border Width="300" Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Margin="0,0,8,0"
+                           VerticalAlignment="Center"
+                           FontWeight="Bold"
+                           Text="Query flights" />
+
+                <ComboBox x:Name="QueryDropdown"
+                          Grid.Column="1"
+                          HorizontalAlignment="Stretch"
+                          SelectionChanged="OnQuerySelectionChanged">
+                    <ComboBoxItem Content="Within 15 Miles of PHX" Tag="QueryGeometry" />
+                    <ComboBoxItem Content="Arriving in PHX" Tag="QueryAttributes" />
+                    <ComboBoxItem Content="With Flight Number" Tag="QueryTrackId" />
+                </ComboBox>
+            </Grid>
+        </Border>
+
+        <!--  Query Results Panel  -->
+        <Border x:Name="ResultsPanel"
+                Width="300"
+                Style="{StaticResource BorderStyle}"
+                Visibility="Collapsed">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Margin="0,0,0,8"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Text="Query Results" />
+
+                <TextBlock x:Name="ResultsDescription"
+                           Grid.Row="1"
+                           Margin="0,0,0,8"
+                           FontStyle="Italic"
+                           TextWrapping="Wrap" />
+
+                <ScrollViewer Grid.Row="2"
+                              MaxHeight="280"
+                              VerticalScrollBarVisibility="Auto">
+                    <ListView x:Name="ResultsList"
+                              SelectionChanged="OnResultSelectionChanged"
+                              SelectionMode="Single">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Expander HorizontalAlignment="Stretch"
+                                          HorizontalContentAlignment="Stretch"
+                                          Header="{Binding FlightNumber}">
+                                    <StackPanel Margin="20,5,0,5">
+                                        <TextBlock>
+                                            <Run FontWeight="Bold" Text="Aircraft: " />
+                                            <Run Text="{Binding Aircraft}" />
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <Run FontWeight="Bold" Text="Altitude: " />
+                                            <Run Text="{Binding Altitude}" />
+                                            <Run Text=" ft" />
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <Run FontWeight="Bold" Text="Speed: " />
+                                            <Run Text="{Binding Speed}" />
+                                            <Run Text=" mph" />
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <Run FontWeight="Bold" Text="Heading: " />
+                                            <Run Text="{Binding Heading}" />
+                                            <Run FontFamily="Segoe UI" Text="&#176;" />
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <Run FontWeight="Bold" Text="Status: " />
+                                            <Run Text="{Binding Status}" />
+                                        </TextBlock>
+                                        <TextBlock>
+                                            <Run FontWeight="Bold" Text="Arrival: " />
+                                            <Run Text="{Binding ArrivalAirport}" />
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Expander>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </ScrollViewer>
+
+                <Button Grid.Row="3"
+                        Margin="0,8,0,0"
+                        Padding="12,4"
+                        HorizontalAlignment="Right"
+                        Click="OnCloseResults"
+                        Content="Close" />
+            </Grid>
+        </Border>
+
+        <!--  Flight Number Input Dialog  -->
+        <Border x:Name="FlightNumberDialog"
+                Style="{StaticResource BorderStyle}"
+                Visibility="Collapsed">
+            <StackPanel Width="250">
+                <TextBlock Margin="0,0,0,12"
+                           FontSize="14"
+                           FontWeight="Bold"
+                           Text="Enter Flight Number" />
+                <TextBox x:Name="FlightNumberInput" PlaceholderText="Flight_1107" />
+                <TextBlock Margin="0,8,0,0"
+                           FontSize="11"
+                           FontStyle="Italic"
+                           Foreground="Gray"
+                           Text="Example: Flight_1107" />
+                <StackPanel Margin="0,12,0,0"
+                            HorizontalAlignment="Right"
+                            Orientation="Horizontal">
+                    <Button Margin="0,0,8,0"
+                            Padding="12,4"
+                            Click="OnFlightNumberQuery"
+                            Content="Query" />
+                    <Button Padding="12,4"
+                            Click="OnFlightNumberCancel"
+                            Content="Cancel" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

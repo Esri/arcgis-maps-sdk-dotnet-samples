@@ -1,0 +1,39 @@
+{
+    "category": "Search",
+    "description": "Find dynamic entities from a data source that match a query.",
+    "formal_name": "QueryDynamicEntities",
+    "ignore": false,
+    "images": [
+        "QueryDynamicEntities.jpg"
+    ],
+    "keywords": [
+        "data",
+        "dynamic",
+        "entity",
+        "live",
+        "query",
+        "real-time",
+        "search",
+        "stream",
+        "track"
+    ],
+    "offline_data": [],
+    "redirect_from": [],
+    "relevant_apis": [
+        "DynamicEntity",
+        "DynamicEntityChangedInfo",
+        "DynamicEntityDataSource",
+        "DynamicEntityDataSourceInfo",
+        "DynamicEntityLayer",
+        "DynamicEntityObservation",
+        "DynamicEntityQueryParameters",
+        "DynamicEntityQueryResult"
+    ],
+    "snippets": [
+        "QueryDynamicEntities.xaml.cs",
+        "QueryDynamicEntities.xaml",
+        "FlightInfo.cs",
+        "CustomStreamService.cs"
+    ],
+    "title": "Query dynamic entities"
+}

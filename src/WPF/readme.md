@@ -240,6 +240,7 @@
 * [Find address](WPF.Viewer/Samples/Search/FindAddress) - Find the location for an address.
 * [Find place](WPF.Viewer/Samples/Search/FindPlace) - Find places of interest near a location or within a specific area.
 * [Offline geocode](WPF.Viewer/Samples/Search/OfflineGeocode) - Geocode addresses to locations and reverse geocode locations to addresses offline.
+* [Query dynamic entities](WPF.Viewer/Samples/Search/QueryDynamicEntities) - Find dynamic entities from a data source that match a query.
 * [Reverse geocode](WPF.Viewer/Samples/Search/ReverseGeocode) - Use an online service to find the address for a tapped point.
 
 ## Security

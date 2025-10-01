@@ -37,6 +37,9 @@
 		<Category name="MapView">
 			<Sample>DisplayGrid</Sample>
 		</Category>
+		<Category name="Search">
+			<Sample>QueryDynamicEntities</Sample>
+		</Category>
 		<Category name="Scene">
 			<Sample>FilterFeaturesInScene</Sample>
 			<Sample>ShowLabelsOnLayer3D</Sample>

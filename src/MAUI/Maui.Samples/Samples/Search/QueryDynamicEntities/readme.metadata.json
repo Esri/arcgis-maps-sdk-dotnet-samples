@@ -31,7 +31,9 @@
     ],
     "snippets": [
         "QueryDynamicEntities.xaml.cs",
-        "QueryDynamicEntities.xaml"
+        "QueryDynamicEntities.xaml",
+        "FlightInfo.cs",
+        "CustomStreamService.cs"
     ],
     "title": "Query dynamic entities"
 }

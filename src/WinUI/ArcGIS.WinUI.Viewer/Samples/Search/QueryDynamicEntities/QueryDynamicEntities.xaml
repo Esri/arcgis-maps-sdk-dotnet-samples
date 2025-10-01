@@ -84,7 +84,7 @@
                                         <TextBlock>
                                             <Run FontWeight="Bold" Text="Heading: " />
                                             <Run Text="{Binding Heading}" />
-                                            <Run Text="°" />
+                                            <Run FontFamily="Segoe UI" Text="&#176;" />
                                         </TextBlock>
                                         <TextBlock>
                                             <Run FontWeight="Bold" Text="Status: " />

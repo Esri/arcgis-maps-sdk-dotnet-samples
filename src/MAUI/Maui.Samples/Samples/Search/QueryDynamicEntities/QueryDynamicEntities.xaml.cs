@@ -17,9 +17,6 @@ using Esri.ArcGISRuntime.RealTime;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Text.Json;
 using Map = Esri.ArcGISRuntime.Mapping.Map;
 
 namespace ArcGIS.Samples.QueryDynamicEntities
@@ -47,43 +44,51 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             _ = Initialize();
         }
 
-        // Sets up the map, graphics overlays, UI controls, and data source for flight tracking
         private async Task Initialize()
         {
             try
             {
+                // Create the map with a basemap and initial viewpoint.
                 MyMapView.Map = new Map(BasemapStyle.ArcGISTopographic);
                 await MyMapView.SetViewpointAsync(new Viewpoint(_phoenixAirport, 400000));
 
+                // Create and add a graphics overlay for the buffer around Phoenix Airport (PHX).
                 _bufferGraphicsOverlay = new GraphicsOverlay();
                 MyMapView.GraphicsOverlays.Add(_bufferGraphicsOverlay);
 
                 _phoenixAirportBuffer = GeometryEngine.BufferGeodetic(
                     _phoenixAirport, 15, LinearUnits.Miles, double.NaN, GeodeticCurveType.Geodesic);
 
+                // Create a semi-transparent fill symbol for the buffer area.
                 var bufferSymbol = new SimpleFillSymbol(
                     SimpleFillSymbolStyle.Solid,
                     System.Drawing.Color.FromArgb(40, 255, 0, 0),
                     new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Black, 1));
 
+                //  Add the buffer graphic to the overlay and hide it initially.
                 _bufferGraphicsOverlay.Graphics.Add(new Graphic(_phoenixAirportBuffer, bufferSymbol));
                 _bufferGraphicsOverlay.IsVisible = false;
 
+                // Initialize the collection for query results and bind it to the results list.
                 _queryResults = new ObservableCollection<FlightInfo>();
                 ResultsList.ItemsSource = _queryResults;
 
+                // Set up the query options in the dropdown menu.
                 _queryOptions = new List<string>
                 {
                     "Within 15 Miles of PHX",
                     "Arriving in PHX",
                     "With Flight Number"
                 };
+
+                // Bind the query options to the dropdown and set initial visibility states.
                 QueryDropdown.ItemsSource = _queryOptions;
                 QueryDropdown.SelectedIndex = -1;
                 ResultsPanel.IsVisible = false;
                 FlightNumberDialog.IsVisible = false;
                 QueryDropdown.IsVisible = true;
 
+                // Create and configure the dynamic entity data source and layer.
                 await SetupDynamicEntityDataSource();
             }
             catch (Exception ex)
@@ -92,11 +97,12 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             }
         }
 
-        // Creates and configures the dynamic entity data source and layer for real-time flight tracking
+        // Creates and configures the dynamic entity data source and layer for real-time flight tracking.
         private async Task SetupDynamicEntityDataSource()
         {
             try
             {
+                // Define the fields expected in the dynamic entity data source.
                 var fields = new List<Field>
                 {
                     new Field(FieldType.Text, "flight_number", "", 50),
@@ -108,15 +114,19 @@ namespace ArcGIS.Samples.QueryDynamicEntities
                     new Field(FieldType.Text, "status", "", 50)
                 };
 
+                // Create the data source info with the unique track ID field and spatial reference.
                 var dataSourceInfo = new DynamicEntityDataSourceInfo("flight_number", fields)
                 {
                     SpatialReference = SpatialReferences.Wgs84
                 };
 
+                // Get the path to the JSON data file.
                 string dataPath = DataManager.GetDataFolder("c78e297e99ad4572a48cdcd0b54bed30", "phx_air_traffic.json");
 
+                // Initialize the custom stream service with the data source info and file path.
                 _dynamicEntityDataSource = new CustomStreamService(dataSourceInfo, dataPath, TimeSpan.FromMilliseconds(100));
 
+                // Create the dynamic entity layer with the data source and configure its display properties.
                 _dynamicEntityLayer = new DynamicEntityLayer(_dynamicEntityDataSource)
                 {
                     TrackDisplayProperties =
@@ -127,6 +137,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
                     }
                 };
 
+                // Define a simple marker symbol for the dynamic entities (flights).
                 var labelDefinition = new LabelDefinition(
                     new SimpleLabelExpression("[flight_number]"),
                     new TextSymbol
@@ -140,6 +151,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
                     Placement = LabelingPlacement.PointAboveCenter
                 };
 
+                // Create a simple marker symbol for the flights.
                 _dynamicEntityLayer.LabelDefinitions.Add(labelDefinition);
                 _dynamicEntityLayer.LabelsEnabled = true;
                 MyMapView.Map.OperationalLayers.Add(_dynamicEntityLayer);
@@ -151,7 +163,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             }
         }
 
-        // Handles query selection from dropdown and initiates appropriate query type
+        // Handles query selection from dropdown and initiates appropriate query type.
         private async void OnQuerySelectionChanged(object sender, EventArgs e)
         {
             if (QueryDropdown.SelectedIndex < 0)
@@ -184,7 +196,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             }
         }
 
-        // Processes flight number input and executes track ID query
+        // Processes flight number input and executes track ID query.
         private async void OnFlightNumberQuery(object sender, EventArgs e)
         {
             var flightNumber = FlightNumberInput.Text?.Trim();
@@ -200,7 +212,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             FlightNumberInput.Text = string.Empty;
         }
 
-        // Cancels flight number input and returns to query selection
+        // Cancels flight number input and returns to query selection.
         private void OnFlightNumberCancel(object sender, EventArgs e)
         {
             FlightNumberDialog.IsVisible = false;
@@ -209,16 +221,27 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             QueryDropdown.IsVisible = true;
         }
 
-        // Toggles visibility of flight detail information in the results list
+        // Toggles visibility of flight detail information in the results list.
         private void OnToggleDetails(object sender, EventArgs e)
         {
             if (sender is Button button && button.BindingContext is FlightInfo flightInfo)
             {
                 flightInfo.IsExpanded = !flightInfo.IsExpanded;
+
+                // On iOS, force the CollectionView to update its layout
+                if (DeviceInfo.Platform == DevicePlatform.iOS)
+                {
+                    // Small delay to ensure smooth animation
+                    Dispatcher.Dispatch(async () =>
+                    {
+                        await Task.Delay(10);
+                        ResultsList.ScrollTo(flightInfo, position: ScrollToPosition.MakeVisible, animate: true);
+                    });
+                }
             }
         }
 
-        // Executes the specified query type against the dynamic entity data source
+        // Executes the specified query type against the dynamic entity data source.
         private async Task PerformQuery(string queryType, string flightNumber = null)
         {
             try
@@ -238,10 +261,12 @@ namespace ArcGIS.Samples.QueryDynamicEntities
                     return;
                 }
 
+                // Set up query parameters based on the selected query type.
                 var queryParameters = new DynamicEntityQueryParameters();
 
                 switch (queryType)
                 {
+                    // Query for entities within a 15-mile buffer of Phoenix Airport (PHX).
                     case "QueryGeometry":
                         queryParameters.Geometry = _phoenixAirportBuffer;
                         queryParameters.SpatialRelationship = SpatialRelationship.Intersects;
@@ -249,11 +274,13 @@ namespace ArcGIS.Samples.QueryDynamicEntities
                         ResultsDescription.Text = "Flights within 15 miles of PHX";
                         break;
 
+                    // Query for entities with attributes indicating they are arriving at PHX.
                     case "QueryAttributes":
                         queryParameters.WhereClause = "status = 'In flight' AND arrival_airport = 'PHX'";
                         ResultsDescription.Text = "Flights arriving in PHX";
                         break;
 
+                    // Query for a specific entity by its flight number (track ID).
                     case "QueryTrackId":
                         if (!string.IsNullOrEmpty(flightNumber))
                         {
@@ -268,6 +295,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
 
                 IEnumerable<DynamicEntity> results = null;
 
+                // Execute the query against the dynamic entity data source.
                 if (_dynamicEntityLayer?.DataSource != null)
                 {
                     results = await _dynamicEntityLayer.DataSource.QueryDynamicEntitiesAsync(queryParameters);
@@ -275,6 +303,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
 
                 results = results ?? Enumerable.Empty<DynamicEntity>();
 
+                // Process and display the query results.
                 if (results.Any())
                 {
                     foreach (var entity in results)
@@ -292,6 +321,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
                     }
                 }
 
+                // Update UI to show results and hide query options.
                 QueryDropdown.IsVisible = false;
                 ResultsPanel.IsVisible = true;
 
@@ -308,7 +338,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             }
         }
 
-        // Centers the map view on the selected flight's current position
+        // Centers the map view on the selected flight's current position.
         private async void OnResultSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (e.CurrentSelection.FirstOrDefault() is FlightInfo flight && flight.Entity != null)
@@ -321,7 +351,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             }
         }
 
-        // Closes the results panel and resets the UI to the initial state
+        // Closes the results panel and resets the UI to the initial state.
         private void OnCloseResults(object sender, EventArgs e)
         {
             ResultsPanel.IsVisible = false;
@@ -336,220 +366,6 @@ namespace ArcGIS.Samples.QueryDynamicEntities
 
             _bufferGraphicsOverlay.IsVisible = false;
             QueryDropdown.SelectedIndex = -1;
-        }
-
-        private class CustomStreamService : DynamicEntityDataSource
-        {
-            private readonly DynamicEntityDataSourceInfo _info;
-            private readonly string _dataPath;
-            private readonly TimeSpan _delay;
-            private CancellationTokenSource _cancellationTokenSource;
-            private Task _dataFeedTask;
-
-            //Initializes the custom stream service with data source info and file path
-            public CustomStreamService(DynamicEntityDataSourceInfo info, string dataPath, TimeSpan delay)
-            {
-                _info = info;
-                _dataPath = dataPath;
-                _delay = delay;
-            }
-
-            //Returns the data source information while loading the service
-            protected override Task<DynamicEntityDataSourceInfo> OnLoadAsync() =>
-                Task.FromResult(_info);
-
-            //Starts the data feed processing task when connecting to the service
-            protected override Task OnConnectAsync(CancellationToken cancellationToken)
-            {
-                _cancellationTokenSource = new CancellationTokenSource();
-                _dataFeedTask = ProcessDataFeedAsync(_cancellationTokenSource.Token);
-                return Task.CompletedTask;
-            }
-
-            //Cancels the data feed processing task and cleans up resources when disconnecting from the service
-            protected override async Task OnDisconnectAsync()
-            {
-                _cancellationTokenSource?.Cancel();
-
-                if (_dataFeedTask != null)
-                {
-                    try
-                    {
-                        await _dataFeedTask;
-                    }
-                    catch (OperationCanceledException)
-                    {
-                    }
-                }
-
-                _cancellationTokenSource?.Dispose();
-            }
-
-            // Reads and processes flight data from JSON file line by line with delays
-            private async Task ProcessDataFeedAsync(CancellationToken cancellationToken)
-            {
-                try
-                {
-                    if (!File.Exists(_dataPath))
-                        throw new FileNotFoundException("Flight data file not found.", _dataPath);
-
-                    var lines = await File.ReadAllLinesAsync(_dataPath, cancellationToken);
-
-                    foreach (var line in lines)
-                    {
-                        if (cancellationToken.IsCancellationRequested) break;
-
-                        try
-                        {
-                            using (JsonDocument document = JsonDocument.Parse(line))
-                            {
-                                var root = document.RootElement;
-
-                                if (root.TryGetProperty("geometry", out JsonElement geometryElement))
-                                {
-                                    double x = 0, y = 0;
-
-                                    if (geometryElement.TryGetProperty("x", out JsonElement xElement))
-                                        x = xElement.GetDouble();
-
-                                    if (geometryElement.TryGetProperty("y", out JsonElement yElement))
-                                        y = yElement.GetDouble();
-
-                                    var point = new MapPoint(x, y, SpatialReferences.Wgs84);
-                                    var attributes = new Dictionary<string, object>();
-
-                                    if (root.TryGetProperty("attributes", out JsonElement attributesElement))
-                                    {
-                                        foreach (var property in attributesElement.EnumerateObject())
-                                        {
-                                            object value = property.Value.ValueKind switch
-                                            {
-                                                JsonValueKind.String => property.Value.GetString(),
-                                                JsonValueKind.Number when property.Value.TryGetInt32(out int intValue) => intValue,
-                                                JsonValueKind.Number => property.Value.GetDouble(),
-                                                JsonValueKind.True => true,
-                                                JsonValueKind.False => false,
-                                                JsonValueKind.Null => null,
-                                                _ => property.Value.ToString()
-                                            };
-
-                                            attributes[property.Name] = value;
-                                        }
-                                    }
-                                    AddObservation(point, attributes);
-                                }
-                            }
-                            await Task.Delay(_delay, cancellationToken);
-                        }
-                        catch (JsonException ex)
-                        {
-                            System.Diagnostics.Debug.WriteLine($"Error parsing JSON line: {ex.Message}");
-                            continue;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Data feed error: {ex.Message}");
-                }
-            }
-        }
-
-        private class FlightInfo : INotifyPropertyChanged
-        {
-            public DynamicEntity Entity { get; }
-            private string _flightNumber;
-            private string _aircraft;
-            private string _altitude;
-            private string _speed;
-            private string _heading;
-            private string _status;
-            private string _arrivalAirport;
-            private bool _isExpanded;
-
-            // Initializes flight info with entity and subscribes to change events
-            public FlightInfo(DynamicEntity entity)
-            {
-                Entity = entity;
-                UpdateAttributes();
-                Entity.DynamicEntityChanged += OnEntityChanged;
-            }
-
-            public bool IsExpanded
-            {
-                get => _isExpanded;
-                set
-                {
-                    if (_isExpanded != value)
-                    {
-                        _isExpanded = value;
-                        OnPropertyChanged();
-                        OnPropertyChanged(nameof(ToggleButtonText));
-                    }
-                }
-            }
-
-            public string ToggleButtonText => IsExpanded ? "Hide Details" : "Show Details";
-
-            // Updates field value and raises property changed event if value differs
-            private bool SetField<T>(ref T field, T value, [CallerMemberName] string name = null)
-            {
-                if (EqualityComparer<T>.Default.Equals(field, value)) return false;
-                field = value;
-                OnPropertyChanged(name);
-                return true;
-            }
-
-            public string FlightNumber { get => _flightNumber; private set => SetField(ref _flightNumber, value); }
-            public string Aircraft { get => _aircraft; private set => SetField(ref _aircraft, value); }
-            public string Altitude { get => _altitude; private set => SetField(ref _altitude, value); }
-            public string Speed { get => _speed; private set => SetField(ref _speed, value); }
-            public string Heading { get => _heading; private set => SetField(ref _heading, value); }
-            public string Status { get => _status; private set => SetField(ref _status, value); }
-            public string ArrivalAirport { get => _arrivalAirport; private set => SetField(ref _arrivalAirport, value); }
-
-            // Retrieves attribute value from entity or returns default if not found
-            private string GetAttribute(string key, string defaultValue)
-            {
-                if (Entity?.Attributes != null && Entity.Attributes.TryGetValue(key, out var value))
-                    return value?.ToString() ?? defaultValue;
-                return defaultValue;
-            }
-
-            // Formats numeric string to zero decimal places or returns original if not numeric
-            private string FormatNumber(string value)
-            {
-                if (double.TryParse(value, out double number))
-                    return number.ToString("F0");
-                return value;
-            }
-
-            // Refreshes all flight attribute properties from the entity
-            private void UpdateAttributes()
-            {
-                FlightNumber = GetAttribute("flight_number", "N/A");
-                Aircraft = GetAttribute("aircraft", "Unknown");
-                Altitude = FormatNumber(GetAttribute("altitude_feet", "0"));
-                Speed = FormatNumber(GetAttribute("speed", "0"));
-                Heading = FormatNumber(GetAttribute("heading", "0"));
-                Status = GetAttribute("status", "Unknown");
-                ArrivalAirport = GetAttribute("arrival_airport", "N/A");
-            }
-
-            // Updates attributes when entity receives new observation data
-            private void OnEntityChanged(object sender, DynamicEntityChangedEventArgs e)
-            {
-                if (e.ReceivedObservation != null)
-                {
-                    UpdateAttributes();
-                }
-            }
-
-            public event PropertyChangedEventHandler PropertyChanged;
-
-            // Raises property changed event for data binding updates
-            protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) =>
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

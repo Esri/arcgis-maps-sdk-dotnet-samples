@@ -46,9 +46,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Remove="Samples\Search\QueryDynamicEntities\QueryDynamicEntities.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Remove="Resources\Fonts\calcite-ui-icons-24.ttf" />
     <None Remove="Resources\github-mark.png" />
     <None Remove="ScreenshotTab.xaml" />

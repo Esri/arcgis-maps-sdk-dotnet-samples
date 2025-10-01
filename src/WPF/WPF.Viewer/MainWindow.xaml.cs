@@ -133,7 +133,7 @@ namespace ArcGIS.Samples.Desktop
                 CategoriesHeader.Text = category.Name;
 
                 // Send analytics.
-                var eventData = new Dictionary<string, string> 
+                var eventData = new Dictionary<string, string>
                 {
                     { "Category", category.Name },
                 };
@@ -159,7 +159,7 @@ namespace ArcGIS.Samples.Desktop
             if (SampleManager.Current.SelectedSample == selectedSample) return;
 
             // Send analytics.
-            var eventData = new Dictionary<string, string> 
+            var eventData = new Dictionary<string, string>
             {
                     { "Sample", selectedSample.SampleName },
             };
@@ -188,6 +188,9 @@ namespace ArcGIS.Samples.Desktop
             DescriptionContainer.SetSample(selectedSample);
             ShowSampleTab();
 
+            // Set the color of the favorite button
+            SetInSampleFavoriteButtonColor(selectedSample);
+
             try
             {
                 if (selectedSample.OfflineDataItems != null)
@@ -210,9 +213,6 @@ namespace ArcGIS.Samples.Desktop
                 SampleContainer.Content = SampleManager.Current.SampleToControl(selectedSample);
                 (SampleContainer.Content as FrameworkElement).Unloaded += Sample_Unloaded;
                 SourceCodeContainer.LoadSourceCode();
-
-                // Set the color of the favorite button
-                SetInSampleFavoriteButtonColor(selectedSample);
             }
             catch (OperationCanceledException)
             {
@@ -362,7 +362,6 @@ namespace ArcGIS.Samples.Desktop
 #if ENABLE_ANALYTICS
             _ = AnalyticsHelper.TrackEvent("tab_selected", eventData);
 #endif
-
         }
 
         private void SourceCode_Click(object sender, RoutedEventArgs e)
@@ -445,7 +444,7 @@ namespace ArcGIS.Samples.Desktop
         {
             var eventData = new Dictionary<string, string>() { { "Search", SearchFilterBox.SearchText } };
 
-            // If the search has been initiated in a sample or category track the sample or category name. 
+            // If the search has been initiated in a sample or category track the sample or category name.
             if (SampleManager.Current.SelectedSample != null)
             {
                 eventData.Add("Sample", SampleManager.Current.SelectedSample.SampleName);
@@ -471,7 +470,7 @@ namespace ArcGIS.Samples.Desktop
             _settingsWindowOpen = true;
             SettingsWindow settingsWindow = new SettingsWindow();
             settingsWindow.Owner = this;
-            settingsWindow.Closing += (send, args) => 
+            settingsWindow.Closing += (send, args) =>
             {
                 _settingsWindowOpen = false;
                 CloseWindow();
@@ -502,7 +501,7 @@ namespace ArcGIS.Samples.Desktop
             Activate();
         }
 
-#region Update Favorites
+        #region Update Favorites
 
         private void SampleGridFavoriteButton_Click(object sender, RoutedEventArgs e)
         {
@@ -545,9 +544,9 @@ namespace ArcGIS.Samples.Desktop
             SampleFavoriteButton.Foreground = selectedSample.IsFavorite ? new SolidColorBrush(Colors.Yellow) : new SolidColorBrush(Colors.White);
         }
 
-#endregion Update Favorites
+        #endregion Update Favorites
 
-#region Category Visibility Properties
+        #region Category Visibility Properties
 
         private void SetSelectedCategory(string selectedCategoryName)
         {
@@ -601,7 +600,7 @@ namespace ArcGIS.Samples.Desktop
             return expandedCategories;
         }
 
-#endregion Category Visibility Properties
+        #endregion Category Visibility Properties
 
         private void UpdateTreeViewItems()
         {
@@ -624,7 +623,7 @@ namespace ArcGIS.Samples.Desktop
             SetExpandedCategories(expandedCategoryNames);
         }
 
-#region Screenshot Tool
+        #region Screenshot Tool
 
         private void ScreenshotButton_Click(object sender, RoutedEventArgs e)
         {

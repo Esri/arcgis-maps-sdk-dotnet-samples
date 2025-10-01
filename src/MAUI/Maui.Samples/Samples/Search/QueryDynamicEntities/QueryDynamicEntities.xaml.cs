@@ -228,10 +228,10 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             {
                 flightInfo.IsExpanded = !flightInfo.IsExpanded;
 
-                // On iOS, force the CollectionView to update its layout
+                // On iOS, force the CollectionView to update its layout.
                 if (DeviceInfo.Platform == DevicePlatform.iOS)
                 {
-                    // Small delay to ensure smooth animation
+                    // Add a small delay to ensure smooth animation.
                     Dispatcher.Dispatch(async () =>
                     {
                         await Task.Delay(10);

@@ -11,6 +11,7 @@
             <!--  General Style files  -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources\ControlStyles.xaml" />
+                <CalciteResources xmlns="http://schemas.esri.com/calcite/2024" Theme="Light" />
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="HeaderTextBlock" TargetType="TextBlock">

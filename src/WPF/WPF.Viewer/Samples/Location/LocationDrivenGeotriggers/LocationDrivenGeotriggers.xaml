@@ -5,38 +5,40 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <StackPanel>
-                <Label x:Name="NameLabel" FontWeight="ExtraBold" />
-                <Image x:Name="LocationImage"
+            <ScrollViewer>
+                <StackPanel>
+                    <Label x:Name="NameLabel" FontWeight="ExtraBold" />
+                    <Image x:Name="LocationImage"
                        Height="150"
                        Margin="5" />
-                <ScrollViewer Height="150" Margin="5">
-                    <TextBlock x:Name="Description" TextWrapping="Wrap" />
-                </ScrollViewer>
-                <Label Content="Click on features in list to see information." />
-                <ListView x:Name="LocationList"
+                    <ScrollViewer Height="150" Margin="5">
+                        <TextBlock x:Name="Description" TextWrapping="Wrap" />
+                    </ScrollViewer>
+                    <Label Content="Click on features in list to see information." />
+                    <ListView x:Name="LocationList"
                           Height="125"
                           Margin="5"
                           DisplayMemberPath="Name"
                           SelectionChanged="LocationList_SelectionChanged"
                           SelectionMode="Single">
-                    <ListView.GroupStyle>
-                        <GroupStyle>
-                            <GroupStyle.HeaderTemplate>
-                                <DataTemplate>
-                                    <TextBlock FontSize="12"
+                        <ListView.GroupStyle>
+                            <GroupStyle>
+                                <GroupStyle.HeaderTemplate>
+                                    <DataTemplate>
+                                        <TextBlock FontSize="12"
                                                FontWeight="Bold"
                                                Text="{Binding Name}" />
-                                </DataTemplate>
-                            </GroupStyle.HeaderTemplate>
-                        </GroupStyle>
-                    </ListView.GroupStyle>
-                </ListView>
-                <Button x:Name="PlayPauseButton"
+                                    </DataTemplate>
+                                </GroupStyle.HeaderTemplate>
+                            </GroupStyle>
+                        </ListView.GroupStyle>
+                    </ListView>
+                    <Button x:Name="PlayPauseButton"
                         Margin="5"
                         Click="PlayPauseClicked"
                         Content="Pause" />
-            </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
         </Border>
     </Grid>
 </UserControl>

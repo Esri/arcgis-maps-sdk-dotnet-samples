@@ -1,6 +1,7 @@
 ﻿<UserControl x:Class="ArcGIS.WPF.Viewer.SourceCode"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:calcite="http://schemas.esri.com/calcite/2024"
              xmlns:viewer="clr-namespace:ArcGIS.WPF.Viewer"
              Background="{StaticResource PrimaryBackgroundColor}">
     <Grid>
@@ -39,10 +40,12 @@
                     Background="Transparent"
                     BorderThickness="0"
                     Click="CopyCodeButton_Click"
-                    Content="&#xe0a6;"
-                    FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
-                    FontSize="30"
-                    ToolTip="Copy code to clipboard" />
+                    ToolTip="Copy code to clipboard"
+                    Style="{x:Null}">
+                <Path Data="{calcite:CalciteIconGeometry Icon=CopyToClipboard, Scale=Medium}"
+                      Fill="Black"
+                      Width="24" Height="24" Stretch="Uniform" />
+            </Button>
         </Grid>
         <WebBrowser Grid.Row="1" viewer:BrowserBehavior.Html="{Binding SelectedSourceFile.HtmlContent}" />
         <StatusBar Grid.Row="2">

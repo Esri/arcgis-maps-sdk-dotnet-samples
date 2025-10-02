@@ -4,7 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:SceneView x:Name="MySceneView" />
-        <Border Width="260" Style="{StaticResource BorderStyle}">
+        <Border Width="300" Style="{StaticResource BorderStyle}">
             <StackPanel Width="250">
                 <StackPanel HorizontalAlignment="Stretch" Orientation="Horizontal">
                     <Label Margin="5"
@@ -26,7 +26,7 @@
                             Content="Stop" />
                     <Label VerticalAlignment="Center" Content="Speed:" />
                     <ComboBox Name="SpeedComboBox"
-                              Width="75"
+                              Width="85"
                               Height="25"
                               SelectionChanged="SpeedSelected" />
                 </StackPanel>

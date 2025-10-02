@@ -19,6 +19,10 @@
                            TextAlignment="Center" />
                 <TreeView Name="LayerTreeView"
                           Grid.Row="1"
+                          FontSize="14"
+                          BorderBrush="Black"
+                          BorderThickness="1"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto"
                           SelectedItemChanged="LayerTreeView_OnSelectedItemChanged">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate DataType="{x:Type listKmlContents:LayerDisplayVM}" ItemsSource="{Binding Children}">

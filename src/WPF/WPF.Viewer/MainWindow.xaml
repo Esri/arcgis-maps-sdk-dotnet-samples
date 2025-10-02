@@ -37,7 +37,7 @@
                             Click="SampleGridFavoriteButton_Click"
                             CommandParameter="{Binding FormalName}"
                             Style="{DynamicResource SampleGridFavoriteButton}">
-                            <Path Data="{calcite:CalciteIconGeometry Icon=StarFilled, Scale=Small}"
+                            <Path Data="{calcite:CalciteIconGeometry Icon=Star, Scale=Small}"
                                   Width="18" Height="18" Stretch="Uniform"
                                   Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
                                   Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
@@ -223,7 +223,7 @@
                             Click="InSampleFavoriteButton_Click"
                             CommandParameter="{Binding FormalName}"
                             Style="{x:Null}">
-                            <Path Data="{calcite:CalciteIconGeometry Icon=StarFilled, Scale=Small}"
+                            <Path Data="{calcite:CalciteIconGeometry Icon=Star, Scale=Small}"
                                   Stroke="Black"
                                   Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
                                   Width="18" Height="18" Stretch="Uniform" />

@@ -22,6 +22,20 @@
             </Grid>
         </DataTemplate>
         <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
+        <Style x:Key="ButtonIconStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontSize" Value="25" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Padding" Value="3" />
+                <Setter Property="Margin" Value="3" />
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
@@ -87,20 +101,24 @@
                                     Click="DiscardButton_Click"
                                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                                     Margin="3"
-                                    ToolTipService.ToolTip="Discard edits">
-                                <Image Source="{calcite:CalciteIconImage Icon=CircleDisallowed, Scale=Large, SymbolSize=32, Brush=Black}"
-                                       Width="32" Height="32"
-                                       VerticalAlignment="Center" />
+                                    ToolTipService.ToolTip="Discard edits"
+                                    Style="{StaticResource ButtonIconStyle}">
+                                <Path Data="{calcite:CalciteIconGeometry Icon=CircleDisallowed, Scale=Large}"
+                                      Fill="{DynamicResource CalciteText1Brush}"
+                                      Width="24" Height="24"
+                                      Stretch="Uniform" />
                             </Button>
                             <Button x:Name="SaveButton"
                                     Grid.Column="1"
                                     Click="SaveButton_Click"
                                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                                     Margin="3"
-                                    ToolTipService.ToolTip="Save edits">
-                                <Image Source="{calcite:CalciteIconImage Icon=CheckCircle, Scale=Large, SymbolSize=32, Brush=Black}"
-                                       Width="32" Height="32"
-                                       VerticalAlignment="Center" />
+                                    ToolTipService.ToolTip="Save edits"
+                                    Style="{StaticResource ButtonIconStyle}">
+                                <Path Data="{calcite:CalciteIconGeometry Icon=CheckCircle, Scale=Large}"
+                                      Fill="{DynamicResource CalciteText1Brush}"
+                                      Width="24" Height="24"
+                                      Stretch="Uniform" />
                             </Button>
                         </Grid>
                     </StackPanel>

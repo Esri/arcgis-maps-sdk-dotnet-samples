@@ -7,13 +7,17 @@
     <UserControl.Resources>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24" />
                 <Setter Property="FontSize" Value="25" />
                 <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="3" />
                 <Setter Property="Margin" Value="3" />
             </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
     </UserControl.Resources>
@@ -33,14 +37,17 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="75" />
-                <ColumnDefinition Width="75" />
+                <ColumnDefinition Width="85" />
+                <ColumnDefinition Width="85" />
             </Grid.ColumnDefinitions>
             <Button x:Name="PointButton"
                     Click="PointButton_Click"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Point">
-                <Image Source="{calcite:CalciteIconImage Icon=Point, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=Point, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <Button x:Name="MultipointButton"
                     Grid.Column="1"
@@ -49,8 +56,15 @@
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Multipoint">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="{calcite:CalciteIconImage Icon=Point, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
-                    <Image Source="{calcite:CalciteIconImage Icon=Point, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                    <Path Data="{calcite:CalciteIconGeometry Icon=Point, Scale=Small}"
+                          Fill="{DynamicResource CalciteText1Brush}"
+                          Width="16" Height="16"
+                          Margin="0,0,4,0"
+                          Stretch="Uniform" />
+                    <Path Data="{calcite:CalciteIconGeometry Icon=Point, Scale=Small}"
+                          Fill="{DynamicResource CalciteText1Brush}"
+                          Width="16" Height="16"
+                          Stretch="Uniform" />
                 </StackPanel>
             </Button>
             <Button x:Name="PolylineButton"
@@ -58,7 +72,10 @@
                     Click="PolylineButton_Click"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Polyline / no shape fill">
-                <Image Source="{calcite:CalciteIconImage Icon=Line, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=Line, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <Button x:Name="PolygonButton"
                     Grid.Row="1"
@@ -66,7 +83,10 @@
                     Click="PolygonButton_Click"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Polygon / shape fill" >
-                <Image Source="{calcite:CalciteIconImage Icon=PolygonVertices, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=PolygonVertices, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <ComboBox x:Name="ToolComboBox"
                       Grid.Row="2"
@@ -91,7 +111,10 @@
                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Undo">
-                <Image Source="{calcite:CalciteIconImage Icon=Undo, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=Undo, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <Button Grid.Row="5"
                     Grid.Column="1"
@@ -99,14 +122,20 @@
                     IsEnabled="{Binding GeometryEditor.CanRedo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Redo">
-                <Image Source="{calcite:CalciteIconImage Icon=Redo, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=Redo, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <Button Grid.Row="6"
                     Click="DeleteSelectedButton_Click"
                     IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Delete selected">
-                <Image Source="{calcite:CalciteIconImage Icon=Erase, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=Erase, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <Button x:Name="SaveButton"
                     Grid.Row="6"
@@ -115,14 +144,20 @@
                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Save edits">
-                <Image Source="{calcite:CalciteIconImage Icon=CheckCircle, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=CheckCircle, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <Button Grid.Row="7"
                     Click="DiscardButton_Click"
                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Discard edits">
-                <Image Source="{calcite:CalciteIconImage Icon=CircleDisallowed, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=CircleDisallowed, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <Button x:Name="DeleteAllButton"
                     Grid.Row="7"
@@ -131,7 +166,10 @@
                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView, Converter={StaticResource BoolNegationConverter}}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Delete all geometries">
-                <Image Source="{calcite:CalciteIconImage Icon=Trash, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=Trash, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
         </Grid>
     </Grid>

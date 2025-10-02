@@ -8,13 +8,17 @@
     <UserControl.Resources>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24" />
                 <Setter Property="FontSize" Value="25" />
                 <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="3" />
                 <Setter Property="Margin" Value="3" />
             </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
     </UserControl.Resources>
@@ -67,7 +71,10 @@
                     IsEnabled="False"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Undo">
-                <Image Source="{calcite:CalciteIconImage Icon=Undo, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=Undo, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <Button Grid.Row="2"
                     Grid.Column="1"
@@ -75,14 +82,20 @@
                     IsEnabled="{Binding GeometryEditor.CanRedo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Redo">
-                <Image Source="{calcite:CalciteIconImage Icon=Redo, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=Redo, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <Button Grid.Row="3"
                     Click="DeleteSelectedButton_Click"
                     IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Delete selected">
-                <Image Source="{calcite:CalciteIconImage Icon=Erase, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=Erase, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <Button x:Name="SaveButton"
                     Grid.Row="3"
@@ -91,14 +104,20 @@
                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Save edits">
-                <Image Source="{calcite:CalciteIconImage Icon=CheckCircle, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=CheckCircle, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <Button Grid.Row="4"
                     Click="DiscardButton_Click"
                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Discard edits">
-                <Image Source="{calcite:CalciteIconImage Icon=CircleDisallowed, Scale=Large, SymbolSize=32, Brush=Black}" Width="24" Height="24" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=CircleDisallowed, Scale=Large}"
+                  Fill="{DynamicResource CalciteText1Brush}"
+                  Width="24" Height="24"
+                  Stretch="Uniform" />
             </Button>
             <Button x:Name="MultifunctionButton"
                     Grid.Row="5"

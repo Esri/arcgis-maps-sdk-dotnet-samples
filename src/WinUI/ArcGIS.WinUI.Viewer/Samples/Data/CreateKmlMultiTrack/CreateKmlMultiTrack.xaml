@@ -2,12 +2,11 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="using:Esri.ArcGISRuntime"
+             xmlns:cal="using:Esri.Calcite.WinUI"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <UserControl.Resources>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24" />
-                <Setter Property="FontSize" Value="25" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Margin" Value="5" />
                 <Setter Property="CornerRadius" Value="5" />
@@ -29,10 +28,11 @@
                         </Grid.ColumnDefinitions>
                         <Button x:Name="RecenterButton"
                                 Click="RecenterButton_Click"
-                                Content="&#xe13c;"
                                 IsEnabled="False"
                                 Style="{StaticResource IconStyle}"
-                                ToolTipService.ToolTip="Recenter" />
+                                ToolTipService.ToolTip="Recenter">
+                            <cal:SymbolIcon Symbol="GpsOn" IconScale="Medium" />
+                        </Button>
                         <Button x:Name="RecordTrackButton"
                                 Grid.Column="1"
                                 Margin="5"
@@ -43,10 +43,11 @@
                         <Button x:Name="SaveButton"
                                 Grid.Column="2"
                                 Click="SaveButton_Click"
-                                Content="&#xe262;"
                                 IsEnabled="False"
                                 Style="{StaticResource IconStyle}"
-                                ToolTipService.ToolTip="Save" />
+                                ToolTipService.ToolTip="Save">
+                            <cal:SymbolIcon Symbol="Save" IconScale="Medium" />
+                        </Button>
                     </Grid>
                 </StackPanel>
                 <StackPanel x:Name="ViewingUI" Visibility="Collapsed">
@@ -66,9 +67,10 @@
                                   SelectionChanged="TracksComboBox_SelectionChanged" />
                         <Button Grid.Column="1"
                                 Click="ResetButton_Click"
-                                Content="&#xe243;"
                                 Style="{StaticResource IconStyle}"
-                                ToolTipService.ToolTip="Reset" />
+                                ToolTipService.ToolTip="Reset">
+                            <cal:SymbolIcon Symbol="Reset" IconScale="Medium" />
+                        </Button>
                     </Grid>
                 </StackPanel>
             </StackPanel>

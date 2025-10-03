@@ -2,7 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="using:Esri.ArcGISRuntime"
-             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
+             xmlns:cal="using:Esri.Calcite.WinUI">
     <UserControl.Resources>
         <DataTemplate x:Key="SnapSettingTemplate">
             <Grid>
@@ -21,16 +22,12 @@
         </DataTemplate>
         <Style x:Key="ButtonIconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24" />
-                <Setter Property="FontSize" Value="20" />
                 <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
             </Style.Setters>
         </Style>
         <Style x:Key="ToggleButtonIconStyle" TargetType="ToggleButton">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24" />
-                <Setter Property="FontSize" Value="20" />
                 <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
             </Style.Setters>
@@ -168,61 +165,71 @@
                                       Grid.Row="0"
                                       Grid.Column="0"
                                       Click="PointButton_Click"
-                                      Content="&#xe21c;"
                                       Style="{StaticResource ToggleButtonIconStyle}"
-                                      ToolTipService.ToolTip="Point" />
+                                      ToolTipService.ToolTip="Point">
+                            <cal:SymbolIcon Symbol="Point" IconScale="Medium" />
+                        </ToggleButton>
                         <ToggleButton x:Name="MultipointButton"
                                       Grid.Row="0"
                                       Grid.Column="1"
                                       Height="{Binding ElementName=PointButton, Path=Height}"
                                       Click="MultipointButton_Click"
-                                      Content="&#xe21c;&#xe21c;"
-                                      FontSize="20"
                                       Style="{StaticResource ToggleButtonIconStyle}"
-                                      ToolTipService.ToolTip="Multipoint" />
+                                      ToolTipService.ToolTip="Multipoint">
+                            <StackPanel Orientation="Horizontal">
+                                <cal:SymbolIcon Symbol="Point" IconScale="Medium" />
+                                <cal:SymbolIcon Symbol="Point" IconScale="Medium" />
+                            </StackPanel>
+                        </ToggleButton>
                         <ToggleButton x:Name="PolylineButton"
                                       Grid.Row="1"
                                       Grid.Column="0"
                                       Click="PolylineButton_Click"
-                                      Content="&#xe1a8;"
                                       Style="{StaticResource ToggleButtonIconStyle}"
-                                      ToolTipService.ToolTip="Polyline / no shape fill" />
+                                      ToolTipService.ToolTip="Polyline / no shape fill">
+                            <cal:SymbolIcon Symbol="Line" IconScale="Medium" />
+                        </ToggleButton>
                         <ToggleButton x:Name="PolygonButton"
                                       Grid.Row="1"
                                       Grid.Column="1"
                                       Click="PolygonButton_Click"
-                                      Content="&#xe220;"
                                       Style="{StaticResource ToggleButtonIconStyle}"
-                                      ToolTipService.ToolTip="Polygon / shape fill" />
+                                      ToolTipService.ToolTip="Polygon / shape fill">
+                            <cal:SymbolIcon Symbol="PolygonVertices" IconScale="Medium" />
+                        </ToggleButton>
                         <Button Grid.Row="2"
                                 Grid.Column="0"
                                 HorizontalAlignment="Stretch"
                                 Click="DeleteButton_Click"
-                                Content="&#xe0e8;"
                                 IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
                                 Style="{StaticResource ButtonIconStyle}"
-                                ToolTipService.ToolTip="Delete selected" />
+                                ToolTipService.ToolTip="Delete selected">
+                            <cal:SymbolIcon Symbol="Erase" IconScale="Medium" />
+                        </Button>
                         <Button Grid.Row="2"
                                 Grid.Column="1"
                                 Click="UndoButton_Click"
-                                Content="&#xe2d6;"
                                 IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                                 Style="{StaticResource ButtonIconStyle}"
-                                ToolTipService.ToolTip="Undo" />
+                                ToolTipService.ToolTip="Undo">
+                            <cal:SymbolIcon Symbol="Undo" IconScale="Medium" />
+                        </Button>
                         <Button Grid.Row="3"
                                 Grid.Column="0"
                                 Click="DiscardButton_Click"
-                                Content="&#xe080;"
                                 IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                                 Style="{StaticResource ButtonIconStyle}"
-                                ToolTipService.ToolTip="Discard edits" />
+                                ToolTipService.ToolTip="Discard edits">
+                            <cal:SymbolIcon Symbol="CircleDisallowed" IconScale="Medium" />
+                        </Button>
                         <Button Grid.Row="3"
                                 Grid.Column="1"
                                 Click="SaveButton_Click"
-                                Content="&#xe06f;"
                                 IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                                 Style="{StaticResource ButtonIconStyle}"
-                                ToolTipService.ToolTip="Save edits" />
+                                ToolTipService.ToolTip="Save edits">
+                            <cal:SymbolIcon Symbol="CheckCircle" IconScale="Medium" />
+                        </Button>
                     </Grid>
                 </StackPanel>
             </Grid>

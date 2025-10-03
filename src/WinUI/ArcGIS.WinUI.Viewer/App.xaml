@@ -6,7 +6,11 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles.xaml" />
-                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+                <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls">
+                    <XamlControlsResources.MergedDictionaries>
+                        <CalciteResources xmlns="using:Esri.Calcite.WinUI" />
+                    </XamlControlsResources.MergedDictionaries>
+                </XamlControlsResources>
             </ResourceDictionary.MergedDictionaries>
             <!--  Other app resources here  -->
             <x:Double x:Key="ContentDialogMaxWidth">800</x:Double>

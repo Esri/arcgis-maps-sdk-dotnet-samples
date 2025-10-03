@@ -3,12 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
              xmlns:esri="using:Esri.ArcGISRuntime"
-             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
+             xmlns:cal="using:Esri.Calcite.WinUI">
     <UserControl.Resources>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24" />
-                <Setter Property="FontSize" Value="25" />
                 <Setter Property="Margin" Value="3" />
                 <Setter Property="Padding" Value="3" />
                 <Setter Property="Background" Value="White" />
@@ -65,37 +64,42 @@
             <Button x:Name="UndoButton"
                     Grid.Row="2"
                     Click="UndoButton_Click"
-                    Content="&#xe2d6;"
                     IsEnabled="False"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Undo" />
+                    ToolTipService.ToolTip="Undo">
+                <cal:SymbolIcon Symbol="Undo" IconScale="Medium" />
+            </Button>
             <Button Grid.Row="2"
                     Grid.Column="1"
                     Click="RedoButton_Click"
-                    Content="&#xe23e;"
                     IsEnabled="{Binding GeometryEditor.CanRedo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Redo" />
+                    ToolTipService.ToolTip="Redo">
+                <cal:SymbolIcon Symbol="Redo" IconScale="Medium" />
+            </Button>
             <Button Grid.Row="3"
                     Click="DeleteSelectedButton_Click"
-                    Content="&#xe0e8;"
                     IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Delete selected" />
+                    ToolTipService.ToolTip="Delete selected">
+                <cal:SymbolIcon Symbol="Erase" IconScale="Medium" />
+            </Button>
             <Button x:Name="SaveButton"
                     Grid.Row="3"
                     Grid.Column="1"
                     Click="SaveButton_Click"
-                    Content="&#xe06f;"
                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Save edits" />
+                    ToolTipService.ToolTip="Save edits">
+                <cal:SymbolIcon Symbol="CheckCircle" IconScale="Medium" />
+            </Button>
             <Button Grid.Row="4"
                     Click="DiscardButton_Click"
-                    Content="&#xe080;"
                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Discard edits" />
+                    ToolTipService.ToolTip="Discard edits">
+                <cal:SymbolIcon Symbol="CircleDisallowed" IconScale="Medium" />
+            </Button>
             <Button x:Name="MultifunctionButton"
                     Grid.Row="5"
                     Grid.ColumnSpan="2"

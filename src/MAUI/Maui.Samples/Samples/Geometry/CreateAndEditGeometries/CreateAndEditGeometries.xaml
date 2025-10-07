@@ -48,14 +48,8 @@
                             Style="{StaticResource IconStyle}"
                             ToolTipProperties.Text="Multipoint"
                             FontFamily="CalciteUIIconsSmallFontFamily"
-                            FontSize="16">
-                        <Button.Text>
-                            <MultiBinding StringFormat="{}{0} {1}">
-                                <Binding Source="{StaticResource CalciteUIIcons_Glyph_Point}"/>
-                                <Binding Source="{StaticResource CalciteUIIcons_Glyph_Point}"/>
-                            </MultiBinding>
-                        </Button.Text>
-                    </Button>
+                            FontSize="16"
+                            Text="&#xe9f9; &#xe9f9;" />
                     <Button x:Name="PolylineButton"
                             Grid.Row="1"
                             Clicked="PolylineButton_Click"

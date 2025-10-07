@@ -2,6 +2,7 @@
 <ContentPage x:Class="ArcGIS.Samples.CreateDynamicBasemapGallery.CreateDynamicBasemapGallery"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:calcite="http://schemas.esri.com/calcite/2024"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
     <Grid>
@@ -11,14 +12,13 @@
                 Background="#AA333333"
                 BorderColor="Transparent"
                 Clicked="ShowGallery_Clicked"
-                FontFamily="CalciteUIIconsMediumFontFamily"
                 FontSize="{OnIdiom Default=80,
                                    Phone=50}"
                 HorizontalOptions="Start"
-                Text="&#xe74d;"
                 TextColor="White"
                 ToolTipProperties.Text="Show Gallery"
-                VerticalOptions="Start" />
+                VerticalOptions="Start"
+                ImageSource="{calcite:CalciteIconImageSource Icon=Basemap, Size={OnIdiom Default=70, Phone=50}, Scale=Large}"/>
         <Border x:Name="TransparentBackground"
                 Background="#AA333333"
                 IsVisible="False">

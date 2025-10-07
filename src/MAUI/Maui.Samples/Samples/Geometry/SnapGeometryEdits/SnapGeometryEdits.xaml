@@ -20,14 +20,15 @@
                         VerticalOptions="Center" />
             </Grid>
         </DataTemplate>
+
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
                 <Setter Property="FontFamily" Value="CalciteUIIconsMediumFontFamily" />
-                <Setter Property="FontSize" Value="25" />
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#3C3C3C, Light=White}" />
+                <Setter Property="FontSize" Value="24" />
             </Style.Setters>
         </Style>
     </ContentPage.Resources>
+
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Grid x:Name="CreateEditGeometriesPanel"
@@ -73,59 +74,67 @@
                     Grid.Column="0"
                     Clicked="PointButton_Click"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe9f9;"
+                    Text="{StaticResource CalciteUIIcons_Glyph_Point}"
                     ToolTipProperties.Text="Point" />
             <Button x:Name="MultipointButton"
                     Grid.Row="2"
                     Grid.Column="1"
                     Clicked="MultipointButton_Click"
-                    FontSize="20"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe9f9;&#xe9f9;"
-                    ToolTipProperties.Text="Multipoint" />
+                    ToolTipProperties.Text="Multipoint"
+                    FontFamily="CalciteUIIconsSmallFontFamily"
+                    FontSize="16">
+                <Button.Text>
+                    <MultiBinding StringFormat="{}{0} {1}">
+                        <Binding Source="{StaticResource CalciteUIIcons_Glyph_Point}"/>
+                        <Binding Source="{StaticResource CalciteUIIcons_Glyph_Point}"/>
+                    </MultiBinding>
+                </Button.Text>
+            </Button>
             <Button x:Name="PolylineButton"
                     Grid.Row="3"
                     Grid.Column="0"
                     Clicked="PolylineButton_Click"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe93f;"
+                    Text="{StaticResource CalciteUIIcons_Glyph_Line}"
                     ToolTipProperties.Text="Polyline / no shape fill" />
             <Button x:Name="PolygonButton"
                     Grid.Row="3"
                     Grid.Column="1"
                     Clicked="PolygonButton_Click"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe9fb;"
+                    Text="{StaticResource CalciteUIIcons_Glyph_PolygonVertices}"
                     ToolTipProperties.Text="Polygon / shape fill" />
             <Button Grid.Row="4"
                     Grid.Column="0"
                     Clicked="DeleteButton_Click"
                     IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe83e;"
+                    Text="{StaticResource CalciteUIIcons_Glyph_Erase}"
                     ToolTipProperties.Text="Delete selected" />
             <Button Grid.Row="4"
                     Grid.Column="1"
                     Clicked="UndoButton_Click"
                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xeb0b;"
+                    Text="{StaticResource CalciteUIIcons_Glyph_Undo}"
                     ToolTipProperties.Text="Undo" />
             <Button Grid.Row="5"
                     Grid.Column="0"
                     Clicked="DiscardButton_Click"
                     IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe7ac;"
+                    Text="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}"
                     ToolTipProperties.Text="Discard edits" />
             <Button Grid.Row="5"
                     Grid.Column="1"
                     Clicked="SaveButton_Click"
                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
                     Style="{StaticResource IconStyle}"
-                    Text="&#xe795;"
+                    Text="{StaticResource CalciteUIIcons_Glyph_CheckCircle}"
                     ToolTipProperties.Text="Save edits" />
         </Grid>
+
         <Grid x:Name="SnappingSettingsPopup"
               Grid.ColumnSpan="2"
               Padding="10"

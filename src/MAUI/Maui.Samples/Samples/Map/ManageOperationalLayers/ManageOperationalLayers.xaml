@@ -1,16 +1,17 @@
 ﻿<ContentPage x:Class="ArcGIS.Samples.ManageOperationalLayers.ManageOperationalLayers"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:calcite="http://schemas.esri.com/calcite/2024"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
              xmlns:resources="clr-namespace:ArcGIS.Resources">
     <ContentPage.Resources>
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="Background" Value="Transparent" />
                 <Setter Property="FontFamily" Value="CalciteUIIconsMediumFontFamily" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="Background" Value="Transparent" />
                 <Setter Property="BorderColor" Value="Transparent" />
-                <Setter Property="FontSize" Value="20" />
             </Style.Setters>
         </Style>
     </ContentPage.Resources>
@@ -28,17 +29,17 @@
                             <Grid ColumnDefinitions="auto,auto,auto,*">
                                 <Button Clicked="MoveButton_OnClicked"
                                         Style="{StaticResource ButtonStyle}"
-                                        Text="&#xe8de;" />
+                                        Text="{StaticResource CalciteUIIcons_Glyph_HideLayers}" />
                                 <Button Grid.Column="1"
                                         Clicked="PromoteButton_Clicked"
                                         Style="{StaticResource ButtonStyle}"
-                                        Text="&#xe76f;"
-                                        ToolTipProperties.Text="Promote layer" />
+                                        ToolTipProperties.Text="Promote layer"
+                                        Text="{StaticResource CalciteUIIcons_Glyph_BringForward}" />
                                 <Button Grid.Column="2"
                                         Clicked="DemoteButton_Clicked"
                                         Style="{StaticResource ButtonStyle}"
-                                        Text="&#xea7b;"
-                                        ToolTipProperties.Text="Demote layer" />
+                                        ToolTipProperties.Text="Demote layer"
+                                        Text="{StaticResource CalciteUIIcons_Glyph_SendBackwards}" />
                                 <Label Grid.Column="3"
                                        LineBreakMode="NoWrap"
                                        Text="{Binding Name}"
@@ -56,7 +57,7 @@
                             <Grid ColumnDefinitions="auto,*">
                                 <Button Clicked="MoveButton_OnClicked"
                                         Style="{StaticResource ButtonStyle}"
-                                        Text="&#xe719;" />
+                                        Text="{StaticResource CalciteUIIcons_Glyph_AddLayer}" />
                                 <Label Grid.Column="1"
                                        LineBreakMode="NoWrap"
                                        Text="{Binding Name}"

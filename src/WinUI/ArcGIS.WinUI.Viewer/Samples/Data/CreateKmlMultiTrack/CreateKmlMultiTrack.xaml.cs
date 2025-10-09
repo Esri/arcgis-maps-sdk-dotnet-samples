@@ -265,7 +265,7 @@ namespace ArcGIS.WinUI.Samples.CreateKmlMultiTrack
 
             // Set the combo box's item source to the dictionary.
             // Make the first item in the combo box a `Show all KML tracks` option.
-            TracksComboBox.ItemsSource = tracksDictionary.Prepend(new KeyValuePair<string, object>("Show all KLM tracks", allTracksGeometry)).ToList();
+            TracksComboBox.ItemsSource = tracksDictionary.Prepend(new KeyValuePair<string, object>("Show all KML tracks", allTracksGeometry)).ToList();
 
             // Set the viewpoint to the union geometry by invoking the selection changed event.
             TracksComboBox.SelectedIndex = 0;

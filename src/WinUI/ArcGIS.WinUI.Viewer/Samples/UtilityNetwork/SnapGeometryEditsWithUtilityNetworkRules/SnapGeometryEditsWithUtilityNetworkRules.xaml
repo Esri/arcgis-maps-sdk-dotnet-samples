@@ -3,8 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="using:CommunityToolkit.WinUI.UI.Converters"
              xmlns:esri="using:Esri.ArcGISRuntime"
-             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls"
-             xmlns:cal="using:Esri.Calcite.WinUI">
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <UserControl.Resources>
         <DataTemplate x:Key="SnapSettingTemplate">
             <Grid>
@@ -24,6 +23,8 @@
         </DataTemplate>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
+                <Setter Property="FontFamily" Value="/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24" />
+                <Setter Property="FontSize" Value="25" />
                 <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="3" />
@@ -94,19 +95,17 @@
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0"
                                     Click="DiscardButton_Click"
+                                    Content="&#xe080;"
                                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                                     Style="{StaticResource IconStyle}"
-                                    ToolTipService.ToolTip="Discard edits">
-                                <cal:SymbolIcon Symbol="CircleDisallowed" IconScale="Medium" />
-                            </Button>
+                                    ToolTipService.ToolTip="Discard edits" />
                             <Button x:Name="SaveButton"
                                     Grid.Column="1"
                                     Click="SaveButton_Click"
+                                    Content="&#xe06f;"
                                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                                     Style="{StaticResource IconStyle}"
-                                    ToolTipService.ToolTip="Save edits">
-                                <cal:SymbolIcon Symbol="CheckCircle" IconScale="Medium" />
-                            </Button>
+                                    ToolTipService.ToolTip="Save edits" />
                         </Grid>
                     </StackPanel>
                     <StackPanel x:Name="SnapSourcesPanel" Visibility="Collapsed">

@@ -24,7 +24,8 @@
         <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
         <Style x:Key="ButtonIconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
+                <Setter Property="FontSize" Value="24" />
                 <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="3" />
@@ -102,24 +103,16 @@
                                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                                     Margin="3"
                                     ToolTipService.ToolTip="Discard edits"
-                                    Style="{StaticResource ButtonIconStyle}">
-                                <Path Data="{calcite:CalciteIconGeometry Icon=CircleDisallowed, Scale=Large}"
-                                      Fill="{DynamicResource CalciteText1Brush}"
-                                      Width="24" Height="24"
-                                      Stretch="Uniform" />
-                            </Button>
+                                    Style="{StaticResource ButtonIconStyle}"
+                                    Content="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}" />
                             <Button x:Name="SaveButton"
                                     Grid.Column="1"
                                     Click="SaveButton_Click"
                                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                                     Margin="3"
                                     ToolTipService.ToolTip="Save edits"
-                                    Style="{StaticResource ButtonIconStyle}">
-                                <Path Data="{calcite:CalciteIconGeometry Icon=CheckCircle, Scale=Large}"
-                                      Fill="{DynamicResource CalciteText1Brush}"
-                                      Width="24" Height="24"
-                                      Stretch="Uniform" />
-                            </Button>
+                                    Style="{StaticResource ButtonIconStyle}"
+                                    Content="{StaticResource CalciteUIIcons_Glyph_CheckCircle}" />
                         </Grid>
                     </StackPanel>
                     <StackPanel x:Name="SnapSourcesPanel" Visibility="Collapsed">

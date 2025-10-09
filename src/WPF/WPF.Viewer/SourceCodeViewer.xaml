@@ -41,11 +41,10 @@
                     BorderThickness="0"
                     Click="CopyCodeButton_Click"
                     ToolTip="Copy code to clipboard"
-                    Style="{x:Null}">
-                <Path Data="{calcite:CalciteIconGeometry Icon=CopyToClipboard, Scale=Medium}"
-                      Fill="Black"
-                      Width="24" Height="24" Stretch="Uniform" />
-            </Button>
+                    Style="{x:Null}"
+                    FontFamily="{StaticResource CalciteUIIconsMediumFontFamily}"
+                    FontSize="24"
+                    Content="{StaticResource CalciteUIIcons_Glyph_CopyToClipboard}"/>
         </Grid>
         <WebBrowser Grid.Row="1" viewer:BrowserBehavior.Html="{Binding SelectedSourceFile.HtmlContent}" />
         <StatusBar Grid.Row="2">

@@ -10,6 +10,23 @@
                         <CalciteResources xmlns="using:Esri.Calcite.WinUI" />
                     </XamlControlsResources.MergedDictionaries>
                 </XamlControlsResources>
+                <ResourceDictionary>
+                    <ResourceDictionary.ThemeDictionaries>
+                        <ResourceDictionary x:Key="Default">
+                            <Color x:Key="CalciteBrandColor" >#8F53CA</Color>
+                            <Color x:Key="CalciteBrandHoverColor" >#7938B6</Color>
+                            <Color x:Key="CalciteBrandPressColor" >#652E98</Color>
+                        </ResourceDictionary>
+                        <ResourceDictionary x:Key="Dark">
+                            <Color x:Key="CalciteBrandColor" >#7938B6</Color>
+                            <Color x:Key="CalciteBrandHoverColor" >#652E98</Color>
+                            <Color x:Key="CalciteBrandPressColor" >#51247A</Color>
+                        </ResourceDictionary>
+                    </ResourceDictionary.ThemeDictionaries>
+                    <SolidColorBrush x:Key="CalciteBrandBrush" Color="{ThemeResource CalciteBrandColor}" />
+                    <SolidColorBrush x:Key="CalciteBrandHoverBrush" Color="{ThemeResource CalciteBrandHoverColor}" />
+                    <SolidColorBrush x:Key="CalciteBrandPressColor" Color="{ThemeResource CalciteBrandPressColor}" />
+                </ResourceDictionary>
                 <ResourceDictionary Source="Resources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <!--  Other app resources here  -->

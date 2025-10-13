@@ -11,6 +11,14 @@
             <!--  General Style files  -->
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources\ControlStyles.xaml" />
+                <CalciteResources xmlns="http://schemas.esri.com/calcite/2024" Theme="Light" />
+                <ResourceDictionary>
+                    <!-- Overriding brand brushes: -->
+                    <Color x:Key="CalciteBrandColor" >#7938B6</Color>
+                    <Color x:Key="CalciteBrandHoverColor" >#652E98</Color>
+                    <Color x:Key="CalciteBrandPressColor" >#51247A</Color>
+                    <Color x:Key="CalciteBrandUnderlineColor">#7938B6</Color>
+                </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
             <Style x:Key="HeaderTextBlock" TargetType="TextBlock">

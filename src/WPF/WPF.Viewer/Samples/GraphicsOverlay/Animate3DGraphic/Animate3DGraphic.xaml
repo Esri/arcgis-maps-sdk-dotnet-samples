@@ -3,13 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <UserControl.Resources>
-        <Style TargetType="Button">
+        <Style TargetType="Button" BasedOn="{StaticResource CalciteButtonBaseStyle}">
             <Setter Property="Margin" Value="5,0,5,0" />
             <Setter Property="Height" Value="25" />
             <Setter Property="Padding" Value="5,0,5,0" />
-        </Style>
-        <Style TargetType="Slider">
-            <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
         <Style TargetType="Label">
             <Setter Property="FontWeight" Value="Bold" />
@@ -55,7 +52,7 @@
             <Slider x:Name="MissionProgressBar"
                     Width="100"
                     Height="25"
-                    Margin="5"
+                    Margin="5,10,5,5"
                     VerticalAlignment="Top"
                     IsMoveToPointEnabled="True"
                     Maximum="1"
@@ -84,6 +81,7 @@
                     </Grid.ColumnDefinitions>
                     <Slider x:Name="MissionPlaySpeedSlider"
                             Grid.Column="0"
+                            VerticalAlignment="Center"
                             IsMoveToPointEnabled="True"
                             Maximum="8"
                             Minimum="0.5"

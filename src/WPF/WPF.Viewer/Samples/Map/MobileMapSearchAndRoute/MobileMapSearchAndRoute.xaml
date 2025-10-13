@@ -11,7 +11,7 @@
                            TextWrapping="Wrap" />
                 <ListBox ItemsSource="{Binding Maps}" SelectionChanged="Map_Selected">
                     <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource CalciteListBoxItemStyle}">
                             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                         </Style>
                     </ListBox.ItemContainerStyle>

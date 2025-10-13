@@ -39,7 +39,7 @@
                          SelectionChanged="TransformationsListBox_Selected">
                     <ListBox.Resources>
                         <!--  Define triggers that will style the item differently if PE files are missing.  -->
-                        <Style TargetType="ListBoxItem">
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource CalciteListBoxItemStyle}">
                             <Style.Triggers>
                                 <!--  Gray text if files are missing.  -->
                                 <DataTrigger Binding="{Binding Path=TransformationObject.IsMissingProjectionEngineFiles}" Value="True">

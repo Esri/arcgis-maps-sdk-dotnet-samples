@@ -6,13 +6,18 @@
     <UserControl.Resources>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
+                <Setter Property="FontSize" Value="24" />
                 <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="3" />
                 <Setter Property="Margin" Value="3" />
             </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
         <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
     </UserControl.Resources>
@@ -33,33 +38,34 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="85" />
-                <ColumnDefinition Width="65" />
+                <ColumnDefinition Width="85" />
             </Grid.ColumnDefinitions>
             <Button x:Name="PointButton"
                     Click="PointButton_Click"
-                    Content="&#xe21c;"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Point" />
+                    ToolTipService.ToolTip="Point"
+                    Content="{StaticResource CalciteUIIcons_Glyph_Point}"/>
             <Button x:Name="MultipointButton"
                     Grid.Column="1"
                     Click="MultipointButton_Click"
-                    Content="&#xe21c;&#xe21c;"
-                    FontSize="20"
+                    FontFamily="{StaticResource CalciteUIIconsSmallFontFamily}"
+                    FontSize="16"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Multipoint" />
+                    ToolTipService.ToolTip="Multipoint"
+                    Content="&#xe9f9;&#xe9f9;"/>
             <Button x:Name="PolylineButton"
                     Grid.Row="1"
                     Click="PolylineButton_Click"
-                    Content="&#xe1a8;"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Polyline / no shape fill" />
+                    ToolTipService.ToolTip="Polyline / no shape fill"
+                    Content="{StaticResource CalciteUIIcons_Glyph_Line}"/>
             <Button x:Name="PolygonButton"
                     Grid.Row="1"
                     Grid.Column="1"
                     Click="PolygonButton_Click"
-                    Content="&#xe220;"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Polygon / shape fill" />
+                    ToolTipService.ToolTip="Polygon / shape fill"
+                    Content="{StaticResource CalciteUIIcons_Glyph_PolygonVertices}"/>
             <ComboBox x:Name="ToolComboBox"
                       Grid.Row="2"
                       Grid.ColumnSpan="2"
@@ -80,45 +86,45 @@
             </Border>
             <Button Grid.Row="5"
                     Click="UndoButton_Click"
-                    Content="&#xe2d6;"
                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Undo" />
+                    ToolTipService.ToolTip="Undo"
+                    Content="{StaticResource CalciteUIIcons_Glyph_Undo}"/>
             <Button Grid.Row="5"
                     Grid.Column="1"
                     Click="RedoButton_Click"
-                    Content="&#xe23e;"
                     IsEnabled="{Binding GeometryEditor.CanRedo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Redo" />
+                    ToolTipService.ToolTip="Redo"
+                    Content="{StaticResource CalciteUIIcons_Glyph_Redo}" />
             <Button Grid.Row="6"
                     Click="DeleteSelectedButton_Click"
-                    Content="&#xe0e8;"
                     IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Delete selected" />
+                    ToolTipService.ToolTip="Delete selected"
+                    Content="{StaticResource CalciteUIIcons_Glyph_Erase}" />
             <Button x:Name="SaveButton"
                     Grid.Row="6"
                     Grid.Column="1"
                     Click="SaveButton_Click"
-                    Content="&#xe06f;"
                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Save edits" />
+                    ToolTipService.ToolTip="Save edits"
+                    Content="{StaticResource CalciteUIIcons_Glyph_CheckCircle}" />
             <Button Grid.Row="7"
                     Click="DiscardButton_Click"
-                    Content="&#xe080;"
                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Discard edits" />
+                    ToolTipService.ToolTip="Discard edits"
+                    Content="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}" />
             <Button x:Name="DeleteAllButton"
                     Grid.Row="7"
                     Grid.Column="1"
                     Click="DeleteAllButton_Click"
-                    Content="&#xe2d0;"
                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView, Converter={StaticResource BoolNegationConverter}}"
                     Style="{StaticResource IconStyle}"
-                    ToolTipService.ToolTip="Delete all geometries" />
+                    ToolTipService.ToolTip="Delete all geometries"
+                    Content="{StaticResource CalciteUIIcons_Glyph_Trash}" />
         </Grid>
     </Grid>
 </UserControl>

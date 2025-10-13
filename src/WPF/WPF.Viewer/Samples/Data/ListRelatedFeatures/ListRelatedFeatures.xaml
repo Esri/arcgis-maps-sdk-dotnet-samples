@@ -15,20 +15,20 @@
                              Margin="0,0,0,10"
                              IsIndeterminate="True"
                              Visibility="Visible" />
-                <ListView x:Name="MyResultsView"
+                <ListBox x:Name="MyResultsView"
                           MaxHeight="300"
                           ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListView.ItemTemplate>
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
                             <TextBlock Text="{Binding}" TextWrapping="Wrap" />
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
+                    </ListBox.ItemTemplate>
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource CalciteListBoxItemStyle}">
                             <Setter Property="Focusable" Value="false" />
                         </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                    </ListBox.ItemContainerStyle>
+                </ListBox>
             </StackPanel>
         </Border>
     </Grid>

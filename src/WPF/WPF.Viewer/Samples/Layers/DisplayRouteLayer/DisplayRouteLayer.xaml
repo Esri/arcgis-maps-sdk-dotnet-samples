@@ -17,7 +17,7 @@
                             <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="20" />
+                                        <ColumnDefinition Width="22" />
                                         <ColumnDefinition Width="25" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
@@ -26,8 +26,8 @@
                                                Text="{Binding Attributes[Sequence], StringFormat={}{0}.}" />
                                     <TextBlock Grid.Column="1"
                                                Margin="0,0,5,5"
-                                               FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
-                                               FontSize="20"
+                                               FontFamily="{StaticResource CalciteUIIconsMediumFontFamily}"
+                                               FontSize="24"
                                                Text="{Binding Attributes[DirectionPointType], Converter={StaticResource Converter}}" />
                                     <TextBlock Grid.Column="2"
                                                Text="{Binding Attributes[DisplayText]}"

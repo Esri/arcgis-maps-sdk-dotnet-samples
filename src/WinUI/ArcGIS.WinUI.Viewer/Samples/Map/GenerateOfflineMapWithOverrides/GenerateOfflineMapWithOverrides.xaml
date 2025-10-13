@@ -18,7 +18,7 @@
                     <Style TargetType="CheckBox">
                         <Setter Property="Margin" Value="0,0,0,5" />
                     </Style>
-                    <Style TargetType="Slider">
+                    <Style TargetType="Slider" BasedOn="{StaticResource DefaultSliderStyle}">
                         <Setter Property="Margin" Value="0,-8,0,0" />
                         <Setter Property="VerticalAlignment" Value="Center" />
                     </Style>

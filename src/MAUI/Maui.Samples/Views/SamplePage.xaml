@@ -28,9 +28,9 @@
                         BorderWidth="0"
                         Clicked="CopyCodeButton_Clicked"
                         FontFamily="CalciteUIIconsMediumFontFamily"
-                        FontSize="20"
+                        FontSize="24"
                         HorizontalOptions="End"
-                        Text="&#xe7eb;"
+                        Text="{StaticResource CalciteUIIcons_Glyph_CopyToClipboard}"
                         ToolTipProperties.Text="Copy code to clipboard" />
                 <Border x:Name="SourceCodeViewContainer"
                         Grid.Row="1"

@@ -6,7 +6,7 @@
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
                 <Setter Property="FontFamily" Value="CalciteUIIconsMediumFontFamily" />
-                <Setter Property="FontSize" Value="20" />
+                <Setter Property="FontSize" Value="24" />
                 <Setter Property="Margin" Value="5" />
             </Style.Setters>
         </Style>
@@ -36,12 +36,12 @@
                                     <Button Grid.Column="1"
                                             Clicked="DownloadAttachment_Click"
                                             Style="{StaticResource IconStyle}"
-                                            Text="&#xeb5c;"
+                                            Text="{StaticResource CalciteUIIcons_Glyph_Download}"
                                             ToolTipProperties.Text="Download" />
                                     <Button Grid.Column="2"
                                             Clicked="DeleteAttachment_Click"
                                             Style="{StaticResource IconStyle}"
-                                            Text="&#xeb04;"
+                                            Text="{StaticResource CalciteUIIcons_Glyph_Trash}"
                                             ToolTipProperties.Text="Delete" />
                                 </Grid>
                             </ViewCell>
@@ -49,16 +49,16 @@
                     </ListView.ItemTemplate>
                 </ListView>
                 <Grid ColumnDefinitions="auto,auto">
-                    <Label Grid.Column="1"
-                           HorizontalOptions="End"
-                           Text="Add attachment"
-                           VerticalOptions="Center" />
                     <Button x:Name="AddAttachmentButton"
                             Clicked="AddAttachment_Click"
                             IsEnabled="False"
                             Style="{StaticResource IconStyle}"
-                            Text="&#xeb17;"
+                            Text="{StaticResource CalciteUIIcons_Glyph_Upload}"
                             ToolTipProperties.Text="Add attachment" />
+                    <Label Grid.Column="1"
+                           HorizontalOptions="End"
+                           Text="Add attachment"
+                           VerticalOptions="Center" />
                 </Grid>
             </StackLayout>
         </Border>

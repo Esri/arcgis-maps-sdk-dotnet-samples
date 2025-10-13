@@ -27,7 +27,7 @@
                     </HorizontalStackLayout.Triggers>
                     <Label Margin="20,0"
                            FontFamily="CalciteUIIconsMediumFontFamily"
-                           FontSize="25"
+                           FontSize="24"
                            Text="{Binding CategoryIcon}"
                            TextColor="White"
                            VerticalOptions="Center" />

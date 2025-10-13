@@ -41,9 +41,7 @@
                     </Grid>
                 </Border>
                 <Border Padding="10" 
-                        StrokeThickness="0"
-                        BackgroundColor="{AppThemeBinding Light=#dedede,
-                                                          Dark=Black}">
+                        StrokeThickness="0">
                     <StackLayout Spacing="5">
                         <Label FontSize="Medium" Text="Define new condition" />
                         <Label FontAttributes="Italic" Text="(Example barrier condition for this data: 'Transformer Load' Equal '15')" />
@@ -88,9 +86,7 @@
                     </StackLayout>
                 </ScrollView>
                 <Border Padding="10" 
-                        StrokeThickness="0"
-                        BackgroundColor="{AppThemeBinding Light=#dedede,
-                                                          Dark=Black}">
+                        StrokeThickness="0">
                     <Grid RowSpacing="5">
                         <Grid.RowDefinitions>
                             <RowDefinition />

@@ -5,6 +5,7 @@
              xmlns:converters="clr-namespace:ArcGIS.Converters"
              xmlns:models="clr-namespace:ArcGIS.Samples.Shared.Models"
              xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
+             xmlns:calcite="http://schemas.esri.com/calcite/2024"
              Title="{Binding SelectedCategory}"
              x:DataType="viewModels:CategoryViewModel"
              Shell.FlyoutBehavior="Flyout">
@@ -40,13 +41,13 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="SearchClicked"
-                     IconImageSource="search.png"
+                     IconImageSource="{calcite:CalciteIconImage Icon=Search, Size=24, Scale=Medium}"
                      Text="Search" />
         <ToolbarItem Clicked="SettingsClicked"
-                     IconImageSource="settings.png"
+                     IconImageSource="{calcite:CalciteIconImage Icon=Gear, Size=24, Scale=Medium}"
                      Text="Settings" />
         <ToolbarItem Clicked="FeedbackToolbarItem_Clicked"
-                     IconImageSource="feedback.png"
+                     IconImageSource="{calcite:CalciteIconImage Icon=NotepadEdit, Size=24, Scale=Medium}"
                      Text="Feedback" />
     </ContentPage.ToolbarItems>
 

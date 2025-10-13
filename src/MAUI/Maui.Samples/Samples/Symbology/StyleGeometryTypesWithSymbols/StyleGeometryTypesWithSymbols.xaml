@@ -41,9 +41,6 @@
                 </Setter.Value>
             </Setter>
         </Style>
-        <Style TargetType="RadioButton">
-            <Setter Property="Background" Value="Transparent" />
-        </Style>
         <converters:ColorConverter x:Key="ColorConverter" />
     </ContentPage.Resources>
     <Grid Style="{DynamicResource EsriSampleContainer}">

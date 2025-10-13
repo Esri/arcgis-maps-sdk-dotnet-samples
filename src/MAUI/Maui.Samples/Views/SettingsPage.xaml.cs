@@ -14,6 +14,7 @@ using ArcGIS.Samples.Shared.Managers;
 using Microsoft.Maui.ApplicationModel;
 using System.Diagnostics;
 using System.Reflection;
+using Esri.Calcite.Maui;
 
 namespace ArcGIS
 {
@@ -93,12 +94,17 @@ namespace ArcGIS
             LicensePageContent.Navigating += HyperlinkClicked;
 
 #if WINDOWS
-            AppTheme currentTheme = Application.Current.RequestedTheme; 
+            AppTheme currentTheme = Application.Current.RequestedTheme;
 
             var screenshotTab = new ToolbarItem();
             screenshotTab.Clicked += ScreenshotButton_Clicked;
             screenshotTab.Text = "Screenshot settings";
-            screenshotTab.IconImageSource = "camera.png";
+            screenshotTab.IconImageSource = new CalciteIconImageSource
+            {
+                Icon = CalciteIcon.Camera,
+                Size = 24,
+                Scale = CalciteIconScale.Small
+            };
 
             ToolbarItems.Add(screenshotTab);
 #endif
@@ -136,7 +142,7 @@ namespace ArcGIS
 
         private async void DownloadClicked(object sender, EventArgs e)
         {
-            if (((ImageButton)sender).CommandParameter is SampleInfo sampleInfo)
+            if (((Button)sender).CommandParameter is SampleInfo sampleInfo)
             {
                 try
                 {
@@ -170,7 +176,7 @@ namespace ArcGIS
 
         private async void AGOLClicked(object sender, EventArgs e)
         {
-            if (((ImageButton)sender).CommandParameter is SampleInfo sampleInfo)
+            if (((Button)sender).CommandParameter is SampleInfo sampleInfo)
             {
                 foreach (var offlineItem in sampleInfo.OfflineDataItems)
                 {
@@ -189,7 +195,7 @@ namespace ArcGIS
 
         private async void DeleteClicked(object sender, EventArgs e)
         {
-            if (((ImageButton)sender).CommandParameter is SampleInfo sampleInfo)
+            if (((Button)sender).CommandParameter is SampleInfo sampleInfo)
             {
                 try
                 {

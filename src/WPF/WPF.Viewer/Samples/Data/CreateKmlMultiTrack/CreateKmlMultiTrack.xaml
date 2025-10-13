@@ -3,13 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <UserControl.Resources>
-        <Style x:Key="IconStyle" TargetType="Button">
+        <Style x:Key="IconStyle" TargetType="Button" BasedOn="{StaticResource CalciteButtonBaseStyle}">
             <Style.Setters>
                 <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
                 <Setter Property="FontSize" Value="24" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="Margin" Value="5" />
+                <Setter Property="Margin" Value="0,5,0,5" />
             </Style.Setters>
+        </Style>
+        <Style TargetType="ToolTip" BasedOn="{StaticResource CalciteToolTipStyle}">
+            <Setter Property="FontSize" Value="12"/>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -35,7 +38,8 @@
                                 Grid.Column="1"
                                 Margin="5"
                                 Click="RecordTrackButton_Click"
-                                Content="Record Track" />
+                                Style="{StaticResource CalciteSecondaryButtonStyle}"
+                                Content="Record Track"/>
                         <Button x:Name="SaveButton"
                                 Grid.Column="2"
                                 Click="SaveButton_Click"

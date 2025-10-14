@@ -8,12 +8,12 @@
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Security;
+using Microsoft.Web.WebView2.Core;
+using Microsoft.Web.WebView2.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Navigation;
 using System.Windows.Threading;
 
 namespace ArcGIS.Helpers
@@ -115,18 +115,17 @@ namespace ArcGIS.Helpers
             // Challenge for OAuth credentials on the UI thread.
             private void AuthorizeOnUIThread(string authorizeUri)
             {
-                // Create a WebBrowser control to display the authorize page.
-                WebBrowser webBrowser = new WebBrowser();
+                // Initialize a WebView2 control to display the authorize page.
+                WebView2 webBrowser = new WebView2() { Width = 500, Height = 500 };
 
                 // Handle the navigation event for the browser to check for a response to the redirect URL.
-                webBrowser.Navigating += WebBrowserOnNavigating;
+                webBrowser.NavigationStarting += WebBrowserOnNavigationStarting;
 
                 // Display the web browser in a new window.
                 _authWindow = new Window
                 {
                     Content = webBrowser,
-                    Width = 450,
-                    Height = 450,
+                    SizeToContent = SizeToContent.WidthAndHeight,
                     WindowStartupLocation = WindowStartupLocation.CenterOwner
                 };
 
@@ -136,9 +135,15 @@ namespace ArcGIS.Helpers
                     _authWindow.Owner = Application.Current.MainWindow;
                 }
 
-                // Handle the window closed event then navigate to the authorize url.
+                // Handle window loaded event as the WebView2 control can only be initialized after it is visible in the UI
+                _authWindow.Loaded += async (s,e) =>
+                {
+                    await webBrowser.EnsureCoreWebView2Async();
+                    webBrowser.CoreWebView2.Navigate(authorizeUri);
+                };
+
+                // Handle the window closed event
                 _authWindow.Closed += OnWindowClosed;
-                webBrowser.Navigate(authorizeUri);
 
                 // Display the window.
                 _authWindow.ShowDialog();
@@ -163,17 +168,16 @@ namespace ArcGIS.Helpers
                 _authWindow = null;
             }
 
-            // Handle browser navigation (content changing).
-            private void WebBrowserOnNavigating(object sender, NavigatingCancelEventArgs e)
+            // Handle browser navigation
+            private void WebBrowserOnNavigationStarting(object sender, CoreWebView2NavigationStartingEventArgs e)
             {
                 // Check for a response to the callback url.
                 const string portalApprovalMarker = "/oauth2/approval";
-                WebBrowser webBrowser = sender as WebBrowser;
 
-                Uri uri = e.Uri;
+                Uri uri = new Uri(e.Uri);
 
                 // If no browser, uri, or an empty url, return.
-                if (webBrowser == null || uri == null || string.IsNullOrEmpty(uri.AbsoluteUri))
+                if (sender == null || uri == null || string.IsNullOrEmpty(uri.AbsoluteUri))
                     return;
 
                 // Check for redirect.

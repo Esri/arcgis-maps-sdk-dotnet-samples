@@ -12,7 +12,7 @@
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="Margin" Value="0,5,0,0" />
         </Style>
-        <Style TargetType="Slider">
+        <Style TargetType="Slider" BasedOn="{StaticResource DefaultSliderStyle}">
             <Setter Property="Padding" Value="0,0,0,0" />
             <Setter Property="Margin" Value="5,0,0,-8" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />

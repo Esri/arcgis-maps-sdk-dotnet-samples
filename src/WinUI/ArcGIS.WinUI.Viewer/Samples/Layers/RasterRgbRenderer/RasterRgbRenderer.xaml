@@ -13,7 +13,7 @@
             <Setter Property="HorizontalAlignment" Value="Right" />
             <Setter Property="FontWeight" Value="SemiBold" />
         </Style>
-        <Style TargetType="Slider">
+        <Style TargetType="Slider" BasedOn="{StaticResource DefaultSliderStyle}">
             <Setter Property="Minimum" Value="0" />
             <Setter Property="Maximum" Value="100" />
             <Setter Property="Padding" Value="5,8,0,0" />

@@ -46,7 +46,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <None Remove="Resources\Fonts\calcite-ui-icons-24.ttf" />
     <None Remove="Resources\github-mark.png" />
     <None Remove="ScreenshotTab.xaml" />
   </ItemGroup>
@@ -63,6 +62,7 @@
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
     <PackageReference Include="Esri.ArcGISRuntime.WinUI" />
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices" />
+    <PackageReference Include="Esri.Calcite.WinUI" />
     <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" />
@@ -80,12 +80,6 @@
     <Compile Update="Helpers\ArcGISLoginPrompt.cs">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Resources\Fonts\calcite-ui-icons-24.ttf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
   </ItemGroup>
 
   <ItemGroup>

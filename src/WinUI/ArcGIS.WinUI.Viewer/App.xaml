@@ -10,7 +10,15 @@
                         <CalciteResources xmlns="using:Esri.Calcite.WinUI" />
                     </XamlControlsResources.MergedDictionaries>
                 </XamlControlsResources>
+
                 <ResourceDictionary>
+                    <!--Manually set implicit style overrides due to WinUI bug-->
+                    <Style TargetType="Button" BasedOn="{StaticResource CalciteButtonStyle}" />
+                    <Style TargetType="TextBox" BasedOn="{StaticResource CalciteTextBoxStyle}" />
+                </ResourceDictionary>
+
+                <ResourceDictionary>
+                    <!--Override calcite toolkit default colors with sample viewer theme colors-->
                     <ResourceDictionary.ThemeDictionaries>
                         <ResourceDictionary x:Key="Default">
                             <Color x:Key="CalciteBrandColor" >#8F53CA</Color>
@@ -29,6 +37,7 @@
                 </ResourceDictionary>
                 <ResourceDictionary Source="Resources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
             <!--  Other app resources here  -->
             <x:Double x:Key="ContentDialogMaxWidth">800</x:Double>
             <x:Double x:Key="ContentDialogMaxHeight">756</x:Double>

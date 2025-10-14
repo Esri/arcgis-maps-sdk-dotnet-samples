@@ -118,7 +118,7 @@
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="200" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0"
@@ -148,12 +148,12 @@
                 <Button Content="&gt;"
                         HorizontalAlignment="Center"
                         Margin="0,0,0,5"
-                        Click="AddSortFieldClicked"/>
+                        Click="AddSortFieldClicked" />
                 <Button Content="&lt;"
                         HorizontalAlignment="Center"
-                        Click="RemoveSortFieldClicked"/>
+                        Click="RemoveSortFieldClicked" />
             </StackPanel>
-            
+
             <TextBlock Grid.Row="0"
                    Grid.Column="2"
                    Margin="0,0,0,5"
@@ -186,7 +186,7 @@
                 Click="ChangeFieldSortOrder"
                 Content="Change sort order" />
         </Grid>
-        
+
         <Button x:Name="GetStatisticsButton"
                 Grid.Row="2"
                 Grid.Column="0"
@@ -207,7 +207,7 @@
                     <DataTemplate>
                         <ListView ItemsSource="{Binding Item2}">
                             <ListView.Header>
-                                <TextBlock Text="{Binding Item1}" FontSize="18"/>
+                                <TextBlock Text="{Binding Item1}" FontSize="18" />
                             </ListView.Header>
                             <ListView.ItemTemplate>
                                 <DataTemplate>

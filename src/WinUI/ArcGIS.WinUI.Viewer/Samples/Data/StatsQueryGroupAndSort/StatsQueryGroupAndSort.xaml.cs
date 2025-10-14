@@ -113,7 +113,7 @@ namespace ArcGIS.WinUI.Samples.StatsQueryGroupAndSort
                 StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
                 // Format the output for display of grouped results in the list view
-                var groupedResults = statQueryResult.Select(r => new Tuple<string, List<Tuple<string, object>>>(string.Join(", ", r.Group.Values), r.Statistics.Select(x=>new Tuple<string, object>(x.Key, x.Value)).ToList()));
+                var groupedResults = statQueryResult.Select(r => new Tuple<string, List<Tuple<string, object>>>(string.Join(", ", r.Group.Values), r.Statistics.Select(x => new Tuple<string, object>(x.Key, x.Value)).ToList()));
 
                 // Apply the results to the list view data source
                 ResultsList.ItemsSource = groupedResults;

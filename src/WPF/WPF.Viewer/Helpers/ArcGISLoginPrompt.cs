@@ -136,7 +136,7 @@ namespace ArcGIS.Helpers
                 }
 
                 // Handle window loaded event as the WebView2 control can only be initialized after it is visible in the UI
-                _authWindow.Loaded += async (s,e) =>
+                _authWindow.Loaded += async (s, e) =>
                 {
                     await webBrowser.EnsureCoreWebView2Async();
                     webBrowser.CoreWebView2.Navigate(authorizeUri);

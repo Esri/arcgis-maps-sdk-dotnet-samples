@@ -116,7 +116,7 @@ namespace ArcGIS.Helpers
             private void AuthorizeOnUIThread(string authorizeUri)
             {
                 // Initialize a WebView2 control to display the authorize page.
-                WebView2 webBrowser = new WebView2() { Width = 500, Height = 500 };
+                WebView2 webBrowser = new WebView2() { MinWidth = 500, MinHeight = 500 };
 
                 // Handle the navigation event for the browser to check for a response to the redirect URL.
                 webBrowser.NavigationStarting += WebBrowserOnNavigationStarting;

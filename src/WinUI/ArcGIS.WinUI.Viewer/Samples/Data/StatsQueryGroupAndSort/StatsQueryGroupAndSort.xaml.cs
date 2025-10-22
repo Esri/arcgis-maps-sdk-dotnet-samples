@@ -40,7 +40,7 @@ namespace ArcGIS.WinUI.Samples.StatsQueryGroupAndSort
         private List<string> _groupByFields = new List<string>();
 
         // Collection to hold fields to order results by
-        private ObservableCollection<OrderFieldOption> _orderByFields = new ObservableCollection<OrderFieldOption>();
+        private ObservableCollection<OrderBy> _orderByFields = new ObservableCollection<OrderBy>();
 
         public StatsQueryGroupAndSort()
         {
@@ -99,9 +99,9 @@ namespace ArcGIS.WinUI.Samples.StatsQueryGroupAndSort
             }
 
             // Specify the fields to order by (if any)
-            foreach (OrderFieldOption orderBy in _orderByFields)
+            foreach (OrderBy orderBy in _orderByFields)
             {
-                statQueryParams.OrderByFields.Add(orderBy.OrderInfo);
+                statQueryParams.OrderByFields.Add(orderBy);
             }
 
             // Ignore counties with missing data
@@ -113,10 +113,10 @@ namespace ArcGIS.WinUI.Samples.StatsQueryGroupAndSort
                 StatisticsQueryResult statQueryResult = await _usStatesTable.QueryStatisticsAsync(statQueryParams);
 
                 // Format the output for display of grouped results in the list view
-                IEnumerable<IGrouping<string, IReadOnlyDictionary<string, object>>> groupedResults = statQueryResult.GroupBy(r => string.Join(", ", r.Group.Values), r => r.Statistics);
+                var groupedResults = statQueryResult.Select(r => new Tuple<string, List<Tuple<string, object>>>(string.Join(", ", r.Group.Values), r.Statistics.Select(x => new Tuple<string, object>(x.Key, x.Value)).ToList()));
 
                 // Apply the results to the list view data source
-                GroupedResultData.Source = groupedResults;
+                ResultsList.ItemsSource = groupedResults;
             }
             catch (Exception ex)
             {
@@ -152,8 +152,7 @@ namespace ArcGIS.WinUI.Samples.StatsQueryGroupAndSort
 
                 // Also add it to the "order by" list
                 OrderBy orderBy = new OrderBy(fieldName, SortOrder.Ascending);
-                OrderFieldOption orderOption = new OrderFieldOption(false, orderBy);
-                _orderByFields.Add(orderOption);
+                _orderByFields.Add(orderBy);
             }
             // If the field is being removed and it IS in the list, remove it ...
             else if (!fieldAdded && fieldIsInList)
@@ -161,7 +160,7 @@ namespace ArcGIS.WinUI.Samples.StatsQueryGroupAndSort
                 _groupByFields.Remove(fieldName);
 
                 // Also check for this field in the "order by" list and remove if necessary (only group fields can be used to order results)
-                OrderFieldOption orderBy = _orderByFields.FirstOrDefault(field => field.OrderInfo.FieldName == fieldName);
+                OrderBy orderBy = _orderByFields.FirstOrDefault(field => field.FieldName == fieldName);
                 if (orderBy != null)
                 {
                     // Remove the field from the "order by" list
@@ -195,25 +194,24 @@ namespace ArcGIS.WinUI.Samples.StatsQueryGroupAndSort
         private void ChangeFieldSortOrder(object sender, RoutedEventArgs e)
         {
             // Verify that there is a selected sort field in the list
-            OrderFieldOption selectedSortField = OrderByFieldsListBox.SelectedItem as OrderFieldOption;
+            OrderBy selectedSortField = OrderByFieldsListBox.SelectedItem as OrderBy;
             if (selectedSortField == null) { return; }
 
             // Create a new order field info to define the sort for the selected field
-            OrderBy newOrderBy = new OrderBy(selectedSortField.OrderInfo.FieldName, selectedSortField.OrderInfo.SortOrder);
-            OrderFieldOption newSortDefinition = new OrderFieldOption(true, newOrderBy);
+            OrderBy newOrderBy = new OrderBy(selectedSortField.FieldName, selectedSortField.SortOrder);
 
             // Toggle the sort order from the current value
-            if (newSortDefinition.OrderInfo.SortOrder == SortOrder.Ascending)
+            if (newOrderBy.SortOrder == SortOrder.Ascending)
             {
-                newSortDefinition.OrderInfo.SortOrder = SortOrder.Descending;
+                newOrderBy.SortOrder = SortOrder.Descending;
             }
             else
             {
-                newSortDefinition.OrderInfo.SortOrder = SortOrder.Ascending;
+                newOrderBy.SortOrder = SortOrder.Ascending;
             }
 
             // Add the new OrderBy at the same location in the collection and remove the old one
-            _orderByFields.Insert(_orderByFields.IndexOf(selectedSortField), newSortDefinition);
+            _orderByFields.Insert(_orderByFields.IndexOf(selectedSortField), newOrderBy);
             _orderByFields.Remove(selectedSortField);
         }
 
@@ -243,13 +241,12 @@ namespace ArcGIS.WinUI.Samples.StatsQueryGroupAndSort
             }
 
             // Verify that the field isn't already in the "order by" list
-            OrderFieldOption existingOrderBy = _orderByFields.FirstOrDefault(f => f.OrderInfo.FieldName == selectedFieldName);
+            OrderBy existingOrderBy = _orderByFields.FirstOrDefault(f => f.FieldName == selectedFieldName);
             if (existingOrderBy == null)
             {
                 // Create a new OrderBy for this field and add it to the collection (default to ascending sort order)
                 OrderBy newOrderBy = new OrderBy(selectedFieldName, SortOrder.Ascending);
-                OrderFieldOption orderField = new OrderFieldOption(false, newOrderBy);
-                _orderByFields.Add(orderField);
+                _orderByFields.Add(newOrderBy);
             }
         }
 
@@ -260,24 +257,8 @@ namespace ArcGIS.WinUI.Samples.StatsQueryGroupAndSort
             if (OrderByFieldsListBox.SelectedItem == null) { return; }
 
             // Get the selected OrderFieldOption object and remove it from the collection
-            OrderFieldOption selectedOrderBy = OrderByFieldsListBox.SelectedItem as OrderFieldOption;
+            OrderBy selectedOrderBy = OrderByFieldsListBox.SelectedItem as OrderBy;
             _orderByFields.Remove(selectedOrderBy);
-        }
-    }
-
-    // Simple class to describe an "order by" option
-    public class OrderFieldOption
-    {
-        // Whether or not to use this field to order results
-        public bool OrderWith { get; set; }
-
-        // The order by info: field name and sort order
-        public OrderBy OrderInfo { get; set; }
-
-        public OrderFieldOption(bool orderWith, OrderBy orderInfo)
-        {
-            OrderWith = orderWith;
-            OrderInfo = orderInfo;
         }
     }
 

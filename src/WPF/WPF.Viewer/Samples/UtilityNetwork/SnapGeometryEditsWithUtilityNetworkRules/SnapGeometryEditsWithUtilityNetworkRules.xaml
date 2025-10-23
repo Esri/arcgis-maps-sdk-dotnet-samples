@@ -20,17 +20,22 @@
                        Source="{Binding Path=Symbol}" />
             </Grid>
         </DataTemplate>
-        <Style x:Key="IconStyle" TargetType="Button">
+        <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
+        <Style x:Key="ButtonIconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
+                <Setter Property="FontSize" Value="24" />
                 <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="3" />
                 <Setter Property="Margin" Value="3" />
             </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
-        <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
@@ -94,17 +99,19 @@
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0"
                                     Click="DiscardButton_Click"
-                                    Content="&#xe080;"
                                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
-                                    Style="{StaticResource IconStyle}"
-                                    ToolTipService.ToolTip="Discard edits" />
+                                    Margin="3"
+                                    ToolTipService.ToolTip="Discard edits"
+                                    Style="{StaticResource ButtonIconStyle}"
+                                    Content="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}" />
                             <Button x:Name="SaveButton"
                                     Grid.Column="1"
                                     Click="SaveButton_Click"
-                                    Content="&#xe06f;"
                                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
-                                    Style="{StaticResource IconStyle}"
-                                    ToolTipService.ToolTip="Save edits" />
+                                    Margin="3"
+                                    ToolTipService.ToolTip="Save edits"
+                                    Style="{StaticResource ButtonIconStyle}"
+                                    Content="{StaticResource CalciteUIIcons_Glyph_CheckCircle}" />
                         </Grid>
                     </StackPanel>
                     <StackPanel x:Name="SnapSourcesPanel" Visibility="Collapsed">
@@ -114,8 +121,6 @@
                                    Text="Snap sources" />
                         <ListView x:Name="SnapSourcesList"
                                   Grid.Column="1"
-                                  Width="200"
-                                  Height="80"
                                   ItemTemplate="{StaticResource SnapSettingTemplate}" />
                         <TextBlock Padding="0,5"
                                    FontSize="14"

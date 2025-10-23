@@ -19,13 +19,10 @@
                     <Style TargetType="TextBlock">
                         <Setter Property="Margin" Value="0,0,0,5" />
                     </Style>
-                    <Style TargetType="TextBox">
+                    <Style TargetType="CheckBox" BasedOn="{StaticResource CalciteCheckBoxStyle}">
                         <Setter Property="Margin" Value="0,0,0,5" />
                     </Style>
-                    <Style TargetType="CheckBox">
-                        <Setter Property="Margin" Value="0,0,0,5" />
-                    </Style>
-                    <Style TargetType="Slider">
+                    <Style TargetType="Slider" BasedOn="{StaticResource CalciteSliderStyle}">
                         <Setter Property="Margin" Value="0,0,5,0" />
                     </Style>
                 </Grid.Resources>

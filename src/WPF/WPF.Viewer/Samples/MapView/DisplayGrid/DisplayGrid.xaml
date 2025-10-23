@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <UserControl.Resources>
-        <Style TargetType="ComboBox">
+        <Style TargetType="ComboBox" BasedOn="{StaticResource CalciteComboBoxStyle}">
             <Setter Property="Margin" Value="5" />
         </Style>
-        <Style TargetType="Button">
+        <Style TargetType="Button" BasedOn="{StaticResource CalciteButtonBaseStyle}">
             <Setter Property="Margin" Value="5" />
         </Style>
     </UserControl.Resources>

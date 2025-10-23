@@ -5,6 +5,7 @@
     xmlns:controls="clr-namespace:ArcGIS.Controls"
     xmlns:converters="clr-namespace:ArcGIS.WPF.Viewer.Converters"
     xmlns:local="clr-namespace:ArcGIS.WPF.Viewer"
+    xmlns:calcite="http://schemas.esri.com/calcite/2024"
     Title="ArcGIS Maps SDK for .NET Samples"
     Icon="Assets/ApplicationIcons/windows-desktop-256.ico"
     WindowStartupLocation="CenterScreen"
@@ -36,10 +37,10 @@
                             Click="SampleGridFavoriteButton_Click"
                             CommandParameter="{Binding FormalName}"
                             Style="{DynamicResource SampleGridFavoriteButton}">
-                            <Path
-                                Data="M15.633 6.718l-3.666 3.176 1.107 4.732a.632.632 0 0 1-.221.68.572.572 0 0 1-.34.11.72.72 0 0 1-.373-.111l-4.165-2.533-4.163 2.532a.607.607 0 0 1-.936-.676l1.107-4.734L.317 6.718a.633.633 0 0 1-.22-.68.63.63 0 0 1 .578-.418l4.824-.406 1.9-4.537a.619.619 0 0 1 1.154 0l1.898 4.537 4.824.406a.606.606 0 0 1 .358 1.098z"
-                                Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
-                                Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
+                            <Path Data="{calcite:CalciteIconGeometry Icon=StarFilled, Scale=Small}"
+                                  Width="18" Height="18" Stretch="Uniform"
+                                  Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
+                                  Stroke="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}" />
                         </Button>
                         <TextBlock
                             Grid.Row="0"
@@ -144,10 +145,9 @@
                 Background="Transparent"
                 BorderBrush="Transparent"
                 Click="SettingsButton_Click">
-                <Image
-                    MaxWidth="24"
-                    MaxHeight="24"
-                    Source="Resources/ic_menu_settings_dark.png" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=Gear, Scale=Large}"
+                      Stroke="White"
+                      Width="22" Height="22" Stretch="Uniform" />
             </Button>
             <Button
                 Grid.Column="3"
@@ -159,8 +159,9 @@
                 Margin="5,5"
                 VerticalAlignment="Center"
                 Foreground="White">
-                <Path Fill="White"
-                    Data="M18 10H7V9h11v1zm0 2H7v1h11v-1zm-1 3H7v1h10v-1zm-4 3H7v1h6v-1zm8-15v10.19c-.23.21-.54.51-1 .97V4h-1V3h2zM5 22h7.73l-.41 1H4V3h2v1H5v18zm16-3.13V23h-4.14c.07-.05.06-.05 1.01-1H20v-2.13l1-1zM8.5 5.25v-3.5A.752.752 0 0 0 7.75 1a.752.752 0 0 0-.75.75v3.5c0 .412.338.75.75.75s.75-.338.75-.75zm3 0v-3.5a.752.752 0 0 0-.75-.75.752.752 0 0 0-.75.75v3.5c0 .412.338.75.75.75s.75-.338.75-.75zm3.5 0v-3.5a.752.752 0 0 0-.75-.75.752.752 0 0 0-.75.75v3.5c0 .412.338.75.75.75s.75-.338.75-.75zm3 0v-3.5a.752.752 0 0 0-.75-.75.752.752 0 0 0-.75.75v3.5c0 .412.338.75.75.75s.75-.338.75-.75zm3.435 11.772l-1.413-1.415-5.184 5.184 1.414 1.414 5.183-5.183zm1.725-2.05l-1.13-1.132a.2.2 0 0 0-.283 0l-.734.734 1.414 1.414.734-.734a.2.2 0 0 0 0-.283zm-9.32 6.941L13 24l2.086-.84-1.247-1.247z" />
+                <Path Data="{calcite:CalciteIconGeometry Icon=NotePadEdit, Scale=Small}"
+                      Fill="White"
+                      Width="22" Height="22" Stretch="Uniform" />
             </Button>
         </Grid>
 
@@ -175,7 +176,7 @@
                 Padding="0,10,0,0"
                 Background="#FFF8F8F8"
                 BorderBrush="Transparent"
-                FontSize="18"
+                FontSize="16"
                 ItemsSource="{Binding}"
                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                 SelectedItemChanged="categories_SelectedItemChanged"
@@ -216,14 +217,16 @@
                             Height="25"
                             Margin="5,5"
                             VerticalAlignment="Center"
-                            Background="white"
+                            Foreground="White"
+                            Background="White"
                             BorderThickness="0"
                             Click="InSampleFavoriteButton_Click"
-                            CommandParameter="{Binding FormalName}">
-                            <Path
-                                Data="M15.633 6.718l-3.666 3.176 1.107 4.732a.632.632 0 0 1-.221.68.572.572 0 0 1-.34.11.72.72 0 0 1-.373-.111l-4.165-2.533-4.163 2.532a.607.607 0 0 1-.936-.676l1.107-4.734L.317 6.718a.633.633 0 0 1-.22-.68.63.63 0 0 1 .578-.418l4.824-.406 1.9-4.537a.619.619 0 0 1 1.154 0l1.898 4.537 4.824.406a.606.606 0 0 1 .358 1.098z"
-                                Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
-                                Stroke="Black" />
+                            CommandParameter="{Binding FormalName}"
+                            Style="{x:Null}">
+                            <Path Data="{calcite:CalciteIconGeometry Icon=StarFilled, Scale=Small}"
+                                  Stroke="Black"
+                                  Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Button}}"
+                                  Width="18" Height="18" Stretch="Uniform" />
                         </Button>
                     </StackPanel>
                     <StackPanel Grid.Column="1" Orientation="Horizontal">
@@ -235,8 +238,11 @@
                             Background="White"
                             BorderThickness="0"
                             Click="ScreenshotButton_Click"
-                            Visibility="Hidden">
-                            <Path Data="M14.5 8a4.5 4.5 0 1 0 4.5 4.5A4.505 4.505 0 0 0 14.5 8zm0 8a3.5 3.5 0 1 1 3.5-3.5 3.504 3.504 0 0 1-3.5 3.5zM8 9H4V8h4zm13 11H3a2.002 2.002 0 0 1-2-2V8a2.002 2.002 0 0 1 2-2h1V5h4v1h1.5a.5.5 0 0 0 .5-.5A1.502 1.502 0 0 1 11.5 4h6A1.502 1.502 0 0 1 19 5.5a.5.5 0 0 0 .5.5H21a2.002 2.002 0 0 1 2 2v10a2.002 2.002 0 0 1-2 2zM3 7a1.001 1.001 0 0 0-1 1v10a1.001 1.001 0 0 0 1 1h18a1.001 1.001 0 0 0 1-1V8a1.001 1.001 0 0 0-1-1h-1.5A1.502 1.502 0 0 1 18 5.5a.5.5 0 0 0-.5-.5h-6a.5.5 0 0 0-.5.5A1.502 1.502 0 0 1 9.5 7H7V6H5v1z" Stroke="Black" />
+                            Visibility="Hidden"
+                            Style="{x:Null}">
+                            <Path Data="{calcite:CalciteIconGeometry Icon=Camera, Scale=Large}"
+                                  Stroke="Black"
+                                  Width="22" Height="22" Stretch="Uniform" />
                         </Button>
                         <RadioButton
                             x:Name="SampleRadTab"

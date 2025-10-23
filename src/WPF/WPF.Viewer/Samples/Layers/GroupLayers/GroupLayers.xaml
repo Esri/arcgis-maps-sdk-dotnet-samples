@@ -17,7 +17,9 @@
                            Foreground="Black"
                            Text="Select layers for display."
                            TextAlignment="Center" />
-                <TreeView Grid.Row="1" ItemsSource="{Binding ElementName=MySceneView, Path=Scene.OperationalLayers, Mode=OneWay}">
+                <TreeView Grid.Row="1"
+                          FontSize="14"
+                          ItemsSource="{Binding ElementName=MySceneView, Path=Scene.OperationalLayers, Mode=OneWay}">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate DataType="{x:Type mapping:ILayerContent}" ItemsSource="{Binding SublayerContents}">
                             <!--  These are explicitly one-way bindings - because layers are loaded by MapView, these values do change.  -->

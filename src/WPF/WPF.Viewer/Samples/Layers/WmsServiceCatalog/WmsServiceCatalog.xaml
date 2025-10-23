@@ -17,7 +17,12 @@
                            Foreground="Black"
                            Text="Select WMS sublayers for display."
                            TextAlignment="Center" />
-                <TreeView Name="LayerTreeView" Grid.Row="1">
+                <TreeView Name="LayerTreeView"
+                          Grid.Row="1"
+                          FontSize="14"
+                          BorderBrush="Black"
+                          BorderThickness="1"
+                          ScrollViewer.HorizontalScrollBarVisibility="Auto">
                     <TreeView.ItemTemplate>
                         <HierarchicalDataTemplate DataType="{x:Type wmsServiceCatalog:LayerDisplayVM}" ItemsSource="{Binding Children}">
                             <StackPanel Orientation="Horizontal">

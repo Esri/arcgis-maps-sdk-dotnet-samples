@@ -15,6 +15,7 @@
     <PackageVersion Include="Esri.ArcGISRuntime.UWP" Version="$(ArcGISMapsSDKVersion)" />
     <PackageVersion Include="Esri.ArcGISRuntime.Toolkit.UWP" Version="$(ArcGISMapsSDKVersion)" />
     <PackageVersion Include="Esri.ArcGISRuntime.Toolkit.WinUI" Version="$(ArcGISMapsSDKVersion)" />
+    <PackageVersion Include="Esri.Calcite.WPF" Version="1.0.0-rc.1" />
     <PackageVersion Include="Esri.Calcite.Maui" Version="1.0.0-rc.1" />
     <PackageVersion Include="Esri.Calcite.WinUI" Version="1.0.0-rc.1" />
     <PackageVersion Include="Markdig" Version="0.37.0" />

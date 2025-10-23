@@ -4,21 +4,21 @@
              xmlns:converters="clr-namespace:ArcGIS.WPF.Viewer.Converters"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <UserControl.Resources>
-        <Style TargetType="Button">
+        <Style TargetType="Button" BasedOn="{StaticResource CalciteButtonBaseStyle}">
             <Setter Property="Margin" Value="5" />
         </Style>
-        <Style TargetType="ComboBox">
+        <Style TargetType="ComboBox" BasedOn="{StaticResource CalciteComboBoxStyle}">
             <Setter Property="Margin" Value="5" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
         </Style>
         <Style TargetType="Label">
             <Setter Property="Margin" Value="5" />
         </Style>
-        <Style TargetType="Slider">
+        <Style TargetType="Slider" BasedOn="{StaticResource CalciteSliderStyle}">
             <Setter Property="Margin" Value="5" />
             <Setter Property="VerticalAlignment" Value="Center" />
         </Style>
-        <Style TargetType="TabControl">
+        <Style TargetType="TabControl" BasedOn="{StaticResource CalciteTabControlStyle}">
             <Setter Property="Margin" Value="5" />
         </Style>
         <Style TargetType="TextBlock">

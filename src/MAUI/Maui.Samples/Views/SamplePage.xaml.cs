@@ -27,6 +27,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using Esri.Calcite.Maui;
 
 namespace ArcGIS
 {
@@ -339,7 +340,6 @@ namespace ArcGIS
 
         private void SetToolbarItems()
         {
-
 #if WINDOWS
             // Add the screenshot tool if enabled in settings.
             if (ScreenshotManager.ScreenshotSettings.ScreenshotEnabled)
@@ -350,7 +350,12 @@ namespace ArcGIS
 #if WINDOWS || MACCATALYST
             var sampleToolbarItem = new ToolbarItem
             {
-                IconImageSource = "maps.png",
+                IconImageSource = new CalciteIconImageSource
+                {
+                    Icon = CalciteIcon.Analysis,
+                    Size = 32,
+                    Scale = CalciteIconScale.Small
+                },
                 Text = LiveSample
             };
             sampleToolbarItem.Clicked += SampleToolbarItem_Clicked;
@@ -358,7 +363,12 @@ namespace ArcGIS
 
             var infoToolbarItem = new ToolbarItem
             {
-                IconImageSource = "information.png",
+                IconImageSource = new CalciteIconImageSource
+                {
+                    Icon = CalciteIcon.Information,
+                    Size = 32,
+                    Scale = CalciteIconScale.Small
+                },
                 Text = Description
             };
             infoToolbarItem.Clicked += InfoToolbarItem_Clicked;
@@ -366,7 +376,12 @@ namespace ArcGIS
 
             var sourceCodeToolbarItem = new ToolbarItem
             {
-                IconImageSource = "code.png",
+                IconImageSource = new CalciteIconImageSource
+                {
+                    Icon = CalciteIcon.Code,
+                    Size = 32,
+                    Scale = CalciteIconScale.Small
+                },
                 Text = SourceCode
             };
             sourceCodeToolbarItem.Clicked += SourceCodeToolbarItem_Clicked;
@@ -383,7 +398,12 @@ namespace ArcGIS
             // Feedback toolbar item should only be present on desktop platforms.
             var feedbackToolbarItem = new ToolbarItem
             {
-                IconImageSource = "feedback.png",
+                IconImageSource = new CalciteIconImageSource
+                {
+                    Icon = CalciteIcon.NotepadEdit,
+                    Size = 32,
+                    Scale = CalciteIconScale.Small
+                },
                 Text = "Feedback"
             };
             feedbackToolbarItem.Clicked += FeedbackToolbarItem_Clicked;
@@ -392,7 +412,12 @@ namespace ArcGIS
 #else
             var verticalHandle = new ToolbarItem
             {
-                IconImageSource = "verticalhandle.png"
+                IconImageSource = new CalciteIconImageSource
+                {
+                    Icon = CalciteIcon.HandleVertical,
+                    Size = 32,
+                    Scale = CalciteIconScale.Large
+                },
             };
             verticalHandle.Clicked += VerticalHandle_Clicked;
             ToolbarItems.Add(verticalHandle);
@@ -404,14 +429,19 @@ namespace ArcGIS
         {
             var screenshotToolbarItem = new ToolbarItem()
             {
-                IconImageSource = "camera.png",
+                IconImageSource = new CalciteIconImageSource
+                {
+                    Icon = CalciteIcon.Camera,
+                    Size = 32,
+                    Scale = CalciteIconScale.Small
+                },
                 Text = "Screenshot"
             };
             screenshotToolbarItem.Clicked += ScreenshotButton_Clicked;
 
             SampleContentPage.WidthRequest = ScreenshotManager.ScreenshotSettings.Width.HasValue ? ScreenshotManager.ScreenshotSettings.Width.Value : double.NaN;
             SampleContentPage.HeightRequest = ScreenshotManager.ScreenshotSettings.Height.HasValue ? ScreenshotManager.ScreenshotSettings.Height.Value : double.NaN;
-            
+
             return screenshotToolbarItem;
         }
 #endif
@@ -651,10 +681,10 @@ namespace ArcGIS
                     .Contains("Style=\"{DynamicResource"))
                 {
                     // Display a comment on the second line of the file.
-                    baseContent = baseContent.Insert(baseContent.IndexOf('>')+1, 
+                    baseContent = baseContent.Insert(baseContent.IndexOf('>') + 1,
                         "\n<!-- Styles used in this sample can be copied from Resources/Styles/Styles.xaml. -->");
                 }
-                
+
                 // > and < characters will be incorrectly parsed by the html.
                 baseContent = baseContent.Replace("<", "&lt;").Replace(">", "&gt;");
 

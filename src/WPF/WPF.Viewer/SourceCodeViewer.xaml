@@ -42,9 +42,9 @@
                     Click="CopyCodeButton_Click"
                     ToolTip="Copy code to clipboard"
                     Style="{x:Null}"
-                    FontFamily="{DynamicResource CalciteUIIconsMediumFontFamily}"
+                    FontFamily="{StaticResource CalciteUIIconsMediumFontFamily}"
                     FontSize="24"
-                    Content="{DynamicResource CalciteUIIcons_Glyph_CopyToClipboard}"/>
+                    Content="{StaticResource CalciteUIIcons_Glyph_CopyToClipboard}"/>
         </Grid>
         <WebBrowser Grid.Row="1" viewer:BrowserBehavior.Html="{Binding SelectedSourceFile.HtmlContent}" />
         <StatusBar Grid.Row="2">

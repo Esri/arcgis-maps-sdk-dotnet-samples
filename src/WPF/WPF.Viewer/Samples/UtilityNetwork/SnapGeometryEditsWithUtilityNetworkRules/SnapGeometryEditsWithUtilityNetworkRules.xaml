@@ -24,7 +24,7 @@
         <converters:BoolNegationConverter x:Key="BoolNegationConverter" />
         <Style x:Key="ButtonIconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="{DynamicResource CalciteUIIconsMediumFontFamily}" />
+                <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
                 <Setter Property="FontSize" Value="24" />
                 <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -104,7 +104,7 @@
                                     Margin="3"
                                     ToolTipService.ToolTip="Discard edits"
                                     Style="{StaticResource ButtonIconStyle}"
-                                    Content="{DynamicResource CalciteUIIcons_Glyph_CircleDisallowed}" />
+                                    Content="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}" />
                             <Button x:Name="SaveButton"
                                     Grid.Column="1"
                                     Click="SaveButton_Click"
@@ -112,7 +112,7 @@
                                     Margin="3"
                                     ToolTipService.ToolTip="Save edits"
                                     Style="{StaticResource ButtonIconStyle}"
-                                    Content="{DynamicResource CalciteUIIcons_Glyph_CheckCircle}" />
+                                    Content="{StaticResource CalciteUIIcons_Glyph_CheckCircle}" />
                         </Grid>
                     </StackPanel>
                     <StackPanel x:Name="SnapSourcesPanel" Visibility="Collapsed">

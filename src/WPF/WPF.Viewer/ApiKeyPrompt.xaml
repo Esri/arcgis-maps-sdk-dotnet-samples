@@ -29,12 +29,12 @@
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="SetKeyButton"
                         Margin="5"
-                        Style="{DynamicResource CalciteSecondaryButtonStyle}"
+                        Style="{StaticResource CalciteSecondaryButtonStyle}"
                         Click="SetKeyButton_Click"
                         Content="Set API key" />
                 <Button x:Name="DeleteKeyButton"
                         Margin="5"
-                        Style="{DynamicResource CalciteDangerSecondaryButtonStyle}"
+                        Style="{StaticResource CalciteDangerSecondaryButtonStyle}"
                         Click="DeleteKeyButton_Click"
                         Content="Delete API key" />
             </StackPanel>

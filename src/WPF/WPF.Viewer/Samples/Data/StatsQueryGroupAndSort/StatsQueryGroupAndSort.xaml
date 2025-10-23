@@ -142,11 +142,11 @@
                     Orientation="Vertical">
             <Button Margin="0,0,0,5"
                     Click="AddSortFieldClicked"
-                    FontFamily="{DynamicResource CalciteUIIconsMediumFontFamily}"
-                    Content="{DynamicResource CalciteUIIcons_Glyph_ChevronsRight}"/>
+                    FontFamily="{StaticResource CalciteUIIconsMediumFontFamily}"
+                    Content="{StaticResource CalciteUIIcons_Glyph_ChevronsRight}"/>
             <Button Click="RemoveSortFieldClicked"
-                    FontFamily="{DynamicResource CalciteUIIconsMediumFontFamily}"
-                    Content="{DynamicResource CalciteUIIcons_Glyph_ChevronsLeft}"/>
+                    FontFamily="{StaticResource CalciteUIIconsMediumFontFamily}"
+                    Content="{StaticResource CalciteUIIcons_Glyph_ChevronsLeft}"/>
         </StackPanel>
         <TextBlock Grid.Row="5"
                    Grid.Column="3"

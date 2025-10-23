@@ -1,0 +1,14 @@
+{
+    "category": "Scene",
+    "description": "Display a local scene with a topographic surface and 3D scene layer clipped to a local area.",
+    "formal_name": "DisplayLocalScene",
+    "ignore": false,
+    "images": [
+        "DisplayLocalScene.jpg"
+    ],
+    "keywords": [],
+    "redirect_from": [],
+    "relevant_apis": [],
+    "snippets": [],
+    "title": "Display local scene"
+}

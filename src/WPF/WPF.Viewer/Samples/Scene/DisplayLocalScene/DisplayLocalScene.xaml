@@ -3,6 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
-        <esri:LocalSceneView x:Name="MySceneView"/>
+        <esri:LocalSceneView x:Name="MySceneView" />
     </Grid>
 </UserControl>

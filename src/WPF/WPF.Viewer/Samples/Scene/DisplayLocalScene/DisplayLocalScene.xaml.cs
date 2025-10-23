@@ -24,10 +24,10 @@ namespace ArcGIS.WPF.Samples.DisplayLocalScene
         public DisplayLocalScene()
         {
             InitializeComponent();
-            _ = Initialize();
+            Initialize();
         }
 
-        private async Task Initialize()
+        private void Initialize()
         {
             // Create a scene with a topographic basemap and a local scene viewing mode.
             var scene = new Scene(BasemapStyle.ArcGISTopographic, SceneViewingMode.Local);

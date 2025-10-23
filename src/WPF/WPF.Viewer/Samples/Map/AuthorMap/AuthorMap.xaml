@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <UserControl.Resources>
-        <Style TargetType="ListBox">
+        <Style TargetType="ListBox" BasedOn="{StaticResource CalciteListBoxStyle}">
             <Setter Property="Margin" Value="10" />
         </Style>
         <Style TargetType="TextBlock">
@@ -20,7 +20,8 @@
             <ColumnDefinition Width="300" />
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0">
+        <ScrollViewer>
+            <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -185,7 +186,8 @@
                              IsIndeterminate="True"
                              Visibility="Hidden" />
             </Grid>
-        </Grid>
-        <esri:MapView x:Name="MyMapView" Grid.Column="1" />
+            </Grid>
+    </ScrollViewer>
+    <esri:MapView x:Name="MyMapView" Grid.Column="1" />
     </Grid>
 </UserControl>

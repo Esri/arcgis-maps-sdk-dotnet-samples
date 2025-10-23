@@ -39,10 +39,11 @@
                     Background="Transparent"
                     BorderThickness="0"
                     Click="CopyCodeButton_Click"
-                    Content="&#xe0a6;"
-                    FontFamily="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24"
-                    FontSize="30"
-                    ToolTip="Copy code to clipboard" />
+                    ToolTip="Copy code to clipboard"
+                    Style="{x:Null}"
+                    FontFamily="{StaticResource CalciteUIIconsMediumFontFamily}"
+                    FontSize="24"
+                    Content="{StaticResource CalciteUIIcons_Glyph_CopyToClipboard}"/>
         </Grid>
         <WebBrowser Grid.Row="1" viewer:BrowserBehavior.Html="{Binding SelectedSourceFile.HtmlContent}" />
         <StatusBar Grid.Row="2">

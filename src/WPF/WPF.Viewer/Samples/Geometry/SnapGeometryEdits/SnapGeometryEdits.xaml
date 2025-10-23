@@ -15,25 +15,35 @@
                 <CheckBox Grid.Column="1" IsChecked="{Binding Path=IsEnabled}" />
             </Grid>
         </DataTemplate>
-        <Style x:Key="ToggleButtonIconStyle" TargetType="ToggleButton">
-            <Style.Setters>
-                <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24" />
-                <Setter Property="FontSize" Value="25" />
-                <Setter Property="Background" Value="White" />
-                <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="Padding" Value="3" />
-                <Setter Property="Margin" Value="3" />
-            </Style.Setters>
-        </Style>
         <Style x:Key="ButtonIconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
+                <Setter Property="FontSize" Value="24" />
                 <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Padding" Value="3" />
                 <Setter Property="Margin" Value="3" />
             </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ToggleButtonIconStyle" TargetType="ToggleButton">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
+                <Setter Property="FontSize" Value="24" />
+                <Setter Property="Background" Value="White" />
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="Padding" Value="3" />
+                <Setter Property="Margin" Value="3" />
+            </Style.Setters>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.8" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -49,13 +59,13 @@
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
-                <ScrollViewer Grid.Row="0" Height="300">
+                <ScrollViewer Grid.Row="0" Height="325">
                     <StackPanel Margin="10" Orientation="Vertical">
                         <TextBlock Padding="0,5"
                                    FontSize="14"
                                    FontWeight="Bold"
                                    Text="Snap settings" />
-                        <ListView Width="200" Height="80">
+                        <ListView>
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
@@ -98,14 +108,10 @@
                                    Text="Select snap sources" />
                         <TextBlock Text="Point layers:" />
                         <ListView x:Name="PointSnapSettingsList"
-                                  Width="200"
-                                  Height="80"
                                   ItemTemplate="{StaticResource SnapSettingTemplate}" />
                         <Button Click="EnableAllPointSnapSourceButton_Click" Content="Enable all" />
                         <TextBlock Margin="0,10,0,0" Text="Polyline layers:" />
                         <ListView x:Name="PolylineSnapSettingsList"
-                                  Width="200"
-                                  Height="50"
                                   ItemTemplate="{StaticResource SnapSettingTemplate}" />
                         <Button Click="EnableAllPolylineSnapSourceButton_Click" Content="Enable all" />
                         <TextBlock Margin="0,10,0,0" Text="Graphics overlays:" />
@@ -143,60 +149,60 @@
                                       Grid.Row="0"
                                       Grid.Column="0"
                                       Click="PointButton_Click"
-                                      Content="&#xe21c;"
                                       Style="{StaticResource ToggleButtonIconStyle}"
-                                      ToolTipService.ToolTip="Point" />
+                                      ToolTipService.ToolTip="Point"
+                                      Content="{StaticResource CalciteUIIcons_Glyph_Point}" />
                         <ToggleButton x:Name="MultipointButton"
                                       Grid.Row="0"
                                       Grid.Column="1"
                                       Click="MultipointButton_Click"
-                                      Content="&#xe21c;&#xe21c;"
                                       FontSize="20"
                                       Style="{StaticResource ToggleButtonIconStyle}"
-                                      ToolTipService.ToolTip="Multipoint" />
+                                      ToolTipService.ToolTip="Multipoint"
+                                      Content="&#xe9f9;&#xe9f9;" />
                         <ToggleButton x:Name="PolylineButton"
                                       Grid.Row="1"
                                       Grid.Column="0"
                                       Click="PolylineButton_Click"
-                                      Content="&#xe1a8;"
                                       Style="{StaticResource ToggleButtonIconStyle}"
-                                      ToolTipService.ToolTip="Polyline / no shape fill" />
+                                      ToolTipService.ToolTip="Polyline / no shape fill"
+                                      Content="{StaticResource CalciteUIIcons_Glyph_Line}" />
                         <ToggleButton x:Name="PolygonButton"
                                       Grid.Row="1"
                                       Grid.Column="1"
                                       Click="PolygonButton_Click"
-                                      Content="&#xe220;"
                                       Style="{StaticResource ToggleButtonIconStyle}"
-                                      ToolTipService.ToolTip="Polygon / shape fill" />
+                                      ToolTipService.ToolTip="Polygon / shape fill"
+                                      Content="{StaticResource CalciteUIIcons_Glyph_PolygonVertices}" />
                         <Button Grid.Row="2"
                                 Grid.Column="0"
                                 HorizontalAlignment="Stretch"
                                 Click="DeleteButton_Click"
-                                Content="&#xe0e8;"
                                 IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
                                 Style="{StaticResource ButtonIconStyle}"
-                                ToolTipService.ToolTip="Delete selected" />
+                                ToolTipService.ToolTip="Delete selected"
+                                Content="{StaticResource CalciteUIIcons_Glyph_Erase}" />
                         <Button Grid.Row="2"
                                 Grid.Column="1"
                                 Click="UndoButton_Click"
-                                Content="&#xe2d6;"
                                 IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                                 Style="{StaticResource ButtonIconStyle}"
-                                ToolTipService.ToolTip="Undo" />
+                                ToolTipService.ToolTip="Undo"
+                                Content="{StaticResource CalciteUIIcons_Glyph_Undo}" />
                         <Button Grid.Row="3"
                                 Grid.Column="0"
                                 Click="DiscardButton_Click"
-                                Content="&#xe080;"
                                 IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                                 Style="{StaticResource ButtonIconStyle}"
-                                ToolTipService.ToolTip="Discard edits" />
+                                ToolTipService.ToolTip="Discard edits"
+                                Content="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}" />
                         <Button Grid.Row="3"
                                 Grid.Column="1"
                                 Click="SaveButton_Click"
-                                Content="&#xe06f;"
                                 IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                                 Style="{StaticResource ButtonIconStyle}"
-                                ToolTipService.ToolTip="Save edits" />
+                                ToolTipService.ToolTip="Save edits"
+                                Content="{StaticResource CalciteUIIcons_Glyph_CheckCircle}" />
                     </Grid>
                 </StackPanel>
             </Grid>

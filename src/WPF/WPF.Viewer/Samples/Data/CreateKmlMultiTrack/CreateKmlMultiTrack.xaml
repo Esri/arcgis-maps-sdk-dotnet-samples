@@ -3,13 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <UserControl.Resources>
-        <Style x:Key="IconStyle" TargetType="Button">
+        <Style x:Key="IconStyle" TargetType="Button" BasedOn="{StaticResource CalciteButtonBaseStyle}">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="pack://application:,,,/Resources/Fonts/#calcite-ui-icons-24" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
+                <Setter Property="FontSize" Value="24" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
-                <Setter Property="Margin" Value="5" />
+                <Setter Property="Margin" Value="0,5,0,5" />
             </Style.Setters>
+        </Style>
+        <Style TargetType="ToolTip" BasedOn="{StaticResource CalciteToolTipStyle}">
+            <Setter Property="FontSize" Value="12"/>
         </Style>
     </UserControl.Resources>
     <Grid>
@@ -27,22 +30,23 @@
                         </Grid.ColumnDefinitions>
                         <Button x:Name="RecenterButton"
                                 Click="RecenterButton_Click"
-                                Content="&#xe13c;"
                                 IsEnabled="False"
                                 Style="{StaticResource IconStyle}"
-                                ToolTip="Recenter" />
+                                ToolTip="Recenter"
+                                Content="{StaticResource CalciteUIIcons_Glyph_GpsOn}"/>
                         <Button x:Name="RecordTrackButton"
                                 Grid.Column="1"
                                 Margin="5"
                                 Click="RecordTrackButton_Click"
-                                Content="Record Track" />
+                                Style="{StaticResource CalciteSecondaryButtonStyle}"
+                                Content="Record Track"/>
                         <Button x:Name="SaveButton"
                                 Grid.Column="2"
                                 Click="SaveButton_Click"
-                                Content="&#xe262;"
                                 IsEnabled="False"
                                 Style="{StaticResource IconStyle}"
-                                ToolTip="Save" />
+                                ToolTip="Save"
+                                Content="{StaticResource CalciteUIIcons_Glyph_Save}"/>
                     </Grid>
                 </StackPanel>
                 <StackPanel x:Name="ViewingUI" Visibility="Collapsed">
@@ -60,11 +64,10 @@
                                   SelectionChanged="TracksComboBox_SelectionChanged" />
                         <Button Grid.Column="1"
                                 Click="ResetButton_Click"
-                                Content="&#xe243;"
                                 Style="{StaticResource IconStyle}"
-                                ToolTip="Reset" />
+                                ToolTip="Reset"
+                                Content="{StaticResource CalciteUIIcons_Glyph_Reset}"/>
                     </Grid>
-
                 </StackPanel>
             </StackPanel>
         </Border>

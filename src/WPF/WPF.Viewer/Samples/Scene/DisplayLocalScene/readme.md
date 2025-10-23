@@ -2,7 +2,7 @@
 
 Display a local scene with a topographic surface and 3D scene layer clipped to a local area.
 
-![Image of display local scene](DisplayLocalScene.png)
+![Image of display local scene](DisplayLocalScene.jpg)
 
 ## Use case
 

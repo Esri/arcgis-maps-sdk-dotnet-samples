@@ -4,6 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
-        <esriUI:SceneView x:Name="MySceneView" />
+        <esriUI:LocalSceneView x:Name="MySceneView" />
     </Grid>
 </ContentPage>

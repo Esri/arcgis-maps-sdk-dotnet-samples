@@ -7,20 +7,10 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
-using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.Symbology;
-using Esri.ArcGISRuntime.Tasks;
-using Esri.ArcGISRuntime.Tasks.Offline;
-using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.ArcGISServices;
-using Esri.ArcGISRuntime.UI.Controls;
 using System;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Input;
 
 namespace ArcGIS.WinUI.Samples.DisplayLocalScene
 {
@@ -29,7 +19,6 @@ namespace ArcGIS.WinUI.Samples.DisplayLocalScene
         "Scene",
         "Display a local scene with a topographic surface and 3D scene layer clipped to a local area.",
         "")]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData("61da8dc1a7bc4eea901c20ffb3f8b7af")]
     public partial class DisplayLocalScene
     {
         public DisplayLocalScene()
@@ -40,6 +29,40 @@ namespace ArcGIS.WinUI.Samples.DisplayLocalScene
 
         private async Task Initialize()
         {
+            // Create a scene with a topographic basemap and a local scene viewing mode.
+            var scene = new Scene(BasemapStyle.ArcGISTopographic, SceneViewingMode.Local);
+
+            // Create the 3d scene layer.
+            var sceneLayer = new ArcGISSceneLayer(new Uri("https://www.arcgis.com/home/item.html?id=61da8dc1a7bc4eea901c20ffb3f8b7af"));
+
+            // Add world elevation source to the scene's surface.
+            var elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
+            scene.BaseSurface.ElevationSources.Add(elevationSource);
+
+            // Add the scene layer to the scene's operational layers.
+            scene.OperationalLayers.Add(sceneLayer);
+
+            // Set the clipping area for the local scene.
+            scene.ClippingArea = new Envelope(19454578.8235, -5055381.4798, 19455518.8814, -5054888.4150, SpatialReferences.WebMercator);
+
+            // Enable the clipping area so only the scene elements within the clipping area are rendered.
+            scene.IsClippingEnabled = true;
+
+            // Set the scene's initial viewpoint.
+            var camera = new Camera(
+                new MapPoint(19455578.6821, -5056336.2227, 1699.3366, SpatialReferences.WebMercator),
+                338.7410,
+                40.3763,
+                0
+            );
+            scene.InitialViewpoint = new Viewpoint(
+                new MapPoint(19455026.8116, -5054995.7415, SpatialReferences.WebMercator),
+                8314.6991,
+                camera
+            );
+
+            // Apply the scene to the local scene view.
+            MySceneView.Scene = scene;
         }
     }
 }

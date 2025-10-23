@@ -7,8 +7,8 @@
     <UserControl.Resources>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
+                <Setter Property="FontSize" Value="24" />
                 <Setter Property="Margin" Value="3" />
                 <Setter Property="Padding" Value="3" />
                 <Setter Property="Background" Value="White" />
@@ -65,20 +65,20 @@
             <Button x:Name="UndoButton"
                     Grid.Row="2"
                     Click="UndoButton_Click"
-                    Content="&#xe2d6;"
+                    Content="{StaticResource CalciteUIIcons_Glyph_Undo}"
                     IsEnabled="False"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Undo" />
             <Button Grid.Row="2"
                     Grid.Column="1"
                     Click="RedoButton_Click"
-                    Content="&#xe23e;"
+                    Content="{StaticResource CalciteUIIcons_Glyph_Redo}"
                     IsEnabled="{Binding GeometryEditor.CanRedo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Redo" />
             <Button Grid.Row="3"
                     Click="DeleteSelectedButton_Click"
-                    Content="&#xe0e8;"
+                    Content="{StaticResource CalciteUIIcons_Glyph_Erase}"
                     IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Delete selected" />
@@ -86,13 +86,13 @@
                     Grid.Row="3"
                     Grid.Column="1"
                     Click="SaveButton_Click"
-                    Content="&#xe06f;"
+                    Content="{StaticResource CalciteUIIcons_Glyph_CheckCircle}"
                     IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Save edits" />
             <Button Grid.Row="4"
                     Click="DiscardButton_Click"
-                    Content="&#xe080;"
+                    Content="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}"
                     IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                     Style="{StaticResource IconStyle}"
                     ToolTipService.ToolTip="Discard edits" />

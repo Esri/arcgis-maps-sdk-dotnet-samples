@@ -13,6 +13,7 @@
     <PackageVersion Include="Esri.ArcGISRuntime.Hydrography" Version="$(ArcGISMapsSDKVersion)" />
     <PackageVersion Include="Esri.ArcGISRuntime.Toolkit.WinUI" Version="$(ArcGISMapsSDKVersion)" />
     <PackageVersion Include="Esri.Calcite.Maui" Version="0.1.0-preview1" />
+    <PackageVersion Include="Esri.Calcite.WinUI" Version="1.0.0-rc.1" />
     <PackageVersion Include="Markdig" Version="0.37.0" />
     <PackageVersion Include="Microsoft.Web.WebView2" Version="1.0.3537.50" />
     <PackageVersion Include="System.Text.Json" Version="9.0.2" />

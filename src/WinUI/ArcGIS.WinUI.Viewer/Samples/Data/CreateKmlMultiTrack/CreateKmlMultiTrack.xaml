@@ -6,8 +6,8 @@
     <UserControl.Resources>
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="/Resources/Fonts/calcite-ui-icons-24.ttf#calcite-ui-icons-24" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
+                <Setter Property="FontSize" Value="24" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Margin" Value="5" />
                 <Setter Property="CornerRadius" Value="5" />
@@ -29,7 +29,7 @@
                         </Grid.ColumnDefinitions>
                         <Button x:Name="RecenterButton"
                                 Click="RecenterButton_Click"
-                                Content="&#xe13c;"
+                                Content="{StaticResource CalciteUIIcons_Glyph_GpsOn}"
                                 IsEnabled="False"
                                 Style="{StaticResource IconStyle}"
                                 ToolTipService.ToolTip="Recenter" />
@@ -43,7 +43,7 @@
                         <Button x:Name="SaveButton"
                                 Grid.Column="2"
                                 Click="SaveButton_Click"
-                                Content="&#xe262;"
+                                Content="{StaticResource CalciteUIIcons_Glyph_Save}"
                                 IsEnabled="False"
                                 Style="{StaticResource IconStyle}"
                                 ToolTipService.ToolTip="Save" />
@@ -66,7 +66,7 @@
                                   SelectionChanged="TracksComboBox_SelectionChanged" />
                         <Button Grid.Column="1"
                                 Click="ResetButton_Click"
-                                Content="&#xe243;"
+                                Content="{StaticResource CalciteUIIcons_Glyph_Reset}"
                                 Style="{StaticResource IconStyle}"
                                 ToolTipService.ToolTip="Reset" />
                     </Grid>

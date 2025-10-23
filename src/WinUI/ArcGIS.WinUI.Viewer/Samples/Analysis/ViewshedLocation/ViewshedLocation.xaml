@@ -8,7 +8,7 @@
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="Margin" Value="0,0,5,10" />
         </Style>
-        <Style TargetType="Slider">
+        <Style TargetType="Slider" BasedOn="{StaticResource DefaultSliderStyle}">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="SnapsTo" Value="StepValues" />

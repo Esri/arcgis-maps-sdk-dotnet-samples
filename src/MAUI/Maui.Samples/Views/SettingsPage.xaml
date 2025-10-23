@@ -5,28 +5,29 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:arcgisruntime="clr-namespace:ArcGIS"
     xmlns:controls="clr-namespace:ArcGIS.Controls"
-    xmlns:resources="clr-namespace:ArcGIS.Resources">
+    xmlns:resources="clr-namespace:ArcGIS.Resources"
+    xmlns:calcite="http://schemas.esri.com/calcite/2024">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
             x:Name="AboutButton"
             Clicked="AboutButton_Clicked"
-            IconImageSource="information.png"
+            IconImageSource="{calcite:CalciteIconImage Color=White, Icon=Information, Size=24, Scale=Small}"
             Text="About" />
         <ToolbarItem
             x:Name="LicensesButton"
             Clicked="LicensesButton_Clicked"
-            IconImageSource="documentation.png"
+            IconImageSource="{calcite:CalciteIconImage Color=White, Icon=FileText, Size=24, Scale=Small}"
             Text="Licenses" />
         <ToolbarItem
             x:Name="OfflineDataButton"
             Clicked="OfflineDataButton_Clicked"
-            IconImageSource="downloaddark.png"
+            IconImageSource="{calcite:CalciteIconImage Color=White, Icon=Download, Size=24, Scale=Small}"
             Text="Offline data" />
         <ToolbarItem
             x:Name="ApiKeyButton"
             Clicked="ApiKeyButton_Clicked"
-            IconImageSource="key.png"
+            IconImageSource="{calcite:CalciteIconImage Color=White, Icon=Key, Size=24, Scale=Small}"
             Text="API key" />
     </ContentPage.ToolbarItems>
 
@@ -86,35 +87,35 @@
                                         Margin="5"
                                         Text="{Binding SampleName}"
                                         VerticalOptions="Center" />
-                                    <ImageButton
+                                    <Button
                                         Grid.Column="1"
-                                        Margin="5"
+                                        Margin="3"
+                                        Padding="3"
                                         Clicked="DownloadClicked"
                                         CommandParameter="{Binding .}"
-                                        HeightRequest="25"
-                                        Source="{AppThemeBinding Light=download.png,
-                                                                 Dark=downloaddark.png}"
-                                        WidthRequest="25" />
-                                    <ImageButton
+                                        FontFamily="CalciteUIIconsMediumFontFamily"
+                                        FontSize="24"
+                                        Text="{StaticResource CalciteUIIcons_Glyph_Download}" />
+                                    <Button
                                         Grid.Column="2"
-                                        Margin="5"
+                                        Margin="3"
+                                        Padding="3"
                                         Clicked="AGOLClicked"
                                         CommandParameter="{Binding .}"
-                                        HeightRequest="25"
-                                        Source="{AppThemeBinding Light=applications.png,
-                                                                 Dark=applicationsdark.png}"
-                                        WidthRequest="25" />
-                                    <ImageButton
+                                        FontFamily="CalciteUIIconsMediumFontFamily"
+                                        FontSize="24"
+                                        Text="{StaticResource CalciteUIIcons_Glyph_Applications}" />
+                                    <Button
                                         Grid.Column="3"
-                                        Margin="5"
+                                        Margin="3"
+                                        Padding="3"
                                         Clicked="DeleteClicked"
                                         CommandParameter="{Binding .}"
-                                        HeightRequest="25"
                                         IsEnabled="True"
                                         IsVisible="True"
-                                        Source="{AppThemeBinding Light=trash.png,
-                                                                 Dark=trashdark.png}"
-                                        WidthRequest="25" />
+                                        FontFamily="CalciteUIIconsMediumFontFamily"
+                                        FontSize="24"
+                                        Text="{StaticResource CalciteUIIcons_Glyph_Trash}" />
                                 </Grid>
                             </ViewCell>
                         </DataTemplate>

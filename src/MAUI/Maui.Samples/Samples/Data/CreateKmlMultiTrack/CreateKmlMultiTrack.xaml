@@ -7,7 +7,7 @@
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
                 <Setter Property="FontFamily" Value="CalciteUIIconsMediumFontFamily" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontSize" Value="24" />
                 <Setter Property="Margin" Value="5" />
             </Style.Setters>
         </Style>
@@ -29,7 +29,7 @@
                                 Clicked="RecenterButton_Clicked"
                                 IsEnabled="False"
                                 Style="{StaticResource IconStyle}"
-                                Text="&#xe8ad;"
+                                Text="{StaticResource CalciteUIIcons_Glyph_GpsOn}"
                                 ToolTipProperties.Text="Recenter" />
                         <Button x:Name="RecordTrackButton"
                                 Grid.Column="1"
@@ -41,7 +41,7 @@
                                 Clicked="SaveButton_Clicked"
                                 IsEnabled="False"
                                 Style="{StaticResource IconStyle}"
-                                Text="&#xea65;"
+                                Text="{StaticResource CalciteUIIcons_Glyph_Save}"
                                 ToolTipProperties.Text="Save" />
                     </Grid>
                 </StackLayout>
@@ -60,7 +60,7 @@
                         <Button Grid.Column="1"
                                 Clicked="ResetButton_Clicked"
                                 Style="{StaticResource IconStyle}"
-                                Text="&#xeb66;"
+                                Text="{StaticResource CalciteUIIcons_Glyph_Reset}"
                                 ToolTipProperties.Text="Reset" />
                     </Grid>
                 </StackLayout>

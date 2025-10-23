@@ -24,8 +24,7 @@
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
                 <Setter Property="FontFamily" Value="CalciteUIIconsMediumFontFamily" />
-                <Setter Property="FontSize" Value="25" />
-                <Setter Property="BackgroundColor" Value="{AppThemeBinding Dark=#3C3C3C, Light=White}" />
+                <Setter Property="FontSize" Value="24" />
             </Style.Setters>
         </Style>
         <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
@@ -39,9 +38,9 @@
                 StrokeThickness="0"
                 VerticalOptions="Start"
                 WidthRequest="250">
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="5"/>
-        </Border.StrokeShape>
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5" />
+            </Border.StrokeShape>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
@@ -118,14 +117,14 @@
                                     Clicked="DiscardButton_Click"
                                     IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
                                     Style="{StaticResource IconStyle}"
-                                    Text="&#xe7ac;"
+                                    Text="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}"
                                     ToolTipProperties.Text="Discard edits" />
                             <Button x:Name="SaveButton"
                                     Grid.Column="1"
                                     Clicked="SaveButton_Click"
                                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
                                     Style="{StaticResource IconStyle}"
-                                    Text="&#xe795;"
+                                    Text="{StaticResource CalciteUIIcons_Glyph_CheckCircle}"
                                     ToolTipProperties.Text="Save edits" />
                         </Grid>
                     </StackLayout>

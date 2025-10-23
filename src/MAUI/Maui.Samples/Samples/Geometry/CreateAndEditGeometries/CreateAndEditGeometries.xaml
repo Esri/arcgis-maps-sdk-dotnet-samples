@@ -8,7 +8,7 @@
         <Style x:Key="IconStyle" TargetType="Button">
             <Style.Setters>
                 <Setter Property="FontFamily" Value="CalciteUIIconsMediumFontFamily" />
-                <Setter Property="FontSize" Value="25" />
+                <Setter Property="FontSize" Value="24" />
             </Style.Setters>
         </Style>
         <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
@@ -39,28 +39,29 @@
                             Grid.Row="0"
                             Clicked="PointButton_Click"
                             Style="{StaticResource IconStyle}"
-                            Text="&#xe9f9;"
+                            Text="{StaticResource CalciteUIIcons_Glyph_Point}"
                             ToolTipProperties.Text="Point" />
                     <Button x:Name="MultipointButton"
                             Grid.Row="0"
                             Grid.Column="1"
                             Clicked="MultipointButton_Click"
-                            FontSize="15"
                             Style="{StaticResource IconStyle}"
-                            Text="&#xe9f9;&#xe9f9;"
-                            ToolTipProperties.Text="Multipoint" />
+                            ToolTipProperties.Text="Multipoint"
+                            FontFamily="CalciteUIIconsSmallFontFamily"
+                            FontSize="16"
+                            Text="&#xe9f9; &#xe9f9;" />
                     <Button x:Name="PolylineButton"
                             Grid.Row="1"
                             Clicked="PolylineButton_Click"
                             Style="{StaticResource IconStyle}"
-                            Text="&#xe93f;"
+                            Text="{StaticResource CalciteUIIcons_Glyph_Line}"
                             ToolTipProperties.Text="Polyline / no shape fill" />
                     <Button x:Name="PolygonButton"
                             Grid.Row="1"
                             Grid.Column="1"
                             Clicked="PolygonButton_Click"
                             Style="{StaticResource IconStyle}"
-                            Text="&#xe9fb;"
+                            Text="{StaticResource CalciteUIIcons_Glyph_PolygonVertices}"
                             ToolTipProperties.Text="Polygon / shape fill" />
                     <Border Grid.Row="2"
                             Grid.ColumnSpan="2"
@@ -92,20 +93,20 @@
                             Clicked="UndoButton_Click"
                             IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
                             Style="{StaticResource IconStyle}"
-                            Text="&#xeb0b;"
+                            Text="{StaticResource CalciteUIIcons_Glyph_Undo}"
                             ToolTipProperties.Text="Undo" />
                     <Button Grid.Row="4"
                             Grid.Column="1"
                             Clicked="RedoButton_Click"
                             IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}}"
                             Style="{StaticResource IconStyle}"
-                            Text="&#xea29;"
+                            Text="{StaticResource CalciteUIIcons_Glyph_Redo}"
                             ToolTipProperties.Text="Redo" />
                     <Button Grid.Row="5"
                             Clicked="DeleteSelectedButton_Click"
                             IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
                             Style="{StaticResource IconStyle}"
-                            Text="&#xe83e;"
+                            Text="{StaticResource CalciteUIIcons_Glyph_Erase}"
                             ToolTipProperties.Text="Delete selected" />
                     <Button x:Name="SaveButton"
                             Grid.Row="5"
@@ -113,13 +114,13 @@
                             Clicked="SaveButton_Click"
                             IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
                             Style="{StaticResource IconStyle}"
-                            Text="&#xe795;"
+                            Text="{StaticResource CalciteUIIcons_Glyph_CheckCircle}"
                             ToolTipProperties.Text="Save edits" />
                     <Button Grid.Row="6"
                             Clicked="DiscardButton_Click"
                             IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
                             Style="{StaticResource IconStyle}"
-                            Text="&#xe7ac;"
+                            Text="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}"
                             ToolTipProperties.Text="Discard edits" />
                     <Button x:Name="DeleteAllButton"
                             Grid.Row="6"
@@ -127,11 +128,10 @@
                             Clicked="DeleteAllButton_Click"
                             IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
                             Style="{StaticResource IconStyle}"
-                            Text="&#xeb04;"
+                            Text="{StaticResource CalciteUIIcons_Glyph_Trash}"
                             ToolTipProperties.Text="Delete all geometries" />
                 </Grid>
             </ScrollView>
         </Grid>
-
     </Grid>
 </ContentPage>

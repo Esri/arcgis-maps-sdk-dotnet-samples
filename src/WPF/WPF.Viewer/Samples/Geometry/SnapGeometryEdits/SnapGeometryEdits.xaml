@@ -18,7 +18,7 @@
         </DataTemplate>
         <Style x:Key="ButtonIconStyle" TargetType="Button">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
+                <Setter Property="FontFamily" Value="{DynamicResource CalciteUIIconsMediumFontFamily}" />
                 <Setter Property="FontSize" Value="24" />
                 <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -33,7 +33,7 @@
         </Style>
         <Style x:Key="ToggleButtonIconStyle" TargetType="ToggleButton">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
+                <Setter Property="FontFamily" Value="{DynamicResource CalciteUIIconsMediumFontFamily}" />
                 <Setter Property="FontSize" Value="24" />
                 <Setter Property="Background" Value="White" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
@@ -152,7 +152,7 @@
                                       Click="PointButton_Click"
                                       Style="{StaticResource ToggleButtonIconStyle}"
                                       ToolTipService.ToolTip="Point"
-                                      Content="{StaticResource CalciteUIIcons_Glyph_Point}" />
+                                      Content="{DynamicResource CalciteUIIcons_Glyph_Point}" />
                         <ToggleButton x:Name="MultipointButton"
                                       Grid.Row="0"
                                       Grid.Column="1"
@@ -167,14 +167,14 @@
                                       Click="PolylineButton_Click"
                                       Style="{StaticResource ToggleButtonIconStyle}"
                                       ToolTipService.ToolTip="Polyline / no shape fill"
-                                      Content="{StaticResource CalciteUIIcons_Glyph_Line}" />
+                                      Content="{DynamicResource CalciteUIIcons_Glyph_Line}" />
                         <ToggleButton x:Name="PolygonButton"
                                       Grid.Row="1"
                                       Grid.Column="1"
                                       Click="PolygonButton_Click"
                                       Style="{StaticResource ToggleButtonIconStyle}"
                                       ToolTipService.ToolTip="Polygon / shape fill"
-                                      Content="{StaticResource CalciteUIIcons_Glyph_PolygonVertices}" />
+                                      Content="{DynamicResource CalciteUIIcons_Glyph_PolygonVertices}" />
                         <Button Grid.Row="2"
                                 Grid.Column="0"
                                 HorizontalAlignment="Stretch"
@@ -182,28 +182,28 @@
                                 IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, ElementName=MyMapView, FallbackValue=False}"
                                 Style="{StaticResource ButtonIconStyle}"
                                 ToolTipService.ToolTip="Delete selected"
-                                Content="{StaticResource CalciteUIIcons_Glyph_Erase}" />
+                                Content="{DynamicResource CalciteUIIcons_Glyph_Erase}" />
                         <Button Grid.Row="2"
                                 Grid.Column="1"
                                 Click="UndoButton_Click"
                                 IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                                 Style="{StaticResource ButtonIconStyle}"
                                 ToolTipService.ToolTip="Undo"
-                                Content="{StaticResource CalciteUIIcons_Glyph_Undo}" />
+                                Content="{DynamicResource CalciteUIIcons_Glyph_Undo}" />
                         <Button Grid.Row="3"
                                 Grid.Column="0"
                                 Click="DiscardButton_Click"
                                 IsEnabled="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}"
                                 Style="{StaticResource ButtonIconStyle}"
                                 ToolTipService.ToolTip="Discard edits"
-                                Content="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}" />
+                                Content="{DynamicResource CalciteUIIcons_Glyph_CircleDisallowed}" />
                         <Button Grid.Row="3"
                                 Grid.Column="1"
                                 Click="SaveButton_Click"
                                 IsEnabled="{Binding GeometryEditor.CanUndo, ElementName=MyMapView}"
                                 Style="{StaticResource ButtonIconStyle}"
                                 ToolTipService.ToolTip="Save edits"
-                                Content="{StaticResource CalciteUIIcons_Glyph_CheckCircle}" />
+                                Content="{DynamicResource CalciteUIIcons_Glyph_CheckCircle}" />
                     </Grid>
                 </StackPanel>
             </Grid>

@@ -5,7 +5,7 @@
     <UserControl.Resources>
         <Style x:Key="IconStyle" TargetType="Button" BasedOn="{StaticResource CalciteButtonBaseStyle}">
             <Style.Setters>
-                <Setter Property="FontFamily" Value="{StaticResource CalciteUIIconsMediumFontFamily}" />
+                <Setter Property="FontFamily" Value="{DynamicResource CalciteUIIconsMediumFontFamily}" />
                 <Setter Property="FontSize" Value="24" />
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="Margin" Value="0,5,0,5" />
@@ -33,12 +33,12 @@
                                 IsEnabled="False"
                                 Style="{StaticResource IconStyle}"
                                 ToolTip="Recenter"
-                                Content="{StaticResource CalciteUIIcons_Glyph_GpsOn}"/>
+                                Content="{DynamicResource CalciteUIIcons_Glyph_GpsOn}"/>
                         <Button x:Name="RecordTrackButton"
                                 Grid.Column="1"
                                 Margin="5"
                                 Click="RecordTrackButton_Click"
-                                Style="{StaticResource CalciteSecondaryButtonStyle}"
+                                Style="{DynamicResource CalciteSecondaryButtonStyle}"
                                 Content="Record Track"/>
                         <Button x:Name="SaveButton"
                                 Grid.Column="2"
@@ -46,7 +46,7 @@
                                 IsEnabled="False"
                                 Style="{StaticResource IconStyle}"
                                 ToolTip="Save"
-                                Content="{StaticResource CalciteUIIcons_Glyph_Save}"/>
+                                Content="{DynamicResource CalciteUIIcons_Glyph_Save}"/>
                     </Grid>
                 </StackPanel>
                 <StackPanel x:Name="ViewingUI" Visibility="Collapsed">
@@ -66,7 +66,7 @@
                                 Click="ResetButton_Click"
                                 Style="{StaticResource IconStyle}"
                                 ToolTip="Reset"
-                                Content="{StaticResource CalciteUIIcons_Glyph_Reset}"/>
+                                Content="{DynamicResource CalciteUIIcons_Glyph_Reset}"/>
                     </Grid>
                 </StackPanel>
             </StackPanel>

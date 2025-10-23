@@ -44,11 +44,11 @@
                     <StackPanel Grid.Row="1" Orientation="Horizontal">
                         <Button Margin="5"
                                 Click="DownloadAll_Clicked"
-                                Style="{StaticResource CalcitePrimaryButtonStyle}"
+                                Style="{DynamicResource CalcitePrimaryButtonStyle}"
                                 Content="Download all" />
                         <Button Margin="5"
                                 Click="DeleteAll_Click"
-                                Style="{StaticResource CalciteDangerButtonStyle}"
+                                Style="{DynamicResource CalciteDangerButtonStyle}"
                                 Content="Delete all" />
                         <Button x:Name="CancelButton"
                                 Margin="5"
@@ -81,12 +81,12 @@
                                             Margin="5,0,5,0"
                                             Click="DownloadNow_Clicked"
                                             Content="Download now"
-                                            Style="{StaticResource CalciteSecondaryButtonStyle}"
+                                            Style="{DynamicResource CalciteSecondaryButtonStyle}"
                                             Tag="{Binding}" />
                                     <Button Grid.Column="4"
                                             Click="DeleteData_Click"
                                             Content="Delete"
-                                            Style="{StaticResource CalciteDangerSecondaryButtonStyle}"
+                                            Style="{DynamicResource CalciteDangerSecondaryButtonStyle}"
                                             Tag="{Binding}" />
                                 </Grid>
                             </DataTemplate>

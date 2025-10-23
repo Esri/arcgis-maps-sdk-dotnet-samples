@@ -1,7 +1,6 @@
 ﻿<ContentPage x:Class="ArcGIS.Samples.ManageOperationalLayers.ManageOperationalLayers"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:calcite="http://schemas.esri.com/calcite/2024"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
              xmlns:resources="clr-namespace:ArcGIS.Resources">

@@ -211,7 +211,7 @@ namespace ArcGIS.WinUI.Samples.QueryDynamicEntities
             };
 
             // Performs a dynamic entities query on the data source.
-            var queryResult = await _dynamicEntityLayer.DataSource.QueryDynamicEntitiesAsync(parameters);
+            var queryResult = await _dynamicEntityDataSource.QueryDynamicEntitiesAsync(parameters);
 
             // Gets the dynamic entities from the query result.
             return queryResult?.ToList();
@@ -227,7 +227,7 @@ namespace ArcGIS.WinUI.Samples.QueryDynamicEntities
             };
 
             // Performs a dynamic entities query on the data source.
-            var queryResult = await _dynamicEntityLayer.DataSource.QueryDynamicEntitiesAsync(parameters);
+            var queryResult = await _dynamicEntityDataSource.QueryDynamicEntitiesAsync(parameters);
 
             // Gets the dynamic entities from the query result.
             return queryResult?.ToList();
@@ -238,7 +238,7 @@ namespace ArcGIS.WinUI.Samples.QueryDynamicEntities
         {
             // Performs a dynamic entities query on the data source.
             // Use this method when querying only by track IDs.
-            var queryResult = await _dynamicEntityLayer.DataSource.QueryDynamicEntitiesAsync(trackIds);
+            var queryResult = await _dynamicEntityDataSource.QueryDynamicEntitiesAsync(trackIds);
 
             // Gets the dynamic entities from the query result.
             return queryResult?.ToList();
@@ -258,6 +258,7 @@ namespace ArcGIS.WinUI.Samples.QueryDynamicEntities
             {
                 case "QueryGeometry":
                     results = await QueryDynamicEntitiesAsync(_phoenixAirportBuffer);
+                    // Shows the buffer graphic when querying by geometry.
                     _bufferGraphicsOverlay.IsVisible = true;
                     ResultsDescription.Text = "Flights within 15 miles of PHX";
                     break;

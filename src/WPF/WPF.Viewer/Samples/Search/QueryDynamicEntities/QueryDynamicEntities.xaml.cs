@@ -218,7 +218,7 @@ namespace ArcGIS.WPF.Samples.QueryDynamicEntities
             };
 
             // Performs a dynamic entities query on the data source.
-            var queryResult = await _dynamicEntityLayer.DataSource.QueryDynamicEntitiesAsync(parameters);
+            var queryResult = await _dynamicEntityDataSource.QueryDynamicEntitiesAsync(parameters);
 
             // Gets the dynamic entities from the query result.
             return queryResult?.ToList();
@@ -234,7 +234,7 @@ namespace ArcGIS.WPF.Samples.QueryDynamicEntities
             };
 
             // Performs a dynamic entities query on the data source.
-            var queryResult = await _dynamicEntityLayer.DataSource.QueryDynamicEntitiesAsync(parameters);
+            var queryResult = await _dynamicEntityDataSource.QueryDynamicEntitiesAsync(parameters);
 
             // Gets the dynamic entities from the query result.
             return queryResult?.ToList();
@@ -245,13 +245,13 @@ namespace ArcGIS.WPF.Samples.QueryDynamicEntities
         {
             // Performs a dynamic entities query on the data source.
             // Use this method when querying only by track IDs.
-            var queryResult = await _dynamicEntityLayer.DataSource.QueryDynamicEntitiesAsync(trackIds);
+            var queryResult = await _dynamicEntityDataSource.QueryDynamicEntitiesAsync(trackIds);
 
             // Gets the dynamic entities from the query result.
             return queryResult?.ToList();
         }
 
-        // Executes the specified query type on the data source
+        // Executes the specified query type on the data source.
         private async Task PerformQuery(string queryType, string? flightNumber = null)
         {
             _queryResults.Clear();
@@ -265,6 +265,7 @@ namespace ArcGIS.WPF.Samples.QueryDynamicEntities
             {
                 case "QueryGeometry":
                     results = await QueryDynamicEntitiesAsync(_phoenixAirportBuffer);
+                    // Shows the buffer graphic when querying by geometry.
                     _bufferGraphicsOverlay.IsVisible = true;
                     ResultsDescription.Text = "Flights within 15 miles of PHX";
                     break;

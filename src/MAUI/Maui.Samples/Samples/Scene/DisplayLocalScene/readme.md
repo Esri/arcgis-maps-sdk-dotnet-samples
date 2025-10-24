@@ -18,10 +18,10 @@ This sample displays a local scene clipped to an extent. Pan and zoom to explore
 
 ## How it works
 
-1. Create a local scene object with the `Scene.Scene(arcGISTopographic, SceneViewingMode.local)` constructor.
+1. Create a local scene object with the `Scene(BasemapStyle, SceneViewingMode)` constructor and 'Local' viewing mode.
 2. Create an `ArcGISTiledElevationSource` object and add it to the local scene's base surface.
 3. Create an `ArcGISSceneLayer` and add it to the local scene's operational layers.
-4. Create an `Envelope` and set it to the `scene.clippingArea`, then enable clipping by setting `scene.isClippingEnabled` to `true`.
+4. Create an `Envelope` and set it to the `scene.ClippingArea`, then enable clipping by setting `scene.IsClippingEnabled` to `true`.
 5. Create a `LocalSceneView` object to display the scene.
 6. Set the initial viewpoint for the local scene.
 7. Set the local scene to the local scene view.

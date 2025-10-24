@@ -1,28 +1,29 @@
 {
-  "category": "Scene",
-  "description": "Display a local scene with a topographic surface and 3D scene layer clipped to a local area.",
-  "formal_name": "DisplayLocalScene",
-  "ignore": false,
-  "images": [
-    "DisplayLocalScene.jpg"
-  ],
-  "keywords": [
-    "3D",
-    "basemap",
-    "elevation",
-    "scene",
-    "surface"
-  ],
-  "redirect_from": [],
-  "relevant_apis": [
-    "ArcGISSceneLayer",
-    "ArcGISTiledElevationSource",
-    "LocalSceneView",
-    "Scene"
-  ],
-  "snippets": [
-    "DisplayLocalScene.xaml.cs",
-    "DisplayLocalScene.xaml"
-  ],
-  "title": "Display local scene"
+    "category": "Scene",
+    "description": "Display a local scene with a topographic surface and 3D scene layer clipped to a local area.",
+    "formal_name": "DisplayLocalScene",
+    "ignore": false,
+    "images": [
+        "DisplayLocalScene.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "basemap",
+        "elevation",
+        "scene",
+        "surface"
+    ],
+    "offline_data": [],
+    "redirect_from": [],
+    "relevant_apis": [
+        "ArcGISSceneLayer",
+        "ArcGISTiledElevationSource",
+        "LocalSceneView",
+        "Scene"
+    ],
+    "snippets": [
+        "DisplayLocalScene.xaml.cs",
+        "DisplayLocalScene.xaml"
+    ],
+    "title": "Display local scene"
 }

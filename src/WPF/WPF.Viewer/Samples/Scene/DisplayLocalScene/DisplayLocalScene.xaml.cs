@@ -15,10 +15,11 @@ using System.Threading.Tasks;
 namespace ArcGIS.WPF.Samples.DisplayLocalScene
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Display local scene",
-        "Scene",
-        "Display a local scene with a topographic surface and 3D scene layer clipped to a local area.",
-        "")]
+        name: "Display local scene",
+        category: "Scene",
+        description: "Display a local scene with a topographic surface and 3D scene layer clipped to a local area.",
+        instructions: "This sample displays a local scene clipped to an extent. Pan and zoom to explore the scene.",
+        tags: new[] { "3D", "basemap", "elevation", "scene", "surface" })]
     public partial class DisplayLocalScene
     {
         public DisplayLocalScene()

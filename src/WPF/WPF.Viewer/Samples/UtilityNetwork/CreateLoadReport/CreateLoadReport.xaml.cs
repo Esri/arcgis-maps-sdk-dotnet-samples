@@ -97,7 +97,7 @@ namespace ArcGIS.WPF.Samples.CreateLoadReport
             {
                 ReportView.ItemsSource = _phaseSummaries;
                 Phases.Text = $"Phases: {string.Join(", ", _phases)}";
-
+                
                 _utilityNetwork = new UtilityNetwork(new ServiceGeodatabase(new Uri(FeatureServiceUrl)));
                 await _utilityNetwork.LoadAsync();
 

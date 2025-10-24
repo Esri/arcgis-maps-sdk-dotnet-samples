@@ -6,7 +6,7 @@ Find dynamic entities from a data source that match a query.
 
 ## Use case
 
-Developers can query a `DynamicEntityDataSource` to find dynamic entities that meet spatial and/or attribute criteria. The query returns a collection of dynamic entities matching the `DynamicEntityQueryParameters` at the moment the query is executed. An example of this is a flight tracking app that monitors airspace near a particular airport, allowing the user to monitor flights based on different criteria such as arrival airport or flight number.
+Developers can query a `DynamicEntityDataSource` to find dynamic entities that meet spatial and/or attribute criteria. The query returns a collection of dynamic entities matching the `DynamicEntityQueryParameters` or Track IDs at the moment the query is executed. An example of this is a flight tracking app that monitors airspace near a particular airport, allowing the user to monitor flights based on different criteria such as arrival airport or flight number.
 
 ## How to use the sample
 
@@ -20,7 +20,7 @@ Tap the "Query Flights" button and select a query to perform from the menu. Once
     1. To spatially filter results, set the `geometry` and `spatialRelationship`. The spatial relationship is `intersects` by default.
     2. To query entities with certain attribute values, set the `whereClause`.
     3. To get entities with specific track IDs, modify the `trackIDs` collection.
-4. To perform a dynamic entities query, call `DynamicEntityDataSource.QueryDynamicEntitiesAsync()` passing in the parameters.
+4. To perform a dynamic entities query, call `QueryDynamicEntitiesAsync()` to query with multiple criteria (such as track IDs, spatial, and/or attribute filters), or use `QueryDynamicEntitiesAync(trackIDs)` if you want to query *only* by track IDs.
 5. When complete, iterate through the returned collection of `DynamicEntity` objects from the result.
 6. Use the `DynamicEntity.DynamicEntityChanged` event to get real-time updates when entity attributes change.
 7. Get the new observation from the resulting `DynamicEntityChangedEventArgs` using the `ReceivedObservation` property to update the UI with current information.

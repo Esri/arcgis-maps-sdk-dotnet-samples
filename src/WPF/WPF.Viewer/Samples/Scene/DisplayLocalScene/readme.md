@@ -6,7 +6,7 @@ Display a local scene with a topographic surface and 3D scene layer clipped to a
 
 ## Use case
 
-A `LocalSceneView` is a user interface that displays 3D basemaps and layer content described in a `Scene` with a local `SceneViewingMode`. 
+A `LocalSceneView` is a user interface that displays 3D basemaps and layer content described in a `Scene` with a local `SceneViewingMode`.
 
 Unlike a global scene which is drawn on a globe using a geographic coordinate system, a local scene is drawn on a flat surface and supports projected coordinate systems. They are generally used to view local data and are often clipped to a specific area of interest. Currently, `LocalSceneView` cannot display data provided by a global scene and `SceneView` cannot display data provided by a local scene.
 

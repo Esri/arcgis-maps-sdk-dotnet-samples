@@ -27,7 +27,7 @@
                           HeightRequest="150"
                           SelectionMode="Single">
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="esriOgc:OgcFeatureCollectionInfo">
                             <TextCell Text="{Binding Title}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>

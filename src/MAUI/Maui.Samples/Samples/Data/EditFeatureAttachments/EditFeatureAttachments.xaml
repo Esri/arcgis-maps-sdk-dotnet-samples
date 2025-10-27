@@ -1,6 +1,7 @@
 ﻿<ContentPage x:Class="ArcGIS.Samples.EditFeatureAttachments.EditFeatureAttachments"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <ContentPage.Resources>
         <Style x:Key="IconStyle" TargetType="Button">
@@ -26,7 +27,7 @@
                           IsEnabled="False">
                     <!--  ItemTemplate defines how each item (Attachment) is rendered.  -->
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="esri:Attachment">
                             <ViewCell>
                                 <Grid ColumnDefinitions="*,auto,auto" RowDefinitions="auto">
                                     <Label Margin="5"

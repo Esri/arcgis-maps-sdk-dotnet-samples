@@ -185,7 +185,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
 
             if (queryType == "QueryTrackId")
             {
-                QueryDropdown.IsVisible = false;
+                QueryControlPanel.IsVisible = false;
                 FlightNumberDialog.IsVisible = true;
                 FlightNumberInput.Focus();
             }
@@ -206,7 +206,6 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             }
 
             FlightNumberDialog.IsVisible = false;
-            QueryDropdown.IsVisible = false;
             await PerformQuery("QueryTrackId", flightNumber);
             FlightNumberInput.Text = string.Empty;
         }
@@ -280,7 +279,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             _dynamicEntityLayer?.ClearSelection();
             _bufferGraphicsOverlay.IsVisible = false;
             ResultsPanel.IsVisible = true;
-            QueryDropdown.IsVisible = false;
+            QueryControlPanel.IsVisible = false;
 
             // Holds the dynamic entities returned from the query.
             IReadOnlyList<DynamicEntity> results = Array.Empty<DynamicEntity>();
@@ -336,7 +335,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
         private void OnCloseResults(object sender, EventArgs e)
         {
             ResultsPanel.IsVisible = false;
-            QueryDropdown.IsVisible = true;
+            QueryControlPanel.IsVisible = true;
 
             _queryResults.Clear();
 

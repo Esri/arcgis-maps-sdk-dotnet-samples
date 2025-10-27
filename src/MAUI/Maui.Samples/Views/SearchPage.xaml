@@ -7,7 +7,7 @@
              xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
              Title="Search">
 
-    <Grid Padding="5" RowDefinitions="40,*,40">
+    <Grid Padding="5" RowDefinitions="40,*,40" x:DataType="viewModels:SearchViewModel">
         <SearchBar x:Name="SampleSearchBar"
                    Grid.Row="0"
                    Grid.Column="0"

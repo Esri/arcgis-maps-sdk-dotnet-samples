@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:ArcGIS.Converters"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:drawing="clr-namespace:System.Drawing;assembly=System.Drawing.Common"
              xmlns:local="clr-namespace:ArcGIS.Samples.StyleGeometryTypesWithSymbols">
     <ContentPage.Resources>
         <Style TargetType="Picker">
@@ -26,7 +27,7 @@
             <Setter Property="VerticalOptions" Value="Center" />
             <Setter Property="ItemTemplate">
                 <Setter.Value>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="drawing:Color">
                         <HorizontalStackLayout Spacing="5">
                             <Border x:Name="ColorPreview"
                                     BackgroundColor="{Binding ., Converter={StaticResource ColorConverter}}"

@@ -107,6 +107,7 @@
                                 Text="Snap sources" />
                         <Button x:Name="GeometryEditorButton"
                                 Clicked="GeometryEditorButton_Click"
+                                x:DataType="esriUI:MapView"
                                 IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
                                 Text="Start editor" />
                         <Grid ColumnSpacing="5">
@@ -116,6 +117,7 @@
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0"
                                     Clicked="DiscardButton_Click"
+                                    x:DataType="esriUI:MapView"
                                     IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
                                     Style="{StaticResource IconStyle}"
                                     Text="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}"
@@ -123,6 +125,7 @@
                             <Button x:Name="SaveButton"
                                     Grid.Column="1"
                                     Clicked="SaveButton_Click"
+                                    x:DataType="esriUI:MapView"
                                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
                                     Style="{StaticResource IconStyle}"
                                     Text="{StaticResource CalciteUIIcons_Glyph_CheckCircle}"

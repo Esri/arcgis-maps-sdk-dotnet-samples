@@ -51,18 +51,6 @@ namespace ArcGIS.Samples.CreateLoadReport
         private UtilityTraceParameters _traceParameters = null;
         private ObservableCollection<PhaseSummary> _phaseSummaries = new ObservableCollection<PhaseSummary>();
 
-        public class PhaseSummary
-        {
-            public PhaseSummary(string phase)
-            {
-                Phase = phase;
-            }
-
-            public string Phase { get; private set; }
-            public double TotalCustomers { get; set; }
-            public double TotalLoad { get; set; }
-        }
-
         public CreateLoadReport()
         {
             InitializeComponent();
@@ -201,5 +189,17 @@ namespace ArcGIS.Samples.CreateLoadReport
                 await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
             }
         }
+    }
+
+    public class PhaseSummary
+    {
+        public PhaseSummary(string phase)
+        {
+            Phase = phase;
+        }
+
+        public string Phase { get; private set; }
+        public double TotalCustomers { get; set; }
+        public double TotalLoad { get; set; }
     }
 }

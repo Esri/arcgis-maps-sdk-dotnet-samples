@@ -2,6 +2,8 @@
 <ContentPage x:Class="ArcGIS.Samples.SymbolsFromMobileStyle.SymbolsFromMobileStyle"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ArcGIS.Samples.SymbolsFromMobileStyle"
+             xmlns:drawing="clr-namespace:System.Drawing;assembly=System.Drawing.Common"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
@@ -27,7 +29,7 @@
                               ItemSelected="SymbolLayerSelected"
                               VerticalOptions="Center">
                         <ListView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="local:SymbolLayerInfo">
                                 <ViewCell Height="15">
                                     <Image Source="{Binding Path=ImageSrc}" />
                                 </ViewCell>
@@ -47,7 +49,7 @@
                               ItemSelected="SymbolLayerSelected"
                               VerticalOptions="Center">
                         <ListView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="local:SymbolLayerInfo">
                                 <ViewCell Height="15">
                                     <Image Source="{Binding Path=ImageSrc}" />
                                 </ViewCell>
@@ -67,7 +69,7 @@
                               ItemSelected="SymbolLayerSelected"
                               VerticalOptions="Center">
                         <ListView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="local:SymbolLayerInfo">
                                 <ViewCell Height="15">
                                     <Image Source="{Binding Path=ImageSrc}" />
                                 </ViewCell>
@@ -82,7 +84,7 @@
                               ItemSelected="SymbolLayerSelected"
                               VerticalOptions="Center">
                         <ListView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="drawing:Color">
                                 <ViewCell Height="20">
                                     <Label Text="{Binding Name}" />
                                 </ViewCell>
@@ -101,6 +103,7 @@
                                 Minimum="8"
                                 WidthRequest="150" />
                         <Label Grid.Column="0"
+                               x:DataType="Slider"
                                Text="{Binding Source={x:Reference SizeSlider}, Path=Value, StringFormat='Size: {0:0#}'}"
                                VerticalOptions="Center" />
                     </Grid>

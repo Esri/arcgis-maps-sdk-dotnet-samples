@@ -1,6 +1,7 @@
 <ContentPage x:Class="ArcGIS.Samples.PerformValveIsolationTrace.PerformValveIsolationTrace"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUtility="clr-namespace:Esri.ArcGISRuntime.UtilityNetworks;assembly=Esri.ArcGISRuntime"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:resources="clr-namespace:ArcGIS.Resources">
     <Grid Style="{DynamicResource EsriSampleContainer}">
@@ -19,6 +20,7 @@
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <Picker x:Name="CategoryPicker"
+                            x:DataType="esriUtility:UtilityCategory"
                             Grid.Column="0"
                             Margin="5"
                             ItemDisplayBinding="{Binding Name}" />

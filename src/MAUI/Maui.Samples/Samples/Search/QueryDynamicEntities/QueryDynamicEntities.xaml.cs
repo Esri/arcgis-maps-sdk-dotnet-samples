@@ -226,17 +226,6 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             if (sender is Button button && button.BindingContext is FlightInfo flightInfo)
             {
                 flightInfo.IsExpanded = !flightInfo.IsExpanded;
-
-                // On iOS, force the CollectionView to update its layout.
-                if (DeviceInfo.Platform == DevicePlatform.iOS)
-                {
-                    // Add a small delay to ensure smooth animation.
-                    Dispatcher.Dispatch(async () =>
-                    {
-                        await Task.Delay(10);
-                        ResultsList.ScrollTo(flightInfo, position: ScrollToPosition.MakeVisible, animate: true);
-                    });
-                }
             }
         }
 
@@ -290,6 +279,8 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             _queryResults.Clear();
             _dynamicEntityLayer?.ClearSelection();
             _bufferGraphicsOverlay.IsVisible = false;
+            ResultsPanel.IsVisible = true;
+            QueryDropdown.IsVisible = false;
 
             // Holds the dynamic entities returned from the query.
             IReadOnlyList<DynamicEntity> results = Array.Empty<DynamicEntity>();
@@ -316,6 +307,8 @@ namespace ArcGIS.Samples.QueryDynamicEntities
                     }
                     break;
             }
+
+            await Task.Yield();
 
             foreach (var result in results)
             {

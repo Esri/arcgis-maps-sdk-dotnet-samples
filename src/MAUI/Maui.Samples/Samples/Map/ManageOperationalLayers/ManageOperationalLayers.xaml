@@ -24,7 +24,7 @@
                        Text="Included" />
                 <CollectionView x:Name="IncludedListView" VerticalOptions="Start">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="mapping:Layer">
                             <Grid ColumnDefinitions="auto,auto,auto,*">
                                 <Button Clicked="MoveButton_OnClicked"
                                         Style="{StaticResource ButtonStyle}"
@@ -32,13 +32,13 @@
                                 <Button Grid.Column="1"
                                         Clicked="PromoteButton_Clicked"
                                         Style="{StaticResource ButtonStyle}"
-                                        ToolTipProperties.Text="Promote layer"
-                                        Text="{StaticResource CalciteUIIcons_Glyph_BringForward}" />
+                                        Text="{StaticResource CalciteUIIcons_Glyph_BringForward}"
+                                        ToolTipProperties.Text="Promote layer" />
                                 <Button Grid.Column="2"
                                         Clicked="DemoteButton_Clicked"
                                         Style="{StaticResource ButtonStyle}"
-                                        ToolTipProperties.Text="Demote layer"
-                                        Text="{StaticResource CalciteUIIcons_Glyph_SendBackwards}" />
+                                        Text="{StaticResource CalciteUIIcons_Glyph_SendBackwards}"
+                                        ToolTipProperties.Text="Demote layer" />
                                 <Label Grid.Column="3"
                                        LineBreakMode="NoWrap"
                                        Text="{Binding Name}"
@@ -52,7 +52,7 @@
                        Text="Excluded" />
                 <CollectionView x:Name="ExcludedListView" VerticalOptions="Start">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="mapping:Layer">
                             <Grid ColumnDefinitions="auto,*">
                                 <Button Clicked="MoveButton_OnClicked"
                                         Style="{StaticResource ButtonStyle}"

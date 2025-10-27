@@ -68,8 +68,8 @@ namespace ArcGIS
             // Set the executing assembly (for accessing embedded resources).
             _assembly = Assembly.GetExecutingAssembly();
 
-            // Update the binding context - this is important for the description tab.
-            BindingContext = _sample;
+            // Update the detail page binding context
+            SampleDetailPage.BindingContext = _sample;
 
             // Get the sample control from the selected sample.
             _sampleContent = (ContentPage)SampleManager.Current.SampleToControl(_sample);

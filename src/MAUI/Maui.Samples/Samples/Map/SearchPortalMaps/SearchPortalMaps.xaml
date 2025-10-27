@@ -2,14 +2,15 @@
 <ContentPage x:Class="ArcGIS.Samples.SearchPortalMaps.SearchPortalMaps"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+             xmlns:esriPortal="clr-namespace:Esri.ArcGISRuntime.Portal;assembly=Esri.ArcGISRuntime"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:local="clr-namespace:ArcGIS.Samples.SearchPortalMaps">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0"
-              ColumnDefinitions="*,*">
+        <Grid Grid.Row="0" ColumnDefinitions="*,*">
             <Button Margin="5"
                     Clicked="ShowSearchUI"
                     Text="Search Maps" />
@@ -71,7 +72,7 @@
                           SelectionMode="Single"
                           VerticalScrollBarVisibility="Default">
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="esriPortal:PortalItem">
                             <TextCell Text="{Binding Title}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>

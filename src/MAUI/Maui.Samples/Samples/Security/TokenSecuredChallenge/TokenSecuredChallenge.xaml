@@ -2,6 +2,7 @@
 <ContentPage x:Class="ArcGIS.Samples.TokenSecuredChallenge.TokenSecuredChallenge"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:arcgisMapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime"
              xmlns:converters="clr-namespace:ArcGIS.Converters"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
@@ -15,6 +16,7 @@
                      x:DataType="esri:ArcGISTiledLayer"
                      Grid.Row="0"
                      Margin="5"
+                     x:DataType="arcgisMapping:Layer"
                      Orientation="Horizontal"
                      Spacing="5">
             <Label Text="{Binding Name}" />
@@ -24,6 +26,7 @@
                      x:DataType="esri:ArcGISMapImageLayer"
                      Grid.Row="1"
                      Margin="5"
+                     x:DataType="arcgisMapping:Layer"
                      Orientation="Horizontal"
                      Spacing="5">
             <Label Text="{Binding Name}" />

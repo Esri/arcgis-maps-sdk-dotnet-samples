@@ -57,87 +57,88 @@
                        FontAttributes="Italic"
                        LineBreakMode="WordWrap" />
 
-                <ScrollView Grid.Row="2" VerticalScrollBarVisibility="Always">
-                    <CollectionView x:Name="ResultsList"
-                                    SelectionChanged="OnResultSelectionChanged"
-                                    SelectionMode="Single"
-                                    VerticalOptions="Start">
-                        <CollectionView.ItemTemplate>
-                            <DataTemplate>
-                                <Border Margin="2"
-                                        Padding="8"
-                                        Style="{DynamicResource EsriSampleControlPanel}">
-                                    <VerticalStackLayout Spacing="4">
-                                        <Label FontAttributes="Bold" Text="{Binding FlightNumber}" />
-                                        <VerticalStackLayout x:Name="DetailsPanel"
-                                                             Margin="10,5,0,5"
-                                                             IsVisible="{Binding IsExpanded}"
-                                                             Spacing="2">
-                                            <Label FontSize="12">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span FontAttributes="Bold" Text="Aircraft: " />
-                                                        <Span Text="{Binding Aircraft}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label FontSize="12">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span FontAttributes="Bold" Text="Altitude: " />
-                                                        <Span Text="{Binding Altitude}" />
-                                                        <Span Text=" ft" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label FontSize="12">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span FontAttributes="Bold" Text="Speed: " />
-                                                        <Span Text="{Binding Speed}" />
-                                                        <Span Text=" mph" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label FontSize="12">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span FontAttributes="Bold" Text="Heading: " />
-                                                        <Span Text="{Binding Heading}" />
-                                                        <Span Text="°" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label FontSize="12">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span FontAttributes="Bold" Text="Status: " />
-                                                        <Span Text="{Binding Status}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                            <Label FontSize="12">
-                                                <Label.FormattedText>
-                                                    <FormattedString>
-                                                        <Span FontAttributes="Bold" Text="Arrival: " />
-                                                        <Span Text="{Binding ArrivalAirport}" />
-                                                    </FormattedString>
-                                                </Label.FormattedText>
-                                            </Label>
-                                        </VerticalStackLayout>
-                                        <Button Padding="4,1"
-                                                Clicked="OnToggleDetails"
-                                                CommandParameter="{Binding .}"
-                                                CornerRadius="4"
-                                                FontSize="10"
-                                                HeightRequest="26"
-                                                Text="{Binding ToggleButtonText}" />
+                <CollectionView x:Name="ResultsList"
+                                Grid.Row="2"
+                                ItemSizingStrategy="MeasureAllItems"
+                                ItemsLayout="VerticalList"
+                                SelectionChanged="OnResultSelectionChanged"
+                                SelectionMode="Single"
+                                VerticalOptions="Fill">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Margin="2"
+                                    Padding="8"
+                                    Style="{DynamicResource EsriSampleControlPanel}">
+                                <VerticalStackLayout Spacing="4">
+                                    <Label FontAttributes="Bold" Text="{Binding FlightNumber}" />
+                                    <VerticalStackLayout x:Name="DetailsPanel"
+                                                         Margin="10,5,0,5"
+                                                         IsVisible="{Binding IsExpanded}"
+                                                         Spacing="2">
+                                        <Label FontSize="12">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Aircraft: " />
+                                                    <Span Text="{Binding Aircraft}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label FontSize="12">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Altitude: " />
+                                                    <Span Text="{Binding Altitude}" />
+                                                    <Span Text=" ft" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label FontSize="12">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Speed: " />
+                                                    <Span Text="{Binding Speed}" />
+                                                    <Span Text=" mph" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label FontSize="12">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Heading: " />
+                                                    <Span Text="{Binding Heading}" />
+                                                    <Span Text="°" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label FontSize="12">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Status: " />
+                                                    <Span Text="{Binding Status}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label FontSize="12">
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span FontAttributes="Bold" Text="Arrival: " />
+                                                    <Span Text="{Binding ArrivalAirport}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
                                     </VerticalStackLayout>
-                                </Border>
-                            </DataTemplate>
-                        </CollectionView.ItemTemplate>
-                    </CollectionView>
-                </ScrollView>
+                                    <Button Padding="4,1"
+                                            Clicked="OnToggleDetails"
+                                            CommandParameter="{Binding .}"
+                                            CornerRadius="4"
+                                            FontSize="10"
+                                            HeightRequest="26"
+                                            Text="{Binding ToggleButtonText}" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
 
                 <Button Grid.Row="3"
                         Margin="0,8,0,0"

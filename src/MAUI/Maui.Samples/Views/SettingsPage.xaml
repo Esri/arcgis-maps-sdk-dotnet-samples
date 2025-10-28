@@ -6,7 +6,8 @@
     xmlns:arcgisruntime="clr-namespace:ArcGIS"
     xmlns:controls="clr-namespace:ArcGIS.Controls"
     xmlns:resources="clr-namespace:ArcGIS.Resources"
-    xmlns:calcite="http://schemas.esri.com/calcite/2024">
+    xmlns:calcite="http://schemas.esri.com/calcite/2024"
+    xmlns:sharedModels="clr-namespace:ArcGIS.Samples.Shared.Models">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
@@ -73,7 +74,7 @@
                     Grid.Row="1"
                     SelectionMode="None">
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="sharedModels:SampleInfo">
                             <ViewCell>
                                 <Grid x:Name="ListViewGrid">
                                     <Grid.ColumnDefinitions>

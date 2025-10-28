@@ -5,6 +5,7 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:offline="clr-namespace:Esri.ArcGISRuntime.Tasks.Offline;assembly=Esri.ArcGISRuntime"
              xmlns:resources="clr-namespace:ArcGIS.Resources">
+
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
@@ -26,7 +27,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Image Grid.RowSpan="2"
                                            HeightRequest="40"
-                                           Source="{Binding PortalItem.Thumbnail}"
+                                           Source="{Binding PortalItem.ThumbnailUri}"
                                            WidthRequest="60" />
                                     <Label Grid.Column="1"
                                            Margin="5,0"

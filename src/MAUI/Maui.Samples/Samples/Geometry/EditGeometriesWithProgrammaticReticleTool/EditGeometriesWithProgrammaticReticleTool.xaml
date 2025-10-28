@@ -20,7 +20,7 @@
                     Clicked="DiscardButton_Click"
                     HeightRequest="40"
                     HorizontalOptions="Start"
-                    IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                    IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                     Text="Cancel" />
             <Button x:Name="SettingsButton"
                     Grid.Column="1"
@@ -37,8 +37,8 @@
                     Clicked="SaveButton_Click"
                     HeightRequest="40"
                     HorizontalOptions="End"
-                    IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
-                    IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                    IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
+                    IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                     Text="Done" />
         </Grid>
         <esriUI:MapView x:Name="MyMapView"
@@ -67,7 +67,7 @@
                         <Label Text="Allow vertex creation" VerticalOptions="Center" />
                         <Switch x:Name="AllowVertexCreationSwitch" />
                     </StackLayout>
-                    <StackLayout IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
+                    <StackLayout IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}, x:DataType=esriUI:MapView}"
                                  Orientation="Horizontal"
                                  Spacing="10">
                         <Label Text="Geometry type" VerticalOptions="Center" />
@@ -76,24 +76,27 @@
                     <Button Grid.Row="2"
                             Grid.Column="3"
                             Clicked="UndoButton_Click"
-                            IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                            IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                             Text="Undo">
                         <Button.IsEnabled>
                             <MultiBinding Converter="{StaticResource VariableMultiValueConverter}">
-                                <Binding Converter="{StaticResource IsNotNullConverter}"
+                                <Binding x:DataType="esriUI:MapView"
+                                         Converter="{StaticResource IsNotNullConverter}"
                                          Path="GeometryEditor.PickedUpElement"
                                          Source="{x:Reference MyMapView}" />
-                                <Binding Path="GeometryEditor.CanUndo" Source="{x:Reference MyMapView}" />
+                                <Binding x:DataType="esriUI:MapView"
+                                         Path="GeometryEditor.CanUndo"
+                                         Source="{x:Reference MyMapView}" />
                             </MultiBinding>
                         </Button.IsEnabled>
                     </Button>
                     <Button Clicked="RedoButton_Click"
-                            IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}}"
-                            IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                            IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
+                            IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                             Text="Redo" />
                     <Button Clicked="DeleteSelectedButton_Click"
-                            IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
-                            IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                            IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False, x:DataType=esriUI:MapView}"
+                            IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                             Text="Delete" />
                     <Button x:Name="ClosePopupButton"
                             Clicked="ClosePopupButton_Clicked"

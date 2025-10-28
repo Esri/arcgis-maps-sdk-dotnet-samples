@@ -3,6 +3,7 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:editing="clr-namespace:Esri.ArcGISRuntime.UI.Editing;assembly=Esri.ArcGISRuntime"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <ContentPage.Resources>
         <Style x:Key="IconStyle" TargetType="Button">
@@ -45,11 +46,11 @@
                             Grid.Row="0"
                             Grid.Column="1"
                             Clicked="MultipointButton_Click"
-                            Style="{StaticResource IconStyle}"
-                            ToolTipProperties.Text="Multipoint"
                             FontFamily="CalciteUIIconsSmallFontFamily"
                             FontSize="16"
-                            Text="&#xe9f9; &#xe9f9;" />
+                            Style="{StaticResource IconStyle}"
+                            Text="&#xe9f9; &#xe9f9;"
+                            ToolTipProperties.Text="Multipoint" />
                     <Button x:Name="PolylineButton"
                             Grid.Row="1"
                             Clicked="PolylineButton_Click"
@@ -91,20 +92,20 @@
                     </Border>
                     <Button Grid.Row="4"
                             Clicked="UndoButton_Click"
-                            IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                            IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                             Style="{StaticResource IconStyle}"
                             Text="{StaticResource CalciteUIIcons_Glyph_Undo}"
                             ToolTipProperties.Text="Undo" />
                     <Button Grid.Row="4"
                             Grid.Column="1"
                             Clicked="RedoButton_Click"
-                            IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}}"
+                            IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                             Style="{StaticResource IconStyle}"
                             Text="{StaticResource CalciteUIIcons_Glyph_Redo}"
                             ToolTipProperties.Text="Redo" />
                     <Button Grid.Row="5"
                             Clicked="DeleteSelectedButton_Click"
-                            IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
+                            IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False, x:DataType=esriUI:MapView}"
                             Style="{StaticResource IconStyle}"
                             Text="{StaticResource CalciteUIIcons_Glyph_Erase}"
                             ToolTipProperties.Text="Delete selected" />
@@ -112,13 +113,13 @@
                             Grid.Row="5"
                             Grid.Column="1"
                             Clicked="SaveButton_Click"
-                            IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                            IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                             Style="{StaticResource IconStyle}"
                             Text="{StaticResource CalciteUIIcons_Glyph_CheckCircle}"
                             ToolTipProperties.Text="Save edits" />
                     <Button Grid.Row="6"
                             Clicked="DiscardButton_Click"
-                            IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                            IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                             Style="{StaticResource IconStyle}"
                             Text="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}"
                             ToolTipProperties.Text="Discard edits" />
@@ -126,7 +127,7 @@
                             Grid.Row="6"
                             Grid.Column="1"
                             Clicked="DeleteAllButton_Click"
-                            IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
+                            IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}, x:DataType=esriUI:MapView}"
                             Style="{StaticResource IconStyle}"
                             Text="{StaticResource CalciteUIIcons_Glyph_Trash}"
                             ToolTipProperties.Text="Delete all geometries" />

@@ -81,11 +81,11 @@
                     Grid.Row="2"
                     Grid.Column="1"
                     Clicked="MultipointButton_Click"
-                    Style="{StaticResource IconStyle}"
-                    ToolTipProperties.Text="Multipoint"
                     FontFamily="CalciteUIIconsSmallFontFamily"
                     FontSize="16"
-                    Text="&#xe9f9; &#xe9f9;" />
+                    Style="{StaticResource IconStyle}"
+                    Text="&#xe9f9; &#xe9f9;"
+                    ToolTipProperties.Text="Multipoint" />
             <Button x:Name="PolylineButton"
                     Grid.Row="3"
                     Grid.Column="0"
@@ -103,28 +103,28 @@
             <Button Grid.Row="4"
                     Grid.Column="0"
                     Clicked="DeleteButton_Click"
-                    IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False}"
+                    IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView, x:DataType=esriUI:MapView}, FallbackValue=False}"
                     Style="{StaticResource IconStyle}"
                     Text="{StaticResource CalciteUIIcons_Glyph_Erase}"
                     ToolTipProperties.Text="Delete selected" />
             <Button Grid.Row="4"
                     Grid.Column="1"
                     Clicked="UndoButton_Click"
-                    IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                    IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                     Style="{StaticResource IconStyle}"
                     Text="{StaticResource CalciteUIIcons_Glyph_Undo}"
                     ToolTipProperties.Text="Undo" />
             <Button Grid.Row="5"
                     Grid.Column="0"
                     Clicked="DiscardButton_Click"
-                    IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
+                    IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                     Style="{StaticResource IconStyle}"
                     Text="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}"
                     ToolTipProperties.Text="Discard edits" />
             <Button Grid.Row="5"
                     Grid.Column="1"
                     Clicked="SaveButton_Click"
-                    IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
+                    IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                     Style="{StaticResource IconStyle}"
                     Text="{StaticResource CalciteUIIcons_Glyph_CheckCircle}"
                     ToolTipProperties.Text="Save edits" />
@@ -170,7 +170,7 @@
                                        WidthRequest="160" />
                                 <Switch Grid.Column="1"
                                         HorizontalOptions="End"
-                                        IsToggled="{Binding GeometryEditor.SnapSettings.IsEnabled, Source={x:Reference MyMapView}}"
+                                        IsToggled="{Binding GeometryEditor.SnapSettings.IsEnabled, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                                         VerticalOptions="Center" />
                             </Grid>
                             <Grid ColumnSpacing="3">
@@ -184,8 +184,8 @@
                                        WidthRequest="160" />
                                 <Switch Grid.Column="1"
                                         HorizontalOptions="End"
-                                        IsEnabled="{Binding GeometryEditor.SnapSettings.IsEnabled, Source={x:Reference MyMapView}}"
-                                        IsToggled="{Binding GeometryEditor.SnapSettings.IsGeometryGuidesEnabled, Source={x:Reference MyMapView}}"
+                                        IsEnabled="{Binding GeometryEditor.SnapSettings.IsEnabled, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
+                                        IsToggled="{Binding GeometryEditor.SnapSettings.IsGeometryGuidesEnabled, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                                         VerticalOptions="Center" />
                             </Grid>
                             <Grid ColumnSpacing="3">
@@ -199,8 +199,8 @@
                                        WidthRequest="160" />
                                 <Switch Grid.Column="1"
                                         HorizontalOptions="End"
-                                        IsEnabled="{Binding GeometryEditor.SnapSettings.IsEnabled, Source={x:Reference MyMapView}}"
-                                        IsToggled="{Binding GeometryEditor.SnapSettings.IsFeatureSnappingEnabled, Source={x:Reference MyMapView}}"
+                                        IsEnabled="{Binding GeometryEditor.SnapSettings.IsEnabled, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
+                                        IsToggled="{Binding GeometryEditor.SnapSettings.IsFeatureSnappingEnabled, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"
                                         VerticalOptions="Center" />
                             </Grid>
                         </VerticalStackLayout>

@@ -103,7 +103,7 @@
             <Button Grid.Row="4"
                     Grid.Column="0"
                     Clicked="DeleteButton_Click"
-                    IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView, x:DataType=esriUI:MapView}, FallbackValue=False}"
+                    IsEnabled="{Binding GeometryEditor.SelectedElement.CanDelete, Source={x:Reference MyMapView}, FallbackValue=False, x:DataType=esriUI:MapView}"
                     Style="{StaticResource IconStyle}"
                     Text="{StaticResource CalciteUIIcons_Glyph_Erase}"
                     ToolTipProperties.Text="Delete selected" />

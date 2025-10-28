@@ -7,6 +7,7 @@
         <esriUI:MapView x:Name="MyMapView" />
         <toolkit:OverviewMap Margin="5,5"
                              Padding="1"
+                             x:DataType="esriUI:MapView"
                              BackgroundColor="Black"
                              GeoView="{Binding Source={x:Reference MyMapView}}"
                              HeightRequest="180"

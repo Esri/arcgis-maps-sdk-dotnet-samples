@@ -14,7 +14,7 @@
                     <!--  When the user's selection changes, the SelectedItem binding will apply the value to the Map's ReferenceScale property.  -->
                     <Picker x:Name="ReferenceScaleBox"
                             Margin="5"
-                            x:DataType="x:Double"
+                            x:DataType="esriUI:MapView"
                             BindingContext="{x:Reference MyMapView}"
                             ItemDisplayBinding="{Binding StringFormat='{0:n0}'}"
                             SelectedItem="{Binding Path=Map.ReferenceScale}"
@@ -22,14 +22,14 @@
                     <Label Text="Choose layers to apply scale to:" />
                     <!--  Binding is used to display the operational layers for the map view's map, no code behind needed.  -->
                     <ListView Margin="5"
-                              x:DataType="mapping:Layer"
+                              x:DataType="esriUI:MapView"
                               BindingContext="{x:Reference MyMapView}"
                               HeightRequest="150"
                               ItemsSource="{Binding Path=Map.OperationalLayers}"
                               SelectionMode="None"
                               VerticalOptions="Center">
                         <ListView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="mapping:FeatureLayer">
                                 <ViewCell>
                                     <!--
                                         When the user interacts with the switch,

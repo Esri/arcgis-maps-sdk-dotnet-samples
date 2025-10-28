@@ -4,11 +4,12 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:toolkit="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui">
     <Grid>
-        <esriUI:MapView x:Name="MyMapView"
-                        GeoViewTapped="MyMapView_GeoViewTapped" />
+        <esriUI:MapView x:Name="MyMapView" GeoViewTapped="MyMapView_GeoViewTapped" />
         <Grid x:Name="FeatureFormPanel"
-              IsVisible="False" Padding="20"
-              BackgroundColor="{AppThemeBinding Light=White, Dark=Black}">
+              Padding="20"
+              BackgroundColor="{AppThemeBinding Light=White,
+                                                Dark=Black}"
+              IsVisible="False">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
@@ -16,18 +17,21 @@
             <ScrollView Grid.Row="0" MaximumWidthRequest="400">
                 <toolkit:FeatureFormView x:Name="FeatureFormViewPanel" />
             </ScrollView>
-            <Grid Grid.Row="1" ColumnSpacing="10" MaximumWidthRequest="400">
+            <Grid Grid.Row="1"
+                  ColumnSpacing="10"
+                  MaximumWidthRequest="400">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Button Text="Save"
-                        Grid.Column="0"
+                <Button Grid.Column="0"
+                        x:DataType="toolkit:FeatureFormView"
                         Clicked="SaveButton_Clicked"
-                        IsEnabled="{Binding Source={x:Reference FeatureFormViewPanel}, Path=IsValid}" />
-                <Button Text="Cancel"
-                        Grid.Column="1"
-                        Clicked="CancelButton_Clicked" />
+                        IsEnabled="{Binding Source={x:Reference FeatureFormViewPanel}, Path=IsValid}"
+                        Text="Save" />
+                <Button Grid.Column="1"
+                        Clicked="CancelButton_Clicked"
+                        Text="Cancel" />
             </Grid>
         </Grid>
     </Grid>

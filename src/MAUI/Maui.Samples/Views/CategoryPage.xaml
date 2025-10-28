@@ -41,19 +41,13 @@
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Clicked="SearchClicked"
-                     IconImageSource="{calcite:CalciteIconImage Icon=Search,
-                                                                Size=24,
-                                                                Scale=Medium}"
+                     IconImageSource="{calcite:CalciteIconImage Icon=Search, Size=24, Scale=Medium}"
                      Text="Search" />
         <ToolbarItem Clicked="SettingsClicked"
-                     IconImageSource="{calcite:CalciteIconImage Icon=Gear,
-                                                                Size=24,
-                                                                Scale=Medium}"
+                     IconImageSource="{calcite:CalciteIconImage Icon=Gear, Size=24, Scale=Medium}"
                      Text="Settings" />
         <ToolbarItem Clicked="FeedbackToolbarItem_Clicked"
-                     IconImageSource="{calcite:CalciteIconImage Icon=NotepadEdit,
-                                                                Size=24,
-                                                                Scale=Medium}"
+                     IconImageSource="{calcite:CalciteIconImage Icon=NotepadEdit, Size=24, Scale=Medium}"
                      Text="Feedback" />
     </ContentPage.ToolbarItems>
 

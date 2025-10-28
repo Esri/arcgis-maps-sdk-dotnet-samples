@@ -3,7 +3,6 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:editing="clr-namespace:Esri.ArcGISRuntime.UI.Editing;assembly=Esri.ArcGISRuntime"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <ContentPage.Resources>
         <Style x:Key="IconStyle" TargetType="Button">

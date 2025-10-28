@@ -10,11 +10,8 @@
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border x:Name="ControlPanel" Style="{DynamicResource EsriSampleControlPanel}">
             <ScrollView x:DataType="controls:Border"
-                        MaximumHeightRequest="{OnIdiom Desktop=500,
-                                                       Default={Binding Height,
-                                                                        Source=ControlPanel}}"
-                        Orientation="{OnPlatform iOS=Both,
-                                                 Default=Vertical}">
+                        MaximumHeightRequest="{OnIdiom Desktop=500, Default={Binding Height, Source=ControlPanel}}"
+                        Orientation="{OnPlatform iOS=Both, Default=Vertical}">
                 <StackLayout x:Name="InfoList"
                              x:DataType="esri:ShapefileInfo"
                              Spacing="5">

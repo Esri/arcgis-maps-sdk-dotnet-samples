@@ -1,9 +1,8 @@
 ﻿<ContentPage x:Class="ArcGIS.Samples.DownloadPreplannedMap.DownloadPreplannedMap"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-             xmlns:offline="clr-namespace:Esri.ArcGISRuntime.Tasks.Offline;assembly=Esri.ArcGISRuntime"
+             xmlns:esriOffline="clr-namespace:Esri.ArcGISRuntime.Tasks.Offline;assembly=Esri.ArcGISRuntime"
              xmlns:resources="clr-namespace:ArcGIS.Resources">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
@@ -17,7 +16,7 @@
                           HeightRequest="150"
                           ItemSelected="AreaSelected">
                     <ListView.ItemTemplate>
-                        <DataTemplate x:DataType="offline:PreplannedMapArea">
+                        <DataTemplate x:DataType="esriOffline:PreplannedMapArea">
                             <ViewCell>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -26,7 +25,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Image Grid.RowSpan="2"
                                            HeightRequest="40"
-                                           Source="{Binding PortalItem.Thumbnail}"
+                                           Source="{Binding PortalItem.Thumbnail.Source.AbsoluteUri}"
                                            WidthRequest="60" />
                                     <Label Grid.Column="1"
                                            Margin="5,0"

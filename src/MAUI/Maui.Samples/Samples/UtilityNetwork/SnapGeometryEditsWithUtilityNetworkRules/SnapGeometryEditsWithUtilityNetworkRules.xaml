@@ -3,9 +3,10 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:local="clr-namespace:ArcGIS.Samples.SnapGeometryEditsWithUtilityNetworkRules">
     <ContentPage.Resources>
-        <DataTemplate x:Key="SnapSettingTemplate">
+        <DataTemplate x:Key="SnapSettingTemplate" x:DataType="local:SnapSourceSettingsVM">
             <Grid ColumnDefinitions="auto,130,*" ColumnSpacing="10">
                 <Image Grid.Column="0"
                        HeightRequest="15"
@@ -106,6 +107,7 @@
                                 Text="Snap sources" />
                         <Button x:Name="GeometryEditorButton"
                                 Clicked="GeometryEditorButton_Click"
+                                x:DataType="esriUI:MapView"
                                 IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}}"
                                 Text="Start editor" />
                         <Grid ColumnSpacing="5">
@@ -115,6 +117,7 @@
                             </Grid.ColumnDefinitions>
                             <Button Grid.Column="0"
                                     Clicked="DiscardButton_Click"
+                                    x:DataType="esriUI:MapView"
                                     IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}}"
                                     Style="{StaticResource IconStyle}"
                                     Text="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}"
@@ -122,6 +125,7 @@
                             <Button x:Name="SaveButton"
                                     Grid.Column="1"
                                     Clicked="SaveButton_Click"
+                                    x:DataType="esriUI:MapView"
                                     IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}}"
                                     Style="{StaticResource IconStyle}"
                                     Text="{StaticResource CalciteUIIcons_Glyph_CheckCircle}"

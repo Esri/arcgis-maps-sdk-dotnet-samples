@@ -2,6 +2,8 @@
 <ContentPage x:Class="ArcGIS.Samples.CreateLoadReport.CreateLoadReport"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ArcGIS.Samples.CreateLoadReport"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:toolkit="using:Esri.ArcGISRuntime.Toolkit.Maui">
     <Border Style="{DynamicResource EsriSampleControlPanel}">
@@ -9,6 +11,7 @@
             <Label Text="Add phases from the dropdown list, then run report." />
             <HorizontalStackLayout Spacing="5">
                 <Picker x:Name="PhasesList"
+                        x:DataType="esri:CodedValue"
                         ItemDisplayBinding="{Binding Name}"
                         WidthRequest="150" />
                 <Button Clicked="OnAddPhase" Text="Add" />
@@ -41,7 +44,7 @@
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="local:PhaseSummary">
                         <Grid Margin="5"
                               ColumnDefinitions="100, 50, 175"
                               HorizontalOptions="Center">

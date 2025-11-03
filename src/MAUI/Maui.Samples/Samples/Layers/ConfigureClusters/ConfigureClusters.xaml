@@ -63,6 +63,7 @@
                     <Label Grid.Row="4"
                            Grid.Column="1"
                            BindingContext="{x:Reference MyMapView}"
+                           x:DataType="esriUI:MapView"
                            Text="{Binding Path=MapScale, Mode=OneWay, StringFormat='{0:n0}'}" />
                 </Grid>
             </VerticalStackLayout>

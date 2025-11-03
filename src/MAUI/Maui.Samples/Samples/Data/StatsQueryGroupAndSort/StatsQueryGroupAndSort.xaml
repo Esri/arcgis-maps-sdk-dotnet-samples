@@ -2,7 +2,9 @@
 <ContentPage x:Name="StatsQueryGroupAndSortSample"
              x:Class="ArcGIS.Samples.StatsQueryGroupAndSort.StatsQueryGroupAndSort"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:local="clr-namespace:ArcGIS.Samples.StatsQueryGroupAndSort">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -42,7 +44,7 @@
                                 SelectionMode="Single"
                                 Style="{DynamicResource CollectionViewStyle}">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="esri:StatisticDefinition">
                             <Grid ColumnDefinitions="*,*">
                                 <Label Text="{Binding OnFieldName}" />
                                 <Label Grid.Column="1" Text="{Binding StatisticType}" />
@@ -56,7 +58,7 @@
                 <Label FontAttributes="Bold" Text="Group by" />
                 <CollectionView x:Name="GroupFieldsListBox" Style="{DynamicResource CollectionViewStyle}">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="esri:Field">
                             <Grid ColumnDefinitions="50,*">
                                 <Switch HorizontalOptions="Start" Toggled="GroupField_Toggled" />
                                 <Label Grid.Column="1"
@@ -70,7 +72,7 @@
                 <Label FontAttributes="Bold" Text="Order by" />
                 <CollectionView x:Name="OrderByFieldsListBox" Style="{DynamicResource CollectionViewStyle}">
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="local:OrderFieldOption">
                             <Grid ColumnDefinitions="50, 2*, 2*">
                                 <Switch IsToggled="{Binding OrderWith}" />
                                 <Label Grid.Column="1"
@@ -103,14 +105,14 @@
                                 MaximumHeightRequest="{OnIdiom Default=800,
                                                                Phone=600}">
                     <CollectionView.GroupHeaderTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="local:ResultGroup">
                             <Label FontAttributes="Bold"
                                    FontSize="Medium"
                                    Text="{Binding GroupName}" />
                         </DataTemplate>
                     </CollectionView.GroupHeaderTemplate>
                     <CollectionView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="local:StatisticResult">
                             <HorizontalStackLayout Spacing="5">
                                 <Label FontAttributes="Bold" Text="{Binding FieldName}" />
                                 <Label Text="{Binding StatValue}" />

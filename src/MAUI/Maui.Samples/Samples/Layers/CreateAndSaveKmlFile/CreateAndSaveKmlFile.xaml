@@ -76,7 +76,7 @@
                       Grid.Row="1"
                       ItemSelected="Apply_Style_Click">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="x:String">
                         <ImageCell ImageSource="{Binding Path=., Converter={StaticResource imageConverter}}" />
                     </DataTemplate>
                 </ListView.ItemTemplate>
@@ -86,7 +86,7 @@
                       IsVisible="False"
                       ItemSelected="Apply_Style_Click">
                 <ListView.ItemTemplate>
-                    <DataTemplate>
+                    <DataTemplate x:DataType="x:String">
                         <ViewCell>
                             <Grid Margin="2"
                                   BackgroundColor="{Binding Converter={StaticResource colorConverter}}"

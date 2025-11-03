@@ -2,6 +2,7 @@
 <ContentPage x:Class="ArcGIS.Samples.ValidateUtilityNetworkTopology.ValidateUtilityNetworkTopology"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView"
@@ -66,6 +67,7 @@
                        WidthRequest="170" />
                 <Picker x:Name="Choices"
                         Grid.Column="1"
+                        x:DataType="esri:CodedValue"
                         ItemDisplayBinding="{Binding Name}"
                         WidthRequest="130" />
                 <Button Grid.Row="1"

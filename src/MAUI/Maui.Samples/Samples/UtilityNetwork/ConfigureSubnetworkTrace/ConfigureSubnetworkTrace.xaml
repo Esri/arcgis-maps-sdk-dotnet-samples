@@ -1,6 +1,8 @@
 ﻿<ContentPage x:Class="ArcGIS.Samples.ConfigureSubnetworkTrace.ConfigureSubnetworkTrace"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
+             xmlns:esriUtility="clr-namespace:Esri.ArcGISRuntime.UtilityNetworks;assembly=Esri.ArcGISRuntime">
     <Grid>
         <ScrollView>
             <StackLayout>
@@ -54,6 +56,7 @@
                             <Picker x:Name="Attributes"
                                     Grid.Row="0"
                                     HorizontalOptions="Start"
+                                    x:DataType="esriUtility:UtilityNetworkAttribute"
                                     ItemDisplayBinding="{Binding Name}"
                                     MinimumWidthRequest="100"
                                     SelectedIndexChanged="OnAttributeChanged" />
@@ -64,6 +67,7 @@
                             <Picker x:Name="ValueSelection"
                                     Grid.Row="2"
                                     HorizontalOptions="Start"
+                                    x:DataType="esri:CodedValue"
                                     ItemDisplayBinding="{Binding Name}"
                                     MinimumWidthRequest="100" />
                             <Entry x:Name="ValueEntry"

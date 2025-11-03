@@ -3,6 +3,7 @@
 <ContentPage x:Class="ArcGIS.Samples.WmsServiceCatalog.WmsServiceCatalog"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ArcGIS.Samples.WmsServiceCatalog"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
@@ -14,7 +15,7 @@
                                                      MacCatalyst=200}"
                           ItemSelected="MyDisplayList_SelectionChanged">
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="local:LayerDisplayVM">
                             <TextCell Text="{Binding Name}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>

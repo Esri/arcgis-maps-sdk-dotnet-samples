@@ -2,10 +2,10 @@
 <ContentPage x:Class="ArcGIS.CategoryPage"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:calcite="http://schemas.esri.com/calcite/2024"
              xmlns:converters="clr-namespace:ArcGIS.Converters"
              xmlns:models="clr-namespace:ArcGIS.Samples.Shared.Models"
              xmlns:viewModels="clr-namespace:ArcGIS.ViewModels"
-             xmlns:calcite="http://schemas.esri.com/calcite/2024"
              Title="{Binding SelectedCategory}"
              x:DataType="viewModels:CategoryViewModel"
              Shell.FlyoutBehavior="Flyout">
@@ -66,9 +66,15 @@
                     <Border.GestureRecognizers>
                         <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
                         <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
-                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=SampleSelectedCommand}"
-                                              CommandParameter="{Binding .}"
-                                              NumberOfTapsRequired="1" />
+                        <TapGestureRecognizer CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type viewModels:SampleViewModel}}}"
+                                              NumberOfTapsRequired="1" >
+                            <TapGestureRecognizer.Command>
+                                <Binding x:DataType="viewModels:CategoryViewModel"
+                                         Source="{RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}"
+                                         Path="SampleSelectedCommand"/>
+                            </TapGestureRecognizer.Command>
+                        </TapGestureRecognizer>
+
                     </Border.GestureRecognizers>
                     <Grid WidthRequest="{Binding SampleImageWidth, Mode=OneTime}">
                         <Grid.RowDefinitions>
@@ -86,7 +92,7 @@
                                                     WinUI='-1'}"
                                 Padding="2"
                                 Background="#A52F2F2F"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand, x:DataType=viewModels:CategoryViewModel}"
                                 CommandParameter="{Binding SampleFormalName}"
                                 CornerRadius="0"
                                 FontFamily="CalciteUIIconsMediumFontFamily"

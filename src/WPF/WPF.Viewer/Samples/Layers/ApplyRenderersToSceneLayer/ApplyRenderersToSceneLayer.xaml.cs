@@ -53,6 +53,9 @@ namespace ArcGIS.WPF.Samples.ApplyRenderersToSceneLayer
             // Set the scene on the SceneView to visualize the 3D tiles layer.
             MySceneView.Scene = myScene;
 
+            // Load the scene layer before setting up the view.
+            await _sceneLayer.LoadAsync();
+
             // Create a camera with an initial viewpoint.
             // Camera constructor parameters: latitude, longitude, altitude, heading, pitch, and roll.
             var sceneCamera = new Camera(60.1646, 24.9600, 360, 48.35, 57.84, 0.0);

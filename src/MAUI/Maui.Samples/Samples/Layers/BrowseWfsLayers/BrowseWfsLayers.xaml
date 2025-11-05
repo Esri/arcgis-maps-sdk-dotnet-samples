@@ -8,21 +8,21 @@
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <StackLayout Spacing="5">
-                <Entry
-                    x:Name="ServiceTextBox"
-                    HorizontalOptions="Start"
-                    MaximumWidthRequest="350" />
-                <Button
-                    x:Name="LoadServiceButton"
-                    Clicked="LoadServiceButton_Click"
-                    Text="Load service" />
-                <Grid ColumnDefinitions="Auto,*" ColumnSpacing="5">
-                    <Label Text="Select a layer:" VerticalOptions="Center" />
-                    <Picker
-                        x:Name="WfsLayerList"
-                        Grid.Column="1"
-                        ItemDisplayBinding="{Binding Title}" />
-                </Grid>
+                <Entry x:Name="ServiceTextBox"
+                       HorizontalOptions="Start"
+                       MaximumWidthRequest="250" />
+                <Button x:Name="LoadServiceButton"
+                        Clicked="LoadServiceButton_Click"
+                        Text="Load service" />
+                <ListView x:Name="WfsLayerList"
+                          HeightRequest="100"
+                          SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="esriOgc:WfsLayerInfo">
+                            <TextCell Text="{Binding Title}" />
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
                 <Label Text="Swap coordinate order:" />
                 <Switch x:Name="AxisOrderSwapCheckbox" HorizontalOptions="Start" />
                 <Button

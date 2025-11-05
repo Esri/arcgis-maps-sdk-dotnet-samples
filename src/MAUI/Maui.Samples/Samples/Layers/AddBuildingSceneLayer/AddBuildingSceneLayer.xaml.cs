@@ -31,51 +31,59 @@ namespace ArcGIS.Samples.AddBuildingSceneLayer
 
         private async Task Initialize()
         {
+            // Create a new scene with topographic basemap and a local scene viewing mode.
             var scene = new Scene(BasemapStyle.ArcGISTopographic, SceneViewingMode.Local);
 
+            // Add world elevation source to the scene's surface.
             var elevationSource = new ArcGISTiledElevationSource(
                 new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
             scene.BaseSurface.ElevationSources.Add(elevationSource);
 
+            // Add the Building Scene Layer.
             var buildingSceneLayer = new BuildingSceneLayer(
                 new Uri("https://3dcities.maps.arcgis.com/home/item.html?id=ebae5f766aac41ba9ec588f66028a6a9"));
-            buildingSceneLayer.AltitudeOffset = 2;
 
+            // Sets the altitude offset of the building scene layer.
+            // The altitude offset is set to align the model with the ground surface.
+            buildingSceneLayer.AltitudeOffset = 1;
+
+            // Load the building scene layer.
             await buildingSceneLayer.LoadAsync();
+
+            // Add the building scene layer to the scene's operational layers.
             scene.OperationalLayers.Add(buildingSceneLayer);
             MySceneView.Scene = scene;
 
+            // Set the scene's initial viewpoint.
             var camera = new Camera(
-                new MapPoint(-13045148, 4036775, 454, SpatialReferences.WebMercator),
-                heading: 343,
-                pitch: 64,
-                roll: 0);
+                           new MapPoint(-13045148, 4036775, 454, SpatialReferences.WebMercator),
+                           heading: 343,
+                           pitch: 64,
+                           roll: 0);
             MySceneView.SetViewpointCamera(camera);
 
+            // Get the overview and full model sublayers for the toggle.
             var sublayers = buildingSceneLayer.Sublayers;
-            _overviewSublayer = sublayers.FirstOrDefault(s =>
-                string.Equals(s.Name, "Overview", StringComparison.OrdinalIgnoreCase));
-            _fullModelSublayer = sublayers.FirstOrDefault(s =>
-                string.Equals(s.Name, "Full Model", StringComparison.OrdinalIgnoreCase));
+            _overviewSublayer = sublayers.FirstOrDefault(s => s.Name == "Overview");
+            _fullModelSublayer = sublayers.FirstOrDefault(s => s.Name == "Full Model");
 
-            if (_fullModelSublayer != null)
-            {
-                FullModelCheckBox.IsEnabled = true;
-            }
-            else
-            {
-                FullModelCheckBox.IsEnabled = false;
-            }
+            // Enable checkbox only if full model sublayer exists.
+            FullModelCheckBox.IsEnabled = _fullModelSublayer != null;
 
-            UpdateSublayerVisibility(FullModelCheckBox.IsChecked);
+            // Attach an event handler to respond when the checkbox state changes.
             FullModelCheckBox.CheckedChanged += OnCheckBoxChanged;
+            // Set the initial visibility of sublayers based on the checkbox's current state.
+            UpdateSublayerVisibility(FullModelCheckBox.IsChecked);
         }
 
+        // Event handler that is called when the checkbox state changes.
         private void OnCheckBoxChanged(object sender, CheckedChangedEventArgs e)
         {
             UpdateSublayerVisibility(e.Value);
         }
 
+        // Method to update the visibility of the overview and full model sublayers.
+        // This does not affect the 'isVisible' property of the individual sublayers within the full model.
         private void UpdateSublayerVisibility(bool showFullModel)
         {
             if (_fullModelSublayer != null)

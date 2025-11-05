@@ -14,7 +14,7 @@ When loaded, the sample displays a scene with a Building Scene Layer. By default
 
 ## How it works
 
-1. Create a local scene object with the `Scene.Scene(BasemapStyle, SceneViewingMode)` constructor.
+1. Create a local scene object with the `Scene.Scene(BasemapStyle, SceneViewingMode)` constructor and `Local` viewing mode.
 2. Create an `ArcGISTiledElevationSource` object and add it to the local scene's base surface.
 3. Create a `BuildingSceneLayer` and add it to the local scene's operational layers.
 4. Create a `LocalSceneView` object to display the scene.

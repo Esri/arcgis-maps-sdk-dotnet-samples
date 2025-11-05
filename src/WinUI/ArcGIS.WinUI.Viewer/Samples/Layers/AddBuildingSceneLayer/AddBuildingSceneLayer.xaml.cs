@@ -16,10 +16,11 @@ using System.Threading.Tasks;
 namespace ArcGIS.WinUI.Samples.AddBuildingSceneLayer
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
-        "Add building scene layer",
-        "Layers",
-        "Add a layer to a local scene to visualize and interact with 3D building models developed using Building Information Modeling (BIM) tools.",
-        "")]
+        name: "Add building scene layer",
+        category: "Layers",
+        description: "Add a layer to a local scene to visualize and interact with 3D building models developed using Building Information Modeling (BIM) tools.",
+        instructions: "When loaded, the sample displays a scene with a Building Scene Layer. By default, the Overview sublayer is visible, showing the building's exterior shell. Use the \"Full Model\" toggle to switch to the Full Model sublayer, which reveals the building's components. Pan around and zoom in to observe the detailed features such as walls, light fixtures, mechanical systems, and more, both outside and inside the building.",
+        tags: new[] { "3D", "buildings", "elevation", "layers", "scene", "surface" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class AddBuildingSceneLayer
     {

@@ -1,32 +1,33 @@
 {
-  "category": "Layers",
-  "description": "Add a layer to a local scene to visualize and interact with 3D building models developed using Building Information Modeling (BIM) tools.",
-  "formal_name": "AddBuildingSceneLayer",
-  "ignore": false,
-  "images": [
-    "AddBuildingSceneLayer.jpg"
-  ],
-  "keywords": [
-    "3D",
-    "buildings",
-    "elevation",
-    "layers",
-    "scene",
-    "surface"
-  ],
-  "redirect_from": [
-    "/net/latest/winui/sample-code/add-building-scene-layer.htm"
-  ],
-  "relevant_apis": [
-    "ArcGISTiledElevationSource",
-    "BuildingSceneLayer",
-    "BuildingSublayer",
-    "LocalSceneView",
-    "Scene"
-  ],
-  "snippets": [
-    "AddBuildingSceneLayer.xaml.cs",
-    "AddBuildingSceneLayer.xaml"
-  ],
-  "title": "Add building scene layer"
+    "category": "Layers",
+    "description": "Add a layer to a local scene to visualize and interact with 3D building models developed using Building Information Modeling (BIM) tools.",
+    "formal_name": "AddBuildingSceneLayer",
+    "ignore": false,
+    "images": [
+        "AddBuildingSceneLayer.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "buildings",
+        "elevation",
+        "layers",
+        "scene",
+        "surface"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/add-building-scene-layer.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISTiledElevationSource",
+        "BuildingSceneLayer",
+        "BuildingSublayer",
+        "LocalSceneView",
+        "Scene"
+    ],
+    "snippets": [
+        "AddBuildingSceneLayer.xaml.cs",
+        "AddBuildingSceneLayer.xaml"
+    ],
+    "title": "Add building scene layer"
 }

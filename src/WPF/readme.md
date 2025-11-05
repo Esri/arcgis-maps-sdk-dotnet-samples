@@ -76,6 +76,7 @@
 
 * [Add 3d tiles layer](WPF.Viewer/Samples/Layers/Add3dTilesLayer) - Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.
 * [Add a point scene layer](WPF.Viewer/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
+* [Add building scene layer](WPF.Viewer/Samples/Layers/AddBuildingSceneLayer) - Add a layer to a local scene to visualize and interact with 3D building models developed using Building Information Modeling (BIM) tools.
 * [Add custom dynamic entity data source](WPF.Viewer/Samples/Layers/AddCustomDynamicEntityDataSource) - Create a custom dynamic entity data source and display it using a dynamic entity layer.
 * [Add dynamic entity layer](WPF.Viewer/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](WPF.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.

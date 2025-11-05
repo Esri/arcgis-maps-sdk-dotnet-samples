@@ -38,6 +38,7 @@
                     Value="0" />
             <Label Grid.Row="2"
                    Grid.Column="2"
+                   x:DataType="Slider"
                    Text="{Binding Source={x:Reference MinScaleEntry}, Path=Value, StringFormat='{0:N0}'}" />
             <Label Grid.Row="3" Text="Max scale:" />
             <Slider x:Name="MaxScaleEntry"
@@ -48,6 +49,7 @@
                     Value="23" />
             <Label Grid.Row="3"
                    Grid.Column="2"
+                   x:DataType="Slider"
                    Text="{Binding Source={x:Reference MaxScaleEntry}, Path=Value, StringFormat='{0:N0}'}" />
             <Label Grid.Row="4" Text="Buffer distance:" />
             <Slider x:Name="ExtentBufferEntry"
@@ -58,6 +60,7 @@
                     Value="250" />
             <Label Grid.Row="4"
                    Grid.Column="2"
+                   x:DataType="Slider"
                    Text="{Binding Source={x:Reference ExtentBufferEntry}, Path=Value, StringFormat='{0:N0}m'}" />
             <Label Grid.Row="5"
                    Style="{StaticResource TitleLabelStyle}"
@@ -87,6 +90,7 @@
                     Value="500" />
             <Label Grid.Row="9"
                    Grid.Column="2"
+                   x:DataType="Slider"
                    MinimumWidthRequest="40"
                    Text="{Binding Source={x:Reference FlowRateFilterEntry}, Path=Value, StringFormat='{0:N0} GPM'}" />
             <Label Grid.Row="10"

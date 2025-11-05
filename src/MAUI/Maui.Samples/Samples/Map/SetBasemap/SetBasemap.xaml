@@ -8,6 +8,7 @@
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <toolkit:BasemapGallery x:Name="MyBasemapGallery"
+                                    x:DataType="esriUI:MapView"
                                     GeoModel="{Binding Source={x:Reference MyMapView}, Path=Map}"
                                     MaximumHeightRequest="400" />
         </Border>

@@ -18,7 +18,7 @@
                           HeightRequest="100"
                           SelectionMode="Single">
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="esriOgc:WfsLayerInfo">
                             <TextCell Text="{Binding Title}" />
                         </DataTemplate>
                     </ListView.ItemTemplate>

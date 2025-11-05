@@ -2,7 +2,9 @@
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
+             xmlns:esriOffline="clr-namespace:Esri.ArcGISRuntime.Tasks.Offline;assembly=Esri.ArcGISRuntime"
              xmlns:resources="clr-namespace:ArcGIS.Resources">
+
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
@@ -15,7 +17,7 @@
                           HeightRequest="150"
                           ItemSelected="AreaSelected">
                     <ListView.ItemTemplate>
-                        <DataTemplate>
+                        <DataTemplate x:DataType="esriOffline:PreplannedMapArea">
                             <ViewCell>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -24,7 +26,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Image Grid.RowSpan="2"
                                            HeightRequest="40"
-                                           Source="{Binding PortalItem.ThumbnailUri}"
+                                           Source="{Binding PortalItem.Thumbnail.Source.AbsoluteUri}"
                                            WidthRequest="60" />
                                     <Label Grid.Column="1"
                                            Margin="5,0"

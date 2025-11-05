@@ -2,12 +2,19 @@
 <ContentPage x:Class="ArcGIS.Samples.ReadShapefileMetadata.ReadShapefileMetadata"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border x:Name="ControlPanel" Style="{DynamicResource EsriSampleControlPanel}">
-            <ScrollView MaximumHeightRequest="{OnIdiom Desktop=500, Default={Binding Height, Source=ControlPanel}}" Orientation="{OnPlatform iOS=Both, Default=Vertical}">
-                <StackLayout x:Name="InfoList" Spacing="5">
+            <ScrollView x:DataType="controls:Border"
+                        MaximumHeightRequest="{OnIdiom Desktop=500, Default={Binding Height, Source=ControlPanel}}"
+                        Orientation="{OnPlatform iOS=Both, Default=Vertical}">
+                <StackLayout x:Name="InfoList"
+                             x:DataType="esri:ShapefileInfo"
+                             Spacing="5">
                     <Label FontAttributes="Bold"
                            FontSize="Large"
                            HorizontalOptions="Start"

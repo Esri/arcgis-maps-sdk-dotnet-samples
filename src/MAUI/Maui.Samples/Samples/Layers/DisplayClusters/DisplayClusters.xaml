@@ -71,7 +71,7 @@
                             <CollectionView.ItemTemplate>
                                 <OnIdiom x:TypeArguments="DataTemplate">
                                     <OnIdiom.Default>
-                                        <DataTemplate>
+                                        <DataTemplate x:DataType="esri:GeoElement">
                                             <Grid ColumnDefinitions="*,2*,*,*" ColumnSpacing="50">
                                                 <Label Text="{Binding Path=Attributes[objectid]}" />
                                                 <Label Grid.Column="1" Text="{Binding Path=Attributes[name]}" />
@@ -81,7 +81,7 @@
                                         </DataTemplate>
                                     </OnIdiom.Default>
                                     <OnIdiom.Phone>
-                                        <DataTemplate>
+                                        <DataTemplate x:DataType="esri:GeoElement">
                                             <Label Text="{Binding Path=Attributes[name]}" />
                                         </DataTemplate>
                                     </OnIdiom.Phone>

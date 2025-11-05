@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.AddBuildingSceneLayer.AddBuildingSceneLayer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.UI.Controls;assembly=Esri.ArcGISRuntime.WPF">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:LocalSceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Width="180"
+                HorizontalAlignment="Right"
+                Style="{DynamicResource BorderStyle}">
+            <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                <TextBlock Text="Show full model: " />
+                <CheckBox x:Name="FullModelCheckBox"
+                          IsChecked="False"
+                          IsEnabled="False" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

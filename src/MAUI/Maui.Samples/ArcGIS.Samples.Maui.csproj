@@ -34,6 +34,12 @@
 		<NoWarn>$(NoWarn);XC0022;XC0025</NoWarn> <!-- Disable XamlC warnings until addressed -->
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(TargetFramework)'=='net9.0-ios'">
+	  <ProvisioningType>manual</ProvisioningType>
+	  <CodesignKey>Apple Development: Praveenaa Kulandhaivel (Y7GXSWAH84)</CodesignKey>
+	  <CodesignProvision>.NET Dev Demo</CodesignProvision>
+	</PropertyGroup>
+
     <ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\appiconwindows.svg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />

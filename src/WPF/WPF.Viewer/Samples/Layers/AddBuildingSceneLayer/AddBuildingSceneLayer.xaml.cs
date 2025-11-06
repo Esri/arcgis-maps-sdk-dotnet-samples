@@ -43,6 +43,17 @@ namespace ArcGIS.WPF.Samples.AddBuildingSceneLayer
                 new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));
             scene.BaseSurface.ElevationSources.Add(elevationSource);
 
+            // Set the scene's initial viewpoint.
+            var camera = new Camera(
+                new MapPoint(-13045148, 4036775, 454, SpatialReferences.WebMercator),
+                heading: 343,
+                pitch: 64,
+                roll: 0);
+            scene.InitialViewpoint = new Viewpoint(camera.Location, camera);
+
+            // Set the scene
+            MySceneView.Scene = scene;
+
             // Add the Building Scene Layer.
             var buildingSceneLayer = new BuildingSceneLayer(
                 new Uri("https://3dcities.maps.arcgis.com/home/item.html?id=ebae5f766aac41ba9ec588f66028a6a9"));
@@ -56,15 +67,6 @@ namespace ArcGIS.WPF.Samples.AddBuildingSceneLayer
 
             // Add the building scene layer to the scene's operational layers.
             scene.OperationalLayers.Add(buildingSceneLayer);
-            MySceneView.Scene = scene;
-
-            // Set the scene's initial viewpoint.
-            var camera = new Camera(
-                           new MapPoint(-13045148, 4036775, 454, SpatialReferences.WebMercator),
-                           heading: 343,
-                           pitch: 64,
-                           roll: 0);
-            MySceneView.SetViewpointCamera(camera);
 
             // Get the overview and full model sublayers for the toggle.
             var sublayers = buildingSceneLayer.Sublayers;

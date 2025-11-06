@@ -11,7 +11,6 @@
             <HorizontalStackLayout Spacing="10">
                 <Label Text="Show full model:" VerticalOptions="Center" />
                 <CheckBox x:Name="FullModelCheckBox"
-                          BackgroundColor="Transparent"
                           IsChecked="False"
                           IsEnabled="False" />
             </HorizontalStackLayout>

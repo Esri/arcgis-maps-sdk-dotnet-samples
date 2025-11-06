@@ -79,6 +79,9 @@ namespace ArcGIS.WPF.Samples.AddBuildingSceneLayer
             // Wire up checkbox event.
             FullModelCheckBox.Checked += OnCheckBoxChanged;
             FullModelCheckBox.Unchecked += OnCheckBoxChanged;
+
+            // Set the initial visibility of sublayers based on the checkbox's current state.
+            UpdateSublayerVisibility(FullModelCheckBox.IsChecked == true);
         }
 
         // Event handler that is called when the checkbox state changes.

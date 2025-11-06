@@ -51,7 +51,7 @@ namespace ArcGIS.WinUI.Samples.AddBuildingSceneLayer
                 roll: 0);
             scene.InitialViewpoint = new Viewpoint(camera.Location, camera);
 
-            // Set the scene
+            // Set the scene.
             MySceneView.Scene = scene;
 
             // Add the Building Scene Layer.
@@ -76,7 +76,7 @@ namespace ArcGIS.WinUI.Samples.AddBuildingSceneLayer
             // Enable checkbox only if full model sublayer exists.
             FullModelCheckBox.IsEnabled = _fullModelSublayer != null;
 
-            // Wire up checkbox event
+            // Wire up checkbox event.
             FullModelCheckBox.Checked += OnCheckBoxChanged;
             FullModelCheckBox.Unchecked += OnCheckBoxChanged;
         }

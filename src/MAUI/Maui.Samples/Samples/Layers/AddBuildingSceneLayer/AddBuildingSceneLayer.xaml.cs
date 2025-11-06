@@ -48,7 +48,7 @@ namespace ArcGIS.Samples.AddBuildingSceneLayer
                 roll: 0);
             scene.InitialViewpoint = new Viewpoint(camera.Location, camera);
 
-            // Set the scene
+            // Set the scene.
             MySceneView.Scene = scene;
 
             // Add the Building Scene Layer.

@@ -16,6 +16,7 @@
 		</Category>
 		<Category name="Layers">
 			<Sample>Add3dTilesLayer</Sample>
+			<Sample>AddBuildingSceneLayer</Sample>
 			<Sample>AddSceneLayerWithElevation</Sample>
 			<Sample>ApplyRenderersToSceneLayer</Sample>
 			<Sample>ConfigureClusters</Sample>

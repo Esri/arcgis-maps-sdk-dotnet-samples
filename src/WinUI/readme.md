@@ -76,6 +76,7 @@
 
 * [Add 3d tiles layer](ArcGIS.WinUI.Viewer/Samples/Layers/Add3dTilesLayer) - Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.
 * [Add a point scene layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
+* [Add building scene layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddBuildingSceneLayer) - Add a layer to a local scene to visualize and interact with 3D building models developed using Building Information Modeling (BIM) tools.
 * [Add custom dynamic entity data source](ArcGIS.WinUI.Viewer/Samples/Layers/AddCustomDynamicEntityDataSource) - Create a custom dynamic entity data source and display it using a dynamic entity layer.
 * [Add dynamic entity layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](ArcGIS.WinUI.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
@@ -144,11 +145,6 @@
 * [WMS service catalog](ArcGIS.WinUI.Viewer/Samples/Layers/WmsServiceCatalog) - Connect to a WMS service and show the available layers and sublayers.
 * [WMTS layer](ArcGIS.WinUI.Viewer/Samples/Layers/WMTSLayer) - Display a layer from a Web Map Tile Service.
 * [Web tiled layer](ArcGIS.WinUI.Viewer/Samples/Layers/LoadWebTiledLayer) - Display a tiled web layer.
-
-## Local Server
-
-* [Generate elevation profile with Local Server](ArcGIS.WinUI.Viewer/Samples/LocalServer/LocalServerGenerateElevationProfile) - Create an elevation profile using a geoprocessing package executed with Local Server.
-* [Local Server map image layer](ArcGIS.WinUI.Viewer/Samples/LocalServer/LocalServerMapImageLayer) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.
 
 ## Location
 

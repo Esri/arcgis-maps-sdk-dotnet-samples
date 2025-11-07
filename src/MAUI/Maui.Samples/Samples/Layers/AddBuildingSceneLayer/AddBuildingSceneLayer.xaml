@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.AddBuildingSceneLayer.AddBuildingSceneLayer"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:LocalSceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border HorizontalOptions="End"
+                MaximumWidthRequest="260"
+                Style="{DynamicResource EsriSampleControlPanel}">
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="Show full model:" VerticalOptions="Center" />
+                <CheckBox x:Name="FullModelCheckBox"
+                          IsChecked="False"
+                          IsEnabled="False" />
+            </HorizontalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

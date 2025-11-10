@@ -56,7 +56,7 @@ namespace ArcGIS.WinUI.Samples.AddBuildingSceneLayer
 
             // Add the Building Scene Layer.
             var buildingSceneLayer = new BuildingSceneLayer(
-                new Uri("https://3dcities.maps.arcgis.com/home/item.html?id=ebae5f766aac41ba9ec588f66028a6a9"));
+                new Uri("https://www.arcgis.com/home/item.html?id=669f6279c579486eb4a0acc7eb59d7ca"));
 
             // Sets the altitude offset of the building scene layer.
             // The altitude offset is set to align the model with the ground surface.

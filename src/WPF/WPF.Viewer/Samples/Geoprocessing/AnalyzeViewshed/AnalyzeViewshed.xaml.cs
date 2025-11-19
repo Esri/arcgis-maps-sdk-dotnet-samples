@@ -129,8 +129,9 @@ namespace ArcGIS.WPF.Samples.AnalyzeViewshed
             await myInputFeatures.AddFeatureAsync(myInputFeature);
 
             // Create the parameters that are passed to the used geoprocessing task.
+            // Since the service used is only configured for the execute endpoint, construct the parameters using GeoprocessingExecutionType.SynchronousExecute.
             GeoprocessingParameters myViewshedParameters =
-                new GeoprocessingParameters(GeoprocessingExecutionType.AsynchronousSubmit)
+                new GeoprocessingParameters(GeoprocessingExecutionType.SynchronousExecute)
                 {
                     // Request the output features to use the same SpatialReference as the map view.
                     OutputSpatialReference = MyMapView.SpatialReference

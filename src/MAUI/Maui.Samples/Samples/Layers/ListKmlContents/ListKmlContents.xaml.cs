@@ -58,7 +58,6 @@ namespace ArcGIS.Samples.ListKmlContents
                 {
                     // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of ArcGIS Maps SDK for .NET.
                     LayerDisplayVM nodeVm = new LayerDisplayVM(node, null);
-                    _viewModelList.Add(nodeVm);
                     LayerDisplayVM.BuildLayerInfoList(nodeVm, _viewModelList);
                 }
 

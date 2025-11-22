@@ -62,8 +62,8 @@ namespace ArcGIS.WPF.Samples.ListKmlContents
                 {
                     // LayerDisplayVM is a custom type made for this sample to serve as the ViewModel; it is not a part of ArcGIS Maps SDK for .NET.
                     LayerDisplayVM nodeVm = new LayerDisplayVM(node, null);
+                    LayerDisplayVM.BuildNodeTree(nodeVm);
                     _viewModelList.Add(nodeVm);
-                    LayerDisplayVM.BuildLayerInfoList(nodeVm, _viewModelList);
                 }
 
                 // Update the list of layers, using the root node from the list.
@@ -292,7 +292,7 @@ namespace ArcGIS.WPF.Samples.ListKmlContents
             return Node.GetType().Name + " - " + Node.Name;
         }
 
-        public static void BuildLayerInfoList(LayerDisplayVM root, IList<LayerDisplayVM> result)
+        public static void BuildNodeTree(LayerDisplayVM root)
         {
             // Make the node visible.
             root.Node.IsVisible = true;
@@ -324,7 +324,7 @@ namespace ArcGIS.WPF.Samples.ListKmlContents
                 root.Children.Add(layerVm);
 
                 // Recursively add children.
-                BuildLayerInfoList(layerVm, result);
+                BuildNodeTree(layerVm);
             }
         }
     }

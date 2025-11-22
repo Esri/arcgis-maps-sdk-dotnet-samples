@@ -70,10 +70,10 @@ namespace ArcGIS.Samples.ListKmlContents
             }
         }
 
-        private void LayerTreeView_OnSelectionChanged(object sender, SelectedItemChangedEventArgs e)
+        private void LayerTreeView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the KML node.
-            LayerDisplayVM selectedItem = (LayerDisplayVM)e.SelectedItem;
+            LayerDisplayVM selectedItem = (LayerDisplayVM)e.CurrentSelection.First();
 
             _ = NavigateToNode(selectedItem.Node);
         }
@@ -265,6 +265,7 @@ namespace ArcGIS.Samples.ListKmlContents
         }
 
         #endregion viewpoint_conversion
+
     }
 
     public class LayerDisplayVM

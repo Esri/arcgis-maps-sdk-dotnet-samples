@@ -13,15 +13,16 @@
                 <Label Grid.Row="0"
                        HorizontalTextAlignment="Center"
                        Text="Tap to zoom to KML content." />
-                <ListView x:Name="LayerTreeView"
+                <CollectionView  x:Name="LayerTreeView"
                           Grid.Row="1"
-                          ItemSelected="LayerTreeView_OnSelectionChanged">
-                    <ListView.ItemTemplate>
+                          SelectionMode="Single"
+                          SelectionChanged="LayerTreeView_SelectionChanged">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="local:LayerDisplayVM">
-                            <TextCell Text="{Binding Name}" />
+                            <Label Text="{Binding Name}" />
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Grid>
         </Border>
     </Grid>

@@ -20,10 +20,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using Esri.ArcGISRuntime.UI.Editing;
-using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.UtilityNetworks;
 using System.Collections.Generic;
+using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 
 namespace ArcGIS.WPF.Samples.SnapGeometryEditsWithUtilityNetworkRules
 {
@@ -269,9 +269,16 @@ namespace ArcGIS.WPF.Samples.SnapGeometryEditsWithUtilityNetworkRules
             // Stop the geometry editor and get the updated geometry.
             Geometry geometry = MyMapView.GeometryEditor.Stop();
 
-            // Update the feature with the new geometry.
-            _selectedFeature.Geometry = geometry;
-            await ((GeodatabaseFeatureTable)_selectedFeature.FeatureTable).UpdateFeatureAsync(_selectedFeature);
+            try
+            {
+                // Update the feature with the new geometry.
+                _selectedFeature.Geometry = geometry;
+                await ((GeodatabaseFeatureTable)_selectedFeature.FeatureTable).UpdateFeatureAsync(_selectedFeature);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Error");
+            }
 
             // Reset the selection.
             ResetSelections();

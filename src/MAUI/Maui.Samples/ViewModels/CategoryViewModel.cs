@@ -51,7 +51,7 @@ namespace ArcGIS.ViewModels
 
             foreach (var sampleInfo in featuredSamples)
             {
-                SamplesItems.Add(new SampleViewModel(sampleInfo, _sampleImageWidth, _sampleImageHeight));
+                SamplesItems.Add(new SampleViewModel(this, sampleInfo, _sampleImageWidth, _sampleImageHeight));
             }
 
             _selectedCategory = DefaultCategory;
@@ -67,7 +67,7 @@ namespace ArcGIS.ViewModels
             SelectedCategory = category;
 
             var samples = GetSamplesInCategory(category);
-            var samplesCollection = samples.Select(s => new SampleViewModel(s, _sampleImageWidth, _sampleImageHeight)).ToObservableCollection();
+            var samplesCollection = samples.Select(s => new SampleViewModel(this, s, _sampleImageWidth, _sampleImageHeight)).ToObservableCollection();
             SamplesItems = samplesCollection;
         }
 
@@ -109,8 +109,9 @@ namespace ArcGIS.ViewModels
 
     public partial class SampleViewModel : ObservableObject
     {
-        public SampleViewModel(SampleInfo sampleInfo, double sampleImageWidth, double sampleImageHeight)
+        public SampleViewModel(CategoryViewModel parentCategory, SampleInfo sampleInfo, double sampleImageWidth, double sampleImageHeight)
         {
+            ParentCategory = parentCategory;
             SampleObject = sampleInfo;
             SampleName = sampleInfo.SampleName;
             SampleFormalName = sampleInfo.FormalName;
@@ -121,6 +122,9 @@ namespace ArcGIS.ViewModels
             SampleImageWidth = sampleImageWidth;
             SampleImageHeight = sampleImageHeight;
         }
+
+        [ObservableProperty]
+        CategoryViewModel _parentCategory;
 
         [ObservableProperty]
         string _sampleName;

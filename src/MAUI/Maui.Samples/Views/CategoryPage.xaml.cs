@@ -76,11 +76,9 @@ public partial class CategoryPage : ContentPage
 
         var grid = (Grid)view.Content;
 
-        var imageButton = (Button)grid.Children[1];
+        var imageButton = (Button)grid.Children[4];
 
         imageButton.IsVisible = true;
-
-        Console.WriteLine("PointerRecognized");
 #endif
     }
 
@@ -91,7 +89,7 @@ public partial class CategoryPage : ContentPage
 
         var grid = (Grid)view.Content;
 
-        var imageButton = (Button)grid.Children[1];
+        var imageButton = (Button)grid.Children[4];
 
         string sampleName = (string)imageButton.CommandParameter;
 

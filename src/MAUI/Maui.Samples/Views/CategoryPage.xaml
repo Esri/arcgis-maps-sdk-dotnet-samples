@@ -66,15 +66,9 @@
                     <Border.GestureRecognizers>
                         <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
                         <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
-                        <TapGestureRecognizer CommandParameter="{Binding ., Source={RelativeSource AncestorType={x:Type viewModels:SampleViewModel}}}"
-                                              NumberOfTapsRequired="1" >
-                            <TapGestureRecognizer.Command>
-                                <Binding x:DataType="viewModels:CategoryViewModel"
-                                         Source="{RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}"
-                                         Path="SampleSelectedCommand"/>
-                            </TapGestureRecognizer.Command>
-                        </TapGestureRecognizer>
-
+                        <TapGestureRecognizer Command="{Binding ParentCategory.SampleSelectedCommand}"
+                                              CommandParameter="{Binding .}"
+                                              NumberOfTapsRequired="1" />
                     </Border.GestureRecognizers>
                     <Grid WidthRequest="{Binding SampleImageWidth, Mode=OneTime}">
                         <Grid.RowDefinitions>

@@ -66,9 +66,6 @@
                     <Border.GestureRecognizers>
                         <PointerGestureRecognizer PointerEntered="PointerGestureRecognizer_PointerEntered" />
                         <PointerGestureRecognizer PointerExited="PointerGestureRecognizer_PointerExited" />
-                        <TapGestureRecognizer Command="{Binding ParentCategory.SampleSelectedCommand}"
-                                              CommandParameter="{Binding .}"
-                                              NumberOfTapsRequired="1" />
                     </Border.GestureRecognizers>
                     <Grid WidthRequest="{Binding SampleImageWidth, Mode=OneTime}">
                         <Grid.RowDefinitions>
@@ -79,25 +76,6 @@
                                HeightRequest="{Binding SampleImageHeight, Mode=OneTime}"
                                Source="{Binding SampleImageName, Mode=OneTime}"
                                WidthRequest="{Binding SampleImageWidth, Mode=OneTime}" />
-
-                        <Button x:Name="FavoriteButton"
-                                Grid.Row="0"
-                                Margin="{OnPlatform Default=0,
-                                                    WinUI='-1'}"
-                                Padding="2"
-                                Background="#A52F2F2F"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand, x:DataType=viewModels:CategoryViewModel}"
-                                CommandParameter="{Binding SampleFormalName}"
-                                CornerRadius="0"
-                                FontFamily="CalciteUIIconsMediumFontFamily"
-                                FontSize="{OnPlatform Default=25,
-                                                      iOS=40,
-                                                      Android=40}"
-                                HorizontalOptions="Start"
-                                IsVisible="{Binding ShowFavoriteIcon}"
-                                Text="{Binding IsFavorite, Converter={StaticResource BoolToFavoriteGlyphConverter}}"
-                                TextColor="Yellow"
-                                VerticalOptions="Start" />
 
                         <Label Grid.Row="0"
                                Grid.Column="0"
@@ -120,6 +98,32 @@
                                TextColor="{AppThemeBinding Dark=LightGray,
                                                            Light=Black}"
                                VerticalTextAlignment="Start" />
+
+                        <Button Grid.RowSpan="2"
+                                BackgroundColor="Transparent"
+                                Command="{Binding ParentCategory.SampleSelectedCommand}"
+                                CommandParameter="{Binding .}"
+                                HorizontalOptions="Fill"
+                                VerticalOptions="Fill" />
+
+                        <Button x:Name="FavoriteButton"
+                                Grid.Row="0"
+                                Margin="{OnPlatform Default=0,
+                                                    WinUI='-1'}"
+                                Padding="2"
+                                Background="#A52F2F2F"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModels:CategoryViewModel}}, Path=UpdateFavoriteCommand, x:DataType=viewModels:CategoryViewModel}"
+                                CommandParameter="{Binding SampleFormalName}"
+                                CornerRadius="0"
+                                FontFamily="CalciteUIIconsMediumFontFamily"
+                                FontSize="{OnPlatform Default=25,
+                                                      iOS=40,
+                                                      Android=40}"
+                                HorizontalOptions="Start"
+                                IsVisible="{Binding ShowFavoriteIcon}"
+                                Text="{Binding IsFavorite, Converter={StaticResource BoolToFavoriteGlyphConverter}}"
+                                TextColor="Yellow"
+                                VerticalOptions="Start" />
                     </Grid>
                 </Border>
             </DataTemplate>

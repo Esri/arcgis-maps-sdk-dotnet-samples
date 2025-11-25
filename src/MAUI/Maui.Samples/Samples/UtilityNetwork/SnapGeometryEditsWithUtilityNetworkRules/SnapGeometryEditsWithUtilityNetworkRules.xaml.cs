@@ -265,9 +265,16 @@ namespace ArcGIS.Samples.SnapGeometryEditsWithUtilityNetworkRules
             // Stop the geometry editor and get the updated geometry.
             Geometry geometry = MyMapView.GeometryEditor.Stop();
 
-            // Update the feature with the new geometry.
-            _selectedFeature.Geometry = geometry;
-            await ((GeodatabaseFeatureTable)_selectedFeature.FeatureTable).UpdateFeatureAsync(_selectedFeature);
+            try
+            {
+                // Update the feature with the new geometry.
+                _selectedFeature.Geometry = geometry;
+                await ((GeodatabaseFeatureTable)_selectedFeature.FeatureTable).UpdateFeatureAsync(_selectedFeature);
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
+            }
 
             // Reset the selection.
             ResetSelections();

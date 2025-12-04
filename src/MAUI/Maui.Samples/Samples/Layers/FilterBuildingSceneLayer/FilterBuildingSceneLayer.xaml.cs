@@ -26,7 +26,7 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
         // Store the list of floors in the building.
         private List<string> _floorList = new List<string>();
 
-        // Track the currently selected feature's sublayer.
+        // Track the currently selected feature's sublayer for clearing selection.
         private BuildingComponentSublayer _selectedSublayer;
 
         public FilterBuildingSceneLayer()
@@ -54,18 +54,21 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
 
             if (_buildingSceneLayer != null)
             {
-                // Get the statistics for the building scene layer to retrieve floor information.
+                // Load the building scene layer to access sublayers and statistics.
+                await _buildingSceneLayer.LoadAsync();
+
+                // Get the statistics to retrieve floor information.
                 var statistics = await _buildingSceneLayer.FetchStatisticsAsync();
 
                 if (statistics.ContainsKey("BldgLevel"))
                 {
-                    // Get the floor values and sort them in descending order.
+                    // Get the floor values and sort them in descending order (top floor first).
                     var floorStats = statistics["BldgLevel"];
                     _floorList = floorStats.MostFrequentValues.ToList();
                     _floorList.Sort((a, b) => int.Parse(b).CompareTo(int.Parse(a)));
                 }
 
-                // Populate the UI with floor options and category controls.
+                // Populate the UI controls.
                 PopulateFloorPicker();
                 PopulateCategoryControls();
             }
@@ -76,16 +79,13 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
 
         private void PopulateFloorPicker()
         {
-            // Add "All" option to show all floors.
+            // Add "All" option followed by each floor.
             FloorPicker.Items.Add("All");
-
-            // Add each floor to the picker.
             foreach (var floor in _floorList)
             {
                 FloorPicker.Items.Add(floor);
             }
 
-            // Set the default selection to "All".
             FloorPicker.SelectedIndex = 0;
         }
 
@@ -93,7 +93,6 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
         {
             if (FloorPicker.SelectedIndex < 0) return;
 
-            // Apply the floor filter based on the selected floor.
             ApplyFloorFilter(FloorPicker.Items[FloorPicker.SelectedIndex]);
         }
 
@@ -107,8 +106,8 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
             }
 
             // Create a building filter with two blocks:
-            // 1. Show the selected floor in solid mode
-            // 2. Show floors below in x-ray mode (semi-transparent)
+            // 1. Solid mode for the selected floor.
+            // 2. X-ray mode for floors below (semi-transparent).
             var filter = new BuildingFilter(
                 "Floor filter",
                 "Show selected floor and x-ray filter for lower floors.",
@@ -126,13 +125,11 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
                     )
                 });
 
-            // Apply the filter to the building scene layer.
             _buildingSceneLayer.ActiveFilter = filter;
         }
 
         private void PopulateCategoryControls()
         {
-            // Clear any existing items.
             CategoriesStackLayout.Children.Clear();
 
             if (_buildingSceneLayer == null) return;
@@ -144,38 +141,32 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
 
             if (fullModelSublayer == null) return;
 
-            // Create UI for each category.
+            // Create expandable UI for each category (e.g., Architectural, Structural, Electrical).
             foreach (BuildingGroupSublayer categorySublayer in fullModelSublayer.Sublayers)
             {
-                var categoryItem = CreateCategoryItem(categorySublayer);
-                CategoriesStackLayout.Children.Add(categoryItem);
+                CategoriesStackLayout.Children.Add(CreateCategoryItem(categorySublayer));
             }
         }
 
-        private VerticalStackLayout CreateCategoryItem(BuildingGroupSublayer categorySublayer)
+        private View CreateCategoryItem(BuildingGroupSublayer categorySublayer)
         {
             var mainStack = new VerticalStackLayout { Spacing = 4, Margin = new Thickness(0, 4) };
 
-            // Category header with expand button, name, and checkbox.
-            var headerGrid = new Grid
-            {
-                ColumnDefinitions =
-                {
-                    new ColumnDefinition(GridLength.Auto),
-                    new ColumnDefinition(GridLength.Star),
-                    new ColumnDefinition(GridLength.Auto)
-                }
-            };
+            // Category header with expand button, name, and visibility checkbox.
+            var headerLayout = new HorizontalStackLayout { Spacing = 8 };
 
             var expandButton = new Button
             {
-                Text = "▶",
-                FontSize = 10,
+                Text = ">",
+                FontSize = 12,
                 WidthRequest = 30,
                 HeightRequest = 30,
                 Padding = 0,
                 BackgroundColor = Colors.Transparent
             };
+
+            var categoryCheckBox = new CheckBox { IsChecked = categorySublayer.IsVisible };
+            categoryCheckBox.CheckedChanged += (s, e) => categorySublayer.IsVisible = e.Value;
 
             var nameLabel = new Label
             {
@@ -184,73 +175,45 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
                 VerticalOptions = LayoutOptions.Center
             };
 
-            var visibilityCheckBox = new CheckBox
-            {
-                IsChecked = categorySublayer.IsVisible,
-                VerticalOptions = LayoutOptions.Center,
-                WidthRequest = 24,
-                HeightRequest = 24
-            };
+            headerLayout.Add(expandButton);
+            headerLayout.Add(categoryCheckBox);
+            headerLayout.Add(nameLabel);
 
-            visibilityCheckBox.CheckedChanged += (s, e) => categorySublayer.IsVisible = e.Value;
+            mainStack.Children.Add(headerLayout);
 
-            Grid.SetColumn(expandButton, 0);
-            Grid.SetColumn(nameLabel, 1);
-            Grid.SetColumn(visibilityCheckBox, 2);
-
-            headerGrid.Add(expandButton);
-            headerGrid.Add(nameLabel);
-            headerGrid.Add(visibilityCheckBox);
-
-            mainStack.Children.Add(headerGrid);
-
+            // Component sublayers (collapsed by default).
             var componentsStack = new VerticalStackLayout
             {
-                Margin = new Thickness(20, 5, 0, 0),
-                Spacing = 2,
-                IsVisible = false 
+                Margin = new Thickness(40, 4, 0, 0),
+                Spacing = 4,
+                IsVisible = false
             };
 
             foreach (BuildingComponentSublayer componentSublayer in categorySublayer.Sublayers)
             {
-                var componentGrid = new Grid
-                {
-                    ColumnDefinitions =
-                    {
-                        new ColumnDefinition(GridLength.Star),
-                        new ColumnDefinition(GridLength.Auto)
-                    }
-                };
+                var componentLayout = new HorizontalStackLayout { Spacing = 8 };
+
+                var componentCheckBox = new CheckBox { IsChecked = componentSublayer.IsVisible };
+                componentCheckBox.CheckedChanged += (s, e) => componentSublayer.IsVisible = e.Value;
 
                 var componentLabel = new Label
                 {
                     Text = componentSublayer.Name,
-                    FontSize = 12,
                     VerticalOptions = LayoutOptions.Center
                 };
-                var componentCheckBox = new CheckBox
-                {
-                    IsChecked = componentSublayer.IsVisible,
-                    VerticalOptions = LayoutOptions.Center,
-                    WidthRequest = 24,
-                    HeightRequest = 24
-                };
 
-                componentCheckBox.CheckedChanged += (s, e) => componentSublayer.IsVisible = e.Value;
-
-                componentGrid.Add(componentLabel, 0);
-                componentGrid.Add(componentCheckBox, 1);
-
-                componentsStack.Children.Add(componentGrid);
+                componentLayout.Add(componentCheckBox);
+                componentLayout.Add(componentLabel);
+                componentsStack.Children.Add(componentLayout);
             }
 
             mainStack.Children.Add(componentsStack);
 
-            // Handle expand/collapse.
+            // Toggle expand/collapse when button is clicked.
             expandButton.Clicked += (s, e) =>
             {
                 componentsStack.IsVisible = !componentsStack.IsVisible;
-                expandButton.Text = componentsStack.IsVisible ? "▼" : "▶";
+                expandButton.Text = componentsStack.IsVisible ? "v" : ">";
             };
 
             return mainStack;
@@ -258,14 +221,14 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
 
         private async void MySceneView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
-            // Clear the previous selection if one exists.
+            // Clear any previous selection.
             if (_selectedSublayer != null)
             {
                 _selectedSublayer.ClearSelection();
                 _selectedSublayer = null;
             }
 
-            // Hide the feature panel and show settings.
+            // Reset panel visibility.
             FeaturePanel.IsVisible = false;
             SettingsPanel.IsVisible = true;
 
@@ -278,24 +241,21 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
                 5,
                 false);
 
-            // Check if any features were identified.
+            // Process the first identified feature.
             if (identifyResult.SublayerResults.Any())
             {
                 var sublayerResult = identifyResult.SublayerResults.First();
 
                 if (sublayerResult.GeoElements.Any())
                 {
-                    // Get the first identified feature and its sublayer.
                     var identifiedFeature = sublayerResult.GeoElements.First() as Feature;
                     var sublayer = sublayerResult.LayerContent as BuildingComponentSublayer;
 
                     if (identifiedFeature != null && sublayer != null)
                     {
-                        // Select the feature and store the sublayer reference.
+                        // Select the feature and display its attributes.
                         sublayer.SelectFeature(identifiedFeature);
                         _selectedSublayer = sublayer;
-
-                        // Display the feature's attributes.
                         DisplayFeatureAttributes(identifiedFeature);
                     }
                 }
@@ -304,16 +264,10 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
 
         private void DisplayFeatureAttributes(Feature feature)
         {
-            // Create a list of key-value pairs from the feature's attributes.
-            var attributesList = new List<KeyValuePair<string, string>>();
-            foreach (var attribute in feature.Attributes)
-            {
-                var value = attribute.Value?.ToString() ?? "N/A";
-                attributesList.Add(new KeyValuePair<string, string>(attribute.Key, value));
-            }
+            FeatureAttributesCollection.ItemsSource = feature.Attributes
+                .Select(a => new KeyValuePair<string, string>(a.Key, a.Value?.ToString() ?? "N/A"))
+                .ToList();
 
-            // Bind the attributes to the collection view and show the panel.
-            FeatureAttributesCollection.ItemsSource = attributesList;
             SettingsPanel.IsVisible = false;
             FeaturePanel.IsVisible = true;
         }

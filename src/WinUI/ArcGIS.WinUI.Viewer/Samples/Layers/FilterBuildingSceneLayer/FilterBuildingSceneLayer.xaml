@@ -11,8 +11,10 @@
     </UserControl.Resources>
 
     <Grid>
+        <!--  LocalSceneView displays the 3D building scene.  -->
         <esriUI:LocalSceneView x:Name="MySceneView" />
 
+        <!--  Settings panel for floor filtering and category visibility controls.  -->
         <Border
             Width="300"
             Margin="12"
@@ -28,12 +30,14 @@
                         FontWeight="Bold"
                         Text="Scene Settings" />
 
+                    <!--  Floor selection dropdown.  -->
                     <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Floor:" />
                     <ComboBox
                         x:Name="FloorComboBox"
                         Margin="0,0,0,15"
                         SelectionChanged="FloorComboBox_SelectionChanged" />
 
+                    <!--  Category tree for toggling sublayer visibility.  -->
                     <TextBlock
                         Margin="0,0,0,10"
                         Style="{StaticResource HeaderTextStyle}"
@@ -46,26 +50,13 @@
                         </TreeView.ItemTemplate>
                     </TreeView>
 
-                    <Grid Margin="0,5,0,0" VerticalAlignment="Center">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock
-                            Grid.Column="0"
-                            Style="{StaticResource HeaderTextStyle}"
-                            Text="Selected Feature:" />
-                        <Button
-                            x:Name="CloseSelectedFeatureButton"
-                            Grid.Column="1"
-                            Height="28"
-                            Margin="8,0,0,0"
-                            VerticalAlignment="Center"
-                            Click="CloseSelectedFeatureButton_Click"
-                            Content="Close"
-                            ToolTipService.ToolTip="Clear selection" />
-                    </Grid>
+                    <!--  Selected feature section.  -->
+                    <TextBlock
+                        Margin="0,15,0,5"
+                        Style="{StaticResource HeaderTextStyle}"
+                        Text="Selected Feature:" />
 
+                    <!--  Feature attributes panel, shown when a feature is selected.  -->
                     <Border
                         x:Name="FeatureInfoBorder"
                         MinHeight="100"
@@ -74,27 +65,44 @@
                         BorderBrush="LightGray"
                         BorderThickness="1"
                         Visibility="Collapsed">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <ItemsControl x:Name="FeatureAttributesPanel">
-                                <ItemsControl.ItemTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Margin="0,2">
-                                            <TextBlock
-                                                FontWeight="SemiBold"
-                                                Text="{Binding Key}"
-                                                TextWrapping="Wrap" />
-                                            <TextBlock
-                                                Margin="10,0,0,0"
-                                                Foreground="Gray"
-                                                Text="{Binding Value}"
-                                                TextWrapping="Wrap" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </ItemsControl.ItemTemplate>
-                            </ItemsControl>
-                        </ScrollViewer>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <!--  Close button to clear selection.  -->
+                            <Button
+                                x:Name="CloseSelectedFeatureButton"
+                                Grid.Row="0"
+                                Height="28"
+                                HorizontalAlignment="Right"
+                                Click="CloseSelectedFeatureButton_Click"
+                                Content="Close"
+                                ToolTipService.ToolTip="Clear selection" />
+                            <!--  Scrollable list of feature attributes.  -->
+                            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                                <ItemsControl x:Name="FeatureAttributesPanel">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Margin="0,2">
+                                                <TextBlock
+                                                    FontWeight="SemiBold"
+                                                    Text="{Binding Key}"
+                                                    TextWrapping="Wrap" />
+                                                <TextBlock
+                                                    Margin="10,0,0,0"
+                                                    Foreground="Gray"
+                                                    Text="{Binding Value}"
+                                                    TextWrapping="Wrap" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
                     </Border>
 
+                    <!--  Instruction text shown when no feature is selected.  -->
                     <TextBlock
                         x:Name="NoFeatureSelectedText"
                         FontStyle="Italic"

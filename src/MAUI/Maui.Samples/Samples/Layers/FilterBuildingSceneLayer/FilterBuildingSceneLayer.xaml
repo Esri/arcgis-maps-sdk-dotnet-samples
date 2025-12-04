@@ -5,8 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
+        <!--  LocalSceneView displays the 3D building scene.  -->
         <esriUI:LocalSceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
-        <!--  Settings Panel  -->
+
+        <!--  Settings panel for floor filtering and category visibility controls.  -->
         <Border
             x:Name="SettingsPanel"
             Margin="10"
@@ -23,7 +25,7 @@
             </Border.HorizontalOptions>
             <ScrollView>
                 <VerticalStackLayout Spacing="12">
-                    <!--  Floor Selection  -->
+                    <!--  Floor selection dropdown.  -->
                     <Grid ColumnDefinitions="Auto,*">
                         <Label
                             Grid.Column="0"
@@ -37,13 +39,15 @@
                             Margin="10,0,0,0"
                             SelectedIndexChanged="FloorPicker_SelectedIndexChanged" />
                     </Grid>
-                    <!--  Categories Section  -->
+
+                    <!--  Category controls for toggling sublayer visibility.  -->
                     <Label
                         FontAttributes="Bold"
                         FontSize="14"
                         Text="Categories:" />
                     <VerticalStackLayout x:Name="CategoriesStackLayout" Spacing="4" />
-                    <!--  Instruction  -->
+
+                    <!--  Instruction text.  -->
                     <BoxView HeightRequest="1" Color="Gray" />
                     <Label
                         FontSize="12"
@@ -52,7 +56,8 @@
                 </VerticalStackLayout>
             </ScrollView>
         </Border>
-        <!--  Feature Attributes Panel  -->
+
+        <!--  Feature attributes panel, shown when a feature is selected.  -->
         <Border
             x:Name="FeaturePanel"
             Margin="10"
@@ -68,6 +73,7 @@
                 </OnPlatform>
             </Border.HorizontalOptions>
             <Grid RowDefinitions="Auto,*" RowSpacing="8">
+                <!--  Header with close button.  -->
                 <Grid Grid.Row="0">
                     <Label
                         FontAttributes="Bold"
@@ -81,10 +87,12 @@
                         Clicked="CloseFeatureButton_Clicked"
                         FontSize="16"
                         HorizontalOptions="End"
-                        Text="✕"
+                        Text="X"
                         TextColor="{AppThemeBinding Light=Black,
                                                     Dark=White}" />
                 </Grid>
+
+                <!--  Scrollable list of feature attributes.  -->
                 <ScrollView Grid.Row="1" MaximumHeightRequest="200">
                     <CollectionView x:Name="FeatureAttributesCollection" ItemsLayout="VerticalList">
                         <CollectionView.ItemTemplate>

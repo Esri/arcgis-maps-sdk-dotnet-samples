@@ -33,7 +33,7 @@ namespace ArcGIS.WPF.Samples.FilterBuildingSceneLayer
         // Store the list of floors in the building.
         private List<string> _floorList = new List<string>();
 
-        // Track the currently selected feature's sublayer.
+        // Track the currently selected feature's sublayer for clearing selection.
         private BuildingComponentSublayer _selectedSublayer;
 
         public FilterBuildingSceneLayer()
@@ -61,47 +61,43 @@ namespace ArcGIS.WPF.Samples.FilterBuildingSceneLayer
 
             if (_buildingSceneLayer != null)
             {
-                // Load the building scene layer.
+                // Load the building scene layer to access sublayers and statistics.
                 await _buildingSceneLayer.LoadAsync();
 
-                // Get the statistics for the building scene layer to retrieve floor information.
+                // Get the statistics to retrieve floor information.
                 var statistics = await _buildingSceneLayer.FetchStatisticsAsync();
 
                 if (statistics.ContainsKey("BldgLevel"))
                 {
-                    // Get the floor values and sort them in descending order.
+                    // Get the floor values and sort them in descending order (top floor first).
                     var floorStats = statistics["BldgLevel"];
                     _floorList = floorStats.MostFrequentValues.ToList();
                     _floorList.Sort((a, b) => int.Parse(b).CompareTo(int.Parse(a)));
                 }
 
-                // Populate the UI with floor options and category tree.
+                // Populate the UI controls.
                 PopulateFloorComboBox();
                 PopulateCategoryTree();
             }
 
-            // Listen for taps on the scene view to identify features.
+            // Listen for clicks on the scene view to identify features.
             MySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
         }
 
         private void PopulateFloorComboBox()
         {
-            // Add "All" option to show all floors.
+            // Add "All" option followed by each floor.
             FloorComboBox.Items.Add("All");
-
-            // Add each floor to the combo box.
             foreach (var floor in _floorList)
             {
                 FloorComboBox.Items.Add(floor);
             }
 
-            // Set the default selection to "All".
             FloorComboBox.SelectedIndex = 0;
         }
 
         private void FloorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            // Apply the floor filter based on the selected floor.
             ApplyFloorFilter(FloorComboBox.SelectedItem as string ?? "All");
         }
 
@@ -115,8 +111,8 @@ namespace ArcGIS.WPF.Samples.FilterBuildingSceneLayer
             }
 
             // Create a building filter with two blocks:
-            // 1. Show the selected floor in solid mode
-            // 2. Show floors below in x-ray mode (semi-transparent)
+            // 1. Solid mode for the selected floor.
+            // 2. X-ray mode for floors below (semi-transparent).
             var filter = new BuildingFilter(
                 "Floor filter",
                 "Show selected floor and x-ray filter for lower floors.",
@@ -134,13 +130,11 @@ namespace ArcGIS.WPF.Samples.FilterBuildingSceneLayer
                     )
                 });
 
-            // Apply the filter to the building scene layer.
             _buildingSceneLayer.ActiveFilter = filter;
         }
 
         private void PopulateCategoryTree()
         {
-            // Clear any existing items in the tree view.
             CategoriesTreeView.Items.Clear();
 
             if (_buildingSceneLayer == null) return;
@@ -152,119 +146,74 @@ namespace ArcGIS.WPF.Samples.FilterBuildingSceneLayer
 
             if (fullModelSublayer == null) return;
 
-            // Iterate through each category sublayer (e.g., Architectural, Structural, Electrical).
+            // Create tree items for each category (e.g., Architectural, Structural, Electrical).
             foreach (BuildingGroupSublayer categorySublayer in fullModelSublayer.Sublayers)
             {
-                // Create a tree view item for the category with a checkbox header.
                 var categoryItem = new TreeViewItem
                 {
-                    Header = CreateCategoryHeader(categorySublayer)
+                    Header = CreateSublayerCheckBox(categorySublayer)
                 };
 
-                // Add each component sublayer as a child item.
+                // Add component sublayers as child items.
                 foreach (BuildingComponentSublayer componentSublayer in categorySublayer.Sublayers)
                 {
-                    var componentItem = new TreeViewItem
+                    categoryItem.Items.Add(new TreeViewItem
                     {
-                        Header = CreateComponentHeader(componentSublayer)
-                    };
-                    categoryItem.Items.Add(componentItem);
+                        Header = CreateSublayerCheckBox(componentSublayer)
+                    });
                 }
 
-                // Add the category to the tree view.
                 CategoriesTreeView.Items.Add(categoryItem);
             }
         }
 
-        private StackPanel CreateCategoryHeader(BuildingGroupSublayer sublayer)
+        private CheckBox CreateSublayerCheckBox(BuildingSublayer sublayer)
         {
-            // Create a horizontal stack panel for the category header.
-            var panel = new StackPanel { Orientation = Orientation.Horizontal };
-
-            // Add the category name.
-            var textBlock = new TextBlock
-            {
-                Text = sublayer.Name,
-                VerticalAlignment = VerticalAlignment.Center,
-                Margin = new Thickness(0, 0, 10, 0)
-            };
-
-            // Add a checkbox to control category visibility.
-            var checkBox = new CheckBox
-            {
-                IsChecked = sublayer.IsVisible,
-                VerticalAlignment = VerticalAlignment.Center
-            };
-
-            // Update the sublayer visibility when the checkbox is toggled.
-            checkBox.Checked += (s, e) => sublayer.IsVisible = true;
-            checkBox.Unchecked += (s, e) => sublayer.IsVisible = false;
-
-            panel.Children.Add(textBlock);
-            panel.Children.Add(checkBox);
-
-            return panel;
-        }
-
-        private StackPanel CreateComponentHeader(BuildingComponentSublayer sublayer)
-        {
-            // Create a horizontal stack panel for the component header.
-            var panel = new StackPanel { Orientation = Orientation.Horizontal };
-
-            // Add a checkbox with the component name.
             var checkBox = new CheckBox
             {
                 Content = sublayer.Name,
-                IsChecked = sublayer.IsVisible,
-                VerticalAlignment = VerticalAlignment.Center
+                IsChecked = sublayer.IsVisible
             };
 
-            // Update the sublayer visibility when the checkbox is toggled.
             checkBox.Checked += (s, e) => sublayer.IsVisible = true;
             checkBox.Unchecked += (s, e) => sublayer.IsVisible = false;
 
-            panel.Children.Add(checkBox);
-
-            return panel;
+            return checkBox;
         }
 
         private async void MySceneView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            // Clear the previous selection if one exists.
+            // Clear any previous selection.
             if (_selectedSublayer != null)
             {
                 _selectedSublayer.ClearSelection();
                 _selectedSublayer = null;
             }
 
-            // Clear the feature attribute display.
             ClearFeatureDisplay();
 
-            // Identify features at the tapped location.
+            // Identify features at the clicked location.
             var identifyResult = await MySceneView.IdentifyLayerAsync(
                 _buildingSceneLayer,
                 e.Position,
                 5,
                 false);
 
-            // Check if any features were identified.
+            // Process the first identified feature.
             if (identifyResult.SublayerResults.Any())
             {
                 var sublayerResult = identifyResult.SublayerResults.First();
 
                 if (sublayerResult.GeoElements.Any())
                 {
-                    // Get the first identified feature and its sublayer.
                     var identifiedFeature = sublayerResult.GeoElements.First() as Feature;
                     var sublayer = sublayerResult.LayerContent as BuildingComponentSublayer;
 
                     if (identifiedFeature != null && sublayer != null)
                     {
-                        // Select the feature and store the sublayer reference.
+                        // Select the feature and display its attributes.
                         sublayer.SelectFeature(identifiedFeature);
                         _selectedSublayer = sublayer;
-
-                        // Display the feature's attributes in the UI.
                         DisplayFeatureAttributes(identifiedFeature);
                     }
                 }
@@ -273,27 +222,18 @@ namespace ArcGIS.WPF.Samples.FilterBuildingSceneLayer
 
         private void DisplayFeatureAttributes(Feature feature)
         {
-            // Show the feature info border and hide the instruction text.
             FeatureInfoBorder.Visibility = Visibility.Visible;
             NoFeatureSelectedText.Visibility = Visibility.Collapsed;
 
-            var attributesList = new List<KeyValuePair<string, string>>();
-            foreach (var attribute in feature.Attributes)
-            {
-                var value = attribute.Value?.ToString() ?? "N/A";
-                attributesList.Add(new KeyValuePair<string, string>(attribute.Key, value));
-            }
-
-            // Bind the attributes to the UI.
-            FeatureAttributesPanel.ItemsSource = attributesList;
+            FeatureAttributesPanel.ItemsSource = feature.Attributes
+                .Select(a => new KeyValuePair<string, string>(a.Key, a.Value?.ToString() ?? "N/A"))
+                .ToList();
         }
 
         private void ClearFeatureDisplay()
         {
-            // Hide the feature info border and show the instruction text.
             FeatureInfoBorder.Visibility = Visibility.Collapsed;
             NoFeatureSelectedText.Visibility = Visibility.Visible;
-
             FeatureAttributesPanel.ItemsSource = null;
         }
 
@@ -304,6 +244,7 @@ namespace ArcGIS.WPF.Samples.FilterBuildingSceneLayer
                 _selectedSublayer.ClearSelection();
                 _selectedSublayer = null;
             }
+
             ClearFeatureDisplay();
         }
     }

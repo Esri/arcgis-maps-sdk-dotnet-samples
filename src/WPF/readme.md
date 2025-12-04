@@ -118,6 +118,7 @@
 * [Feature layer rendering mode (map)](WPF.Viewer/Samples/Layers/FeatureLayerRenderingModeMap) - Render features statically or dynamically by setting the feature layer rendering mode.
 * [Feature layer rendering mode (scene)](WPF.Viewer/Samples/Layers/FeatureLayerRenderingModeScene) - Render features in a scene statically or dynamically by setting the feature layer rendering mode.
 * [Feature layer selection](WPF.Viewer/Samples/Layers/FeatureLayerSelection) - Select features in a feature layer.
+* [Filter building scene layer](WPF.Viewer/Samples/Layers/FilterBuildingSceneLayer) - Explore details of a building scene by using filters and sublayer visibility.
 * [Filter by definition expression or display filter](WPF.Viewer/Samples/Layers/FeatureLayerDefinitionExpression) - Filter features displayed on a map using a definition expression or a display filter.
 * [Group layers](WPF.Viewer/Samples/Layers/GroupLayers) - Group a collection of layers together and toggle their visibility as a group.
 * [Hillshade renderer](WPF.Viewer/Samples/Layers/RasterHillshade) - Apply a hillshade renderer to a raster.

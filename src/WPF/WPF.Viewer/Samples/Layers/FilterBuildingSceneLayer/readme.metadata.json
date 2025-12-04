@@ -1,0 +1,29 @@
+{
+    "category": "Layers",
+    "description": "Explore details of a building scene by using filters and sublayer visibility.",
+    "formal_name": "FilterBuildingSceneLayer",
+    "ignore": false,
+    "images": [
+        "FilterBuildingSceneLayer.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "building scene layer",
+        "layers"
+    ],
+    "offline_data": [],
+    "redirect_from": [],
+    "relevant_apis": [
+        "BuildingComponentSublayer",
+        "BuildingFilter",
+        "BuildingFilterBlock",
+        "BuildingSceneLayer",
+        "LocalSceneView",
+        "Scene"
+    ],
+    "snippets": [
+        "FilterBuildingSceneLayer.xaml.cs",
+        "FilterBuildingSceneLayer.xaml"
+    ],
+    "title": "Filter building scene layer"
+}

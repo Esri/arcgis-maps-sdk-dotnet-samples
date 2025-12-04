@@ -21,7 +21,6 @@
             Padding="0"
             HorizontalAlignment="Right"
             VerticalAlignment="Top"
-            Background="White"
             Style="{StaticResource BorderStyle}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <StackPanel Margin="10">

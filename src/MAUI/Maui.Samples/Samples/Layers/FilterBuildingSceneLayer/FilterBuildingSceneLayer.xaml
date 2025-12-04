@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ArcGIS.Samples.FilterBuildingSceneLayer.FilterBuildingSceneLayer"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:LocalSceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
+        <!--  Settings Panel  -->
+        <Border
+            x:Name="SettingsPanel"
+            Margin="10"
+            Padding="16"
+            HeightRequest="300"
+            Style="{DynamicResource EsriSampleControlPanel}"
+            VerticalOptions="Start"
+            WidthRequest="320">
+            <Border.HorizontalOptions>
+                <OnPlatform x:TypeArguments="LayoutOptions">
+                    <On Platform="iOS, Android" Value="Center" />
+                    <On Platform="WinUI" Value="End" />
+                </OnPlatform>
+            </Border.HorizontalOptions>
+            <ScrollView>
+                <VerticalStackLayout Spacing="12">
+                    <!--  Floor Selection  -->
+                    <Grid ColumnDefinitions="Auto,*">
+                        <Label
+                            Grid.Column="0"
+                            FontAttributes="Bold"
+                            FontSize="14"
+                            Text="Floor:"
+                            VerticalOptions="Center" />
+                        <Picker
+                            x:Name="FloorPicker"
+                            Grid.Column="1"
+                            Margin="10,0,0,0"
+                            SelectedIndexChanged="FloorPicker_SelectedIndexChanged" />
+                    </Grid>
+                    <!--  Categories Section  -->
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        Text="Categories:" />
+                    <VerticalStackLayout x:Name="CategoriesStackLayout" Spacing="4" />
+                    <!--  Instruction  -->
+                    <BoxView HeightRequest="1" Color="Gray" />
+                    <Label
+                        FontSize="12"
+                        Text="Tap on a building feature to view its attributes."
+                        TextColor="Gray" />
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+        <!--  Feature Attributes Panel  -->
+        <Border
+            x:Name="FeaturePanel"
+            Margin="10"
+            Padding="16"
+            IsVisible="False"
+            Style="{DynamicResource EsriSampleControlPanel}"
+            VerticalOptions="End"
+            WidthRequest="320">
+            <Border.HorizontalOptions>
+                <OnPlatform x:TypeArguments="LayoutOptions">
+                    <On Platform="iOS, Android" Value="Center" />
+                    <On Platform="WinUI" Value="End" />
+                </OnPlatform>
+            </Border.HorizontalOptions>
+            <Grid RowDefinitions="Auto,*" RowSpacing="8">
+                <Grid Grid.Row="0">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="14"
+                        HorizontalOptions="Start"
+                        Text="Feature Attributes"
+                        VerticalOptions="Center" />
+                    <Button
+                        Padding="8,4"
+                        BackgroundColor="Transparent"
+                        Clicked="CloseFeatureButton_Clicked"
+                        FontSize="16"
+                        HorizontalOptions="End"
+                        Text="✕"
+                        TextColor="{AppThemeBinding Light=Black,
+                                                    Dark=White}" />
+                </Grid>
+                <ScrollView Grid.Row="1" MaximumHeightRequest="200">
+                    <CollectionView x:Name="FeatureAttributesCollection" ItemsLayout="VerticalList">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <VerticalStackLayout Margin="0,4" Spacing="2">
+                                    <Label FontAttributes="Bold" FontSize="12">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="{Binding Key}" />
+                                                <Span Text=":" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label
+                                        Margin="10,0,0,0"
+                                        FontSize="12"
+                                        Text="{Binding Value}"
+                                        TextColor="Gray" />
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </ScrollView>
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

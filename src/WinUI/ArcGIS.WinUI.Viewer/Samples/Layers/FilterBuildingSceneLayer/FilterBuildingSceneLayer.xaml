@@ -1,0 +1,108 @@
+<UserControl
+    x:Class="ArcGIS.WinUI.Samples.FilterBuildingSceneLayer.FilterBuildingSceneLayer"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <UserControl.Resources>
+        <Style x:Key="HeaderTextStyle" TargetType="TextBlock">
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,5" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <esriUI:LocalSceneView x:Name="MySceneView" />
+
+        <Border
+            Width="300"
+            Margin="12"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Background="White"
+            Style="{StaticResource BorderStyle}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel Margin="10">
+                    <TextBlock
+                        Margin="0,0,0,15"
+                        FontSize="18"
+                        FontWeight="Bold"
+                        Text="Scene Settings" />
+
+                    <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Floor:" />
+                    <ComboBox
+                        x:Name="FloorComboBox"
+                        Margin="0,0,0,15"
+                        SelectionChanged="FloorComboBox_SelectionChanged" />
+
+                    <TextBlock
+                        Margin="0,0,0,10"
+                        Style="{StaticResource HeaderTextStyle}"
+                        Text="Categories:" />
+                    <TreeView x:Name="CategoriesTreeView" MaxHeight="400">
+                        <TreeView.ItemTemplate>
+                            <DataTemplate>
+                                <ContentPresenter Content="{Binding Content}" />
+                            </DataTemplate>
+                        </TreeView.ItemTemplate>
+                    </TreeView>
+
+                    <Grid Margin="0,5,0,0" VerticalAlignment="Center">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            Grid.Column="0"
+                            Style="{StaticResource HeaderTextStyle}"
+                            Text="Selected Feature:" />
+                        <Button
+                            x:Name="CloseSelectedFeatureButton"
+                            Grid.Column="1"
+                            Height="28"
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            Click="CloseSelectedFeatureButton_Click"
+                            Content="Close"
+                            ToolTipService.ToolTip="Clear selection" />
+                    </Grid>
+
+                    <Border
+                        x:Name="FeatureInfoBorder"
+                        MinHeight="100"
+                        MaxHeight="200"
+                        Padding="10"
+                        BorderBrush="LightGray"
+                        BorderThickness="1"
+                        Visibility="Collapsed">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <ItemsControl x:Name="FeatureAttributesPanel">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="0,2">
+                                            <TextBlock
+                                                FontWeight="SemiBold"
+                                                Text="{Binding Key}"
+                                                TextWrapping="Wrap" />
+                                            <TextBlock
+                                                Margin="10,0,0,0"
+                                                Foreground="Gray"
+                                                Text="{Binding Value}"
+                                                TextWrapping="Wrap" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </ScrollViewer>
+                    </Border>
+
+                    <TextBlock
+                        x:Name="NoFeatureSelectedText"
+                        FontStyle="Italic"
+                        Foreground="Gray"
+                        Text="Click on a building feature to view its attributes."
+                        TextWrapping="Wrap" />
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

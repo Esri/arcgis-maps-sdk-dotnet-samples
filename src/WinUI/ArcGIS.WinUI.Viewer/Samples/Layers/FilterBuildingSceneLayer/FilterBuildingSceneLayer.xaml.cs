@@ -78,10 +78,10 @@ namespace ArcGIS.WinUI.Samples.FilterBuildingSceneLayer
                 // Populate the UI controls.
                 PopulateFloorComboBox();
                 PopulateCategoryTree();
-            }
 
-            // Listen for clicks on the scene view to identify features.
-            MySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
+                // Listen for clicks on the scene view to identify features.
+                MySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
+            }
         }
 
         private void PopulateFloorComboBox()

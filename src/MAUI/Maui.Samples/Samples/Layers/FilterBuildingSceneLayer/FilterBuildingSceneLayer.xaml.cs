@@ -71,10 +71,10 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
                 // Populate the UI controls.
                 PopulateFloorPicker();
                 PopulateCategoryControls();
-            }
 
-            // Listen for taps on the scene view to identify features.
-            MySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
+                // Listen for taps on the scene view to identify features.
+                MySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
+            }
         }
 
         private void PopulateFloorPicker()

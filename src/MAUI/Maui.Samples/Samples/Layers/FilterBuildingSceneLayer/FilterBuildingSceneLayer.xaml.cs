@@ -157,7 +157,7 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
 
             var expandButton = new Button
             {
-                Text = ">",
+                Text = "▶",
                 FontSize = 12,
                 WidthRequest = 30,
                 HeightRequest = 30,
@@ -213,7 +213,7 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
             expandButton.Clicked += (s, e) =>
             {
                 componentsStack.IsVisible = !componentsStack.IsVisible;
-                expandButton.Text = componentsStack.IsVisible ? "v" : ">";
+                expandButton.Text = componentsStack.IsVisible ? "▼" : "▶";
             };
 
             return mainStack;

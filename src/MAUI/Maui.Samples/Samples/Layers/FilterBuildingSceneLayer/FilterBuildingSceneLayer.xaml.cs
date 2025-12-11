@@ -60,6 +60,7 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
                 // Get the statistics to retrieve floor information.
                 var statistics = await _buildingSceneLayer.FetchStatisticsAsync();
 
+                // Note: BldgLevel values are numeric in the dataset.
                 if (statistics.ContainsKey("BldgLevel"))
                 {
                     // Get the floor values and sort them in descending order (top floor first).

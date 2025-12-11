@@ -26,6 +26,7 @@
 			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>
 			<Sample>DisplayClusters</Sample>
 			<Sample>DisplayRouteLayer</Sample>
+			<Sample>FilterBuildingSceneLayer</Sample>
 		</Category>
 		<Category name="Map">
 			<Sample>BrowseBuildingFloors</Sample>

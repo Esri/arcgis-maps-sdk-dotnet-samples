@@ -73,7 +73,7 @@
                         Text="Feature Attributes"
                         VerticalOptions="Center" />
                     <Button
-                        BackgroundColor="grey"
+                        BackgroundColor="Gray"
                         Clicked="CloseFeatureButton_Clicked"
                         FontSize="16"
                         HorizontalOptions="End"

@@ -198,9 +198,11 @@ namespace ArcGIS.Samples.NavigateRoute
                 {
                     _tracker.SwitchToNextDestinationAsync();
                 }
-
-                // Stop the simulated location data source.
-                MyMapView.LocationDisplay.DataSource.StopAsync();
+                else
+                {
+                    // Stop the simulated location data source.
+                    MyMapView.LocationDisplay.DataSource.StopAsync();
+                }
             }
 
             Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() =>

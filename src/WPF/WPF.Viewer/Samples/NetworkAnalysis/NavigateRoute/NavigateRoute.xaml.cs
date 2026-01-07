@@ -154,7 +154,9 @@ namespace ArcGIS.WPF.Samples.NavigateRoute
             var simulationParameters = new SimulationParameters(DateTimeOffset.Now, 40.0);
             var simulatedDataSource = new SimulatedLocationDataSource();
             simulatedDataSource.SetLocationsWithPolyline(_route.RouteGeometry, simulationParameters);
-            MyMapView.LocationDisplay.DataSource = new RouteTrackerDisplayLocationDataSource(simulatedDataSource, _tracker);
+
+            // Set the location display. Using RouteTrackerLocationDataSource ensures the display will snap to the route.
+            MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(_tracker, simulatedDataSource);
 
             // Use this instead if you want real location:
             // MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
@@ -255,48 +257,5 @@ namespace ArcGIS.WPF.Samples.NavigateRoute
             // Stop the location data source.
             MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
-    }
-
-    // This location data source uses an input data source and a route tracker.
-    // The location source that it updates is based on the snapped-to-route location from the route tracker.
-    public class RouteTrackerDisplayLocationDataSource : LocationDataSource
-    {
-        private LocationDataSource _inputDataSource;
-        private RouteTracker _routeTracker;
-
-        public RouteTrackerDisplayLocationDataSource(LocationDataSource dataSource, RouteTracker routeTracker)
-        {
-            // Set the data source
-            _inputDataSource = dataSource ?? throw new ArgumentNullException(nameof(dataSource));
-
-            // Set the route tracker.
-            _routeTracker = routeTracker ?? throw new ArgumentNullException(nameof(routeTracker));
-
-            // Change the tracker location when the source location changes.
-            _inputDataSource.LocationChanged += InputLocationChanged;
-
-            // Update the location output when the tracker location updates.
-            _routeTracker.TrackingStatusChanged += TrackingStatusChanged;
-        }
-
-        private void InputLocationChanged(object sender, Location e)
-        {
-            // Update the tracker location with the new location from the source (simulation or GPS).
-            _routeTracker.TrackLocationAsync(e);
-        }
-
-        private void TrackingStatusChanged(object sender, RouteTrackerTrackingStatusChangedEventArgs e)
-        {
-            // Check if the tracking status has a location.
-            if (e.TrackingStatus.DisplayLocation != null)
-            {
-                // Call the base method for LocationDataSource to update the location with the tracked (snapped to route) location.
-                UpdateLocation(e.TrackingStatus.DisplayLocation);
-            }
-        }
-
-        protected override Task OnStartAsync() => _inputDataSource.StartAsync();
-
-        protected override Task OnStopAsync() => _inputDataSource.StartAsync();
     }
 }

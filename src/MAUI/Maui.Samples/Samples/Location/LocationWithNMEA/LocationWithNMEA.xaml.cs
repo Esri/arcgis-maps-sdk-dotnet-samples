@@ -64,7 +64,7 @@ namespace ArcGIS.Samples.LocationWithNMEA
             // Load the map and assign the location data source.
             MyMapView.PropertyChanged += (s, e) =>
             {
-                if (e.PropertyName == nameof(MapView.LocationDisplay))
+                if (e.PropertyName == nameof(MapView.LocationDisplay) && MyMapView.LocationDisplay != null)
                     MyMapView.LocationDisplay.DataSource = _nmeaSource;
             };
 

@@ -266,7 +266,7 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
         private void DisplayFeatureAttributes(Feature feature)
         {
             FeatureAttributesCollection.ItemsSource = feature.Attributes
-                .Select(a => new KeyValuePair<string, string>(a.Key, a.Value?.ToString() ?? "N/A"))
+                .Select(a => new BuildingSceneFeatureAttribute(a.Key, a.Value?.ToString() ?? "N/A"))
                 .ToList();
 
             SettingsPanel.IsVisible = false;
@@ -284,6 +284,22 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
             FeaturePanel.IsVisible = false;
             FeatureAttributesCollection.ItemsSource = null;
             SettingsPanel.IsVisible = true;
+        }
+    }
+
+    /// <summary>
+    /// This class represents a key-value pair for displaying feature attributes. It is used instead of a
+    /// KeyValuePair generic to help data binding in the xaml file.
+    /// </summary>
+    public sealed class BuildingSceneFeatureAttribute
+    {
+        public string Key { get; set; }
+        public string Value { get; set; }
+
+        public BuildingSceneFeatureAttribute(string key, string value)
+        {
+            Key = key;
+            Value = value;
         }
     }
 }

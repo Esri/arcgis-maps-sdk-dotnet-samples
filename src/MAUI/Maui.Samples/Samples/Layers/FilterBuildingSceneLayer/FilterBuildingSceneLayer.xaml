@@ -3,6 +3,7 @@
     x:Class="ArcGIS.Samples.FilterBuildingSceneLayer.FilterBuildingSceneLayer"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:ArcGIS.Samples.FilterBuildingSceneLayer"
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
         <!--  LocalSceneView displays the 3D building scene.  -->
@@ -86,7 +87,7 @@
                 <ScrollView Grid.Row="1" MaximumHeightRequest="200">
                     <CollectionView x:Name="FeatureAttributesCollection" ItemsLayout="VerticalList">
                         <CollectionView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="local:BuildingSceneFeatureAttribute">
                                 <VerticalStackLayout Margin="0,4" Spacing="2">
                                     <Label FontAttributes="Bold" FontSize="12">
                                         <Label.FormattedText>

@@ -32,7 +32,7 @@ namespace ArcGIS.WPF.Samples.FindServiceAreasForMultipleFacilities
     public partial class FindServiceAreasForMultipleFacilities
     {
         // URLs to resources used by the sample.
-        private const string NetworkAnalysisUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ServiceArea";
+        private const string NetworkAnalysisUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/NetworkAnalysis/SanDiego/NAServer/ServiceArea";
         private const string FacilitiesFeatureUrl = "https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/ArcGIS/rest/services/San_Diego_Facilities/FeatureServer/0";
         private const string IconUrl = "https://static.arcgis.com/images/Symbols/SafetyHealth/Hospital.png";
 

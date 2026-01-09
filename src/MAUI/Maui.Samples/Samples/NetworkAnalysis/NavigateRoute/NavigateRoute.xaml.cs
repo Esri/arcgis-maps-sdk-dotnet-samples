@@ -53,7 +53,7 @@ namespace ArcGIS.Samples.NavigateRoute
         private readonly MapPoint _aerospaceMuseum = new MapPoint(-117.147230, 32.730467, SpatialReferences.Wgs84);
 
         // Feature service for routing in San Diego.
-        private readonly Uri _routingUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
+        private readonly Uri _routingUri = new Uri("https://sampleserver7.arcgisonline.com/server/rest/services/NetworkAnalysis/SanDiego/NAServer/Route");
 
         public NavigateRoute()
         {

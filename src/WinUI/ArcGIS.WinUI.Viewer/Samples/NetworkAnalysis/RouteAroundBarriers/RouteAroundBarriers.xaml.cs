@@ -53,7 +53,7 @@ namespace ArcGIS.WinUI.Samples.RouteAroundBarriers
         private Symbol _barrierSymbol;
 
         // URL to the network analysis service.
-        private const string RouteServiceUrl = "https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
+        private const string RouteServiceUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/NetworkAnalysis/SanDiego/NAServer/Route";
 
         public RouteAroundBarriers()
         {

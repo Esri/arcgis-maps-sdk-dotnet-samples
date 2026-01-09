@@ -29,7 +29,7 @@ namespace ArcGIS.WPF.Samples.FindServiceArea
     public partial class FindServiceArea
     {
         // Uri for the service area around San Diego.
-        private Uri _serviceAreaUri = new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/NetworkAnalysis/SanDiego/NAServer/ServiceArea");
+        private Uri _serviceAreaUri = new Uri("https://sampleserver7.arcgisonline.com/server/rest/services/NetworkAnalysis/SanDiego/NAServer/ServiceArea");
 
         // Hold a reference to the geometry type used in the geometry editor.
         private GeometryType _geometryType;
@@ -194,6 +194,7 @@ namespace ArcGIS.WPF.Samples.FindServiceArea
             ServiceAreaParameters serviceAreaParameters = await serviceAreaTask.CreateDefaultParametersAsync();
 
             // Add impedance cutoffs for facilities (drive time minutes).
+            serviceAreaParameters.DefaultImpedanceCutoffs.Clear();
             serviceAreaParameters.DefaultImpedanceCutoffs.Add(2.0);
             serviceAreaParameters.DefaultImpedanceCutoffs.Add(5.0);
 

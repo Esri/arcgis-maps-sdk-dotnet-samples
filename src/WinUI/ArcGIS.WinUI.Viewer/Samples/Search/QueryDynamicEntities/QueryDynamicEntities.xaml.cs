@@ -245,7 +245,7 @@ namespace ArcGIS.WinUI.Samples.QueryDynamicEntities
         }
 
         // Executes the specified query type on the data source
-        private async Task PerformQuery(string queryType, string? flightNumber = null)
+        private async Task PerformQuery(string queryType, string flightNumber = null)
         {
             _queryResults.Clear();
             _dynamicEntityLayer?.ClearSelection();

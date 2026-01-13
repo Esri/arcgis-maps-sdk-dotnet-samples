@@ -7,9 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
-using Esri.ArcGISRuntime.Http;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
 using Esri.ArcGISRuntime.Symbology;
@@ -293,7 +293,7 @@ namespace ArcGIS.WPF.Samples.TraceUtilityNetwork
             catch (Exception ex)
             {
                 Status.Text = "Trace failed...";
-                if (ex is ArcGISWebException && ex.Message == null)
+                if (ex is ArcGISServerException && ex.Message == null)
                 {
                     MessageBox.Show("Trace failed.", ex.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
                 }

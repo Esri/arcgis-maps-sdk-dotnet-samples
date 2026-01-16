@@ -30,7 +30,7 @@ namespace ArcGIS.Samples.OfflineBasemapByReference
         description: "Use the `OfflineMapTask` to take a web map offline, but instead of downloading an online basemap, use one which is already on the device.",
         instructions: "1. Use the button to start taking the map offline.",
         tags: new[] { "basemap", "download", "local", "offline", "save", "web map" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData("628e8e3521cf45e9a28a12fe10c02c4d")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("85282f2aaa2844d8935cdb8722e22a93")]
     public partial class OfflineBasemapByReference : ContentPage
     {
         // The job to generate an offline map.
@@ -40,7 +40,7 @@ namespace ArcGIS.Samples.OfflineBasemapByReference
         private readonly Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
 
         // The ID for a web map item hosted on the server (water network map of Naperville IL).
-        private const string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
+        private const string WebMapId = "ded1f583b0ae41868891b2a939a989cb";
 
         public OfflineBasemapByReference()
         {

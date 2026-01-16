@@ -42,7 +42,7 @@ namespace ArcGIS.WPF.Samples.OfflineBasemapByReference
         private readonly Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
 
         // The ID for a web map item hosted on the server (water network map of Naperville IL).
-        private const string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
+        private const string WebMapId = "ded1f583b0ae41868891b2a939a989cb";
 
         public OfflineBasemapByReference()
         {

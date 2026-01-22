@@ -39,8 +39,17 @@ namespace ArcGIS.WinUI.Samples.OfflineBasemapByReference
         // The extent of the data to take offline.
         private readonly Envelope _areaOfInterest = new Envelope(-88.1541, 41.7690, -88.1471, 41.7720, SpatialReferences.Wgs84);
 
-        // The ID for a web map item hosted on the server (water network map of Naperville IL).
+        // The ID for a web map item hosted on ArcGIS Online (water network map of Naperville IL).
         private const string WebMapId = "acc027394bc84c2fb04d1ed317aac674";
+
+        // The ID for the offline basemap tile package hosted on ArcGIS Online.
+        private const string BasemapDataId = "85282f2aaa2844d8935cdb8722e22a93";
+
+        // The filename of the local basemap tile package.
+        private const string BasemapFilename = "naperville_imagery.tpkx";
+
+        // Task completion source for basemap choice dialog.
+        private TaskCompletionSource<string> _basemapChoiceCompletion;
 
         public OfflineBasemapByReference()
         {
@@ -48,38 +57,78 @@ namespace ArcGIS.WinUI.Samples.OfflineBasemapByReference
             _ = Initialize();
         }
 
-        private async Task ConfigureOfflineJobForBasemap(GenerateOfflineMapParameters parameters)
+        private async Task<bool> ConfigureOfflineJobForBasemap(GenerateOfflineMapParameters parameters)
         {
-            // Don't give the user a choice if there is no basemap specified.
-            if (String.IsNullOrWhiteSpace(parameters.ReferenceBasemapFilename))
+            // Get the path to the basemap directory.
+            string basemapBasePath = DataManager.GetDataFolder(BasemapDataId);
+
+            // Set the reference basemap filename if not already configured.
+            if (string.IsNullOrWhiteSpace(parameters.ReferenceBasemapFilename))
             {
-                return;
+                parameters.ReferenceBasemapFilename = BasemapFilename;
             }
 
-            // Get the path to the basemap directory.
-            string basemapBasePath = DataManager.GetDataFolder("85282f2aaa2844d8935cdb8722e22a93");
-
-            // Get the full path to the basemap by combining the name specified in the web map (ReferenceBasemapFilename)
-            //  with the offline basemap directory.
+            // Get the full path to the basemap.
             string basemapFullPath = Path.Combine(basemapBasePath, parameters.ReferenceBasemapFilename);
 
             // If the offline basemap doesn't exist, proceed without it.
             if (!File.Exists(basemapFullPath))
             {
-                return;
+                return true;
             }
 
-            // Create a dialog for getting the user's basemap choice.
-            MessageDialog2 dialog = new MessageDialog2("Use the offline basemap?", "Basemap choice");
+            // Show the dialog and wait for user choice.
+            string choice = await ShowBasemapChoiceDialog(parameters.ReferenceBasemapFilename);
 
-            // If the user selects OK, parameters.ReferenceBasemapDirectory will be set.
-            dialog.Commands.Add(new UICommand("Yes", command => parameters.ReferenceBasemapDirectory = basemapBasePath));
+            switch (choice)
+            {
+                case "UseLocal":
+                    parameters.ReferenceBasemapDirectory = basemapBasePath;
+                    return true;
 
-            // Do nothing otherwise.
-            dialog.Commands.Add(new UICommand("No"));
+                case "Download":
+                    return true;
 
-            // Wait for the user to choose.
-            await dialog.ShowAsync();
+                default:
+                    return false;
+            }
+        }
+
+        private async Task<string> ShowBasemapChoiceDialog(string basemapFilename)
+        {
+            // Update the message with the basemap filename.
+            BasemapChoiceMessage.Text = $"This web map references a local basemap '{basemapFilename}'.\n\nYou can use the basemap already on disk or download the basemap again.";
+
+            BasemapChoicePanel.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
+
+            // Disable the take offline button while dialog is shown.
+            TakeMapOfflineButton.IsEnabled = false;
+
+            // Show the dialog and wait for user choice.
+            _basemapChoiceCompletion = new TaskCompletionSource<string>();
+
+            string choice = await _basemapChoiceCompletion.Task;
+
+            // Hide dialog and restore button.
+            BasemapChoicePanel.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;
+            TakeMapOfflineButton.IsEnabled = true;
+
+            return choice;
+        }
+
+        private void UseLocalBasemapButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            _basemapChoiceCompletion?.TrySetResult("UseLocal");
+        }
+
+        private void DownloadBasemapButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            _basemapChoiceCompletion?.TrySetResult("Download");
+        }
+
+        private void CancelBasemapChoiceButton_Click(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
+        {
+            _basemapChoiceCompletion?.TrySetResult("Cancel");
         }
 
         // Note: all code below (except call to ConfigureOfflineJobForBasemap) is identical to code in the Generate offline map sample.
@@ -167,9 +216,6 @@ namespace ArcGIS.WinUI.Samples.OfflineBasemapByReference
 
             try
             {
-                // Show the progress indicator while the job is running.
-                BusyIndicator.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
-
                 // Create an offline map task with the current (online) map.
                 OfflineMapTask takeMapOfflineTask = await OfflineMapTask.CreateAsync(MyMapView.Map);
 
@@ -177,7 +223,16 @@ namespace ArcGIS.WinUI.Samples.OfflineBasemapByReference
                 GenerateOfflineMapParameters parameters = await takeMapOfflineTask.CreateDefaultGenerateOfflineMapParametersAsync(_areaOfInterest);
 
                 // Configure basemap settings for the job.
-                await ConfigureOfflineJobForBasemap(parameters);
+                bool proceed = await ConfigureOfflineJobForBasemap(parameters);
+
+                // Exit if user cancelled.
+                if (!proceed)
+                {
+                    return;
+                }
+
+                // Show the progress indicator while the job is running.
+                BusyIndicator.Visibility = Microsoft.UI.Xaml.Visibility.Visible;
 
                 // Create the job with the parameters and output location.
                 _generateOfflineMapJob = takeMapOfflineTask.GenerateOfflineMap(parameters, packagePath);
@@ -220,6 +275,9 @@ namespace ArcGIS.WinUI.Samples.OfflineBasemapByReference
 
                 // Enable map interaction so the user can explore the offline data.
                 MyMapView.InteractionOptions.IsEnabled = true;
+
+                // Disable the button since map is now offline.
+                TakeMapOfflineButton.IsEnabled = false;
 
                 // Hide the "Take map offline" button.
                 TakeOfflineArea.Visibility = Microsoft.UI.Xaml.Visibility.Collapsed;

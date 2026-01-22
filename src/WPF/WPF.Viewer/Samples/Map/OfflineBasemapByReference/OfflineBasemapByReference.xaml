@@ -1,80 +1,142 @@
-﻿<UserControl x:Class="ArcGIS.WPF.Samples.OfflineBasemapByReference.OfflineBasemapByReference"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+﻿<UserControl
+    x:Class="ArcGIS.WPF.Samples.OfflineBasemapByReference.OfflineBasemapByReference"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border x:Name="TakeOfflineArea" Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <Button Click="TakeMapOfflineButton_Click"
-                        Content="Take map offline"
-                        IsEnabled="True" />
+                <Button
+                    x:Name="TakeMapOfflineButton"
+                    Click="TakeMapOfflineButton_Click"
+                    Content="Take map offline">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=LoadingIndicator, Path=Visibility}" Value="Visible">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=BusyIndicator, Path=Visibility}" Value="Visible">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=BasemapChoicePanel, Path=Visibility}" Value="Visible">
+                                    <Setter Property="IsEnabled" Value="False" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                </Button>
             </StackPanel>
         </Border>
-        <Border x:Name="MessageArea"
-                Style="{StaticResource BorderStyle}"
-                Visibility="Collapsed">
+        <Border
+            x:Name="MessageArea"
+            Style="{StaticResource BorderStyle}"
+            Visibility="Collapsed">
             <StackPanel>
-                <TextBlock Margin="10"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           FontWeight="Bold"
-                           Text="Map is offline!" />
+                <TextBlock
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontWeight="Bold"
+                    Text="Map is offline!" />
             </StackPanel>
         </Border>
-        <Grid x:Name="BusyIndicator"
-              Background="#807f7f7f"
-              Visibility="Collapsed">
+
+        <!--  Basemap Choice Dialog  -->
+        <Grid
+            x:Name="BasemapChoicePanel"
+            Background="#80000000"
+            Visibility="Collapsed">
+            <Border
+                Padding="20"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Background="White"
+                CornerRadius="5">
+                <StackPanel Width="280">
+                    <TextBlock
+                        x:Name="BasemapChoiceMessage"
+                        Margin="0,0,0,15"
+                        FontSize="14"
+                        TextAlignment="Center"
+                        TextWrapping="Wrap" />
+                    <Button
+                        Margin="0,5"
+                        Click="UseLocalBasemapButton_Click"
+                        Content="Use Local Basemap" />
+                    <Button
+                        Margin="0,5"
+                        Click="DownloadBasemapButton_Click"
+                        Content="Download Basemap" />
+                    <Button
+                        Margin="0,5"
+                        Click="CancelBasemapChoiceButton_Click"
+                        Content="Cancel" />
+                </StackPanel>
+            </Border>
+        </Grid>
+
+        <Grid
+            x:Name="BusyIndicator"
+            Background="#807f7f7f"
+            Visibility="Collapsed">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Margin="10"
-                           HorizontalAlignment="Center"
-                           VerticalAlignment="Center"
-                           FontSize="18"
-                           Foreground="White">
+                <TextBlock
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="18"
+                    Foreground="White">
                     <Run Text="Generating offline map... " />
                     <Run x:Name="Percentage" Text="" />
                 </TextBlock>
-                <ProgressBar x:Name="ProgressBar"
-                             Grid.Row="1"
-                             Width="100"
-                             Height="10"
-                             Margin="0,0,0,10"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             IsEnabled="True"
-                             Maximum="100"
-                             Minimum="0" />
-                <Button Grid.Row="2"
-                        Width="100"
-                        HorizontalAlignment="Center"
-                        Click="CancelJobButton_Click"
-                        Content="Cancel" />
+                <ProgressBar
+                    x:Name="ProgressBar"
+                    Grid.Row="1"
+                    Width="100"
+                    Height="10"
+                    Margin="0,0,0,10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsEnabled="True"
+                    Maximum="100"
+                    Minimum="0" />
+                <Button
+                    Grid.Row="2"
+                    Width="100"
+                    HorizontalAlignment="Center"
+                    Click="CancelJobButton_Click"
+                    Content="Cancel" />
             </Grid>
         </Grid>
-        <Grid x:Name="LoadingIndicator"
-              Background="#807f7f7f"
-              Visibility="Visible">
+        <Grid
+            x:Name="LoadingIndicator"
+            Background="#807f7f7f"
+            Visibility="Visible">
             <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Margin="10"
-                           FontSize="18"
-                           Foreground="White"
-                           Text="Loading online map..." />
-                <ProgressBar Grid.Row="1"
-                             Width="100"
-                             Height="10"
-                             HorizontalAlignment="Center"
-                             VerticalAlignment="Center"
-                             IsEnabled="True"
-                             IsIndeterminate="True" />
+                <TextBlock
+                    Margin="10"
+                    FontSize="18"
+                    Foreground="White"
+                    Text="Loading online map..." />
+                <ProgressBar
+                    Grid.Row="1"
+                    Width="100"
+                    Height="10"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    IsEnabled="True"
+                    IsIndeterminate="True" />
             </Grid>
         </Grid>
     </Grid>

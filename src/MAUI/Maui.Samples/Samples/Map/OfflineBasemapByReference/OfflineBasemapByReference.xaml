@@ -1,31 +1,84 @@
-﻿<ContentPage x:Class="ArcGIS.Samples.OfflineBasemapByReference.OfflineBasemapByReference"
-             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+﻿<ContentPage
+    x:Class="ArcGIS.Samples.OfflineBasemapByReference.OfflineBasemapByReference"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+
         <Border Style="{DynamicResource EsriSampleControlPanel}">
-            <Button x:Name="TakeMapOfflineButton"
-                    Clicked="TakeMapOfflineButton_Click"
-                    Text="Take map offline"
-                    VerticalOptions="Start" />
+            <Button
+                x:Name="TakeMapOfflineButton"
+                Clicked="TakeMapOfflineButton_Click"
+                Text="Take map offline">
+                <Button.Triggers>
+                    <DataTrigger
+                        x:DataType="Grid"
+                        Binding="{Binding Source={x:Reference LoadingIndicator}, Path=IsVisible}"
+                        TargetType="Button"
+                        Value="True">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger
+                        x:DataType="Grid"
+                        Binding="{Binding Source={x:Reference BusyIndicator}, Path=IsVisible}"
+                        TargetType="Button"
+                        Value="True">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                    <DataTrigger
+                        x:DataType="Grid"
+                        Binding="{Binding Source={x:Reference BasemapChoicePanel}, Path=IsVisible}"
+                        TargetType="Button"
+                        Value="True">
+                        <Setter Property="IsEnabled" Value="False" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
         </Border>
-        <Grid x:Name="BusyIndicator"
-              Grid.RowSpan="2"
-              Grid.ColumnSpan="2"
-              BackgroundColor="#807f7f7f"
-              IsVisible="False">
+
+        <!--  Basemap Choice Dialog  -->
+        <Grid
+            x:Name="BasemapChoicePanel"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            BackgroundColor="#80000000"
+            IsVisible="False">
+            <Border
+                Padding="20"
+                BackgroundColor="White"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+                <VerticalStackLayout Spacing="15" WidthRequest="280">
+                    <Label
+                        x:Name="BasemapChoiceMessage"
+                        FontSize="14"
+                        HorizontalTextAlignment="Center" />
+                    <Button Clicked="UseLocalBasemapButton_Click" Text="Use Local Basemap" />
+                    <Button Clicked="DownloadBasemapButton_Click" Text="Download Basemap" />
+                    <Button Clicked="CancelBasemapChoiceButton_Click" Text="Cancel" />
+                </VerticalStackLayout>
+            </Border>
+        </Grid>
+
+        <Grid
+            x:Name="BusyIndicator"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            BackgroundColor="#807f7f7f"
+            IsVisible="False">
             <Grid HorizontalOptions="Center" VerticalOptions="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <Label Margin="10"
-                       FontSize="18"
-                       HorizontalOptions="Center"
-                       TextColor="White"
-                       VerticalOptions="Center">
+                <Label
+                    Margin="10"
+                    FontSize="18"
+                    HorizontalOptions="Center"
+                    TextColor="White"
+                    VerticalOptions="Center">
                     <Label.FormattedText>
                         <FormattedString>
                             <Span Text="Generating offline map... " />
@@ -33,41 +86,46 @@
                         </FormattedString>
                     </Label.FormattedText>
                 </Label>
-                <ProgressBar x:Name="MapProgressBar"
-                             Grid.Row="1"
-                             Margin="0,0,0,10"
-                             HeightRequest="10"
-                             HorizontalOptions="Center"
-                             IsEnabled="True"
-                             VerticalOptions="Center"
-                             WidthRequest="100" />
-                <Button Grid.Row="2"
-                        Clicked="CancelJobButton_Click"
-                        HorizontalOptions="Center"
-                        Text="Cancel"
-                        WidthRequest="100" />
+                <ProgressBar
+                    x:Name="MapProgressBar"
+                    Grid.Row="1"
+                    Margin="0,0,0,10"
+                    HeightRequest="10"
+                    HorizontalOptions="Center"
+                    IsEnabled="True"
+                    VerticalOptions="Center"
+                    WidthRequest="100" />
+                <Button
+                    Grid.Row="2"
+                    Clicked="CancelJobButton_Click"
+                    HorizontalOptions="Center"
+                    Text="Cancel"
+                    WidthRequest="100" />
             </Grid>
         </Grid>
-        <Grid x:Name="LoadingIndicator"
-              Grid.RowSpan="2"
-              Grid.ColumnSpan="2"
-              BackgroundColor="#807f7f7f"
-              IsVisible="True">
+        <Grid
+            x:Name="LoadingIndicator"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            BackgroundColor="#807f7f7f"
+            IsVisible="True">
             <Grid HorizontalOptions="Center" VerticalOptions="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                 </Grid.RowDefinitions>
-                <Label Margin="10"
-                       FontSize="18"
-                       Text="Loading online map..."
-                       TextColor="White" />
-                <ProgressBar Grid.Row="1"
-                             HeightRequest="10"
-                             HorizontalOptions="Center"
-                             IsEnabled="True"
-                             VerticalOptions="Center"
-                             WidthRequest="100" />
+                <Label
+                    Margin="10"
+                    FontSize="18"
+                    Text="Loading online map..."
+                    TextColor="White" />
+                <ProgressBar
+                    Grid.Row="1"
+                    HeightRequest="10"
+                    HorizontalOptions="Center"
+                    IsEnabled="True"
+                    VerticalOptions="Center"
+                    WidthRequest="100" />
             </Grid>
         </Grid>
     </Grid>

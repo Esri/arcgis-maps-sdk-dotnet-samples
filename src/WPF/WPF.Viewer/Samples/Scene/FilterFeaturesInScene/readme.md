@@ -39,4 +39,4 @@ You can also show or hide features in a scene layer using `ArcGISSceneLayer.SetF
 
 ## Tags
 
-3D, buildings, disjoint, exclude, extent, filter, hide, polygon
+3D, OSM, buildings, disjoint, exclude, extent, filter, hide, polygon

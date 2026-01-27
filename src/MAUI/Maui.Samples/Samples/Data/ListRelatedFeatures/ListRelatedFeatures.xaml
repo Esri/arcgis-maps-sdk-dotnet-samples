@@ -1,20 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="ArcGIS.Samples.ListRelatedFeatures.ListRelatedFeatures"
-             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+<ContentPage
+    x:Class="ArcGIS.Samples.ListRelatedFeatures.ListRelatedFeatures"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <ScrollView Orientation="Both">
                 <StackLayout Spacing="5">
-                    <Label x:Name="Status"
-                           LineBreakMode="WordWrap"
-                           Text="Tap a park to see related features." />
-                    <ListView x:Name="MyResultsView"
-                              HeightRequest="300"
-                              HorizontalScrollBarVisibility="Always"
-                              WidthRequest="600" />
+                    <Label
+                        x:Name="Status"
+                        LineBreakMode="WordWrap"
+                        Text="Tap a park to see related features." />
+                    <CollectionView
+                        x:Name="MyResultsView"
+                        HeightRequest="300"
+                        WidthRequest="600">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Label Padding="10,5" Text="{Binding}" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </StackLayout>
             </ScrollView>
         </Border>

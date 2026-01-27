@@ -1,46 +1,38 @@
-# Configure basemap style parameters
+# Display overview map
 
-Apply basemap style parameters customization for a basemap, such as displaying all labels in a specific language or displaying every label in their corresponding local language.
+Include an overview or inset map as an additional map view to show the wider context of the primary view.
 
-![Configure basemap style parameters](ConfigureBasemapStyleParameters.jpg)
+![Image of display overview map](DisplayOverviewMap.jpg)
 
 ## Use case
 
-When creating an application that's used in multiple countries, basemaps can reflect the languages and cultures of the users' location. For example, if an application user is in Greece, displaying the labels on a basemap in Greek reflects the local language. Customizing the language setting on the basemap can be controlled by an application user (such as by setting preferences), or implicitly managed within the application logic (by querying the locale of the platform running the application).
+An overview map provides a useful, smaller-scale overview of the current map view's location. For example, when you need to inspect a layer with many features while remaining aware of the wider context of the view, use an overview map to help show the extent of the main map view.
 
 ## How to use the sample
 
-This sample showcases the workflow of configuring basemap style parameters by displaying a basemap with labels in different languages and launches with a `Viewpoint` near Bulgaria, Greece and Turkey, as they use three different alphabets: Cyrillic, Greek, and Latin, respectively. By default, the `BasemapStyleLanguageStrategy` is set to `Local`, which displays all labels in their corresponding local language. This can be changed to `Global`, which displays all labels in English. The `SpecificLanguage` setting sets all labels to a selected language and overrides the `BasemapStyleLanguageStrategy` settings.
-
-Pan and zoom to navigate the map and see how different labels are displayed in these countries depending on the selected `BasemapStyleLanguageStrategy` and `SpecificLanguage`: all English, all Greek, all Bulgarian, all Turkish, or each their own.
+Pan or zoom across the map view to browse through the tourist attractions feature layer and notice the viewpoint and scale of the linked overview map update automatically. When running the sample on a desktop, you can also navigate by panning and zooming on the overview map. However, interactivity of the overview map is disabled on mobile devices.
 
 ## How it works
 
-1. Create a `BasemapStyleParameters` object.
-2. Configure customization preferences on the `BasemapStyleParameters` object, for instance:
-    * setting the `LanguageStrategy` to `BasemapStyleLanguageStrategy.Local` or
-    * setting the `SpecificLanguage` to a `new CultureInfo("el")` changes the label language to Greek.
-3. The `SpecificLanguage` always overrides the `LanguageStrategy`, which means the specific language needs to be set to an empty string in order to use the language strategy.
-4. Create a basemap using a `BasemapStyle` and the `BasemapStyleParameters`.
-5. Assign the configured basemap to the `Map`'s `Basemap` property.
-6. To modify the basemap style, for example if you want to change your preferences, repeat the above steps.
+1. Create a `Map` with the `ArcGISTopographic` basemap style and add it to the `MapView`.
+2. Instantiate a `FeatureLayer` from a `ServiceFeatureTable` and append it to the `Map`'s operational layers.
+3. In the user-interface, declare an `OverviewMap` object from the ArcGIS Maps SDK for .NET Toolkit.
+4. Assign the `MapView` to the `MyOverviewMap.GeoView` property of the `OverviewMap` to connect the `MapView` with the `OverviewMap`.
+5. Set the scale factor of the `OverviewMap` with the `MyOverviewMap.ScaleFactor`.
 
 ## Relevant API
 
-* Basemap
-* BasemapStyleLanguageStrategy
-* BasemapStyleParameters
-* Map
 * MapView
+* OverviewMap
 
 ## About the data
 
-The main data for this sample is the `BasemapStyle`, which includes basemaps that support both language localization and global language setting. The supported languages, along with their language code, can be found in the [API's documentation](https://developers.arcgis.com/rest/basemap-styles/languages/).
+The data used in this sample is the [OpenStreetMap Tourist Attractions for North America](https://www.arcgis.com/home/item.html?id=addaa517dde346d1898c614fa91fd032) feature layer, which is scale-dependent and displays at scales larger than 1:160,000.
 
 ## Additional information
 
-For ArcGIS Basemap styles, language localization becomes visible when you zoom in closer.
+ This sample uses the overview map toolkit component which can be accessed using the Esri.ArcGISRuntime.Toolkit nuget package. The [toolkit](https://github.com/Esri/arcgis-toolkit-dotnet) can also be cloned and set up locally. For information about setting up the toolkit, visit the [repository](https://github.com/Esri/arcgis-toolkit-dotnet/blob/main/README.md).
 
 ## Tags
 
-basemap style, language, language strategy, map, point, viewpoint
+context, inset, map, minimap, overview, preview, small scale, toolkit, view

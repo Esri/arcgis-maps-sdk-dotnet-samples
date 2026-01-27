@@ -7,15 +7,15 @@
         "filterfeaturesinscene.jpg"
     ],
     "keywords": [
-      "3D",
-      "buildings",
-      "disjoint",
-      "exclude",
-      "extent",
-      "filter",
-      "hide",
-      "OSM",
-      "polygon"
+        "3D",
+        "OSM",
+        "buildings",
+        "disjoint",
+        "exclude",
+        "extent",
+        "filter",
+        "hide",
+        "polygon"
     ],
     "offline_data": [],
     "redirect_from": [

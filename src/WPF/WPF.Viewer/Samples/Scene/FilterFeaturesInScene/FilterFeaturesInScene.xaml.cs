@@ -149,7 +149,7 @@ namespace ArcGIS.WPF.Samples.FilterFeaturesInScene
             MyButton.Content = "Show detailed buildings";
 
             // Show the extent graphic to visualize the polygon filter.
-            MySceneView.GraphicsOverlays.FirstOrDefault()?.Graphics.Add(_cityExtentGraphic);
+            MySceneView.GraphicsOverlays.FirstOrDefault().Graphics.Add(_cityExtentGraphic);
 
             // Initially, the building layer does not have a polygon filter, set it.
             if (_3dBuildingsSceneLayer.PolygonFilter == null)
@@ -186,10 +186,10 @@ namespace ArcGIS.WPF.Samples.FilterFeaturesInScene
             _detailedBuildingsSceneLayer.IsVisible = false;
 
             // Set the 3D buildings polygon filter to an empty list of polygons to clear the filter.
-            _3dBuildingsSceneLayer.PolygonFilter?.Polygons.Clear();
+            _3dBuildingsSceneLayer.PolygonFilter.Polygons.Clear();
 
             // Clear the graphics list in the graphics overlay to remove the red extent boundary graphic.
-            MySceneView.GraphicsOverlays.FirstOrDefault()?.Graphics.Clear();
+            MySceneView.GraphicsOverlays.FirstOrDefault().Graphics.Clear();
         }
     }
 }

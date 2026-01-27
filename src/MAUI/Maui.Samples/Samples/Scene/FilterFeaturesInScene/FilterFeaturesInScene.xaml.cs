@@ -120,7 +120,7 @@ namespace ArcGIS.Samples.FilterFeaturesInScene
             _step = "FilterScene";
             MyButton.Text = "Filter 3D buildings in extent";
 
-            await MySceneView.SetViewpointCameraAsync(new Camera(new MapPoint(-122.421008, 37.702425, 207), 60, 70, 0));
+            await MySceneView.SetViewpointCameraAsync(new Camera(new MapPoint(-122.421, 37.7041, 207), 60, 70, 0));
         }
 
         // Determine which step of the sample user is on.

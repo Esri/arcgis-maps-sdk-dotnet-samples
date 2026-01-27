@@ -1,0 +1,14 @@
+{
+    "category": "Map",
+    "description": "Include an overview or inset map as an additional map view to show the wider context of the primary view.",
+    "formal_name": "DisplayOverviewMap",
+    "ignore": false,
+    "images": [
+        "DisplayOverviewMap.jpg"
+    ],
+    "keywords": [],
+    "redirect_from": [],
+    "relevant_apis": [],
+    "snippets": [],
+    "title": "Display Overview Map"
+}

@@ -10,15 +10,16 @@ You can directly control what users see within a specific scene view to give a m
 
 ## How to use the sample
 
-The sample initializes showing the 3D buildings OpenStreetMap layer. Click the "Load detailed buildings" button to load an additional scene layer that contains more detailed buildings. Notice how the two scene layers overlap and clip into each other. Click the "Filter OSM buildings in extent" button, to set a `SceneLayerPolygonFilter` and filter out the OpenStreetMap buildings within the extent of the detailed buildings scene. Notice how the OSM buildings within and intersecting the extent of the detailed buildings layer are hidden. Click the "Reset scene" button to hide the detailed buildings scene layer and clear the OSM buildings filter.
+The sample initializes showing the "Navigation" 3D Basemap. Click the "Filter 3D buildings in extent" button, to set a `SceneLayerPolygonFilter` and filter out the Esri 3D buildings within the extent of a detailed buildings scene layer. Notice how the Esri 3D buildings within and intersecting the extent of the detailed buildings layer are hidden. Click the "Show detailed buildings" button to load a scene layer that contains more detailed buildings. Click the "Reset scene" button to hide the detailed buildings scene layer and clear the 3D buildings filter.
 
 ## How it works
 
-1. Add `BaseLayers` to a `Basemap` for the scene using a topographic `ArcGISVectorTileLayer` and the OpenStreetMap 3D Buildings `ArcGISSceneLayer` as baselayers.
-2. Create a `Surface` for the scene and set the World Elevation 3D as an elevation source.
-3. Add the 3D San Francisco Buildings `ArcGISSceneLayer` to the scene's operational layers.
+1. Create a `Surface` for the scene and set the World Elevation 3D as an elevation source.
+2. Construct a `Basemap` for the scene using the "Navigation" 3D Basemap, load it, then search for the "buildings" baselayer.
+3. Add the 3D San Francisco Buildings `ArcGISSceneLayer` to the scene's operational layers and set its visibility to `false` so it does not intersect the 3D basemap buildings.
 4. Construct a `SceneLayerPolygonFilter` with the extent of the San Francisco Buildings Scene Layer and the `SceneLayerPolygonFilterSpatialRelationship.Disjoint` enum to hide all features within the extent.
-5. Set the `SceneLayerPolygonFilter` on the OSM Buildings layer to hide all OSM buildings within the extent of the San Francisco Buildings layer.
+5. Set the `SceneLayerPolygonFilter` on the 3D buildings layer to hide all 3D buildings within the extent of the San Francisco Buildings layer.
+6. Set the visibility of the 3D San Francisco Buildings layer to `true` to show the 3D buildings in the extent.
 
 ## Relevant API
 
@@ -28,7 +29,7 @@ The sample initializes showing the 3D buildings OpenStreetMap layer. Click the "
 
 ## About the data
 
-This sample uses the [OpenStreetMap 3D Buildings](https://www.arcgis.com/home/item.html?id=ca0470dbbddb4db28bad74ed39949e25) which provides generic 3D outlines of buildings throughout the world. It is based on the OSM Daylight map distribution and is hosted by Esri. It uses the [San Francisco 3D Buildings](https://www.arcgis.com/home/item.html?id=d3344ba99c3f4efaa909ccfbcc052ed5) scene layer which provides detailed 3D models of buildings in San Francisco, California, USA.
+This sample uses the [Navigation 3D Basemap](https://www.arcgis.com/home/item.html?id=00a5f468dda941d7bf0b51c144aae3f0), which includes commercial 3D buildings data acquired from TomTom and Vantor, in addition to Esri Community Maps and Overture Maps Foundation data. It also uses the [San Francisco 3D Buildings](https://www.arcgis.com/home/item.html?id=d3344ba99c3f4efaa909ccfbcc052ed5) scene layer, which provides detailed 3D models of buildings in San Francisco, California, USA.
 
 ## Additional information
 

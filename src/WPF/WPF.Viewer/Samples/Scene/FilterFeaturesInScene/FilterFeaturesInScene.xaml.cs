@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
-using Geometry = Esri.ArcGISRuntime.Geometry.Geometry;
 using Polygon = Esri.ArcGISRuntime.Geometry.Polygon;
 
 namespace ArcGIS.WPF.Samples.FilterFeaturesInScene
@@ -25,23 +24,22 @@ namespace ArcGIS.WPF.Samples.FilterFeaturesInScene
         name: "Filter features in scene",
         category: "Scene",
         description: "Filter 3D scene features out of a given geometry with a polygon filter.",
-        instructions: "The sample initializes showing the 3D buildings OpenStreetMap layer. Click the \"Load detailed buildings\" button to load an additional scene layer that contains more detailed buildings. Notice how the two scene layers overlap and clip into each other. Click the \"Filter OSM buildings in extent\" button, to set a `SceneLayerPolygonFilter` and filter out the OpenStreetMap buildings within the extent of the detailed buildings scene. Notice how the OSM buildings within and intersecting the extent of the detailed buildings layer are hidden. Click the \"Reset scene\" button to hide the detailed buildings scene layer and clear the OSM buildings filter.",
+        instructions: "The sample initializes showing the \"Navigation\" 3D Basemap. Click the \"Filter 3D buildings in extent\" button, to set a `SceneLayerPolygonFilter` and filter out the Esri 3D buildings within the extent of a detailed buildings scene layer. Notice how the Esri 3D buildings within and intersecting the extent of the detailed buildings layer are hidden. Click the \"Show detailed buildings\" button to load a scene layer that contains more detailed buildings. Click the \"Reset scene\" button to hide the detailed buildings scene layer and clear the 3D buildings filter.",
         tags: new[] { "3D", "OSM", "buildings", "disjoint", "exclude", "extent", "filter", "hide", "polygon" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class FilterFeaturesInScene
     {
         // ArcGIS Online services.
-        private const string OsmTopographic = "https://www.arcgis.com/home/item.html?id=1e7d1784d1ef4b79ba6764d0bd6c3150";
-        private const string OsmBuildings = "https://www.arcgis.com/home/item.html?id=ca0470dbbddb4db28bad74ed39949e25";
+        private const string Basemap3D = "https://arcgisruntime.maps.arcgis.com/home/item.html?id=00a5f468dda941d7bf0b51c144aae3f0";
         private const string ElevationSource = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
         private const string DetailedBuildings = "https://tiles.arcgis.com/tiles/z2tnIkrLQ2BRzr6P/arcgis/rest/services/SanFrancisco_Bldgs/SceneServer";
 
         private ArcGISSceneLayer _detailedBuildingsSceneLayer;
-        private ArcGISSceneLayer _osmBuildingSceneLayer;
+        private ArcGISSceneLayer _3dBuildingsSceneLayer;
 
         private SceneLayerPolygonFilter _sceneLayerPolygonFilter;
         private Graphic _cityExtentGraphic;
-        private Geometry _sceneLayerExtentPolygon;
+        private Polygon _sceneLayerExtentPolygon;
 
         public FilterFeaturesInScene()
         {
@@ -53,17 +51,48 @@ namespace ArcGIS.WPF.Samples.FilterFeaturesInScene
         {
             MySceneView.Scene = new Scene();
 
-            // Add base layers to the scene's basemap using OSM layers from AGOL.
-            MySceneView.Scene.Basemap.BaseLayers.Add(new ArcGISVectorTiledLayer(new Uri(OsmTopographic)));
-            MySceneView.Scene.Basemap.BaseLayers.Add(_osmBuildingSceneLayer = new ArcGISSceneLayer(new Uri(OsmBuildings)));
-
             // Create a surface with an elevation source for the scene.
             var surface = new Surface();
             surface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri(ElevationSource)));
             MySceneView.Scene.BaseSurface = surface;
 
+            // Create and set the basemap using a 3D basemap portal item.
+            var basemap = new Basemap(new Uri(Basemap3D));
+            MySceneView.Scene.Basemap = basemap;
+
+            // Wait for basemap to load to find the 3D buildings layer.
+            await basemap.LoadAsync();
+
+            // Loop through all layers in the basemap and look for the buildings layer.
+            foreach (var baseLayer in basemap.BaseLayers)
+            {
+                // Search for a layer that contains 'building' in case the name is ever updated.
+                if (baseLayer.Name.Contains("building", StringComparison.OrdinalIgnoreCase))
+                {
+                    _3dBuildingsSceneLayer = baseLayer as ArcGISSceneLayer;
+                    if (_3dBuildingsSceneLayer != null)
+                    {
+                        break;
+                    }
+                }
+            }
+
+            if (_3dBuildingsSceneLayer == null)
+            {
+                MessageBox.Show("Buildings layer not found in base layers. Please check that your basemap contains an ArcGIS Scene Layer with 'building' in the name.");
+                return;
+            }
+
             // Create a scene layer for the detailed buildings.
             _detailedBuildingsSceneLayer = new ArcGISSceneLayer(new Uri(DetailedBuildings));
+
+            // Initially hide the detailed buildings so they don't clip into the 3D basemap buildings.
+            _detailedBuildingsSceneLayer.IsVisible = false;
+
+            // Add the detailed buildings layer to the scene's operational layers.
+            MySceneView.Scene.OperationalLayers.Add(_detailedBuildingsSceneLayer);
+
+            // When the detailed building scene layer finishes loading, get its extent for the polygon filter.
             await _detailedBuildingsSceneLayer.LoadAsync();
 
             // Construct a red polygon that shows the extent of the detailed buildings scene layer.
@@ -76,8 +105,8 @@ namespace ArcGIS.WPF.Samples.FilterFeaturesInScene
 
             _sceneLayerExtentPolygon = builder.ToGeometry();
 
-            // Create the SceneLayerPolygonFilter to later apply to the OSM buildings layer.
-            _sceneLayerPolygonFilter = new SceneLayerPolygonFilter(new List<Polygon>() { builder.ToGeometry() }, SceneLayerPolygonFilterSpatialRelationship.Disjoint);
+            // Create the SceneLayerPolygonFilter to later apply to the 3D buildings layer.
+            _sceneLayerPolygonFilter = new SceneLayerPolygonFilter(new List<Polygon>() { _sceneLayerExtentPolygon }, SceneLayerPolygonFilterSpatialRelationship.Disjoint);
 
             // Create the extent graphic so we can add it later with the detailed buildings scene layer.
             var simpleLineSymbol = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 5.0f);
@@ -86,7 +115,9 @@ namespace ArcGIS.WPF.Samples.FilterFeaturesInScene
 
             MySceneView.GraphicsOverlays.Add(new GraphicsOverlay());
 
-            LoadScene();
+            // Set up initial button state.
+            MyButton.Tag = "FilterScene";
+            MyButton.Content = "Filter 3D buildings in extent";
 
             await MySceneView.SetViewpointCameraAsync(new Camera(new MapPoint(-122.421, 37.7041, 207), 60, 70, 0));
         }
@@ -96,12 +127,12 @@ namespace ArcGIS.WPF.Samples.FilterFeaturesInScene
         {
             switch (MyButton.Tag)
             {
-                case "LoadScene":
-                    LoadScene();
-                    break;
-
                 case "FilterScene":
                     FilterScene();
+                    break;
+
+                case "ShowDetailedBuildings":
+                    ShowDetailedBuildings();
                     break;
 
                 case "ResetScene":
@@ -110,50 +141,52 @@ namespace ArcGIS.WPF.Samples.FilterFeaturesInScene
             }
         }
 
-        // Show the detailed buildings scene layer and extent graphic.
-        private void LoadScene()
-        {
-            // Update button tag and label to reflect next step.
-            MyButton.Tag = "FilterScene";
-            MyButton.Content = "Filter OSM buildings in extent";
-
-            // Show the detailed buildings scene layer and the city extent graphic.
-            MySceneView.Scene.OperationalLayers.Add(_detailedBuildingsSceneLayer);
-            MySceneView.GraphicsOverlays.FirstOrDefault().Graphics.Add(_cityExtentGraphic);
-        }
-
         // Hide buildings within the detailed building extent so they don't clip.
         private void FilterScene()
         {
             // Update button tag and label to reflect next step.
-            MyButton.Tag = "ResetScene";
-            MyButton.Content = "Reset scene";
+            MyButton.Tag = "ShowDetailedBuildings";
+            MyButton.Content = "Show detailed buildings";
+
+            // Show the extent graphic to visualize the polygon filter.
+            MySceneView.GraphicsOverlays.FirstOrDefault().Graphics.Add(_cityExtentGraphic);
 
             // Initially, the building layer does not have a polygon filter, set it.
-            if (_osmBuildingSceneLayer.PolygonFilter == null)
+            if (_3dBuildingsSceneLayer.PolygonFilter == null)
             {
-                _osmBuildingSceneLayer.PolygonFilter = _sceneLayerPolygonFilter;
+                _3dBuildingsSceneLayer.PolygonFilter = _sceneLayerPolygonFilter;
             }
             // After the scene is reset, the layer will have a polygon filter, but that filter will not have polygons set.
             // Add the polygon back to the polygon filter.
             else
             {
-                _sceneLayerPolygonFilter.Polygons.Add((Polygon)_sceneLayerExtentPolygon);
+                _sceneLayerPolygonFilter.Polygons.Add(_sceneLayerExtentPolygon);
             }
+        }
+
+        // Show the detailed buildings scene layer.
+        private void ShowDetailedBuildings()
+        {
+            // Update button tag and label to reflect next step.
+            MyButton.Tag = "ResetScene";
+            MyButton.Content = "Reset scene";
+
+            // Show the detailed buildings scene layer.
+            _detailedBuildingsSceneLayer.IsVisible = true;
         }
 
         // Reset the scene to its original state.
         private void ResetScene()
         {
             // Update button tag and label to reflect next step.
-            MyButton.Tag = "LoadScene";
-            MyButton.Content = "Load detailed buildings";
+            MyButton.Tag = "FilterScene";
+            MyButton.Content = "Filter 3D buildings in extent";
 
-            // Remove the detailed buildings layer from the scene.
-            MySceneView.Scene.OperationalLayers.Clear();
+            // Hide the detailed buildings layer from the scene.
+            _detailedBuildingsSceneLayer.IsVisible = false;
 
-            // Clear the OSM buildings polygon filter polygons list.
-            _osmBuildingSceneLayer.PolygonFilter.Polygons.Clear();
+            // Set the 3D buildings polygon filter to an empty list of polygons to clear the filter.
+            _3dBuildingsSceneLayer.PolygonFilter.Polygons.Clear();
 
             // Clear the graphics list in the graphics overlay to remove the red extent boundary graphic.
             MySceneView.GraphicsOverlays.FirstOrDefault().Graphics.Clear();

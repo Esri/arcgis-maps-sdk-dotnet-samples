@@ -292,6 +292,7 @@ namespace ArcGIS.Samples.AddFeaturesWithContingentValues
             if (protectionItems.Any())
             {
                 ProtectionPicker.SelectedIndexChanged -= ProtectionCombo_SelectedIndexChanged;
+                ProtectionPicker.SelectedIndex = -1;
                 ProtectionPicker.ItemsSource = protectionItems;
                 ProtectionPicker.SelectedIndexChanged += ProtectionCombo_SelectedIndexChanged;
             }

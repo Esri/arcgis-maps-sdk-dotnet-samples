@@ -162,6 +162,7 @@
 * [Create and save map](ArcGIS.WinUI.Viewer/Samples/Map/AuthorMap) - Create and save a map as an ArcGIS `PortalItem` (i.e. web map).
 * [Create dynamic basemap gallery](ArcGIS.WinUI.Viewer/Samples/Map/CreateDynamicBasemapGallery) - Implement a basemap gallery that automatically retrieves the latest customization options from the basemap styles service.
 * [Display map](ArcGIS.WinUI.Viewer/Samples/Map/DisplayMap) - Display a map with an imagery basemap.
+* [Display overview map](ArcGIS.WinUI.Viewer/Samples/Map/DisplayOverviewMap) - Include an overview or inset map as an additional map view to show the wider context of the primary view.
 * [Download preplanned map area](ArcGIS.WinUI.Viewer/Samples/Map/DownloadPreplannedMap) - Take a map offline using a preplanned map area.
 * [Generate offline map](ArcGIS.WinUI.Viewer/Samples/Map/GenerateOfflineMap) - Take a web map offline.
 * [Generate offline map (overrides)](ArcGIS.WinUI.Viewer/Samples/Map/GenerateOfflineMapWithOverrides) - Take a web map offline with additional options for each layer.

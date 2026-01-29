@@ -78,6 +78,8 @@ namespace ArcGIS.WinUI.Viewer
             {
                 // Load web view.
                 await WebView.EnsureCoreWebView2Async();
+                // Force light mode for source code viewer as WinUI Sample Viewer doesn't use dark theme currently.
+                WebView.CoreWebView2.Profile.PreferredColorScheme = CoreWebView2PreferredColorScheme.Light;
             }
             catch (Exception ex)
             {

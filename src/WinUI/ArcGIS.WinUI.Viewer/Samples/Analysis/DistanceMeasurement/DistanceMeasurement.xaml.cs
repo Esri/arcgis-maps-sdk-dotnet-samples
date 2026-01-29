@@ -86,7 +86,7 @@ namespace ArcGIS.WinUI.Samples.DistanceMeasurement
 
             // Configure the unit system selection box.
             UnitSystemCombo.ItemsSource = Enum.GetValues(typeof(UnitSystem)).OfType<UnitSystem>().Select(e => e.ToString());
-            UnitSystemCombo.SelectedItem = _distanceMeasurement.UnitSystem;
+            UnitSystemCombo.SelectedItem = _distanceMeasurement.UnitSystem.ToString();
 
             // Update the unit system selection.
             UnitSystemCombo.SelectionChanged += (sender, args) =>

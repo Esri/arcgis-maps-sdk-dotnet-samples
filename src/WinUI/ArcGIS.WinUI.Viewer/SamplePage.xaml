@@ -22,7 +22,7 @@
         <TabView.TabItems>
             <TabViewItem
                 FontSize="20"
-                Header="Live Sample"
+                Header="Test"
                 IsClosable="False">
                 <ContentControl
                     x:Name="SampleContainer"

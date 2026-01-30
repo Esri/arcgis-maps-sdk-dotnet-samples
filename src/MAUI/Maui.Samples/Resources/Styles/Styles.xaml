@@ -287,7 +287,7 @@
     <Color x:Key="CalciteBrandColorDark">#7938B6</Color>
     <Style x:Key="BaseStyle" TargetType="Element">
         <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Dark={StaticResource CalciteBrandColorDark}, Light={StaticResource CalciteBrandColorLight}}" />
-        <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Dark=White, Light=Black}" />
+        <Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={AppThemeBinding Dark=White, Light=Black}, Android=White, iOS=White, MacCatalyst=White}" />
         <Setter Property="Shell.TitleColor" Value="White" />
         <Setter Property="Shell.FlyoutBackground" Value="{AppThemeBinding Dark={StaticResource CalciteBrandColorDark}, Light={StaticResource CalciteBrandColorLight}}" />
         <Setter Property="Shell.FlyoutBehavior" Value="Disabled" />

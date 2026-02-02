@@ -103,17 +103,18 @@ namespace ArcGIS.WinUI.Samples.ConfigureSubnetworkTrace
                 _configuration = sourceTier.GetDefaultTraceConfiguration();
 
                 // Set the default expression (if provided).
-                if (sourceTier.GetDefaultTraceConfiguration().Traversability.Barriers is UtilityTraceConditionalExpression expression)
+                if (_configuration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
                 {
                     ConditionBarrierExpression.Text = ExpressionToString(expression);
                     _initialExpression = expression;
                 }
 
-                // Setting DataContext will resolve the data-binding in XAML.
-                Configuration.DataContext = _configuration;
-
                 // Set the traversability scope.
-                sourceTier.GetDefaultTraceConfiguration().Traversability.Scope = UtilityTraversabilityScope.Junctions;
+                _configuration.Traversability.Scope = UtilityTraversabilityScope.Junctions;
+
+                // Initialize the checkboxes to match the configuration.
+                IncludeBarriersCheckBox.IsChecked = _configuration.IncludeBarriers;
+                IncludeContainersCheckBox.IsChecked = _configuration.IncludeContainers;
             }
             catch (Exception ex)
             {
@@ -274,9 +275,24 @@ namespace ArcGIS.WinUI.Samples.ConfigureSubnetworkTrace
         private void OnReset(object sender, RoutedEventArgs e)
         {
             // Reset the barrier condition to the initial value.
-            UtilityTraceConfiguration traceConfiguration = _configuration;
-            traceConfiguration.Traversability.Barriers = _initialExpression;
+            _configuration.Traversability.Barriers = _initialExpression;
             ConditionBarrierExpression.Text = ExpressionToString(_initialExpression);
+        }
+
+        private void OnIncludeBarriersChanged(object sender, RoutedEventArgs e)
+        {
+            if (_configuration != null)
+            {
+                _configuration.IncludeBarriers = IncludeBarriersCheckBox.IsChecked == true;
+            }
+        }
+
+        private void OnIncludeContainersChanged(object sender, RoutedEventArgs e)
+        {
+            if (_configuration != null)
+            {
+                _configuration.IncludeContainers = IncludeContainersCheckBox.IsChecked == true;
+            }
         }
     }
 }

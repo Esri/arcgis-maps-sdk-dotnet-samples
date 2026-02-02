@@ -32,16 +32,22 @@
 
         <!--  NOTE that There are also: IncludeContent, IncludeStructures, IgnoreBarriersAtStartingPoints, ValidateConsistency  -->
 
-        <CheckBox Grid.Column="1"
+        <CheckBox x:Name="IncludeBarriersCheckBox"
+                  Grid.Column="1"
                   Margin="5"
                   Content="Include Barriers"
                   FontSize="15"
-                  IsChecked="{Binding IncludeBarriers}" />
-        <CheckBox Grid.Column="2"
+                  IsChecked="True"
+                  Checked="OnIncludeBarriersChanged"
+                  Unchecked="OnIncludeBarriersChanged" />
+        <CheckBox x:Name="IncludeContainersCheckBox"
+                  Grid.Column="2"
                   Margin="5"
                   Content="Include Containers"
                   FontSize="15"
-                  IsChecked="{Binding IncludeContainers}" />
+                  IsChecked="True"
+                  Checked="OnIncludeContainersChanged"
+                  Unchecked="OnIncludeContainersChanged" />
 
         <!--  Row 2  -->
         <TextBlock Grid.Row="1"

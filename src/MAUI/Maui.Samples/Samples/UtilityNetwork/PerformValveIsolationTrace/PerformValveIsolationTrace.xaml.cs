@@ -161,11 +161,10 @@ namespace ArcGIS.Samples.PerformValveIsolationTrace
                 _configuration.IncludeIsolatedFeatures = IncludeIsolatedFeatures.IsToggled;
 
                 // Build parameters for isolation trace.
-                UtilityTraceParameters parameters = new UtilityTraceParameters(UtilityTraceType.Isolation, new[] { _startingLocation });
-                parameters.TraceConfiguration = _configuration;
+                _parameters.TraceConfiguration = _configuration;
 
                 // Get the trace result from trace.
-                IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(parameters);
+                IEnumerable<UtilityTraceResult> traceResult = await _utilityNetwork.TraceAsync(_parameters);
                 UtilityElementTraceResult elementTraceResult = traceResult?.FirstOrDefault() as UtilityElementTraceResult;
 
                 // Select all the features from the result.

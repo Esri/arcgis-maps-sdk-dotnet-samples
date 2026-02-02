@@ -25,13 +25,12 @@ namespace ArcGIS.Samples.ConfigureSubnetworkTrace
         // Feature service for an electric utility network in Naperville, Illinois.
         private const string FeatureServiceUrl = "https://sampleserver7.arcgisonline.com/server/rest/services/UtilityNetwork/NapervilleElectric/FeatureServer";
         private UtilityNetwork _utilityNetwork;
-        private UtilityTier _sourceTier;
 
         // For creating the default starting location.
         private const string DeviceTableName = "Electric Distribution Device";
-        private const string AssetGroupName = "Service Point";
-        private const string AssetTypeName = "Three Phase Low Voltage Meter";
-        private const string GlobalId = "{3AEC2649-D867-4EA7-965F-DBFE1F64B090}";
+        private const string AssetGroupName = "Circuit Breaker";
+        private const string AssetTypeName = "Three Phase";
+        private const string GlobalId = "{1CAF7740-0BF4-4113-8DB2-654E18800028}";
         private UtilityElement _startingLocation;
 
         // For creating the default trace configuration.
@@ -40,6 +39,9 @@ namespace ArcGIS.Samples.ConfigureSubnetworkTrace
 
         // Holding the initial conditional expression.
         private UtilityTraceConditionalExpression _initialExpression;
+
+        // The trace configuration.
+        private UtilityTraceConfiguration _configuration;
 
         public ConfigureSubnetworkTrace()
         {
@@ -88,16 +90,20 @@ namespace ArcGIS.Samples.ConfigureSubnetworkTrace
 
                 // Get a default trace configuration from a tier to update the UI.
                 UtilityDomainNetwork domainNetwork = _utilityNetwork.Definition.GetDomainNetwork(DomainNetworkName);
-                _sourceTier = domainNetwork.GetTier(TierName);
+                UtilityTier sourceTier = domainNetwork.GetTier(TierName);
 
-                if (_sourceTier.GetDefaultTraceConfiguration().Traversability.Barriers is UtilityTraceConditionalExpression expression)
+                // Set the trace configuration.
+                _configuration = sourceTier.GetDefaultTraceConfiguration();
+
+                // Set the default expression (if provided).
+                if (_configuration.Traversability.Barriers is UtilityTraceConditionalExpression expression)
                 {
                     ConditionBarrierExpression.Text = ExpressionToString(expression);
                     _initialExpression = expression;
                 }
 
                 // Set the traversability scope.
-                _sourceTier.GetDefaultTraceConfiguration().Traversability.Scope = UtilityTraversabilityScope.Junctions;
+                _configuration.Traversability.Scope = UtilityTraversabilityScope.Junctions;
             }
             catch (Exception ex)
             {
@@ -191,7 +197,7 @@ namespace ArcGIS.Samples.ConfigureSubnetworkTrace
             {
                 // Create utility trace parameters for the starting location.
                 UtilityTraceParameters parameters = new UtilityTraceParameters(UtilityTraceType.Subnetwork, new[] { _startingLocation });
-                parameters.TraceConfiguration = _sourceTier.GetDefaultTraceConfiguration();
+                parameters.TraceConfiguration = _configuration;
 
                 // Trace the utility network.
                 IEnumerable<UtilityTraceResult> results = await _utilityNetwork.TraceAsync(parameters);
@@ -211,8 +217,7 @@ namespace ArcGIS.Samples.ConfigureSubnetworkTrace
         private void OnReset(object sender, System.EventArgs e)
         {
             // Reset the barrier condition to the initial value.
-            UtilityTraceConfiguration traceConfiguration = _sourceTier.GetDefaultTraceConfiguration();
-            traceConfiguration.Traversability.Barriers = _initialExpression;
+            _configuration.Traversability.Barriers = _initialExpression;
             ConditionBarrierExpression.Text = ExpressionToString(_initialExpression);
         }
 
@@ -220,14 +225,13 @@ namespace ArcGIS.Samples.ConfigureSubnetworkTrace
         {
             try
             {
-                UtilityTraceConfiguration traceConfiguration = _sourceTier.GetDefaultTraceConfiguration();
-                if (traceConfiguration == null)
+                if (_configuration == null)
                 {
-                    traceConfiguration = new UtilityTraceConfiguration();
+                    _configuration = new UtilityTraceConfiguration();
                 }
-                if (traceConfiguration.Traversability == null)
+                if (_configuration.Traversability == null)
                 {
-                    traceConfiguration.Traversability = new UtilityTraversability();
+                    _configuration.Traversability = new UtilityTraversability();
                 }
 
                 // NOTE: You may also create a UtilityCategoryComparison with UtilityNetworkDefinition.Categories and UtilityCategoryComparisonOperator.
@@ -247,12 +251,12 @@ namespace ArcGIS.Samples.ConfigureSubnetworkTrace
                     }
                     // NOTE: You may also create a UtilityNetworkAttributeComparison with another NetworkAttribute.
                     UtilityTraceConditionalExpression expression = new UtilityNetworkAttributeComparison(attribute, attributeOperator, otherValue);
-                    if (traceConfiguration.Traversability.Barriers is UtilityTraceConditionalExpression otherExpression)
+                    if (_configuration.Traversability.Barriers is UtilityTraceConditionalExpression otherExpression)
                     {
                         // NOTE: You may also combine expressions with UtilityTraceAndCondition
                         expression = new UtilityTraceOrCondition(otherExpression, expression);
                     }
-                    traceConfiguration.Traversability.Barriers = expression;
+                    _configuration.Traversability.Barriers = expression;
                     ConditionBarrierExpression.Text = ExpressionToString(expression);
                 }
             }
@@ -264,12 +268,12 @@ namespace ArcGIS.Samples.ConfigureSubnetworkTrace
 
         private void IncludeBarriersChanged(object sender, ToggledEventArgs e)
         {
-            _sourceTier.GetDefaultTraceConfiguration().IncludeBarriers = e.Value;
+            _configuration.IncludeBarriers = e.Value;
         }
 
         private void IncludeContainersChanged(object sender, ToggledEventArgs e)
         {
-            _sourceTier.GetDefaultTraceConfiguration().IncludeContainers = e.Value;
+            _configuration.IncludeContainers = e.Value;
         }
     }
 }

@@ -283,12 +283,13 @@
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
     </Style>
 
-    <Color x:Key="SamplesViewerBannerColor">#7938B6</Color>
+    <Color x:Key="CalciteBrandColorLight" >#8F53CA</Color>
+    <Color x:Key="CalciteBrandColorDark">#7938B6</Color>
     <Style x:Key="BaseStyle" TargetType="Element">
-        <Setter Property="Shell.BackgroundColor" Value="{DynamicResource SamplesViewerBannerColor}" />
-        <Setter Property="Shell.ForegroundColor" Value="White" />
+        <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Dark={StaticResource CalciteBrandColorDark}, Light={StaticResource CalciteBrandColorLight}}" />
+        <Setter Property="Shell.ForegroundColor" Value="{OnPlatform WinUI={AppThemeBinding Dark=White, Light=Black}, Android=White, iOS=White, MacCatalyst=White}" />
         <Setter Property="Shell.TitleColor" Value="White" />
-        <Setter Property="Shell.FlyoutBackground" Value="{DynamicResource SamplesViewerBannerColor}" />
+        <Setter Property="Shell.FlyoutBackground" Value="{AppThemeBinding Dark={StaticResource CalciteBrandColorDark}, Light={StaticResource CalciteBrandColorLight}}" />
         <Setter Property="Shell.FlyoutBehavior" Value="Disabled" />
         <Setter Property="Shell.DisabledColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />
         <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Light={StaticResource LightGray}, Dark={StaticResource DarkGray}}" />

@@ -38,9 +38,9 @@ This sample uses a [World Cities Population](https://sampleserver6.arcgisonline.
 
 Operational layers will automatically project to this spatial reference when possible. There are 3 kinds of layer reprojection behaviors:
 
-- Reprojected on device (on-the-fly reprojection), such as a `FeatureLayer` created from a mobile geodatabase
-- Reprojected from the service, such as an `ArcGISMapImageLayer`
-- Not able to reproject, such as an `ArcGISTiledLayer` with defined spatial reference in its tile cache. These layer might be able to reproject in a future update
+* Reprojected on device (on-the-fly reprojection), such as a `FeatureLayer` created from a mobile geodatabase
+* Reprojected from the service, such as an `ArcGISMapImageLayer`
+* Not able to reproject, such as an `ArcGISTiledLayer` with defined spatial reference in its tile cache. These layer might be able to reproject in a future update
 
 For more information, check out the API reference doc for `setSpatialReference` method.
 

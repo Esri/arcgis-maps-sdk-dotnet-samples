@@ -17,7 +17,7 @@
     ],
     "offline_data": [],
     "redirect_from": [
-        "/net/latest/wpf/sample-code/map-spatial-reference.htm"
+        "/net/latest/wpf/sample-code/set-spatial-reference.htm"
     ],
     "relevant_apis": [
         "ArcGISMapImageLayer",

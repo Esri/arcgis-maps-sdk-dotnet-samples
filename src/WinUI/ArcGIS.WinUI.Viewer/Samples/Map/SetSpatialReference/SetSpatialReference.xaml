@@ -1,21 +1,24 @@
-﻿<UserControl x:Class="ArcGIS.WinUI.Samples.SetSpatialReference.SetSpatialReference"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+﻿<UserControl
+    x:Class="ArcGIS.WinUI.Samples.SetSpatialReference.SetSpatialReference"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:MapView x:Name="MyMapView" />
         <Border MaxWidth="280" Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <TextBlock Margin="0,0,0,5"
-                           HorizontalAlignment="Center"
-                           FontWeight="SemiBold"
-                           Text="Set Spatial Reference:"
-                           TextWrapping="Wrap" />
-                <ComboBox x:Name="SpatialReferenceComboBox"
-                          Width="250"
-                          DisplayMemberPath="Name"
-                          SelectionChanged="SpatialReferenceComboBox_SelectionChanged" 
-                          HorizontalAlignment="Center"/>
+                <TextBlock
+                    Margin="0,0,0,5"
+                    HorizontalAlignment="Center"
+                    FontWeight="SemiBold"
+                    Text="Set Spatial Reference:"
+                    TextWrapping="Wrap" />
+                <ComboBox
+                    x:Name="SpatialReferenceComboBox"
+                    Width="250"
+                    HorizontalAlignment="Center"
+                    DisplayMemberPath="Name"
+                    SelectionChanged="SpatialReferenceComboBox_SelectionChanged" />
             </StackPanel>
         </Border>
     </Grid>

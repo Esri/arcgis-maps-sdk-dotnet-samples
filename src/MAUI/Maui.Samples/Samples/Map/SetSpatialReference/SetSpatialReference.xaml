@@ -15,7 +15,6 @@
                 <Picker
                     x:Name="SpatialReferencePicker"
                     SelectedIndexChanged="SpatialReferencePicker_SelectedIndexChanged"
-                    TextColor="Black"
                     VerticalOptions="Center"
                     WidthRequest="250" />
             </VerticalStackLayout>

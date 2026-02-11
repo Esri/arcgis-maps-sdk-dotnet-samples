@@ -18,7 +18,7 @@ Pan and zoom around the map. Observe how the map is displayed in the World Bonne
 2. Instantiate a `Basemap` object using an `ArcGISMapImageLayer` object.
 3. Set the basemap to the map.
 4. Set the map to a `MapView` object.
-5. Change the map's spatial reference using `setSpatialReference` method.
+5. Change the map's spatial reference using `SetSpatialReference` method.
 
 The ArcGIS map image layer will reproject into the spatial reference set to the map (such as World Bonne (WKID: 54024)), and not the map service's default spatial reference.
 

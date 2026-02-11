@@ -36,7 +36,7 @@ namespace ArcGIS.WinUI.Samples.AddBuildingSceneLayer
         private async Task Initialize()
         {
             // Create a new scene with topographic basemap and a local scene viewing mode.
-            var scene = new Scene(BasemapStyle.ArcGISTopographic, SceneViewingMode.Local);
+            var scene = new Scene(SceneViewingMode.Local, BasemapStyle.ArcGISTopographic);
 
             // Add world elevation source to the scene's surface.
             var elevationSource = new ArcGISTiledElevationSource(

@@ -31,7 +31,7 @@ namespace ArcGIS.WPF.Samples.DisplayLocalScene
         private void Initialize()
         {
             // Create a scene with a topographic basemap and a local scene viewing mode.
-            var scene = new Scene(BasemapStyle.ArcGISTopographic, SceneViewingMode.Local);
+            var scene = new Scene(SceneViewingMode.Local, BasemapStyle.ArcGISTopographic);
 
             // Create the 3d scene layer.
             var sceneLayer = new ArcGISSceneLayer(new Uri("https://www.arcgis.com/home/item.html?id=61da8dc1a7bc4eea901c20ffb3f8b7af"));

@@ -1,14 +1,19 @@
 {
     "category": "Map",
     "description": "Specify a map's spatial reference.",
-    "formal_name": "SetMapSpatialReference",
+    "formal_name": "SetSpatialReference",
     "ignore": false,
     "images": [
-        "setmapspatialreference.jpg"
+        "setspatialreference.jpg"
     ],
     "keywords": [
+        "WGS84",
         "WKID",
-        "project"
+        "Web Mercator",
+        "coordinate system",
+        "project",
+        "projection",
+        "spatial reference"
     ],
     "offline_data": [],
     "redirect_from": [
@@ -22,8 +27,8 @@
         "SpatialReference"
     ],
     "snippets": [
-        "SetMapSpatialReference.xaml.cs",
-        "SetMapSpatialReference.xaml"
+        "SetSpatialReference.xaml.cs",
+        "SetSpatialReference.xaml"
     ],
-    "title": "Map spatial reference"
+    "title": "Set spatial reference"
 }

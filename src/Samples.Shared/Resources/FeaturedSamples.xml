@@ -35,6 +35,7 @@
 			<Sample>DisplayMap</Sample>
 			<Sample>DisplayOverviewMap</Sample>
 			<Sample>CreateDynamicBasemapGallery</Sample>
+			<Sample>SetSpatialReference</Sample>
 		</Category>
 		<Category name="MapView">
 			<Sample>DisplayGrid</Sample>

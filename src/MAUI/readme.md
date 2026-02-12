@@ -174,7 +174,6 @@
 * [Map initial extent](Maui.Samples/Samples/Map/SetInitialMapArea) - Display the map at an initial viewpoint representing a bounding geometry.
 * [Map load status](Maui.Samples/Samples/Map/AccessLoadStatus) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 * [Map reference scale](Maui.Samples/Samples/Map/MapReferenceScale) - Set the map's reference scale and which feature layers should honor the reference scale.
-* [Map spatial reference](Maui.Samples/Samples/Map/SetMapSpatialReference) - Specify a map's spatial reference.
 * [Mobile map (search and route)](Maui.Samples/Samples/Map/MobileMapSearchAndRoute) - Display maps and use locators to enable search and routing offline using a Mobile Map Package.
 * [Open map URL](Maui.Samples/Samples/Map/OpenMapURL) - Display a web map.
 * [Open mobile map package](Maui.Samples/Samples/Map/OpenMobileMap) - Display a map from a mobile map package.
@@ -183,6 +182,7 @@
 * [Set initial map location](Maui.Samples/Samples/Map/SetInitialMapLocation) - Display a basemap centered at an initial location and scale.
 * [Set max extent](Maui.Samples/Samples/Map/SetMaxExtent) - Limit the view of a map to a particular area.
 * [Set min & max scale](Maui.Samples/Samples/Map/SetMinMaxScale) - Restrict zooming between specific scale ranges.
+* [Set spatial reference](Maui.Samples/Samples/Map/SetSpatialReference) - Specify a map's spatial reference.
 
 ## MapView
 

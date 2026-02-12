@@ -42,7 +42,7 @@ Operational layers will automatically project to this spatial reference when pos
 * Reprojected from the service, such as an `ArcGISMapImageLayer`
 * Not able to reproject, such as an `ArcGISTiledLayer` with defined spatial reference in its tile cache. These layer might be able to reproject in a future update
 
-For more information, check out the API reference doc for `setSpatialReference` method.
+For more information, check out the API reference doc for `SetSpatialReference` method.
 
 ## Tags
 

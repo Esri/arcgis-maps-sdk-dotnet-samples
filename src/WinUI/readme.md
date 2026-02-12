@@ -173,7 +173,6 @@
 * [Map initial extent](ArcGIS.WinUI.Viewer/Samples/Map/SetInitialMapArea) - Display the map at an initial viewpoint representing a bounding geometry.
 * [Map load status](ArcGIS.WinUI.Viewer/Samples/Map/AccessLoadStatus) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 * [Map reference scale](ArcGIS.WinUI.Viewer/Samples/Map/MapReferenceScale) - Set the map's reference scale and which feature layers should honor the reference scale.
-* [Map spatial reference](ArcGIS.WinUI.Viewer/Samples/Map/SetMapSpatialReference) - Specify a map's spatial reference.
 * [Mobile map (search and route)](ArcGIS.WinUI.Viewer/Samples/Map/MobileMapSearchAndRoute) - Display maps and use locators to enable search and routing offline using a Mobile Map Package.
 * [Open map URL](ArcGIS.WinUI.Viewer/Samples/Map/OpenMapURL) - Display a web map.
 * [Open mobile map package](ArcGIS.WinUI.Viewer/Samples/Map/OpenMobileMap) - Display a map from a mobile map package.
@@ -182,6 +181,7 @@
 * [Set initial map location](ArcGIS.WinUI.Viewer/Samples/Map/SetInitialMapLocation) - Display a basemap centered at an initial location and scale.
 * [Set max extent](ArcGIS.WinUI.Viewer/Samples/Map/SetMaxExtent) - Limit the view of a map to a particular area.
 * [Set min & max scale](ArcGIS.WinUI.Viewer/Samples/Map/SetMinMaxScale) - Restrict zooming between specific scale ranges.
+* [Set spatial reference](ArcGIS.WinUI.Viewer/Samples/Map/SetSpatialReference) - Specify a map's spatial reference.
 
 ## MapView
 

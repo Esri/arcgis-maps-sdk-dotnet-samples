@@ -34,7 +34,7 @@
 		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
 	</PropertyGroup>
 
-    <ItemGroup>
+  <ItemGroup>
 		<!-- App Icon -->
 		<MauiIcon Include="Resources\appiconwindows.svg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
 		<MauiIcon Include="Resources\appiconandroid.svg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android' " />
@@ -54,6 +54,8 @@
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
 	</ItemGroup>
+  
+  <!-- Remove global using for Maui.ApplicationModel ApplicatioNModel.Map clashes with Esri.ArcGISRuntime.Mapping.Map -->
   <ItemGroup>
       <Using Remove="Microsoft.Maui.ApplicationModel" />
   </ItemGroup>
@@ -76,55 +78,50 @@
 	  <None Remove="Samples\Location\IndoorPositioning\**" />
 	</ItemGroup>
 
-  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
-      <Content Include="Resources\*.md">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-      <Content Include="Resources\*.css">
-          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="Resources\SettingsPage\*.md" />
-    <EmbeddedResource Include="Resources\SettingsPage\*.md" />
-    <Content Include="Samples\**\*.jpg" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
-  </ItemGroup>
-
   <!-- Resource outputs for description and source code viewing -->
   <ItemGroup>
-	<None Remove="Samples\**\*.md" />
-    <MauiAsset Include="Samples\**\*.md" />
-    <MauiAsset Include="Converters\*.cs" />
+    <MauiAsset Include="Samples\**\*.md;Samples\**\*.cs;Samples\**\*.xaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
+    <MauiAsset Include="Helpers\ArcGISLoginPrompt.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
+    <MauiAsset Include="Converters\*.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
     <MauiImage Include="Samples\**\*.jpg" />
-    <MauiAsset Include="Samples\**\*.cs" />
-    <MauiAsset Include="Samples\**\*.xaml" />
+    <EmbeddedResource Include="Resources\SettingsPage\*.md" />
+  </ItemGroup>
+
+  <!-- Images and icons -->
+  <ItemGroup>
+	  <MauiImage Include="Resources\Icons\*.svg" />
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\*.png" />
+  </ItemGroup>
+
+  <!-- Syntax Highlighting resources -->
+	<ItemGroup>
+    <MauiAsset Include="SyntaxHighlighting\*.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
+    <MauiAsset Include="SyntaxHighlighting\*.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
+  </ItemGroup>
+
+  <!-- Windows-specific content declarations -->
+  <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <Content Include="Resources\*.md">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\*.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Samples\**\*.jpg" />
     <EmbeddedResource Include="SyntaxHighlighting\highlight.js" />
   </ItemGroup>
-  <ItemGroup>
-    <None Remove="Resources\Icons\*.svg" />
-	  <MauiImage Include="Resources\Icons\*.svg" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
-  </ItemGroup>
-	<ItemGroup>
-    <MauiAsset Include="SyntaxHighlighting\github-markdown.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </MauiAsset>
-    <MauiAsset Include="SyntaxHighlighting\github-markdown-dark.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </MauiAsset>
-    <MauiAsset Include="SyntaxHighlighting\highlight-dark.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </MauiAsset>
-    <MauiAsset Include="SyntaxHighlighting\highlight.css">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </MauiAsset>
-    <MauiAsset Include="SyntaxHighlighting\highlight.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </MauiAsset>
-  </ItemGroup>
+  
+  <!-- Package References -->
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Maui" />
     <PackageReference Include="CommunityToolkit.Mvvm" />
@@ -137,15 +134,16 @@
     <PackageReference Include="Microsoft.Maui.Controls" />
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" />
   </ItemGroup>
-
-  <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
+    <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->
     <PackageReference Include="WinUIEx" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" />
   </ItemGroup>
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">
     <PackageReference Include="Xamarin.AndroidX.AppCompat" />
   </ItemGroup>
+  
+  <!-- XAML Files -->
   <ItemGroup>
     <MauiXaml Update="Views\*.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -156,21 +154,6 @@
     <MauiXaml Update="Samples\**\*.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </MauiXaml>
-    <MauiAsset Update="Helpers\ArcGISLoginPrompt.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </MauiAsset>
-    <MauiAsset Update="Samples\**\*.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </MauiAsset>
-    <MauiAsset Update="Converters\*.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </MauiAsset>
-    <Compile Update="Samples\Search\QueryDynamicEntities\CustomStreamService.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Update="Samples\Search\QueryDynamicEntities\FlightInfo.cs">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
     <MauiXaml Update="Controls\CategoriesFlyoutContent.xaml">
       <Generator>MSBuild:Compile</Generator>
     </MauiXaml>

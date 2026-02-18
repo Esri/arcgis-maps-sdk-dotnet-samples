@@ -19,7 +19,10 @@ jobs:
     steps:
     - name: Clone .NET Samples
       uses: actions/checkout@v1
-  
+
+    - name: Install MAUI Workload
+      run: dotnet workload install maui
+
     - name: Setup Visual Studio Command Prompt
       uses: microsoft/setup-msbuild@v1.0.2
     - name: Build MAUI (Windows)

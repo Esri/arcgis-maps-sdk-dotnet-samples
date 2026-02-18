@@ -18,7 +18,7 @@ jobs:
     name: MAUI Build
     steps:
     - name: Clone .NET Samples
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
 
     - name: Install MAUI Workload
       run: dotnet workload install maui
@@ -48,7 +48,7 @@ jobs:
     name: WPF .NET Build
     steps:
     - name: Clone .NET Samples
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     
     - name: Setup Visual Studio Command Prompt
       uses: microsoft/setup-msbuild@v2
@@ -64,7 +64,7 @@ jobs:
     name: WPF .NET Framework Build
     steps:
     - name: Clone .NET Samples
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     
     - name: Setup Visual Studio Command Prompt
       uses: microsoft/setup-msbuild@v2
@@ -79,7 +79,7 @@ jobs:
     name: WinUI Build
     steps:
     - name: Clone .NET Samples
-      uses: actions/checkout@v5
+      uses: actions/checkout@v6
     
     - name: Setup Visual Studio Command Prompt
       uses: microsoft/setup-msbuild@v2

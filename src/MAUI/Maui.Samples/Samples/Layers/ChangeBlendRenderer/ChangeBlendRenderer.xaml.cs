@@ -41,8 +41,8 @@ namespace ArcGIS.Samples.ChangeBlendRenderer
             ColorRamps.SelectedItem = "Elevation";
 
             // Get all the SlopeType names from the SlopeType Enumeration and put them
-            // in an array of strings, then set the ComboBox.ItemSource to the array, and finally
-            // select the first item in the ComboBox
+            // in an array of strings, then set the Picker.ItemSource to the array, and finally
+            // select the first item in the Picker
             string[] mySlopeTypes = Enum.GetNames(typeof(SlopeType));
             SlopeTypes.ItemsSource = mySlopeTypes;
             SlopeTypes.SelectedItem = "Degree";
@@ -106,7 +106,10 @@ namespace ArcGIS.Samples.ChangeBlendRenderer
 
             // Based on ColorRamp type chosen by the user, create a different
             // RasterLayer and define the appropriate ColorRamp option
-            if (ColorRamps.SelectedItem.ToString() == "None")
+            string selectedColorRamp = (string)ColorRamps.SelectedItem;
+            string selectedSlopeType = (string)SlopeTypes.SelectedItem;
+
+            if (selectedColorRamp == "None")
             {
                 // The user chose not to use a specific ColorRamp, therefore
                 // need to create a RasterLayer based on general imagery (ie. Shasta.tif)
@@ -137,7 +140,7 @@ namespace ArcGIS.Samples.ChangeBlendRenderer
                 rasterLayer_ForDisplayInMap = new RasterLayer(raster_Elevation);
 
                 // Create a ColorRamp based on the user choice, translated into an Enumeration
-                PresetColorRampType myPresetColorRampType = (PresetColorRampType)Enum.Parse(typeof(PresetColorRampType), ColorRamps.SelectedItem.ToString());
+                PresetColorRampType myPresetColorRampType = (PresetColorRampType)Enum.Parse(typeof(PresetColorRampType), selectedColorRamp);
                 myColorRamp = ColorRamp.Create(myPresetColorRampType, 256);
             }
 
@@ -149,7 +152,7 @@ namespace ArcGIS.Samples.ChangeBlendRenderer
             IEnumerable<double> mySourceMaxValues = new List<double>();
             IEnumerable<double> myNoDataValues = new List<double>();
             IEnumerable<double> myGammas = new List<double>();
-            SlopeType mySlopeType = (SlopeType)Enum.Parse(typeof(SlopeType), SlopeTypes.SelectedItem.ToString());
+            SlopeType mySlopeType = (SlopeType)Enum.Parse(typeof(SlopeType), selectedSlopeType);
 
             BlendRenderer myBlendRenderer = new BlendRenderer(
                 raster_ForMakingBlendRenderer, // elevationRaster - Raster based on a elevation source

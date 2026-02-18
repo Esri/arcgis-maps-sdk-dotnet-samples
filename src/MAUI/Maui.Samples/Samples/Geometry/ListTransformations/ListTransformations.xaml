@@ -47,9 +47,7 @@
                                 SelectionChanged="TransformationsListBox_SelectionChanged"
                                 SelectionMode="Single" />
                 <Label x:Name="MessagesTextBox"
-                       Grid.Row="3"
-                       HeightRequest="60"
-                       MaximumWidthRequest="{OnPlatform Android=250}" />
+                       Grid.Row="3" />
             </Grid>
         </Border>
     </Grid>

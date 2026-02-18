@@ -131,7 +131,7 @@ namespace ArcGIS.Samples.FindRoute
                 _routeGraphicsOverlay.Graphics.Add(routeGraphic);
 
                 // Get a list of directions for the route and display it in the list box
-                DirectionsListBox.ItemsSource = firstRoute.DirectionManeuvers.Select(direction => direction.DirectionText);
+                BindableLayout.SetItemsSource(DirectionsListBox, firstRoute.DirectionManeuvers.Select(direction => direction.DirectionText).ToList());
             }
             catch (Exception ex)
             {
@@ -142,7 +142,7 @@ namespace ArcGIS.Samples.FindRoute
         private void ResetClick(object sender, EventArgs e)
         {
             // Clear the list of directions
-            DirectionsListBox.ItemsSource = null;
+            BindableLayout.SetItemsSource(DirectionsListBox, null);
 
             // Remove the route graphic from the graphics overlay (only line graphic in the collection)
             int graphicsCount = _routeGraphicsOverlay.Graphics.Count;

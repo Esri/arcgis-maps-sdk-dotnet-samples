@@ -64,7 +64,7 @@ namespace ArcGIS.Samples.BrowseWfsLayers
                 WfsServiceInfo serviceInfo = service.ServiceInfo;
 
                 // Get a reversed list of available layers.
-                IEnumerable<WfsLayerInfo> layerListReversed = serviceInfo.LayerInfos.Reverse();
+                List<WfsLayerInfo> layerListReversed = serviceInfo.LayerInfos.Reverse().ToList();
 
                 // Show the layers in the UI.
                 WfsLayerList.ItemsSource = layerListReversed;

@@ -7,6 +7,7 @@
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:toolkit="using:Esri.ArcGISRuntime.Toolkit.Maui">
     <Border Style="{DynamicResource EsriSampleControlPanel}">
+        <ScrollView>
         <VerticalStackLayout Spacing="5">
             <Label Text="Add phases from the dropdown list, then run report." />
             <HorizontalStackLayout Spacing="5">
@@ -26,7 +27,7 @@
             <CollectionView x:Name="ReportView"
                             Margin="0,5,0,0"
                             BackgroundColor="{AppThemeBinding Dark=Gray}"
-                            HeightRequest="150"
+                            HeightRequest="300"
                             VerticalScrollBarVisibility="Default">
                 <CollectionView.Header>
                     <Grid ColumnDefinitions="Auto, Auto, Auto"
@@ -60,5 +61,6 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </VerticalStackLayout>
+        </ScrollView>
     </Border>
 </ContentPage>

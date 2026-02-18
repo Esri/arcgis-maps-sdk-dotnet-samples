@@ -10,6 +10,7 @@
         </Grid.RowDefinitions>
         <Label x:Name="ResultsLabel"
                Grid.Row="0"
+               FontSize="25"
                HorizontalTextAlignment="Center">
             Tap to set an end point.
         </Label>

@@ -1,0 +1,38 @@
+{
+    "category": "Local Server",
+    "description": "Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.",
+    "formal_name": "LocalServerServices",
+    "ignore": false,
+    "images": [
+        "LocalServerServices.jpg"
+    ],
+    "keywords": [
+        "feature",
+        "geoprocessing",
+        "local services",
+        "map",
+        "server",
+        "service"
+    ],
+    "offline_data": [
+        "a680362d6a7447e8afe2b1eb85fcde30",
+        "92ca5cdb3ff1461384bf80dc008e297b",
+        "85c34847bbe1402fa115a1b9b87561ce"
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/local-server-services.htm"
+    ],
+    "relevant_apis": [
+        "LocalFeatureService",
+        "LocalGeoprocessingService",
+        "LocalMapService",
+        "LocalServer",
+        "LocalServerStatus",
+        "LocalService"
+    ],
+    "snippets": [
+        "LocalServerServices.xaml.cs",
+        "LocalServerServices.xaml"
+    ],
+    "title": "Local server services"
+}

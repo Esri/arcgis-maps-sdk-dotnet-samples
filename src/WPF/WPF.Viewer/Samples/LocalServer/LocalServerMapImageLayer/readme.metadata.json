@@ -1,0 +1,33 @@
+{
+    "category": "Local Server",
+    "description": "Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.",
+    "formal_name": "LocalServerMapImageLayer",
+    "ignore": false,
+    "images": [
+        "LocalServerMapImageLayer.jpg"
+    ],
+    "keywords": [
+        "image",
+        "layer",
+        "local",
+        "offline",
+        "server"
+    ],
+    "offline_data": [
+        "85c34847bbe1402fa115a1b9b87561ce"
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/local-server-map-image-layer.htm"
+    ],
+    "relevant_apis": [
+        "ArcGISMapImageLayer",
+        "LocalMapService",
+        "LocalServer",
+        "LocalServerStatus"
+    ],
+    "snippets": [
+        "LocalServerMapImageLayer.xaml.cs",
+        "LocalServerMapImageLayer.xaml"
+    ],
+    "title": "Local Server map image layer"
+}

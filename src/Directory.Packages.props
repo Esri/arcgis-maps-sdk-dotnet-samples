@@ -26,7 +26,7 @@
     <PackageVersion Include="System.Security.Cryptography.ProtectedData" Version="9.0.13" />
     <PackageVersion Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
     <PackageVersion Include="CommunityToolkit.Maui" Version="12.3.0" />
-    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.0" />
+    <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.2.2" />
     <PackageVersion Include="WinUIEx" Version="2.3.4" />
     <PackageVersion Include="Microsoft.WindowsAppSDK" Version="1.8.260209005" Condition="'$(UseMaui)'!='true'" />
     <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7705" Condition="'$(UseMaui)'!='true'" />

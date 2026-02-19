@@ -19,12 +19,12 @@ A Local Server and Local Feature Service will automatically be started. Once sta
 3. Create and run a local feature service.
    1. Instantiate `LocalFeatureService(Url)` to create  a local feature service with the given url path to mpk file.
    2. Start the service asynchronously with `LocalFeatureService.StartAsync()`. The service will be added to the local server automatically.
-1. Create an event handler for the `LocalFeatureService.StatusChanged` event. This will run whenever the status of the local service has changed.
-2. When the service's status has changed to `Started`, create a feature layer from local feature service.
+4. Create an event handler for the `LocalFeatureService.StatusChanged` event. This will run whenever the status of the local service has changed.
+5. When the service's status has changed to `Started`, create a feature layer from local feature service.
    1. Create a `ServiceFeatureTable(Url)` using the URL for the feature layer.
    2. Create feature layer from service feature table using `new FeatureLayer(ServiceFeatureTable)`.
    3. Load the layer asynchronously using `FeatureLayer.LoadAsync()`.
-3. Add feature layer to map using `Map.OperationalLayers.Add(FeatureLayer)`.
+6. Add feature layer to map using `Map.OperationalLayers.Add(FeatureLayer)`.
 
 ## Relevant API
 
@@ -39,7 +39,6 @@ A Local Server and Local Feature Service will automatically be started. Once sta
 This sample downloads the following items from ArcGIS Online automatically:
 
 * [PointsofInterest.mpkx](https://www.arcgis.com/home/item.html?id=92ca5cdb3ff1461384bf80dc008e297b) - This map package is included in the ArcGIS sample data.
-
 
 ## Additional information
 

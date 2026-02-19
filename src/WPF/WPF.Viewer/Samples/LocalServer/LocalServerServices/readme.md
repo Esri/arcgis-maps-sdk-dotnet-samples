@@ -27,7 +27,7 @@ To start a `LocalServer` and attach a `LocalService`:
 3. Create and run a local service. Here is an example of running a `LocalMapService`:
     1. Instantiate `LocalMapService(Url)` to create a local map service with the given URL path to map package (`mpk` or `mpkx` file).
     2. Start the job with `LocalMapService.StartAsync()`. The service is added to the `LocalServer` automatically.
-4.  Stop the local server with `LocalServer.Instance.StopAsync()`.
+4. Stop the local server with `LocalServer.Instance.StopAsync()`.
 
 ## Relevant API
 

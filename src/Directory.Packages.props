@@ -29,8 +29,8 @@
     <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7705" Condition="'$(UseMaui)'!='true'" />
     <PackageVersion Include="Microsoft.UI.Xaml" Version="2.8.7" />
     <PackageVersion Include="Monaco.Editor" Version="0.8.1-alpha" />
-    <PackageVersion Include="Microsoft.Maui.Controls" Version="9.0.120" />
-    <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.120" />
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+    <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
     <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.6" />
   </ItemGroup>
 </Project>

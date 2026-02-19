@@ -65,6 +65,7 @@
     <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" />
+    <PackageReference Include="CommunityToolkit.WinUI.UI.Controls.Markdown" />
     <PackageReference Include="Microsoft.WindowsAppSDK" />
     <PackageReference Include="Microsoft.Windows.SDK.BuildTools" />
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WinUI" />

@@ -34,8 +34,8 @@
     <PackageVersion Include="Microsoft.Toolkit.Uwp.UI.Controls" Version="7.1.3" />
     <PackageVersion Include="Microsoft.UI.Xaml" Version="2.8.7" />
     <PackageVersion Include="Monaco.Editor" Version="0.8.1-alpha" />
-    <PackageVersion Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
-    <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="9.0.120" />
+    <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.120" />
     <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.6" />
   </ItemGroup>
 </Project>

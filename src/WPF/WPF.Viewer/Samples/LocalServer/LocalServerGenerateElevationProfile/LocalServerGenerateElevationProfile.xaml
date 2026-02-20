@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.LocalServerGenerateElevationProfile.LocalServerGenerateElevationProfile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:SceneView x:Name="MySceneView" />
+        <Border x:Name="MyButtonPanel"
+                Width="250"
+                HorizontalAlignment="Left"
+                Style="{StaticResource BorderStyle}"
+                Visibility="Collapsed">
+            <StackPanel>
+                <Button x:Name="MyGenerateElevationProfileButton"
+                        Margin="5"
+                        Click="GenerateElevationProfileButton_Click"
+                        Content="Generate Elevation Profile"
+                        IsEnabled="False" />
+                <Button x:Name="MyDrawPolylineButton"
+                        Margin="5"
+                        Click="DrawPolylineButton_Click"
+                        Content="Draw Polyline"
+                        IsEnabled="False" />
+                <Button x:Name="MyClearResultsButton"
+                        Margin="5"
+                        Click="ClearResultsButton_Click"
+                        Content="Clear Results"
+                        IsEnabled="False" />
+                <ProgressBar x:Name="MyProgressBar"
+                             MinHeight="10"
+                             Margin="5,10,5,0"
+                             Maximum="100"
+                             Minimum="0"
+                             Visibility="Collapsed" />
+                <TextBlock x:Name="MyProgressBarLabel"
+                           Margin="0,5,0,0"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Center"
+                           Text="{Binding ElementName=MyProgressBar, Path=Value, StringFormat={}{0:0}%}"
+                           Visibility="Collapsed" />
+                <Button x:Name="MyCancelJobButton"
+                        Margin="5"
+                        Click="CancelJobButton_Click"
+                        Content="Cancel"
+                        Visibility="Collapsed" />
+                <Button x:Name="MySaveButton"
+                        Margin="5"
+                        Click="SaveButton_Click"
+                        Content="Save"
+                        Visibility="Collapsed" />
+            </StackPanel>
+        </Border>
+        <Border Width="250"
+                HorizontalAlignment="Right"
+                Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock x:Name="MyInstructionsTitleTextBlock"
+                           FontSize="14"
+                           FontWeight="SemiBold"
+                           Text="Instructions:"
+                           Visibility="Collapsed" />
+                <TextBlock x:Name="MyInstructionsContentTextBlock"
+                           Text="Starting Local Server..."
+                           TextWrapping="WrapWithOverflow" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

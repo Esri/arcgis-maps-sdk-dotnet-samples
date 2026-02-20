@@ -1,0 +1,45 @@
+{
+    "category": "Local Server",
+    "description": "Create an elevation profile using a geoprocessing package executed with Local Server.",
+    "formal_name": "LocalServerGenerateElevationProfile",
+    "ignore": false,
+    "images": [
+        "LocalServerGenerateElevationProfile.jpg"
+    ],
+    "keywords": [
+        "elevation profile",
+        "geoprocessing",
+        "interpolate shape",
+        "local server",
+        "offline",
+        "parameters",
+        "processing",
+        "raster",
+        "raster function",
+        "scene",
+        "service",
+        "terrain"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/generate-elevation-profile-with-local-server.htm"
+    ],
+    "relevant_apis": [
+        "GeoprocessingFeatures",
+        "GeoprocessingJob",
+        "GeoprocessingParameter",
+        "GeoprocessingParameters",
+        "GeoprocessingTask",
+        "LocalGeoprocessingService",
+        "LocalGeoprocessingService.ServiceType",
+        "LocalServer",
+        "LocalServerStatus",
+        "Raster",
+        "RasterFunction"
+    ],
+    "snippets": [
+        "LocalServerGenerateElevationProfile.xaml.cs",
+        "LocalServerGenerateElevationProfile.xaml"
+    ],
+    "title": "Generate elevation profile with Local Server"
+}

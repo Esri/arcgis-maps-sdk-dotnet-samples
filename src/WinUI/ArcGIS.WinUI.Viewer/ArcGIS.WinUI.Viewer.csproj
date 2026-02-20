@@ -60,6 +60,7 @@
 
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" />
     <PackageReference Include="Esri.ArcGISRuntime.WinUI" />
     <PackageReference Include="Esri.Calcite.WinUI" />
     <PackageReference Include="System.Drawing.Common" />

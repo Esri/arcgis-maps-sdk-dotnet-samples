@@ -147,6 +147,11 @@
 * [WMTS layer](ArcGIS.WinUI.Viewer/Samples/Layers/WMTSLayer) - Display a layer from a Web Map Tile Service.
 * [Web tiled layer](ArcGIS.WinUI.Viewer/Samples/Layers/LoadWebTiledLayer) - Display a tiled web layer.
 
+## Local Server
+
+* [Generate elevation profile with Local Server](ArcGIS.WinUI.Viewer/Samples/LocalServer/LocalServerGenerateElevationProfile) - Create an elevation profile using a geoprocessing package executed with Local Server.
+* [Local Server map image layer](ArcGIS.WinUI.Viewer/Samples/LocalServer/LocalServerMapImageLayer) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.
+
 ## Location
 
 * [Display device location with NMEA data sources](ArcGIS.WinUI.Viewer/Samples/Location/LocationWithNMEA) - Parse NMEA sentences and use the results to show device location on the map.

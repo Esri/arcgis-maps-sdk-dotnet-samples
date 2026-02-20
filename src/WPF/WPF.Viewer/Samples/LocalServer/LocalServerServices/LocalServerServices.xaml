@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.LocalServerServices.LocalServerServices"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Button x:Name="LocalServerStartButton"
+                Grid.Row="0"
+                Grid.Column="0"
+                Margin="5"
+                Click="StartServerButtonClicked"
+                Content="Start Local Server" />
+        <Button x:Name="LocalServerStopButton"
+                Grid.Row="0"
+                Grid.Column="1"
+                Margin="5"
+                Click="StopServerButtonClicked"
+                Content="Stop Local Server"
+                IsEnabled="False" />
+        <ComboBox x:Name="ServiceSelectionCombo"
+                  Grid.Row="1"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  Margin="5"
+                  IsEnabled="False"
+                  SelectionChanged="Selector_OnSelectionChanged">
+            <ComboBoxItem>Map Service</ComboBoxItem>
+            <ComboBoxItem>Feature Service</ComboBoxItem>
+            <ComboBoxItem>Geoprocessing Service</ComboBoxItem>
+        </ComboBox>
+        <Button x:Name="ServiceStartButton"
+                Grid.Row="2"
+                Grid.Column="0"
+                Margin="5"
+                Click="StartServiceButtonClicked"
+                Content="Start service"
+                IsEnabled="False" />
+        <Button x:Name="ServiceStopButton"
+                Grid.Row="2"
+                Grid.Column="1"
+                Margin="5"
+                Click="StopServiceButtonClicked"
+                Content="Stop service"
+                IsEnabled="False" />
+        <TextBox x:Name="StatusTextbox"
+                 Grid.Row="3"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 Margin="5" />
+        <ListBox x:Name="ServicesListbox"
+                 Grid.Row="4"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="2"
+                 Margin="5" />
+        <Button Grid.Row="5"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Margin="5"
+                Click="NavigateButtonClicked"
+                Content="Navigate to service" />
+    </Grid>
+</UserControl>

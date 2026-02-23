@@ -1,0 +1,40 @@
+{
+    "category": "Local Server",
+    "description": "Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.",
+    "formal_name": "LocalServerGeoprocessing",
+    "ignore": false,
+    "images": [
+        "LocalServerGeoprocessing.jpg"
+    ],
+    "keywords": [
+        "geoprocessing",
+        "local",
+        "offline",
+        "parameters",
+        "processing",
+        "service"
+    ],
+    "offline_data": [
+        "a680362d6a7447e8afe2b1eb85fcde30",
+        "3f38e1ae7c5948cc95334ba3a142a4ec"
+    ],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/local-server-geoprocessing.htm"
+    ],
+    "relevant_apis": [
+        "GeoprocessingDouble",
+        "GeoprocessingJob",
+        "GeoprocessingParameter",
+        "GeoprocessingParameters",
+        "GeoprocessingTask",
+        "LocalGeoprocessingService",
+        "LocalGeoprocessingService.ServiceType",
+        "LocalServer",
+        "LocalServerStatus"
+    ],
+    "snippets": [
+        "LocalServerGeoprocessing.xaml.cs",
+        "LocalServerGeoprocessing.xaml"
+    ],
+    "title": "Local server geoprocessing"
+}

@@ -16,6 +16,7 @@
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
     <DefineConstants>$(DefineConstants);TRACE;WPF</DefineConstants>
     <NoWarn>1701;1702;CA1416</NoWarn>
+    <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
   </PropertyGroup>
   <ItemGroup>
     <Content Include="Resources\github-markdown.css">
@@ -55,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
+    <PackageReference Include="Esri.ArcGISRuntime.LocalServices" />
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WPF" />
     <PackageReference Include="Esri.ArcGISRuntime.WPF" />
     <PackageReference Include="Esri.Calcite.WPF" />

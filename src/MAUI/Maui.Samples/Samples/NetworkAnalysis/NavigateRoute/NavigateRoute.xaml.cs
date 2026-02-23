@@ -152,7 +152,7 @@ namespace ArcGIS.Samples.NavigateRoute
             MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(_tracker, simulatedDataSource);
 
             // Use this instead if you want real location:
-            // MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(new SystemLocationDataSource(), _tracker);
+            // MyMapView.LocationDisplay.DataSource = new RouteTrackerLocationDataSource(_tracker, new SystemLocationDataSource());
 
             // Enable the location display (this wil start the location data source).
             MyMapView.LocationDisplay.IsEnabled = true;

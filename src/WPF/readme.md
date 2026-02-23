@@ -147,6 +147,14 @@
 * [WMTS layer](WPF.Viewer/Samples/Layers/WMTSLayer) - Display a layer from a Web Map Tile Service.
 * [Web tiled layer](WPF.Viewer/Samples/Layers/LoadWebTiledLayer) - Display a tiled web layer.
 
+## Local Server
+
+* [Generate elevation profile with Local Server](WPF.Viewer/Samples/LocalServer/LocalServerGenerateElevationProfile) - Create an elevation profile using a geoprocessing package executed with Local Server.
+* [Local Server map image layer](WPF.Viewer/Samples/LocalServer/LocalServerMapImageLayer) - Start the Local Server and Local Map Service, create an ArcGIS Map Image Layer from the Local Map Service, and add it to a map.
+* [Local server feature layer](WPF.Viewer/Samples/LocalServer/LocalServerFeatureLayer) - Start a local feature service and display its features in a map.
+* [Local server geoprocessing](WPF.Viewer/Samples/LocalServer/LocalServerGeoprocessing) - Create contour lines from local raster data using a local geoprocessing package `.gpk` and the contour geoprocessing tool.
+* [Local server services](WPF.Viewer/Samples/LocalServer/LocalServerServices) - Demonstrates how to start and stop the Local Server and start and stop a local map, feature, and geoprocessing service running on the Local Server.
+
 ## Location
 
 * [Display device location with NMEA data sources](WPF.Viewer/Samples/Location/LocationWithNMEA) - Parse NMEA sentences and use the results to show device location on the map.

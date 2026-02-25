@@ -217,6 +217,7 @@
 ## Scene
 
 * [Change atmosphere effect](ArcGIS.WinUI.Viewer/Samples/Scene/ChangeAtmosphereEffect) - Changes the appearance of the atmosphere in a scene.
+* [Configure scene environment](ArcGIS.WinUI.Viewer/Samples/Scene/ConfigureSceneEnvironment) - Configure the environment settings in a local scene to change the lighting conditions and background appearance.
 * [Create terrain from local tile package](ArcGIS.WinUI.Viewer/Samples/Scene/CreateTerrainSurfaceTilePackage) - Set the terrain surface with elevation described by a local tile package.
 * [Create terrain surface from a local raster](ArcGIS.WinUI.Viewer/Samples/Scene/CreateTerrainSurfaceRaster) - Set the terrain surface with elevation described by a raster file.
 * [Display local scene](ArcGIS.WinUI.Viewer/Samples/Scene/DisplayLocalScene) - Display a local scene with a topographic surface and 3D scene layer clipped to a local area.

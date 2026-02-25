@@ -1,0 +1,53 @@
+<UserControl
+    x:Class="ArcGIS.WinUI.Samples.ConfigureSceneEnvironment.ConfigureSceneEnvironment"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:LocalSceneView x:Name="MySceneView" />
+        <Border Style="{StaticResource BorderStyle}" Width="300">
+            <StackPanel>
+                <!-- Sky settings -->
+                <TextBlock Text="Sky" FontWeight="Bold" Margin="0,0,0,5" />
+                <StackPanel Orientation="Horizontal">
+                    <CheckBox x:Name="StarsCheckBox"
+                              Content="Stars"
+                              Margin="0,0,15,0" />
+                    <CheckBox x:Name="AtmosphereCheckBox"
+                              Content="Atmosphere" />
+                </StackPanel>
+                <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Margin="0,8" />
+
+                <!-- Background color settings -->
+                <TextBlock Text="Background color" FontWeight="Bold" Margin="0,0,0,5" />
+                <ComboBox x:Name="BackgroundColorComboBox"
+                          HorizontalAlignment="Stretch" />
+                <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Margin="0,8" />
+
+                <!-- Lighting settings -->
+                <TextBlock Text="Lighting" FontWeight="Bold" Margin="0,0,0,5" />
+                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                    <RadioButton x:Name="SunRadioButton"
+                                 Content="Sun"
+                                 Margin="0,0,15,0"
+                                 GroupName="LightingType" />
+                    <RadioButton x:Name="VirtualRadioButton"
+                                 Content="Virtual"
+                                 GroupName="LightingType" />
+                </StackPanel>
+                <CheckBox x:Name="ShadowsCheckBox"
+                          Content="Direct Shadows"
+                          Margin="0,0,0,5" />
+                <Grid ColumnDefinitions="Auto,*">
+                    <TextBlock x:Name="HourLabel" Text="Hour: 12:00" VerticalAlignment="Center" Margin="0,0,5,0" MinWidth="75" />
+                    <Slider x:Name="HourSlider"
+                            Grid.Column="1"
+                            Minimum="0"
+                            Maximum="23"
+                            StepFrequency="1"
+                            SnapsTo="StepValues" />
+                </Grid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

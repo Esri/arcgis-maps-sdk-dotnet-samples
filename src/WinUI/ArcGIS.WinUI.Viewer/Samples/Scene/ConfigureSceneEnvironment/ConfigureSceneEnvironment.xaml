@@ -5,47 +5,70 @@
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
         <esriUI:LocalSceneView x:Name="MySceneView" />
-        <Border Style="{StaticResource BorderStyle}" Width="300">
+        <Border Width="300" Style="{StaticResource BorderStyle}">
             <StackPanel>
-                <!-- Sky settings -->
-                <TextBlock Text="Sky" FontWeight="Bold" Margin="0,0,0,5" />
+                <!--  Sky settings  -->
+                <TextBlock
+                    Margin="0,0,0,5"
+                    FontWeight="Bold"
+                    Text="Sky" />
                 <StackPanel Orientation="Horizontal">
-                    <CheckBox x:Name="StarsCheckBox"
-                              Content="Stars"
-                              Margin="0,0,15,0" />
-                    <CheckBox x:Name="AtmosphereCheckBox"
-                              Content="Atmosphere" />
+                    <CheckBox
+                        x:Name="StarsCheckBox"
+                        Margin="0,0,15,0"
+                        Content="Stars" />
+                    <CheckBox x:Name="AtmosphereCheckBox" Content="Atmosphere" />
                 </StackPanel>
-                <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Margin="0,8" />
+                <Border
+                    Margin="0,8"
+                    BorderBrush="Gray"
+                    BorderThickness="0,0,0,1" />
 
-                <!-- Background color settings -->
-                <TextBlock Text="Background color" FontWeight="Bold" Margin="0,0,0,5" />
-                <ComboBox x:Name="BackgroundColorComboBox"
-                          HorizontalAlignment="Stretch" />
-                <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Margin="0,8" />
+                <!--  Background color settings  -->
+                <TextBlock
+                    Margin="0,0,0,5"
+                    FontWeight="Bold"
+                    Text="Background color" />
+                <ComboBox x:Name="BackgroundColorComboBox" HorizontalAlignment="Stretch" />
+                <Border
+                    Margin="0,8"
+                    BorderBrush="Gray"
+                    BorderThickness="0,0,0,1" />
 
-                <!-- Lighting settings -->
-                <TextBlock Text="Lighting" FontWeight="Bold" Margin="0,0,0,5" />
-                <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
-                    <RadioButton x:Name="SunRadioButton"
-                                 Content="Sun"
-                                 Margin="0,0,15,0"
-                                 GroupName="LightingType" />
-                    <RadioButton x:Name="VirtualRadioButton"
-                                 Content="Virtual"
-                                 GroupName="LightingType" />
+                <!--  Lighting settings  -->
+                <TextBlock
+                    Margin="0,0,0,5"
+                    FontWeight="Bold"
+                    Text="Lighting" />
+                <StackPanel Margin="0,0,0,5" Orientation="Horizontal">
+                    <RadioButton
+                        x:Name="SunRadioButton"
+                        Margin="0,0,15,0"
+                        Content="Sun"
+                        GroupName="LightingType" />
+                    <RadioButton
+                        x:Name="VirtualRadioButton"
+                        Content="Virtual"
+                        GroupName="LightingType" />
                 </StackPanel>
-                <CheckBox x:Name="ShadowsCheckBox"
-                          Content="Direct Shadows"
-                          Margin="0,0,0,5" />
+                <CheckBox
+                    x:Name="ShadowsCheckBox"
+                    Margin="0,0,0,5"
+                    Content="Direct Shadows" />
                 <Grid ColumnDefinitions="Auto,*">
-                    <TextBlock x:Name="HourLabel" Text="Hour: 12:00" VerticalAlignment="Center" Margin="0,0,5,0" MinWidth="75" />
-                    <Slider x:Name="HourSlider"
-                            Grid.Column="1"
-                            Minimum="0"
-                            Maximum="23"
-                            StepFrequency="1"
-                            SnapsTo="StepValues" />
+                    <TextBlock
+                        x:Name="HourLabel"
+                        MinWidth="75"
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="Hour: 12:00" />
+                    <Slider
+                        x:Name="HourSlider"
+                        Grid.Column="1"
+                        Maximum="23"
+                        Minimum="0"
+                        SnapsTo="StepValues"
+                        StepFrequency="1" />
                 </Grid>
             </StackPanel>
         </Border>

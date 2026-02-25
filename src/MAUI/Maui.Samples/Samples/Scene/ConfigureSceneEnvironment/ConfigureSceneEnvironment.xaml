@@ -1,55 +1,73 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage x:Class="ArcGIS.Samples.ConfigureSceneEnvironment.ConfigureSceneEnvironment"
-             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+<ContentPage
+    x:Class="ArcGIS.Samples.ConfigureSceneEnvironment.ConfigureSceneEnvironment"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid>
         <esriUI:LocalSceneView x:Name="MySceneView" />
-        <Border Style="{DynamicResource EsriSampleControlPanel}"
-                VerticalOptions="Start"
-                HorizontalOptions="{OnIdiom Phone=Fill, Default=End}"
-                WidthRequest="{OnIdiom Phone=-1, Default=300}"
-                Margin="10">
+        <Border
+            Margin="10"
+            HorizontalOptions="{OnIdiom Phone=Fill,
+                                        Default=End}"
+            Style="{DynamicResource EsriSampleControlPanel}"
+            VerticalOptions="Start"
+            WidthRequest="{OnIdiom Phone=-1,
+                                   Default=300}">
             <ScrollView>
                 <StackLayout Padding="5" Spacing="5">
-                    <!-- Sky settings -->
-                    <Label Text="Sky" FontAttributes="Bold" />
-                    <Grid ColumnDefinitions="*,auto" RowDefinitions="auto,auto" ColumnSpacing="10">
+                    <!--  Sky settings  -->
+                    <Label FontAttributes="Bold" Text="Sky" />
+                    <Grid
+                        ColumnDefinitions="*,auto"
+                        ColumnSpacing="10"
+                        RowDefinitions="auto,auto">
                         <Label Text="Stars" VerticalOptions="Center" />
-                        <Switch x:Name="StarsSwitch"
-                                Grid.Column="1" />
-                        <Label Grid.Row="1" Text="Atmosphere" VerticalOptions="Center" />
-                        <Switch x:Name="AtmosphereSwitch"
-                                Grid.Row="1" Grid.Column="1" />
+                        <Switch x:Name="StarsSwitch" Grid.Column="1" />
+                        <Label
+                            Grid.Row="1"
+                            Text="Atmosphere"
+                            VerticalOptions="Center" />
+                        <Switch
+                            x:Name="AtmosphereSwitch"
+                            Grid.Row="1"
+                            Grid.Column="1" />
                     </Grid>
                     <BoxView HeightRequest="1" Color="Gray" />
 
-                    <!-- Background color settings -->
-                    <Label Text="Background color" FontAttributes="Bold" />
+                    <!--  Background color settings  -->
+                    <Label FontAttributes="Bold" Text="Background color" />
                     <Picker x:Name="BackgroundColorPicker" />
                     <BoxView HeightRequest="1" Color="Gray" />
 
-                    <!-- Lighting settings -->
-                    <Label Text="Lighting" FontAttributes="Bold" />
+                    <!--  Lighting settings  -->
+                    <Label FontAttributes="Bold" Text="Lighting" />
                     <HorizontalStackLayout Spacing="10">
-                        <RadioButton x:Name="SunRadioButton"
-                                     Content="Sun"
-                                     GroupName="LightingType" />
-                        <RadioButton x:Name="VirtualRadioButton"
-                                     Content="Virtual"
-                                     GroupName="LightingType" />
+                        <RadioButton
+                            x:Name="SunRadioButton"
+                            Content="Sun"
+                            GroupName="LightingType" />
+                        <RadioButton
+                            x:Name="VirtualRadioButton"
+                            Content="Virtual"
+                            GroupName="LightingType" />
                     </HorizontalStackLayout>
                     <Grid ColumnDefinitions="*,auto" ColumnSpacing="10">
                         <Label Text="Direct Shadows" VerticalOptions="Center" />
-                        <Switch x:Name="ShadowsSwitch"
-                                Grid.Column="1" />
+                        <Switch x:Name="ShadowsSwitch" Grid.Column="1" />
                     </Grid>
                     <Grid ColumnDefinitions="auto,*" ColumnSpacing="5">
-                        <Label x:Name="HourLabel" Grid.Column="0" Text="Hour: 12:00" VerticalTextAlignment="Center" MinimumWidthRequest="75" />
-                        <Slider x:Name="HourSlider"
-                                Grid.Column="1"
-                                Minimum="0"
-                                Maximum="23" />
+                        <Label
+                            x:Name="HourLabel"
+                            Grid.Column="0"
+                            MinimumWidthRequest="75"
+                            Text="Hour: 12:00"
+                            VerticalTextAlignment="Center" />
+                        <Slider
+                            x:Name="HourSlider"
+                            Grid.Column="1"
+                            Maximum="23"
+                            Minimum="0" />
                     </Grid>
                 </StackLayout>
             </ScrollView>

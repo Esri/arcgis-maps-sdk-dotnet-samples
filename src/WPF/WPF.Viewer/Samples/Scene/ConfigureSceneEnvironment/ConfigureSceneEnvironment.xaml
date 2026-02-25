@@ -17,9 +17,7 @@
                         x:Name="StarsCheckBox"
                         Margin="0,0,15,0"
                         Content="Stars" />
-                    <CheckBox
-                        x:Name="AtmosphereCheckBox"
-                        Content="Atmosphere" />
+                    <CheckBox x:Name="AtmosphereCheckBox" Content="Atmosphere" />
                 </StackPanel>
                 <Separator Margin="0,8" />
 

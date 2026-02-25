@@ -31,9 +31,6 @@
                             <Color x:Key="CalciteBrandPressColor" >#51247A</Color>
                         </ResourceDictionary>
                     </ResourceDictionary.ThemeDictionaries>
-                    <SolidColorBrush x:Key="CalciteBrandBrush" Color="{ThemeResource CalciteBrandColor}" />
-                    <SolidColorBrush x:Key="CalciteBrandHoverBrush" Color="{ThemeResource CalciteBrandHoverColor}" />
-                    <SolidColorBrush x:Key="CalciteBrandPressColor" Color="{ThemeResource CalciteBrandPressColor}" />
                 </ResourceDictionary>
                 <ResourceDictionary Source="Resources/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>

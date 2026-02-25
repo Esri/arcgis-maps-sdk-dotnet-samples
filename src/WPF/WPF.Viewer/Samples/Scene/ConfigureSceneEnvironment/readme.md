@@ -14,7 +14,28 @@ For an analytic scenario, like examining a building scene layer, the developer m
 
 ## How to use the sample
 
-At start-up, you will see a local scene with a set of scene environment controls. Adjusting the controls will change the scene's environment altering the presentation of the scene. Toggle the "Stars" and "Atmosphere" check boxes to enable or disable those features. Select a color from the dropdown to set a solid background color; selecting a new background color will disable the stars and atmosphere so you can see the new color. Switch between "Sun" and "Virtual" lighting, toggle "Direct Shadows", and adjust the hour slider to change the sun position.
+At start-up, you will see a local scene with a set of scene environment controls at the bottom. Adjusting the controls will change the scene's environment altering the presentation of the scene.
+
+### Sky and Background color settings
+
+Toggling the "Stars" and "Atmosphere" buttons will enable or disable those features.
+
+Selecting a color from the dropdown will set a solid color for the background color. Selecting a new background color will disable the stars and atmosphere so you can see the new color.
+
+Some notes about the behavior of the sky and background:
+
+* The atmosphere is rendered in front of the stars and the stars are rendered in front of the background color.
+* Stars are not rendered when using virtual lighting.
+* To fully see the background color, atmosphere and stars must be deactivated.
+* The background color shows in the night sky if the atmosphere is enabled and the stars are disabled.
+
+### Lighting settings
+
+The lighting buttons switch between sun lighting and virtual lighting. Switching to virtual lighting disables the "Stars" button since stars do not exist in a virtually lit scene. The time slider is also disabled under virtual lighting since time does not have an effect on the virtual light.
+
+The "Direct Shadows" button will enable or disable the rendering of shadows for 3d objects in the scene. Shadows are not rendered for surface terrain.
+
+If sun lighting is active, the slider under the buttons will set the hour of the day ranging from midnight to 11pm (23:00). Dragging the bar will change the position of the simulated sun causing changes to shading and direct shadows.
 
 ## How it works
 

@@ -201,7 +201,11 @@ namespace ArcGIS.Samples.Desktop
                         "Download Required",
                         MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                    if (result != MessageBoxResult.Yes) return;
+                    if (result != MessageBoxResult.Yes)
+                    {
+                        SampleManager.Current.SelectedSample = null;
+                        return;
+                    }
 
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 

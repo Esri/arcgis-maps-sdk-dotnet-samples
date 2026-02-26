@@ -58,7 +58,11 @@ namespace ArcGIS.Helpers
                         "This sample requires data to be downloaded. Would you like to download it now?",
                         "Download", "Cancel");
 
-                    if (!download) return;
+                    if (!download)
+                    {
+                        SampleManager.Current.SelectedSample = null;
+                        return;
+                    }
 
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 

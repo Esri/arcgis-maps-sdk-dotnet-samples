@@ -141,7 +141,11 @@ namespace ArcGIS.WinUI.Viewer
                     dialog.Commands.Add(new Windows.UI.Popups.UICommand("Cancel"));
                     var result = await dialog.ShowAsync();
 
-                    if (result.Label != "Download") return;
+                    if (result.Label != "Download")
+                    {
+                        SampleManager.Current.SelectedSample = null;
+                        return;
+                    }
 
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 

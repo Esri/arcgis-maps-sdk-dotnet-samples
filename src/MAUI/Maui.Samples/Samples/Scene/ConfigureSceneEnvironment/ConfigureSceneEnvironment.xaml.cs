@@ -102,10 +102,11 @@ namespace ArcGIS.Samples.ConfigureSceneEnvironment
                 }
                 else
                 {
-                    VirtualRadioButton.IsChecked = true;
+                    // Record whether shadows are enabled.
                     ShadowsSwitch.IsToggled = environment.Lighting.AreDirectShadowsEnabled;
 
-                    // Stars and hour slider are not available with virtual lighting.
+                    // Update controls: stars and hour slider are not available with virtual lighting.
+                    VirtualRadioButton.IsChecked = true;
                     StarsSwitch.IsEnabled = false;
                     HourSlider.IsEnabled = false;
                     HourLabel.Opacity = 0.4;

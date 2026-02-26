@@ -142,14 +142,16 @@ namespace ArcGIS.Samples.ConfigureSceneEnvironment
             int index = BackgroundColorPicker.SelectedIndex;
             if (index < 0 || index >= _backgroundColorOptions.Count) return;
 
+            // Set the environment background color to the selected color.
             var newColor = _backgroundColorOptions[index].Color;
             MySceneView.Scene.Environment.BackgroundColor = newColor;
 
             // Disable atmosphere and stars so the background color is visible.
             MySceneView.Scene.Environment.IsAtmosphereEnabled = false;
-            AtmosphereSwitch.IsToggled = false;
-
             MySceneView.Scene.Environment.AreStarsEnabled = false;
+
+            // Update controls.
+            AtmosphereSwitch.IsToggled = false;
             StarsSwitch.IsToggled = false;
         }
 

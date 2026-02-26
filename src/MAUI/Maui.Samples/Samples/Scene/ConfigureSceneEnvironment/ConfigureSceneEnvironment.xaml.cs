@@ -162,6 +162,7 @@ namespace ArcGIS.Samples.ConfigureSceneEnvironment
             // Create a new SunLighting object preserving current state.
             var sunLighting = new SunLighting(_lightingDateTime, ShadowsSwitch.IsToggled);
 
+            // Set the SceneEnvironment.Lighting property to the new SunLighting object.
             MySceneView.Scene.Environment.Lighting = sunLighting;
 
             // Enable stars and hour slider for sun lighting.

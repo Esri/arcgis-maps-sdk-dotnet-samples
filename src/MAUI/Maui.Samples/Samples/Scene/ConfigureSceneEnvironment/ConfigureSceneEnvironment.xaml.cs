@@ -201,19 +201,19 @@ namespace ArcGIS.Samples.ConfigureSceneEnvironment
 
         private void HourSlider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
+            // Calculate the new lighting hour.
             int newHour = (int)HourSlider.Value;
             int hourDiff = newHour - _lightingHour;
-
             _lightingHour = newHour;
-            UpdateHourLabel();
 
             // Update the time on the lighting object.
             _lightingDateTime = _lightingDateTime.Add(TimeSpan.FromHours(hourDiff));
-
             if (MySceneView.Scene.Environment.Lighting is SunLighting sunLighting)
             {
                 sunLighting.SimulatedDate = _lightingDateTime;
             }
+
+            UpdateHourLabel();
         }
 
         private void UpdateHourLabel()

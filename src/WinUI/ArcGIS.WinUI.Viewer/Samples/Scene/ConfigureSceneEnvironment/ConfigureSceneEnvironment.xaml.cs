@@ -143,16 +143,23 @@ namespace ArcGIS.WinUI.Samples.ConfigureSceneEnvironment
             }
         }
 
+        // Sky event handlers.
+
+        // Toggle the visibility of stars in the scene environment.
         private void StarsCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
         {
             MySceneView.Scene.Environment.AreStarsEnabled = StarsCheckBox.IsChecked == true;
         }
 
+        // Toggle the visibility of the atmosphere effect in the scene environment.
         private void AtmosphereCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
         {
             MySceneView.Scene.Environment.IsAtmosphereEnabled = AtmosphereCheckBox.IsChecked == true;
         }
 
+        // Background color event handler.
+
+        // Update the scene background color and disable atmosphere/stars when a new color is selected.
         private void BackgroundColorComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             int index = BackgroundColorComboBox.SelectedIndex;
@@ -166,11 +173,14 @@ namespace ArcGIS.WinUI.Samples.ConfigureSceneEnvironment
             MySceneView.Scene.Environment.IsAtmosphereEnabled = false;
             MySceneView.Scene.Environment.AreStarsEnabled = false;
 
-            // Update controls.
+            // Update controls to reflect the disabled atmosphere and stars.
             AtmosphereCheckBox.IsChecked = false;
             StarsCheckBox.IsChecked = false;
         }
 
+        // Lighting event handlers.
+
+        // Switch to sun lighting when the Sun radio button is selected.
         private void SunRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             // Create a new SunLighting object preserving current state.
@@ -191,6 +201,7 @@ namespace ArcGIS.WinUI.Samples.ConfigureSceneEnvironment
             UpdateHourLabel();
         }
 
+        // Switch to virtual lighting when the Virtual radio button is selected.
         private void VirtualRadioButton_Checked(object sender, RoutedEventArgs e)
         {
             // Create a new VirtualLighting object preserving shadow state.
@@ -206,11 +217,13 @@ namespace ArcGIS.WinUI.Samples.ConfigureSceneEnvironment
             HourSlider.Opacity = 0.4;
         }
 
+        // Toggle direct shadows on the current lighting object.
         private void ShadowsCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
         {
             MySceneView.Scene.Environment.Lighting.AreDirectShadowsEnabled = ShadowsCheckBox.IsChecked == true;
         }
 
+        // Update the sun position when the hour slider value changes.
         private void HourSlider_ValueChanged(object sender, Microsoft.UI.Xaml.Controls.Primitives.RangeBaseValueChangedEventArgs e)
         {
             // Calculate the new lighting hour.
@@ -228,6 +241,9 @@ namespace ArcGIS.WinUI.Samples.ConfigureSceneEnvironment
             UpdateHourLabel();
         }
 
+        // Helper methods.
+
+        // Update the hour label text to reflect the current slider value.
         private void UpdateHourLabel()
         {
             HourLabel.Text = $"Hour: {_lightingHour}:00";

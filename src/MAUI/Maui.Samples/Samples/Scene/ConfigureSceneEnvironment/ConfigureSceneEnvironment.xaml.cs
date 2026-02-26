@@ -128,16 +128,23 @@ namespace ArcGIS.Samples.ConfigureSceneEnvironment
             }
         }
 
+        // Sky event handlers.
+
+        // Toggle the visibility of stars in the scene environment.
         private void StarsSwitch_Toggled(object sender, ToggledEventArgs e)
         {
             MySceneView.Scene.Environment.AreStarsEnabled = StarsSwitch.IsToggled;
         }
 
+        // Toggle the visibility of the atmosphere effect in the scene environment.
         private void AtmosphereSwitch_Toggled(object sender, ToggledEventArgs e)
         {
             MySceneView.Scene.Environment.IsAtmosphereEnabled = AtmosphereSwitch.IsToggled;
         }
 
+        // Background color event handler.
+
+        // Update the scene background color and disable atmosphere/stars when a new color is selected.
         private void BackgroundColorPicker_SelectedIndexChanged(object sender, EventArgs e)
         {
             int index = BackgroundColorPicker.SelectedIndex;
@@ -151,11 +158,14 @@ namespace ArcGIS.Samples.ConfigureSceneEnvironment
             MySceneView.Scene.Environment.IsAtmosphereEnabled = false;
             MySceneView.Scene.Environment.AreStarsEnabled = false;
 
-            // Update controls.
+            // Update controls to reflect the disabled atmosphere and stars.
             AtmosphereSwitch.IsToggled = false;
             StarsSwitch.IsToggled = false;
         }
 
+        // Lighting event handlers.
+
+        // Switch to sun lighting when the Sun radio button is selected.
         private void SunRadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             if (!e.Value) return;
@@ -178,6 +188,7 @@ namespace ArcGIS.Samples.ConfigureSceneEnvironment
             UpdateHourLabel();
         }
 
+        // Switch to virtual lighting when the Virtual radio button is selected.
         private void VirtualRadioButton_CheckedChanged(object sender, CheckedChangedEventArgs e)
         {
             if (!e.Value) return;
@@ -195,11 +206,13 @@ namespace ArcGIS.Samples.ConfigureSceneEnvironment
             HourSlider.Opacity = 0.4;
         }
 
+        // Toggle direct shadows on the current lighting object.
         private void ShadowsSwitch_Toggled(object sender, ToggledEventArgs e)
         {
             MySceneView.Scene.Environment.Lighting.AreDirectShadowsEnabled = ShadowsSwitch.IsToggled;
         }
 
+        // Update the sun position when the hour slider value changes.
         private void HourSlider_ValueChanged(object sender, ValueChangedEventArgs e)
         {
             // Calculate the new lighting hour.
@@ -217,6 +230,9 @@ namespace ArcGIS.Samples.ConfigureSceneEnvironment
             UpdateHourLabel();
         }
 
+        // Helper methods.
+
+        // Update the hour label text to reflect the current slider value.
         private void UpdateHourLabel()
         {
             HourLabel.Text = $"Hour: {_lightingHour}:00";

@@ -76,7 +76,7 @@ namespace ArcGIS.Samples.ConfigureSceneEnvironment
                 // Set lighting controls based on the scene's lighting.
                 if (environment.Lighting is SunLighting sunLighting)
                 {
-                    SunRadioButton.IsChecked = true;
+                    // Record whether shadows are enabled.
                     ShadowsSwitch.IsToggled = sunLighting.AreDirectShadowsEnabled;
 
                     // Record the simulated time from the web scene.
@@ -90,14 +90,15 @@ namespace ArcGIS.Samples.ConfigureSceneEnvironment
 
                     // Record the localized hour from the web scene lighting.
                     _lightingHour = _lightingDateTime.Add(_lightingTimeZoneOffset).Hour;
-                    HourSlider.Value = _lightingHour;
-                    UpdateHourLabel();
 
-                    // Stars are available with sun lighting.
+                    // Update controls: stars are available with sun lighting.
+                    SunRadioButton.IsChecked = true;
                     StarsSwitch.IsEnabled = true;
                     HourSlider.IsEnabled = true;
                     HourLabel.Opacity = 1;
                     HourSlider.Opacity = 1;
+                    HourSlider.Value = _lightingHour;
+                    UpdateHourLabel();
                 }
                 else
                 {

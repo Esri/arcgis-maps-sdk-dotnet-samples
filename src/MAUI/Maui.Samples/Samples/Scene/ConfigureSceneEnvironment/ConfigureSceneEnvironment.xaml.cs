@@ -185,6 +185,7 @@ namespace ArcGIS.Samples.ConfigureSceneEnvironment
             // Create a new VirtualLighting object preserving shadow state.
             var virtualLighting = new VirtualLighting(ShadowsSwitch.IsToggled);
 
+            // Set the SceneEnvironment.Lighting property to the new VirtualLighting object.
             MySceneView.Scene.Environment.Lighting = virtualLighting;
 
             // Disable stars and hour slider for virtual lighting.

@@ -81,7 +81,7 @@ namespace ArcGIS.WPF.Samples.ConfigureSceneEnvironment
                 // Set lighting controls based on the scene's lighting.
                 if (environment.Lighting is SunLighting sunLighting)
                 {
-                    SunRadioButton.IsChecked = true;
+                    // Record whether shadows are enabled.
                     ShadowsCheckBox.IsChecked = sunLighting.AreDirectShadowsEnabled;
 
                     // Record the simulated time from the web scene.
@@ -95,21 +95,23 @@ namespace ArcGIS.WPF.Samples.ConfigureSceneEnvironment
 
                     // Record the localized hour from the web scene lighting.
                     _lightingHour = _lightingDateTime.Add(_lightingTimeZoneOffset).Hour;
-                    HourSlider.Value = _lightingHour;
-                    UpdateHourLabel();
 
-                    // Stars are available with sun lighting.
+                    // Update controls: stars are available with sun lighting.
+                    SunRadioButton.IsChecked = true;
                     StarsCheckBox.IsEnabled = true;
                     HourSlider.IsEnabled = true;
                     HourLabel.Opacity = 1;
                     HourSlider.Opacity = 1;
+                    HourSlider.Value = _lightingHour;
+                    UpdateHourLabel();
                 }
                 else
                 {
-                    VirtualRadioButton.IsChecked = true;
+                    // Record whether shadows are enabled.
                     ShadowsCheckBox.IsChecked = environment.Lighting.AreDirectShadowsEnabled;
 
-                    // Stars and hour slider are not available with virtual lighting.
+                    // Update controls: stars and hour slider are not available with virtual lighting.
+                    VirtualRadioButton.IsChecked = true;
                     StarsCheckBox.IsEnabled = false;
                     HourSlider.IsEnabled = false;
                     HourLabel.Opacity = 0.4;
@@ -149,14 +151,16 @@ namespace ArcGIS.WPF.Samples.ConfigureSceneEnvironment
             int index = BackgroundColorComboBox.SelectedIndex;
             if (index < 0 || index >= _backgroundColorOptions.Count) return;
 
+            // Set the environment background color to the selected color.
             var newColor = _backgroundColorOptions[index].Color;
             MySceneView.Scene.Environment.BackgroundColor = newColor;
 
             // Disable atmosphere and stars so the background color is visible.
             MySceneView.Scene.Environment.IsAtmosphereEnabled = false;
-            AtmosphereCheckBox.IsChecked = false;
-
             MySceneView.Scene.Environment.AreStarsEnabled = false;
+
+            // Update controls.
+            AtmosphereCheckBox.IsChecked = false;
             StarsCheckBox.IsChecked = false;
         }
 
@@ -165,6 +169,7 @@ namespace ArcGIS.WPF.Samples.ConfigureSceneEnvironment
             // Create a new SunLighting object preserving current state.
             var sunLighting = new SunLighting(_lightingDateTime, ShadowsCheckBox.IsChecked == true);
 
+            // Set the SceneEnvironment.Lighting property to the new SunLighting object.
             MySceneView.Scene.Environment.Lighting = sunLighting;
 
             // Enable stars and hour slider for sun lighting.
@@ -184,6 +189,7 @@ namespace ArcGIS.WPF.Samples.ConfigureSceneEnvironment
             // Create a new VirtualLighting object preserving shadow state.
             var virtualLighting = new VirtualLighting(ShadowsCheckBox.IsChecked == true);
 
+            // Set the SceneEnvironment.Lighting property to the new VirtualLighting object.
             MySceneView.Scene.Environment.Lighting = virtualLighting;
 
             // Disable stars and hour slider for virtual lighting.
@@ -200,19 +206,19 @@ namespace ArcGIS.WPF.Samples.ConfigureSceneEnvironment
 
         private void HourSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
+            // Calculate the new lighting hour.
             int newHour = (int)HourSlider.Value;
             int hourDiff = newHour - _lightingHour;
-
             _lightingHour = newHour;
-            UpdateHourLabel();
 
             // Update the time on the lighting object.
             _lightingDateTime = _lightingDateTime.Add(TimeSpan.FromHours(hourDiff));
-
             if (MySceneView.Scene.Environment.Lighting is SunLighting sunLighting)
             {
                 sunLighting.SimulatedDate = _lightingDateTime;
             }
+
+            UpdateHourLabel();
         }
 
         private void UpdateHourLabel()

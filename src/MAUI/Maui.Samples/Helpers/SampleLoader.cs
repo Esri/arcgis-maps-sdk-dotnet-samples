@@ -52,6 +52,14 @@ namespace ArcGIS.Helpers
                 // Load offline data before showing the sample.
                 if (sampleInfo.OfflineDataItems != null && !await DataManager.HasSampleDataPresent(sampleInfo))
                 {
+                    // Ask the user for permission before downloading.
+                    bool download = await Application.Current.Windows[0].Page.DisplayAlert(
+                        "Download Required",
+                        "This sample requires data to be downloaded. Would you like to download it now?",
+                        "Download", "Cancel");
+
+                    if (!download) return;
+
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 
                     // Show the wait page.

@@ -44,6 +44,7 @@
 			<Sample>QueryDynamicEntities</Sample>
 		</Category>
 		<Category name="Scene">
+			<Sample>ConfigureSceneEnvironment</Sample>
 			<Sample>FilterFeaturesInScene</Sample>
 			<Sample>ShowLabelsOnLayer3D</Sample>
 			<Sample>DisplayLocalScene</Sample>

@@ -11,7 +11,7 @@
                 <VisualStateGroup>
                     <VisualState x:Name="HorizontalFloat">
                         <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowHeight="{OnPlatform Default=800, WinUI=0}" MinWindowWidth="{OnPlatform Default=800, WinUI=0}" />
+                            <AdaptiveTrigger MinWindowHeight="{OnPlatform Default=800, WinUI=0, MacCatalyst=0}" MinWindowWidth="{OnPlatform Default=800, WinUI=0, MacCatalyst=0}" />
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Property="RowDefinitions" Value="Auto,*" />
@@ -49,7 +49,7 @@
                 <VisualStateGroup>
                     <VisualState x:Name="HorizontalFloat">
                         <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowHeight="{OnPlatform Default=800, WinUI=0}" MinWindowWidth="{OnPlatform Default=800, WinUI=0}" />
+                            <AdaptiveTrigger MinWindowHeight="{OnPlatform Default=800, WinUI=0, MacCatalyst=0}" MinWindowWidth="{OnPlatform Default=800, WinUI=0, MacCatalyst=0}" />
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Property="StrokeShape" Value="RoundRectangle 10" />
@@ -89,7 +89,7 @@
                 <VisualStateGroup>
                     <VisualState x:Name="HorizontalFloat">
                         <VisualState.StateTriggers>
-                            <AdaptiveTrigger MinWindowHeight="{OnPlatform Default=800, WinUI=0}" MinWindowWidth="{OnPlatform Default=800, WinUI=0}" />
+                            <AdaptiveTrigger MinWindowHeight="{OnPlatform Default=800, WinUI=0, MacCatalyst=0}" MinWindowWidth="{OnPlatform Default=800, WinUI=0, MacCatalyst=0}" />
                         </VisualState.StateTriggers>
                         <VisualState.Setters>
                             <Setter Property="Grid.Row" Value="0" />

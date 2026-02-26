@@ -8,12 +8,10 @@
         <esriUI:LocalSceneView x:Name="MySceneView" />
         <Border
             Margin="10"
-            HorizontalOptions="{OnIdiom Phone=Fill,
-                                        Default=End}"
+            HorizontalOptions="{OnIdiom Phone=Fill, Default=End}"
             Style="{DynamicResource EsriSampleControlPanel}"
             VerticalOptions="Start"
-            WidthRequest="{OnIdiom Phone=-1,
-                                   Default=300}">
+            WidthRequest="{OnIdiom Phone=-1, Default=300}">
             <ScrollView>
                 <StackLayout Padding="5" Spacing="5">
                     <!--  Sky settings  -->

@@ -133,8 +133,20 @@ namespace ArcGIS.WinUI.Viewer
 
             try
             {
-                if (selectedSample.OfflineDataItems != null)
+                if (selectedSample.OfflineDataItems != null && !await DataManager.HasSampleDataPresent(selectedSample))
                 {
+                    // Ask the user for permission before downloading.
+                    var dialog = new MessageDialog2("This sample requires data to be downloaded. Would you like to download it now?", "Download Required");
+                    dialog.Commands.Add(new Windows.UI.Popups.UICommand("Download"));
+                    dialog.Commands.Add(new Windows.UI.Popups.UICommand("Cancel"));
+                    var result = await dialog.ShowAsync();
+
+                    if (result.Label != "Download")
+                    {
+                        SampleManager.Current.SelectedSample = null;
+                        return;
+                    }
+
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 
                     // Show the waiting page

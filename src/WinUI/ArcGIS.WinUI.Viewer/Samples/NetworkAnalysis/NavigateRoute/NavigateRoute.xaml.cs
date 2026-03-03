@@ -72,7 +72,8 @@ namespace ArcGIS.WinUI.Samples.NavigateRoute
         {
             try
             {
-                // Add event handler for when this sample is unloaded.
+                // Add event handlers for when this sample is loaded/unloaded.
+                Loaded += SampleLoaded;
                 Unloaded += SampleUnloaded;
 
                 // Create the map view.
@@ -248,23 +249,30 @@ namespace ArcGIS.WinUI.Samples.NavigateRoute
             MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
         }
 
-        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        private void SampleLoaded(object sender, RoutedEventArgs e)
         {
-            // Stop the speech synthesizer.
-            _mediaPlayer.Pause();
-            _mediaPlayer.Dispose();
-            _speechSynthesizer.Dispose();
-
-            // Stop the tracker.
+            // Re-attach tracker event handlers.
             if (_tracker != null)
             {
-                _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
+                _tracker.NewVoiceGuidance += SpeakDirection;
+                _tracker.TrackingStatusChanged += TrackingStatusUpdated;
+            }
+
+            // Restart the location data source.
+            _ = MyMapView.LocationDisplay?.DataSource?.StartAsync();
+        }
+
+        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        {
+            // Detach tracker event handlers.
+            if (_tracker != null)
+            {
                 _tracker.NewVoiceGuidance -= SpeakDirection;
-                _tracker = null;
+                _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
             }
 
             // Stop the location data source.
-            MyMapView.LocationDisplay?.DataSource?.StopAsync();
+            _ = MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

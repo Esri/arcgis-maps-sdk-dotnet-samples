@@ -19,6 +19,9 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
+using Windows.Media.Core;
+using Windows.Media.Playback;
+using Windows.Media.SpeechSynthesis;
 
 namespace ArcGIS.WinUI.Samples.NavigateRoute
 {
@@ -38,6 +41,10 @@ namespace ArcGIS.WinUI.Samples.NavigateRoute
 
         // List of driving directions for the route.
         private IReadOnlyList<DirectionManeuver> _directionsList;
+
+        // Speech synthesizer to play voice guidance audio.
+        private SpeechSynthesizer _speechSynthesizer = new SpeechSynthesizer();
+        private MediaPlayer _mediaPlayer = new MediaPlayer();
 
         // Graphics to show progress along the route.
         private Graphic _routeAheadGraphic;
@@ -65,7 +72,8 @@ namespace ArcGIS.WinUI.Samples.NavigateRoute
         {
             try
             {
-                // Add event handler for when this sample is unloaded.
+                // Add event handlers for when this sample is loaded/unloaded.
+                Loaded += SampleLoaded;
                 Unloaded += SampleUnloaded;
 
                 // Create the map view.
@@ -137,6 +145,7 @@ namespace ArcGIS.WinUI.Samples.NavigateRoute
 
             // Create a route tracker.
             _tracker = new RouteTracker(_routeResult, 0, true);
+            _tracker.NewVoiceGuidance += SpeakDirection;
 
             // Handle route tracking status changes.
             _tracker.TrackingStatusChanged += TrackingStatusUpdated;
@@ -216,6 +225,18 @@ namespace ArcGIS.WinUI.Samples.NavigateRoute
             });
         }
 
+        private async void SpeakDirection(object sender, RouteTrackerNewVoiceGuidanceEventArgs e)
+        {
+            // Say the direction using voice synthesis.
+            if (e.VoiceGuidance.Text?.Length > 0)
+            {
+                _mediaPlayer.Pause();
+                var stream = await _speechSynthesizer.SynthesizeTextToStreamAsync(e.VoiceGuidance.Text);
+                _mediaPlayer.Source = MediaSource.CreateFromStream(stream, stream.ContentType);
+                _mediaPlayer.Play();
+            }
+        }
+
         private void AutoPanModeChanged(object sender, LocationDisplayAutoPanMode e)
         {
             // Turn the recenter button on or off when the location display changes to or from navigation mode.
@@ -228,17 +249,30 @@ namespace ArcGIS.WinUI.Samples.NavigateRoute
             MyMapView.LocationDisplay.AutoPanMode = LocationDisplayAutoPanMode.Navigation;
         }
 
-        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        private void SampleLoaded(object sender, RoutedEventArgs e)
         {
-            // Stop the tracker.
+            // Re-attach tracker event handlers.
             if (_tracker != null)
             {
+                _tracker.NewVoiceGuidance += SpeakDirection;
+                _tracker.TrackingStatusChanged += TrackingStatusUpdated;
+            }
+
+            // Restart the location data source.
+            _ = MyMapView.LocationDisplay?.DataSource?.StartAsync();
+        }
+
+        private void SampleUnloaded(object sender, RoutedEventArgs e)
+        {
+            // Detach tracker event handlers.
+            if (_tracker != null)
+            {
+                _tracker.NewVoiceGuidance -= SpeakDirection;
                 _tracker.TrackingStatusChanged -= TrackingStatusUpdated;
-                _tracker = null;
             }
 
             // Stop the location data source.
-            MyMapView.LocationDisplay?.DataSource?.StopAsync();
+            _ = MyMapView.LocationDisplay?.DataSource?.StopAsync();
         }
     }
 }

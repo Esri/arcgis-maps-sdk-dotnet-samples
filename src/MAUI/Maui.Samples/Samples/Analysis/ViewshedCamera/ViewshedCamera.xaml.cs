@@ -28,7 +28,7 @@ namespace ArcGIS.Samples.ViewshedCamera
         private string _elevationSourceUrl = "https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         // Location viewshed analysis to show visible and obstructed areas from the camera
-        private LocationViewshed _viewshedForCamera;
+        private ExploratoryLocationViewshed _viewshedForCamera;
 
         public ViewshedCamera()
         {
@@ -59,7 +59,7 @@ namespace ArcGIS.Samples.ViewshedCamera
             MySceneView.SetViewpointCameraAsync(observerCamera);
 
             // Create a LocationViewshed analysis using the camera as the observer
-            _viewshedForCamera = new LocationViewshed(observerCamera, 1, 1000);
+            _viewshedForCamera = new ExploratoryLocationViewshed(observerCamera, 1, 1000);
 
             // Create an analysis overlay to contain the viewshed analysis results
             AnalysisOverlay viewshedOverlay = new AnalysisOverlay();

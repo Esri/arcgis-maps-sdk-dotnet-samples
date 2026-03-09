@@ -22,7 +22,7 @@
         "ArcGISTiledElevationSource",
         "Camera",
         "IntegratedMeshLayer",
-        "LocationViewshed",
+        "ExploratoryLocationViewshed",
         "Scene",
         "SceneView"
     ],

@@ -27,7 +27,7 @@ namespace ArcGIS.WPF.Samples.LineOfSightLocation
         private string _elevationSourceUrl = @"https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer";
 
         // Location line of sight analysis
-        private LocationLineOfSight _lineOfSightAnalysis;
+        private ExploratoryLocationLineOfSight _lineOfSightAnalysis;
 
         // Observer location for line of sight
         private MapPoint _observerLocation;
@@ -66,12 +66,12 @@ namespace ArcGIS.WPF.Samples.LineOfSightLocation
             MySceneView.SetViewpointCameraAsync(newCamera);
 
             // Create a new line of sight analysis with arbitrary points (observer and target will be defined by the user)
-            _lineOfSightAnalysis = new LocationLineOfSight(new MapPoint(0.0, 0.0, SpatialReferences.Wgs84), new MapPoint(0.0, 0.0, SpatialReferences.Wgs84));
+            _lineOfSightAnalysis = new ExploratoryLocationLineOfSight(new MapPoint(0.0, 0.0, SpatialReferences.Wgs84), new MapPoint(0.0, 0.0, SpatialReferences.Wgs84));
 
             // Set the visible and obstructed colors (default would be green/red)
             // These are static properties that apply to all line of sight analyses in the scene view
-            LineOfSight.VisibleColor = Color.Cyan;
-            LineOfSight.ObstructedColor = Color.Magenta;
+            ExploratoryLineOfSight.VisibleColor = Color.Cyan;
+            ExploratoryLineOfSight.ObstructedColor = Color.Magenta;
 
             // Create an analysis overlay to contain the analysis and add it to the scene view
             AnalysisOverlay lineOfSightOverlay = new AnalysisOverlay();

@@ -45,7 +45,7 @@ namespace ArcGIS.WinUI.Samples.LineOfSightGeoElement
         private Graphic _taxiGraphic;
 
         // Line of Sight Analysis.
-        private GeoElementLineOfSight _geoLine;
+        private ExploratoryGeoElementLineOfSight _geoLine;
 
         // For taxi animation - four points in a loop.
         private readonly MapPoint[] _points = {
@@ -110,7 +110,7 @@ namespace ArcGIS.WinUI.Samples.LineOfSightGeoElement
 
                 // Create GeoElement Line of sight analysis (taxi to building).
                 // Create the analysis.
-                _geoLine = new GeoElementLineOfSight(_observerGraphic, _taxiGraphic)
+                _geoLine = new ExploratoryGeoElementLineOfSight(_observerGraphic, _taxiGraphic)
                 {
                     // Apply an offset to the target. This helps avoid some false negatives.
                     TargetOffsetZ = 2
@@ -204,18 +204,18 @@ namespace ArcGIS.WinUI.Samples.LineOfSightGeoElement
         {
             switch (_geoLine.TargetVisibility)
             {
-                case LineOfSightTargetVisibility.Obstructed:
+                case ExploratoryLineOfSightTargetVisibility.Obstructed:
                     StatusLabel.Text = "Status: Obstructed";
                     _taxiGraphic.IsSelected = false;
                     break;
 
-                case LineOfSightTargetVisibility.Visible:
+                case ExploratoryLineOfSightTargetVisibility.Visible:
                     StatusLabel.Text = "Status: Visible";
                     _taxiGraphic.IsSelected = true;
                     break;
 
                 default:
-                case LineOfSightTargetVisibility.Unknown:
+                case ExploratoryLineOfSightTargetVisibility.Unknown:
                     StatusLabel.Text = "Status: Unknown";
                     _taxiGraphic.IsSelected = false;
                     break;

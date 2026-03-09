@@ -36,7 +36,7 @@ namespace ArcGIS.WPF.Samples.ViewshedLocation
         private readonly Uri _buildingsUrl = new Uri("https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
 
         // Hold a reference to the viewshed analysis.
-        private LocationViewshed _viewshed;
+        private ExploratoryLocationViewshed _viewshed;
 
         // Hold a reference to the analysis overlay that will hold the viewshed analysis.
         private AnalysisOverlay _analysisOverlay;
@@ -82,7 +82,7 @@ namespace ArcGIS.WPF.Samples.ViewshedLocation
             MapPoint initialLocation = new MapPoint(-4.5, 48.4, 46 + _viewHeight);
 
             // Create the location viewshed analysis.
-            _viewshed = new LocationViewshed(
+            _viewshed = new ExploratoryLocationViewshed(
                 initialLocation,
                 HeadingSlider.Value,
                 PitchSlider.Value,
@@ -121,7 +121,7 @@ namespace ArcGIS.WPF.Samples.ViewshedLocation
 
             // Update the frustum outline Color.
             // The frustum outline shows the volume in which the viewshed analysis is performed.
-            Viewshed.FrustumOutlineColor = Color.Blue;
+            ExploratoryViewshed.FrustumOutlineColor = Color.Blue;
 
             // Subscribe to tap events. This enables the 'pick up' and 'drop' workflow for moving the viewpoint.
             MySceneView.GeoViewTapped += MySceneViewOnGeoViewTapped;

@@ -24,8 +24,8 @@ Tap to set a destination for the vehicle (a GeoElement). The vehicle will 'drive
 ## Relevant API
 
 * AnalysisOverlay
-* GeodeticDistanceResult
 * ExploratoryGeoElementViewshed
+* GeodeticDistanceResult
 * GeometryEngine.DistanceGeodetic
 * ModelSceneSymbol
 * OrbitGeoElementCameraController

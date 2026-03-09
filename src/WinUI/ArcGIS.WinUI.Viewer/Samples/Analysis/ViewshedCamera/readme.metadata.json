@@ -21,8 +21,8 @@
         "AnalysisOverlay",
         "ArcGISTiledElevationSource",
         "Camera",
-        "IntegratedMeshLayer",
         "ExploratoryLocationViewshed",
+        "IntegratedMeshLayer",
         "Scene",
         "SceneView"
     ],

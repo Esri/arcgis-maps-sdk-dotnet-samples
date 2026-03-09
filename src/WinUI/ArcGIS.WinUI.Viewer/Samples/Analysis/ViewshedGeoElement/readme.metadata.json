@@ -23,7 +23,7 @@
     ],
     "relevant_apis": [
         "AnalysisOverlay",
-        "GeoElementViewshed",
+        "ExploratoryGeoElementViewshed",
         "GeodeticDistanceResult",
         "GeometryEngine.DistanceGeodetic",
         "ModelSceneSymbol",

@@ -14,7 +14,7 @@ The sample will start with a viewshed created from the initial camera location, 
 
 ## How it works
 
-1. Create a `LocationViewshed`, passing in a `Camera` and a min/max distance.
+1. Create an `ExploratoryLocationViewshed`, passing in a `Camera` and a min/max distance.
 2. Update the viewshed using `viewshed.UpdateFromCamera()`.
 
 ## Relevant API
@@ -22,8 +22,8 @@ The sample will start with a viewshed created from the initial camera location, 
 * AnalysisOverlay
 * ArcGISTiledElevationSource
 * Camera
+* ExploratoryLocationViewshed
 * IntegratedMeshLayer
-* LocationViewshed
 * Scene
 * SceneView
 

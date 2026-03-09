@@ -95,7 +95,7 @@ namespace ArcGIS.Samples.ViewshedGeoElement
                 _tankOverlay.Graphics.Add(_tank);
 
                 // Create a viewshed for the tank.
-                GeoElementViewshed geoViewshed = new GeoElementViewshed(
+                ExploratoryGeoElementViewshed geoViewshed = new ExploratoryGeoElementViewshed(
                     geoElement: _tank,
                     horizontalAngle: 90.0,
                     verticalAngle: 40.0,

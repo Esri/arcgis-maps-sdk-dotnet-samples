@@ -20,8 +20,8 @@
     ],
     "relevant_apis": [
         "AnalysisOverlay",
-        "GeoElementLineOfSight",
-        "LineOfSight.TargetVisibility"
+        "ExploratoryGeoElementLineOfSight",
+        "ExploratoryLineOfSight.TargetVisibility"
     ],
     "snippets": [
         "LineOfSightGeoElement.xaml.cs",

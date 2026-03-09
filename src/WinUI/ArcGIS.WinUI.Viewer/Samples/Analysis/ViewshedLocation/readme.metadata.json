@@ -21,8 +21,8 @@
         "AnalysisOverlay",
         "ArcGISSceneLayer",
         "ArcGISTiledElevationSource",
-        "LocationViewshed",
-        "Viewshed"
+        "ExploratoryLocationViewshed",
+        "ExploratoryViewshed"
     ],
     "snippets": [
         "ViewshedLocation.xaml.cs",

@@ -18,7 +18,7 @@
     ],
     "relevant_apis": [
         "AnalysisOverlay",
-        "LocationLineOfSight",
+        "ExploratoryLocationLineOfSight",
         "SceneView"
     ],
     "snippets": [

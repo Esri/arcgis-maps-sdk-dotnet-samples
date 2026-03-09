@@ -15,7 +15,7 @@ Tap to place the starting point for the line. Tap again to place the end point.
 ## How it works
 
 1. Create an `AnalysisOverlay` and add it to the scene view.
-2. Create a `ExploratoryLocationLineOfSight` with initial observer and target locations and add it to the analysis overlay.
+2. Create an `ExploratoryLocationLineOfSight` with initial observer and target locations and add it to the analysis overlay.
 3. Listen for taps on the scene view.
 4. Update the target location with `lineOfSight.TargetLocation = scenePoint`.
 

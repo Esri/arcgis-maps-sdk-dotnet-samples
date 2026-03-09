@@ -59,7 +59,7 @@ namespace ArcGIS.WinUI.Samples.ViewshedCamera
             Camera observerCamera = new Camera(new MapPoint(2.82691, 41.985, 124.987, SpatialReferences.Wgs84), 332.131, 82.4732, 0.0);
             MySceneView.SetViewpointCameraAsync(observerCamera);
 
-            // Create a ExploratoryLocationViewshed analysis using the camera as the observer.
+            // Create an ExploratoryLocationViewshed analysis using the camera as the observer.
             _viewshedForCamera = new ExploratoryLocationViewshed(observerCamera, 1, 1000);
 
             // Create an analysis overlay to contain the viewshed analysis results.

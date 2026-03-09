@@ -14,7 +14,7 @@ Use the sliders to change the properties (heading, pitch, etc.), of the viewshed
 
 ## How it works
 
-1. Create a `ExploratoryLocationViewshed` passing in the observer location, heading, pitch, horizontal/vertical angles, and min/max distances.
+1. Create an `ExploratoryLocationViewshed` passing in the observer location, heading, pitch, horizontal/vertical angles, and min/max distances.
 2. Set the property values on the viewshed instance for location, direction, range, and visibility properties.
 
 ## Relevant API

@@ -72,7 +72,7 @@ namespace ArcGIS.WinUI.Samples.ApplyMapAlgebra
             // Create a raster layer from the elevation raster file.
             _elevationRasterLayer = new RasterLayer(new Raster(rasterPath));
 
-            // Create a stretch renderer with min-max stretch parameters and a surface color ramp.
+            // Create a stretch renderer to visualize the elevation raster layer using the surface preset color ramp.
             _elevationRasterLayer.Renderer = new StretchRenderer(
                 new MinMaxStretchParameters(new[] { 0.0 }, new[] { 874.0 }),
                 gammas: new[] { 1.0 },

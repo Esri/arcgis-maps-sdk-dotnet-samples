@@ -41,9 +41,15 @@ When the sample opens, it displays the source elevation raster. Select the **Cat
 * RasterLayer
 * StretchRenderer
 
+## Offline data
+
+This sample downloads the following items from ArcGIS Online automatically:
+
+* [Isle of Arran 10m resolution digital terrain elevation raster](https://www.arcgis.com/home/item.html?id=aa97788593e34a32bcaae33947fdc271)
+
 ## About the data
 
-The sample uses a [10m resolution digital terrain elevation raster of the Isle of Arran, Scotland](https://www.arcgis.com/home/item.html?id=aa97788593e34a32bcaae33947fdc271)
+The elevation raster of the Isle of Arran, Scotland is a 10m resolution digital terrain model.
 (Data Copyright Scottish Government and SEPA (2014)).
 
 ## Tags

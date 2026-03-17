@@ -99,9 +99,13 @@ namespace ArcGIS.WinUI.Samples.ApplyMapAlgebra
             var tenMeterBinField = ((elevationFieldFunction / 10).Floor() * 10).ToDiscreteFieldFunction();
 
             // Create boolean fields for each geomorphic category based on the nearest 10 m interval field.
-            var isRaisedShoreline = (tenMeterBinField >= 0) & (tenMeterBinField < 10);
+            var isRaisedShoreline = tenMeterBinField.IsGreaterThanOrEqualTo(0)
+                .LogicalAnd(tenMeterBinField.IsLessThan(10));
+
+            // Operator overloads (>=, <, &) can be used in place of IsGreaterThanOrEqualTo, IsLessThan, and LogicalAnd.
             var isIceCovered = (tenMeterBinField >= 10) & (tenMeterBinField < 600);
-            var isIceFreeHighGround = tenMeterBinField >= 600;
+
+            var isIceFreeHighGround = tenMeterBinField.IsGreaterThanOrEqualTo(600);
 
             // Assign geomorphic categories based on the boolean fields:
             // raised shoreline = 1, ice covered = 2, ice-free high ground = 3.

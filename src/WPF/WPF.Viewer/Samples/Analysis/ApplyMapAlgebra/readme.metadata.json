@@ -1,0 +1,38 @@
+{
+    "category": "Analysis",
+    "description": "Apply map algebra to an elevation raster to floor, mask, and categorize the elevation values into discrete integer-based categories.",
+    "formal_name": "ApplyMapAlgebra",
+    "ignore": false,
+    "images": [
+        "ApplyMapAlgebra.jpg"
+    ],
+    "keywords": [
+        "elevation",
+        "map algebra",
+        "raster",
+        "spatial analysis",
+        "terrain"
+    ],
+    "offline_data": [
+        "aa97788593e34a32bcaae33947fdc271"
+    ],
+    "redirect_from": [],
+    "relevant_apis": [
+        "BooleanFieldFunction",
+        "ColorRamp",
+        "ColormapRenderer",
+        "ContinuousField",
+        "ContinuousFieldFunction",
+        "DiscreteField",
+        "DiscreteFieldFunction",
+        "MinMaxStretchParameters",
+        "Raster",
+        "RasterLayer",
+        "StretchRenderer"
+    ],
+    "snippets": [
+        "ApplyMapAlgebra.xaml.cs",
+        "ApplyMapAlgebra.xaml"
+    ],
+    "title": "Apply map algebra"
+}

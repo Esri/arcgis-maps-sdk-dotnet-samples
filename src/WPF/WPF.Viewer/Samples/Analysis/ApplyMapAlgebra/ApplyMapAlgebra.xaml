@@ -1,0 +1,43 @@
+<UserControl
+    x:Class="ArcGIS.WPF.Samples.ApplyMapAlgebra.ApplyMapAlgebra"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border x:Name="CategorizePanel" Style="{StaticResource BorderStyle}">
+            <Button
+                x:Name="CategorizeButton"
+                MinWidth="120"
+                Click="OnCategorizeClicked"
+                Content="Categorize"
+                IsEnabled="False" />
+        </Border>
+        <Border
+            x:Name="LayerTogglePanel"
+            MaxWidth="250"
+            Style="{StaticResource BorderStyle}"
+            Visibility="Collapsed">
+            <StackPanel>
+                <RadioButton
+                    x:Name="GeomorphicRadioButton"
+                    Checked="OnRasterLayerSelectionChanged"
+                    Content="Map algebra results"
+                    IsChecked="True" />
+                <RadioButton
+                    x:Name="ElevationRadioButton"
+                    Checked="OnRasterLayerSelectionChanged"
+                    Content="Original elevation raster" />
+            </StackPanel>
+        </Border>
+        <TextBlock
+            Margin="0,0,10,30"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            FontSize="11"
+            FontStyle="Italic"
+            Foreground="White"
+            Text="Raster data Copyright Scottish Government and SEPA (2014)"
+            TextWrapping="Wrap" />
+    </Grid>
+</UserControl>

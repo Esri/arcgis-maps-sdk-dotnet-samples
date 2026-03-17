@@ -2,6 +2,7 @@
 
 ## Analysis
 
+* [Apply map algebra](WPF.Viewer/Samples/Analysis/ApplyMapAlgebra) - Apply map algebra to an elevation raster to floor, mask, and categorize the elevation values into discrete integer-based categories.
 * [Distance measurement analysis](WPF.Viewer/Samples/Analysis/DistanceMeasurement) - Measure distances between two points in 3D.
 * [Line of sight (geoelement)](WPF.Viewer/Samples/Analysis/LineOfSightGeoElement) - Show a line of sight between two moving objects.
 * [Line of sight (location)](WPF.Viewer/Samples/Analysis/LineOfSightLocation) - Perform a line of sight analysis between two points in real time.

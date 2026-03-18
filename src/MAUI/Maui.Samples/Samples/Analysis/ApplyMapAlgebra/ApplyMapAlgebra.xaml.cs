@@ -109,9 +109,9 @@ namespace ArcGIS.Samples.ApplyMapAlgebra
             // Assign geomorphic categories based on the boolean fields:
             // raised shoreline = 1, ice covered = 2, ice-free high ground = 3.
             _geomorphicCategoryField = await tenMeterBinField
-                .ReplaceIf(selection: isRaisedShoreline, value: 1)
-                .ReplaceIf(selection: isIceCovered, value: 2)
-                .ReplaceIf(selection: isIceFreeHighGround, value: 3)
+                .ReplaceIf(isRaisedShoreline, 1)
+                .ReplaceIf(isIceCovered, 2)
+                .ReplaceIf(isIceFreeHighGround, 3)
                 .EvaluateAsync();
         }
 

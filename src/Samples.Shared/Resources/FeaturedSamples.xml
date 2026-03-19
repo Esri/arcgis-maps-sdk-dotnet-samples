@@ -2,6 +2,7 @@
 <FeaturedSamples>
 	<Categories>
 		<Category name="Analysis">
+			<Sample>ApplyMapAlgebra</Sample>
 			<Sample>DistanceMeasurement</Sample>
 		</Category>
 		<Category name="Data">

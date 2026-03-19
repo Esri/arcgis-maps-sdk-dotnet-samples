@@ -2,6 +2,7 @@
 
 ## Analysis
 
+* [Apply map algebra](Maui.Samples/Samples/Analysis/ApplyMapAlgebra) - Apply map algebra to an elevation raster to floor, mask, and categorize the elevation values into discrete integer-based categories.
 * [Distance measurement analysis](Maui.Samples/Samples/Analysis/DistanceMeasurement) - Measure distances between two points in 3D.
 * [Line of sight (geoelement)](Maui.Samples/Samples/Analysis/LineOfSightGeoElement) - Show a line of sight between two moving objects.
 * [Line of sight (location)](Maui.Samples/Samples/Analysis/LineOfSightLocation) - Perform a line of sight analysis between two points in real time.

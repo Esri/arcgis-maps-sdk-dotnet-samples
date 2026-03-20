@@ -50,9 +50,6 @@ namespace ArcGIS.WinUI.Samples.ReadShapefileMetadata
                 ShapefileInfo fileInfo = myShapefile.Info;
                 InfoPanel.DataContext = fileInfo;
 
-                // Display the shapefile thumbnail in an image control
-                ShapefileThumbnailImage.Source = await RuntimeImageExtensions.ToImageSourceAsync(fileInfo.Thumbnail);
-
                 // Create a feature layer to display the shapefile
                 FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);
                 await newFeatureLayer.LoadAsync();

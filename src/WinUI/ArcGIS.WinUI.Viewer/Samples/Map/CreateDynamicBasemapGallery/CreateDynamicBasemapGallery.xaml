@@ -19,7 +19,7 @@
                                     <TextBlock FontWeight="Bold" Text="{Binding StyleName}" />
                                     <Image Height="150"
                                            HorizontalAlignment="Left"
-                                           Source="{x:Bind esriUI:RuntimeImageExtensions.ToImageSource(Thumbnail), Mode=OneWay}" />
+                                           Source="{x:Bind esriUI:RuntimeImageExtensions.ToImageSource(Thumbnail)}" />
                                 </StackPanel>
                             </DataTemplate>
                         </ListView.ItemTemplate>

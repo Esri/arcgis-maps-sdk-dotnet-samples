@@ -9,7 +9,6 @@
 
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.UI;
-using Microsoft.Maui.Controls;
 
 namespace ArcGIS.Samples.TakeScreenshot
 {

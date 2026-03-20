@@ -10,7 +10,6 @@
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
-using Esri.ArcGISRuntime.UI;
 using System;
 using System.Threading.Tasks;
 

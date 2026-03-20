@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:converters="using:ArcGIS.WinUI.Viewer.Converters"
              xmlns:esri="using:Esri.ArcGISRuntime"
+             xmlns:data="using:Esri.ArcGISRuntime.Data"
              xmlns:runtimeUI="using:Esri.ArcGISRuntime.UI"
              xmlns:esriControls="using:Esri.ArcGISRuntime.UI.Controls">
 
@@ -39,7 +40,7 @@
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
                        Margin="10"
-                       Source="{Binding Thumbnail, Converter={StaticResource RuntimeImageToImageSourceConverter}}"/>
+                       Source="{x:Bind runtimeUI:RuntimeImageExtensions.ToImageSource(((data:ShapefileInfo)InfoPanel.DataContext).Thumbnail), Mode=OneWay}"/>
                 <TextBlock Grid.Row="3"
                            Grid.Column="0"
                            VerticalAlignment="Center"

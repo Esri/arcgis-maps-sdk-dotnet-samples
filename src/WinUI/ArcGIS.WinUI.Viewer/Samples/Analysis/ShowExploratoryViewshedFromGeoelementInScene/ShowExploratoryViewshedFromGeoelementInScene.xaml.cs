@@ -24,9 +24,9 @@ namespace ArcGIS.WinUI.Samples.ShowExploratoryViewshedFromGeoelementInScene
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show exploratory viewshed from geoelement in scene",
         category: "Analysis",
-        description: "Analyze the viewshed for an object (GeoElement) in a scene.",
-        instructions: "Tap to set a destination for the vehicle (a GeoElement). The vehicle will 'drive' towards the tapped location. The viewshed analysis will update as the vehicle moves.",
-        tags: new[] { "3D", "analysis", "buildings", "model", "scene", "viewshed", "visibility analysis" })]
+        description: "Analyze the exploratory viewshed for an object (GeoElement) in a scene.",
+        instructions: "Tap to set a destination for the vehicle (a GeoElement). The vehicle will 'drive' towards the tapped location. The exploratory viewshed analysis will update as the vehicle moves.",
+        tags: new[] { "3D", "analysis", "buildings", "exploratory viewshed", "model", "scene", "visibility analysis" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("07d62a792ab6496d9b772a24efea45d0")]
     public partial class ShowExploratoryViewshedFromGeoelementInScene
     {

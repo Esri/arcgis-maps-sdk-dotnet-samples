@@ -4,12 +4,12 @@
 
 * [Apply map algebra](ArcGIS.WinUI.Viewer/Samples/Analysis/ApplyMapAlgebra) - Apply map algebra to an elevation raster to floor, mask, and categorize the elevation values into discrete integer-based categories.
 * [Distance measurement analysis](ArcGIS.WinUI.Viewer/Samples/Analysis/DistanceMeasurement) - Measure distances between two points in 3D.
-* [Line of sight (geoelement)](ArcGIS.WinUI.Viewer/Samples/Analysis/LineOfSightGeoElement) - Show a line of sight between two moving objects.
-* [Line of sight (location)](ArcGIS.WinUI.Viewer/Samples/Analysis/LineOfSightLocation) - Perform a line of sight analysis between two points in real time.
 * [Query feature count and extent](ArcGIS.WinUI.Viewer/Samples/Analysis/QueryFeatureCountAndExtent) - Zoom to features matching a query and count the features in the current visible extent.
-* [Viewshed (location)](ArcGIS.WinUI.Viewer/Samples/Analysis/ViewshedLocation) - Perform a viewshed analysis from a defined vantage point.
-* [Viewshed for GeoElement](ArcGIS.WinUI.Viewer/Samples/Analysis/ViewshedGeoElement) - Analyze the viewshed for an object (GeoElement) in a scene.
-* [Viewshed for camera](ArcGIS.WinUI.Viewer/Samples/Analysis/ViewshedCamera) - Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point.
+* [Show exploratory line of sight between geoelements](ArcGIS.WinUI.Viewer/Samples/Analysis/ShowExploratoryLineOfSightBetweenGeoelements) - Show an exploratory line of sight between two moving objects.
+* [Show exploratory line of sight between points](ArcGIS.WinUI.Viewer/Samples/Analysis/ShowExploratoryLineOfSightBetweenPoints) - Perform an exploratory line of sight analysis between two points in real time.
+* [Show exploratory viewshed from camera in scene](ArcGIS.WinUI.Viewer/Samples/Analysis/ShowExploratoryViewshedFromCameraInScene) - Analyze the exploratory viewshed for a camera showing the visible and obstructed areas from an observer's vantage point.
+* [Show exploratory viewshed from geoelement in scene](ArcGIS.WinUI.Viewer/Samples/Analysis/ShowExploratoryViewshedFromGeoelementInScene) - Analyze the exploratory viewshed for an object (GeoElement) in a scene.
+* [Show exploratory viewshed from point in scene](ArcGIS.WinUI.Viewer/Samples/Analysis/ShowExploratoryViewshedFromPointInScene) - Perform an exploratory viewshed analysis from a defined vantage point.
 
 ## Data
 
@@ -60,8 +60,8 @@
 ## Geoprocessing
 
 * [Analyze hotspots](ArcGIS.WinUI.Viewer/Samples/Geoprocessing/AnalyzeHotspots) - Use a geoprocessing service and a set of features to identify statistically significant hot spots and cold spots.
-* [Analyze viewshed (geoprocessing)](ArcGIS.WinUI.Viewer/Samples/Geoprocessing/AnalyzeViewshed) - Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.
 * [List geodatabase versions](ArcGIS.WinUI.Viewer/Samples/Geoprocessing/ListGeodatabaseVersions) - Connect to a service and list versions of the geodatabase.
+* [Show viewshed calculated from geoprocessing task](ArcGIS.WinUI.Viewer/Samples/Geoprocessing/ShowViewshedCalculatedFromGeoprocessingTask) - Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.
 
 ## GraphicsOverlay
 

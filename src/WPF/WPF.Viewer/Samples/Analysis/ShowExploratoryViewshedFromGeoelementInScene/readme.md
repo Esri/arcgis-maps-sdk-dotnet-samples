@@ -1,16 +1,18 @@
 # Show exploratory viewshed from geoelement in scene
 
-Analyze the viewshed for an object (GeoElement) in a scene.
+Analyze the exploratory viewshed for an object (GeoElement) in a scene.
 
-![Image of viewshed for geoelement](ShowExploratoryViewshedFromGeoelementInScene.jpg)
+![Image of show exploratory viewshed from geoelement in scene](ShowExploratoryViewshedFromGeoelementInScene.jpg)
 
 ## Use case
 
-A viewshed analysis is a type of visual analysis you can perform on a scene. The viewshed aims to answer the question 'What can I see from a given location?'. The output is an overlay with two different colors - one representing the visible areas (green) and the other representing the obstructed areas (red).
+An exploratory viewshed analysis is a type of visual analysis you can perform at the current rendered resolution of a scene. The exploratory viewshed aims to answer the question 'What can I see from a given location?'. The output is an overlay with two different colors - one representing the visible areas (green) and the other representing the obstructed areas (red).
+
+Note: This analysis is a form of "exploratory analysis", which means the results are calculated on the current scale of the data, and the results are generated very quickly but not persisted. If persisted analysis performed at the full resolution of the data is required, consider using a `ViewshedFunction` to perform a viewshed calculation instead.
 
 ## How to use the sample
 
-Tap to set a destination for the vehicle (a GeoElement). The vehicle will 'drive' towards the tapped location. The viewshed analysis will update as the vehicle moves.
+Tap to set a destination for the vehicle (a GeoElement). The vehicle will 'drive' towards the tapped location. The exploratory viewshed analysis will update as the vehicle moves.
 
 ## How it works
 
@@ -26,7 +28,7 @@ Tap to set a destination for the vehicle (a GeoElement). The vehicle will 'drive
 * AnalysisOverlay
 * ExploratoryGeoElementViewshed
 * GeodeticDistanceResult
-* GeometryEngine.DistanceGeodetic
+* GeometryEngine.DistanceGeodetic (used to animate the vehicle)
 * ModelSceneSymbol
 * OrbitGeoElementCameraController
 
@@ -42,4 +44,4 @@ This sample shows a [Johannesburg, South Africa Scene](https://www.arcgis.com/ho
 
 ## Tags
 
-3D, analysis, buildings, model, scene, viewshed, visibility analysis
+3D, analysis, buildings, exploratory viewshed, model, scene, visibility analysis

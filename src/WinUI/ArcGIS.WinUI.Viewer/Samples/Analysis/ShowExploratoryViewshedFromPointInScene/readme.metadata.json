@@ -1,6 +1,6 @@
 {
     "category": "Analysis",
-    "description": "Perform a viewshed analysis from a defined vantage point.",
+    "description": "Perform an exploratory viewshed analysis from a defined vantage point.",
     "formal_name": "ShowExploratoryViewshedFromPointInScene",
     "ignore": false,
     "images": [
@@ -8,9 +8,9 @@
     ],
     "keywords": [
         "3D",
+        "exploratory viewshed",
         "frustum",
         "scene",
-        "viewshed",
         "visibility analysis"
     ],
     "offline_data": [],

@@ -1,26 +1,28 @@
 # Show exploratory line of sight between geoelements
 
-Show a line of sight between two moving objects.
+Show an exploratory line of sight between two moving objects.
 
-![Image of line of sight geoelement](showexploratorylineofsightbetweengeoelements.jpg)
+![Image of Show exploratory line of sight between geoelements](showexploratorylineofsightbetweengeoelements.jpg)
 
 ## Use case
 
-A line of sight between `GeoElement`s (i.e. observer and target) will not remain constant whilst one or both are on the move.
+An exploratory line of sight between `GeoElement`s (i.e. observer and target) will not remain constant whilst one or both are on the move.
 
 An `ExploratoryGeoElementLineOfSight` is therefore useful in cases where visibility between two `GeoElement`s requires monitoring over a period of time in a partially obstructed field of view
 (such as buildings in a city).
 
+Note: This analysis is a form of "exploratory analysis", which means the results are calculated on the current scale of the data, and the results are generated very quickly but not persisted.
+
 ## How to use the sample
 
-A line of sight will display between a point on the Empire State Building (observer) and a taxi (target).
-The taxi will drive around a block and the line of sight should automatically update.
+An exploratory line of sight will display between a point on the Empire State Building (observer) and a taxi (target).
+The taxi will drive around a block and the exploratory line of sight should automatically update.
 The taxi will be highlighted when it is visible. You can change the observer height with the slider to see how it affects the target's visibility.
 
 ## How it works
 
 1. Instantiate an `AnalysisOverlay` and add it to the `SceneView`'s analysis overlays collection.
-2. Instantiate an `ExploratoryGeoElementLineOfSight`, passing in observer and target `GeoElement`s (features or graphics). Add the line of sight to the analysis overlay's analyses collection.
+2. Instantiate an `ExploratoryGeoElementLineOfSight`, passing in observer and target `GeoElement`s (features or graphics). Add the exploratory line of sight to the analysis overlay's analyses collection.
 3. To get the target visibility when it changes, react to the target visibility changing on the `ExploratoryGeoElementLineOfSight` instance.
 
 ## Relevant API
@@ -37,4 +39,4 @@ This sample downloads the following items from ArcGIS Online automatically:
 
 ## Tags
 
-3D, line of sight, visibility, visibility analysis
+3D, exploratory line of sight, visibility, visibility analysis

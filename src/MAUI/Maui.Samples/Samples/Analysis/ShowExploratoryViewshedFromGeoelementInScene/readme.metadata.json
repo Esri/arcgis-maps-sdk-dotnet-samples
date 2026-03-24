@@ -1,6 +1,6 @@
 {
     "category": "Analysis",
-    "description": "Analyze the viewshed for an object (GeoElement) in a scene.",
+    "description": "Analyze the exploratory viewshed for an object (GeoElement) in a scene.",
     "formal_name": "ShowExploratoryViewshedFromGeoelementInScene",
     "ignore": false,
     "images": [
@@ -10,9 +10,9 @@
         "3D",
         "analysis",
         "buildings",
+        "exploratory viewshed",
         "model",
         "scene",
-        "viewshed",
         "visibility analysis"
     ],
     "offline_data": [
@@ -25,7 +25,7 @@
         "AnalysisOverlay",
         "ExploratoryGeoElementViewshed",
         "GeodeticDistanceResult",
-        "GeometryEngine.DistanceGeodetic",
+        "GeometryEngine.DistanceGeodetic (used to animate the vehicle)",
         "ModelSceneSymbol",
         "OrbitGeoElementCameraController"
     ],

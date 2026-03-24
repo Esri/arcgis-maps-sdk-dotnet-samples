@@ -18,9 +18,9 @@ namespace ArcGIS.WPF.Samples.ShowExploratoryLineOfSightBetweenPoints
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show exploratory line of sight between points",
         category: "Analysis",
-        description: "Perform a line of sight analysis between two points in real time.",
-        instructions: "Tap to place the starting point for the line. Tap again to place the end point.",
-        tags: new[] { "3D", "line of sight", "visibility", "visibility analysis" })]
+        description: "Perform an exploratory line of sight analysis between two points in real time.",
+        instructions: "The sample loads with a preset observer and target location, linked by a colored line. A red segment on the line means the view between observer and target is obstructed, whereas green means the view is unobstructed.",
+        tags: new[] { "3D", "exploratory line of sight", "visibility", "visibility analysis" })]
     public partial class ShowExploratoryLineOfSightBetweenPoints
     {
         // URL for an image service to use as an elevation source

@@ -24,9 +24,9 @@ namespace ArcGIS.WPF.Samples.ShowExploratoryViewshedFromPointInScene
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show exploratory viewshed from point in scene",
         category: "Analysis",
-        description: "Perform a viewshed analysis from a defined vantage point.",
-        instructions: "Use the sliders to change the properties (heading, pitch, etc.), of the viewshed and see them updated in real time.",
-        tags: new[] { "3D", "frustum", "scene", "viewshed", "visibility analysis" })]
+        description: "This sample demonstrates the configurable properties of an exploratory viewshed analysis, including frustum color, heading, pitch, distances, angles, and location.",
+        instructions: "Click anywhere in the scene to 'pick up' the exploratory viewshed observer location. Move the mouse to see the exploratory viewshed observer location update in real time. Click again to 'drop' the exploratory viewshed observer location.",
+        tags: new[] { "3D", "exploratory viewshed", "frustum", "scene", "visibility analysis" })]
     public partial class ShowExploratoryViewshedFromPointInScene
     {
         // Hold the URL to the elevation source.

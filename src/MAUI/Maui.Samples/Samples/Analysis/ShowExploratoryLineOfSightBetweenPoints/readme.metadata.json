@@ -1,6 +1,6 @@
 {
     "category": "Analysis",
-    "description": "Perform a line of sight analysis between two points in real time.",
+    "description": "Perform an exploratory line of sight analysis between two points in real time.",
     "formal_name": "ShowExploratoryLineOfSightBetweenPoints",
     "ignore": false,
     "images": [
@@ -8,7 +8,7 @@
     ],
     "keywords": [
         "3D",
-        "line of sight",
+        "exploratory line of sight",
         "visibility",
         "visibility analysis"
     ],

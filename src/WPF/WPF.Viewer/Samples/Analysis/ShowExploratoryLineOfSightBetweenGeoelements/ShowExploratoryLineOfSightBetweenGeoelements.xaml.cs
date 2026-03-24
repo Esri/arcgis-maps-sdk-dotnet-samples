@@ -24,9 +24,9 @@ namespace ArcGIS.WPF.Samples.ShowExploratoryLineOfSightBetweenGeoelements
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Show exploratory line of sight between geoelements",
         category: "Analysis",
-        description: "Show a line of sight between two moving objects.",
-        instructions: "A line of sight will display between a point on the Empire State Building (observer) and a taxi (target).",
-        tags: new[] { "3D", "line of sight", "visibility", "visibility analysis" })]
+        description: "Show an exploratory line of sight between two moving objects.",
+        instructions: "An exploratory line of sight will display between a point on the Empire State Building (observer) and a taxi (target).",
+        tags: new[] { "3D", "exploratory line of sight", "visibility", "visibility analysis" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("3af5cfec0fd24dac8d88aea679027cb9")]
     public partial class ShowExploratoryLineOfSightBetweenGeoelements
     {

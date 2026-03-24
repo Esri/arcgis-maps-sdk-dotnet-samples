@@ -14,7 +14,7 @@ For an analytic scenario, like examining a building scene layer, the developer m
 
 ## How to use the sample
 
-At start-up, you will see a local scene with a set of scene environment controls at the bottom. Adjusting the controls will change the scene's environment altering the presentation of the scene.
+At start-up, you will see a local scene with a set of scene environment controls. Adjusting the controls will change the scene's environment altering the presentation of the scene.
 
 ### Sky and Background color settings
 

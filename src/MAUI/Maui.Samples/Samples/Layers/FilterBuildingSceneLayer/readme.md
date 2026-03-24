@@ -29,7 +29,7 @@ Once the scene is loaded, tap the "Building Filter Settings" button to view the 
     5. If "All" is selected, the `ActiveFilter` property on the building scene layer is set to `null` so all features are rendered according to their default settings.
 5. Architectural disciplines and categories are represented by `BuildingGroupSublayer` and `BuildingSublayer` objects containing features within a building scene layer. When checked or unchecked, the visibility of the group or sublayer is set to true (visible) or false (hidden).
 6. When a building feature is tapped on:
-    1. A call to `IdentifyLayerAsync` on the `LocalSceneView` is initiated based on the screen offset of the tap.
+    1. A call to `IdentifyLayerAsync` on the `LocalSceneView` is initiated based on the screen offset of the click.
     2. The `SublayerResults` property of the returned `IdentifyLayerResult` will contain the identified features. Note that the building scene layer features are NOT returned in the `GeoElements` property of the results.
     3. The details of the first identified feature are shown in a popup.
 

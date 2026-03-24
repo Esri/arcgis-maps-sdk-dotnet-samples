@@ -1,0 +1,37 @@
+{
+    "category": "Analysis",
+    "description": "Analyze the viewshed for an object (GeoElement) in a scene.",
+    "formal_name": "ShowExploratoryViewshedFromGeoelementInScene",
+    "ignore": false,
+    "images": [
+        "showexploratoryviewshedfromgeoelementinscene.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "analysis",
+        "buildings",
+        "model",
+        "scene",
+        "viewshed",
+        "visibility analysis"
+    ],
+    "offline_data": [
+        "07d62a792ab6496d9b772a24efea45d0"
+    ],
+    "redirect_from": [
+        "/net/latest/maui/sample-code/viewshed-for-geoelement.htm"
+    ],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "ExploratoryGeoElementViewshed",
+        "GeodeticDistanceResult",
+        "GeometryEngine.DistanceGeodetic",
+        "ModelSceneSymbol",
+        "OrbitGeoElementCameraController"
+    ],
+    "snippets": [
+        "ShowExploratoryViewshedFromGeoelementInScene.xaml.cs",
+        "ShowExploratoryViewshedFromGeoelementInScene.xaml"
+    ],
+    "title": "Show exploratory viewshed from geoelement in scene"
+}

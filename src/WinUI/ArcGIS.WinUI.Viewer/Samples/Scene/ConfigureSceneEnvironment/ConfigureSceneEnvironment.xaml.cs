@@ -20,7 +20,7 @@ namespace ArcGIS.WinUI.Samples.ConfigureSceneEnvironment
         name: "Configure scene environment",
         category: "Scene",
         description: "Configure the environment settings in a local scene to change the lighting conditions and background appearance.",
-        instructions: "At start-up, you will see a local scene with a set of scene environment controls. Adjusting the controls will change the scene's environment altering the presentation of the scene.",
+        instructions: "At start-up, you will see a local scene with a set of scene environment controls. Adjusting the controls will change the scene's environment altering the presentation of the scene. Toggle the \"Stars\" and \"Atmosphere\" check boxes to enable or disable those features. Select a color from the dropdown to set a solid background color; selecting a new background color will disable the stars and atmosphere so you can see the new color. Switch between \"Sun\" and \"Virtual\" lighting, toggle \"Direct Shadows\", and adjust the hour slider to change the sun position.",
         tags: new[] { "3D", "environment", "lighting", "scene" })]
     public partial class ConfigureSceneEnvironment
     {

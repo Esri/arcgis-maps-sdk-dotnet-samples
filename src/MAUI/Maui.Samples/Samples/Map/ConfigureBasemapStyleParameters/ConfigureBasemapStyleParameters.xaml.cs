@@ -42,8 +42,8 @@ namespace ArcGIS.Samples.ConfigureBasemapStyleParameters
             LanguagePicker.SelectedItem = "None";
             SetNewBasemap();
 
-            // Focus the viewpoint on an area around Athens, Greece to showcase use of the local alphabet
-            // when using BasemapStyleLanguageStrategy.Local. The scale is set to the Metropolitan Area level.
+            // Focus the viewpoint on an area around Athens, Greece to showcase use of the local alphabet when
+            // using BasemapStyleLanguageStrategy.Local. The scale is set to the Metropolitan Area level.
             MyMapView.SetViewpoint(new Viewpoint(new MapPoint(2641333, 4577137, SpatialReferences.WebMercator), 288895.277144));
 
             // Ensure parameter changes are reflected on the basemap.

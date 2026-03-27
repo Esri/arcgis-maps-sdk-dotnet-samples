@@ -1,9 +1,14 @@
 ﻿<ContentPage x:Class="ArcGIS.Samples.DownloadPreplannedMap.DownloadPreplannedMap"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:ArcGIS.Converters"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
              xmlns:esriOffline="clr-namespace:Esri.ArcGISRuntime.Tasks.Offline;assembly=Esri.ArcGISRuntime"
              xmlns:resources="clr-namespace:ArcGIS.Resources">
+
+    <ContentPage.Resources>
+        <converters:RuntimeImageToImageSourceConverter x:Key="RuntimeImageToImageSource" />
+    </ContentPage.Resources>
 
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
@@ -26,7 +31,7 @@
                                     </Grid.ColumnDefinitions>
                                     <Image Grid.RowSpan="2"
                                            HeightRequest="40"
-                                           Source="{Binding PortalItem.Thumbnail.Source.AbsoluteUri}"
+                                           Source="{Binding PortalItem.Thumbnail, Converter={StaticResource RuntimeImageToImageSource}}"
                                            WidthRequest="60" />
                                     <Label Grid.Column="1"
                                            Margin="5,0"

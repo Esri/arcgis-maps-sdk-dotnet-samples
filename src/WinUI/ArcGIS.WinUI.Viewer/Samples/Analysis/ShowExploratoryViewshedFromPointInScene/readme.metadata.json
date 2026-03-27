@@ -1,0 +1,32 @@
+{
+    "category": "Analysis",
+    "description": "Perform an exploratory viewshed analysis from a defined vantage point.",
+    "formal_name": "ShowExploratoryViewshedFromPointInScene",
+    "ignore": false,
+    "images": [
+        "ShowExploratoryViewshedFromPointInScene.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "exploratory viewshed",
+        "frustum",
+        "scene",
+        "visibility analysis"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/winui/sample-code/viewshed-location.htm"
+    ],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "ArcGISSceneLayer",
+        "ArcGISTiledElevationSource",
+        "ExploratoryLocationViewshed",
+        "ExploratoryViewshed"
+    ],
+    "snippets": [
+        "ShowExploratoryViewshedFromPointInScene.xaml.cs",
+        "ShowExploratoryViewshedFromPointInScene.xaml"
+    ],
+    "title": "Show exploratory viewshed from point in scene"
+}

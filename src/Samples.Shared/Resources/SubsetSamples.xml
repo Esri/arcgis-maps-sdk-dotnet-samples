@@ -3,8 +3,8 @@
   <Categories>
     <Category name="Analysis">
       <Sample>DistanceMeasurement</Sample>
-      <Sample>LineOfSightGeoElement</Sample>
-      <Sample>ViewshedLocation</Sample>
+      <Sample>ShowExploratoryLineOfSightBetweenGeoelements</Sample>
+      <Sample>ShowExploratoryViewshedFromPointInScene</Sample>
     </Category>
     <Category name="GraphicsOverlay">
       <Sample>Animate3DGraphic</Sample>

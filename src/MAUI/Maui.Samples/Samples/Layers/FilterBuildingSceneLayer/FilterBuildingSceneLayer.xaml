@@ -13,12 +13,11 @@
         <Border
             x:Name="SettingsPanel"
             Margin="10"
-            Padding="16"
-            HeightRequest="300"
-            HorizontalOptions="End"
+            HorizontalOptions="{OnIdiom Phone=Fill, Default=End}"
+            MaximumHeightRequest="300"
             Style="{DynamicResource EsriSampleControlPanel}"
             VerticalOptions="Start"
-            WidthRequest="250">
+            WidthRequest="{OnIdiom Phone=-1, Default=300}">
             <ScrollView>
                 <VerticalStackLayout Spacing="12">
                     <!--  Floor selection dropdown.  -->
@@ -57,12 +56,11 @@
         <Border
             x:Name="FeaturePanel"
             Margin="10"
-            Padding="16"
-            HorizontalOptions="End"
+            HorizontalOptions="{OnIdiom Phone=Fill, Default=End}"
             IsVisible="False"
             Style="{DynamicResource EsriSampleControlPanel}"
             VerticalOptions="Start"
-            WidthRequest="250">
+            WidthRequest="{OnIdiom Phone=-1, Default=300}">
 
             <Grid RowDefinitions="Auto,*" RowSpacing="8">
                 <!--  Header with close button.  -->

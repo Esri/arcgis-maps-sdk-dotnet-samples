@@ -33,6 +33,10 @@ This sample displays a local scene clipped to an extent. Pan and zoom to explore
 * LocalSceneView
 * Scene
 
+## About the data
+
+The [scene layer](https://www.arcgis.com/home/item.html?id=7a63e9808a054d39964a8b4712c85657) in this sample shows 3D extruded rooftop outlines of buildings on the Victoria University campus and surrounding vicinity in Wellington, New Zealand.
+
 ## Tags
 
 3D, basemap, elevation, scene, surface

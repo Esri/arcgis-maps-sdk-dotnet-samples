@@ -34,7 +34,7 @@ namespace ArcGIS.WPF.Samples.DisplayLocalScene
             var scene = new Scene(SceneViewingMode.Local, BasemapStyle.ArcGISTopographic);
 
             // Create the 3d scene layer.
-            var sceneLayer = new ArcGISSceneLayer(new Uri("https://www.arcgis.com/home/item.html?id=61da8dc1a7bc4eea901c20ffb3f8b7af"));
+            var sceneLayer = new ArcGISSceneLayer(new Uri("https://www.arcgis.com/home/item.html?id=7a63e9808a054d39964a8b4712c85657"));
 
             // Add world elevation source to the scene's surface.
             var elevationSource = new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer"));

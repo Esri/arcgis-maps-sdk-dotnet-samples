@@ -42,16 +42,13 @@ namespace ArcGIS.Samples.TakeScreenshot
                 await WaitForRenderCompleteAsync(MyMapView);
 
                 // Export the image from the map view.
-                RuntimeImage exportedImage = await MyMapView.ExportImageAsync();
+                RuntimeImage image = await MyMapView.ExportImageAsync();
 
-                // Create image bitmap by getting stream from the exported image.
-                var buffer = await exportedImage.GetEncodedBufferAsync();
-                byte[] data = new byte[buffer.Length];
-                buffer.ReadExactly(data);
-                var bitmap = ImageSource.FromStream(() => new MemoryStream(data));
+                // Convert the image to a displayable format.
+                ImageSource displayImage = await Esri.ArcGISRuntime.Maui.RuntimeImageExtensions.ToImageSourceAsync(image);
 
                 // Add elements into the layout.
-                ScreenshotImage.Source = bitmap;
+                ScreenshotImage.Source = displayImage;
 
                 ScreenshotView.IsVisible = true;
             }

@@ -1,13 +1,7 @@
 ﻿<UserControl x:Class="ArcGIS.WPF.Samples.ReadShapefileMetadata.ReadShapefileMetadata"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:converters="clr-namespace:ArcGIS.Converters">
-
-    <UserControl.Resources>
-        <converters:RuntimeImageToImageSourceAsyncConverter x:Key="RuntimeImageAsyncConverter"/>
-    </UserControl.Resources>
-
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Width="300" Style="{StaticResource BorderStyle}">
@@ -34,12 +28,11 @@
                            Margin="5"
                            Text="{Binding Summary}"
                            TextWrapping="Wrap" />
-                <Image Grid.Row="2"
+                <Image x:Name="ShapefileThumbnailImage"
+                       Grid.Row="2"
                        Grid.Column="0"
                        Grid.ColumnSpan="2"
-                       Margin="5"
-                       DataContext="{Binding Thumbnail, Converter={StaticResource RuntimeImageAsyncConverter}}"
-                       Source="{Binding ImageSource}"/>
+                       Margin="5" />
                 <TextBlock Grid.Row="3"
                            Grid.Column="0"
                            Margin="5"

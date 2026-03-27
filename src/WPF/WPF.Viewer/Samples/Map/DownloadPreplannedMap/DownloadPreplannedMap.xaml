@@ -1,13 +1,7 @@
 ﻿<UserControl x:Class="ArcGIS.WPF.Samples.DownloadPreplannedMap.DownloadPreplannedMap"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:converters="clr-namespace:ArcGIS.Converters">
-
-    <UserControl.Resources>
-        <converters:RuntimeImageToImageSourceAsyncConverter x:Key="RuntimeImageAsyncConverter"/>
-    </UserControl.Resources>
-
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
@@ -34,8 +28,7 @@
                                 <Image Grid.RowSpan="2"
                                        Height="70"
                                        Margin="-10,2,2,2"
-                                       DataContext="{Binding PortalItem.Thumbnail, Converter={StaticResource RuntimeImageAsyncConverter}}"
-                                       Source="{Binding ImageSource}"
+                                       Source="{Binding PortalItem.ThumbnailUri}"
                                        Stretch="UniformToFill" />
                                 <TextBlock Grid.Column="1"
                                            Margin="10,0"

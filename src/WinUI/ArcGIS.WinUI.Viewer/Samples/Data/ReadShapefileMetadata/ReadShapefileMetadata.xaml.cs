@@ -10,6 +10,7 @@
 using ArcGIS.Samples.Managers;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.UI;
 using System;
 using System.Threading.Tasks;
 
@@ -48,6 +49,9 @@ namespace ArcGIS.WinUI.Samples.ReadShapefileMetadata
                 // Read metadata about the shapefile and display it in the UI
                 ShapefileInfo fileInfo = myShapefile.Info;
                 InfoPanel.DataContext = fileInfo;
+
+                // Display the shapefile thumbnail in an image control
+                ShapefileThumbnailImage.Source = await RuntimeImageExtensions.ToImageSourceAsync(fileInfo.Thumbnail);
 
                 // Create a feature layer to display the shapefile
                 FeatureLayer newFeatureLayer = new FeatureLayer(myShapefile);

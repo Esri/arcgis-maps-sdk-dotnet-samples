@@ -20,7 +20,7 @@ Tap to place the starting (observer) point for the line. Tap again to place the 
 
 1. Create an `AnalysisOverlay` and add it to the scene view.
 2. Create an `ExploratoryLocationLineOfSight` with initial observer and target locations and add it to the analysis overlay.
-3. Listen for clicks on the scene.
+3. Listen for taps on the scene.
 4. Update the target and observer positions by updating `ExploratoryLocationLineOfSight.ObserverLocation` and `ExploratoryLocationLineOfSight.TargetLocation`.
 
 ## Relevant API

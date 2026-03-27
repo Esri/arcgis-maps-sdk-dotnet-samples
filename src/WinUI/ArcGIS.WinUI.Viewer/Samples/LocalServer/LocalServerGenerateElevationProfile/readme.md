@@ -62,7 +62,7 @@ ArcGIS Maps SDK for Local Server (Local Server) is deprecated and will be retire
 
 The [Package Result](https://pro.arcgis.com/en/pro-app/latest/tool-reference/data-management/package-result.htm) tool in ArcGIS Pro is used to author ArcGIS Maps SDK for Native Apps compatible [geoprocessing](https://pro.arcgis.com/en/pro-app/latest/help/analysis/geoprocessing/basics/what-is-geoprocessing-.htm) packages (.gpkx files). For more information on running powerful offline geoprocessing tasks to provide advanced spatial analysis to your applications, see [ArcGIS Local Server SDK](https://developers.arcgis.com/net/local-server/).
 
-The results of the geoprocessing tasks executed with Local Server can be accessed with code, persisted, and shared, for example as a feature collection portal item. This contrasts with the Scene visibility analyses, viewshed and line of sight, which are calculated dynamically at render-time and are displayed only in analysis overlays.
+The results of the geoprocessing tasks executed with Local Server can be accessed with code, persisted, and shared, for example as a feature collection portal item. This contrasts with the Scene visibility analyses, exploratory viewshed and exploratory line of sight, which are calculated dynamically at render-time and are displayed only in analysis overlays.
 
 ## Tags
 

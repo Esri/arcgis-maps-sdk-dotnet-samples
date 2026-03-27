@@ -158,7 +158,7 @@
                                     Text="Enable all"
                                     VerticalOptions="Center" />
                         </Grid>
-                        <VerticalStackLayout HeightRequest="130" WidthRequest="250">
+                        <VerticalStackLayout HeightRequest="130">
                             <Grid ColumnSpacing="3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />
@@ -224,8 +224,7 @@
                         </Grid>
                         <CollectionView x:Name="PointSnapSettingsList"
                                         HeightRequest="150"
-                                        ItemTemplate="{StaticResource SnapSettingTemplate}"
-                                        WidthRequest="250" />
+                                        ItemTemplate="{StaticResource SnapSettingTemplate}" />
                         <Grid Margin="0,10,0,0" ColumnDefinitions="0.5*,auto">
                             <Label Grid.Column="0"
                                    Text="Polyline layers:"
@@ -239,15 +238,13 @@
                         </Grid>
                         <CollectionView x:Name="PolylineSnapSettingsList"
                                         HeightRequest="90"
-                                        ItemTemplate="{StaticResource SnapSettingTemplate}"
-                                        WidthRequest="250" />
+                                        ItemTemplate="{StaticResource SnapSettingTemplate}" />
                         <Grid Margin="0,10,0,0">
                             <Label Text="Graphics overlays:" VerticalOptions="Center" />
                         </Grid>
                         <CollectionView x:Name="GraphicsOverlaySnapSettingsList"
                                         HeightRequest="60"
-                                        ItemTemplate="{StaticResource SnapSettingTemplate}"
-                                        WidthRequest="250" />
+                                        ItemTemplate="{StaticResource SnapSettingTemplate}" />
                     </VerticalStackLayout>
                 </ScrollView>
             </Border>

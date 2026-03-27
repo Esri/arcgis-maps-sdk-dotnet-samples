@@ -148,12 +148,12 @@
                 Margin="10"
                 Background="{AppThemeBinding Dark=Black,
                                              Light=White}"
-                HorizontalOptions="Center"
+                HorizontalOptions="{OnIdiom Phone=Fill, Default=Center}"
                 IsVisible="False"
-                HeightRequest="250"
+                MaximumHeightRequest="250"
                 StrokeShape="RoundRectangle 10"
                 VerticalOptions="Center"
-                WidthRequest="300">
+                WidthRequest="{OnIdiom Phone=-1, Default=300}">
             <ScrollView>
                 <StackLayout Padding="10" Spacing="10">
                     <Label Padding="0,5"

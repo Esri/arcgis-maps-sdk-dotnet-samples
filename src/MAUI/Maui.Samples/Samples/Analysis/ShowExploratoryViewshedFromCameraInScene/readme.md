@@ -16,9 +16,8 @@ The sample will start with an exploratory viewshed created from the initial came
 
 ## How it works
 
-1. Get the current camera from the scene with `SceneView.getCurrentViewpointCamera()`.
-2. Create an `ExploratoryLocationViewshed`, passing in the `Camera` and a min/max distance.
-3. Update the viewshed from a camera.
+1. Create an `ExploratoryLocationViewshed`, passing in the initial `Camera` and a min/max distance.
+2. Update the viewshed using `ExploratoryLocationViewshed.UpdateFromCamera()`.
 
 ## Relevant API
 

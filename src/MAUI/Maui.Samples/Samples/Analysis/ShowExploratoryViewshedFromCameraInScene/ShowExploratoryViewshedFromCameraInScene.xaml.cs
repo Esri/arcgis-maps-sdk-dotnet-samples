@@ -18,7 +18,7 @@ namespace ArcGIS.Samples.ShowExploratoryViewshedFromCameraInScene
         category: "Analysis",
         description: "Analyze the exploratory viewshed for a camera showing the visible and obstructed areas from an observer's vantage point.",
         instructions: "The sample will start with an exploratory viewshed created from the initial camera location, so only the visible (green) portion of the exploratory viewshed will be visible. Move around the scene to see the obstructed (red) portions. Tap the 'Update from Camera' button to update the exploratory viewshed to the current camera position.",
-        tags: new[] { "3D", "Scene", "exploratory viewshed", "integrated mesh", "visibility analysis" })]
+        tags: new[] { "3D", "exploratory viewshed", "integrated mesh", "scene", "visibility analysis" })]
     public partial class ShowExploratoryViewshedFromCameraInScene : ContentPage
     {
         // URL for a scene service of buildings in Girona.

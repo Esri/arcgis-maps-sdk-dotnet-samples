@@ -12,7 +12,7 @@ Note: This analysis is a form of "exploratory analysis", which means the results
 
 ## How to use the sample
 
-Use the sliders to change the properties (heading, pitch, etc.), of the exploratory viewshed and see them updated in real time. To move the exploratory viewshed, double touch and drag your finger across the screen. Lift your finger to stop moving the exploratory viewshed.
+Use the sliders to change the properties (heading, pitch, etc.) of the exploratory viewshed and see them updated in real time. Tap on the map to move the exploratory viewshed.
 
 ## How it works
 

@@ -14,14 +14,14 @@ Note: This analysis is a form of "exploratory analysis", which means the results
 
 The sample loads with a preset observer and target location, linked by a colored line. A red segment on the line means the view between observer and target is obstructed, whereas green means the view is unobstructed.
 
-Click to turn on the mouse move event listener, then move the mouse to update the target location in real time. Click again to lock the target location.
+Click to place the starting (observer) point for the line. Click again to place the end (target) point.
 
 ## How it works
 
 1. Create an `AnalysisOverlay` and add it to the scene view.
 2. Create an `ExploratoryLocationLineOfSight` with initial observer and target locations and add it to the analysis overlay.
-3. Make an `EventHandler<MouseEvent>` to capture mouse movement. Turn the screen point into a scene point with `sceneView.screenToLocationAsync(screenPoint)`.
-4. Update the target location with `exploratoryLineOfSight.setTargetLocation(scenePoint)`.
+3. Listen for clicks on the scene.
+4. Update the target and observer positions by updating `ExploratoryLocationLineOfSight.ObserverLocation` and `ExploratoryLocationLineOfSight.TargetLocation`.
 
 ## Relevant API
 

@@ -25,7 +25,7 @@ namespace ArcGIS.WPF.Samples.ShowExploratoryViewshedFromPointInScene
         name: "Show exploratory viewshed from point in scene",
         category: "Analysis",
         description: "Perform an exploratory viewshed analysis from a defined vantage point.",
-        instructions: "Use the sliders to change the properties (heading, pitch, etc.), of the exploratory viewshed and see them updated in real time. To move the exploratory viewshed, double touch and drag your finger across the screen. Lift your finger to stop moving the exploratory viewshed.",
+        instructions: "Use the sliders to change the properties (heading, pitch, etc.) of the exploratory viewshed and see them updated in real time. Click on the map to move the exploratory viewshed.",
         tags: new[] { "3D", "exploratory viewshed", "frustum", "scene", "visibility analysis" })]
     public partial class ShowExploratoryViewshedFromPointInScene
     {

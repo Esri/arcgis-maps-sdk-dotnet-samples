@@ -36,7 +36,7 @@ This sample uses a [raster image service](https://sampleserver7.arcgisonline.com
 
 ## Additional information
 
-For more information, see [Understanding the mosaicking rules](https://desktop.arcgis.com/en/arcmap/latest/manage-data/raster-and-images/understanding-the-mosaicking-rules-for-a-mosaic-dataset.htm) from *ArcGIS Desktop* documentation. To learn more about how to define certain mosaic rules, see [Mosaic rule objects](https://developers.arcgis.com/documentation/common-data-types/mosaic-rules.htm) from *ArcGIS for Developers*.
+For more information, see [Mosaicking rules for a mosaic dataset](https://pro.arcgis.com/en/pro-app/latest/help/data/imagery/mosaicking-rules-for-a-mosaic-dataset-pro-.htm) from the *ArcGIS Pro* documentation. To learn more about how to define certain mosaic rules, see [Mosaic rule objects](https://developers.arcgis.com/rest/services-reference/enterprise/mosaic-rules/) from *ArcGIS for Developers*.
 
 ## Tags
 

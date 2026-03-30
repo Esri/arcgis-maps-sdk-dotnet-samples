@@ -32,7 +32,7 @@ The raster function is applied automatically when the sample starts and the resu
 
 ## About the data
 
-The sample applies a hillshade function to a raster produced from the National Land Cover Database, [NLCDLandCover2001](https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer). You can learn more about the [hillshade function](http://desktop.arcgis.com/en/arcmap/latest/manage-data/raster-and-images/hillshade-function.htm) in the *ArcMap* documentation.
+The sample applies a hillshade function to a raster produced from the National Land Cover Database, [NLCDLandCover2001](https://sampleserver6.arcgisonline.com/arcgis/rest/services/NLCDLandCover2001/ImageServer). You can learn more about the [hillshade function](https://pro.arcgis.com/en/pro-app/latest/help/analysis/raster-functions/hillshade-function.htm) in the *ArcGIS Pro* documentation.
 
 ## Additional information
 

@@ -49,7 +49,7 @@ This sample uses a raster imagery tile of an area of forested mountainous terrai
 
 ## Additional information
 
-See [Stretch function](http://desktop.arcgis.com/en/arcmap/latest/manage-data/raster-and-images/stretch-function.htm) in the *ArcMap* documentation for more information about the types of stretches that can be performed.
+See [Stretch function](https://pro.arcgis.com/en/pro-app/latest/help/analysis/raster-functions/stretch-function.htm) in the *ArcGIS Pro* documentation for more information about the types of stretches that can be performed.
 
 ## Tags
 

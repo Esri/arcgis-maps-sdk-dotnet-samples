@@ -5,19 +5,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ArcGIS.Samples.FilterBuildingSceneLayer"
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid ColumnDefinitions="*,Auto">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
         <!--  LocalSceneView displays the 3D building scene.  -->
-        <esriUI:LocalSceneView x:Name="MySceneView" Grid.ColumnSpan="2" />
+        <esriUI:LocalSceneView x:Name="MySceneView" Style="{DynamicResource EsriSampleGeoView}" />
 
         <!--  Settings panel for floor filtering and category visibility controls.  -->
         <Border
             x:Name="SettingsPanel"
-            Margin="10"
-            HorizontalOptions="{OnIdiom Phone=Fill, Default=End}"
             MaximumHeightRequest="300"
-            Style="{DynamicResource EsriSampleControlPanel}"
-            VerticalOptions="Start"
-            WidthRequest="{OnIdiom Phone=-1, Default=300}">
+            Style="{DynamicResource EsriSampleControlPanel}">
             <ScrollView>
                 <VerticalStackLayout Spacing="12">
                     <!--  Floor selection dropdown.  -->
@@ -55,12 +51,8 @@
         <!--  Feature attributes panel, shown when a feature is selected.  -->
         <Border
             x:Name="FeaturePanel"
-            Margin="10"
-            HorizontalOptions="{OnIdiom Phone=Fill, Default=End}"
             IsVisible="False"
-            Style="{DynamicResource EsriSampleControlPanel}"
-            VerticalOptions="Start"
-            WidthRequest="{OnIdiom Phone=-1, Default=300}">
+            Style="{DynamicResource EsriSampleControlPanel}">
 
             <Grid RowDefinitions="Auto,*" RowSpacing="8">
                 <!--  Header with close button.  -->

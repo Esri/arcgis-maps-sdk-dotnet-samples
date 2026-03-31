@@ -5,9 +5,9 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:ArcGIS.Samples.FilterBuildingSceneLayer"
     xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid>
+    <Grid ColumnDefinitions="*,Auto">
         <!--  LocalSceneView displays the 3D building scene.  -->
-        <esriUI:LocalSceneView x:Name="MySceneView" />
+        <esriUI:LocalSceneView x:Name="MySceneView" Grid.ColumnSpan="2" />
 
         <!--  Settings panel for floor filtering and category visibility controls.  -->
         <Border

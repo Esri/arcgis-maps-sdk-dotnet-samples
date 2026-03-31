@@ -12,7 +12,6 @@
         <!--  Settings panel for floor filtering and category visibility controls.  -->
         <Border
             x:Name="SettingsPanel"
-            MaximumHeightRequest="300"
             Style="{DynamicResource EsriSampleControlPanel}">
             <ScrollView>
                 <VerticalStackLayout Spacing="12">

@@ -73,6 +73,10 @@ namespace ArcGIS.Samples.FilterBuildingSceneLayer
                 PopulateFloorPicker();
                 PopulateCategoryControls();
 
+                // Toggle visiibility after content load
+                SettingsPanel.IsVisible = false;
+                SettingsPanel.IsVisible = true;
+
                 // Listen for taps on the scene view to identify features.
                 MySceneView.GeoViewTapped += MySceneView_GeoViewTapped;
             }

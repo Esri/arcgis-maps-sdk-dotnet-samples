@@ -216,7 +216,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             FlightNumberDialog.IsVisible = false;
             FlightNumberInput.Text = string.Empty;
             QueryDropdown.SelectedIndex = -1;
-            QueryDropdown.IsVisible = true;
+            QueryControlPanel.IsVisible = true;
         }
 
         // Toggles visibility of flight detail information in the results list.

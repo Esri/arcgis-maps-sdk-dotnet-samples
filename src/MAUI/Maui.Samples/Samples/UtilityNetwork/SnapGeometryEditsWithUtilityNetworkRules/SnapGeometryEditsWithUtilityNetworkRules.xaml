@@ -150,7 +150,7 @@
                                              Light=White}"
                 HorizontalOptions="Center"
                 IsVisible="False"
-                HeightRequest="250"
+                MaximumHeightRequest="250"
                 StrokeShape="RoundRectangle 10"
                 VerticalOptions="Center"
                 WidthRequest="300">

@@ -31,7 +31,7 @@ This sample downloads the following items from ArcGIS Online automatically:
 
 ## Additional information
 
-See the topic [What is raster data?](http://desktop.arcgis.com/en/arcmap/10.3/manage-data/raster-and-images/what-is-raster-data.htm) in the *ArcMap* documentation for more information about raster images.
+See the topic [Introduction to image and raster data](https://pro.arcgis.com/en/pro-app/latest/help/data/imagery/introduction-to-raster-data.htm) in the *ArcGIS Pro* documentation for more information about raster images.
 
 ## Tags
 

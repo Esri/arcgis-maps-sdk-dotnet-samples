@@ -40,7 +40,7 @@ The sample uses a [sample geoprocessing service](https://sampleserver6.arcgisonl
 
 ## Additional information
 
-ArcGIS Server does not include a geoprocessing service for listing geodatabase versions. You must configure one using the steps defined in [Geoprocessing service example: list, create, and delete geodatabase versions](http://desktop.arcgis.com/en/arcmap/latest/analyze/sharing-workflows/gp-service-example-list-create-and-delete-geodatabase-versions.htm) in the *ArcMap* documentation.
+ArcGIS Server does not include a geoprocessing service for listing geodatabase versions. Instead, you must configure and publish one yourself using ArcGIS Pro. To learn more about geoprocessing services see [Web tools and geoprocessing services](https://enterprise.arcgis.com/en/server/latest/publish-services/linux/what-is-a-web-tool.htm) in the *ArcGIS Server* documentation.
 
 ## Tags
 

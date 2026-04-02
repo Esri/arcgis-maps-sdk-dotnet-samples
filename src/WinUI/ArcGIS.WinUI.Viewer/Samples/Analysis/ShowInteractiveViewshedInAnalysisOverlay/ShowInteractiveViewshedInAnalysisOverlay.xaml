@@ -1,0 +1,160 @@
+<UserControl x:Class="ArcGIS.WinUI.Samples.ShowInteractiveViewshedInAnalysisOverlay.ShowInteractiveViewshedInAnalysisOverlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <UserControl.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,0,5,0" />
+        </Style>
+        <Style TargetType="Slider" BasedOn="{StaticResource DefaultSliderStyle}">
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="SnapsTo" Value="StepValues" />
+            <Setter Property="StepFrequency" Value="1" />
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView"
+                        PointerPressed="MyMapView_PointerPressed"
+                        PointerMoved="MyMapView_PointerMoved"
+                        PointerReleased="MyMapView_PointerReleased" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           Grid.Column="0"
+                           Text="Observer Elevation" />
+                <Slider x:Name="ObserverElevationSlider"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Minimum="2"
+                        Maximum="200"
+                        Value="20"
+                        ValueChanged="OnObserverElevationChanged" />
+                <TextBlock x:Name="ObserverElevationValue"
+                           Grid.Row="0"
+                           Grid.Column="2"
+                           HorizontalAlignment="Left"
+                           Text="20 m" />
+
+                <TextBlock Grid.Row="1"
+                           Grid.Column="0"
+                           Text="Target Height" />
+                <Slider x:Name="TargetHeightSlider"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Minimum="2"
+                        Maximum="1000"
+                        StepFrequency="10"
+                        Value="20"
+                        ValueChanged="OnViewshedParameterChanged" />
+                <TextBlock x:Name="TargetHeightValue"
+                           Grid.Row="1"
+                           Grid.Column="2"
+                           HorizontalAlignment="Left"
+                           Text="20 m" />
+
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           Text="Maximum Radius" />
+                <Slider x:Name="MaxRadiusSlider"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Minimum="2500"
+                        Maximum="20000"
+                        StepFrequency="175"
+                        Value="8000"
+                        ValueChanged="OnViewshedParameterChanged" />
+                <TextBlock x:Name="MaxRadiusValue"
+                           Grid.Row="2"
+                           Grid.Column="2"
+                           HorizontalAlignment="Left"
+                           Text="8000 m" />
+
+                <TextBlock Grid.Row="3"
+                           Grid.Column="0"
+                           Text="Field of View" />
+                <Slider x:Name="FieldOfViewSlider"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Minimum="5"
+                        Maximum="360"
+                        Value="150"
+                        ValueChanged="OnViewshedParameterChanged" />
+                <TextBlock x:Name="FieldOfViewValue"
+                           Grid.Row="3"
+                           Grid.Column="2"
+                           HorizontalAlignment="Left"
+                           Text="150°" />
+
+                <TextBlock Grid.Row="4"
+                           Grid.Column="0"
+                           Text="Heading" />
+                <Slider x:Name="HeadingSlider"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Minimum="0"
+                        Maximum="360"
+                        Value="10"
+                        ValueChanged="OnViewshedParameterChanged" />
+                <TextBlock x:Name="HeadingValue"
+                           Grid.Row="4"
+                           Grid.Column="2"
+                           HorizontalAlignment="Left"
+                           Text="10°" />
+
+                <TextBlock Grid.Row="5"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           VerticalAlignment="Center"
+                           Margin="0,5,0,0"
+                           Text="Elevation Sampling Interval (m)" />
+                <StackPanel Grid.Row="6"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="3"
+                            Orientation="Horizontal">
+                    <RadioButton x:Name="SamplingInterval0Radio"
+                                 Content="0"
+                                 MinWidth="0"
+                                 Padding="4,0"
+                                 IsChecked="True"
+                                 Checked="OnSamplingIntervalChanged" />
+                    <RadioButton x:Name="SamplingInterval10Radio"
+                                 Content="10"
+                                 MinWidth="0"
+                                 Padding="4,0"
+                                 Checked="OnSamplingIntervalChanged" />
+                    <RadioButton x:Name="SamplingInterval20Radio"
+                                 Content="20"
+                                 MinWidth="0"
+                                 Padding="4,0"
+                                 Checked="OnSamplingIntervalChanged" />
+                </StackPanel>
+            </Grid>
+        </Border>
+        <TextBlock Margin="0,0,10,30"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom"
+                   FontSize="11"
+                   FontStyle="Italic"
+                   Foreground="White"
+                   Text="Raster data Copyright Scottish Government and SEPA (2014)"
+                   TextWrapping="Wrap" />
+    </Grid>
+</UserControl>

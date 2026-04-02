@@ -1,0 +1,191 @@
+<UserControl
+    x:Class="ArcGIS.WPF.Samples.ShowInteractiveViewshedInAnalysisOverlay.ShowInteractiveViewshedInAnalysisOverlay"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Margin="0,0,5,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Text="Observer Elevation" />
+                <Slider
+                    x:Name="ObserverElevationSlider"
+                    Grid.Row="0"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    IsSnapToTickEnabled="True"
+                    Maximum="200"
+                    Minimum="2"
+                    TickFrequency="1"
+                    ValueChanged="OnObserverElevationChanged"
+                    Value="20" />
+                <TextBlock
+                    Grid.Row="0"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Text="{Binding Value, ElementName=ObserverElevationSlider, StringFormat={}{0:0} m}" />
+
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="0"
+                    Margin="0,0,5,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Text="Target Height" />
+                <Slider
+                    x:Name="TargetHeightSlider"
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    IsSnapToTickEnabled="True"
+                    Maximum="1000"
+                    Minimum="2"
+                    TickFrequency="10"
+                    ValueChanged="OnTargetHeightChanged"
+                    Value="20" />
+                <TextBlock
+                    Grid.Row="1"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Text="{Binding Value, ElementName=TargetHeightSlider, StringFormat={}{0:0} m}" />
+
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="0"
+                    Margin="0,0,5,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Text="Maximum Radius" />
+                <Slider
+                    x:Name="MaxRadiusSlider"
+                    Grid.Row="2"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    IsSnapToTickEnabled="True"
+                    Maximum="20000"
+                    Minimum="2500"
+                    TickFrequency="175"
+                    ValueChanged="OnMaxRadiusChanged"
+                    Value="8000" />
+                <TextBlock
+                    Grid.Row="2"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Text="{Binding Value, ElementName=MaxRadiusSlider, StringFormat={}{0:0} m}" />
+
+                <TextBlock
+                    Grid.Row="3"
+                    Grid.Column="0"
+                    Margin="0,0,5,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Text="Field of View" />
+                <Slider
+                    x:Name="FieldOfViewSlider"
+                    Grid.Row="3"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    IsSnapToTickEnabled="True"
+                    Maximum="360"
+                    Minimum="5"
+                    TickFrequency="1"
+                    ValueChanged="OnFieldOfViewChanged"
+                    Value="150" />
+                <TextBlock
+                    Grid.Row="3"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Text="{Binding Value, ElementName=FieldOfViewSlider, StringFormat={}{0:0}°}" />
+
+                <TextBlock
+                    Grid.Row="4"
+                    Grid.Column="0"
+                    Margin="0,0,5,0"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Text="Heading" />
+                <Slider
+                    x:Name="HeadingSlider"
+                    Grid.Row="4"
+                    Grid.Column="1"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    IsSnapToTickEnabled="True"
+                    Maximum="360"
+                    Minimum="0"
+                    TickFrequency="1"
+                    ValueChanged="OnHeadingChanged"
+                    Value="10" />
+                <TextBlock
+                    Grid.Row="4"
+                    Grid.Column="2"
+                    VerticalAlignment="Center"
+                    Text="{Binding Value, ElementName=HeadingSlider, StringFormat={}{0:0}°}" />
+
+                <StackPanel
+                    Grid.Row="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="3"
+                    Margin="0,5,0,0"
+                    Orientation="Horizontal">
+                    <TextBlock
+                        Margin="0,0,5,0"
+                        VerticalAlignment="Center"
+                        Text="Elevation Sampling Interval (m)" />
+                    <RadioButton
+                        x:Name="SamplingInterval0Radio"
+                        Margin="5,0"
+                        VerticalAlignment="Center"
+                        Checked="OnSamplingIntervalChanged"
+                        Content="0"
+                        IsChecked="True" />
+                    <RadioButton
+                        x:Name="SamplingInterval10Radio"
+                        Margin="5,0"
+                        VerticalAlignment="Center"
+                        Checked="OnSamplingIntervalChanged"
+                        Content="10" />
+                    <RadioButton
+                        x:Name="SamplingInterval20Radio"
+                        Margin="5,0"
+                        VerticalAlignment="Center"
+                        Checked="OnSamplingIntervalChanged"
+                        Content="20" />
+                </StackPanel>
+            </Grid>
+        </Border>
+        <TextBlock
+            Margin="0,0,10,30"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            FontSize="11"
+            FontStyle="Italic"
+            Foreground="White"
+            Text="Raster data Copyright Scottish Government and SEPA (2014)"
+            TextWrapping="Wrap" />
+    </Grid>
+</UserControl>

@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay.ShowInteractiveViewshedInAnalysisOverlay"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}"
+                MinimumWidthRequest="350">
+            <ScrollView>
+                <Grid ColumnDefinitions="Auto,*,Auto"
+                      ColumnSpacing="5"
+                      RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                      RowSpacing="10">
+                    <Label Grid.Row="0"
+                           Grid.Column="0"
+                           HorizontalTextAlignment="End"
+                           VerticalTextAlignment="Center">
+                        Observer Elevation
+                    </Label>
+                    <Slider x:Name="ObserverElevationSlider"
+                            Grid.Row="0"
+                            Grid.Column="1"
+                            Minimum="2"
+                            Maximum="200"
+                            MaximumTrackColor="CadetBlue"
+                            MinimumTrackColor="CadetBlue"
+                            Value="20"
+                            ValueChanged="OnObserverElevationChanged" />
+                    <Label x:Name="ObserverElevationValue"
+                           Grid.Row="0"
+                           Grid.Column="2"
+                           VerticalTextAlignment="Center"
+                           Text="20 m" />
+
+                    <Label Grid.Row="1"
+                           Grid.Column="0"
+                           HorizontalTextAlignment="End"
+                           VerticalTextAlignment="Center">
+                        Target Height
+                    </Label>
+                    <Slider x:Name="TargetHeightSlider"
+                            Grid.Row="1"
+                            Grid.Column="1"
+                            Minimum="2"
+                            Maximum="1000"
+                            MaximumTrackColor="CadetBlue"
+                            MinimumTrackColor="CadetBlue"
+                            Value="20"
+                            ValueChanged="OnViewshedParameterChanged" />
+                    <Label x:Name="TargetHeightValue"
+                           Grid.Row="1"
+                           Grid.Column="2"
+                           VerticalTextAlignment="Center"
+                           Text="20 m" />
+
+                    <Label Grid.Row="2"
+                           Grid.Column="0"
+                           HorizontalTextAlignment="End"
+                           VerticalTextAlignment="Center">
+                        Maximum Radius
+                    </Label>
+                    <Slider x:Name="MaxRadiusSlider"
+                            Grid.Row="2"
+                            Grid.Column="1"
+                            Minimum="2500"
+                            Maximum="20000"
+                            MaximumTrackColor="CadetBlue"
+                            MinimumTrackColor="CadetBlue"
+                            Value="8000"
+                            ValueChanged="OnViewshedParameterChanged" />
+                    <Label x:Name="MaxRadiusValue"
+                           Grid.Row="2"
+                           Grid.Column="2"
+                           VerticalTextAlignment="Center"
+                           Text="8000 m" />
+
+                    <Label Grid.Row="3"
+                           Grid.Column="0"
+                           HorizontalTextAlignment="End"
+                           VerticalTextAlignment="Center">
+                        Field of View
+                    </Label>
+                    <Slider x:Name="FieldOfViewSlider"
+                            Grid.Row="3"
+                            Grid.Column="1"
+                            Minimum="5"
+                            Maximum="360"
+                            MaximumTrackColor="CadetBlue"
+                            MinimumTrackColor="CadetBlue"
+                            Value="150"
+                            ValueChanged="OnViewshedParameterChanged" />
+                    <Label x:Name="FieldOfViewValue"
+                           Grid.Row="3"
+                           Grid.Column="2"
+                           VerticalTextAlignment="Center"
+                           Text="150°" />
+
+                    <Label Grid.Row="4"
+                           Grid.Column="0"
+                           HorizontalTextAlignment="End"
+                           VerticalTextAlignment="Center">
+                        Heading
+                    </Label>
+                    <Slider x:Name="HeadingSlider"
+                            Grid.Row="4"
+                            Grid.Column="1"
+                            Minimum="0"
+                            Maximum="360"
+                            MaximumTrackColor="CadetBlue"
+                            MinimumTrackColor="CadetBlue"
+                            Value="10"
+                            ValueChanged="OnViewshedParameterChanged" />
+                    <Label x:Name="HeadingValue"
+                           Grid.Row="4"
+                           Grid.Column="2"
+                           VerticalTextAlignment="Center"
+                           Text="10°" />
+
+                    <Label Grid.Row="5"
+                           Grid.Column="0"
+                           Grid.ColumnSpan="3"
+                           VerticalTextAlignment="Center">
+                        Elevation Sampling Interval (m)
+                    </Label>
+                    <HorizontalStackLayout Grid.Row="6"
+                                           Grid.Column="0"
+                                           Grid.ColumnSpan="3"
+                                           Spacing="5">
+                        <RadioButton x:Name="SamplingInterval0Radio"
+                                     Content="0"
+                                     IsChecked="True"
+                                     CheckedChanged="OnSamplingIntervalChanged" />
+                        <RadioButton x:Name="SamplingInterval10Radio"
+                                     Content="10"
+                                     CheckedChanged="OnSamplingIntervalChanged" />
+                        <RadioButton x:Name="SamplingInterval20Radio"
+                                     Content="20"
+                                     CheckedChanged="OnSamplingIntervalChanged" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </ScrollView>
+        </Border>
+        <Label Text="Raster data Copyright Scottish Government and SEPA (2014)"
+               Grid.RowSpan="2"
+               Grid.ColumnSpan="2"
+               HorizontalOptions="End"
+               VerticalOptions="End"
+               Margin="0,0,10,30"
+               FontSize="11"
+               FontAttributes="Italic"
+               TextColor="White" />
+    </Grid>
+</ContentPage>

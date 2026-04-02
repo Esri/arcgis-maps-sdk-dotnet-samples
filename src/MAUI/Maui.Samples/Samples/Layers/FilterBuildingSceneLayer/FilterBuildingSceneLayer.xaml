@@ -71,29 +71,31 @@
                     </Grid>
 
                     <!--  Scrollable list of feature attributes.  -->
-                    <ScrollView Grid.Row="1">
-                        <CollectionView x:Name="FeatureAttributesCollection" ItemsLayout="VerticalList">
-                            <CollectionView.ItemTemplate>
-                                <DataTemplate x:DataType="local:BuildingSceneFeatureAttribute">
-                                    <VerticalStackLayout Margin="0,4" Spacing="2">
-                                        <Label FontAttributes="Bold" FontSize="12">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span FontAttributes="Bold" Text="{Binding Key}" />
-                                                    <Span Text=":" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label
-                                            Margin="10,0,0,0"
-                                            FontSize="12"
-                                            Text="{Binding Value}"
-                                            TextColor="Gray" />
-                                    </VerticalStackLayout>
-                                </DataTemplate>
-                            </CollectionView.ItemTemplate>
-                        </CollectionView>
-                    </ScrollView>
+                    <CollectionView
+                        x:Name="FeatureAttributesCollection"
+                        Grid.Row="1"
+                        ItemsLayout="VerticalList"
+                        MaximumHeightRequest="400">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="local:BuildingSceneFeatureAttribute">
+                                <VerticalStackLayout Margin="0,4" Spacing="2">
+                                    <Label FontAttributes="Bold" FontSize="12">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span FontAttributes="Bold" Text="{Binding Key}" />
+                                                <Span Text=":" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label
+                                        Margin="10,0,0,0"
+                                        FontSize="12"
+                                        Text="{Binding Value}"
+                                        TextColor="Gray" />
+                                </VerticalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </Grid>
             </Grid>
         </Border>

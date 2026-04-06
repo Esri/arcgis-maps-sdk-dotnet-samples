@@ -120,6 +120,7 @@ namespace ArcGIS.Samples.CreateLoadReport
                         if (_phasesNetworkAttribute.Domain is CodedValueDomain codedValueDomain)
                         {
                             PhasesList.ItemsSource = codedValueDomain.CodedValues.ToList();
+                            PhasesList.IsEnabled = true;
                         }
                     }
                 }

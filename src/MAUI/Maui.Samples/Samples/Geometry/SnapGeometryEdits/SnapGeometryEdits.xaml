@@ -158,7 +158,7 @@
                                     Text="Enable all"
                                     VerticalOptions="Center" />
                         </Grid>
-                        <VerticalStackLayout HeightRequest="130" WidthRequest="250">
+                        <VerticalStackLayout HeightRequest="130">
                             <Grid ColumnSpacing="3">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="auto" />

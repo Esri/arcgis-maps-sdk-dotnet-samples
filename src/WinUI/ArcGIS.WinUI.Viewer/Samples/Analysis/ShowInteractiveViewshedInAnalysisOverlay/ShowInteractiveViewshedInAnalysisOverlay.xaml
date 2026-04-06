@@ -3,14 +3,23 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <UserControl.Resources>
-        <Style TargetType="TextBlock">
+        <Style x:Key="LabelStyle" TargetType="TextBlock">
             <Setter Property="HorizontalAlignment" Value="Right" />
             <Setter Property="VerticalAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0,0,5,0" />
+            <Setter Property="Margin" Value="0,0,10,0" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+        </Style>
+        <Style x:Key="ValueStyle" TargetType="TextBlock">
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="10,0,0,0" />
+            <Setter Property="MinWidth" Value="55" />
         </Style>
         <Style TargetType="Slider" BasedOn="{StaticResource DefaultSliderStyle}">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="MinWidth" Value="180" />
+            <Setter Property="Margin" Value="0,2" />
             <Setter Property="SnapsTo" Value="StepValues" />
             <Setter Property="StepFrequency" Value="1" />
         </Style>
@@ -23,11 +32,12 @@
         <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
@@ -39,7 +49,8 @@
 
                 <TextBlock Grid.Row="0"
                            Grid.Column="0"
-                           Text="Observer Elevation" />
+                           Style="{StaticResource LabelStyle}"
+                           Text="Observer elevation" />
                 <Slider x:Name="ObserverElevationSlider"
                         Grid.Row="0"
                         Grid.Column="1"
@@ -50,12 +61,13 @@
                 <TextBlock x:Name="ObserverElevationValue"
                            Grid.Row="0"
                            Grid.Column="2"
-                           HorizontalAlignment="Left"
+                           Style="{StaticResource ValueStyle}"
                            Text="20 m" />
 
                 <TextBlock Grid.Row="1"
                            Grid.Column="0"
-                           Text="Target Height" />
+                           Style="{StaticResource LabelStyle}"
+                           Text="Target height" />
                 <Slider x:Name="TargetHeightSlider"
                         Grid.Row="1"
                         Grid.Column="1"
@@ -67,12 +79,13 @@
                 <TextBlock x:Name="TargetHeightValue"
                            Grid.Row="1"
                            Grid.Column="2"
-                           HorizontalAlignment="Left"
+                           Style="{StaticResource ValueStyle}"
                            Text="20 m" />
 
                 <TextBlock Grid.Row="2"
                            Grid.Column="0"
-                           Text="Maximum Radius" />
+                           Style="{StaticResource LabelStyle}"
+                           Text="Maximum radius" />
                 <Slider x:Name="MaxRadiusSlider"
                         Grid.Row="2"
                         Grid.Column="1"
@@ -84,12 +97,13 @@
                 <TextBlock x:Name="MaxRadiusValue"
                            Grid.Row="2"
                            Grid.Column="2"
-                           HorizontalAlignment="Left"
+                           Style="{StaticResource ValueStyle}"
                            Text="8000 m" />
 
                 <TextBlock Grid.Row="3"
                            Grid.Column="0"
-                           Text="Field of View" />
+                           Style="{StaticResource LabelStyle}"
+                           Text="Field of view" />
                 <Slider x:Name="FieldOfViewSlider"
                         Grid.Row="3"
                         Grid.Column="1"
@@ -100,11 +114,12 @@
                 <TextBlock x:Name="FieldOfViewValue"
                            Grid.Row="3"
                            Grid.Column="2"
-                           HorizontalAlignment="Left"
+                           Style="{StaticResource ValueStyle}"
                            Text="150°" />
 
                 <TextBlock Grid.Row="4"
                            Grid.Column="0"
+                           Style="{StaticResource LabelStyle}"
                            Text="Heading" />
                 <Slider x:Name="HeadingSlider"
                         Grid.Row="4"
@@ -116,34 +131,42 @@
                 <TextBlock x:Name="HeadingValue"
                            Grid.Row="4"
                            Grid.Column="2"
-                           HorizontalAlignment="Left"
+                           Style="{StaticResource ValueStyle}"
                            Text="10°" />
 
-                <TextBlock Grid.Row="5"
+                <Border Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Margin="0,10,0,0"
+                        Height="1"
+                        Background="{ThemeResource SystemControlForegroundBaseLowBrush}" />
+
+                <TextBlock Grid.Row="6"
                            Grid.Column="0"
                            Grid.ColumnSpan="3"
+                           HorizontalAlignment="Center"
                            VerticalAlignment="Center"
-                           Margin="0,5,0,0"
-                           Text="Elevation Sampling Interval (m)" />
-                <StackPanel Grid.Row="6"
+                           Margin="0,8,0,4"
+                           FontWeight="SemiBold"
+                           Text="Elevation sampling interval (m)" />
+                <StackPanel Grid.Row="7"
                             Grid.Column="0"
                             Grid.ColumnSpan="3"
-                            Orientation="Horizontal">
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Spacing="12">
                     <RadioButton x:Name="SamplingInterval0Radio"
                                  Content="0"
                                  MinWidth="0"
-                                 Padding="4,0"
                                  IsChecked="True"
                                  Checked="OnSamplingIntervalChanged" />
                     <RadioButton x:Name="SamplingInterval10Radio"
                                  Content="10"
                                  MinWidth="0"
-                                 Padding="4,0"
                                  Checked="OnSamplingIntervalChanged" />
                     <RadioButton x:Name="SamplingInterval20Radio"
                                  Content="20"
                                  MinWidth="0"
-                                 Padding="4,0"
                                  Checked="OnSamplingIntervalChanged" />
                 </StackPanel>
             </Grid>

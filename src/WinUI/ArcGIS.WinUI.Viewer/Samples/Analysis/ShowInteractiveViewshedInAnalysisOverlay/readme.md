@@ -2,7 +2,7 @@
 
 Perform an interactive viewshed analysis to determine visible and non-visible areas from a given observer position.
 
-![Show interactive viewshed with analysis overlay sample](show-interactive-viewshed-with-analysis-overlay.png)
+![Show interactive viewshed with analysis overlay sample](ShowInteractiveViewshedInAnalysisOverlay.jpg)
 
 ## Use case
 
@@ -27,15 +27,15 @@ The sample loads with a viewshed analysis initialized from an elevation raster c
 
 ## Relevant API
 
-- AnalysisOverlay
-- Colormap
-- ColormapRenderer
-- ContinuousField
-- ContinuousFieldFunction
-- DiscreteFieldFunction
-- FieldAnalysis
-- ViewshedFunction
-- ViewshedParameters
+* AnalysisOverlay
+* Colormap
+* ColormapRenderer
+* ContinuousField
+* ContinuousFieldFunction
+* DiscreteFieldFunction
+* FieldAnalysis
+* ViewshedFunction
+* ViewshedParameters
 
 ## About the data
 

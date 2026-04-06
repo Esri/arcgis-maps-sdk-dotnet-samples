@@ -58,7 +58,7 @@ namespace ArcGIS.WPF.Samples.ShowInteractiveViewshedInAnalysisOverlay
             // Create a map with the imagery basemap style.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImagery)
             {
-                InitialViewpoint = new Viewpoint(55.610000, -5.200346, 50000)
+                InitialViewpoint = new Viewpoint(55.610000, -5.200346, 100000)
             };
 
             // Disable panning to allow click-and-drag interaction for observer placement.

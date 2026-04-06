@@ -52,7 +52,7 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
             // Create a map with the imagery basemap style.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImagery)
             {
-                InitialViewpoint = new Viewpoint(55.610000, -5.200346, 50000)
+                InitialViewpoint = new Viewpoint(55.610000, -5.200346, 100000)
             };
 
             // Disable panning to allow tap-and-drag interaction for observer placement.
@@ -141,7 +141,7 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
             SetObserverPosition(e.Location.X, e.Location.Y);
         }
 
-        // Update the observer position and viewshed parameters with the new coordinates.
+// Update the observer position and viewshed parameters with the new coordinates.
         private void SetObserverPosition(double x, double y)
         {
             _observerPosition = new MapPoint(x, y, _observerElevation, SpatialReferences.WebMercator);
@@ -152,8 +152,8 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
         // Update the observer elevation and reposition the observer when the slider value changes.
         private void OnObserverElevationChanged(object sender, ValueChangedEventArgs e)
         {
-            ObserverElevationValue.Text = $"{ObserverElevationSlider.Value:0} m";
             if (!_isInitialized || _observerPosition == null) return;
+            ObserverElevationValue.Text = $"{ObserverElevationSlider.Value:0} m";
             _observerElevation = e.NewValue;
             SetObserverPosition(_observerPosition.X, _observerPosition.Y);
         }
@@ -161,12 +161,12 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
         // Update the viewshed parameters when slider values change.
         private void OnViewshedParameterChanged(object sender, ValueChangedEventArgs e)
         {
+            if (!_isInitialized) return;
+
             TargetHeightValue.Text = $"{TargetHeightSlider.Value:0} m";
             MaxRadiusValue.Text = $"{MaxRadiusSlider.Value:0} m";
             FieldOfViewValue.Text = $"{FieldOfViewSlider.Value:0}\u00b0";
             HeadingValue.Text = $"{HeadingSlider.Value:0}\u00b0";
-
-            if (!_isInitialized) return;
 
             _viewshedParameters.TargetHeight = TargetHeightSlider.Value;
             _viewshedParameters.MaxRadius = MaxRadiusSlider.Value;

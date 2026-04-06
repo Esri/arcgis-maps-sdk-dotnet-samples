@@ -56,7 +56,7 @@ namespace ArcGIS.WinUI.Samples.ShowInteractiveViewshedInAnalysisOverlay
             // Create a map with the imagery basemap style.
             MyMapView.Map = new Map(BasemapStyle.ArcGISImagery)
             {
-                InitialViewpoint = new Viewpoint(55.610000, -5.200346, 50000)
+                InitialViewpoint = new Viewpoint(55.610000, -5.200346, 100000)
             };
 
             // Disable panning to allow click-and-drag interaction for observer placement.
@@ -119,9 +119,6 @@ namespace ArcGIS.WinUI.Samples.ShowInteractiveViewshedInAnalysisOverlay
                 analysisOverlay.Analyses.Add(fieldAnalysis);
 
                 _isInitialized = true;
-
-                // Clean up event handlers when the sample is unloaded.
-                Unloaded += SampleUnloaded;
             }
             catch (Exception ex)
             {
@@ -130,14 +127,7 @@ namespace ArcGIS.WinUI.Samples.ShowInteractiveViewshedInAnalysisOverlay
             }
         }
 
-        private void SampleUnloaded(object sender, RoutedEventArgs e)
-        {
-            MyMapView.PointerPressed -= MyMapView_PointerPressed;
-            MyMapView.PointerMoved -= MyMapView_PointerMoved;
-            MyMapView.PointerReleased -= MyMapView_PointerReleased;
-        }
-
-        // Start dragging and update the observer position on pointer press.
+// Start dragging and update the observer position on pointer press.
         private void MyMapView_PointerPressed(object sender, PointerRoutedEventArgs e)
         {
             if (!_isInitialized) return;

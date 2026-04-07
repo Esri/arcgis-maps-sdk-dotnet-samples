@@ -30,13 +30,12 @@ namespace ArcGIS.Samples.IndoorPositioning
 
         private int? _currentFloor = null;
 
-        // Provide your own data in order to use this sample. Code in the sample may need to be modified to work with other maps.
-
+        // Provide your own data in order to use this sample in a local building
         #region BuildingData
 
         private Uri _portalUri = new Uri("https://www.arcgis.com/");
 
-        private const string ItemId = "YOUR_ITEM_ID_HERE";
+        private const string ItemId = "8fa941613b4b4b2b8a34ad4cdc3e4bba";
 
         private string[] _layerNames = new string[] { "Details", "Units", "Levels" };
 

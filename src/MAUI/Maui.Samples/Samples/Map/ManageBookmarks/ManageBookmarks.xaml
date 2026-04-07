@@ -15,8 +15,7 @@
                    VerticalTextAlignment="Center" />
             <Picker x:Name="BookmarkPicker"
                     Margin="5"
-                    x:DataType="esriMapping:Bookmark"
-                    ItemDisplayBinding="{Binding Path=Name}"
+                    ItemDisplayBinding="{Binding Path=Name, x:DataType=esriMapping:Bookmark}"
                     SelectedIndexChanged="BookmarkPicker_SelectedIndexChanged"
                     WidthRequest="200" />
             <Button x:Name="ButtonAddBookmark"

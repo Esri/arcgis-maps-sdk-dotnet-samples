@@ -12,9 +12,8 @@
             <Label Text="Add phases from the dropdown list, then run report." />
             <HorizontalStackLayout Spacing="5">
                 <Picker x:Name="PhasesList"
-                        x:DataType="esri:CodedValue"
                         IsEnabled="False"
-                        ItemDisplayBinding="{Binding Name}"
+                        ItemDisplayBinding="{Binding Name, x:DataType=esri:CodedValue}"
                         WidthRequest="150" />
                 <Button Clicked="OnAddPhase" Text="Add" />
             </HorizontalStackLayout>

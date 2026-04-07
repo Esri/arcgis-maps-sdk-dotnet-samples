@@ -10,7 +10,7 @@ An indoor positioning system (IPS) allows you to locate yourself and others insi
 
 ## How to use the sample
 
-When the device is within range of an IPS beacon, toggle "Show Location" to change the visibility of the location indicator in the map view. The system will ask for permission to use the device's location if the user has not yet used location services in this app. It will then start the location display with auto-pan mode set to `navigation`.
+When the device is within range of an IPS beacon, toggle "Show Location" to change the visibility of the location indicator in the map view. The system will ask for permission to use the device's location if the user has not yet used location services in this app. It will then start the location display with auto-pan mode set to `Navigation`.
 
 When there is no IPS beacons nearby, or other errors occur while initializing the indoors location data source, it will seamlessly fall back to the current device location as determined by GPS.
 
@@ -27,7 +27,7 @@ When there is no IPS beacons nearby, or other errors occur while initializing th
 
 * IndoorPositioningDefinition
 * IndoorsLocationDataSource
-* LocationChangeHandlerDelegate
+* Location
 * LocationDisplay
 * LocationDisplayAutoPanMode
 * Map

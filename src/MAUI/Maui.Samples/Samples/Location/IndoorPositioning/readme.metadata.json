@@ -30,7 +30,7 @@
     "relevant_apis": [
         "IndoorPositioningDefinition",
         "IndoorsLocationDataSource",
-        "LocationChangeHandlerDelegate",
+        "Location",
         "LocationDisplay",
         "LocationDisplayAutoPanMode",
         "Map",

@@ -18,6 +18,7 @@ using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.GeoAnalysis;
 using Colors = System.Drawing.Color;
 using GeoViewInputEventArgs = Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs;
+using Point = Microsoft.Maui.Graphics.Point;
 
 namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
 {
@@ -25,17 +26,17 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
         name: "Show interactive viewshed with analysis overlay",
         category: "Analysis",
         description: "Perform an interactive viewshed analysis to determine visible and non-visible areas from a given observer position.",
-        instructions: "The sample loads with a viewshed analysis initialized from an elevation raster covering the Isle of Arran, Scotland. Transparent green shows the area visible from the observer position, and grey shows the non-visible areas. Tap on the map to move the observer position and see the viewshed from the tapped location. Use the control panel to explore how the viewshed analysis results change when adjusting the observer elevation, target height, maximum radius, field of view, heading and elevation sampling interval. As you move the observer and update the viewshed parameters, the analysis overlay refreshes to show the evaluated viewshed result.",
+        instructions: "The sample loads with a viewshed analysis initialized from an elevation raster covering the Isle of Arran, Scotland. Transparent green shows the area visible from the observer position, and grey shows the non-visible areas. Move the observer position by clicking and dragging over the island to interactively evaluate the viewshed result and display it in the analysis overlay. Alternatively, tap on the map to see the viewshed from the tapped location. Use the control panel to explore how the viewshed analysis results change when adjusting the observer elevation, target height, maximum radius, field of view, heading and elevation sampling interval. As you move the observer and update the viewshed parameters, the analysis overlay refreshes to show the evaluated viewshed result.",
         tags: new[] { "analysis overlay", "elevation", "field analysis", "interactive", "raster", "spatial analysis", "terrain", "viewshed", "visibility" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("aa97788593e34a32bcaae33947fdc271")]
     public partial class ShowInteractiveViewshedInAnalysisOverlay : ContentPage
     {
         private ViewshedParameters _viewshedParameters;
-        private ViewshedFunction _viewshedFunction;
-        private GraphicsOverlay _graphicsOverlay;
         private Graphic _observerGraphic;
         private MapPoint _observerPosition;
+        private PointerGestureRecognizer _pointerGesture;
         private bool _isInitialized;
+        private bool _isDragging;
         private double _observerElevation = 20.0;
 
         private readonly SimpleMarkerSymbol _observerSymbol = new SimpleMarkerSymbol(
@@ -55,15 +56,23 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
                 InitialViewpoint = new Viewpoint(55.610000, -5.200346, 100000)
             };
 
-            // Disable panning so taps are used solely for placing the observer.
+            // Disable panning so pointer drags are used solely for placing the observer.
             MyMapView.InteractionOptions = new MapViewInteractionOptions { IsPanEnabled = false };
 
-            // Subscribe to tap events for moving the observer.
+            // Subscribe to tap events for moving the observer (touch fallback).
             MyMapView.GeoViewTapped += MyMapView_GeoViewTapped;
 
+            // Add a pointer gesture recognizer for click-and-drag observer placement on desktop.
+            _pointerGesture = new PointerGestureRecognizer();
+            _pointerGesture.PointerPressed += MapView_PointerPressed;
+            _pointerGesture.PointerMoved += MapView_PointerMoved;
+            _pointerGesture.PointerReleased += MapView_PointerReleased;
+            _pointerGesture.PointerExited += MapView_PointerExited;
+            MyMapView.GestureRecognizers.Add(_pointerGesture);
+
             // Create and add a graphics overlay for the observer marker.
-            _graphicsOverlay = new GraphicsOverlay();
-            MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
+            var graphicsOverlay = new GraphicsOverlay();
+            MyMapView.GraphicsOverlays.Add(graphicsOverlay);
 
             // Create and add an analysis overlay for the viewshed.
             var analysisOverlay = new AnalysisOverlay();
@@ -82,7 +91,7 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
 
                 // Add the observer graphic.
                 _observerGraphic = new Graphic(_observerPosition, _observerSymbol);
-                _graphicsOverlay.Graphics.Add(_observerGraphic);
+                graphicsOverlay.Graphics.Add(_observerGraphic);
 
                 // Configure the viewshed parameters.
                 _viewshedParameters = new ViewshedParameters
@@ -99,8 +108,8 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
                 var continuousFieldFunction = ContinuousFieldFunction.Create(continuousField);
 
                 // Create a ViewshedFunction and convert to a DiscreteFieldFunction for visible/not-visible classification.
-                _viewshedFunction = new ViewshedFunction(continuousFieldFunction, _viewshedParameters);
-                var discreteViewshed = _viewshedFunction.ToDiscreteFieldFunction();
+                var viewshedFunction = new ViewshedFunction(continuousFieldFunction, _viewshedParameters);
+                var discreteViewshed = viewshedFunction.ToDiscreteFieldFunction();
 
                 // Create a colormap renderer with visible/not-visible colors.
                 var colors = new[]
@@ -131,6 +140,16 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
         private void SampleUnloaded(object sender, EventArgs e)
         {
             MyMapView.GeoViewTapped -= MyMapView_GeoViewTapped;
+
+            if (_pointerGesture != null)
+            {
+                _pointerGesture.PointerPressed -= MapView_PointerPressed;
+                _pointerGesture.PointerMoved -= MapView_PointerMoved;
+                _pointerGesture.PointerReleased -= MapView_PointerReleased;
+                _pointerGesture.PointerExited -= MapView_PointerExited;
+                MyMapView.GestureRecognizers.Remove(_pointerGesture);
+                _pointerGesture = null;
+            }
         }
 
         // Update the observer position when the user taps on the map.
@@ -139,6 +158,45 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
             if (!_isInitialized || e.Location == null) return;
 
             SetObserverPosition(e.Location.X, e.Location.Y);
+        }
+
+        // Begin dragging and place the observer at the pressed location.
+        private void MapView_PointerPressed(object sender, PointerEventArgs e)
+        {
+            if (!_isInitialized) return;
+            _isDragging = true;
+            UpdateObserverFromPointer(e);
+        }
+
+        // Update the observer position as the pointer moves while dragging.
+        private void MapView_PointerMoved(object sender, PointerEventArgs e)
+        {
+            if (!_isInitialized || !_isDragging) return;
+            UpdateObserverFromPointer(e);
+        }
+
+        // Finish dragging when the pointer is released.
+        private void MapView_PointerReleased(object sender, PointerEventArgs e)
+        {
+            _isDragging = false;
+        }
+
+        // Stop dragging if the pointer leaves the map view.
+        private void MapView_PointerExited(object sender, PointerEventArgs e)
+        {
+            _isDragging = false;
+        }
+
+        // Convert the pointer's screen position to a map location and update the observer.
+        private void UpdateObserverFromPointer(PointerEventArgs e)
+        {
+            Point? screenPoint = e.GetPosition(MyMapView);
+            if (screenPoint is null) return;
+
+            MapPoint mapPoint = MyMapView.ScreenToLocation(screenPoint.Value);
+            if (mapPoint == null || double.IsNaN(mapPoint.X) || double.IsNaN(mapPoint.Y)) return;
+
+            SetObserverPosition(mapPoint.X, mapPoint.Y);
         }
 
         // Update the observer position and viewshed parameters with the new coordinates.

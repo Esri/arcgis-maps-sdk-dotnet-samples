@@ -35,8 +35,6 @@ namespace ArcGIS.WPF.Samples.ShowInteractiveViewshedInAnalysisOverlay
     public partial class ShowInteractiveViewshedInAnalysisOverlay
     {
         private ViewshedParameters _viewshedParameters;
-        private ViewshedFunction _viewshedFunction;
-        private GraphicsOverlay _graphicsOverlay;
         private Graphic _observerGraphic;
         private MapPoint _observerPosition;
         private bool _isDragging;
@@ -65,8 +63,8 @@ namespace ArcGIS.WPF.Samples.ShowInteractiveViewshedInAnalysisOverlay
             MyMapView.InteractionOptions = new MapViewInteractionOptions { IsPanEnabled = false };
 
             // Create and add a graphics overlay for the observer marker.
-            _graphicsOverlay = new GraphicsOverlay();
-            MyMapView.GraphicsOverlays.Add(_graphicsOverlay);
+            var graphicsOverlay = new GraphicsOverlay();
+            MyMapView.GraphicsOverlays.Add(graphicsOverlay);
 
             // Create and add an analysis overlay for the viewshed.
             var analysisOverlay = new AnalysisOverlay();
@@ -85,7 +83,7 @@ namespace ArcGIS.WPF.Samples.ShowInteractiveViewshedInAnalysisOverlay
 
                 // Add the observer graphic.
                 _observerGraphic = new Graphic(_observerPosition, _observerSymbol);
-                _graphicsOverlay.Graphics.Add(_observerGraphic);
+                graphicsOverlay.Graphics.Add(_observerGraphic);
 
                 // Configure the viewshed parameters.
                 _viewshedParameters = new ViewshedParameters
@@ -102,8 +100,8 @@ namespace ArcGIS.WPF.Samples.ShowInteractiveViewshedInAnalysisOverlay
                 var continuousFieldFunction = ContinuousFieldFunction.Create(continuousField);
 
                 // Create a ViewshedFunction and convert to a DiscreteFieldFunction for visible/not-visible classification.
-                _viewshedFunction = new ViewshedFunction(continuousFieldFunction, _viewshedParameters);
-                var discreteViewshed = _viewshedFunction.ToDiscreteFieldFunction();
+                var viewshedFunction = new ViewshedFunction(continuousFieldFunction, _viewshedParameters);
+                var discreteViewshed = viewshedFunction.ToDiscreteFieldFunction();
 
                 // Create a colormap renderer with visible/not-visible colors.
                 var colors = new[]

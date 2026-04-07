@@ -56,7 +56,8 @@
                             <Picker x:Name="Attributes"
                                     Grid.Row="0"
                                     HorizontalOptions="Start"
-                                    ItemDisplayBinding="{Binding Name, x:DataType=esriUtility:UtilityNetworkAttribute}"
+                                    x:DataType="esriUtility:UtilityNetworkAttribute"
+                                    ItemDisplayBinding="{Binding Name}"
                                     MinimumWidthRequest="100"
                                     SelectedIndexChanged="OnAttributeChanged" />
                             <Picker x:Name="Operators"
@@ -66,7 +67,8 @@
                             <Picker x:Name="ValueSelection"
                                     Grid.Row="2"
                                     HorizontalOptions="Start"
-                                    ItemDisplayBinding="{Binding Name, x:DataType=esri:CodedValue}"
+                                    x:DataType="esri:CodedValue"
+                                    ItemDisplayBinding="{Binding Name}"
                                     MinimumWidthRequest="100" />
                             <Entry x:Name="ValueEntry"
                                    Grid.Row="2"

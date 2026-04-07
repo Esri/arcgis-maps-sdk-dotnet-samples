@@ -74,13 +74,15 @@
                     Margin="5"
                     HorizontalOptions="Fill"
                     IsEnabled="False"
-                    ItemDisplayBinding="{Binding DisplayName, x:DataType=esri:BasemapStyleLanguageInfo}" />
+                    x:DataType="esri:BasemapStyleLanguageInfo"
+                    ItemDisplayBinding="{Binding DisplayName}" />
             <Label FontAttributes="Bold" Text="Worldview:" />
             <Picker x:Name="WorldviewPicker"
                     Margin="5"
                     HorizontalOptions="Fill"
                     IsEnabled="False"
-                    ItemDisplayBinding="{Binding DisplayName, x:DataType=esri:Worldview}" />
+                    x:DataType="esri:Worldview"
+                    ItemDisplayBinding="{Binding DisplayName}" />
             <Button Margin="5"
                     Clicked="LoadButton_Click"
                     Text="Load" />

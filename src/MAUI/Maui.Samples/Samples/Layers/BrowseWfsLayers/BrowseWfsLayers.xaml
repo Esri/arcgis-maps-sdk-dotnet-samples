@@ -3,8 +3,7 @@
     x:Class="ArcGIS.Samples.BrowseWfsLayers.BrowseWfsLayers"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui"
-    xmlns:esriOgc="clr-namespace:Esri.ArcGISRuntime.Ogc;assembly=Esri.ArcGISRuntime">
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
         <Border Style="{DynamicResource EsriSampleControlPanel}">
@@ -22,7 +21,7 @@
                     <Picker
                         x:Name="WfsLayerList"
                         Grid.Column="1"
-                        ItemDisplayBinding="{Binding Title, x:DataType=esriOgc:WfsLayerInfo}" />
+                        ItemDisplayBinding="{Binding Title}" />
                 </Grid>
                 <Label Text="Swap coordinate order:" />
                 <Switch x:Name="AxisOrderSwapCheckbox" HorizontalOptions="Start" />

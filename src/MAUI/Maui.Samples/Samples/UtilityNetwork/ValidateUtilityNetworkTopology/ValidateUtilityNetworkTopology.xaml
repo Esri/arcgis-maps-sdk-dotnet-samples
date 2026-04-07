@@ -67,7 +67,8 @@
                        WidthRequest="170" />
                 <Picker x:Name="Choices"
                         Grid.Column="1"
-                        ItemDisplayBinding="{Binding Name, x:DataType=esri:CodedValue}"
+                        x:DataType="esri:CodedValue"
+                        ItemDisplayBinding="{Binding Name}"
                         WidthRequest="130" />
                 <Button Grid.Row="1"
                         Clicked="OnApplyEdits"

@@ -36,13 +36,13 @@
                     RowSpacing="5">
                     <Label Grid.Row="0" Text="Route directions:" />
                     <ScrollView Grid.Row="1">
-                        <VerticalStackLayout x:Name="DirectionsListBox">
+                        <VerticalStackLayout x:Name="DirectionsListBox" BindableLayout.ItemsSource="{Binding}">
                             <BindableLayout.ItemTemplate>
                                 <DataTemplate>
                                     <Label
                                         Padding="5,3"
                                         FontSize="13"
-                                        Text="{Binding ., x:DataType=x:String}" />
+                                        Text="{Binding .}" />
                                 </DataTemplate>
                             </BindableLayout.ItemTemplate>
                         </VerticalStackLayout>

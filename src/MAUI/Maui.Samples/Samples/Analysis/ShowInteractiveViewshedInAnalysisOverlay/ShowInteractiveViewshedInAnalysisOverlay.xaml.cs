@@ -25,7 +25,7 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
         name: "Show interactive viewshed with analysis overlay",
         category: "Analysis",
         description: "Perform an interactive viewshed analysis to determine visible and non-visible areas from a given observer position.",
-        instructions: "The sample loads with a viewshed analysis initialized from an elevation raster covering the Isle of Arran, Scotland. Transparent green shows the area visible from the observer position, and grey shows the non-visible areas. Move the observer position by clicking and dragging over the island to interactively evaluate the viewshed result and display it in the analysis overlay. Alternatively, tap on the map to see the viewshed from the tapped location. Use the control panel to explore how the viewshed analysis results change when adjusting the observer elevation, target height, maximum radius, field of view, heading and elevation sampling interval. As you move the observer and update the viewshed parameters, the analysis overlay refreshes to show the evaluated viewshed result.",
+        instructions: "The sample loads with a viewshed analysis initialized from an elevation raster covering the Isle of Arran, Scotland. Transparent green shows the area visible from the observer position, and grey shows the non-visible areas. Tap on the map to move the observer position and see the viewshed from the tapped location. Use the control panel to explore how the viewshed analysis results change when adjusting the observer elevation, target height, maximum radius, field of view, heading and elevation sampling interval. As you move the observer and update the viewshed parameters, the analysis overlay refreshes to show the evaluated viewshed result.",
         tags: new[] { "analysis overlay", "elevation", "field analysis", "interactive", "raster", "spatial analysis", "terrain", "viewshed", "visibility" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData("aa97788593e34a32bcaae33947fdc271")]
     public partial class ShowInteractiveViewshedInAnalysisOverlay : ContentPage
@@ -55,7 +55,7 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
                 InitialViewpoint = new Viewpoint(55.610000, -5.200346, 100000)
             };
 
-            // Disable panning to allow tap-and-drag interaction for observer placement.
+            // Disable panning so taps are used solely for placing the observer.
             MyMapView.InteractionOptions = new MapViewInteractionOptions { IsPanEnabled = false };
 
             // Subscribe to tap events for moving the observer.
@@ -141,7 +141,7 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
             SetObserverPosition(e.Location.X, e.Location.Y);
         }
 
-// Update the observer position and viewshed parameters with the new coordinates.
+        // Update the observer position and viewshed parameters with the new coordinates.
         private void SetObserverPosition(double x, double y)
         {
             _observerPosition = new MapPoint(x, y, _observerElevation, SpatialReferences.WebMercator);

@@ -20,10 +20,9 @@
                         <ColumnDefinition Width="auto" />
                     </Grid.ColumnDefinitions>
                     <Picker x:Name="CategoryPicker"
-                            x:DataType="esriUtility:UtilityCategory"
                             Grid.Column="0"
                             Margin="5"
-                            ItemDisplayBinding="{Binding Name}" />
+                            ItemDisplayBinding="{Binding Name,x:DataType=esriUtility:UtilityCategory}" />
                     <Button Grid.Column="1"
                             Margin="5"
                             Clicked="OnTrace"

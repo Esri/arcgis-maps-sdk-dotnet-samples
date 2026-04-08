@@ -70,8 +70,8 @@ namespace ArcGIS.WPF.Samples.AddBuildingSceneLayer
 
             // Get the overview and full model sublayers for the toggle.
             var sublayers = buildingSceneLayer.Sublayers;
-            _overviewSublayer = sublayers.FirstOrDefault(s => s.Name == "Overview");
-            _fullModelSublayer = sublayers.FirstOrDefault(s => s.Name == "Full Model");
+            _overviewSublayer = sublayers.FirstOrDefault(s => s.ModelName == "Overview");
+            _fullModelSublayer = sublayers.FirstOrDefault(s => s.ModelName == "FullModel");
 
             // Enable checkbox only if full model sublayer exists.
             FullModelCheckBox.IsEnabled = _fullModelSublayer != null;

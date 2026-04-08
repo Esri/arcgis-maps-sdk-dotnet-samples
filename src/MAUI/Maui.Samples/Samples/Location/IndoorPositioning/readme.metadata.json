@@ -28,8 +28,6 @@
         "/net/latest/maui/sample-code/show-device-location-using-indoor-positioning.htm"
     ],
     "relevant_apis": [
-        "ArcGISFeatureTable",
-        "FeatureTable",
         "IndoorPositioningDefinition",
         "IndoorsLocationDataSource",
         "Location",

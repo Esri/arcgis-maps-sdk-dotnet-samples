@@ -1,0 +1,38 @@
+{
+    "category": "Analysis",
+    "description": "Perform an interactive viewshed analysis to determine visible and non-visible areas from a given observer position.",
+    "formal_name": "ShowInteractiveViewshedInAnalysisOverlay",
+    "ignore": false,
+    "images": [
+        "ShowInteractiveViewshedInAnalysisOverlay.jpg"
+    ],
+    "keywords": [
+        "analysis overlay",
+        "elevation",
+        "field analysis",
+        "interactive",
+        "raster",
+        "spatial analysis",
+        "terrain",
+        "viewshed",
+        "visibility"
+    ],
+    "offline_data": [],
+    "redirect_from": [],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "Colormap",
+        "ColormapRenderer",
+        "ContinuousField",
+        "ContinuousFieldFunction",
+        "DiscreteFieldFunction",
+        "FieldAnalysis",
+        "ViewshedFunction",
+        "ViewshedParameters"
+    ],
+    "snippets": [
+        "ShowInteractiveViewshedInAnalysisOverlay.xaml.cs",
+        "ShowInteractiveViewshedInAnalysisOverlay.xaml"
+    ],
+    "title": "Show interactive viewshed with analysis overlay"
+}

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay.ShowInteractiveViewshedInAnalysisOverlay"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border
+            MaximumWidthRequest="460"
+            MinimumWidthRequest="380"
+            Style="{DynamicResource EsriSampleControlPanel}">
+            <ScrollView>
+                <Grid
+                    Padding="8,6"
+                    ColumnDefinitions="Auto,3*,Auto"
+                    ColumnSpacing="6"
+                    RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto"
+                    RowSpacing="2">
+
+                    <Label
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        LineBreakMode="NoWrap"
+                        Text="Observer Elevation:"
+                        VerticalTextAlignment="Center" />
+                    <Slider
+                        x:Name="ObserverElevationSlider"
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Maximum="200"
+                        Minimum="2"
+                        ValueChanged="OnObserverElevationChanged"
+                        Value="20" />
+                    <Label
+                        x:Name="ObserverElevationValue"
+                        Grid.Row="0"
+                        Grid.Column="2"
+                        FontSize="12"
+                        HorizontalTextAlignment="End"
+                        Text="20 m"
+                        VerticalTextAlignment="Center"
+                        WidthRequest="55" />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        LineBreakMode="NoWrap"
+                        Text="Target Height:"
+                        VerticalTextAlignment="Center" />
+                    <Slider
+                        x:Name="TargetHeightSlider"
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Maximum="1000"
+                        Minimum="2"
+                        ValueChanged="OnViewshedParameterChanged"
+                        Value="20" />
+                    <Label
+                        x:Name="TargetHeightValue"
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        FontSize="12"
+                        HorizontalTextAlignment="End"
+                        Text="20 m"
+                        VerticalTextAlignment="Center"
+                        WidthRequest="55" />
+
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        LineBreakMode="NoWrap"
+                        Text="Maximum Radius:"
+                        VerticalTextAlignment="Center" />
+                    <Slider
+                        x:Name="MaxRadiusSlider"
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Maximum="20000"
+                        Minimum="2500"
+                        ValueChanged="OnViewshedParameterChanged"
+                        Value="8000" />
+                    <Label
+                        x:Name="MaxRadiusValue"
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        FontSize="12"
+                        HorizontalTextAlignment="End"
+                        Text="8000 m"
+                        VerticalTextAlignment="Center"
+                        WidthRequest="70" />
+
+                    <Label
+                        Grid.Row="3"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        LineBreakMode="NoWrap"
+                        Text="Field of View:"
+                        VerticalTextAlignment="Center" />
+                    <Slider
+                        x:Name="FieldOfViewSlider"
+                        Grid.Row="3"
+                        Grid.Column="1"
+                        Maximum="360"
+                        Minimum="5"
+                        ValueChanged="OnViewshedParameterChanged"
+                        Value="150" />
+                    <Label
+                        x:Name="FieldOfViewValue"
+                        Grid.Row="3"
+                        Grid.Column="2"
+                        FontSize="12"
+                        HorizontalTextAlignment="End"
+                        Text="150°"
+                        VerticalTextAlignment="Center"
+                        WidthRequest="55" />
+
+                    <Label
+                        Grid.Row="4"
+                        Grid.Column="0"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        LineBreakMode="NoWrap"
+                        Text="Heading:"
+                        VerticalTextAlignment="Center" />
+                    <Slider
+                        x:Name="HeadingSlider"
+                        Grid.Row="4"
+                        Grid.Column="1"
+                        Maximum="360"
+                        Minimum="0"
+                        ValueChanged="OnViewshedParameterChanged"
+                        Value="10" />
+                    <Label
+                        x:Name="HeadingValue"
+                        Grid.Row="4"
+                        Grid.Column="2"
+                        FontSize="12"
+                        HorizontalTextAlignment="End"
+                        Text="10°"
+                        VerticalTextAlignment="Center"
+                        WidthRequest="55" />
+
+                    <Label
+                        Grid.Row="5"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        FontAttributes="Bold"
+                        FontSize="12"
+                        Text="Elevation Sampling Interval (m):"
+                        VerticalTextAlignment="Center" />
+
+                    <HorizontalStackLayout
+                        Grid.Row="6"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="3"
+                        Spacing="12">
+                        <RadioButton
+                            x:Name="SamplingInterval0Radio"
+                            CheckedChanged="OnSamplingIntervalChanged"
+                            Content="0"
+                            IsChecked="True" />
+                        <RadioButton
+                            x:Name="SamplingInterval10Radio"
+                            CheckedChanged="OnSamplingIntervalChanged"
+                            Content="10" />
+                        <RadioButton
+                            x:Name="SamplingInterval20Radio"
+                            CheckedChanged="OnSamplingIntervalChanged"
+                            Content="20" />
+                    </HorizontalStackLayout>
+                </Grid>
+            </ScrollView>
+        </Border>
+        <Label
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
+            Margin="0,0,10,30"
+            FontAttributes="Italic"
+            FontSize="11"
+            HorizontalOptions="End"
+            Text="Raster data Copyright Scottish Government and SEPA (2014)"
+            TextColor="White"
+            VerticalOptions="End" />
+    </Grid>
+</ContentPage>

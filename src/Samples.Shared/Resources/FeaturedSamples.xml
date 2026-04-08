@@ -4,6 +4,7 @@
 		<Category name="Analysis">
 			<Sample>ApplyMapAlgebra</Sample>
 			<Sample>DistanceMeasurement</Sample>
+			<Sample>ShowInteractiveViewshedInAnalysisOverlay</Sample>
 		</Category>
 		<Category name="Data">
 			<Sample>CreateKmlMultiTrack</Sample>

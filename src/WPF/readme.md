@@ -11,6 +11,7 @@
 * [Show exploratory viewshed from geoelement in scene](WPF.Viewer/Samples/Analysis/ShowExploratoryViewshedFromGeoelementInScene) - Analyze the exploratory viewshed for an object (GeoElement) in a scene.
 * [Show exploratory viewshed from point in scene](WPF.Viewer/Samples/Analysis/ShowExploratoryViewshedFromPointInScene) - Perform an exploratory viewshed analysis from a defined vantage point.
 * [Show interactive viewshed with analysis overlay](WPF.Viewer/Samples/Analysis/ShowInteractiveViewshedInAnalysisOverlay) - Perform an interactive viewshed analysis to determine visible and non-visible areas from a given observer position.
+* [Show line of sight analysis in map](WPF.Viewer/Samples/Analysis/ShowLineOfSightAnalysisOnMap) - Perform a line of sight analysis in a map view between fixed observer and target positions.
 
 ## Data
 

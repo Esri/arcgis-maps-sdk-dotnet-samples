@@ -137,7 +137,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
                     }
                 };
 
-                // Define a simple marker symbol for the dynamic entities (flights).
+                // Label each dynamic entity with its flight number above the point.
                 var labelDefinition = new LabelDefinition(
                     new SimpleLabelExpression("[flight_number]"),
                     new TextSymbol
@@ -151,7 +151,6 @@ namespace ArcGIS.Samples.QueryDynamicEntities
                     Placement = LabelingPlacement.PointAboveCenter
                 };
 
-                // Create a simple marker symbol for the flights.
                 _dynamicEntityLayer.LabelDefinitions.Add(labelDefinition);
                 _dynamicEntityLayer.LabelsEnabled = true;
                 MyMapView.Map.OperationalLayers.Add(_dynamicEntityLayer);
@@ -186,7 +185,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
 
             if (queryType == "QueryTrackId")
             {
-                QueryDropdown.IsVisible = false;
+                QueryControlPanel.IsVisible = false;
                 FlightNumberDialog.IsVisible = true;
                 FlightNumberInput.Focus();
             }
@@ -207,7 +206,6 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             }
 
             FlightNumberDialog.IsVisible = false;
-            QueryDropdown.IsVisible = false;
             await PerformQuery("QueryTrackId", flightNumber);
             FlightNumberInput.Text = string.Empty;
         }
@@ -218,7 +216,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             FlightNumberDialog.IsVisible = false;
             FlightNumberInput.Text = string.Empty;
             QueryDropdown.SelectedIndex = -1;
-            QueryDropdown.IsVisible = true;
+            QueryControlPanel.IsVisible = true;
         }
 
         // Toggles visibility of flight detail information in the results list.
@@ -227,115 +225,97 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             if (sender is Button button && button.BindingContext is FlightInfo flightInfo)
             {
                 flightInfo.IsExpanded = !flightInfo.IsExpanded;
-
-                // On iOS, force the CollectionView to update its layout.
-                if (DeviceInfo.Platform == DevicePlatform.iOS)
-                {
-                    // Add a small delay to ensure smooth animation.
-                    Dispatcher.Dispatch(async () =>
-                    {
-                        await Task.Delay(10);
-                        ResultsList.ScrollTo(flightInfo, position: ScrollToPosition.MakeVisible, animate: true);
-                    });
-                }
             }
         }
 
-        // Executes the specified query type against the dynamic entity data source.
+        // Queries dynamic entities that intersect with the specified geometry and returns the results of the query.
+        private async Task<IReadOnlyList<DynamicEntity>> QueryDynamicEntitiesAsync(Geometry geometry)
+        {
+            // Sets the parameters' geometry and spatial relationship to query within the buffer.
+            var parameters = new DynamicEntityQueryParameters
+            {
+                Geometry = geometry,
+                SpatialRelationship = SpatialRelationship.Intersects
+            };
+
+            // Performs a dynamic entities query on the data source.
+            var queryResult = await _dynamicEntityDataSource.QueryDynamicEntitiesAsync(parameters);
+
+            // Gets the dynamic entities from the query result.
+            return queryResult?.ToList();
+        }
+
+        // Queries dynamic entities that match the specified attribute where clause and returns the results of the query.
+        private async Task<IReadOnlyList<DynamicEntity>> QueryDynamicEntitiesAsync(string whereClause)
+        {
+            // Sets the parameters' where clause to query the entities' attributes.
+            var parameters = new DynamicEntityQueryParameters
+            {
+                WhereClause = whereClause
+            };
+
+            // Performs a dynamic entities query on the data source.
+            var queryResult = await _dynamicEntityDataSource.QueryDynamicEntitiesAsync(parameters);
+
+            // Gets the dynamic entities from the query result.
+            return queryResult?.ToList();
+        }
+
+        // Queries dynamic entities with the specified track IDs and returns the results of the query.
+        private async Task<IReadOnlyList<DynamicEntity>> QueryDynamicEntitiesAsync(IEnumerable<string> trackIds)
+        {
+            // Performs a dynamic entities query on the data source.
+            // Use this method when querying only by track IDs.
+            var queryResult = await _dynamicEntityDataSource.QueryDynamicEntitiesAsync(trackIds);
+
+            // Gets the dynamic entities from the query result.
+            return queryResult?.ToList();
+        }
+
+        // Executes the specified query type on the data source
         private async Task PerformQuery(string queryType, string flightNumber = null)
         {
-            try
+            _queryResults.Clear();
+            _dynamicEntityLayer?.ClearSelection();
+            _bufferGraphicsOverlay.IsVisible = false;
+            ResultsPanel.IsVisible = true;
+            QueryControlPanel.IsVisible = false;
+
+            // Holds the dynamic entities returned from the query.
+            IReadOnlyList<DynamicEntity> results = Array.Empty<DynamicEntity>();
+
+            switch (queryType)
             {
-                _queryResults.Clear();
+                case "QueryGeometry":
+                    results = await QueryDynamicEntitiesAsync(_phoenixAirportBuffer);
+                    // Shows the buffer graphic when querying by geometry.
+                    _bufferGraphicsOverlay.IsVisible = true;
+                    ResultsDescription.Text = "Flights within 15 miles of PHX";
+                    break;
 
-                if (_dynamicEntityLayer != null)
-                {
-                    _dynamicEntityLayer.ClearSelection();
-                }
+                case "QueryAttributes":
+                    results = await QueryDynamicEntitiesAsync("status = 'In flight' AND arrival_airport = 'PHX'");
+                    ResultsDescription.Text = "Flights arriving in PHX";
+                    break;
 
-                _bufferGraphicsOverlay.IsVisible = false;
-
-                if (_dynamicEntityDataSource == null || _dynamicEntityDataSource.ConnectionStatus != ConnectionStatus.Connected)
-                {
-                    await DisplayAlert("Not Ready", "Data source is not connected. Please wait for the data to load.", "OK");
-                    return;
-                }
-
-                // Set up query parameters based on the selected query type.
-                var queryParameters = new DynamicEntityQueryParameters();
-
-                switch (queryType)
-                {
-                    // Query for entities within a 15-mile buffer of Phoenix Airport (PHX).
-                    case "QueryGeometry":
-                        queryParameters.Geometry = _phoenixAirportBuffer;
-                        queryParameters.SpatialRelationship = SpatialRelationship.Intersects;
-                        _bufferGraphicsOverlay.IsVisible = true;
-                        ResultsDescription.Text = "Flights within 15 miles of PHX";
-                        break;
-
-                    // Query for entities with attributes indicating they are arriving at PHX.
-                    case "QueryAttributes":
-                        queryParameters.WhereClause = "status = 'In flight' AND arrival_airport = 'PHX'";
-                        ResultsDescription.Text = "Flights arriving in PHX";
-                        break;
-
-                    // Query for a specific entity by its flight number (track ID).
-                    case "QueryTrackId":
-                        if (!string.IsNullOrEmpty(flightNumber))
-                        {
-                            queryParameters.TrackIds.Add(flightNumber);
-                            ResultsDescription.Text = $"Flight {flightNumber}";
-                        }
-                        break;
-
-                    default:
-                        return;
-                }
-
-                IEnumerable<DynamicEntity> results = null;
-
-                // Execute the query against the dynamic entity data source.
-                if (_dynamicEntityLayer?.DataSource != null)
-                {
-                    results = await _dynamicEntityLayer.DataSource.QueryDynamicEntitiesAsync(queryParameters);
-                }
-
-                results = results ?? Enumerable.Empty<DynamicEntity>();
-
-                // Process and display the query results.
-                if (results.Any())
-                {
-                    foreach (var entity in results)
+                case "QueryTrackId":
+                    if (!string.IsNullOrWhiteSpace(flightNumber))
                     {
-                        if (entity != null)
-                        {
-                            var flightNum = entity.Attributes["flight_number"]?.ToString();
-                            if (!string.IsNullOrEmpty(flightNum))
-                            {
-                                _dynamicEntityLayer.SelectDynamicEntity(entity);
-                                var flightInfo = new FlightInfo(entity);
-                                _queryResults.Add(flightInfo);
-                            }
-                        }
+                        results = await QueryDynamicEntitiesAsync(new[] { flightNumber });
+                        ResultsDescription.Text = $"Flight {flightNumber}";
                     }
-                }
-
-                // Update UI to show results and hide query options.
-                QueryDropdown.IsVisible = false;
-                ResultsPanel.IsVisible = true;
-
-                if (!_queryResults.Any())
-                {
-                    await DisplayAlert("Live Tracking Active",
-                        "No flights currently match the criteria, but the list will update as flights enter or leave the area.", "OK");
-                }
+                    break;
             }
-            catch (Exception ex)
+
+            await Task.Yield();
+
+            foreach (var result in results)
             {
-                await DisplayAlert("Error", $"Query failed: {ex.Message}", "OK");
-                System.Diagnostics.Debug.WriteLine($"Query exception: {ex}");
+                _dynamicEntityLayer.SelectDynamicEntity(result);
+                _queryResults.Add(new FlightInfo(result));
             }
+
+            ResultsPanel.IsVisible = true;
         }
 
         // Centers the map view on the selected flight's current position.
@@ -355,7 +335,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
         private void OnCloseResults(object sender, EventArgs e)
         {
             ResultsPanel.IsVisible = false;
-            QueryDropdown.IsVisible = true;
+            QueryControlPanel.IsVisible = true;
 
             _queryResults.Clear();
 

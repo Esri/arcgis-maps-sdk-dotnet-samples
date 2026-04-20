@@ -2,9 +2,14 @@
 <ContentPage x:Class="ArcGIS.Samples.ReadShapefileMetadata.ReadShapefileMetadata"
              xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:ArcGIS.Converters"
              xmlns:controls="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+
+    <ContentPage.Resources>
+        <converters:RuntimeImageToImageSourceConverter x:Key="RuntimeImageToImageSource" />
+    </ContentPage.Resources>
 
     <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
@@ -25,7 +30,8 @@
                            LineBreakMode="WordWrap"
                            MaximumWidthRequest="400"
                            Text="{Binding Summary}" />
-                    <Image x:Name="ShapefileThumbnailImage" HorizontalOptions="Start" />
+                    <Image HorizontalOptions="Start"
+                           Source="{Binding Thumbnail, Converter={StaticResource RuntimeImageToImageSource}}" />
                     <Label FontAttributes="Bold"
                            FontSize="Medium"
                            HorizontalOptions="Start"

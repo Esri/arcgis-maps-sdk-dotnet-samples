@@ -4,17 +4,7 @@
              xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
              xmlns:mapping="clr-namespace:Esri.ArcGISRuntime.Mapping;assembly=Esri.ArcGISRuntime">
     <Grid x:Name="layoutGrid">
-        <esri:MapView x:Name="MyMapView">
-            <mapping:Map>
-                <mapping:Map.OperationalLayers>
-                    <!--  This layer is public and does not require credentials  -->
-                    <mapping:ArcGISTiledLayer Name="World Street Map - Public" Source="https://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer" />
-                    <!--  This layer is secured with ArcGIS tokens and requires a login  -->
-                    <!--  username: user1 | password: user1  -->
-                    <mapping:ArcGISMapImageLayer Name="USA - Secure" Source="https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer" />
-                </mapping:Map.OperationalLayers>
-            </mapping:Map>
-        </esri:MapView>
+        <esri:MapView x:Name="MyMapView" />
 
         <!--  Layer listing with status  -->
         <Border Style="{StaticResource BorderStyle}">

@@ -47,24 +47,6 @@ namespace ArcGIS.Samples.ReadShapefileMetadata
                 ShapefileInfo fileInfo = myShapefile.Info;
                 InfoList.BindingContext = fileInfo;
 
-                // Read the thumbnail image data into a byte array.
-                Stream imageStream = await fileInfo.Thumbnail.GetEncodedBufferAsync();
-                byte[] imageData = new byte[imageStream.Length];
-                imageStream.ReadExactly(imageData);
-
-                // Create a new image source from the thumbnail data.
-                ImageSource streamImageSource = ImageSource.FromStream(() => new MemoryStream(imageData));
-
-                // Create a new image to display the thumbnail.
-                var image = new Image()
-                {
-                    Source = streamImageSource,
-                    Margin = new Thickness(10)
-                };
-
-                // Show the thumbnail image in a UI control.
-                ShapefileThumbnailImage.Source = image.Source;
-
                 // Create a feature layer to display the shapefile.
                 var newFeatureLayer = new FeatureLayer(myShapefile);
                 await newFeatureLayer.LoadAsync();

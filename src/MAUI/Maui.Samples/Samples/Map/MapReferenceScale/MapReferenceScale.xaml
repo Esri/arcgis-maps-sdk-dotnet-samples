@@ -16,8 +16,8 @@
                             Margin="5"
                             x:DataType="esriUI:MapView"
                             BindingContext="{x:Reference MyMapView}"
-                            ItemDisplayBinding="{Binding StringFormat='{0:n0}'}"
-                            SelectedItem="{Binding Path=Map.ReferenceScale}"
+                            ItemDisplayBinding="{Binding StringFormat='{0:n0}', x:DataType=x:Double}"
+                            SelectedItem="{Binding Path=Map.ReferenceScale, x:DataType=esriUI:MapView}"
                             VerticalOptions="Center" />
                     <Label Text="Choose layers to apply scale to:" />
                     <!--  Binding is used to display the operational layers for the map view's map, no code behind needed.  -->

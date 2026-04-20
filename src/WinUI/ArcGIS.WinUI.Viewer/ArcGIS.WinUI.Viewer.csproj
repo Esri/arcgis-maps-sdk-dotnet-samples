@@ -6,8 +6,8 @@
     <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
     <RootNamespace>ArcGIS.WinUI.Viewer</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <Platforms>x86;x64;ARM64</Platforms>
-    <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
+    <Platforms>x64;ARM64</Platforms>
+    <RuntimeIdentifiers>win10-x64;win10-arm64</RuntimeIdentifiers>
     <ArcGISLocalServerIgnoreMissingComponent>True</ArcGISLocalServerIgnoreMissingComponent>
     <AppxPackageDir>..\..\..\output\$(RuntimeIdentifier)\</AppxPackageDir>
     <PublishProfile>win10-$(Platform).pubxml</PublishProfile>
@@ -60,8 +60,8 @@
 
   <ItemGroup>
     <PackageReference Include="Esri.ArcGISRuntime.Hydrography" />
-    <PackageReference Include="Esri.ArcGISRuntime.WinUI" />
     <PackageReference Include="Esri.ArcGISRuntime.LocalServices" />
+    <PackageReference Include="Esri.ArcGISRuntime.WinUI" />
     <PackageReference Include="Esri.Calcite.WinUI" />
     <PackageReference Include="System.Drawing.Common" />
     <PackageReference Include="System.Security.Cryptography.ProtectedData" />

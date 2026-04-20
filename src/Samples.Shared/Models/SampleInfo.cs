@@ -62,7 +62,7 @@ namespace ArcGIS.Samples.Shared.Models
         public string Instructions { get; set; }
 
 
-#if !(WinUI || WINDOWS_UWP)
+#if !(WinUI)
         public bool IsFavorite { get; set; }
 
         public bool ShowFavoriteIcon
@@ -187,7 +187,6 @@ namespace ArcGIS.Samples.Shared.Models
             return typeInfo.GetCustomAttributes(typeof(T)).SingleOrDefault() as T;
         }
 
-#if !WINDOWS_UWP
         /// <summary>
         /// Get the GitHub url for a given sample folder.
         /// </summary>
@@ -201,10 +200,7 @@ namespace ArcGIS.Samples.Shared.Models
             samplesPath = Path.Substring(Path.LastIndexOf("Samples")).Replace("\\", "/");
             fullPath = repoUrl + "/tree/main/src/WPF/WPF.Viewer/" + samplesPath;
 
-#if NETFRAMEWORK
-            samplesPath = Path.Substring(Path.LastIndexOf("Samples")).Replace("//", "\\");
-            fullPath = repoUrl + "/tree/main/src/WPF/WPF.Viewer/" + samplesPath;
-#elif WinUI
+#if WinUI
             samplesPath = Path.Substring(Path.LastIndexOf("Samples")).Replace("\\", "/");
             fullPath = repoUrl + "/tree/main/src/WinUI/ArcGIS.WinUI.Viewer/" + samplesPath;
 #elif MAUI
@@ -213,6 +209,5 @@ namespace ArcGIS.Samples.Shared.Models
 #endif
             return fullPath;
         }
-#endif
     }
 }

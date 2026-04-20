@@ -30,7 +30,7 @@ Pan and zoom to explore the scene.
 
 ## About the data
 
-This sample shows a [Portland, Oregon USA Scene](https://www.arcgis.com/home/item.html?id=2b721b9e7bef45e2b7ff78a398a33acc) hosted on ArcGIS Online.
+This sample shows data from [Esri 3D Buildings](https://www.arcgis.com/home/item.html?id=b8fec5af7dfe4866b1b8ac2d2800f282) in Portland, Oregon.
 
 ## Tags
 

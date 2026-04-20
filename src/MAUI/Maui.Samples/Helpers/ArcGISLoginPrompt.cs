@@ -62,25 +62,25 @@ namespace ArcGIS.Helpers
         {
             var userConfig = new OAuthUserConfiguration(new Uri(ArcGISOnlineUrl), AppClientId, new Uri(OAuthRedirectUrl));
             AuthenticationManager.Current.OAuthUserConfigurations.Add(userConfig);
-            AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize();
+            AuthenticationManager.Current.OAuthHandler = new OAuthAuthorize();
         }
     }
 
     #region IOAuthAuthorizationHandler implementation
 
-    public class OAuthAuthorize : IOAuthAuthorizeHandler
+    public class OAuthAuthorize : IOAuthHandler
     {
 #if IOS || MACCATALYST
 		TaskCompletionSource<IDictionary<string, string>> _taskCompletionSource;
 		
-        public Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        public Task<IDictionary<string, string>> LoginAsync(OAuthLoginParameters parameters)
         {
             _taskCompletionSource = new TaskCompletionSource<IDictionary<string, string>>();
             Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(async () =>
             {
                 try
                 {
-                    var result = await WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
+                    var result = await WebAuthenticator.AuthenticateAsync(parameters.AuthorizeUri, parameters.RedirectUri);
                     _taskCompletionSource.TrySetResult(result.Properties);
                 }
                 catch (Exception ex)
@@ -91,24 +91,24 @@ namespace ArcGIS.Helpers
             return _taskCompletionSource.Task;
 		}
 #elif ANDROID
-        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        public async Task<IDictionary<string, string>> LoginAsync(OAuthLoginParameters parameters)
         {
-            var result = await WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
+            var result = await WebAuthenticator.AuthenticateAsync(parameters.AuthorizeUri, parameters.RedirectUri);
             return result.Properties;
         }
 #elif WINDOWS
-        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        public async Task<IDictionary<string, string>> LoginAsync(OAuthLoginParameters parameters)
         {
-            var result = await WinUIEx.WebAuthenticator.AuthenticateAsync(authorizeUri, callbackUri);
+            var result = await WinUIEx.WebAuthenticator.AuthenticateAsync(parameters.AuthorizeUri, parameters.RedirectUri);
             return result.Properties;
         }
 #else
-        public async Task<IDictionary<string, string>> AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        public Task<IDictionary<string, string>> LoginAsync(OAuthLoginParameters parameters)
         {
             throw new NotImplementedException();
         }
 #endif
-    }
+}
 
 #if ANDROID
 

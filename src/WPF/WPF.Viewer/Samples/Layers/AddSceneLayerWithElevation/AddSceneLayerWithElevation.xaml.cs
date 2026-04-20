@@ -29,7 +29,7 @@ namespace ArcGIS.WPF.Samples.AddSceneLayerWithElevation
 
         // URL for the scene layer.
         private readonly Uri _serviceUri = new Uri(
-            "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Portland/SceneServer");
+            "https://www.arcgis.com/home/item.html?id=b8fec5af7dfe4866b1b8ac2d2800f282");
 
         public AddSceneLayerWithElevation()
         {
@@ -57,11 +57,11 @@ namespace ArcGIS.WPF.Samples.AddSceneLayerWithElevation
                 // Load the layer.
                 await sceneLayer.LoadAsync();
 
-                // Get the center of the scene layer.
-                MapPoint center = (MapPoint)GeometryEngine.Project(sceneLayer.FullExtent.GetCenter(), SpatialReferences.Wgs84);
+                // Create a center point in Portland, Oregon.
+                MapPoint center = new MapPoint(-122.670, 45.517, 175.0, SpatialReferences.Wgs84);
 
                 // Create a camera with coordinates showing layer data.
-                Camera camera = new Camera(center.Y, center.X, 225, 220, 80, 0);
+                Camera camera = new Camera(center, 215, 75, 0);
 
                 // Assign the Scene to the SceneView.
                 MySceneView.Scene = myScene;

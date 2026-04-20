@@ -27,7 +27,7 @@ To start a `LocalServer` and attach a `LocalService`:
 3. Create and run a local service. Here is an example of running a `LocalMapService`:
     1. Instantiate `LocalMapService(Url)` to create a local map service with the given URL path to map package (`mpk` or `mpkx` file).
     2. Start the job with `LocalMapService.StartAsync()`. The service is added to the `LocalServer` automatically.
-4.  Stop the local server with `LocalServer.Instance.StopAsync()`.
+4. Stop the local server with `LocalServer.Instance.StopAsync()`.
 
 ## Relevant API
 
@@ -46,7 +46,7 @@ To start a `LocalServer` and attach a `LocalService`:
 
 ## Additional information
 
-ArcGIS Maps SDK for Local Server (Local Server) is deprecated and will be retired in 2030. The last release will be ArcGIS Maps SDK for Local Server 200.8, in Q3 2025. For more information, see the [deprecation announcement](https://support.esri.com/en-us/knowledge-base/deprecation-arcgis-maps-sdk-for-local-server-000034908).
+ArcGIS Maps SDK for Local Server (Local Server) is deprecated and will be retired in 2030. For more information, see the [deprecation announcement](https://support.esri.com/en-us/knowledge-base/deprecation-arcgis-maps-sdk-for-local-server-000034908).
 
 ## Tags
 

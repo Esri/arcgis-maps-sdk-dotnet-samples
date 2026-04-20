@@ -7,6 +7,7 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
+using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
 using System;
 using System.ComponentModel;
@@ -33,22 +34,19 @@ namespace ArcGIS.WPF.Samples.TokenSecuredChallenge
 
             // Define a method to challenge the user for credentials when a secured resource is encountered.
             AuthenticationManager.Current.ChallengeHandler = new ChallengeHandler(Challenge);
+
+            // This layer is public and does not require credentials
+            MyMapView.Map = new Map(new Basemap(new ArcGISTiledLayer(new Uri("https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer"))));
+            // This layer is secured with ArcGIS tokens and requires a login
+            // username: user1 | password: user1
+            MyMapView.Map.OperationalLayers.Add(new ArcGISMapImageLayer(new Uri("https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA_secure_user1/MapServer")) { Name = "USA - Secure" });
         }
 
         // Function that's called when authentication is needed for a secure resource.
-        private async Task<Credential> Challenge(CredentialRequestInfo info)
+        private Task<Credential> Challenge(CredentialRequestInfo info)
         {
-            // Make sure to run on the UI thread.
-            if (this.Dispatcher == null)
-            {
-                // No current dispatcher, code is already running on the UI thread.
-                return await GetUserCredentialsFromUI(info);
-            }
-            else
-            {
-                // Use the dispatcher to invoke the challenge UI.
-                return await this.Dispatcher.Invoke(() => GetUserCredentialsFromUI(info));
-            }
+            // Use the dispatcher to invoke the challenge on the UI thread.
+            return this.Dispatcher.Invoke(() => GetUserCredentialsFromUI(info));
         }
 
         private async Task<Credential> GetUserCredentialsFromUI(CredentialRequestInfo info)

@@ -12,8 +12,8 @@
             <Label Text="Add phases from the dropdown list, then run report." />
             <HorizontalStackLayout Spacing="5">
                 <Picker x:Name="PhasesList"
-                        x:DataType="esri:CodedValue"
-                        ItemDisplayBinding="{Binding Name}"
+                        IsEnabled="False"
+                        ItemDisplayBinding="{Binding Name, x:DataType=esri:CodedValue}"
                         WidthRequest="150" />
                 <Button Clicked="OnAddPhase" Text="Add" />
             </HorizontalStackLayout>
@@ -30,25 +30,25 @@
                             HeightRequest="300"
                             VerticalScrollBarVisibility="Default">
                 <CollectionView.Header>
-                    <Grid ColumnDefinitions="Auto, Auto, Auto"
-                          ColumnSpacing="25"
-                          HorizontalOptions="Center">
+                    <Grid ColumnDefinitions="*, *, *"
+                          Padding="5,0">
                         <Label Grid.Column="0"
                                FontAttributes="Bold"
                                Text="Phase" />
                         <Label Grid.Column="1"
                                FontAttributes="Bold"
+                               HorizontalOptions="Center"
                                Text="Total Customers" />
                         <Label Grid.Column="2"
                                FontAttributes="Bold"
+                               HorizontalOptions="Center"
                                Text="Total Load" />
                     </Grid>
                 </CollectionView.Header>
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="local:PhaseSummary">
-                        <Grid Margin="5"
-                              ColumnDefinitions="100, 50, 175"
-                              HorizontalOptions="Center">
+                        <Grid ColumnDefinitions="*, *, *"
+                              Padding="5,0">
                             <Label Text="{Binding Phase}" />
                             <Label Grid.Column="1"
                                    HorizontalOptions="Center"

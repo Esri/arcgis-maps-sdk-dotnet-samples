@@ -95,10 +95,7 @@ namespace ArcGIS.Samples.SymbolsFromMobileStyle
                     RuntimeImage swatch = await multiLayerSym.CreateSwatchAsync(30, 30, 96, Color.Transparent);
 
                     // Create an image source from the swatch.
-                    Stream imageBuffer = await swatch.GetEncodedBufferAsync();
-                    byte[] imageData = new byte[imageBuffer.Length];
-                    imageBuffer.ReadExactly(imageData);
-                    ImageSource symbolImage = ImageSource.FromStream(() => new MemoryStream(imageData));
+                    ImageSource symbolImage = await RuntimeImageExtensions.ToImageSourceAsync(swatch);
 
                     // Create a symbol layer info object to represent the symbol in the list.
                     // The symbol key will be used to retrieve the symbol from the style.

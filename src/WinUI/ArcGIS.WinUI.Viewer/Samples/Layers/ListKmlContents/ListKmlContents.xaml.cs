@@ -25,7 +25,7 @@ namespace ArcGIS.WinUI.Samples.ListKmlContents
         description: "List the contents of a KML file.",
         instructions: "The contents of the KML file are shown in a tree. Select a node to zoom to that node. Not all nodes can be zoomed to (e.g. screen overlays).",
         tags: new[] { "KML", "KMZ", "Keyhole", "OGC", "layers" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData("da301cb122874d5497f8a8f6c81eb36e")]
+    [ArcGIS.Samples.Shared.Attributes.OfflineData("b3ebedc3bed940fa985d824d55c44a2f")]
     public partial class ListKmlContents
     {
         // Hold a list of LayerDisplayVM; this is the ViewModel.
@@ -44,7 +44,7 @@ namespace ArcGIS.WinUI.Samples.ListKmlContents
             MySceneView.Scene.BaseSurface.ElevationSources.Add(new ArcGISTiledElevationSource(new Uri("https://elevation3d.arcgis.com/arcgis/rest/services/WorldElevation3D/Terrain3D/ImageServer")));
 
             // Get the URL to the data.
-            Uri kmlUrl = new Uri(DataManager.GetDataFolder("da301cb122874d5497f8a8f6c81eb36e", "esri_test_data.kmz"));
+            Uri kmlUrl = new Uri(DataManager.GetDataFolder("b3ebedc3bed940fa985d824d55c44a2f", "esri_kml_sample_data.kmz"));
 
             // Create the KML dataset and layer.
             KmlDataset dataset = new KmlDataset(kmlUrl);

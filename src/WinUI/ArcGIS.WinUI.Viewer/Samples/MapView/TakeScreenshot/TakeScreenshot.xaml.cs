@@ -49,10 +49,10 @@ namespace ArcGIS.WinUI.Samples.TakeScreenshot
                 RuntimeImage image = await MyMapView.ExportImageAsync();
 
                 // Convert the image to a displayable format.
-                ImageSource exportedImage = await image.ToImageSourceAsync();
+                ImageSource displayImage = await image.ToImageSourceAsync();
 
                 // Set the screenshot view to the new exported image.
-                ScreenshotView.Source = exportedImage;
+                ScreenshotView.Source = displayImage;
 
                 // Make the screenshot view visible in the UI.
                 ScreenshotView.Visibility = Visibility.Visible;

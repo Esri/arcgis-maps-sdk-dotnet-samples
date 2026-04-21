@@ -62,13 +62,13 @@ namespace ArcGIS.Helpers
         {
             var userConfig = new OAuthUserConfiguration(new Uri(ArcGISOnlineUrl), AppClientId, new Uri(OAuthRedirectUrl));
             AuthenticationManager.Current.OAuthUserConfigurations.Add(userConfig);
-            AuthenticationManager.Current.OAuthAuthorizeHandler = new OAuthAuthorize(sample);
+            AuthenticationManager.Current.OAuthHandler = new OAuthAuthorize(sample);
         }
     }
 
     #region OAuth handler
 
-    public class OAuthAuthorize : IOAuthAuthorizeHandler
+    public class OAuthAuthorize : IOAuthHandler
     {
         // Window to contain the OAuth UI.
         private ContentDialog _authWindow;
@@ -77,10 +77,10 @@ namespace ArcGIS.Helpers
         private TaskCompletionSource<IDictionary<string, string>> _tcs;
 
         // URL for the authorization callback result (the redirect URI configured for your application).
-        private string _callbackUrl;
+        private Uri _redirectUrl;
 
         // URL that handles the OAuth request.
-        private string _authorizeUrl;
+        private Uri _authorizeUrl;
         private UserControl sample;
 
         public OAuthAuthorize(UserControl sample)
@@ -89,7 +89,7 @@ namespace ArcGIS.Helpers
         }
 
         // Function to handle authorization requests, takes the URIs for the secured service, the authorization endpoint, and the redirect URI.
-        Task<IDictionary<string, string>> IOAuthAuthorizeHandler.AuthorizeAsync(Uri serviceUri, Uri authorizeUri, Uri callbackUri)
+        public Task<IDictionary<string, string>> LoginAsync(OAuthLoginParameters parameters)
         {
             if (_tcs != null && !_tcs.Task.IsCompleted)
                 throw new Exception("Task in progress");
@@ -97,13 +97,13 @@ namespace ArcGIS.Helpers
             _tcs = new TaskCompletionSource<IDictionary<string, string>>();
 
             // Store the authorization and redirect URLs.
-            _authorizeUrl = authorizeUri.AbsoluteUri;
-            _callbackUrl = callbackUri.AbsoluteUri;
+            _authorizeUrl = parameters.AuthorizeUri;
+            _redirectUrl = parameters.RedirectUri;
 
             // Call a function to show the login controls, make sure it runs on the UI thread for this app.
             sample.DispatcherQueue.TryEnqueue(DispatcherQueuePriority.Normal, () =>
             {
-                _ = AuthorizeOnUIThread(authorizeUri);
+                _ = AuthorizeOnUIThread(parameters.AuthorizeUri);
             });
 
             // Return the task associated with the TaskCompletionSource.
@@ -159,8 +159,8 @@ namespace ArcGIS.Helpers
                 return;
 
             // Check for redirect.
-            bool isRedirected = uri.AbsoluteUri.StartsWith(_callbackUrl) ||
-                _callbackUrl.Contains(portalApprovalMarker) && uri.AbsoluteUri.Contains(portalApprovalMarker);
+            bool isRedirected = _redirectUrl.IsBaseOf(uri) ||
+                _redirectUrl.AbsoluteUri.Contains(portalApprovalMarker) && uri.AbsoluteUri.Contains(portalApprovalMarker);
 
             // Check if browser was redirected to the callback URL. (This indicates succesful authentication.)
             if (isRedirected)

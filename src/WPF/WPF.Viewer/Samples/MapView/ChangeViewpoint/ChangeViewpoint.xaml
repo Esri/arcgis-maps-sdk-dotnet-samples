@@ -10,13 +10,8 @@
         </Style>
     </UserControl.Resources>
     <Grid>
-        <esri:MapView x:Name="MyMapView">
-            <mapping:Map>
-                <mapping:Map.OperationalLayers>
-                    <mapping:ArcGISTiledLayer x:Name="Basemap" Source="https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer" />
-                </mapping:Map.OperationalLayers>
-            </mapping:Map>
-        </esri:MapView>
+        <esri:MapView x:Name="MyMapView" />
+
         <Border Style="{StaticResource BorderStyle}">
             <Grid>
                 <Grid.RowDefinitions>

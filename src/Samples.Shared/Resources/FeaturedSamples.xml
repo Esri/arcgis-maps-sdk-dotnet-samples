@@ -2,7 +2,9 @@
 <FeaturedSamples>
 	<Categories>
 		<Category name="Analysis">
+			<Sample>ApplyMapAlgebra</Sample>
 			<Sample>DistanceMeasurement</Sample>
+			<Sample>ShowInteractiveViewshedInAnalysisOverlay</Sample>
 		</Category>
 		<Category name="Data">
 			<Sample>CreateKmlMultiTrack</Sample>
@@ -16,6 +18,7 @@
 		</Category>
 		<Category name="Layers">
 			<Sample>Add3dTilesLayer</Sample>
+			<Sample>AddBuildingSceneLayer</Sample>
 			<Sample>AddSceneLayerWithElevation</Sample>
 			<Sample>ApplyRenderersToSceneLayer</Sample>
 			<Sample>ConfigureClusters</Sample>
@@ -25,6 +28,7 @@
 			<Sample>AddVectorTiledLayerFromCustomStyle</Sample>
 			<Sample>DisplayClusters</Sample>
 			<Sample>DisplayRouteLayer</Sample>
+			<Sample>FilterBuildingSceneLayer</Sample>
 		</Category>
 		<Category name="Map">
 			<Sample>BrowseBuildingFloors</Sample>
@@ -33,6 +37,7 @@
 			<Sample>DisplayMap</Sample>
 			<Sample>DisplayOverviewMap</Sample>
 			<Sample>CreateDynamicBasemapGallery</Sample>
+			<Sample>SetSpatialReference</Sample>
 		</Category>
 		<Category name="MapView">
 			<Sample>DisplayGrid</Sample>
@@ -41,8 +46,10 @@
 			<Sample>QueryDynamicEntities</Sample>
 		</Category>
 		<Category name="Scene">
+			<Sample>ConfigureSceneEnvironment</Sample>
 			<Sample>FilterFeaturesInScene</Sample>
 			<Sample>ShowLabelsOnLayer3D</Sample>
+			<Sample>DisplayLocalScene</Sample>
 		</Category>
 		<Category name="Symbology">
 			<Sample>StyleGeometryTypesWithSymbols</Sample>

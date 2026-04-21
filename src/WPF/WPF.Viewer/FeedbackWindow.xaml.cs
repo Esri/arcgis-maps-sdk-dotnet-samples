@@ -46,9 +46,7 @@ namespace ArcGIS
         {
             try
             {
-#if NETFRAMEWORK
-            Process.Start(link);
-#elif NETCOREAPP
+#if NETCOREAPP
             Process.Start(new ProcessStartInfo
             {
                 FileName = link,

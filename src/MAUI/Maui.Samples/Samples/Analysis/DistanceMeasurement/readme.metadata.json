@@ -18,8 +18,8 @@
     ],
     "relevant_apis": [
         "AnalysisOverlay",
-        "LocationDistanceMeasurement",
-        "LocationDistanceMeasurement.MeasurementChanged"
+        "ExploratoryLocationDistanceMeasurement",
+        "ExploratoryLocationDistanceMeasurement.MeasurementChanged"
     ],
     "snippets": [
         "DistanceMeasurement.xaml.cs",

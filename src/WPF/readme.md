@@ -2,13 +2,15 @@
 
 ## Analysis
 
+* [Apply map algebra](WPF.Viewer/Samples/Analysis/ApplyMapAlgebra) - Apply map algebra to an elevation raster to floor, mask, and categorize the elevation values into discrete integer-based categories.
 * [Distance measurement analysis](WPF.Viewer/Samples/Analysis/DistanceMeasurement) - Measure distances between two points in 3D.
-* [Line of sight (geoelement)](WPF.Viewer/Samples/Analysis/LineOfSightGeoElement) - Show a line of sight between two moving objects.
-* [Line of sight (location)](WPF.Viewer/Samples/Analysis/LineOfSightLocation) - Perform a line of sight analysis between two points in real time.
 * [Query feature count and extent](WPF.Viewer/Samples/Analysis/QueryFeatureCountAndExtent) - Zoom to features matching a query and count the features in the current visible extent.
-* [Viewshed (location)](WPF.Viewer/Samples/Analysis/ViewshedLocation) - Perform a viewshed analysis from a defined vantage point.
-* [Viewshed for GeoElement](WPF.Viewer/Samples/Analysis/ViewshedGeoElement) - Analyze the viewshed for an object (GeoElement) in a scene.
-* [Viewshed for camera](WPF.Viewer/Samples/Analysis/ViewshedCamera) - Analyze the viewshed for a camera. A viewshed shows the visible and obstructed areas from an observer's vantage point.
+* [Show exploratory line of sight between geoelements](WPF.Viewer/Samples/Analysis/ShowExploratoryLineOfSightBetweenGeoelements) - Show an exploratory line of sight between two moving objects.
+* [Show exploratory line of sight between points](WPF.Viewer/Samples/Analysis/ShowExploratoryLineOfSightBetweenPoints) - Perform an exploratory line of sight analysis between two points in real time.
+* [Show exploratory viewshed from camera in scene](WPF.Viewer/Samples/Analysis/ShowExploratoryViewshedFromCameraInScene) - Analyze the exploratory viewshed for a camera showing the visible and obstructed areas from an observer's vantage point.
+* [Show exploratory viewshed from geoelement in scene](WPF.Viewer/Samples/Analysis/ShowExploratoryViewshedFromGeoelementInScene) - Analyze the exploratory viewshed for an object (GeoElement) in a scene.
+* [Show exploratory viewshed from point in scene](WPF.Viewer/Samples/Analysis/ShowExploratoryViewshedFromPointInScene) - Perform an exploratory viewshed analysis from a defined vantage point.
+* [Show interactive viewshed with analysis overlay](WPF.Viewer/Samples/Analysis/ShowInteractiveViewshedInAnalysisOverlay) - Perform an interactive viewshed analysis to determine visible and non-visible areas from a given observer position.
 
 ## Data
 
@@ -59,8 +61,8 @@
 ## Geoprocessing
 
 * [Analyze hotspots](WPF.Viewer/Samples/Geoprocessing/AnalyzeHotspots) - Use a geoprocessing service and a set of features to identify statistically significant hot spots and cold spots.
-* [Analyze viewshed (geoprocessing)](WPF.Viewer/Samples/Geoprocessing/AnalyzeViewshed) - Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.
 * [List geodatabase versions](WPF.Viewer/Samples/Geoprocessing/ListGeodatabaseVersions) - Connect to a service and list versions of the geodatabase.
+* [Show viewshed calculated from geoprocessing task](WPF.Viewer/Samples/Geoprocessing/ShowViewshedCalculatedFromGeoprocessingTask) - Calculate a viewshed using a geoprocessing service, in this case showing what parts of a landscape are visible from points on mountainous terrain.
 
 ## GraphicsOverlay
 
@@ -76,6 +78,7 @@
 
 * [Add 3d tiles layer](WPF.Viewer/Samples/Layers/Add3dTilesLayer) - Add a layer to visualize 3D tiles data that conforms to the OGC 3D Tiles specification.
 * [Add a point scene layer](WPF.Viewer/Samples/Layers/AddPointSceneLayer) - View a point scene layer from a scene service.
+* [Add building scene layer](WPF.Viewer/Samples/Layers/AddBuildingSceneLayer) - Add a layer to a local scene to visualize and interact with 3D building models developed using Building Information Modeling (BIM) tools.
 * [Add custom dynamic entity data source](WPF.Viewer/Samples/Layers/AddCustomDynamicEntityDataSource) - Create a custom dynamic entity data source and display it using a dynamic entity layer.
 * [Add dynamic entity layer](WPF.Viewer/Samples/Layers/AddDynamicEntityLayer) - Display data from an ArcGIS stream service using a dynamic entity layer.
 * [Add integrated mesh layer](WPF.Viewer/Samples/Layers/AddAnIntegratedMeshLayer) - View an integrated mesh layer from a scene service.
@@ -117,6 +120,7 @@
 * [Feature layer rendering mode (map)](WPF.Viewer/Samples/Layers/FeatureLayerRenderingModeMap) - Render features statically or dynamically by setting the feature layer rendering mode.
 * [Feature layer rendering mode (scene)](WPF.Viewer/Samples/Layers/FeatureLayerRenderingModeScene) - Render features in a scene statically or dynamically by setting the feature layer rendering mode.
 * [Feature layer selection](WPF.Viewer/Samples/Layers/FeatureLayerSelection) - Select features in a feature layer.
+* [Filter building scene layer](WPF.Viewer/Samples/Layers/FilterBuildingSceneLayer) - Explore details of a building scene by using filters and sublayer visibility.
 * [Filter by definition expression or display filter](WPF.Viewer/Samples/Layers/FeatureLayerDefinitionExpression) - Filter features displayed on a map using a definition expression or a display filter.
 * [Group layers](WPF.Viewer/Samples/Layers/GroupLayers) - Group a collection of layers together and toggle their visibility as a group.
 * [Hillshade renderer](WPF.Viewer/Samples/Layers/RasterHillshade) - Apply a hillshade renderer to a raster.
@@ -179,7 +183,6 @@
 * [Map initial extent](WPF.Viewer/Samples/Map/SetInitialMapArea) - Display the map at an initial viewpoint representing a bounding geometry.
 * [Map load status](WPF.Viewer/Samples/Map/AccessLoadStatus) - Determine the map's load status which can be: `NotLoaded`, `FailedToLoad`, `Loading`, `Loaded`.
 * [Map reference scale](WPF.Viewer/Samples/Map/MapReferenceScale) - Set the map's reference scale and which feature layers should honor the reference scale.
-* [Map spatial reference](WPF.Viewer/Samples/Map/SetMapSpatialReference) - Specify a map's spatial reference.
 * [Mobile map (search and route)](WPF.Viewer/Samples/Map/MobileMapSearchAndRoute) - Display maps and use locators to enable search and routing offline using a Mobile Map Package.
 * [Open map URL](WPF.Viewer/Samples/Map/OpenMapURL) - Display a web map.
 * [Open mobile map package](WPF.Viewer/Samples/Map/OpenMobileMap) - Display a map from a mobile map package.
@@ -188,6 +191,7 @@
 * [Set initial map location](WPF.Viewer/Samples/Map/SetInitialMapLocation) - Display a basemap centered at an initial location and scale.
 * [Set max extent](WPF.Viewer/Samples/Map/SetMaxExtent) - Limit the view of a map to a particular area.
 * [Set min & max scale](WPF.Viewer/Samples/Map/SetMinMaxScale) - Restrict zooming between specific scale ranges.
+* [Set spatial reference](WPF.Viewer/Samples/Map/SetSpatialReference) - Specify a map's spatial reference.
 
 ## MapView
 
@@ -219,8 +223,10 @@
 ## Scene
 
 * [Change atmosphere effect](WPF.Viewer/Samples/Scene/ChangeAtmosphereEffect) - Changes the appearance of the atmosphere in a scene.
+* [Configure scene environment](WPF.Viewer/Samples/Scene/ConfigureSceneEnvironment) - Configure the environment settings in a local scene to change the lighting conditions and background appearance.
 * [Create terrain from local tile package](WPF.Viewer/Samples/Scene/CreateTerrainSurfaceTilePackage) - Set the terrain surface with elevation described by a local tile package.
 * [Create terrain surface from a local raster](WPF.Viewer/Samples/Scene/CreateTerrainSurfaceRaster) - Set the terrain surface with elevation described by a raster file.
+* [Display local scene](WPF.Viewer/Samples/Scene/DisplayLocalScene) - Display a local scene with a topographic surface and 3D scene layer clipped to a local area.
 * [Filter features in scene](WPF.Viewer/Samples/Scene/FilterFeaturesInScene) - Filter 3D scene features out of a given geometry with a polygon filter.
 * [Get elevation at a point](WPF.Viewer/Samples/Scene/GetElevationAtPoint) - Get the elevation for a given point on a surface in a scene.
 * [Open mobile scene package](WPF.Viewer/Samples/Scene/OpenMobileScenePackage) - Opens and displays a scene from a Mobile Scene Package (.mspk).

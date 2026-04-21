@@ -193,8 +193,20 @@ namespace ArcGIS.Samples.Desktop
 
             try
             {
-                if (selectedSample.OfflineDataItems != null)
+                if (selectedSample.OfflineDataItems != null && !await DataManager.HasSampleDataPresent(selectedSample))
                 {
+                    // Ask the user for permission before downloading.
+                    var result = MessageBox.Show(
+                        "This sample requires data to be downloaded. Would you like to download it now?",
+                        "Download Required",
+                        MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                    if (result != MessageBoxResult.Yes)
+                    {
+                        SampleManager.Current.SelectedSample = null;
+                        return;
+                    }
+
                     CancellationTokenSource cancellationSource = new CancellationTokenSource();
 
                     // Show waiting page
@@ -380,9 +392,7 @@ namespace ArcGIS.Samples.Desktop
 
         private void GitHub_Click(object sender, RoutedEventArgs e)
         {
-#if NETFRAMEWORK
-            System.Diagnostics.Process.Start(SampleManager.Current.SelectedSample.GetGitHubUrl());
-#elif NETCOREAPP
+#if NETCOREAPP
             System.Diagnostics.Process.Start(new ProcessStartInfo
             {
                 FileName = SampleManager.Current.SelectedSample.GetGitHubUrl(),

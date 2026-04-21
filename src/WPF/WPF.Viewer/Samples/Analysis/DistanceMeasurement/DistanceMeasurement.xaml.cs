@@ -35,7 +35,7 @@ namespace ArcGIS.WPF.Samples.DistanceMeasurement
                 "https://tiles.arcgis.com/tiles/P3ePLMYs2RVChkJx/arcgis/rest/services/Buildings_Brest/SceneServer/layers/0");
 
         // Measurement.
-        private LocationDistanceMeasurement _distanceMeasurement;
+        private ExploratoryLocationDistanceMeasurement _distanceMeasurement;
 
         public DistanceMeasurement()
         {
@@ -66,7 +66,7 @@ namespace ArcGIS.WPF.Samples.DistanceMeasurement
             // Create an initial distance measurement and show it.
             MapPoint start = new MapPoint(-4.494677, 48.384472, 24.772694, SpatialReferences.Wgs84);
             MapPoint end = new MapPoint(-4.495646, 48.384377, 58.501115, SpatialReferences.Wgs84);
-            _distanceMeasurement = new LocationDistanceMeasurement(start, end);
+            _distanceMeasurement = new ExploratoryLocationDistanceMeasurement(start, end);
             measureAnalysisOverlay.Analyses.Add(_distanceMeasurement);
 
             // Keep the UI updated.

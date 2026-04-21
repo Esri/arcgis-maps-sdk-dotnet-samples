@@ -1,0 +1,30 @@
+{
+    "category": "Scene",
+    "description": "Configure the environment settings in a local scene to change the lighting conditions and background appearance.",
+    "formal_name": "ConfigureSceneEnvironment",
+    "ignore": false,
+    "images": [
+        "ConfigureSceneEnvironment.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "environment",
+        "lighting",
+        "scene"
+    ],
+    "offline_data": [],
+    "redirect_from": [],
+    "relevant_apis": [
+        "LocalSceneView",
+        "Scene",
+        "SceneEnvironment",
+        "SceneLighting",
+        "SunLighting",
+        "VirtualLighting"
+    ],
+    "snippets": [
+        "ConfigureSceneEnvironment.xaml.cs",
+        "ConfigureSceneEnvironment.xaml"
+    ],
+    "title": "Configure scene environment"
+}

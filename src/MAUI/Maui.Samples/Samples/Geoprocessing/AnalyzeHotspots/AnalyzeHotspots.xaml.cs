@@ -65,7 +65,7 @@ namespace ArcGIS.Samples.AnalyzeHotspots
             MyActivityIndicator.IsRunning = true;
 
             // The end date must be at least one day after the start date
-            if (EndDate.Date <= StartDate.Date.AddDays(1))
+            if (EndDate.Date <= StartDate.Date.Value.AddDays(1))
             {
                 // Show error message
                 _ = DisplayAlert("Invalid date range", "Please select valid time range. There has to be at least one day in between To and From dates.", "OK");

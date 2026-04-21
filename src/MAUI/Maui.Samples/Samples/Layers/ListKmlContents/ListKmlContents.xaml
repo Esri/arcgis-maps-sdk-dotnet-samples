@@ -14,8 +14,8 @@
                        HorizontalTextAlignment="Center"
                        Text="Tap to zoom to KML content." />
                 <CollectionView  x:Name="LayerTreeView"
-                          Grid.Row="1"
-                    <ListView.ItemTemplate>
+                          Grid.Row="1">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="local:LayerDisplayVM">
                             <TextCell Text="{Binding Name}" />
                         </DataTemplate>

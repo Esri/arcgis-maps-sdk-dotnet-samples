@@ -14,6 +14,7 @@
                     <!--  When the user's selection changes, the SelectedItem binding will apply the value to the Map's ReferenceScale property.  -->
                     <Picker x:Name="ReferenceScaleBox"
                             Margin="5"
+                            x:DataType="esriUI:MapView"
                             BindingContext="{x:Reference MyMapView}"
                             ItemDisplayBinding="{Binding StringFormat='{0:n0}', x:DataType=x:Double}"
                             SelectedItem="{Binding Path=Map.ReferenceScale, x:DataType=esriUI:MapView}"

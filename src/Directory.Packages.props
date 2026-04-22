@@ -1,7 +1,7 @@
 <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
-    <ArcGISMapsSDKVersion Condition="'$(ArcGISMapsSDKVersion)'==''">300.0.0</ArcGISMapsSDKVersion>
+    <ArcGISMapsSDKVersion Condition="'$(ArcGISMapsSDKVersion)'==''">300.1.0</ArcGISMapsSDKVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="Esri.ArcGISRuntime" Version="$(ArcGISMapsSDKVersion)" />
@@ -30,8 +30,7 @@
     <PackageVersion Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7705" Condition="'$(UseMaui)'!='true'" />
     <PackageVersion Include="Microsoft.UI.Xaml" Version="2.8.7" />
     <PackageVersion Include="Monaco.Editor" Version="0.8.1-alpha" />
-    <PackageVersion Include="Microsoft.Maui.Controls" Version="9.0.120" />
-    <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.120" />
-    <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.6" />
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.51" />
+    <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.51" />
   </ItemGroup>
 </Project>

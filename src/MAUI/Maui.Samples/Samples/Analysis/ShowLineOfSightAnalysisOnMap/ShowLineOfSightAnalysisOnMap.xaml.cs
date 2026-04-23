@@ -110,7 +110,7 @@ namespace ArcGIS.Samples.ShowLineOfSightAnalysisOnMap
                 // Create a continuous field from the elevation raster file.
                 var continuousField = await ContinuousField.CreateAsync(new[] { rasterPath }, 0);
 
-                // Create line of sight positions for the target.
+                // Create a line of sight position for the target.
                 var targetLosPosition = new LineOfSightPosition(_targetPosition, HeightOrigin.Relative);
 
                 // Create line of sight positions for each observer.

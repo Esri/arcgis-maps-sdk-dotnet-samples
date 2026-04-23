@@ -182,15 +182,21 @@ namespace ArcGIS.Samples.ShowLineOfSightAnalysisOnMap
             for (int i = 0; i < results.Count; i++)
             {
                 var result = results[i];
-                var error = result.Error;
-                var visibleLength = PolylineLengthMeters(result.VisibleLine);
-                var notVisibleLength = PolylineLengthMeters(result.NotVisibleLine);
 
-                string infoText = error != null
-                    ? error.Message
-                    : GetVisibleDistanceInfoText(visibleLength, notVisibleLength);
+                // Get the length of the visible line if it exists.
+                var visibleLength = result.VisibleLine == null ? 0 :
+                    GeometryEngine.LengthGeodetic(result.VisibleLine, LinearUnits.Meters, GeodeticCurveType.Geodesic);
+                
+                // Set the info text based on the results of the analysis.
+               string infoText;
+               if (result.Error != null)
+                   infoText = result.Error.Message;
+               else if (result.NotVisibleLine == null)
+                   infoText = $"Target visible from observer over {visibleLength:F1} metres.";
+               else
+                   infoText = $"Target not visible from observer. Obstructed after {visibleLength:F1} metres.";
 
-                var color = ObserverSeeds[i].Color;
+               // Update the UI.
 
                 var row = new Grid
                 {

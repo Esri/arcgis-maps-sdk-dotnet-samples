@@ -52,6 +52,7 @@ namespace ArcGIS.Samples.ShowLineOfSightAnalysisOnMap
             (Color.Blue, -571683.896, 7492017.864),
         };
 
+        // Graphics overlay for the analysis results.
         private GraphicsOverlay _resultsGraphicsOverlay;
 
         // Symbols for visible and not-visible line segments.

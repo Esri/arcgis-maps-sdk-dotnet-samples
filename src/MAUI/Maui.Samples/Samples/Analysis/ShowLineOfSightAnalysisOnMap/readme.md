@@ -23,10 +23,9 @@ The sample loads with a map centered on the Isle of Arran, Scotland, and runs a 
 5. Configure `LineOfSightParameters` with a new `ObserverTargetPairs`, passing the list of observer and target line of sight positions.
 6. Create a `LineOfSightFunction` from the continuous field and line of sight parameters.
 7. Evaluate the function to get `LineOfSight` results.
-8. Check if the results contain any `LineOfSight.Error`s.
-9. Create a `Graphic` from each result, using the geometry of the result's `VisibleLine` or `NotVisibleLine` result, and an appropriate symbol.
-10. Use `LineOfSight.TargetVisibility` to determine if the observer position has a direct line of sight to the target position.
-11. Get the length of the visible line result with `GeometryEngine.LengthGeodetic` to report results.
+8. Create a `Graphic` from each result, using the geometry of the result's `VisibleLine` or `NotVisibleLine` result, and an appropriate symbol.
+9. Use `LineOfSight.TargetVisibility` to determine if the observer position has a direct line of sight to the target position.
+10. Check for `LineOfSight.Error`s and get the length of the visible line result with `GeometryEngine.LengthGeodetic` to report results.
 
 ## Relevant API
 

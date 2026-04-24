@@ -52,6 +52,7 @@ namespace ArcGIS.WinUI.Samples.ShowLineOfSightAnalysisOnMap
             (Color.Blue, -571683.896, 7492017.864),
         };
 
+        // Graphics overlay for the analysis results.
         private GraphicsOverlay _resultsGraphicsOverlay;
 
         // Symbols for visible and not-visible line segments.
@@ -109,11 +110,11 @@ namespace ArcGIS.WinUI.Samples.ShowLineOfSightAnalysisOnMap
                 // Create a continuous field from the elevation raster file.
                 var continuousField = await ContinuousField.CreateAsync(new[] { rasterPath }, 0);
 
-                // Create line of sight positions for the target.
-                var targetLosPosition = new LineOfSightPosition(_targetPosition, HeightOrigin.Relative);
+                // Create a line of sight position for the target.
+                var targetPosition = new LineOfSightPosition(_targetPosition, HeightOrigin.Relative);
 
                 // Create line of sight positions for each observer.
-                var observerLosPositions = ObserverSeeds.Select(seed =>
+                var observerPositions = ObserverSeeds.Select(seed =>
                     new LineOfSightPosition(
                         new MapPoint(seed.X, seed.Y, RelativeHeightMeters, SpatialReferences.WebMercator),
                         HeightOrigin.Relative)).ToList();
@@ -122,7 +123,7 @@ namespace ArcGIS.WinUI.Samples.ShowLineOfSightAnalysisOnMap
                 var parameters = new LineOfSightParameters
                 {
                     ObserverTargetPairs = new ObserverTargetPairs(
-                        observerLosPositions, new[] { targetLosPosition })
+                        observerPositions, new[] { targetPosition })
                 };
 
                 // Create line of sight function with the continuous field and parameters.
@@ -130,10 +131,6 @@ namespace ArcGIS.WinUI.Samples.ShowLineOfSightAnalysisOnMap
 
                 // Evaluate the line of sight function.
                 var results = await lineOfSightFunction.EvaluateAsync();
-
-                // Build observer summaries for the info panel.
-                var summaries = BuildObserverSummaries(results);
-                ResultsItemsControl.ItemsSource = summaries;
 
                 // Add result line graphics to the results graphics overlay.
                 foreach (var result in results)
@@ -154,11 +151,46 @@ namespace ArcGIS.WinUI.Samples.ShowLineOfSightAnalysisOnMap
                         _resultsGraphicsOverlay.Graphics.Add(graphic);
                     }
                 }
+
+                // Build observer summaries for the info panel.
+                ResultsItemsControl.ItemsSource = BuildObserverSummaries(results);
             }
             catch (Exception ex)
             {
                 await new MessageDialog2(ex.Message, "Error").ShowAsync();
             }
+        }
+
+        // Build a list of observer result summaries from the line of sight results for display in the info panel.
+        private List<ObserverResultSummary> BuildObserverSummaries(IReadOnlyList<LineOfSight> results)
+        {
+            var summaries = new List<ObserverResultSummary>();
+            for (int i = 0; i < results.Count; i++)
+            {
+                var result = results[i];
+
+                // Get the length of the visible line if it exists.
+                var visibleLength = result.VisibleLine == null ? 0 :
+                    GeometryEngine.LengthGeodetic(result.VisibleLine, LinearUnits.Meters, GeodeticCurveType.Geodesic);
+
+                // Set the info text based on the results of the analysis.
+                string infoText;
+                if (result.Error != null)
+                    infoText = result.Error.Message;
+                else if (result.NotVisibleLine == null)
+                    infoText = $"Target visible from observer over {visibleLength:F1} metres.";
+                else
+                    infoText = $"Target not visible from observer. Obstructed after {visibleLength:F1} metres.";
+
+                var color = ObserverSeeds[i].Color;
+
+                summaries.Add(new ObserverResultSummary
+                {
+                    ObserverColor = Windows.UI.Color.FromArgb(color.A, color.R, color.G, color.B),
+                    InfoText = infoText
+                });
+            }
+            return summaries;
         }
 
         // Filter the result line graphics based on the checkbox state to show only visible lines.
@@ -174,48 +206,6 @@ namespace ArcGIS.WinUI.Samples.ShowLineOfSightAnalysisOnMap
                 bool isVisible = Convert.ToDouble(graphic.Attributes["TargetVisibility"]) == 1.0;
                 graphic.IsVisible = !showVisibleOnly || isVisible;
             }
-        }
-
-        // Build a list of observer result summaries from the line of sight results for display in the info panel.
-        private List<ObserverResultSummary> BuildObserverSummaries(IReadOnlyList<LineOfSight> results)
-        {
-            var summaries = new List<ObserverResultSummary>();
-            for (int i = 0; i < results.Count; i++)
-            {
-                var result = results[i];
-                var error = result.Error;
-                var visibleLength = PolylineLengthMeters(result.VisibleLine);
-                var notVisibleLength = PolylineLengthMeters(result.NotVisibleLine);
-
-                string infoText = error != null
-                    ? error.Message
-                    : GetVisibleDistanceInfoText(visibleLength, notVisibleLength);
-
-                var color = ObserverSeeds[i].Color;
-
-                summaries.Add(new ObserverResultSummary
-                {
-                    ObserverColor = Windows.UI.Color.FromArgb(color.A, color.R, color.G, color.B),
-                    InfoText = infoText
-                });
-            }
-            return summaries;
-        }
-
-        // Return a description of the line of sight result based on the visible and not-visible line lengths.
-        private static string GetVisibleDistanceInfoText(double visibleLength, double notVisibleLength)
-        {
-            if (notVisibleLength <= 0)
-                return $"Target visible from observer over {visibleLength:F1} metres.";
-
-            return $"Target not visible from observer. Obstructed after {visibleLength:F1} metres.";
-        }
-
-        // Calculate the geodetic length of a polyline in meters.
-        private static double PolylineLengthMeters(Polyline line)
-        {
-            if (line == null) return 0;
-            return GeometryEngine.LengthGeodetic(line, LinearUnits.Meters, GeodeticCurveType.Geodesic);
         }
     }
 

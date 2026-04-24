@@ -14,11 +14,6 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Color = System.Drawing.Color;
 using Grid = Microsoft.Maui.Controls.Grid;
 
@@ -111,10 +106,10 @@ namespace ArcGIS.Samples.ShowLineOfSightAnalysisOnMap
                 var continuousField = await ContinuousField.CreateAsync(new[] { rasterPath }, 0);
 
                 // Create a line of sight position for the target.
-                var targetLosPosition = new LineOfSightPosition(_targetPosition, HeightOrigin.Relative);
+                var targetPosition = new LineOfSightPosition(_targetPosition, HeightOrigin.Relative);
 
                 // Create line of sight positions for each observer.
-                var observerLosPositions = ObserverSeeds.Select(seed =>
+                var observerPositions = ObserverSeeds.Select(seed =>
                     new LineOfSightPosition(
                         new MapPoint(seed.X, seed.Y, RelativeHeightMeters, SpatialReferences.WebMercator),
                         HeightOrigin.Relative)).ToList();
@@ -123,7 +118,7 @@ namespace ArcGIS.Samples.ShowLineOfSightAnalysisOnMap
                 var parameters = new LineOfSightParameters
                 {
                     ObserverTargetPairs = new ObserverTargetPairs(
-                        observerLosPositions, new[] { targetLosPosition })
+                        observerPositions, new[] { targetPosition })
                 };
 
                 // Create line of sight function with the continuous field and parameters.
@@ -131,9 +126,6 @@ namespace ArcGIS.Samples.ShowLineOfSightAnalysisOnMap
 
                 // Evaluate the line of sight function.
                 var results = await lineOfSightFunction.EvaluateAsync();
-
-                // Build observer summaries for the info panel.
-                BuildResultsUI(results);
 
                 // Add result line graphics to the results graphics overlay.
                 foreach (var result in results)
@@ -154,25 +146,13 @@ namespace ArcGIS.Samples.ShowLineOfSightAnalysisOnMap
                         _resultsGraphicsOverlay.Graphics.Add(graphic);
                     }
                 }
+
+                // Build observer summaries for the info panel.
+                BuildResultsUI(results);
             }
             catch (Exception ex)
             {
                 await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.Message, "OK");
-            }
-        }
-
-        // Filter the result line graphics based on the checkbox state to show only visible lines.
-        private void VisibleOnlyCheckBox_Changed(object sender, CheckedChangedEventArgs e)
-        {
-            if (_resultsGraphicsOverlay == null) return;
-
-            bool showVisibleOnly = VisibleOnlyCheckBox.IsChecked;
-
-            foreach (var graphic in _resultsGraphicsOverlay.Graphics)
-            {
-                // TargetVisibility value of 1.0 indicates the target is visible from the observer.
-                bool isVisible = Convert.ToDouble(graphic.Attributes["TargetVisibility"]) == 1.0;
-                graphic.IsVisible = !showVisibleOnly || isVisible;
             }
         }
 
@@ -186,17 +166,18 @@ namespace ArcGIS.Samples.ShowLineOfSightAnalysisOnMap
                 // Get the length of the visible line if it exists.
                 var visibleLength = result.VisibleLine == null ? 0 :
                     GeometryEngine.LengthGeodetic(result.VisibleLine, LinearUnits.Meters, GeodeticCurveType.Geodesic);
-                
-                // Set the info text based on the results of the analysis.
-               string infoText;
-               if (result.Error != null)
-                   infoText = result.Error.Message;
-               else if (result.NotVisibleLine == null)
-                   infoText = $"Target visible from observer over {visibleLength:F1} metres.";
-               else
-                   infoText = $"Target not visible from observer. Obstructed after {visibleLength:F1} metres.";
 
-               // Update the UI.
+                // Set the info text based on the results of the analysis.
+                string infoText;
+                if (result.Error != null)
+                    infoText = result.Error.Message;
+                else if (result.NotVisibleLine == null)
+                    infoText = $"Target visible from observer over {visibleLength:F1} metres.";
+                else
+                    infoText = $"Target not visible from observer. Obstructed after {visibleLength:F1} metres.";
+
+                // Update the UI.
+                var color = ObserverSeeds[i].Color;
 
                 var row = new Grid
                 {
@@ -232,20 +213,19 @@ namespace ArcGIS.Samples.ShowLineOfSightAnalysisOnMap
             }
         }
 
-        // Return a description of the line of sight result based on the visible and not-visible line lengths.
-        private static string GetVisibleDistanceInfoText(double visibleLength, double notVisibleLength)
+        // Filter the result line graphics based on the checkbox state to show only visible lines.
+        private void VisibleOnlyCheckBox_Changed(object sender, CheckedChangedEventArgs e)
         {
-            if (notVisibleLength <= 0)
-                return $"Target visible from observer over {visibleLength:F1} metres.";
+            if (_resultsGraphicsOverlay == null) return;
 
-            return $"Target not visible from observer. Obstructed after {visibleLength:F1} metres.";
-        }
+            bool showVisibleOnly = VisibleOnlyCheckBox.IsChecked;
 
-        // Calculate the geodetic length of a polyline in meters.
-        private static double PolylineLengthMeters(Polyline line)
-        {
-            if (line == null) return 0;
-            return GeometryEngine.LengthGeodetic(line, LinearUnits.Meters, GeodeticCurveType.Geodesic);
+            foreach (var graphic in _resultsGraphicsOverlay.Graphics)
+            {
+                // TargetVisibility value of 1.0 indicates the target is visible from the observer.
+                bool isVisible = Convert.ToDouble(graphic.Attributes["TargetVisibility"]) == 1.0;
+                graphic.IsVisible = !showVisibleOnly || isVisible;
+            }
         }
     }
 }

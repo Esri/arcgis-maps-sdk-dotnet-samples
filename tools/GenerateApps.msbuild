@@ -1,10 +1,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <_NetFrameworkTarget>net472</_NetFrameworkTarget>
     <_NetWindowsTarget>net8.0-windows10.0.19041.0</_NetWindowsTarget>
-    <_NetWindowsMauiTarget>net9.0-windows10.0.19041.0</_NetWindowsMauiTarget>
-    <_NetAndroidTarget>net9.0-android</_NetAndroidTarget>
+    <_NetMauiVersion>net10.0</_NetMauiVersion>
+    <_NetWindowsMauiTarget>$(_NetMauiVersion)-windows10.0.19041.0</_NetWindowsMauiTarget>
+    <_NetAndroidTarget>$(_NetMauiVersion)-android</_NetAndroidTarget>
     <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
     <RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">300.0.0</RELEASE_VERSION>
     <BUILD_NUM Condition="'$(BUILD_NUM)'==''">0</BUILD_NUM>

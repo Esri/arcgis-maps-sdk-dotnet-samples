@@ -1,19 +1,16 @@
 REM @ECHO OFF
 ECHO SEARCHING FOR VISUAL STUDIO...
-"%ProgramFiles(x86)%\Microsoft Visual Studio\Installer\vswhere.exe" -prerelease -version [17.8,18.0) -sort -requires Microsoft.Component.MSBuild -products * -property InstallationPath > %TEMP%\vsinstalldir.txt
-SET /p _VSINSTALLDIR=<%TEMP%\vsinstalldir.txt
-DEL %TEMP%\vsinstalldir.txt	
-IF "%_VSINSTALLDIR%"=="" (
-  ECHO ERROR: VISUAL STUDIO NOT FOUND
-  EXIT /B 1
-)
-IF "%VSINSTALLDIR%"=="" (
-  CALL "%_VSINSTALLDIR%\Common7\Tools\VsDevCmd.bat"
-)
 
 IF "%RELEASE_VERSION%" == "" (
   SET RELEASE_VERSION=300.0.0
 )
+
+REM Install the latest dotnet version
+curl -L https://dot.net/v1/dotnet-install.ps1 -o %WORKSPACE%\dotnet-install.ps1
+set DOTNET_INSTALL_FOLDER=%WORKSPACE%\.dotnet
+powershell -File %WORKSPACE%\dotnet-install.ps1 -channel 10.0 -InstallDir %DOTNET_INSTALL_FOLDER%
+SET DOTNET_PATH=%DOTNET_INSTALL_FOLDER%\dotnet.exe
+ECHO Installed dotnet at %DOTNET_PATH%
 
 REM Configure NuGet
 dotnet new nugetconfig --force -o ../
@@ -54,6 +51,4 @@ IF "%ARCGIS_API_KEY%" NEQ "" (
   ECHO ^}^}^} >>%keyFile%
 )
 
-
-msbuild /t:BuildAll %~dp0GenerateApps.msbuild /p:BUILD_NUM=%BUILD_NUM% /p:RELEASE_VERSION=%RELEASE_VERSION% /p:PUBLISHER="%PUBLISHER%" /p:PFXSignaturePassword=%PFXSignaturePassword% /p:PFXSignatureFile=%PFXSignatureFile% /p:PackageCertificateThumbprint=%PackageCertificateThumbprint% /p:KeyStoreFile=%KeyStoreFile% /p:KeyPass=%KeyPass% /p:KeyAlias=%KeyAlias%
-
+%DOTNET_PATH% msbuild -t:BuildAll %~dp0GenerateApps.msbuild -p:BUILD_NUM=%BUILD_NUM% -p:RELEASE_VERSION=%RELEASE_VERSION% -p:PUBLISHER="%PUBLISHER%" -p:PFXSignaturePassword=%PFXSignaturePassword% -p:PFXSignatureFile=%PFXSignatureFile% -p:PackageCertificateThumbprint=%PackageCertificateThumbprint% -p:KeyStoreFile=%KeyStoreFile% -p:KeyPass=%KeyPass% -p:KeyAlias=%KeyAlias%

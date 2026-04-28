@@ -12,9 +12,9 @@ SET DOTNET_PATH=%DOTNET_INSTALL_FOLDER%\dotnet.exe
 ECHO Installed dotnet at %DOTNET_PATH%
 
 REM Configure NuGet
-dotnet new nugetconfig --force -o ../
+%DOTNET_PATH% new nugetconfig --force -o ../
 IF "%NUGET_REPO%" NEQ "" IF EXIST "%NUGET_REPO%" (
-dotnet nuget add source %NUGET_REPO%
+%DOTNET_PATH% nuget add source %NUGET_REPO%
 )
 SET NUGET_PACKAGES=%~dp0..\.nuget\packages
 SET NUGET_HTTP_CACHE_PATH=%~dp0..\.nuget\cache

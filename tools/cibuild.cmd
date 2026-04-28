@@ -8,17 +8,25 @@ IF "%RELEASE_VERSION%" == "" (
   SET RELEASE_VERSION=300.1.0
 )
 
-REM Install the latest dotnet version
-curl -L https://dot.net/v1/dotnet-install.ps1 -o %WORKSPACE%\dotnet-install.ps1
-set DOTNET_INSTALL_FOLDER=%WORKSPACE%\.dotnet
-powershell -File %WORKSPACE%\dotnet-install.ps1 -version %DOTNET_VERSION% -InstallDir %DOTNET_INSTALL_FOLDER%
-SET DOTNET_PATH=%DOTNET_INSTALL_FOLDER%\dotnet.exe
-ECHO Installed dotnet at %DOTNET_PATH%
+REM Install the latest dotnet version if not already cached to the build machine
+if "%DOTNET_CACHE_FOLDER%" == "" (
+  set DOTNET_INSTALL_FOLDER=%WORKSPACE%\.dotnet
+) ELSE (
+  set DOTNET_INSTALL_FOLDER=%DOTNET_CACHE_FOLDER%\%DOTNET_VERSION%
+)
+
+if NOT EXIST "%DOTNET_INSTALL_FOLDER%\dotnet.exe" (
+  curl -L https://dot.net/v1/dotnet-install.ps1 -o %WORKSPACE%\dotnet-install.ps1
+  powershell -File %WORKSPACE%\dotnet-install.ps1 -version %DOTNET_VERSION% -InstallDir %DOTNET_INSTALL_FOLDER%
+)
+
+SET DOTNET_EXE=%DOTNET_INSTALL_FOLDER%\dotnet.exe
+ECHO Installed dotnet at %DOTNET_EXE%
 
 REM Configure NuGet
-%DOTNET_PATH% new nugetconfig --force -o ../
+%DOTNET_EXE% new nugetconfig --force -o ../
 IF "%NUGET_REPO%" NEQ "" IF EXIST "%NUGET_REPO%" (
-%DOTNET_PATH% nuget add source %NUGET_REPO%
+%DOTNET_EXE% nuget add source %NUGET_REPO%
 )
 SET NUGET_PACKAGES=%~dp0..\.nuget\packages
 SET NUGET_HTTP_CACHE_PATH=%~dp0..\.nuget\cache
@@ -26,7 +34,7 @@ md %NUGET_PACKAGES%
 md %NUGET_HTTP_CACHE_PATH%
 
 REM Install maui workload
-%DOTNET_PATH% workload install maui --version %DOTNET_VERSION%
+%DOTNET_EXE% workload install maui --version %DOTNET_VERSION%
 
 SET licenseFile=%~dp0..\src\Samples.Shared\Managers\LicenseStrings.generated.cs
 IF "%ArcGISLicenseKey%" NEQ "" (
@@ -57,4 +65,4 @@ IF "%ARCGIS_API_KEY%" NEQ "" (
   ECHO ^}^}^} >>%keyFile%
 )
 
-%DOTNET_PATH% msbuild -t:BuildAll %~dp0GenerateApps.msbuild -p:BUILD_NUM=%BUILD_NUM% -p:RELEASE_VERSION=%RELEASE_VERSION% -p:PUBLISHER="%PUBLISHER%" -p:PFXSignaturePassword=%PFXSignaturePassword% -p:PFXSignatureFile=%PFXSignatureFile% -p:PackageCertificateThumbprint=%PackageCertificateThumbprint% -p:KeyStoreFile=%KeyStoreFile% -p:KeyPass=%KeyPass% -p:KeyAlias=%KeyAlias%
+%DOTNET_EXE% msbuild -t:BuildAll %~dp0GenerateApps.msbuild -p:BUILD_NUM=%BUILD_NUM% -p:RELEASE_VERSION=%RELEASE_VERSION% -p:PUBLISHER="%PUBLISHER%" -p:PFXSignaturePassword=%PFXSignaturePassword% -p:PFXSignatureFile=%PFXSignatureFile% -p:PackageCertificateThumbprint=%PackageCertificateThumbprint% -p:KeyStoreFile=%KeyStoreFile% -p:KeyPass=%KeyPass% -p:KeyAlias=%KeyAlias%

@@ -38,7 +38,16 @@
     <XmlPoke Condition="'$(PUBLISHER)'!=''" XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
              Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
 
+    <ItemGroup>
+      <_WpfX64Files Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x64\Release\$(_NetWindowsTarget)\**\*.*" />
+      <_WpfArm64Files Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\arm64\Release\$(_NetWindowsTarget)\**\*.*" />
+    </ItemGroup>
+
     <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=x64" />
+    <Copy SourceFiles="@(_WpfX64Files)" DestinationFolder="$(MSBuildThisFileDirectory)..\output\WPF\%(RecursiveDir)" />
+
+    <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=arm64" />
+    <Copy SourceFiles="@(_WpfArm64Files)" DestinationFolder="$(MSBuildThisFileDirectory)..\output\WPF\%(RecursiveDir)\" />
   </Target>
 
   <Target Name="BuildWinUI" DependsOnTargets="CreateOutputDirectory">

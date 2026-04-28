@@ -64,9 +64,9 @@
     <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsMauiTarget);RuntimeIdentifier=win-arm64;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
     <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetAndroidTarget);ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);AndroidKeyStore=true;AndroidSigningKeyStore=$(KeyStoreFile);AndroidSigningKeyPass=$(KeyPass);AndroidSigningStorePass=$(KeyPass);AndroidSigningKeyAlias=$(KeyAlias)" />
     
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\net9.0-android\com.esri.arcgisruntime.samples.maui-Signed.apk"
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\$(_NetAndroidTarget)\com.esri.arcgisruntime.samples.maui-Signed.apk"
           DestinationFolder="$(MSBuildThisFileDirectory)..\output\" />
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\net9.0-android\com.esri.arcgisruntime.samples.maui-Signed.aab"
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\$(_NetAndroidTarget)\com.esri.arcgisruntime.samples.maui-Signed.aab"
           DestinationFolder="$(MSBuildThisFileDirectory)..\output\" />
   </Target>
 

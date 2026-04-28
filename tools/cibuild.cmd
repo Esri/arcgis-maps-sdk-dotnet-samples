@@ -1,7 +1,7 @@
 REM @ECHO OFF
 
 IF "%RELEASE_VERSION%" == "" (
-  SET RELEASE_VERSION=300.0.0
+  SET RELEASE_VERSION=300.1.0
 )
 
 REM Install the latest dotnet version

@@ -1,5 +1,9 @@
 REM @ECHO OFF
 
+REM Default environment variables
+IF "%DOTNET_VERSION%" == "" (
+  set DOTNET_VERSION=10.0.203
+)
 IF "%RELEASE_VERSION%" == "" (
   SET RELEASE_VERSION=300.1.0
 )
@@ -7,7 +11,7 @@ IF "%RELEASE_VERSION%" == "" (
 REM Install the latest dotnet version
 curl -L https://dot.net/v1/dotnet-install.ps1 -o %WORKSPACE%\dotnet-install.ps1
 set DOTNET_INSTALL_FOLDER=%WORKSPACE%\.dotnet
-powershell -File %WORKSPACE%\dotnet-install.ps1 -channel 10.0 -InstallDir %DOTNET_INSTALL_FOLDER%
+powershell -File %WORKSPACE%\dotnet-install.ps1 -version %DOTNET_VERSION% -InstallDir %DOTNET_INSTALL_FOLDER%
 SET DOTNET_PATH=%DOTNET_INSTALL_FOLDER%\dotnet.exe
 ECHO Installed dotnet at %DOTNET_PATH%
 
@@ -20,6 +24,9 @@ SET NUGET_PACKAGES=%~dp0..\.nuget\packages
 SET NUGET_HTTP_CACHE_PATH=%~dp0..\.nuget\cache
 md %NUGET_PACKAGES%
 md %NUGET_HTTP_CACHE_PATH%
+
+REM Install maui workload
+%DOTNET_PATH% workload install maui --version %DOTNET_VERSION%
 
 SET licenseFile=%~dp0..\src\Samples.Shared\Managers\LicenseStrings.generated.cs
 IF "%ArcGISLicenseKey%" NEQ "" (

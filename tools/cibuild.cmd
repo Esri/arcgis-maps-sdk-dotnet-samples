@@ -65,4 +65,4 @@ IF "%ARCGIS_API_KEY%" NEQ "" (
   ECHO ^}^}^} >>%keyFile%
 )
 
-%DOTNET_EXE% msbuild -t:BuildAll %~dp0GenerateApps.msbuild -p:BUILD_NUM=%BUILD_NUM% -p:RELEASE_VERSION=%RELEASE_VERSION% -p:PUBLISHER="\"%PUBLISHER%\"" -p:PFXSignaturePassword=%PFXSignaturePassword% -p:PFXSignatureFile=%PFXSignatureFile% -p:PackageCertificateThumbprint=%PackageCertificateThumbprint% -p:KeyStoreFile=%KeyStoreFile% -p:KeyPass=%KeyPass% -p:KeyAlias=%KeyAlias% -v:diag
+%DOTNET_EXE% msbuild -t:BuildAll %~dp0GenerateApps.msbuild -p:BUILD_NUM=%BUILD_NUM% -p:RELEASE_VERSION=%RELEASE_VERSION% -p:PUBLISHER=\""%PUBLISHER%"\" -p:PFXSignaturePassword=%PFXSignaturePassword% -p:PFXSignatureFile=%PFXSignatureFile% -p:PackageCertificateThumbprint=%PackageCertificateThumbprint% -p:KeyStoreFile=%KeyStoreFile% -p:KeyPass=%KeyPass% -p:KeyAlias=%KeyAlias% -v:diag

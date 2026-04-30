@@ -47,6 +47,12 @@
       <_WpfArm64Files Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\arm64\Release\$(_NetWindowsTarget)\**\*.*" />
     </ItemGroup>
 
+    <PropertyGroup>
+      <DisableLogTaskParameterItemMetadata_Copy_SourceFiles>false</DisableLogTaskParameterItemMetadata_Copy_SourceFiles>
+      <DisableLogTaskParameterItemMetadata_Copy_DestinationFiles>false</DisableLogTaskParameterItemMetadata_Copy_DestinationFiles>
+      <DisableLogTaskParameterItemMetadata_Copy_CopiedFiles>false</DisableLogTaskParameterItemMetadata_Copy_CopiedFiles>
+    </PropertyGroup>
+
     <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=x64" />
     <Copy SourceFiles="@(_WpfX64Files)" DestinationFolder="$(MSBuildThisFileDirectory)..\output\WPF\%(RecursiveDir)" />
 

@@ -19,6 +19,10 @@
     <XmlNamespace>
         <Namespace Prefix="xns" Uri="http://schemas.microsoft.com/winfx/2006/xaml/presentation" />
     </XmlNamespace>
+
+    <DisableLogTaskParameterItemMetadata_Copy_SourceFiles>false</DisableLogTaskParameterItemMetadata_Copy_SourceFiles>
+    <DisableLogTaskParameterItemMetadata_Copy_DestinationFiles>false</DisableLogTaskParameterItemMetadata_Copy_DestinationFiles>
+    <DisableLogTaskParameterItemMetadata_Copy_CopiedFiles>false</DisableLogTaskParameterItemMetadata_Copy_CopiedFiles>
   </PropertyGroup>
 
   <ItemGroup>

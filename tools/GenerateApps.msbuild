@@ -53,6 +53,9 @@
       <DisableLogTaskParameterItemMetadata_Copy_CopiedFiles>false</DisableLogTaskParameterItemMetadata_Copy_CopiedFiles>
     </PropertyGroup>
 
+    <Message Text="_WpfX64Files: @(_WpfX64Files)" Importance="high"/>
+    <Message Text="_WpfArm64Files: @(_WpfArm64Files)" Importance="high"/>
+
     <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=x64" />
     <Copy SourceFiles="@(_WpfX64Files)" DestinationFolder="$(MSBuildThisFileDirectory)..\output\WPF\%(RecursiveDir)" />
 

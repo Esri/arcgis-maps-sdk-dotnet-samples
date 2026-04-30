@@ -42,25 +42,16 @@
     <XmlPoke Condition="'$(PUBLISHER)'!=''" XmlInputPath="$(MSBuildThisFileDirectory)..\src\WPF\WPF.StorePackage\Package.appxmanifest"
              Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
 
+    <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=x64" />
+    <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=arm64" />
+
     <ItemGroup>
       <_WpfX64Files Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x64\Release\$(_NetWindowsTarget)\**\*.*" />
       <_WpfArm64Files Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\arm64\Release\$(_NetWindowsTarget)\**\*.*" />
     </ItemGroup>
 
-    <PropertyGroup>
-      <DisableLogTaskParameterItemMetadata_Copy_SourceFiles>false</DisableLogTaskParameterItemMetadata_Copy_SourceFiles>
-      <DisableLogTaskParameterItemMetadata_Copy_DestinationFiles>false</DisableLogTaskParameterItemMetadata_Copy_DestinationFiles>
-      <DisableLogTaskParameterItemMetadata_Copy_CopiedFiles>false</DisableLogTaskParameterItemMetadata_Copy_CopiedFiles>
-    </PropertyGroup>
-
-    <Message Text="_WpfX64Files: @(_WpfX64Files)" Importance="high"/>
-    <Message Text="_WpfArm64Files: @(_WpfArm64Files)" Importance="high"/>
-
-    <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=x64" />
-    <Copy SourceFiles="@(_WpfX64Files)" DestinationFolder="$(MSBuildThisFileDirectory)..\output\WPF\%(RecursiveDir)" />
-
-    <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=arm64" />
     <Copy SourceFiles="@(_WpfArm64Files)" DestinationFolder="$(MSBuildThisFileDirectory)..\output\WPF\%(RecursiveDir)\" />
+    <Copy SourceFiles="@(_WpfX64Files)" DestinationFolder="$(MSBuildThisFileDirectory)..\output\WPF\%(RecursiveDir)" />
   </Target>
 
   <Target Name="BuildWinUI" DependsOnTargets="CreateOutputDirectory">

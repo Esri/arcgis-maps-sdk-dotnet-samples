@@ -34,7 +34,7 @@ md %NUGET_PACKAGES%
 md %NUGET_HTTP_CACHE_PATH%
 
 REM Install maui workload
-REM %DOTNET_EXE% workload install maui --version %DOTNET_VERSION%
+%DOTNET_EXE% workload install maui --version %DOTNET_VERSION%
 
 SET licenseFile=%~dp0..\src\Samples.Shared\Managers\LicenseStrings.generated.cs
 IF "%ArcGISLicenseKey%" NEQ "" (
@@ -66,4 +66,4 @@ IF "%ARCGIS_API_KEY%" NEQ "" (
 )
 
 set PUBLISHER=%PUBLISHER:\"="%
-%DOTNET_EXE% msbuild %~dp0GenerateApps.msbuild -t:BuildAll -p:BUILD_NUM=%BUILD_NUM% -p:RELEASE_VERSION=%RELEASE_VERSION% -p:PFXSignaturePassword=%PFXSignaturePassword% -p:PFXSignatureFile=%PFXSignatureFile% -p:PackageCertificateThumbprint=%PackageCertificateThumbprint% -p:KeyStoreFile=%KeyStoreFile% -p:KeyPass=%KeyPass% -p:KeyAlias=%KeyAlias% -v:diag
+%DOTNET_EXE% msbuild %~dp0GenerateApps.msbuild -t:BuildAll -p:BUILD_NUM=%BUILD_NUM% -p:RELEASE_VERSION=%RELEASE_VERSION% -p:PFXSignaturePassword=%PFXSignaturePassword% -p:PFXSignatureFile=%PFXSignatureFile% -p:PackageCertificateThumbprint=%PackageCertificateThumbprint% -p:KeyStoreFile=%KeyStoreFile% -p:KeyPass=%KeyPass% -p:KeyAlias=%KeyAlias% -v:d

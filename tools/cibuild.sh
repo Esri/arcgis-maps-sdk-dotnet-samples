@@ -15,6 +15,9 @@ else
   DOTNET_INSTALL_FOLDER="${DOTNET_CACHE_FOLDER}/${DOTNET_VERSION}"
 fi
 
+echo "Install folder: ${DOTNET_INSTALL_FOLDER}"
+echo $SCRIPT_DIR
+
 if [[ ! -x "${DOTNET_INSTALL_FOLDER}/dotnet" ]]; then
   mkdir -p "${DOTNET_INSTALL_FOLDER}"
   curl -fsSL https://dot.net/v1/dotnet-install.sh -o "${WORKSPACE}/dotnet-install.sh"
@@ -30,10 +33,15 @@ if [[ -e "${NUGET_REPO}" ]]; then
   "${DOTNET_EXE}" nuget add source "${NUGET_REPO}"
 fi
 
+echo "NUGET_REPO: ${NUGET_REPO}"
+
 export NUGET_PACKAGES="${SCRIPT_DIR}/../.nuget/packages"
 export NUGET_HTTP_CACHE_PATH="${SCRIPT_DIR}/../.nuget/cache"
 mkdir -p "${NUGET_PACKAGES}"
 mkdir -p "${NUGET_HTTP_CACHE_PATH}"
+
+echo "NUGET_PACKAGES: ${NUGET_PACKAGES}"
+echo "NUGET_HTTP_CACHE_PATH: ${NUGET_HTTP_CACHE_PATH}"
 
 # Install maui workload
 "${DOTNET_EXE}" workload install maui --version "${DOTNET_VERSION}"

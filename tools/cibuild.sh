@@ -29,9 +29,12 @@ echo "Installed dotnet at ${DOTNET_EXE}"
 
 # Configure NuGet
 "${DOTNET_EXE}" new nugetconfig --force -o "${SCRIPT_DIR}/../"
+"${DOTNET_EXE}" nuget list source
 if [[ -e "${NUGET_REPO}" ]]; then
+  echo "Made it inside the if"
   "${DOTNET_EXE}" nuget add source "${NUGET_REPO}"
 fi
+"${DOTNET_EXE}" nuget list source
 
 echo "NUGET_REPO: ${NUGET_REPO}"
 

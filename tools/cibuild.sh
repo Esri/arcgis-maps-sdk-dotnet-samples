@@ -27,14 +27,18 @@ fi
 DOTNET_EXE="${DOTNET_INSTALL_FOLDER}/dotnet"
 echo "Installed dotnet at ${DOTNET_EXE}"
 
+"${DOTNET_EXE}" nuget config get ALL --show-path
+
 # Configure NuGet
+"${DOTNET_EXE}" nuget list source
+CONFIG_FILE="${SCRIPT_DIR}/../NuGet.Config"
 "${DOTNET_EXE}" new nugetconfig --force -o "${SCRIPT_DIR}/../"
 "${DOTNET_EXE}" nuget list source
 if [[ -e "${NUGET_REPO}" ]]; then
   echo "Made it inside the if"
-  "${DOTNET_EXE}" nuget add source "${NUGET_REPO}"
+  "${DOTNET_EXE}" nuget add source "${NUGET_REPO}" --configfile "${CONFIG_FILE}"
 fi
-"${DOTNET_EXE}" nuget list source
+"${DOTNET_EXE}" nuget list source --configfile "${CONFIG_FILE}"
 
 echo "NUGET_REPO: ${NUGET_REPO}"
 
@@ -45,6 +49,8 @@ mkdir -p "${NUGET_HTTP_CACHE_PATH}"
 
 echo "NUGET_PACKAGES: ${NUGET_PACKAGES}"
 echo "NUGET_HTTP_CACHE_PATH: ${NUGET_HTTP_CACHE_PATH}"
+
+"${DOTNET_EXE}" nuget config get ALL --show-path
 
 # Install maui workload
 "${DOTNET_EXE}" workload install maui --version "${DOTNET_VERSION}"

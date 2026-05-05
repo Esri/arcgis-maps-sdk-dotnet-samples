@@ -69,15 +69,15 @@ fi
 # Set license keys
 if [[ ! -z "${LICENSE_KEY}" ]]; then
   # License key
-  sed -i '' "s/public static string ArcGISLicenseKey { get; } = null;/public static string ArcGISLicenseKey { get; } = \\"${LICENSE_KEY}\\";/" \
+  sed -i '' "s/public static string ArcGISLicenseKey { get; } = null;/public static string ArcGISLicenseKey { get; } = \"${LICENSE_KEY}\";/" \
     ${SCRIPT_DIR}/../src/Samples.Shared/Managers/LicenseStrings.cs || exit 1
 
   # Analysis license key
-  sed -i '' "s/public static string ArcGISAnalysisLicenseKey { get; } = null;/public static string ArcGISAnalysisLicenseKey { get; } = \\"${ANALYSIS_LICENSE_KEY}\\";/" \
+  sed -i '' "s/public static string ArcGISAnalysisLicenseKey { get; } = null;/public static string ArcGISAnalysisLicenseKey { get; } = \"${ANALYSIS_LICENSE_KEY}\";/" \
     ${SCRIPT_DIR}/../src/Samples.Shared/Managers/LicenseStrings.cs || exit 1
 
   # Advanced Editing User Type License Key
-  sed -i '' "s/public static string ArcGISAdvancedEditingUserTypeLicenseKey { get; } = null;/public static string ArcGISAdvancedEditingUserTypeLicenseKey { get; } = \\"${ADVANCED_EDITING_USER_TYPE_LICENSE_KEY}\\";/" \
+  sed -i '' "s/public static string ArcGISAdvancedEditingUserTypeLicenseKey { get; } = null;/public static string ArcGISAdvancedEditingUserTypeLicenseKey { get; } = \"${ADVANCED_EDITING_USER_TYPE_LICENSE_KEY}\";/" \
     ${SCRIPT_DIR}/../src/Samples.Shared/Managers/LicenseStrings.cs || exit 1
 fi
 

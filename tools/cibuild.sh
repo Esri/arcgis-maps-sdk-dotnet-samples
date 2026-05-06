@@ -15,9 +15,6 @@ else
   DOTNET_INSTALL_FOLDER="${DOTNET_CACHE_FOLDER}/${DOTNET_VERSION}"
 fi
 
-echo "Install folder: ${DOTNET_INSTALL_FOLDER}"
-echo $SCRIPT_DIR
-
 if [[ ! -x "${DOTNET_INSTALL_FOLDER}/dotnet" ]]; then
   mkdir -p "${DOTNET_INSTALL_FOLDER}"
   curl -fsSL https://dot.net/v1/dotnet-install.sh -o "${WORKSPACE}/dotnet-install.sh"
@@ -27,30 +24,17 @@ fi
 DOTNET_EXE="${DOTNET_INSTALL_FOLDER}/dotnet"
 echo "Installed dotnet at ${DOTNET_EXE}"
 
-"${DOTNET_EXE}" nuget config get ALL --show-path
-
 # Configure NuGet
-"${DOTNET_EXE}" nuget list source
 CONFIG_FILE="${SCRIPT_DIR}/../NuGet.Config"
 "${DOTNET_EXE}" new nugetconfig --force -o "${SCRIPT_DIR}/../"
-"${DOTNET_EXE}" nuget list source
 if [[ -e "${NUGET_REPO}" ]]; then
-  echo "Made it inside the if"
   "${DOTNET_EXE}" nuget add source "${NUGET_REPO}" --configfile "${CONFIG_FILE}"
 fi
-"${DOTNET_EXE}" nuget list source --configfile "${CONFIG_FILE}"
-
-echo "NUGET_REPO: ${NUGET_REPO}"
 
 export NUGET_PACKAGES="${SCRIPT_DIR}/../.nuget/packages"
 export NUGET_HTTP_CACHE_PATH="${SCRIPT_DIR}/../.nuget/cache"
 mkdir -p "${NUGET_PACKAGES}"
 mkdir -p "${NUGET_HTTP_CACHE_PATH}"
-
-echo "NUGET_PACKAGES: ${NUGET_PACKAGES}"
-echo "NUGET_HTTP_CACHE_PATH: ${NUGET_HTTP_CACHE_PATH}"
-
-"${DOTNET_EXE}" nuget config get ALL --show-path
 
 # Install maui workload
 "${DOTNET_EXE}" workload install maui --version "${DOTNET_VERSION}"
@@ -107,14 +91,9 @@ xmlstarlet ed -P -L -u '/Project/PropertyGroup/ArcGISMapsSDKVersion' \
   -p:RuntimeIdentifier=ios-arm64 \
   -p:PublishDir=${WORKSPACE}/output/internalBuild/
 
-echo "Made it past internal build"
-
 # External Build
 /usr/libexec/PlistBuddy -c "set :CFBundleIdentifier com.esri.arcgisruntime.samples.maui" \
   "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/Platforms/iOS/Info.plist || exit 1
-
-echo "Updated plist:"
-cat "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/Platforms/iOS/Info.plist
 
 "${DOTNET_EXE}" clean "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/ArcGIS.Samples.Maui.csproj \
   -f:${FRAMEWORK} \

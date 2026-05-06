@@ -108,9 +108,14 @@ xmlstarlet ed -P -L -u '/Project/PropertyGroup/ArcGISMapsSDKVersion' \
   -p:PublishDir=${WORKSPACE}/output/internalBuild/ \
   -p:ValidateXcodeVersion=false
 
+echo "Made it past internal build"
+
 # External Build
 /usr/libexec/PlistBuddy -c "set :CFBundleIdentifier com.esri.arcgisruntime.samples.maui" \
   "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/Platforms/iOS/Info.plist || exit 1
+
+echo "Updated plist:"
+cat "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/Platforms/iOS/Info.plist
 
 "${DOTNET_EXE}" publish "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/ArcGIS.Samples.Maui.csproj \
   -f:${FRAMEWORK} \

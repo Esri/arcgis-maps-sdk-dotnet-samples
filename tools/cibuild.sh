@@ -117,6 +117,12 @@ echo "Made it past internal build"
 echo "Updated plist:"
 cat "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/Platforms/iOS/Info.plist
 
+"${DOTNET_EXE}" build "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/ArcGIS.Samples.Maui.csproj \
+  -t:Clean \
+  -p:Configuration="Release" \
+  -p:RuntimeIdentifier=ios-arm64 \
+  -p:ValidateXcodeVersion=false
+
 "${DOTNET_EXE}" publish "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/ArcGIS.Samples.Maui.csproj \
   -f:${FRAMEWORK} \
   -p:ApplicationDisplayVersion=${RELEASE_VERSION} \

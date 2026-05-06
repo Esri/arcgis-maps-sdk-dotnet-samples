@@ -105,8 +105,7 @@ xmlstarlet ed -P -L -u '/Project/PropertyGroup/ArcGISMapsSDKVersion' \
   -p:CodesignProvision="${CODESIGN_PROVISION_INTERNAL}" \
   -p:Configuration="Release" \
   -p:RuntimeIdentifier=ios-arm64 \
-  -p:PublishDir=${WORKSPACE}/output/internalBuild/ \
-  -p:ValidateXcodeVersion=false
+  -p:PublishDir=${WORKSPACE}/output/internalBuild/
 
 echo "Made it past internal build"
 
@@ -120,8 +119,7 @@ cat "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/Platforms/iOS/Info.plist
 "${DOTNET_EXE}" clean "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/ArcGIS.Samples.Maui.csproj \
   -f:${FRAMEWORK} \
   -p:Configuration="Release" \
-  -p:RuntimeIdentifier=ios-arm64 \
-  -p:ValidateXcodeVersion=false
+  -p:RuntimeIdentifier=ios-arm64
 
 "${DOTNET_EXE}" publish "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/ArcGIS.Samples.Maui.csproj \
   -f:${FRAMEWORK} \
@@ -132,5 +130,5 @@ cat "${SCRIPT_DIR}"/../src/MAUI/Maui.Samples/Platforms/iOS/Info.plist
   -p:CodesignProvision="${CODESIGN_PROVISION_APPSTORE}" \
   -p:Configuration="Release" \
   -p:RuntimeIdentifier=ios-arm64 \
-  -p:PublishDir=${WORKSPACE}/output/externalBuild/ \
-  -p:ValidateXcodeVersion=false
+  -p:PublishDir=${WORKSPACE}/output/externalBuild/
+  

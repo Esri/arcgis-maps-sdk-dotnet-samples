@@ -37,7 +37,7 @@ mkdir -p "${NUGET_PACKAGES}"
 mkdir -p "${NUGET_HTTP_CACHE_PATH}"
 
 # Install maui workload
-"${DOTNET_EXE}" workload install maui --version "${DOTNET_VERSION}"
+"${DOTNET_EXE}" workload install maui
 
 # Embed API key
 if [[ ! -z "${API_KEY}" ]]; then

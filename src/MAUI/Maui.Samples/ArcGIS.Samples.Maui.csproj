@@ -138,6 +138,14 @@
     <PackageReference Include="Microsoft.Maui.Controls.Compatibility" />
   </ItemGroup>
 
+  <!-- .NET 10 Toolkit workaround -->
+  <ItemGroup Condition="'$([MSBuild]::GetTargetPlatformIdentifier($(TargetFramework)))'=='android'">
+    <PackageReference Include="Xamarin.AndroidX.Tracing.Tracing" />
+    <PackageReference Include="Xamarin.AndroidX.Tracing.Tracing.Ktx" />
+    <PackageReference Include="Xamarin.AndroidX.Concurrent.Futures" />
+    <PackageReference Include="Xamarin.AndroidX.Concurrent.Futures.Ktx" />
+  </ItemGroup>
+
   <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
     <PackageReference Include="WinUIEx" />

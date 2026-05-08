@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 # Default environment variables
-DOTNET_MAJOR_VERSION=10.0
+DOTNET_VERSION="${DOTNET_VERSION:-10.0.203}"
 RELEASE_VERSION="${RELEASE_VERSION:-300.1.0}"
-FRAMEWORK="net${DOTNET_MAJOR_VERSION}-ios"
+FRAMEWORK="net${DOTNET_VERSION%%.*}.0-ios"
 
 # Get script directory
 SCRIPT_DIR="$( realpath "$(dirname "${BASH_SOURCE[0]}")" )"
@@ -12,14 +12,12 @@ SCRIPT_DIR="$( realpath "$(dirname "${BASH_SOURCE[0]}")" )"
 if [[ -z "${DOTNET_CACHE_FOLDER}" ]]; then
   DOTNET_INSTALL_FOLDER="${WORKSPACE}/.dotnet"
 else
-  DOTNET_INSTALL_FOLDER="${DOTNET_CACHE_FOLDER}/${DOTNET_VERSION:-${DOTNET_MAJOR_VERSION}-latest}"
+  DOTNET_INSTALL_FOLDER="${DOTNET_CACHE_FOLDER}/${DOTNET_VERSION}"
 fi
 
-mkdir -p "${DOTNET_INSTALL_FOLDER}"
-curl -fsSL https://dot.net/v1/dotnet-install.sh -o "${WORKSPACE}/dotnet-install.sh"
-if [[ -z "${DOTNET_VERSION}" ]]; then
-  bash "${WORKSPACE}/dotnet-install.sh" --channel "${DOTNET_MAJOR_VERSION}" --install-dir "${DOTNET_INSTALL_FOLDER}"
-else
+if [[ ! -x "${DOTNET_INSTALL_FOLDER}/dotnet" ]]; then
+  mkdir -p "${DOTNET_INSTALL_FOLDER}"
+  curl -fsSL https://dot.net/v1/dotnet-install.sh -o "${WORKSPACE}/dotnet-install.sh"
   bash "${WORKSPACE}/dotnet-install.sh" --version "${DOTNET_VERSION}" --install-dir "${DOTNET_INSTALL_FOLDER}"
 fi
 

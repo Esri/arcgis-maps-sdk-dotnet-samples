@@ -10,6 +10,7 @@
 using ArcGIS.Samples.Shared.Models;
 using System.Diagnostics;
 using System.IO;
+using System.Windows.Forms;
 
 namespace ArcGIS.WPF.Viewer
 {
@@ -18,6 +19,8 @@ namespace ArcGIS.WPF.Viewer
         public Description()
         {
             InitializeComponent();
+
+            DescriptionView.Navigating += DescriptionView_Navigating;
         }
 
         public void SetSample(SampleInfo sample)
@@ -38,10 +41,23 @@ namespace ArcGIS.WPF.Viewer
             DescriptionView.Document.OpenNew(false);
             DescriptionView.Document.Write(htmlString);
             DescriptionView.Refresh();
+        }
 
-            // Disable navigation in the web browser control.
-            // This prevents script errors when users click links in READMEs.
-            DescriptionView.AllowNavigation = false;
+        private void DescriptionView_Navigating(object sender, WebBrowserNavigatingEventArgs e)
+        {
+            // Open links in a new window instead of inside the web view.
+            if (e.Url != null && e.Url.AbsoluteUri.StartsWith("http"))
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo(e.Url.AbsoluteUri) { UseShellExecute = true });
+                    e.Cancel = true;
+                }
+                catch (System.Exception ex)
+                {
+                    Debug.WriteLine(ex);
+                }
+            }
         }
     }
 }

@@ -36,11 +36,18 @@
                            FontSize="Medium"
                            HorizontalOptions="Start"
                            Text="Tags:" />
-                    <ListView HorizontalOptions="Start"
-                              ItemsSource="{Binding Tags}"
-                              MaximumWidthRequest="400"
-                              RowHeight="25"
-                              VerticalScrollBarVisibility="Never" />
+                    <CollectionView HorizontalOptions="Start"
+                                    ItemsSource="{Binding Tags}"
+                                    MaximumWidthRequest="400"
+                                    VerticalScrollBarVisibility="Never">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="x:String">
+                                <Label HeightRequest="25"
+                                       Text="{Binding .}"
+                                       VerticalTextAlignment="Center" />
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </StackLayout>
             </ScrollView>
         </Border>

@@ -77,7 +77,7 @@ namespace ArcGIS.Samples.FindPlace
             catch (Exception ex)
             {
                 Debug.WriteLine(ex);
-                await Application.Current.Windows[0].Page.DisplayAlert("Couldn't start location", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Couldn't start location", ex.Message, "OK");
             }
                 
 
@@ -209,7 +209,7 @@ namespace ArcGIS.Samples.FindPlace
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.Message, "OK");
             }
         }
 
@@ -264,14 +264,14 @@ namespace ArcGIS.Samples.FindPlace
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.Message, "OK");
             }
         }
 
         private void ShowStatusMessage(string message)
         {
             // Display the message to the user.
-            DisplayAlert("Alert", message, "OK");
+            _ = DisplayAlertAsync("Alert", message, "OK");
         }
 
         private void MyLocationBox_TextChanged(object sender, TextChangedEventArgs e)

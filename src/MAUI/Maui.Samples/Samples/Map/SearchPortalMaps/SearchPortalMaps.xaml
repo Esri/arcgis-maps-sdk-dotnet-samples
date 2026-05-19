@@ -65,17 +65,17 @@
                 WidthRequest="{OnIdiom Default=-1,
                                        Desktop=500}">
             <StackLayout Padding="10" HeightRequest="{OnIdiom Default=-1, Desktop=500}">
-                <ListView x:Name="MapsListView"
-                          Margin="5"
-                          ItemSelected="MapItemSelected"
-                          SelectionMode="Single"
-                          VerticalScrollBarVisibility="Default">
-                    <ListView.ItemTemplate>
+                <CollectionView x:Name="MapsListView"
+                                Margin="5"
+                                SelectionChanged="MapItemSelected"
+                                SelectionMode="Single"
+                                VerticalScrollBarVisibility="Default">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="esriPortal:PortalItem">
-                            <TextCell Text="{Binding Title}" />
+                            <Label Padding="12,8" Text="{Binding Title}" />
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 <Button Margin="5"
                         Clicked="ListCloseClicked"
                         Text="Close" />

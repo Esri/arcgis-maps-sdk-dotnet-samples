@@ -95,7 +95,7 @@ namespace ArcGIS.Samples.FormatCoordinates
             catch (Exception ex)
             {
                 // The coordinate is malformed, warn and return
-                DisplayAlert("Invalid Format", ex.Message, "OK");
+                DisplayAlertAsync("Invalid Format", ex.Message, "OK");
                 return;
             }
 
@@ -112,7 +112,7 @@ namespace ArcGIS.Samples.FormatCoordinates
             }
             catch (Exception ex)
             {
-                DisplayAlert("Error", ex.Message, "OK");
+                DisplayAlertAsync("Error", ex.Message, "OK");
                 return;
             }
 

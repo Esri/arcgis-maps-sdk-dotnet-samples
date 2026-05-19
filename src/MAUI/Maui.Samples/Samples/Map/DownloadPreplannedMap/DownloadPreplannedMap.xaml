@@ -18,30 +18,29 @@
                        Margin="5"
                        HorizontalTextAlignment="Center"
                        Text="Select an area, then download it." />
-                <ListView x:Name="AreasList"
-                          HeightRequest="150"
-                          ItemSelected="AreaSelected">
-                    <ListView.ItemTemplate>
+                <CollectionView x:Name="AreasList"
+                                HeightRequest="150"
+                                SelectionChanged="AreaSelected"
+                                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="esriOffline:PreplannedMapArea">
-                            <ViewCell>
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="auto" />
-                                        <ColumnDefinition Width="auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Grid.RowSpan="2"
-                                           HeightRequest="40"
-                                           Source="{Binding PortalItem.Thumbnail, Converter={StaticResource RuntimeImageToImageSource}}"
-                                           WidthRequest="60" />
-                                    <Label Grid.Column="1"
-                                           Margin="5,0"
-                                           Text="{Binding PortalItem.Title}"
-                                           VerticalTextAlignment="Center" />
-                                </Grid>
-                            </ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="auto" />
+                                    <ColumnDefinition Width="auto" />
+                                </Grid.ColumnDefinitions>
+                                <Image Grid.RowSpan="2"
+                                       HeightRequest="40"
+                                       Source="{Binding PortalItem.Thumbnail, Converter={StaticResource RuntimeImageToImageSource}}"
+                                       WidthRequest="60" />
+                                <Label Grid.Column="1"
+                                       Margin="5,0"
+                                       Text="{Binding PortalItem.Title}"
+                                       VerticalTextAlignment="Center" />
+                            </Grid>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
                     <Button x:Name="DownloadButton"
                             Clicked="OnDownloadMapAreaClicked"

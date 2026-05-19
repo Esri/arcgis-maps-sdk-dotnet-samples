@@ -136,7 +136,7 @@ namespace ArcGIS.Samples.SymbolsFromMobileStyle
             catch (Exception ex)
             {
                 // Report the exception.
-                await Application.Current.Windows[0].Page.DisplayAlert("Error reading style", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error reading style", ex.Message, "OK");
             }
         }
 
@@ -154,12 +154,12 @@ namespace ArcGIS.Samples.SymbolsFromMobileStyle
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.Message, "OK");
             }
         }
 
         // An event handler for list box and combo box selection changes that will update the current symbol.
-        private async void SymbolLayerSelected(object sender, SelectedItemChangedEventArgs e)
+        private async void SymbolLayerSelected(object sender, SelectionChangedEventArgs e)
         {
             try
             {
@@ -171,7 +171,7 @@ namespace ArcGIS.Samples.SymbolsFromMobileStyle
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.Message, "OK");
             }
         }
 
@@ -226,7 +226,7 @@ namespace ArcGIS.Samples.SymbolsFromMobileStyle
             catch (Exception ex)
             {
                 // Report the exception.
-                await Application.Current.Windows[0].Page.DisplayAlert("Error creating symbol", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error creating symbol", ex.Message, "OK");
             }
 
             // Return the multilayer point symbol.

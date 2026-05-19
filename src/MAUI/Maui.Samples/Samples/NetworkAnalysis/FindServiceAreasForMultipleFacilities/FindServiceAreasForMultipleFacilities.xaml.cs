@@ -180,7 +180,7 @@ namespace ArcGIS.Samples.FindServiceAreasForMultipleFacilities
 
         private void ShowMessage(string title, string detail)
         {
-            DisplayAlert(title, detail, "OK");
+            _ = DisplayAlertAsync(title, detail, "OK");
         }
     }
 }

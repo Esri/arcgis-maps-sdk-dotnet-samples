@@ -10,16 +10,17 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}" WidthRequest="{OnPlatform WinUI=425}">
             <VerticalStackLayout>
                 <Label FontAttributes="Bold" Text="Select a WMS layer from the list for display:" />
-                <ListView x:Name="MyDisplayList"
-                          HeightRequest="{OnPlatform iOS=200,
-                                                     MacCatalyst=200}"
-                          ItemSelected="MyDisplayList_SelectionChanged">
-                    <ListView.ItemTemplate>
+                <CollectionView x:Name="MyDisplayList"
+                                HeightRequest="{OnPlatform iOS=200,
+                                                           MacCatalyst=200}"
+                                SelectionChanged="MyDisplayList_SelectionChanged"
+                                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="local:LayerDisplayVM">
-                            <TextCell Text="{Binding Name}" />
+                            <Label Padding="12,8" Text="{Binding Name}" />
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </VerticalStackLayout>
         </Border>
     </Grid>

@@ -74,7 +74,7 @@ namespace ArcGIS.Samples.LocationWithNMEA
             }
             catch (Exception ex)
             {
-                await DisplayAlert(ex.Message.GetType().Name, ex.Message, "OK");
+                await DisplayAlertAsync(ex.Message.GetType().Name, ex.Message, "OK");
             }
         }
 

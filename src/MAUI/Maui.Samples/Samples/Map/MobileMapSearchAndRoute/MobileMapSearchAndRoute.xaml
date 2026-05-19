@@ -12,21 +12,21 @@
                     <Label LineBreakMode="WordWrap"
                            MaximumWidthRequest="300"
                            Text="Select a map from the package. If a network is available, you can route between tapped points. If a locator is available, the address for each tapped point will be displayed in a callout." />
-                    <ListView x:Name="MapListView"
-                              Margin="0,5"
-                              HeightRequest="140"
-                              ItemSelected="Map_Selected"
-                              MaximumWidthRequest="400">
-                        <ListView.ItemTemplate>
+                    <CollectionView x:Name="MapListView"
+                                    Margin="0,5"
+                                    HeightRequest="140"
+                                    MaximumWidthRequest="400"
+                                    SelectionChanged="Map_Selected"
+                                    SelectionMode="Single">
+                        <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="mapping:Map">
-                                <ViewCell>
-                                    <Label HorizontalTextAlignment="Start"
-                                           Text="{Binding Item.Name}"
-                                           VerticalTextAlignment="Center" />
-                                </ViewCell>
+                                <Label Padding="12,8"
+                                       HorizontalTextAlignment="Start"
+                                       Text="{Binding Item.Name}"
+                                       VerticalTextAlignment="Center" />
                             </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                 </VerticalStackLayout>
             </ScrollView>
         </Border>

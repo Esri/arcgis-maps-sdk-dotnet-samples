@@ -266,13 +266,21 @@ namespace ArcGIS.Samples.RouteAroundBarriers
             // Create the Esri.ArcGISRuntime.Maui page for showing the directions.
             _directionsPage = new ContentPage();
 
-            // Create the list view for showing directions.
-            ListView directionsList = new ListView();
+            // Create the collection view for showing directions.
+            CollectionView directionsList = new CollectionView
+            {
+                ItemTemplate = new DataTemplate(() =>
+                {
+                    var label = new Label { Padding = new Thickness(12, 8) };
+                    label.SetBinding(Label.TextProperty, new Binding("."));
+                    return label;
+                })
+            };
 
-            // Populate the list view with directions text.
+            // Populate the collection view with directions text.
             directionsList.ItemsSource = directions.Select(directionObject => directionObject.DirectionText);
 
-            // Add the list view to the page.
+            // Add the collection view to the page.
             _directionsPage.Content = directionsList;
         }
 
@@ -398,7 +406,7 @@ namespace ArcGIS.Samples.RouteAroundBarriers
 
         private void ShowMessage(string title, string detail)
         {
-            Application.Current.Windows[0].Page.DisplayAlert(title, detail, "OK");
+            Application.Current.Windows[0].Page.DisplayAlertAsync(title, detail, "OK");
         }
     }
 }

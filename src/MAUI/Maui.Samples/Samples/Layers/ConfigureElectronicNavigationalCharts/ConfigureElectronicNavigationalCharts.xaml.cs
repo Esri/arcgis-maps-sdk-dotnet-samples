@@ -88,7 +88,7 @@ namespace ArcGIS.Samples.ConfigureElectronicNavigationalCharts
             }
             catch (Exception e)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", e.ToString(), "OK");
             }
         }
 
@@ -180,7 +180,7 @@ namespace ArcGIS.Samples.ConfigureElectronicNavigationalCharts
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.ToString(), "OK");
             }
         }
 

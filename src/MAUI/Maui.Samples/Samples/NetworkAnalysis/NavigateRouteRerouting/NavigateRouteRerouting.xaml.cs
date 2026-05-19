@@ -122,7 +122,7 @@ namespace ArcGIS.Samples.NavigateRouteRerouting
             }
             catch (Exception e)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", e.Message, "OK");
             }
         }
 
@@ -155,7 +155,7 @@ namespace ArcGIS.Samples.NavigateRouteRerouting
                 }
                 catch (Exception ex)
                 {
-                    await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.Message, "OK");
                 }
             }
 

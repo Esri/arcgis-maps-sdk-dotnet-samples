@@ -11,16 +11,17 @@
                   RowDefinitions="auto,auto"
                   RowSpacing="5">
                 <Label Grid.Row="0" Text="Select a row to see the related feature." />
-                <ListView x:Name="CommentsListBox"
-                          Grid.Row="1"
-                          HeightRequest="100"
-                          ItemSelected="CommentsListBox_SelectionChanged">
-                    <ListView.ItemTemplate>
+                <CollectionView x:Name="CommentsListBox"
+                                Grid.Row="1"
+                                HeightRequest="100"
+                                SelectionChanged="CommentsListBox_SelectionChanged"
+                                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="esri:Feature">
-                            <TextCell Text="{Binding Attributes[comments]}" />
+                            <Label Padding="12,8" Text="{Binding Attributes[comments]}" />
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Grid>
         </Border>
     </Grid>

@@ -84,18 +84,18 @@ namespace ArcGIS.Samples.QueryRelatedFeaturesFromNonSpatialTable
             }
             catch (Exception e)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", e.ToString(), "OK");
             }
         }
 
         // Handle a new selected comment record in the table view.
-        private async void CommentsListBox_SelectionChanged(object sender, SelectedItemChangedEventArgs e)
+        private async void CommentsListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Clear selected features from the graphics overlay.
             _selectedFeaturesOverlay.Graphics.Clear();
 
             // Get the selected comment feature. If there is no selection, return.
-            ArcGISFeature selectedComment = e.SelectedItem as ArcGISFeature;
+            ArcGISFeature selectedComment = e.CurrentSelection.FirstOrDefault() as ArcGISFeature;
             if (selectedComment == null) { return; }
 
             // Get the map image layer that contains the service request sublayer and the service request comments table.
@@ -125,7 +125,7 @@ namespace ArcGIS.Samples.QueryRelatedFeaturesFromNonSpatialTable
                 ArcGISFeature serviceRequestFeature = result.FirstOrDefault() as ArcGISFeature;
                 if (serviceRequestFeature == null)
                 {
-                    await Application.Current.Windows[0].Page.DisplayAlert("No Feature", "Related feature not found.", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlertAsync("No Feature", "Related feature not found.", "OK");
                     return;
                 }
 
@@ -147,7 +147,7 @@ namespace ArcGIS.Samples.QueryRelatedFeaturesFromNonSpatialTable
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.ToString(), "OK");
             }
         }
     }

@@ -22,33 +22,32 @@
                        FontAttributes="Bold"
                        HorizontalTextAlignment="Center"
                        Text="Tap features to select. Download, upload, or delete attachments." />
-                <ListView x:Name="AttachmentsListBox"
-                          HeightRequest="100"
-                          IsEnabled="False">
+                <CollectionView x:Name="AttachmentsListBox"
+                                HeightRequest="100"
+                                IsEnabled="False"
+                                SelectionMode="None">
                     <!--  ItemTemplate defines how each item (Attachment) is rendered.  -->
-                    <ListView.ItemTemplate>
+                    <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="esri:Attachment">
-                            <ViewCell>
-                                <Grid ColumnDefinitions="*,auto,auto" RowDefinitions="auto">
-                                    <Label Margin="5"
-                                           Text="{Binding Name}"
-                                           VerticalTextAlignment="Center" />
-                                    <!--  DataTemplate sets the item as the button's DataContext automatically.  -->
-                                    <Button Grid.Column="1"
-                                            Clicked="DownloadAttachment_Click"
-                                            Style="{StaticResource IconStyle}"
-                                            Text="{StaticResource CalciteUIIcons_Glyph_Download}"
-                                            ToolTipProperties.Text="Download" />
-                                    <Button Grid.Column="2"
-                                            Clicked="DeleteAttachment_Click"
-                                            Style="{StaticResource IconStyle}"
-                                            Text="{StaticResource CalciteUIIcons_Glyph_Trash}"
-                                            ToolTipProperties.Text="Delete" />
-                                </Grid>
-                            </ViewCell>
+                            <Grid ColumnDefinitions="*,auto,auto" RowDefinitions="auto">
+                                <Label Margin="5"
+                                       Text="{Binding Name}"
+                                       VerticalTextAlignment="Center" />
+                                <!--  DataTemplate sets the item as the button's DataContext automatically.  -->
+                                <Button Grid.Column="1"
+                                        Clicked="DownloadAttachment_Click"
+                                        Style="{StaticResource IconStyle}"
+                                        Text="{StaticResource CalciteUIIcons_Glyph_Download}"
+                                        ToolTipProperties.Text="Download" />
+                                <Button Grid.Column="2"
+                                        Clicked="DeleteAttachment_Click"
+                                        Style="{StaticResource IconStyle}"
+                                        Text="{StaticResource CalciteUIIcons_Glyph_Trash}"
+                                        ToolTipProperties.Text="Delete" />
+                            </Grid>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 <Grid ColumnDefinitions="auto,auto">
                     <Button x:Name="AddAttachmentButton"
                             Clicked="AddAttachment_Click"

@@ -113,7 +113,7 @@ namespace ArcGIS.Samples.BufferList
                 // If the input point is not within the valid extent for the spatial reference, warn the user and return.
                 if (!withinValidExent)
                 {
-                    DisplayAlert("Out of bounds", "Location is not valid to buffer using the defined spatial reference.", "OK");
+                    DisplayAlertAsync("Out of bounds", "Location is not valid to buffer using the defined spatial reference.", "OK");
 
                     return;
                 }
@@ -143,7 +143,7 @@ namespace ArcGIS.Samples.BufferList
             catch (Exception ex)
             {
                 // Display an error message.
-                DisplayAlert("Error creating buffer point", ex.Message, "OK");
+                DisplayAlertAsync("Error creating buffer point", ex.Message, "OK");
             }
         }
 
@@ -207,7 +207,7 @@ namespace ArcGIS.Samples.BufferList
             catch (Exception ex)
             {
                 // Display an error message if there is a problem generating the buffers.
-                DisplayAlert("Unable to create buffer polygons", ex.Message, "OK");
+                DisplayAlertAsync("Unable to create buffer polygons", ex.Message, "OK");
             }
         }
 

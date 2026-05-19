@@ -21,33 +21,31 @@
                             VerticalOptions="Center" />
                     <Label Text="Choose layers to apply scale to:" />
                     <!--  Binding is used to display the operational layers for the map view's map, no code behind needed.  -->
-                    <ListView Margin="5"
-                              x:DataType="esriUI:MapView"
-                              BindingContext="{x:Reference MyMapView}"
-                              HeightRequest="150"
-                              ItemsSource="{Binding Path=Map.OperationalLayers}"
-                              SelectionMode="None"
-                              VerticalOptions="Center">
-                        <ListView.ItemTemplate>
+                    <CollectionView Margin="5"
+                                    x:DataType="esriUI:MapView"
+                                    BindingContext="{x:Reference MyMapView}"
+                                    HeightRequest="150"
+                                    ItemsSource="{Binding Path=Map.OperationalLayers}"
+                                    SelectionMode="None"
+                                    VerticalOptions="Center">
+                        <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="mapping:FeatureLayer">
-                                <ViewCell>
-                                    <!--
-                                        When the user interacts with the switch,
-                                        the two-way binding will update the ScaleSymbols (bool) property automatically.
-                                    -->
-                                    <Grid ColumnDefinitions="Auto, *">
-                                        <Switch Margin="2"
-                                                IsToggled="{Binding ScaleSymbols}"
-                                                VerticalOptions="Center" />
-                                        <Label Grid.Column="1"
-                                               HorizontalTextAlignment="Center"
-                                               Text="{Binding Name}"
-                                               VerticalOptions="Center" />
-                                    </Grid>
-                                </ViewCell>
+                                <!--
+                                    When the user interacts with the switch,
+                                    the two-way binding will update the ScaleSymbols (bool) property automatically.
+                                -->
+                                <Grid ColumnDefinitions="Auto, *">
+                                    <Switch Margin="2"
+                                            IsToggled="{Binding ScaleSymbols}"
+                                            VerticalOptions="Center" />
+                                    <Label Grid.Column="1"
+                                           HorizontalTextAlignment="Center"
+                                           Text="{Binding Name}"
+                                           VerticalOptions="Center" />
+                                </Grid>
                             </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                     <Label x:DataType="esriUI:MapView"
                            BindingContext="{x:Reference MyMapView}"
                            Text="{Binding Path=MapScale, Mode=OneWay, StringFormat='Current map scale: {0:n0}'}" />

@@ -11,11 +11,9 @@
 // Uncomment the following line to include the samples subset in the app.
 //#define INCLUDE_SAMPLES_SUBSET
 
-using ArcGIS.Samples.Shared.Attributes;
 using ArcGIS.Samples.Shared.Models;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -26,14 +24,23 @@ namespace ArcGIS.Samples.Managers
     /// <summary>
     /// Single instance class to manage samples.
     /// </summary>
-    public class SampleManager
+    public partial class SampleManager
     {
-        // Private constructor
-        private SampleManager()
-        { }
+        private const string _favoritedSampleFileName = "favoritedSamples";
 
         // Static initialization of the unique instance
         private static readonly SampleManager SingleInstance = new SampleManager();
+
+        private readonly Dictionary<string, SampleInfo> _sampleCache = new Dictionary<string, SampleInfo>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, string> _catalogSampleNames = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, string> _catalogCategories = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+        private ISampleCatalogProvider _catalogProvider;
+        private IList<SampleInfo> _allSamples;
+        private bool _initialized;
+
+        // Private constructor
+        private SampleManager()
+        { }
 
         public static SampleManager Current
         {
@@ -41,11 +48,48 @@ namespace ArcGIS.Samples.Managers
         }
 
         /// <summary>
+        /// The catalog provider used to discover sample metadata and create sample controls.
+        /// </summary>
+        public ISampleCatalogProvider CatalogProvider
+        {
+            get
+            {
+                if (_catalogProvider == null)
+                {
+                    TryCreateGeneratedCatalogProvider(ref _catalogProvider);
+                    _catalogProvider ??= new ReflectionSampleCatalogProvider(GetType().GetTypeInfo().Assembly);
+                }
+
+                return _catalogProvider;
+            }
+        }
+
+        /// <summary>
         /// A list of all samples.
         /// </summary>
         /// <remarks>This is public on purpose. Other solutions that consume
         /// this project reference it directly.</remarks>
-        public IList<SampleInfo> AllSamples { get; set; }
+        public IList<SampleInfo> AllSamples
+        {
+            get
+            {
+                EnsureInitialized();
+                return _allSamples ??= CreateAllSamples();
+            }
+            set
+            {
+                _allSamples = value;
+                _sampleCache.Clear();
+
+                if (_allSamples != null)
+                {
+                    foreach (SampleInfo sample in _allSamples)
+                    {
+                        _sampleCache[sample.FormalName] = sample;
+                    }
+                }
+            }
+        }
 
         /// <summary>
         /// A collection of all samples organized by category.
@@ -57,28 +101,121 @@ namespace ArcGIS.Samples.Managers
         /// </summary>
         public SampleInfo SelectedSample { get; set; }
 
-        private const string _favoritedSampleFileName = "favoritedSamples";
-
         /// <summary>
-        /// Initializes the sample manager by loading all of the samples in the app.
+        /// Initializes the sample manager by preparing the generated sample catalog when available.
         /// </summary>
         public void Initialize()
         {
-            // Get the currently-executing assembly.
-            Assembly samplesAssembly = GetType().GetTypeInfo().Assembly;
+            if (_initialized)
+            {
+                return;
+            }
 
-            // Get the list of all samples in the assembly.
-            AllSamples = CreateSampleInfos(samplesAssembly).OrderBy(info => info.Category)
-                .ThenBy(info => info.SampleName.ToLowerInvariant())
-                .ToList();
+            ISampleCatalogProvider catalogProvider = CatalogProvider;
+            _initialized = true;
+
+            foreach (string sampleName in catalogProvider.GetSampleNames())
+            {
+                _catalogSampleNames[sampleName] = sampleName;
+            }
+
+            foreach (string category in catalogProvider.GetCategories())
+            {
+                _catalogCategories[category] = category;
+            }
 
             BuildSampleCategories();
         }
 
+        /// <summary>
+        /// Gets the metadata for a sample by formal name, creating it only when first requested.
+        /// </summary>
+        public SampleInfo GetSample(string formalName)
+        {
+            EnsureInitialized();
+
+            if (string.IsNullOrEmpty(formalName))
+            {
+                return null;
+            }
+
+            if (_sampleCache.TryGetValue(formalName, out SampleInfo cachedSample))
+            {
+                return cachedSample;
+            }
+
+            if (!TryGetCatalogSampleName(formalName, out string catalogFormalName))
+            {
+                return null;
+            }
+
+            SampleInfo sampleInfo = CatalogProvider.CreateSampleInfo(catalogFormalName);
+
+#if !(WinUI)
+            sampleInfo.IsFavorite = IsSampleFavorited(sampleInfo.FormalName);
+#endif
+
+            _sampleCache[sampleInfo.FormalName] = sampleInfo;
+            return sampleInfo;
+        }
+
+        /// <summary>
+        /// Gets all samples for the requested category, materializing only that category.
+        /// </summary>
+        public IList<SampleInfo> GetSamplesForCategory(string category)
+        {
+            EnsureInitialized();
+
+            if (TryGetCatalogCategory(category, out string catalogCategory))
+            {
+                return CatalogProvider.GetSampleNamesForCategory(catalogCategory)
+                    .Select(GetSample)
+                    .Where(sample => sample != null)
+                    .OrderBy(sample => sample.SampleName.ToLowerInvariant())
+                    .ToList();
+            }
+
+            SearchableTreeNode categoryNode = FullTree?.Items.OfType<SearchableTreeNode>()
+                .FirstOrDefault(node => node.Name.Equals(category, StringComparison.OrdinalIgnoreCase));
+
+            return categoryNode?.Items.OfType<SampleInfo>().ToList() ?? new List<SampleInfo>();
+        }
+
+        private bool TryGetCatalogSampleName(string formalName, out string catalogFormalName)
+        {
+            catalogFormalName = null;
+            return !string.IsNullOrEmpty(formalName) && _catalogSampleNames.TryGetValue(formalName, out catalogFormalName);
+        }
+
+        private bool TryGetCatalogCategory(string category, out string catalogCategory)
+        {
+            catalogCategory = null;
+            return !string.IsNullOrEmpty(category) && _catalogCategories.TryGetValue(category, out catalogCategory);
+        }
+
+        private void EnsureInitialized()
+        {
+            if (!_initialized)
+            {
+                Initialize();
+            }
+        }
+
+        static partial void TryCreateGeneratedCatalogProvider(ref ISampleCatalogProvider provider);
+
+        private IList<SampleInfo> CreateAllSamples()
+        {
+            return CatalogProvider.GetSampleNames()
+                .Select(GetSample)
+                .Where(sample => sample != null)
+                .OrderBy(info => info.Category)
+                .ThenBy(info => info.SampleName.ToLowerInvariant())
+                .ToList();
+        }
+
         private void BuildSampleCategories()
         {
-            // Create a tree from the list of all samples.
-            FullTree = BuildFullTree(AllSamples);
+            FullTree = BuildFullTreeFromCatalog();
 
 #if INCLUDE_SAMPLES_SUBSET
             // Add a category for the samples subset.
@@ -95,72 +232,50 @@ namespace ArcGIS.Samples.Managers
 #endif
         }
 
+        private SearchableTreeNode BuildFullTreeFromCatalog()
+        {
+            return new SearchableTreeNode(
+                "All Samples",
+                () => CatalogProvider.GetCategories()
+                    .OrderBy(category => category)
+                    .Select(category => new SearchableTreeNode(category, () => GetSamplesForCategory(category).Cast<object>()))
+                    .Cast<object>());
+        }
+
         /// <summary>
         /// Get a list of sample names from a resource file.
         /// </summary>
         /// <returns>An searchable tree node containing the samples found in the resource file.</returns>
         private SearchableTreeNode GetSearchableTreeNodeFromFile(string fileName, string searchableTreeNodeTitle, bool orderByName = true)
         {
-            // Instantiate a null XElement to be populated by the resource file.
             XElement sampleElement = null;
-
-            // Create a list to hold the names of the samples.
             List<string> samples = new List<string>();
 
-            string resourceStreamName = this.GetType().Assembly.GetManifestResourceNames().Single(str => str.EndsWith(fileName));
+            string resourceStreamName = GetType().Assembly.GetManifestResourceNames().Single(str => str.EndsWith(fileName));
 
-            // Load the FeaturedSamples resource file.
-            using (Stream stream = this.GetType().Assembly.
-                       GetManifestResourceStream(resourceStreamName))
+            using (Stream stream = GetType().Assembly.GetManifestResourceStream(resourceStreamName))
             {
                 sampleElement = XElement.Load(stream);
             }
 
-            // If the resource file has been successfully loaded populate the list of samples.
             if (sampleElement != null)
             {
                 samples = sampleElement.Descendants("Sample").Select(x => x.Value).ToList();
             }
 
-            IEnumerable<SampleInfo> searchableTreeNodeItems = AllSamples.Where(sample => samples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase));
-
-            if (orderByName)
+            return new SearchableTreeNode(searchableTreeNodeTitle, () =>
             {
-                searchableTreeNodeItems = searchableTreeNodeItems.OrderBy(sample => sample.SampleName);
-            }
+                IEnumerable<SampleInfo> searchableTreeNodeItems = samples
+                    .Select(GetSample)
+                    .Where(sample => sample != null);
 
-            return new SearchableTreeNode(searchableTreeNodeTitle, searchableTreeNodeItems);
-        }
-
-        /// <summary>
-        /// Creates a list of sample metadata objects for each sample in the assembly.
-        /// </summary>
-        /// <param name="assembly">The assembly to search for samples.</param>
-        /// <returns>List of sample metadata objects.</returns>
-        private static IList<SampleInfo> CreateSampleInfos(Assembly assembly)
-        {
-            // Get all the types in the assembly that are decorated with a SampleAttribute.
-            IEnumerable<Type> sampleTypes = assembly.GetTypes()
-                .Where(type => type.GetTypeInfo().GetCustomAttributes().OfType<SampleAttribute>().Any());
-
-            // Create a list to hold all constructed sample metadata objects.
-            List<SampleInfo> samples = new List<SampleInfo>();
-
-            // Create the sample metadata for each sample.
-            foreach (Type type in sampleTypes)
-            {
-                try
+                if (orderByName)
                 {
-                    SampleInfo sampleInfo = new SampleInfo(type);
+                    searchableTreeNodeItems = searchableTreeNodeItems.OrderBy(sample => sample.SampleName);
+                }
 
-                    samples.Add(sampleInfo);
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine("Could not create sample from " + type + ": " + ex);
-                }
-            }
-            return samples;
+                return searchableTreeNodeItems.Cast<object>();
+            });
         }
 
         /// <summary>
@@ -203,7 +318,19 @@ namespace ArcGIS.Samples.Managers
         /// <returns>Sample as a control.</returns>
         public object SampleToControl(SampleInfo sampleModel)
         {
-            return Activator.CreateInstance(sampleModel.SampleType);
+            EnsureInitialized();
+
+            if (TryGetCatalogSampleName(sampleModel.FormalName, out string catalogFormalName))
+            {
+                return CatalogProvider.CreateSample(catalogFormalName);
+            }
+
+            if (sampleModel.SampleType != null)
+            {
+                return Activator.CreateInstance(sampleModel.SampleType);
+            }
+
+            throw new InvalidOperationException($"Sample '{sampleModel.FormalName}' cannot be created because no factory or sample type is available.");
         }
 
         /// <summary>
@@ -214,62 +341,73 @@ namespace ArcGIS.Samples.Managers
         /// <returns><c>true</c> if the sample matches the query.</returns>
         public bool SampleSearchFunc(SampleInfo sample, string searchText)
         {
-            searchText = searchText.ToLower();
-            return sample.SampleName.ToLower().Contains(searchText) ||
-                   sample.Category.ToLower().Contains(searchText) ||
-                   sample.Description.ToLower().Contains(searchText) ||
-                   sample.Tags.Any(tag => tag.Contains(searchText));
+            searchText = (searchText ?? string.Empty).ToLowerInvariant();
+            return sample.SampleName.ToLowerInvariant().Contains(searchText) ||
+                   sample.Category.ToLowerInvariant().Contains(searchText) ||
+                   sample.Description.ToLowerInvariant().Contains(searchText) ||
+                   sample.Tags.Any(tag => tag.ToLowerInvariant().Contains(searchText));
         }
 
 #if !(WinUI)
         public bool IsSampleFavorited(string sampleFormalName)
         {
-            return GetFavoriteSampleNames().Contains(sampleFormalName);
+            return GetFavoriteSampleNames().Contains(sampleFormalName, StringComparer.OrdinalIgnoreCase);
         }
 
         private static List<string> GetFavoriteSampleNames()
         {
-            // Get the names of the favorite samples from the saved file if it exists.
-            // If the file does not exist, create it.
-            if (File.Exists(Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName)))
+            string favoritesFile = Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName);
+
+            if (File.Exists(favoritesFile))
             {
-                return File.ReadAllLines(Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName)).ToList();
+                return File.ReadAllLines(favoritesFile).ToList();
             }
-            else
-            {
-                File.Create(Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName));
-            }
+
+            using FileStream _ = File.Create(favoritesFile);
 
             return new List<string>();
         }
 
         public void AddRemoveFavorite(string sampleName)
         {
-            // Get the list of favorites from the saved file.
-            List<string> favorites = File.ReadAllLines(Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName)).ToList();
+            string favoritesFile = Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName);
+            List<string> favorites = File.ReadAllLines(favoritesFile).ToList();
+            string existingFavorite = favorites.FirstOrDefault(name => name.Equals(sampleName, StringComparison.OrdinalIgnoreCase));
 
-            // If the sample currently being added/removed is present or not present remove or add it to the list accordingly.
-            if (favorites.Contains(sampleName))
+            if (existingFavorite != null)
             {
-                favorites.Remove(sampleName);
+                favorites.Remove(existingFavorite);
             }
             else
             {
                 favorites.Add(sampleName);
 
 #if ENABLE_ANALYTICS
+                SampleInfo favoritedSample = GetSample(sampleName);
                 var eventData = new Dictionary<string, string> {
-                    { "Sample", AllSamples.FirstOrDefault(s => s.FormalName.Equals(sampleName)).SampleName }
+                    { "Sample", favoritedSample?.SampleName ?? sampleName }
                 };
 
                 _ = Helpers.AnalyticsHelper.TrackEvent("favorite_added", eventData);
 #endif
             }
 
-            // Save the new list of favorites.
-            File.WriteAllLines(Path.Combine(GetFavoritesFolder(), _favoritedSampleFileName), favorites);
+            File.WriteAllLines(favoritesFile, favorites);
 
-            // Build the categories tree again with the updated favorite category.
+            HashSet<string> favoriteNames = new HashSet<string>(favorites, StringComparer.OrdinalIgnoreCase);
+            foreach (SampleInfo sample in _sampleCache.Values)
+            {
+                sample.IsFavorite = favoriteNames.Contains(sample.FormalName);
+            }
+
+            if (_allSamples != null)
+            {
+                foreach (SampleInfo sample in _allSamples)
+                {
+                    sample.IsFavorite = favoriteNames.Contains(sample.FormalName);
+                }
+            }
+
             BuildSampleCategories();
         }
 
@@ -292,16 +430,27 @@ namespace ArcGIS.Samples.Managers
 
         public SearchableTreeNode GetFavoritesCategory()
         {
-            IEnumerable<string> favoriteSamples = GetFavoriteSampleNames();
+            List<string> favoriteSampleNames = GetFavoriteSampleNames();
+            HashSet<string> favoriteNames = new HashSet<string>(favoriteSampleNames, StringComparer.OrdinalIgnoreCase);
 
-            // Set favorited samples.
-            foreach (var sample in AllSamples)
+            foreach (SampleInfo sample in _sampleCache.Values)
             {
-                sample.IsFavorite = favoriteSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase);
+                sample.IsFavorite = favoriteNames.Contains(sample.FormalName);
             }
 
-            // Create a new SearchableTreeNode for the updated favorites.
-            return new SearchableTreeNode("Favorites", AllSamples.Where(sample => favoriteSamples.Contains(sample.FormalName, StringComparer.OrdinalIgnoreCase)).OrderBy(sample => sample.SampleName));
+            if (_allSamples != null)
+            {
+                foreach (SampleInfo sample in _allSamples)
+                {
+                    sample.IsFavorite = favoriteNames.Contains(sample.FormalName);
+                }
+            }
+
+            return new SearchableTreeNode("Favorites", () => favoriteSampleNames
+                .Select(GetSample)
+                .Where(sample => sample != null)
+                .OrderBy(sample => sample.SampleName)
+                .Cast<object>());
         }
 
         internal static string GetFavoritesFolder()

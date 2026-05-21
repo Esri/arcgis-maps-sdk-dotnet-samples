@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ArcGIS.Samples.Maui", "MAUI
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "ArcGIS.Samples.Shared", "Samples.Shared\ArcGIS.Samples.Shared.shproj", "{0AD85845-0BA1-4DC9-8C32-E6FD7632E32D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Samples.CatalogGenerator", "Samples.CatalogGenerator\Samples.CatalogGenerator.csproj", "{BBFBE218-B123-9B87-6B83-C46602227A09}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,18 @@ Global
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Release|x64.ActiveCfg = Release|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Release|x64.Build.0 = Release|Any CPU
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3}.Release|x64.Deploy.0 = Release|Any CPU
+		{BBFBE218-B123-9B87-6B83-C46602227A09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBFBE218-B123-9B87-6B83-C46602227A09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBFBE218-B123-9B87-6B83-C46602227A09}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{BBFBE218-B123-9B87-6B83-C46602227A09}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{BBFBE218-B123-9B87-6B83-C46602227A09}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BBFBE218-B123-9B87-6B83-C46602227A09}.Debug|x64.Build.0 = Debug|Any CPU
+		{BBFBE218-B123-9B87-6B83-C46602227A09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBFBE218-B123-9B87-6B83-C46602227A09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBFBE218-B123-9B87-6B83-C46602227A09}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{BBFBE218-B123-9B87-6B83-C46602227A09}.Release|ARM64.Build.0 = Release|Any CPU
+		{BBFBE218-B123-9B87-6B83-C46602227A09}.Release|x64.ActiveCfg = Release|Any CPU
+		{BBFBE218-B123-9B87-6B83-C46602227A09}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -83,6 +97,7 @@ Global
 		{FE1B81E3-59BE-4632-A1EB-12FF19F4B59A} = {AFB4071E-38D8-4C36-BFED-48AE0A4A3F42}
 		{F39D6B3E-4E1D-4211-B152-59F8F71C8544} = {14502F3B-7A88-4C48-8EA7-F44D1E4BA42B}
 		{7F7B3255-9EA0-4296-B690-14BE9E2204F3} = {5EA55853-597D-4ED0-BAF9-6B737EBC5AC1}
+		{BBFBE218-B123-9B87-6B83-C46602227A09} = {14502F3B-7A88-4C48-8EA7-F44D1E4BA42B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F7243EE6-BDF4-4C46-AEEB-057BC82B116E}

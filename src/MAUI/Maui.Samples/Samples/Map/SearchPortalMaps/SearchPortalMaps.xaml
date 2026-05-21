@@ -67,6 +67,7 @@
             <StackLayout Padding="10" HeightRequest="{OnIdiom Default=-1, Desktop=500}">
                 <CollectionView x:Name="MapsListView"
                                 Margin="5"
+                                MaximumHeightRequest="400"
                                 SelectionChanged="MapItemSelected"
                                 SelectionMode="Single"
                                 VerticalScrollBarVisibility="Default">

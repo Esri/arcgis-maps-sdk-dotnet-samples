@@ -71,6 +71,12 @@
     <PackageReference Include="Esri.ArcGISRuntime.Toolkit.WinUI" />
     <Manifest Include="$(ApplicationManifest)" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Samples.CatalogGenerator\Samples.CatalogGenerator.csproj"
+                      OutputItemType="Analyzer"
+                      ReferenceOutputAssembly="false"
+                      PrivateAssets="all" />
+  </ItemGroup>
 
   <ItemGroup>
     <Compile Update="Converters\*.cs">

@@ -33,5 +33,6 @@
     <PackageVersion Include="Microsoft.Maui.Controls" Version="9.0.120" />
     <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.120" />
     <PackageVersion Include="Xamarin.AndroidX.AppCompat" Version="1.7.0.6" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
   </ItemGroup>
 </Project>

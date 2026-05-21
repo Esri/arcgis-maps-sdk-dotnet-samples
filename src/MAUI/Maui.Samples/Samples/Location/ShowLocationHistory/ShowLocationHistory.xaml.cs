@@ -26,9 +26,6 @@ namespace ArcGIS.Samples.ShowLocationHistory
         tags: new[] { "GPS", "bread crumb", "breadcrumb", "history", "movement", "navigation", "real-time", "trace", "track", "trail" })]
     public partial class ShowLocationHistory : ContentPage, IDisposable
     {
-        // URL to the raster dark gray canvas basemap.
-        private const string BasemapUrl = "https://www.arcgis.com/home/item.html?id=1970c1995b8f44749f4b9b6e81b5ba45";
-
         // Track whether location tracking is enabled.
         private bool _isTrackingEnabled;
 
@@ -56,7 +53,7 @@ namespace ArcGIS.Samples.ShowLocationHistory
         private void Initialize()
         {
             // Create new Map with basemap.
-            Map myMap = new Map(new Uri(BasemapUrl));
+            Map myMap = new Map(BasemapStyle.ArcGISDarkGray);
 
             // Display the map.
             MyMapView.Map = myMap;

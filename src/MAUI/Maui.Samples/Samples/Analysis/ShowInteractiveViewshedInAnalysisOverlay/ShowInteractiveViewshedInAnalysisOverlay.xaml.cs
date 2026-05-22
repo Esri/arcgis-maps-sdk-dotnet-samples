@@ -133,7 +133,7 @@ namespace ArcGIS.Samples.ShowInteractiveViewshedInAnalysisOverlay
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error initializing viewshed", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error initializing viewshed", ex.Message, "OK");
             }
         }
 

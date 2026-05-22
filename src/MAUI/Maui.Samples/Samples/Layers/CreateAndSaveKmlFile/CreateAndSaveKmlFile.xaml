@@ -72,30 +72,30 @@
                    Margin="5"
                    HorizontalTextAlignment="Center"
                    Text="Select a style for the placemark." />
-            <ListView x:Name="IconPicker"
-                      Grid.Row="1"
-                      ItemSelected="Apply_Style_Click">
-                <ListView.ItemTemplate>
+            <CollectionView x:Name="IconPicker"
+                            Grid.Row="1"
+                            SelectionChanged="Apply_Style_Click"
+                            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="x:String">
-                        <ImageCell ImageSource="{Binding Path=., Converter={StaticResource imageConverter}}" />
+                        <Image HeightRequest="40"
+                               Source="{Binding Path=., Converter={StaticResource imageConverter}}" />
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-            <ListView x:Name="ColorPicker"
-                      Grid.Row="1"
-                      IsVisible="False"
-                      ItemSelected="Apply_Style_Click">
-                <ListView.ItemTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <CollectionView x:Name="ColorPicker"
+                            Grid.Row="1"
+                            IsVisible="False"
+                            SelectionChanged="Apply_Style_Click"
+                            SelectionMode="Single">
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="x:String">
-                        <ViewCell>
-                            <Grid Margin="2"
-                                  BackgroundColor="{Binding Converter={StaticResource colorConverter}}"
-                                  HeightRequest="25"
-                                  WidthRequest="-1" />
-                        </ViewCell>
+                        <Grid Margin="2"
+                              BackgroundColor="{Binding Converter={StaticResource colorConverter}}"
+                              HeightRequest="25" />
                     </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             <Button Grid.Row="2"
                     Clicked="No_Style_Click"
                     Text="Dont Apply Style" />

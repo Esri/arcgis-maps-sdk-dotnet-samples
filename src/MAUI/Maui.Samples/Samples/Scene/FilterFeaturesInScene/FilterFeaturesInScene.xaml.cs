@@ -76,7 +76,7 @@ namespace ArcGIS.Samples.FilterFeaturesInScene
 
             if (_3dBuildingsSceneLayer == null)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Buildings layer not found in base layers. Please check that your basemap contains an ArcGIS Scene Layer with 'building' in the name.", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", "Buildings layer not found in base layers. Please check that your basemap contains an ArcGIS Scene Layer with 'building' in the name.", "OK");
                 return;
             }
 

@@ -66,14 +66,15 @@ namespace ArcGIS.Samples.ChangeStretchRenderer
             }
             catch (Exception e)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", e.ToString(), "OK");
             }
         }
 
-        private void RendererTypes_SelectionChanged(object sender, SelectedItemChangedEventArgs e)
+        private void RendererTypes_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Get the user choice for the raster stretch render
-            string myRendererTypeChoice = e.SelectedItem.ToString();
+            string myRendererTypeChoice = e.CurrentSelection.FirstOrDefault()?.ToString();
+            if (myRendererTypeChoice is null) return;
 
             switch (myRendererTypeChoice)
             {
@@ -143,7 +144,7 @@ namespace ArcGIS.Samples.ChangeStretchRenderer
             }
             catch (Exception ex)
             {
-                DisplayAlert("Alert", ex.Message, "OK");
+                DisplayAlertAsync("Alert", ex.Message, "OK");
                 return;
             }
 

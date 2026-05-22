@@ -66,7 +66,7 @@ namespace ArcGIS.Samples.WmsServiceCatalog
             }
             catch (Exception e)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", e.ToString(), "OK");
             }
         }
 
@@ -107,14 +107,14 @@ namespace ArcGIS.Samples.WmsServiceCatalog
             }
             catch (Exception e)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", e.ToString(), "OK");
             }
         }
 
         /// <summary>
         /// Takes action once a new layer selection is made.
         /// </summary>
-        private void MyDisplayList_SelectionChanged(object sender, SelectedItemChangedEventArgs e)
+        private void MyDisplayList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             // Deselect all layers.
             foreach (LayerDisplayVM item in _viewModelList)
@@ -123,7 +123,8 @@ namespace ArcGIS.Samples.WmsServiceCatalog
             }
 
             // Hold a reference to the selected item.
-            var selectedItem = (LayerDisplayVM)e.SelectedItem;
+            var selectedItem = e.CurrentSelection.FirstOrDefault() as LayerDisplayVM;
+            if (selectedItem is null) return;
 
             // Update the selection.
             selectedItem.Select();

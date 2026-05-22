@@ -21,76 +21,87 @@
                            HorizontalOptions="Center"
                            Text="Eyes"
                            VerticalOptions="Center" />
-                    <ListView x:Name="EyesListView"
-                              Grid.Row="1"
-                              Grid.Column="0"
-                              HorizontalOptions="Center"
-                              HorizontalScrollBarVisibility="Never"
-                              ItemSelected="SymbolLayerSelected"
-                              VerticalOptions="Center">
-                        <ListView.ItemTemplate>
+                    <CollectionView x:Name="EyesListView"
+                                    Grid.Row="1"
+                                    Grid.Column="0"
+                                    HorizontalOptions="Fill"
+                                    HorizontalScrollBarVisibility="Never"
+                                    SelectionChanged="SymbolLayerSelected"
+                                    SelectionMode="Single"
+                                    VerticalOptions="Center"
+                                    VerticalScrollBarVisibility="Never">
+                        <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="local:SymbolLayerInfo">
-                                <ViewCell Height="15">
-                                    <Image Source="{Binding Path=ImageSrc}" />
-                                </ViewCell>
+                                <Image HeightRequest="30"
+                                       HorizontalOptions="Center"
+                                       Source="{Binding Path=ImageSrc}"
+                                       VerticalOptions="Center"
+                                       WidthRequest="30" />
                             </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                     <Label Grid.Row="0"
                            Grid.Column="1"
                            HorizontalOptions="Center"
                            Text="Mouth"
                            VerticalOptions="Center" />
-                    <ListView x:Name="MouthListView"
-                              Grid.Row="1"
-                              Grid.Column="1"
-                              HorizontalOptions="Center"
-                              HorizontalScrollBarVisibility="Never"
-                              ItemSelected="SymbolLayerSelected"
-                              VerticalOptions="Center">
-                        <ListView.ItemTemplate>
+                    <CollectionView x:Name="MouthListView"
+                                    Grid.Row="1"
+                                    Grid.Column="1"
+                                    HorizontalOptions="Fill"
+                                    HorizontalScrollBarVisibility="Never"
+                                    SelectionChanged="SymbolLayerSelected"
+                                    SelectionMode="Single"
+                                    VerticalOptions="Center"
+                                    VerticalScrollBarVisibility="Never">
+                        <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="local:SymbolLayerInfo">
-                                <ViewCell Height="15">
-                                    <Image Source="{Binding Path=ImageSrc}" />
-                                </ViewCell>
+                                <Image HeightRequest="30"
+                                       HorizontalOptions="Center"
+                                       Source="{Binding Path=ImageSrc}"
+                                       VerticalOptions="Center"
+                                       WidthRequest="30" />
                             </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                     <Label Grid.Row="0"
                            Grid.Column="2"
                            HorizontalOptions="Center"
                            Text="Hat"
                            VerticalOptions="Center" />
-                    <ListView x:Name="HatListView"
-                              Grid.Row="1"
-                              Grid.Column="2"
-                              HorizontalOptions="Center"
-                              HorizontalScrollBarVisibility="Never"
-                              ItemSelected="SymbolLayerSelected"
-                              VerticalOptions="Center">
-                        <ListView.ItemTemplate>
+                    <CollectionView x:Name="HatListView"
+                                    Grid.Row="1"
+                                    Grid.Column="2"
+                                    HorizontalOptions="Fill"
+                                    HorizontalScrollBarVisibility="Never"
+                                    SelectionChanged="SymbolLayerSelected"
+                                    SelectionMode="Single"
+                                    VerticalOptions="Center"
+                                    VerticalScrollBarVisibility="Never">
+                        <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="local:SymbolLayerInfo">
-                                <ViewCell Height="15">
-                                    <Image Source="{Binding Path=ImageSrc}" />
-                                </ViewCell>
+                                <Image HeightRequest="30"
+                                       HorizontalOptions="Center"
+                                       Source="{Binding Path=ImageSrc}"
+                                       VerticalOptions="Center"
+                                       WidthRequest="30" />
                             </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <ListView x:Name="ColorListView"
-                              Grid.Row="2"
-                              Grid.Column="0"
-                              Grid.ColumnSpan="3"
-                              HorizontalOptions="Center"
-                              ItemSelected="SymbolLayerSelected"
-                              VerticalOptions="Center">
-                        <ListView.ItemTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <CollectionView x:Name="ColorListView"
+                                    Grid.Row="2"
+                                    Grid.Column="0"
+                                    Grid.ColumnSpan="3"
+                                    HorizontalOptions="Fill"
+                                    SelectionChanged="SymbolLayerSelected"
+                                    SelectionMode="Single"
+                                    VerticalOptions="Center">
+                        <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="drawing:Color">
-                                <ViewCell Height="20">
-                                    <Label Text="{Binding Name}" />
-                                </ViewCell>
+                                <Label Padding="8,4" Text="{Binding Name}" />
                             </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
                     <Grid Grid.Row="3"
                           Grid.Column="0"
                           Grid.ColumnSpan="3"

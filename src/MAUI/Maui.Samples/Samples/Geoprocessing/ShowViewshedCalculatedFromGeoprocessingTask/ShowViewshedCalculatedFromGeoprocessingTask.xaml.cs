@@ -87,7 +87,7 @@ namespace ArcGIS.Samples.ShowViewshedCalculatedFromGeoprocessingTask
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.ToString(), "OK");
             }
         }
 
@@ -147,11 +147,11 @@ namespace ArcGIS.Samples.ShowViewshedCalculatedFromGeoprocessingTask
                 // Display an error message if there is a problem.
                 if (myViewshedJob.Status == JobStatus.Failed && myViewshedJob.Error != null)
                 {
-                    await Application.Current.Windows[0].Page.DisplayAlert("Geoprocessing error", "Executing geoprocessing failed. " + myViewshedJob.Error.Message, "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlertAsync("Geoprocessing error", "Executing geoprocessing failed. " + myViewshedJob.Error.Message, "OK");
                 }
                 else
                 {
-                    await Application.Current.Windows[0].Page.DisplayAlert("Sample error", "An error occurred. " + ex.ToString(), "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlertAsync("Sample error", "An error occurred. " + ex.ToString(), "OK");
                 }
             }
             finally

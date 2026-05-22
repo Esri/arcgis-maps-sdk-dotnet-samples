@@ -53,7 +53,7 @@ namespace ArcGIS.Helpers
                 if (sampleInfo.OfflineDataItems != null && !await DataManager.HasSampleDataPresent(sampleInfo))
                 {
                     // Ask the user for permission before downloading.
-                    bool download = await Application.Current.Windows[0].Page.DisplayAlert(
+                    bool download = await Application.Current.Windows[0].Page.DisplayAlertAsync(
                         "Download Required",
                         "This sample requires data to be downloaded. Would you like to download it now?",
                         "Download", "Cancel");
@@ -91,7 +91,7 @@ namespace ArcGIS.Helpers
                     await Shell.Current.Navigation.PopModalAsync(false);
                 }
 
-                await Application.Current.Windows[0].Page.DisplayAlert("", "Download cancelled", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("", "Download cancelled", "OK");
             }
             catch (Exception ex)
             {

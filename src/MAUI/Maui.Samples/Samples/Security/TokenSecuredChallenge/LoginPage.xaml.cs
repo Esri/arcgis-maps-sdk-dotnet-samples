@@ -31,7 +31,7 @@
             // Make sure the user entered all values.
             if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
             {
-                DisplayAlert("Login", "Please enter a username and password", "OK");
+                _ = DisplayAlertAsync("Login", "Please enter a username and password", "OK");
                 return;
             }
 

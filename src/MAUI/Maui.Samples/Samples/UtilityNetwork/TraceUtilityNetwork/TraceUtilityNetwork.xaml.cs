@@ -118,7 +118,7 @@ namespace ArcGIS.Samples.TraceUtilityNetwork
             catch (Exception ex)
             {
                 Status.Text = "Loading Utility Network failed...";
-                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync(ex.GetType().Name, ex.Message, "OK");
             }
             finally
             {
@@ -202,7 +202,7 @@ namespace ArcGIS.Samples.TraceUtilityNetwork
             catch (Exception ex)
             {
                 Status.Text = "Identifying locations failed.";
-                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync(ex.GetType().Name, ex.Message, "OK");
             }
             finally
             {
@@ -215,7 +215,7 @@ namespace ArcGIS.Samples.TraceUtilityNetwork
         {
             // Load the terminals into a DisplayActionSheet and await the user's selection.
             var terminalArray = terminals.Select(x => x.Name).ToArray();
-            string choice = await Application.Current.Windows[0].Page.DisplayActionSheet("Choose junction.", "Cancel", null, terminalArray);
+            string choice = await Application.Current.Windows[0].Page.DisplayActionSheetAsync("Choose junction.", "Cancel", null, terminalArray);
             if (terminalArray.Contains(choice))
             {
                 return terminals.Single(x => x.Name == choice);
@@ -287,11 +287,11 @@ namespace ArcGIS.Samples.TraceUtilityNetwork
                 Status.Text = "Trace failed...";
                 if (ex is ArcGISServerException && ex.Message == null)
                 {
-                    await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, "Trace failed.", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlertAsync(ex.GetType().Name, "Trace failed.", "OK");
                 }
                 else
                 {
-                    await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlertAsync(ex.GetType().Name, ex.Message, "OK");
                 }
             }
             finally
@@ -307,7 +307,7 @@ namespace ArcGIS.Samples.TraceUtilityNetwork
             {
                 // Prompt the user to select a type of trace.
                 var traceTypes = new string[] { "Connected", "Subnetwork", "Upstream", "Downstream" };
-                string choice = await Application.Current.Windows[0].Page.DisplayActionSheet("Choose type of trace", "Cancel", null, traceTypes);
+                string choice = await Application.Current.Windows[0].Page.DisplayActionSheetAsync("Choose type of trace", "Cancel", null, traceTypes);
 
                 // Set the selected trace type.
                 _selectedTraceType = (UtilityTraceType)Enum.Parse(typeof(UtilityTraceType), choice);

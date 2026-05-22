@@ -9,9 +9,16 @@
                   RowDefinitions="auto,60,auto,auto,auto"
                   RowSpacing="5">
                 <Label Grid.Row="0">Renderer:</Label>
-                <ListView x:Name="RendererTypes"
-                          Grid.Row="1"
-                          ItemSelected="RendererTypes_SelectionChanged" />
+                <CollectionView x:Name="RendererTypes"
+                                Grid.Row="1"
+                                SelectionChanged="RendererTypes_SelectionChanged"
+                                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Label Padding="12,8" Text="{Binding .}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 <Grid Grid.Row="2"
                       ColumnDefinitions="auto,*">
                     <Label x:Name="Label_Parameter1"

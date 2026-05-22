@@ -131,7 +131,7 @@ namespace ArcGIS.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.ToString(), "OK");
             }
         }
 
@@ -227,7 +227,7 @@ namespace ArcGIS.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.ToString(), "OK");
             }
         }
 
@@ -373,7 +373,7 @@ namespace ArcGIS.Samples.EditAndSyncFeatures
                 }
 
                 // Show the message.
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", message, "OK");
             }
         }
 
@@ -438,7 +438,7 @@ namespace ArcGIS.Samples.EditAndSyncFeatures
             // Tell the user about job completion.
             if (job.Status == JobStatus.Succeeded)
             {
-                DisplayAlert("Alert", "Geodatabase synchronization succeeded.", "OK");
+                DisplayAlertAsync("Alert", "Geodatabase synchronization succeeded.", "OK");
             }
             // See if the job failed.
             else if (job.Status == JobStatus.Failed)
@@ -462,7 +462,7 @@ namespace ArcGIS.Samples.EditAndSyncFeatures
                 }
 
                 // Show the message.
-                DisplayAlert("Error", message, "OK");
+                DisplayAlertAsync("Error", message, "OK");
             }
         }
 
@@ -481,7 +481,7 @@ namespace ArcGIS.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.ToString(), "OK");
             }
         }
 
@@ -512,7 +512,7 @@ namespace ArcGIS.Samples.EditAndSyncFeatures
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Alert", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Alert", ex.ToString(), "OK");
             }
         }
     }

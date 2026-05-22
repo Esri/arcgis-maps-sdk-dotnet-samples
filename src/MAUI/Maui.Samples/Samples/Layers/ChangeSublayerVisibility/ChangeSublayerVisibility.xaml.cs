@@ -57,38 +57,44 @@ namespace ArcGIS.Samples.ChangeSublayerVisibility
                 // If layer is already loaded, this returns directly
                 await _imageLayer.LoadAsync();
 
-                // Create layout for sublayers page
-                // Create root layout
-                StackLayout layout = new StackLayout();
-
-                // Create list for layers
-                TableView sublayersTableView = new TableView();
-
-                // Create section for basemaps sublayers
-                TableSection sublayersSection = new TableSection(_imageLayer.Name);
-
-                // Create cells for each of the sublayers
-                foreach (ArcGISSublayer sublayer in _imageLayer.Sublayers)
+                // Header showing the image layer name above the sublayer rows.
+                Label header = new Label
                 {
-                    // Using switch cells that provides on/off functionality
-                    SwitchCell cell = new SwitchCell()
+                    Text = _imageLayer.Name,
+                    FontAttributes = FontAttributes.Bold,
+                    Padding = new Thickness(10)
+                };
+
+                // Collection view of sublayers, each row showing a label and a toggle switch.
+                CollectionView sublayersView = new CollectionView
+                {
+                    ItemsSource = _imageLayer.Sublayers,
+                    SelectionMode = Microsoft.Maui.Controls.SelectionMode.None,
+                    ItemTemplate = new DataTemplate(() =>
                     {
-                        Text = sublayer.Name,
-                        On = sublayer.IsVisible
-                    };
+                        Label nameLabel = new Label { VerticalOptions = LayoutOptions.Center };
+                        nameLabel.SetBinding(Label.TextProperty, nameof(ArcGISSublayer.Name));
 
-                    // Hook into the On/Off changed event
-                    cell.OnChanged += OnCellOnOffChanged;
+                        Switch toggle = new Switch { VerticalOptions = LayoutOptions.Center };
+                        toggle.SetBinding(Switch.IsToggledProperty, new Binding(nameof(ArcGISSublayer.IsVisible), BindingMode.OneWay));
+                        toggle.Toggled += OnSublayerVisibilityToggled;
 
-                    // Add cell into the table view
-                    sublayersSection.Add(cell);
-                }
+                        Grid row = new Grid
+                        {
+                            Padding = new Thickness(10, 5),
+                            ColumnDefinitions =
+                            {
+                                new ColumnDefinition(GridLength.Star),
+                                new ColumnDefinition(GridLength.Auto)
+                            }
+                        };
+                        row.Add(nameLabel, 0, 0);
+                        row.Add(toggle, 1, 0);
+                        return row;
+                    })
+                };
 
-                // Add section to the table view
-                sublayersTableView.Root.Add(sublayersSection);
-
-                // Add table to the root layout
-                layout.Children.Add(sublayersTableView);
+                StackLayout layout = new StackLayout { Children = { header, sublayersView } };
 
                 // Create internal page for the navigation page
                 ContentPage sublayersPage = new ContentPage()
@@ -102,19 +108,16 @@ namespace ArcGIS.Samples.ChangeSublayerVisibility
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.ToString(), "OK");
             }
         }
 
-        private void OnCellOnOffChanged(object sender, ToggledEventArgs e)
+        private void OnSublayerVisibilityToggled(object sender, ToggledEventArgs e)
         {
-            SwitchCell cell = (SwitchCell)sender;
-
-            // Find the layer from the image layer
-            ArcGISSublayer sublayer = _imageLayer.Sublayers.First(x => x.Name == cell.Text);
-
-            // Change sublayers visibility
-            sublayer.IsVisible = e.Value;
+            if (sender is Switch toggle && toggle.BindingContext is ArcGISSublayer sublayer)
+            {
+                sublayer.IsVisible = e.Value;
+            }
         }
     }
 }

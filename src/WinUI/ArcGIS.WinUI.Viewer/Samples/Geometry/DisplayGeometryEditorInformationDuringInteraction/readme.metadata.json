@@ -1,0 +1,28 @@
+{
+    "category": "Geometry",
+    "description": "Use the geometry editor to see information about the geometry editor's previewed geometry during an editing interaction.",
+    "formal_name": "DisplayGeometryEditorInformationDuringInteraction",
+    "ignore": false,
+    "images": [
+        "DisplayGeometryEditorInformationDuringInteraction.jpg"
+    ],
+    "keywords": [
+        "draw",
+        "edit",
+        "geometry editor"
+    ],
+    "offline_data": [],
+    "redirect_from": [],
+    "relevant_apis": [
+        "Geometry",
+        "GeometryEditor",
+        "Graphic",
+        "GraphicsOverlay",
+        "MapView"
+    ],
+    "snippets": [
+        "DisplayGeometryEditorInformationDuringInteraction.xaml.cs",
+        "DisplayGeometryEditorInformationDuringInteraction.xaml"
+    ],
+    "title": "Display geometry editor information during interaction"
+}

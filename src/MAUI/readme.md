@@ -48,6 +48,7 @@
 * [Create geometries](Maui.Samples/Samples/Geometry/CreateGeometries) - Create simple geometry types.
 * [Cut geometry](Maui.Samples/Samples/Geometry/CutGeometry) - Cut a geometry along a polyline.
 * [Densify and generalize](Maui.Samples/Samples/Geometry/DensifyAndGeneralize) - A multipart geometry can be densified by adding interpolated points at regular intervals. Generalizing multipart geometry simplifies it while preserving its general shape. Densifying a multipart geometry adds more vertices at regular intervals.
+* [Display geometry editor information during interaction](Maui.Samples/Samples/Geometry/DisplayGeometryEditorInformationDuringInteraction) - Use the geometry editor to see information about the geometry editor's previewed geometry during an editing interaction.
 * [Edit geometries with programmatic reticle tool](Maui.Samples/Samples/Geometry/EditGeometriesWithProgrammaticReticleTool) - Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate customized workflows such as those using buttons rather than tap interactions.
 * [Format coordinates](Maui.Samples/Samples/Geometry/FormatCoordinates) - Format coordinates in a variety of common notations.
 * [Geodesic operations](Maui.Samples/Samples/Geometry/GeodesicOperations) - Calculate a geodesic path between two points and measure its distance.

@@ -9,16 +9,19 @@
     "keywords": [
         "draw",
         "edit",
-        "geometry editor"
+        "geometry editor",
+        "interaction preview"
     ],
     "offline_data": [],
     "redirect_from": [],
     "relevant_apis": [
         "Geometry",
         "GeometryEditor",
+        "GeometryEditor.InteractionPreviewChanged",
+        "GeometryEditorInteractionPreview",
+        "GeometryEditorInteractionType",
         "Graphic",
-        "GraphicsOverlay",
-        "MapView"
+        "GraphicsOverlay"
     ],
     "snippets": [
         "DisplayGeometryEditorInformationDuringInteraction.xaml.cs",

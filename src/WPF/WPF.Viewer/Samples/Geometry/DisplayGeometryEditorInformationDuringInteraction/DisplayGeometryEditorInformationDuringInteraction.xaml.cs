@@ -25,7 +25,7 @@ namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInformationDuringInteraction
         category: "Geometry",
         description: "Use the geometry editor to see information about the geometry editor's previewed geometry during an editing interaction.",
         instructions: "Tap a graphic to edit its geometry by moving, rotating, or scaling the geometry. During the interaction, information about the geometry will be displayed to provide feedback to the user.",
-        tags: new[] { "draw", "edit", "geometry editor" })]
+        tags: new[] { "draw", "edit", "geometry editor", "interaction preview" })]
     [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayGeometryEditorInformationDuringInteraction
     {
@@ -35,31 +35,15 @@ namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInformationDuringInteraction
         // Create a variable to hold the graphic being edited.
         private Graphic _editingGraphic;
 
+        // Create the initial viewpoint.
+        private readonly Viewpoint _initialViewpoint = Viewpoint.FromJson(@"{""rotation"":0.0,""scale"":17000,""targetGeometry"":{""spatialReference"":{""wkid"":3857},""x"":-13045202.018086127,""y"":4035612.571361517}}");
+
         // Create a polygon, polyline, and multipoint in Redlands, California.
-        private readonly Polygon _redlandsPolygon = new(
-        [
-            new MapPoint(-117.195800, 34.046295),
-            new MapPoint(-117.195800, 34.056295),
-            new MapPoint(-117.184000, 34.056295),
-            new MapPoint(-117.184000, 34.046295)
-        ], SpatialReferences.Wgs84);
+        private readonly Polygon _redlandsPolygon = Polygon.FromJson(@"{""rings"":[[[-13046991.222211758,4034618.5047884779],[-13046991.222211758,4035962.0723415823],[-13045677.652220398,4035962.0723415823],[-13045677.652220398,4034618.5047884779],[-13046991.222211758,4034618.5047884779]]],""spatialReference"":{""wkid"":3857}}") as Polygon;
 
-        private readonly Polyline _redlandsPolyline = new(
-        [
-            new MapPoint(-117.183200, 34.047200),
-            new MapPoint(-117.180800, 34.049100),
-            new MapPoint(-117.178300, 34.051000),
-            new MapPoint(-117.175900, 34.052600)
-        ], SpatialReferences.Wgs84);
+        private readonly Polyline _redlandsPolyline = Polyline.FromJson(@"{""paths"":[[[-13044533.805088846,4034221.5100018946],[-13043597.938505623,4034197.1337576872],[-13043597.938505623,4035135.572073034],[-13044522.634505576,4035170.5449295067]]],""spatialReference"":{""wkid"":3857}}") as Polyline;
 
-        private readonly Multipoint _redlandsMultipoint = new(
-        [
-            new MapPoint(-117.186900, 34.048300),
-            new MapPoint(-117.184700, 34.049700),
-            new MapPoint(-117.182100, 34.050900),
-            new MapPoint(-117.179800, 34.052100),
-            new MapPoint(-117.177600, 34.053000)
-        ], SpatialReferences.Wgs84);
+        private readonly Multipoint _redlandsMultipoint = Multipoint.FromJson(@"{""points"":[[-13045283.292102993,4035739.1925106063],[-13045314.922186911,4036533.8852012255],[-13044798.24723932,4036138.7808295386],[-13044354.514637273,4035719.3623426706],[-13044281.57229173,4036473.0999132735]],""spatialReference"":{""wkid"":3857}}") as Multipoint;
 
         public DisplayGeometryEditorInformationDuringInteraction()
         {
@@ -70,29 +54,26 @@ namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInformationDuringInteraction
         private async Task Initialize()
         {
             // Create a new map with the streets basemap.
-            Map myMap = new Map(BasemapStyle.ArcGISStreets);
+            Map myMap = new(BasemapStyle.ArcGISStreets);
 
             // Create a new graphics overlay and add it to the map view.
             GraphicsOverlay myGraphicsOverlay = new();
             MyMapView.GraphicsOverlays.Add(myGraphicsOverlay);
 
-            // Create a simple line symbol for the geometry editor.
+            // Create a symbols for the geometry editor.
             SimpleLineSymbol lineSymbol = new(SimpleLineSymbolStyle.Solid, System.Drawing.Color.Red, 2);
+            SimpleMarkerSymbol markerSymbol = new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Blue, 8);
 
-            // TODO: Planned change to no longer require this projection, remove the projection after change has been implemented.
-            var polygonGraphic = new Graphic(GeometryEngine.Project(_redlandsPolygon, SpatialReferences.WebMercator), lineSymbol);
-            var polylineGraphic = new Graphic(GeometryEngine.Project(_redlandsPolyline, SpatialReferences.WebMercator), lineSymbol);
-            var multipointGraphic = new Graphic(GeometryEngine.Project(_redlandsMultipoint, SpatialReferences.WebMercator), new SimpleMarkerSymbol(SimpleMarkerSymbolStyle.Circle, System.Drawing.Color.Blue, 8));
+            // Create graphics for the polygon, polyline, and multipoint.
+            var polygonGraphic = new Graphic(_redlandsPolygon, lineSymbol);
+            var polylineGraphic = new Graphic(_redlandsPolyline, lineSymbol);
+            var multipointGraphic = new Graphic(_redlandsMultipoint, markerSymbol);
 
             // Add the graphics to the graphics overlay.
-            myGraphicsOverlay.Graphics.AddRange([multipointGraphic, polygonGraphic, polylineGraphic]);
+            myGraphicsOverlay.Graphics.AddRange([ multipointGraphic, polygonGraphic, polylineGraphic ]);
 
-            // Set the map's initial viewpoint to the extent of the graphics, expanded by 20%.
-            var graphicsEnvelope = GeometryEngine.Union([polylineGraphic.Geometry.Extent, polygonGraphic.Geometry.Extent, multipointGraphic.Geometry.Extent]);
-            var envelopeBuilder = new EnvelopeBuilder(graphicsEnvelope.Extent);
-            envelopeBuilder.Expand(1.2);
-            var expandedEnvelope = envelopeBuilder.ToGeometry();
-            myMap.InitialViewpoint = new Viewpoint(expandedEnvelope);
+            // Set the map's initial viewpoint.
+            myMap.InitialViewpoint = _initialViewpoint;
 
             // Assign the map to the MapView.
             MyMapView.Map = myMap;
@@ -125,14 +106,17 @@ namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInformationDuringInteraction
             Envelope originalExtent = _geometryEditor.Geometry.Extent;
             Envelope previewExtent = interactionPreview.PreviewGeometry.Extent;
 
-            // Calculate the scale factors for X and Y.
-            double scaleX = previewExtent.Width / originalExtent.Width;
-            double scaleY = previewExtent.Height / originalExtent.Height;
+            if (originalExtent.Width != 0 && originalExtent.Height != 0)
+            {
+                // Calculate the scale factors for X and Y.
+                double scaleX = previewExtent.Width / originalExtent.Width;
+                double scaleY = previewExtent.Height / originalExtent.Height;
 
-            // Update the UI labels with the scale factor information.
-            InteractionPreviewDescriptionLabel.Content = "Scale Factor (X, Y):";
-            InteractionPreviewValueLabel.Content = $"({scaleX:F2}, {scaleY:F2})";
-            InteractionPreviewGrid.Visibility = Visibility.Visible;
+                // Update the UI labels with the scale factor information.
+                InteractionPreviewDescriptionLabel.Content = "Scale Factor (X, Y):";
+                InteractionPreviewValueLabel.Content = $"({scaleX:F2}, {scaleY:F2})";
+                InteractionPreviewGrid.Visibility = Visibility.Visible;
+            }
         }
 
         // Set the rotation angle label based on the interaction preview.
@@ -174,7 +158,7 @@ namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInformationDuringInteraction
                 var dot = vector1X * vector2X + vector1Y * vector2Y;
 
                 double angle = Math.Atan2(cross, dot) * (180.0 / Math.PI); // Convert to degrees
-                InteractionPreviewValueLabel.Content = $"{angle:F2}°";
+                InteractionPreviewValueLabel.Content = $"{-angle:F2}°";
             }
 
             // Update the UI label for rotation angle.
@@ -197,8 +181,8 @@ namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInformationDuringInteraction
         // Handle the InteractionPreviewChanged event to update the UI based on the type of interaction.
         private void GeometryEditor_InteractionPreviewChanged(object sender, GeometryEditorInteractionPreviewEventArgs e)
         {
-            // Check if the interaction preview and its geometry are not null.
-            if (e.InteractionPreview != null && e.InteractionPreview.PreviewGeometry != null && e.InteractionPreview.InteractionElement != null)
+            // Check if the interaction preview is not null.
+            if (e.InteractionPreview != null)
             {
                 // Use a switch statement to determine the type of interaction and update the UI accordingly.
                 switch (e.InteractionPreview.InteractionType)
@@ -213,6 +197,11 @@ namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInformationDuringInteraction
                         Application.Current.Dispatcher.BeginInvoke(new Action(() => SetMovingGeometryLabel(e.InteractionPreview)));
                         break;
                 }
+            }
+            else
+            {
+                // If the interaction preview is null the interaction has finished.
+                Application.Current.Dispatcher.BeginInvoke(new Action(() => InteractionPreviewGrid.Visibility = Visibility.Collapsed));
             }
         }
 

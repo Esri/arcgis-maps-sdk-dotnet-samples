@@ -24,7 +24,7 @@
     </UserControl.Resources>
     <Grid>
         <esri:MapView x:Name="MyMapView"/>
-        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Background="White" Padding="10" Width="300">
+        <Border HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10" Background="White" Padding="10" Width="300" BorderThickness="1" BorderBrush="Black">
             <Grid>
                 <Label Content="Tap a graphic to start the geometry editor."
                        Visibility="{Binding GeometryEditor.IsStarted,
@@ -54,7 +54,7 @@
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
                         <Label x:Name="InteractionPreviewDescriptionLabel" Grid.Column="0"/>
-                        <Label x:Name="InteractionPreviewValueLabel" Grid.Column="1"/>
+                        <Label x:Name="InteractionPreviewValueLabel" Grid.Column="1" />
                     </Grid>
                 </StackPanel>
             </Grid>

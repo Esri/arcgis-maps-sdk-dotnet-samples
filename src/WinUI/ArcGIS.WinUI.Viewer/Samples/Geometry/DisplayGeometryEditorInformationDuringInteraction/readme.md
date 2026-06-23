@@ -37,9 +37,11 @@ Use the buttons in the settings view to undo or redo changes made to the geometr
 
 * Geometry
 * GeometryEditor
+* GeometryEditorInteractionPreview
+* GeometryEditorInteractionType
+* GeometryEditor.InteractionPreviewChanged
 * Graphic
 * GraphicsOverlay
-* MapView
 
 ## Additional information
 
@@ -47,4 +49,4 @@ The `GeometryEditor.InteractionPreviewChanged` event fires continuously during a
 
 ## Tags
 
-draw, edit, geometry editor
+draw, edit, geometry editor, interaction preview

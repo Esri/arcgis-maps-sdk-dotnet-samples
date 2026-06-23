@@ -7,7 +7,9 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 using Esri.ArcGISRuntime.Mapping;
-using Microsoft.UI.Dispatching;
+using Esri.ArcGISRuntime.Portal;
+using Microsoft.UI;
+using Microsoft.UI.System;
 using Microsoft.UI.Xaml;
 using System;
 using System.Diagnostics;
@@ -21,21 +23,23 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Update basemap for contrast accessibility",
         category: "Accessibility",
-        description: "Display a map view that updates between light, dark, and high-contrast basemaps.",
+        description: "Display a map view that updates between authored light, dark, and high-contrast basemaps.",
         instructions: "In automatic mode, change the Windows app theme or toggle high contrast to see the basemap update. Switch to manual mode to pick a basemap directly. Toggle the reference layers switch to show or hide labels and boundaries.",
         tags: new[] { "accessibility", "accessible", "basemap", "colorblind", "contrast", "dark", "enhanced", "high", "inclusive", "legibility", "light", "living atlas", "readability", "vision", "visual impairment", "WCAG" })]
     public partial class UpdateBasemapForContrastAccessibility
     {
-        // Portal item URL for the authored high-contrast light web map.
-        private const string HighContrastLightUrl =
-            "https://www.arcgis.com/home/item.html?id=084291b0ecad4588b8c8853898d72445";
+        // Portal item ID for the authored high-contrast light web map.
+        private const string HighContrastLightItemId = "084291b0ecad4588b8c8853898d72445";
 
-        // Portal item URL for the authored high-contrast dark web map.
-        private const string HighContrastDarkUrl =
-            "https://www.arcgis.com/home/item.html?id=3e23478909194c54992eaaee78b5f754";
+        // Portal item ID for the authored high-contrast dark web map.
+        private const string HighContrastDarkItemId = "3e23478909194c54992eaaee78b5f754";
 
-        // Source of Windows theme and high-contrast change notifications.
+        // Source of background-color reads for the regular (non-HC) theme.
         private readonly UISettings _uiSettings = new();
+
+        // ThemeSettings exposes the OS high-contrast state and a Changed event that covers
+        // both theme and high-contrast transitions. Created in OnLoaded once XamlRoot is bound.
+        private ThemeSettings _themeSettings;
 
         // Track the last applied basemap choice to skip redundant rebuilds.
         private BasemapChoice? _lastAppliedChoice;
@@ -63,8 +67,15 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            // Subscribe to UISettings.ColorValuesChanged for theme and high-contrast changes.
-            _uiSettings.ColorValuesChanged += OnColorValuesChanged;
+            // ThemeSettings requires a WindowId, available only once the visual tree is attached.
+            // XamlRoot/ContentIslandEnvironment can briefly be null during reparenting, so guard
+            // the lookup; ResolveBasemapChoice falls back to HighContrast = false when _themeSettings is null.
+            if (XamlRoot?.ContentIslandEnvironment is { } env)
+            {
+                WindowId windowId = env.AppWindowId;
+                _themeSettings = ThemeSettings.CreateForWindowId(windowId);
+                _themeSettings.Changed += OnThemeSettingsChanged;
+            }
 
             // Rebuild the basemap to match the current Windows appearance.
             _ = UpdateBasemapAsync();
@@ -72,8 +83,11 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
 
         private void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            // Unsubscribe from OS appearance notifications.
-            _uiSettings.ColorValuesChanged -= OnColorValuesChanged;
+            if (_themeSettings != null)
+            {
+                _themeSettings.Changed -= OnThemeSettingsChanged;
+                _themeSettings = null;
+            }
         }
 
         private async Task UpdateBasemapAsync()
@@ -88,14 +102,11 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
             // Remember the new choice so duplicate notifications skip the rebuild.
             _lastAppliedChoice = choice;
 
-            // Build the new basemap and assign it to the existing map.
-            Basemap basemap = CreateBasemap(choice);
-            MyMapView.Map.Basemap = basemap;
-
+            // Build the new basemap (the high-contrast variants require a portal-item fetch).
+            Basemap basemap;
             try
             {
-                // Wait for the new basemap to finish loading before applying reference layer visibility.
-                await basemap.LoadAsync();
+                basemap = await CreateBasemapAsync(choice);
             }
             catch (Exception ex)
             {
@@ -103,7 +114,8 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
                 return;
             }
 
-            // Apply the current reference-layer toggle state to the newly loaded basemap.
+            // Assign the loaded basemap and apply the current reference-layer toggle state.
+            MyMapView.Map.Basemap = basemap;
             ApplyReferenceLayerVisibility(basemap);
         }
 
@@ -113,7 +125,7 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
             if (AutomaticModeRadioButton.IsChecked == true)
             {
                 // Read the current Windows high-contrast and background-brightness state.
-                bool highContrast = IsHighContrastEnabled();
+                bool highContrast = _themeSettings?.HighContrast ?? false;
                 bool light = IsBackgroundLight(highContrast, _uiSettings);
 
                 // Map the (highContrast, light) pair to a basemap choice.
@@ -140,23 +152,28 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
             return BasemapChoice.Light;
         }
 
-        private static Basemap CreateBasemap(BasemapChoice choice)
+        private static async Task<Basemap> CreateBasemapAsync(BasemapChoice choice)
         {
             // Build the basemap for the requested choice. High-contrast variants come from authored portal items.
-            return choice switch
+            switch (choice)
             {
-                BasemapChoice.Dark =>
-                    new Basemap(BasemapStyle.ArcGISDarkGray),
+                case BasemapChoice.Dark:
+                    return new Basemap(BasemapStyle.ArcGISDarkGray);
+                case BasemapChoice.HighContrastLight:
+                    return new Basemap(await LoadPortalItemAsync(HighContrastLightItemId));
+                case BasemapChoice.HighContrastDark:
+                    return new Basemap(await LoadPortalItemAsync(HighContrastDarkItemId));
+                default:
+                    return new Basemap(BasemapStyle.ArcGISLightGray);
+            }
+        }
 
-                BasemapChoice.HighContrastLight =>
-                    new Basemap(new Uri(HighContrastLightUrl)),
-
-                BasemapChoice.HighContrastDark =>
-                    new Basemap(new Uri(HighContrastDarkUrl)),
-
-                _ =>
-                    new Basemap(BasemapStyle.ArcGISLightGray)
-            };
+        // Load a portal item from the default portal. Used for the authored high-contrast basemaps;
+        // assigning a Basemap built from a portal item avoids the race seen with the home/item.html URL form.
+        private static async Task<PortalItem> LoadPortalItemAsync(string itemId)
+        {
+            ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+            return await PortalItem.CreateAsync(portal, itemId);
         }
 
         private void ApplyReferenceLayerVisibility(Basemap basemap)
@@ -250,32 +267,12 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
             return background.R > 127;
         }
 
-        // Query the Win32 high-contrast accessibility flag via SystemParametersInfoW(SPI_GETHIGHCONTRAST).
-        private static bool IsHighContrastEnabled()
+        // Windows theme or high-contrast changed. ThemeSettings.Changed fires on the UI thread
+        // and covers both theme and high-contrast transitions.
+        private void OnThemeSettingsChanged(ThemeSettings sender, object args)
         {
-            var highContrast = new HIGHCONTRAST
-            {
-                cbSize = (uint)Marshal.SizeOf<HIGHCONTRAST>()
-            };
-
-            return SystemParametersInfoW(
-                       SPI_GETHIGHCONTRAST,
-                       highContrast.cbSize,
-                       ref highContrast,
-                       0)
-                   && (highContrast.dwFlags & HCF_HIGHCONTRASTON) != 0;
-        }
-
-        // Windows theme or high-contrast changed; rebuild on the UI thread.
-        // UISettings raises this on a background thread, so marshal to the UI queue
-        // before touching any XAML property (IsChecked throws RPC_E_WRONG_THREAD off-thread).
-        private void OnColorValuesChanged(UISettings sender, object args)
-        {
-            DispatcherQueue.TryEnqueue(() =>
-            {
-                if (AutomaticModeRadioButton.IsChecked == true)
-                    _ = UpdateBasemapAsync();
-            });
+            if (AutomaticModeRadioButton.IsChecked == true)
+                _ = UpdateBasemapAsync();
         }
 
         // Open the Windows theme settings page.
@@ -291,29 +288,12 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
                 new Uri("ms-settings:easeofaccess-highcontrast"));
         }
 
-        // Win32 P/Invoke bindings used for high-contrast detection and system colors.
-        private const uint SPI_GETHIGHCONTRAST = 0x0042;
-        private const uint HCF_HIGHCONTRASTON = 0x00000001;
+        // Win32 P/Invoke binding for the high-contrast scheme's window color (no WinRT equivalent
+        // exposes a usable RGB value for the active HC scheme; HighContrastScheme is a localized name).
         private const int COLOR_WINDOW = 5;
-
-        [DllImport("user32.dll", SetLastError = true)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern bool SystemParametersInfoW(
-            uint uiAction,
-            uint uiParam,
-            ref HIGHCONTRAST pvParam,
-            uint fWinIni);
 
         [DllImport("user32.dll")]
         private static extern uint GetSysColor(int nIndex);
-
-        [StructLayout(LayoutKind.Sequential)]
-        private struct HIGHCONTRAST
-        {
-            public uint cbSize;
-            public uint dwFlags;
-            public IntPtr lpszDefaultScheme;
-        }
 
         #endregion
     }

@@ -19,9 +19,9 @@ Switch to manual mode to choose Light, Dark, High contrast light, or High contra
 1. Provide four authored basemaps that represent the supported contrast appearances: Light, Dark, High contrast light, and High contrast dark.
 2. Resolve which contrast appearance should be active based on the current mode and Windows settings.
     * In manual mode, use the appearance selected in the supporting pane.
-    * In automatic mode, resolve the appearance from Windows' current theme and high-contrast settings. This sample subscribes to `Windows.UI.ViewManagement.UISettings.ColorValuesChanged`, which raises for both theme and high-contrast changes.
-3. Assign the chosen `Basemap` to the `Map`'s `Basemap` property and await `Basemap.LoadAsync`.
-4. After the basemap loads, walk its `ReferenceLayers` collection and set each layer's `IsVisible` to match the reference layers switch.
+    * In automatic mode, resolve the appearance from Windows' current theme and high-contrast settings. This sample subscribes to `Microsoft.UI.System.ThemeSettings.Changed`, which raises for both theme and high-contrast changes.
+3. Assign the chosen `Basemap` to the `Map`'s `Basemap` property.
+4. Walk the basemap's `ReferenceLayers` collection and set each layer's `IsVisible` to match the reference layers switch.
 
 ## Relevant API
 
@@ -44,7 +44,7 @@ The enhanced contrast web maps are designed for accessibility-focused presentati
 
 For more background information on the cartographic approach behind the enhanced contrast basemaps, see [Working with Enhanced Contrast basemaps to improve accessibility](https://www.esri.com/arcgis-blog/products/arcgis-living-atlas/mapping/working-with-enhanced-contrast-basemaps-to-improve-accessibility/).
 
-On WinUI, automatic mode responds to Windows app theme changes and to high-contrast settings. Toggle the app theme from *Settings > Personalization > Colors* and high contrast from *Settings > Accessibility > Contrast themes* to see automatic mode respond. High-contrast state is read via the Win32 `SystemParametersInfoW(SPI_GETHIGHCONTRAST)` API. Outside high contrast, the current theme is read from `UISettings.GetColorValue(UIColorType.Background)` (white = light, black = dark); in high contrast, the system window color is read via Win32 `GetSysColor` and classified as light or dark using a weighted RGB sum that approximates Rec. 601 perceived luma. 
+On WinUI, automatic mode responds to Windows app theme changes and to high-contrast settings. Toggle the app theme from *Settings > Personalization > Colors* and high contrast from *Settings > Accessibility > Contrast themes* to see automatic mode respond. High-contrast state is read from `Microsoft.UI.System.ThemeSettings.HighContrast`. Outside high contrast, the current theme is read from `UISettings.GetColorValue(UIColorType.Background)` (white = light, black = dark). In high contrast, the system window color is read via Win32 `GetSysColor` and classified as light or dark using a weighted RGB sum that approximates Rec. 601 perceived luma. 
 
 ## Tags
 

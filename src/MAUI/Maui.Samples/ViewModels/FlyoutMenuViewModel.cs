@@ -14,6 +14,7 @@ namespace ArcGIS.ViewModels
         {
             { "Featured", (char)CalciteIcon.Effects },
             { "Favorites", (char)CalciteIcon.Star },
+            { "Accessibility", (char)CalciteIcon.Accessibility },
             { "Analysis", (char)CalciteIcon._3DGlasses },
             { "Data", (char)CalciteIcon.DataFolder },
             { "Geometry", (char)CalciteIcon.LayersEditable },

@@ -1,0 +1,59 @@
+<UserControl x:Class="ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility.UpdateBasemapForContrastAccessibility"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Width="280" Style="{StaticResource BorderStyle}">
+            <StackPanel Spacing="6">
+                <ToggleSwitch x:Name="ReferenceLayersToggle"
+                              Header="Reference layers"
+                              IsOn="True"
+                              OnContent="Visible"
+                              OffContent="Hidden"
+                              Toggled="ReferenceLayersToggle_Toggled" />
+
+                <TextBlock FontWeight="Bold" Text="Contrast mode" />
+                <RadioButton x:Name="AutomaticModeRadioButton"
+                             Content="Automatic (follow Windows)"
+                             GroupName="ContrastMode"
+                             IsChecked="True"
+                             Checked="ContrastModeRadioButton_Checked" />
+                <RadioButton x:Name="ManualModeRadioButton"
+                             Content="Manual"
+                             GroupName="ContrastMode"
+                             Checked="ContrastModeRadioButton_Checked" />
+
+                <StackPanel x:Name="OpenSettingsPanel" Spacing="4">
+                    <Button HorizontalAlignment="Stretch"
+                            Click="OpenThemeSettingsButton_Click"
+                            Content="Open theme settings" />
+                    <Button HorizontalAlignment="Stretch"
+                            Click="OpenContrastSettingsButton_Click"
+                            Content="Open contrast settings" />
+                </StackPanel>
+
+                <StackPanel x:Name="ManualAppearancePanel" Spacing="4" Visibility="Collapsed">
+                    <TextBlock FontWeight="Bold" Text="Manual contrast" />
+                    <RadioButton x:Name="LightRadioButton"
+                                 Content="Light"
+                                 GroupName="ContrastAppearance"
+                                 IsChecked="True"
+                                 Checked="ManualAppearanceRadioButton_Checked" />
+                    <RadioButton x:Name="DarkRadioButton"
+                                 Content="Dark"
+                                 GroupName="ContrastAppearance"
+                                 Checked="ManualAppearanceRadioButton_Checked" />
+                    <RadioButton x:Name="HighContrastLightRadioButton"
+                                 Content="High contrast light"
+                                 GroupName="ContrastAppearance"
+                                 Checked="ManualAppearanceRadioButton_Checked" />
+                    <RadioButton x:Name="HighContrastDarkRadioButton"
+                                 Content="High contrast dark"
+                                 GroupName="ContrastAppearance"
+                                 Checked="ManualAppearanceRadioButton_Checked" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

@@ -84,6 +84,10 @@ namespace ArcGIS.WPF.Samples.UpdateBasemapForContrastAccessibility
             // Mark the page as unloaded so any in-flight update bails out.
             _isUnloaded = true;
 
+            // The WPF sample viewer's Sample_Unloaded handler nulls MyMapView.Map on Unloaded.
+            // Drop the cached choice so a later reattach rebuilds the basemap.
+            _lastAppliedChoice = null;
+
             // Unsubscribe from OS appearance notifications.
             if (_eventsSubscribed)
             {
@@ -116,9 +120,12 @@ namespace ArcGIS.WPF.Samples.UpdateBasemapForContrastAccessibility
                 // Build the new map with the captured viewpoint pre-seeded.
                 Map newMap = await CreateMapAsync(choice, currentViewpoint);
 
-                // Swap the new map into the MapView. Bail out if the swap was cancelled.
-                if (!await SwapMapAsync(newMap))
+                // Bail out if the page was unloaded during the async load.
+                if (_isUnloaded)
                     return;
+
+                // Swap the new map into the MapView; it opens at newMap.InitialViewpoint.
+                MyMapView.Map = newMap;
 
                 // Remember the applied choice and refresh reference layer visibility.
                 _lastAppliedChoice = choice;
@@ -327,26 +334,6 @@ namespace ArcGIS.WPF.Samples.UpdateBasemapForContrastAccessibility
             {
                 UseShellExecute = true
             });
-        }
-
-        // WPF/MapView occasionally fails to repaint after swapping a Map in place.
-        // Set Map=null, flush the dispatcher at Render priority, then assign the new Map
-        // to force a fresh display pipeline.
-        private async Task<bool> SwapMapAsync(Map newMap)
-        {
-            // Clear the existing map so the next assignment is treated as a fresh swap-in.
-            MyMapView.Map = null;
-
-            // Flush at Render priority so WPF tears down the old display pipeline before the new map is set.
-            await Dispatcher.InvokeAsync(() => { }, System.Windows.Threading.DispatcherPriority.Render);
-
-            // Bail out if the page was unloaded during the flush.
-            if (_isUnloaded)
-                return false;
-
-            // Assign the new map; the MapView opens at newMap.InitialViewpoint.
-            MyMapView.Map = newMap;
-            return true;
         }
 
         #endregion

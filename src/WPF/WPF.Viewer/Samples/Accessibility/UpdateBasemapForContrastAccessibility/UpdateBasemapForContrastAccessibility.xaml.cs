@@ -196,10 +196,8 @@ namespace ArcGIS.WPF.Samples.UpdateBasemapForContrastAccessibility
             ArcGISPortal portal = await ArcGISPortal.CreateAsync();
             PortalItem portalItem = await PortalItem.CreateAsync(portal, itemId);
 
-            // Build the map from the portal item and load it.
-            Map map = new Map(portalItem);
-            await map.LoadAsync();
-            return map;
+            // Build the map from the portal item; the caller loads the map.
+            return new Map(portalItem);
         }
 
         private void ApplyReferenceLayerVisibility(Basemap basemap)

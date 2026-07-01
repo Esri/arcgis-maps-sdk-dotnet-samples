@@ -120,9 +120,9 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
                 return;
             }
 
-            // Assign the loaded basemap and apply the current reference-layer toggle state.
+            // Assign the basemap and refresh reference-layer visibility.
             MyMapView.Map.Basemap = basemap;
-            ApplyReferenceLayerVisibility(basemap);
+            _ = ApplyReferenceLayerVisibility(basemap);
         }
 
         private BasemapChoice ResolveBasemapChoice()
@@ -182,15 +182,18 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
             return await PortalItem.CreateAsync(portal, itemId);
         }
 
-        private void ApplyReferenceLayerVisibility(Basemap basemap)
+        private async Task ApplyReferenceLayerVisibility(Basemap basemap)
         {
-            if (basemap?.ReferenceLayers == null)
-                return;
+            // Skip if the basemap has no reference layers.
+            if (basemap?.ReferenceLayers == null) return;
 
             // Read the desired visibility from the toggle switch.
             bool visible = ReferenceLayersToggle.IsOn;
 
-            // Toggle each reference layer to match.
+            // Ensure the basemap is loaded.
+            await basemap.LoadAsync();
+
+            // Set each reference layer to that visibility.
             foreach (Layer layer in basemap.ReferenceLayers)
             {
                 layer.IsVisible = visible;
@@ -234,7 +237,7 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
         // Toggle reference layer visibility on the current basemap.
         private void ReferenceLayersToggle_Toggled(object sender, RoutedEventArgs e)
         {
-            ApplyReferenceLayerVisibility(MyMapView.Map?.Basemap);
+            _ = ApplyReferenceLayerVisibility(MyMapView.Map?.Basemap);
         }
 
         private enum BasemapChoice

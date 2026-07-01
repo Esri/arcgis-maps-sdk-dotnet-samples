@@ -129,7 +129,7 @@ namespace ArcGIS.WPF.Samples.UpdateBasemapForContrastAccessibility
 
                 // Remember the applied choice and refresh reference layer visibility.
                 _lastAppliedChoice = choice;
-                ApplyReferenceLayerVisibility(newMap.Basemap);
+                _ = ApplyReferenceLayerVisibility(newMap.Basemap);
             }
             catch (Exception ex)
             {
@@ -200,16 +200,18 @@ namespace ArcGIS.WPF.Samples.UpdateBasemapForContrastAccessibility
             return new Map(portalItem);
         }
 
-        private void ApplyReferenceLayerVisibility(Basemap basemap)
+        private async Task ApplyReferenceLayerVisibility(Basemap basemap)
         {
-            // Nothing to do if the basemap has no reference layers.
-            if (basemap?.ReferenceLayers == null)
-                return;
+            // Skip if the basemap has no reference layers.
+            if (basemap?.ReferenceLayers == null) return;
 
             // Read the desired visibility from the checkbox.
             bool visible = ReferenceLayersCheckBox?.IsChecked == true;
 
-            // Toggle each reference layer to match.
+            // Ensure the basemap is loaded.
+            await basemap.LoadAsync();
+
+            // Set each reference layer to that visibility.
             foreach (Layer layer in basemap.ReferenceLayers)
             {
                 layer.IsVisible = visible;
@@ -257,7 +259,7 @@ namespace ArcGIS.WPF.Samples.UpdateBasemapForContrastAccessibility
         // Toggle reference layer visibility on the current basemap.
         private void ReferenceLayersCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            ApplyReferenceLayerVisibility(MyMapView?.Map?.Basemap);
+            _ = ApplyReferenceLayerVisibility(MyMapView?.Map?.Basemap);
         }
 
         private enum BasemapChoice

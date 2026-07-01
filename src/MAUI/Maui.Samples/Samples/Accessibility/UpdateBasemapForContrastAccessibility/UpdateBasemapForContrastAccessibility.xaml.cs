@@ -153,13 +153,16 @@ namespace ArcGIS.Samples.UpdateBasemapForContrastAccessibility
         }
 
         // Show or hide the basemap's reference layers based on the switch.
-        private void ApplyReferenceLayerVisibility(Basemap basemap)
+        private async Task ApplyReferenceLayerVisibility(Basemap basemap)
         {
             // Skip if the basemap has no reference layers.
             if (basemap?.ReferenceLayers == null) return;
 
             // Read the desired visibility from the switch.
             bool visible = ReferenceLayersSwitch.IsToggled;
+            
+            // Ensure the basemap is loaded
+            await basemap.LoadAsync();
 
             // Set each reference layer to that visibility.
             foreach (var layer in basemap.ReferenceLayers)

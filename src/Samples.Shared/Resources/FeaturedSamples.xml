@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <FeaturedSamples>
 	<Categories>
+		<Category name="Accessibility">
+			<Sample>UpdateBasemapForContrastAccessibility</Sample>
+		</Category>
 		<Category name="Analysis">
 			<Sample>ApplyMapAlgebra</Sample>
 			<Sample>DistanceMeasurement</Sample>

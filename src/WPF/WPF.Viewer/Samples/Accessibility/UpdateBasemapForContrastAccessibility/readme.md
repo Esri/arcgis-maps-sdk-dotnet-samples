@@ -46,8 +46,6 @@ For more background information on the cartographic approach behind the enhanced
 
 On WPF, automatic mode responds to Windows app theme changes and to high-contrast settings. Toggle the app theme from *Settings > Personalization > Colors* and high contrast from *Settings > Accessibility > Contrast themes* to see automatic mode respond. High-contrast state is read from `SystemParameters.HighContrast`, and the current theme is inferred from the background color reported by `Windows.UI.ViewManagement.UISettings`. The background color is classified as light or dark using a weighted RGB sum that approximates Rec. 601 perceived luma. `AccessibilitySettings` is not used because its events require a `CoreWindow`, which WPF threads do not have.
 
-When the basemap changes, the sample sets `MyMapView.Map` to `null`, flushes the dispatcher at `DispatcherPriority.Render`, and then assigns the new `Map`. Without this strip-and-replace step the MapView occasionally fails to repaint after an in-place basemap swap. The new map's `InitialViewpoint` is also set *after* `LoadAsync` so the portal-item load does not overwrite it; this pre-seeds the viewpoint so the swap opens directly at the user's current location instead of flashing through the authored or default view.
-
 `UISettings.ColorValuesChanged` raises off the UI thread, so the sample marshals back with `Dispatcher.BeginInvoke` before touching the `MapView`. `SystemParameters.StaticPropertyChanged` already raises on the UI thread but is dispatched the same way for symmetry.
 
 ## Tags

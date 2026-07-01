@@ -115,6 +115,8 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
             catch (Exception ex)
             {
                 Debug.WriteLine($"Basemap failed to load: {ex.Message}");
+                // Clear the cache so a later trigger can retry this choice.
+                if (_lastAppliedChoice == choice) _lastAppliedChoice = null;
                 return;
             }
 

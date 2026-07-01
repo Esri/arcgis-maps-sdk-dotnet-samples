@@ -19,7 +19,7 @@ Switch to manual mode to choose Light, Dark, High contrast light, or High contra
 1. Provide four authored basemaps that represent the supported contrast appearances: Light, Dark, High contrast light, and High contrast dark.
 2. Resolve which contrast appearance should be active based on the current mode and Windows settings.
     * In manual mode, use the appearance selected in the supporting pane.
-    * In automatic mode, resolve the appearance from Windows' current theme and high-contrast settings. This sample subscribes to `Microsoft.UI.System.ThemeSettings.Changed`, which raises for both theme and high-contrast changes.
+    * In automatic mode, resolve the appearance from Windows' current theme and high-contrast settings. This sample subscribes to `Windows.UI.ViewManagement.UISettings.ColorValuesChanged` for theme changes and `Microsoft.UI.System.ThemeSettings.Changed` for high-contrast changes.
 3. Assign the chosen `Basemap` to the `Map`'s `Basemap` property.
 4. Walk the basemap's `ReferenceLayers` collection and set each layer's `IsVisible` to match the reference layers switch.
 

@@ -37,8 +37,7 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
         // Source of background-color reads for the regular (non-HC) theme.
         private readonly UISettings _uiSettings = new();
 
-        // ThemeSettings exposes the OS high-contrast state and a Changed event that covers
-        // both theme and high-contrast transitions. Created in OnLoaded once XamlRoot is bound.
+        // ThemeSettings exposes the OS high-contrast state. Created in OnLoaded once XamlRoot is bound.
         private ThemeSettings _themeSettings;
 
         // Track the last applied basemap choice to skip redundant rebuilds.
@@ -77,6 +76,9 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
                 _themeSettings.Changed += OnThemeSettingsChanged;
             }
 
+            // Rebuild the basemap on Windows color/theme changes.
+            _uiSettings.ColorValuesChanged += OnUISettingsChanged;
+
             // Rebuild the basemap to match the current Windows appearance.
             _ = UpdateBasemapAsync();
         }
@@ -88,6 +90,8 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
                 _themeSettings.Changed -= OnThemeSettingsChanged;
                 _themeSettings = null;
             }
+
+            _uiSettings.ColorValuesChanged -= OnUISettingsChanged;
         }
 
         private async Task UpdateBasemapAsync()
@@ -267,12 +271,21 @@ namespace ArcGIS.WinUI.Samples.UpdateBasemapForContrastAccessibility
             return background.R > 127;
         }
 
-        // Windows theme or high-contrast changed. ThemeSettings.Changed fires on the UI thread
-        // and covers both theme and high-contrast transitions.
+        // Windows high-contrast state changed. Rebuild the basemap if automatic mode is active.
         private void OnThemeSettingsChanged(ThemeSettings sender, object args)
         {
             if (AutomaticModeRadioButton.IsChecked == true)
                 _ = UpdateBasemapAsync();
+        }
+
+        // Windows color values changed. Rebuild the basemap if automatic mode is active.
+        private void OnUISettingsChanged(UISettings sender, object args)
+        {
+            DispatcherQueue.TryEnqueue(() =>
+            {
+                if (AutomaticModeRadioButton.IsChecked == true)
+                    _ = UpdateBasemapAsync();
+            });
         }
 
         // Open the Windows theme settings page.

@@ -34,6 +34,7 @@
                 <StackPanel Orientation="Vertical" Visibility="{Binding GeometryEditor.IsStarted,
                                             ElementName=MyMapView,
                                             Converter={StaticResource BoolToVisibilityConverter}}">
+                    <Label Content="Use the control handles to rotate, scale, or move the graphic." />
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="0.5*"/>

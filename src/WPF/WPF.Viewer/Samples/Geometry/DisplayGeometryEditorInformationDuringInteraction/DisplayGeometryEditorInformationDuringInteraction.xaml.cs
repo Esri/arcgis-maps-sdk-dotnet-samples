@@ -132,13 +132,10 @@ namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInformationDuringInteraction
             // Determine the type of geometry being previewed and extract the relevant points for rotation calculation.
             switch (interactionPreview.PreviewGeometry)
             {
-                case Polyline previewPolyline:
-                    originalPoint = ((Polyline)_geometryEditor.Geometry).Parts[0].Points.Where(point => point != center).FirstOrDefault();
-                    previewPoint = previewPolyline.Parts[0].Points.Where(point => point != center).FirstOrDefault();
-                    break;
-                case Polygon previewPolygon:
-                    originalPoint = ((Polygon)_geometryEditor.Geometry).Parts[0].Points.Where(point => point != center).FirstOrDefault();
-                    previewPoint = previewPolygon.Parts[0].Points.Where(point => point != center).FirstOrDefault();
+                // Polylines and Polygons can be handled as a Multipart geometry.
+                case Multipart previewMultipart:
+                    originalPoint = ((Multipart)_geometryEditor.Geometry).Parts[0].Points.Where(point => point != center).FirstOrDefault();
+                    previewPoint = previewMultipart.Parts[0].Points.Where(point => point != center).FirstOrDefault();
                     break;
                 case Multipoint previewMultiPoint:
                     originalPoint = ((Multipoint)_geometryEditor.Geometry).Points.Where(point => point != center).FirstOrDefault();
@@ -158,7 +155,8 @@ namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInformationDuringInteraction
                 var dot = vector1X * vector2X + vector1Y * vector2Y;
 
                 double angle = Math.Atan2(cross, dot) * (180.0 / Math.PI); // Convert to degrees
-                InteractionPreviewValueLabel.Content = $"{-angle:F2}°";
+                double clockwiseNormalized = ((-angle % 360) + 360) % 360;
+                InteractionPreviewValueLabel.Content = $"{clockwiseNormalized:F2}°";
             }
 
             // Update the UI label for rotation angle.

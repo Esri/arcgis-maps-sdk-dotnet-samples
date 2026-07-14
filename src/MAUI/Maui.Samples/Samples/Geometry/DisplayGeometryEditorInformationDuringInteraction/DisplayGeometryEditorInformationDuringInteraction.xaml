@@ -45,8 +45,8 @@
                     <ColumnDefinition Width="0.5*"/>
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="40"/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
                 </Grid.RowDefinitions>
                 <Button x:Name="SaveButton" Grid.Row="0" Grid.Column="0" Style="{StaticResource IconStyle}" ToolTipProperties.Text="Save edits" Text="{StaticResource CalciteUIIcons_Glyph_CheckCircle}" Clicked="SaveButton_Click" IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"/>
                 <Button x:Name="CancelButton" Grid.Row="0" Grid.Column="1" Style="{StaticResource IconStyle}" ToolTipProperties.Text="Discard edits" Text="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}" Clicked="CancelButton_Click" IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"/>

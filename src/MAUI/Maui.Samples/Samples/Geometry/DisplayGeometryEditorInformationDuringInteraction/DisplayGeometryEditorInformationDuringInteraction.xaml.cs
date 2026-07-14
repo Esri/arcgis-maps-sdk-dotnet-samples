@@ -23,7 +23,6 @@ namespace ArcGIS.Samples.DisplayGeometryEditorInformationDuringInteraction
         description: "Use the geometry editor to see information about the geometry editor's previewed geometry during an editing interaction.",
         instructions: "Tap a graphic to edit its geometry by moving, rotating, or scaling the geometry. During the interaction, information about the geometry will be displayed to provide feedback to the user.",
         tags: new[] { "draw", "edit", "geometry editor", "interaction preview" })]
-    [ArcGIS.Samples.Shared.Attributes.OfflineData()]
     public partial class DisplayGeometryEditorInformationDuringInteraction
     {
         // Create a geometry editor instance.

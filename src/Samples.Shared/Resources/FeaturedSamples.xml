@@ -17,6 +17,7 @@
 		</Category>
 		<Category name="Geometry">
 			<Sample>CreateAndEditGeometries</Sample>
+			<Sample>DisplayGeometryEditorInformationDuringInteraction</Sample>
 			<Sample>EditGeometriesWithProgrammaticReticleTool</Sample>
 			<Sample>SnapGeometryEdits</Sample>
 		</Category>

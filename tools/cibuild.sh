@@ -110,4 +110,5 @@ xmlstarlet ed -P -L -u '/Project/PropertyGroup/ArcGISMapsSDKVersion' \
   -p:Configuration="Release" \
   -p:RuntimeIdentifier=ios-arm64 \
   -p:PublishDir=${WORKSPACE}/output/externalBuild/
-  
+
+"${DOTNET_EXE}" build-server shutdown

@@ -177,6 +177,37 @@ namespace ArcGIS.Samples.Shared.Models
         }
 
         /// <summary>
+        /// This constructor is for use by generated sample catalogs.
+        /// </summary>
+        public SampleInfo(
+            string formalName,
+            string sampleName,
+            string category,
+            string description,
+            string instructions,
+            IEnumerable<string> tags,
+            IEnumerable<string> offlineDataItems = null,
+            IEnumerable<string> androidLayouts = null,
+            IEnumerable<string> xamlLayouts = null,
+            IEnumerable<string> classFiles = null,
+            IEnumerable<string> embeddedResources = null,
+            Type sampleType = null)
+        {
+            SampleType = sampleType;
+            FormalName = formalName;
+            SampleName = sampleName;
+            Category = category;
+            Description = description;
+            Instructions = instructions;
+            Tags = tags ?? Enumerable.Empty<string>();
+            AndroidLayouts = androidLayouts;
+            XamlLayouts = xamlLayouts;
+            ClassFiles = classFiles;
+            OfflineDataItems = offlineDataItems;
+            EmbeddedResources = embeddedResources;
+        }
+
+        /// <summary>
         /// Gets the attribute of type <typeparamref name="T"/> for a type described by <paramref name="typeInfo"/>.
         /// </summary>
         /// <typeparam name="T">The type of the attribute object to return.</typeparam>

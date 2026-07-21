@@ -32,5 +32,6 @@
     <PackageVersion Include="Monaco.Editor" Version="0.8.1-alpha" />
     <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.51" />
     <PackageVersion Include="Microsoft.Maui.Controls.Compatibility" Version="10.0.51" />
+    <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.8.0" />
   </ItemGroup>
 </Project>

@@ -18,6 +18,8 @@ namespace ArcGIS.ViewModels
 
         public CategoryViewModel()
         {
+            SampleManager.Current.Initialize();
+
             // Calculate the sample image width and height on mobile platforms based on device display size. 
             _sampleImageWidth = 400;
 
@@ -73,9 +75,7 @@ namespace ArcGIS.ViewModels
 
         private static List<SampleInfo> GetSamplesInCategory(string category)
         {
-            var categoryNode = SampleManager.Current.FullTree.Items.OfType<SearchableTreeNode>().FirstOrDefault(c => c.Name == category);
-
-            return categoryNode.Items.OfType<SampleInfo>().ToList();
+            return SampleManager.Current.GetSamplesForCategory(category).ToList();
         }
 
         [ObservableProperty]

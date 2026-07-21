@@ -19,7 +19,12 @@ namespace ArcGIS.Samples.Shared.Models
         public string Name { get; private set; }
 
         // List of child items. These are expected to be other SearchableTreeNodes or SampleInfos.
-        public List<object> Items { get; private set; }
+        private readonly Lazy<List<object>> _items;
+
+        public List<object> Items
+        {
+            get { return _items.Value; }
+        }
 
         /// <summary>
         /// Creates a new SearchableTreeNode from a list of items.
@@ -27,9 +32,19 @@ namespace ArcGIS.Samples.Shared.Models
         /// <param name="name">The name for this node in the tree.</param>
         /// <param name="items">A list of containing <c>SampleInfo</c>s and <c>SearchableTreeNode</c>s.</param>
         public SearchableTreeNode(string name, IEnumerable<object> items)
+            : this(name, () => items)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new searchable tree node whose child items are created on first use.
+        /// </summary>
+        /// <param name="name">The name for this node in the tree.</param>
+        /// <param name="getItems">A function that returns child <c>SampleInfo</c>s and <c>SearchableTreeNode</c>s.</param>
+        public SearchableTreeNode(string name, Func<IEnumerable<object>> getItems)
         {
             Name = name;
-            Items = items.ToList();
+            _items = new Lazy<List<object>>(() => getItems()?.ToList() ?? new List<object>());
         }
 
         /// <summary>

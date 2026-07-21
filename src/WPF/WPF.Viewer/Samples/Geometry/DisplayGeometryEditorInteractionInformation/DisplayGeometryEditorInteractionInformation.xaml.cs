@@ -18,7 +18,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInformationDuringInteraction
+namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInteractionInformation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display geometry editor information during interaction",
@@ -26,7 +26,7 @@ namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInformationDuringInteraction
         description: "Use the geometry editor to see information about the geometry editor's previewed geometry during an editing interaction.",
         instructions: "Tap a graphic to edit its geometry by moving, rotating, or scaling the geometry. During the interaction, information about the geometry will be displayed to provide feedback to the user.",
         tags: new[] { "draw", "edit", "geometry editor", "interaction preview" })]
-    public partial class DisplayGeometryEditorInformationDuringInteraction
+    public partial class DisplayGeometryEditorInteractionInformation
     {
         // Create a geometry editor instance.
         private readonly GeometryEditor _geometryEditor = new();
@@ -44,7 +44,7 @@ namespace ArcGIS.WPF.Samples.DisplayGeometryEditorInformationDuringInteraction
 
         private readonly Multipoint _redlandsMultipoint = Multipoint.FromJson(@"{""points"":[[-13045283.292102993,4035739.1925106063],[-13045314.922186911,4036533.8852012255],[-13044798.24723932,4036138.7808295386],[-13044354.514637273,4035719.3623426706],[-13044281.57229173,4036473.0999132735]],""spatialReference"":{""wkid"":3857}}") as Multipoint;
 
-        public DisplayGeometryEditorInformationDuringInteraction()
+        public DisplayGeometryEditorInteractionInformation()
         {
             InitializeComponent();
             _ = Initialize();

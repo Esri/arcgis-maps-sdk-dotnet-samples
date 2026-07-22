@@ -2,7 +2,7 @@
 
 Use the geometry editor to see information about the geometry editor's previewed geometry during an editing interaction.
 
-![DisplayGeometryEditorInformationDuringInteraction](DisplayGeometryEditorInformationDuringInteraction.jpg)
+![DisplayGeometryEditorInteractionInformation](DisplayGeometryEditorInteractionInformation.jpg)
 
 ## Use case
 

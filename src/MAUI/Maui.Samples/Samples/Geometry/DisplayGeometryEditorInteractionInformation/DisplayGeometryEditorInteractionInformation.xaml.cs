@@ -1,24 +1,21 @@
-// Copyright 2026 Esri.
+﻿// Copyright 2026 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
 //
-// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an 
-// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
 using Esri.ArcGISRuntime.UI.Editing;
-using Microsoft.UI.Xaml;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Maui.ApplicationModel;
+using Map = Esri.ArcGISRuntime.Mapping.Map;
 
-namespace ArcGIS.WinUI.Samples.DisplayGeometryEditorInformationDuringInteraction
+namespace ArcGIS.Samples.DisplayGeometryEditorInteractionInformation
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Display geometry editor information during interaction",
@@ -26,9 +23,8 @@ namespace ArcGIS.WinUI.Samples.DisplayGeometryEditorInformationDuringInteraction
         description: "Use the geometry editor to see information about the geometry editor's previewed geometry during an editing interaction.",
         instructions: "Tap a graphic to edit its geometry by moving, rotating, or scaling the geometry. During the interaction, information about the geometry will be displayed to provide feedback to the user.",
         tags: new[] { "draw", "edit", "geometry editor", "interaction preview" })]
-    public partial class DisplayGeometryEditorInformationDuringInteraction
+    public partial class DisplayGeometryEditorInteractionInformation
     {
-
         // Create a geometry editor instance.
         private readonly GeometryEditor _geometryEditor = new();
 
@@ -45,7 +41,7 @@ namespace ArcGIS.WinUI.Samples.DisplayGeometryEditorInformationDuringInteraction
 
         private readonly Multipoint _redlandsMultipoint = Multipoint.FromJson(@"{""points"":[[-13045283.292102993,4035739.1925106063],[-13045314.922186911,4036533.8852012255],[-13044798.24723932,4036138.7808295386],[-13044354.514637273,4035719.3623426706],[-13044281.57229173,4036473.0999132735]],""spatialReference"":{""wkid"":3857}}") as Multipoint;
 
-        public DisplayGeometryEditorInformationDuringInteraction()
+        public DisplayGeometryEditorInteractionInformation()
         {
             InitializeComponent();
             _ = Initialize();
@@ -115,7 +111,7 @@ namespace ArcGIS.WinUI.Samples.DisplayGeometryEditorInformationDuringInteraction
                 // Update the UI labels with the scale factor information.
                 InteractionPreviewDescriptionLabel.Text = "Scale Factor (X, Y):";
                 InteractionPreviewValueLabel.Text = $"({scaleX:F2}, {scaleY:F2})";
-                InteractionPreviewGrid.Visibility = Visibility.Visible;
+                InteractionPreviewGrid.IsVisible = true;
             }
         }
 
@@ -160,7 +156,7 @@ namespace ArcGIS.WinUI.Samples.DisplayGeometryEditorInformationDuringInteraction
 
             // Update the UI label for rotation angle.
             InteractionPreviewDescriptionLabel.Text = "Rotation Angle (degrees):";
-            InteractionPreviewGrid.Visibility = Visibility.Visible;
+            InteractionPreviewGrid.IsVisible = true;
         }
 
         // Set the moving geometry label based on the interaction preview.
@@ -172,7 +168,7 @@ namespace ArcGIS.WinUI.Samples.DisplayGeometryEditorInformationDuringInteraction
             // Update the UI labels with the center point information.
             InteractionPreviewDescriptionLabel.Text = "Center (X, Y):";
             InteractionPreviewValueLabel.Text = $"({previewCenter.X:F2}, {previewCenter.Y:F2})";
-            InteractionPreviewGrid.Visibility = Visibility.Visible;
+            InteractionPreviewGrid.IsVisible = true;
         }
 
         // Handle the InteractionPreviewChanged event to update the UI based on the type of interaction.
@@ -185,25 +181,25 @@ namespace ArcGIS.WinUI.Samples.DisplayGeometryEditorInformationDuringInteraction
                 switch (e.InteractionPreview.InteractionType)
                 {
                     case GeometryEditorInteractionType.Scale:
-                        DispatcherQueue.TryEnqueue(() => SetScaleFactorLabel(e.InteractionPreview));
+                        MainThread.BeginInvokeOnMainThread(() => SetScaleFactorLabel(e.InteractionPreview));
                         break;
                     case GeometryEditorInteractionType.Rotate:
-                        DispatcherQueue.TryEnqueue(() => SetRotationAngleLabel(e.InteractionPreview));
+                        MainThread.BeginInvokeOnMainThread(() => SetRotationAngleLabel(e.InteractionPreview));
                         break;
                     case GeometryEditorInteractionType.Move:
-                        DispatcherQueue.TryEnqueue(() => SetMovingGeometryLabel(e.InteractionPreview));
+                        MainThread.BeginInvokeOnMainThread(() => SetMovingGeometryLabel(e.InteractionPreview));
                         break;
                 }
             }
             else
             {
                 // If the interaction preview is null the interaction has finished.
-                DispatcherQueue.TryEnqueue(() => InteractionPreviewGrid.Visibility = Visibility.Collapsed);
+                MainThread.BeginInvokeOnMainThread(() => InteractionPreviewGrid.IsVisible = false);
             }
         }
 
         #region UI Event Handlers
-        private async void MyMapView_GeoViewTapped(object sender, GeoViewInputEventArgs e)
+        private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)
         {
             if (!_geometryEditor.IsStarted)
             {
@@ -221,32 +217,32 @@ namespace ArcGIS.WinUI.Samples.DisplayGeometryEditorInformationDuringInteraction
             }
         }
 
-        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        private void SaveButton_Click(object sender, EventArgs e)
         {
             if (_geometryEditor.IsStarted)
             {
                 _editingGraphic.Geometry = _geometryEditor.Stop();
                 _editingGraphic.IsVisible = true; // Show the graphic again after editing.
-                InteractionPreviewGrid.Visibility = Visibility.Collapsed;
+                InteractionPreviewGrid.IsVisible = false;
             }
         }
 
-        private void CancelButton_Click(object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, EventArgs e)
         {
             if (_geometryEditor.IsStarted)
             {
                 _geometryEditor.Stop();
                 _editingGraphic.IsVisible = true; // Show the graphic again after canceling.
-                InteractionPreviewGrid.Visibility = Visibility.Collapsed;
+                InteractionPreviewGrid.IsVisible = false;
             }
         }
 
-        private void RedoButton_Click(object sender, RoutedEventArgs e)
+        private void RedoButton_Click(object sender, EventArgs e)
         {
             _geometryEditor.Redo();
         }
 
-        private void UndoButton_Click(object sender, RoutedEventArgs e)
+        private void UndoButton_Click(object sender, EventArgs e)
         {
             _geometryEditor.Undo();
         }

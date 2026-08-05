@@ -74,7 +74,7 @@ namespace ArcGIS.Samples.FindServiceArea
             catch (Exception ex)
             {
                 // Report exceptions.
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Error drawing facility:\n" + ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", "Error drawing facility:\n" + ex.Message, "OK");
             }
         }
 
@@ -136,7 +136,7 @@ namespace ArcGIS.Samples.FindServiceArea
             catch (Exception ex)
             {
                 // Report exceptions.
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Error drawing barrier:\n" + ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", "Error drawing barrier:\n" + ex.Message, "OK");
             }
         }
 
@@ -182,7 +182,7 @@ namespace ArcGIS.Samples.FindServiceArea
             // Check that there is at least 1 facility to find a service area for.
             if (!serviceAreaFacilities.Any())
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Must have at least one Facility!", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", "Must have at least one Facility!", "OK");
                 return;
             }
 
@@ -256,7 +256,7 @@ namespace ArcGIS.Samples.FindServiceArea
             }
             catch (Exception exception)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", "An exception has occurred. The facility may not be within the San Diego area. \n" + exception.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", "An exception has occurred. The facility may not be within the San Diego area. \n" + exception.Message, "OK");
             }
         }
 

@@ -62,7 +62,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.ToString(), "OK");
             }
         }
 
@@ -106,7 +106,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error selecting feature", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error selecting feature", ex.ToString(), "OK");
             }
         }
 
@@ -129,7 +129,7 @@ namespace ArcGIS.Samples.EditFeatureAttachments
                 string filename;
 
                 // Show a photo picker.
-                FileResult fileData = await MediaPicker.PickPhotoAsync(new MediaPickerOptions { Title = "Please select a jpeg photo." });
+                FileResult fileData = (await MediaPicker.PickPhotosAsync(new MediaPickerOptions { Title = "Please select a jpeg photo." })).FirstOrDefault();
 
                 if (fileData == null)
                 {

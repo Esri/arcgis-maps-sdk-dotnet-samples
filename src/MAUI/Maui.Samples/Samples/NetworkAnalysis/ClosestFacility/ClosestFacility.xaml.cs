@@ -115,7 +115,7 @@ namespace ArcGIS.Samples.ClosestFacility
             }
             catch (Exception e)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", e.ToString(), "OK");
             }
         }
 
@@ -167,7 +167,7 @@ namespace ArcGIS.Samples.ClosestFacility
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", "An exception occurred. The selected location may be out of bounds. \n" + ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", "An exception occurred. The selected location may be out of bounds. \n" + ex.Message, "OK");
             }
         }
     }

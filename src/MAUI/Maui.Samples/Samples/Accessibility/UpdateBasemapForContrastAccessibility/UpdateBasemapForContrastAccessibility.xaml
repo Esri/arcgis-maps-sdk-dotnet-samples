@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.UpdateBasemapForContrastAccessibility.UpdateBasemapForContrastAccessibility"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <ScrollView Padding="5" MaximumHeightRequest="500">
+                <VerticalStackLayout Spacing="6">
+                    <Grid ColumnDefinitions="Auto, *" VerticalOptions="Center">
+                        <Label Text="Reference layers" VerticalOptions="Center" />
+                        <Switch x:Name="ReferenceLayersSwitch"
+                                Grid.Column="1"
+                                HorizontalOptions="End"
+                                IsToggled="True"
+                                Toggled="ReferenceLayersSwitch_Toggled" />
+                    </Grid>
+
+                    <Label FontAttributes="Bold" Text="Contrast mode" />
+                    <RadioButton x:Name="AutomaticModeRadioButton"
+                                 Content="Automatic (follow OS)"
+                                 GroupName="ContrastMode"
+                                 IsChecked="True"
+                                 CheckedChanged="ContrastModeRadioButton_CheckedChanged" />
+                    <RadioButton x:Name="ManualModeRadioButton"
+                                 Content="Manual"
+                                 GroupName="ContrastMode"
+                                 CheckedChanged="ContrastModeRadioButton_CheckedChanged" />
+
+                    <VerticalStackLayout x:Name="OpenSettingsPanel" IsVisible="False" Spacing="4">
+                        <Button Clicked="OpenThemeSettingsButton_Clicked"
+                                Text="Open device theme settings" />
+                        <Button Clicked="OpenContrastSettingsButton_Clicked"
+                                Text="Open device contrast settings" />
+                    </VerticalStackLayout>
+
+                    <VerticalStackLayout x:Name="ManualAppearancePanel" IsVisible="False" Spacing="4">
+                        <Label FontAttributes="Bold" Text="Manual contrast" />
+                        <RadioButton x:Name="LightRadioButton"
+                                     Content="Light"
+                                     GroupName="ContrastAppearance"
+                                     IsChecked="True"
+                                     CheckedChanged="ManualAppearanceRadioButton_CheckedChanged" />
+                        <RadioButton x:Name="DarkRadioButton"
+                                     Content="Dark"
+                                     GroupName="ContrastAppearance"
+                                     CheckedChanged="ManualAppearanceRadioButton_CheckedChanged" />
+                        <RadioButton x:Name="HighContrastLightRadioButton"
+                                     Content="High contrast light"
+                                     GroupName="ContrastAppearance"
+                                     CheckedChanged="ManualAppearanceRadioButton_CheckedChanged" />
+                        <RadioButton x:Name="HighContrastDarkRadioButton"
+                                     Content="High contrast dark"
+                                     GroupName="ContrastAppearance"
+                                     CheckedChanged="ManualAppearanceRadioButton_CheckedChanged" />
+                    </VerticalStackLayout>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+    </Grid>
+</ContentPage>

@@ -21,17 +21,17 @@
                         Clicked="LoadServiceButton_Click"
                         Text="Load service"
                         VerticalOptions="Center" />
-                <ListView x:Name="OgcFeatureCollectionList"
-                          Grid.Row="1"
-                          Grid.ColumnSpan="2"
-                          HeightRequest="150"
-                          SelectionMode="Single">
-                    <ListView.ItemTemplate>
+                <CollectionView x:Name="OgcFeatureCollectionList"
+                                Grid.Row="1"
+                                Grid.ColumnSpan="2"
+                                HeightRequest="150"
+                                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="esriOgc:OgcFeatureCollectionInfo">
-                            <TextCell Text="{Binding Title}" />
+                            <Label Padding="12,8" Text="{Binding Title}" />
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 <Button x:Name="LoadLayersButton"
                         Grid.Row="3"
                         Grid.ColumnSpan="2"

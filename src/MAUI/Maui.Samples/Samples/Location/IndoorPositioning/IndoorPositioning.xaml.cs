@@ -91,7 +91,7 @@ namespace ArcGIS.Samples.IndoorPositioning
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync(ex.GetType().Name, ex.Message, "OK");
             }
         }
 

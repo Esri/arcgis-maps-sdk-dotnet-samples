@@ -1,0 +1,35 @@
+{
+    "category": "Analysis",
+    "description": "Perform a line of sight analysis in a map view between fixed observer and target positions.",
+    "formal_name": "ShowLineOfSightAnalysisOnMap",
+    "ignore": false,
+    "images": [
+        "showlineofsightanalysisonmap.jpg"
+    ],
+    "keywords": [
+        "analysis",
+        "elevation",
+        "line of sight",
+        "map view",
+        "spatial analysis",
+        "terrain",
+        "visibility"
+    ],
+    "offline_data": [],
+    "redirect_from": [],
+    "relevant_apis": [
+        "ContinuousField",
+        "GeometryEngine",
+        "GraphicsOverlay",
+        "LineOfSight",
+        "LineOfSightFunction",
+        "LineOfSightParameters",
+        "LineOfSightPosition",
+        "ObserverTargetPairs"
+    ],
+    "snippets": [
+        "ShowLineOfSightAnalysisOnMap.xaml.cs",
+        "ShowLineOfSightAnalysisOnMap.xaml"
+    ],
+    "title": "Show line of sight analysis in map"
+}

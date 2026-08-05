@@ -82,14 +82,12 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
             {
                 while (!_cancellationTokenSource!.IsCancellationRequested)
                 {
-                    // Process the next observation.
+                    // Process the next observation. A null result indicates the end of the file.
                     var processed = await ProcessNextObservation();
-
-                    // If the end of the file has been reached, break out of the loop.
-                    if (_streamReader != null && _streamReader.EndOfStream) break;
+                    if (processed is null) break;
 
                     // If the observation was not processed, continue to the next observation.
-                    if (!processed) continue;
+                    if (!processed.Value) continue;
 
                     // If there is no delay, yield to the UI thread otherwise delay for the specified amount of time.
                     if (Delay == TimeSpan.Zero)
@@ -108,12 +106,13 @@ namespace ArcGIS.Samples.AddCustomDynamicEntityDataSource
             }
         }
 
-        private async Task<bool> ProcessNextObservation()
+        private async Task<bool?> ProcessNextObservation()
         {
             _ = _streamReader ?? throw new ArgumentNullException("File stream not available.");
-            
-            // Read the next observation.
+
+            // Read the next observation. ReadLineAsync returns null at end of stream.
             var json = await _streamReader.ReadLineAsync();
+            if (json is null) return null;
 
             // If there is no json to read or the schema is not available, return false.
             if (string.IsNullOrEmpty(json) || _fields is null) return false;

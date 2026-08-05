@@ -1,0 +1,61 @@
+<UserControl
+    x:Class="ArcGIS.WinUI.Samples.ShowLineOfSightAnalysisOnMap.ShowLineOfSightAnalysisOnMap"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esri="using:Esri.ArcGISRuntime"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}"
+                MaxWidth="620">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="250" />
+                </Grid.RowDefinitions>
+                <CheckBox x:Name="VisibleOnlyCheckBox"
+                          Grid.Row="0"
+                          Content="Show line of sight where target (circle) is visible from observer (triangle)"
+                          Checked="VisibleOnlyCheckBox_Changed"
+                          Unchecked="VisibleOnlyCheckBox_Changed" />
+                <Border Grid.Row="1" BorderBrush="Gray" BorderThickness="0,0,0,1" Margin="0,4" />
+                <ScrollViewer Grid.Row="2"
+                              VerticalScrollBarVisibility="Visible">
+                    <ItemsControl x:Name="ResultsItemsControl">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Grid.Column="0"
+                                               Width="16" Height="16"
+                                               HorizontalAlignment="Left"
+                                               Margin="4,0,0,0">
+                                        <Rectangle.Fill>
+                                            <SolidColorBrush Color="{Binding ObserverColor}" />
+                                        </Rectangle.Fill>
+                                    </Rectangle>
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding InfoText}"
+                                               TextWrapping="Wrap"
+                                               Margin="4,2" />
+                                </Grid>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+            </Grid>
+        </Border>
+        <TextBlock Margin="0,0,10,30"
+                   HorizontalAlignment="Right"
+                   VerticalAlignment="Bottom"
+                   FontSize="11"
+                   FontStyle="Italic"
+                   Foreground="White"
+                   Text="Raster data Copyright Scottish Government and SEPA (2014)"
+                   TextWrapping="Wrap" />
+    </Grid>
+</UserControl>

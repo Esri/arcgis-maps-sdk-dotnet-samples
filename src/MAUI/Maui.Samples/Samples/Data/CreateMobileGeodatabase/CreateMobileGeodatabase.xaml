@@ -36,8 +36,10 @@
                 WidthRequest="{OnIdiom Default=-1,
                                        Desktop=450}">
             <Grid RowDefinitions="*,auto">
-                <ListView x:Name="FeatureListView" Grid.Row="0">
-                    <ListView.Header>
+                <CollectionView x:Name="FeatureListView"
+                                Grid.Row="0"
+                                SelectionMode="None">
+                    <CollectionView.Header>
                         <Grid ColumnDefinitions="*,*">
                             <Label Grid.Column="0"
                                    FontAttributes="Bold"
@@ -50,24 +52,22 @@
                                    HorizontalTextAlignment="Center"
                                    Text="Collection Timestamp" />
                         </Grid>
-                    </ListView.Header>
-                    <ListView.ItemTemplate>
+                    </CollectionView.Header>
+                    <CollectionView.ItemTemplate>
                         <DataTemplate x:DataType="esri:Feature">
-                            <ViewCell>
-                                <Grid ColumnDefinitions="*,*">
-                                    <Label Grid.Column="0"
-                                           HorizontalOptions="Fill"
-                                           HorizontalTextAlignment="Center"
-                                           Text="{Binding Path=Attributes[oid]}" />
-                                    <Label Grid.Column="1"
-                                           HorizontalOptions="Fill"
-                                           HorizontalTextAlignment="Center"
-                                           Text="{Binding Path=Attributes[collection_timestamp]}" />
-                                </Grid>
-                            </ViewCell>
+                            <Grid ColumnDefinitions="*,*">
+                                <Label Grid.Column="0"
+                                       HorizontalOptions="Fill"
+                                       HorizontalTextAlignment="Center"
+                                       Text="{Binding Path=Attributes[oid]}" />
+                                <Label Grid.Column="1"
+                                       HorizontalOptions="Fill"
+                                       HorizontalTextAlignment="Center"
+                                       Text="{Binding Path=Attributes[collection_timestamp]}" />
+                            </Grid>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
                 <Button Grid.Row="1"
                         Margin="5"
                         Clicked="CloseTable"

@@ -1,10 +1,10 @@
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
 
   <PropertyGroup>
-    <_NetFrameworkTarget>net472</_NetFrameworkTarget>
     <_NetWindowsTarget>net8.0-windows10.0.19041.0</_NetWindowsTarget>
-    <_NetWindowsMauiTarget>net9.0-windows10.0.19041.0</_NetWindowsMauiTarget>
-    <_NetAndroidTarget>net9.0-android</_NetAndroidTarget>
+    <_NetMauiVersion>net10.0</_NetMauiVersion>
+    <_NetWindowsMauiTarget>$(_NetMauiVersion)-windows10.0.19041.0</_NetWindowsMauiTarget>
+    <_NetAndroidTarget>$(_NetMauiVersion)-android</_NetAndroidTarget>
     <Configuration Condition="'$(Configuration)'==''">Release</Configuration>
     <RELEASE_VERSION Condition="'$(RELEASE_VERSION)'==''">300.0.0</RELEASE_VERSION>
     <BUILD_NUM Condition="'$(BUILD_NUM)'==''">0</BUILD_NUM>
@@ -39,11 +39,15 @@
              Value="$(PUBLISHER)" Query="/dn:Package/dn:Identity/@Publisher" Namespaces="$(AppManifestNamespace)"/>
 
     <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=x64" />
-    <MSBuild Projects="@(WPFWAPProject)" Targets="Restore" Properties="Configuration=$(Configuration);ArcGISMapsSDKVersion=$(ArcGISMapsSDKVersion)" />
-    <MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=x64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
-    <ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_x64.zip" Overwrite="true" />
-    <MSBuild Projects="@(WPFWAPProject)" Targets="Build" Properties="Configuration=$(Configuration);Platform=arm64;PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword);PackageCertificateThumbprint=$(PackageCertificateThumbprint)" />
-    <ZipDirectory SourceDirectory="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\ARM64\Release\$(_NetWindowsTarget)" DestinationFile="$(MSBuildThisFileDirectory)..\output\WPF_$(_NetWindowsTarget)_$(Configuration)_ARM64.zip" Overwrite="true" />
+    <MSBuild Projects="@(WPFProject)" Targets="Build" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsTarget);Platform=arm64" />
+
+    <ItemGroup>
+      <_WpfX64Files Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\x64\Release\$(_NetWindowsTarget)\**\*.*" />
+      <_WpfArm64Files Include="$(MSBuildThisFileDirectory)..\src\WPF\WPF.Viewer\bin\arm64\Release\$(_NetWindowsTarget)\**\*.*" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(_WpfArm64Files)" DestinationFolder="$(MSBuildThisFileDirectory)..\output\WPF\%(RecursiveDir)\" />
+    <Copy SourceFiles="@(_WpfX64Files)" DestinationFolder="$(MSBuildThisFileDirectory)..\output\WPF\%(RecursiveDir)" />
   </Target>
 
   <Target Name="BuildWinUI" DependsOnTargets="CreateOutputDirectory">
@@ -64,9 +68,9 @@
     <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetWindowsMauiTarget);RuntimeIdentifier=win-arm64;ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);PackageCertificateKeyFile=$(PFXSignatureFile);PackageCertificatePassword=$(PFXSignaturePassword)" />
     <MSBuild Projects="@(MAUIProject)" Targets="Publish" Properties="Configuration=$(Configuration);TargetFramework=$(_NetAndroidTarget);ApplicationDisplayVersion=$(RELEASE_VERSION);ApplicationVersion=$(BUILD_NUM);AndroidKeyStore=true;AndroidSigningKeyStore=$(KeyStoreFile);AndroidSigningKeyPass=$(KeyPass);AndroidSigningStorePass=$(KeyPass);AndroidSigningKeyAlias=$(KeyAlias)" />
     
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\net9.0-android\com.esri.arcgisruntime.samples.maui-Signed.apk"
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\$(_NetAndroidTarget)\com.esri.arcgisruntime.samples.maui-Signed.apk"
           DestinationFolder="$(MSBuildThisFileDirectory)..\output\" />
-    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\net9.0-android\com.esri.arcgisruntime.samples.maui-Signed.aab"
+    <Copy SourceFiles="$(MSBuildThisFileDirectory)..\src\MAUI\Maui.Samples\bin\Release\$(_NetAndroidTarget)\com.esri.arcgisruntime.samples.maui-Signed.aab"
           DestinationFolder="$(MSBuildThisFileDirectory)..\output\" />
   </Target>
 

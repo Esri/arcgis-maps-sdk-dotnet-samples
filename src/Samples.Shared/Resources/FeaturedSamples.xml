@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <FeaturedSamples>
 	<Categories>
+		<Category name="Accessibility">
+			<Sample>UpdateBasemapForContrastAccessibility</Sample>
+		</Category>
 		<Category name="Analysis">
 			<Sample>ApplyMapAlgebra</Sample>
 			<Sample>DistanceMeasurement</Sample>
 			<Sample>ShowInteractiveViewshedInAnalysisOverlay</Sample>
+			<Sample>ShowLineOfSightAnalysisOnMap</Sample>
 		</Category>
 		<Category name="Data">
 			<Sample>CreateKmlMultiTrack</Sample>
@@ -13,6 +17,7 @@
 		</Category>
 		<Category name="Geometry">
 			<Sample>CreateAndEditGeometries</Sample>
+			<Sample>DisplayGeometryEditorInteractionInformation</Sample>
 			<Sample>EditGeometriesWithProgrammaticReticleTool</Sample>
 			<Sample>SnapGeometryEdits</Sample>
 		</Category>

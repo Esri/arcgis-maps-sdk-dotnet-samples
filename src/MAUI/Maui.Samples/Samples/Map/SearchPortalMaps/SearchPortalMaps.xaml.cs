@@ -75,7 +75,7 @@ namespace ArcGIS.Samples.SearchPortalMaps
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.Message, "OK");
             }
         }
 
@@ -116,11 +116,11 @@ namespace ArcGIS.Samples.SearchPortalMaps
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.Message, "OK");
             }
         }
 
-        private void MapItemSelected(object sender, SelectedItemChangedEventArgs e)
+        private void MapItemSelected(object sender, SelectionChangedEventArgs e)
         {
             // Get the selected web map item in the list box
             PortalItem selectedMap = MapsListView.SelectedItem as PortalItem;
@@ -148,7 +148,7 @@ namespace ArcGIS.Samples.SearchPortalMaps
                 Exception err = map.LoadError;
                 if (err != null)
                 {
-                    Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => DisplayAlert(err.Message, "Map Load Error", "OK"));
+                    Microsoft.Maui.ApplicationModel.MainThread.BeginInvokeOnMainThread(() => _ = DisplayAlertAsync(err.Message, "Map Load Error", "OK"));
                 }
             }
         }

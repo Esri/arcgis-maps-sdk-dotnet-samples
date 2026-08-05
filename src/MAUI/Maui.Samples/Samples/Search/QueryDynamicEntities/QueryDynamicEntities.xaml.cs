@@ -93,7 +93,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", $"Error initializing sample: {ex.Message}", "OK");
+                await DisplayAlertAsync("Error", $"Error initializing sample: {ex.Message}", "OK");
             }
         }
 
@@ -158,7 +158,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             }
             catch (Exception ex)
             {
-                await DisplayAlert("Error", $"Error setting up data source: {ex.Message}", "OK");
+                await DisplayAlertAsync("Error", $"Error setting up data source: {ex.Message}", "OK");
             }
         }
 
@@ -201,7 +201,7 @@ namespace ArcGIS.Samples.QueryDynamicEntities
             var flightNumber = FlightNumberInput.Text?.Trim();
             if (string.IsNullOrWhiteSpace(flightNumber))
             {
-                await DisplayAlert("Input Required", "Please enter a flight number.", "OK");
+                await DisplayAlertAsync("Input Required", "Please enter a flight number.", "OK");
                 return;
             }
 

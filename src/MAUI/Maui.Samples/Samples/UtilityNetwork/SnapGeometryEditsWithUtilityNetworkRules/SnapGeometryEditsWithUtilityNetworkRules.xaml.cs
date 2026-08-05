@@ -101,7 +101,7 @@ namespace ArcGIS.Samples.SnapGeometryEditsWithUtilityNetworkRules
             catch (Exception ex)
             {
                 // Show an error message.
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "Ok");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.Message, "Ok");
             }
         }
 
@@ -273,7 +273,7 @@ namespace ArcGIS.Samples.SnapGeometryEditsWithUtilityNetworkRules
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.ToString(), "OK");
             }
 
             // Reset the selection.

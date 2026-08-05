@@ -113,7 +113,7 @@ namespace ArcGIS.Samples.MobileMapSearchAndRoute
             catch (Exception exception)
             {
                 Console.WriteLine(exception);
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Couldn't geocode or route.", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", "Couldn't geocode or route.", "OK");
             }
         }
 
@@ -198,7 +198,7 @@ namespace ArcGIS.Samples.MobileMapSearchAndRoute
 
             try
             {
-                ListView sendingList = (ListView)sender;
+                CollectionView sendingList = (CollectionView)sender;
                 // Get the selected map.
                 Map selectedMap = sendingList.SelectedItem as Map;
 
@@ -211,7 +211,7 @@ namespace ArcGIS.Samples.MobileMapSearchAndRoute
             catch (Exception exception)
             {
                 Debug.WriteLine(exception);
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", e.ToString(), "OK");
             }
         }
     }

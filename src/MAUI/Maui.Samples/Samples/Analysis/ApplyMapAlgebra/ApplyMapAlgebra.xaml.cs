@@ -62,7 +62,7 @@ namespace ArcGIS.Samples.ApplyMapAlgebra
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.Message, "OK");
             }
         }
 
@@ -127,7 +127,7 @@ namespace ArcGIS.Samples.ApplyMapAlgebra
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error creating geomorphic category field", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error creating geomorphic category field", ex.Message, "OK");
                 CategorizeButton.IsEnabled = true;
                 CategorizeButton.Text = "Categorize";
                 return;
@@ -149,7 +149,7 @@ namespace ArcGIS.Samples.ApplyMapAlgebra
 
                 if (exportedFiles.Count == 0 || !File.Exists(exportedFiles[0]))
                 {
-                    await Application.Current.Windows[0].Page.DisplayAlert("Export Error", "Exported geomorphic categorization file does not exist.", "OK");
+                    await Application.Current.Windows[0].Page.DisplayAlertAsync("Export Error", "Exported geomorphic categorization file does not exist.", "OK");
                     CategorizeButton.IsEnabled = true;
                     CategorizeButton.Text = "Categorize";
                     return;
@@ -166,7 +166,7 @@ namespace ArcGIS.Samples.ApplyMapAlgebra
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error exporting geomorphic categorization", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error exporting geomorphic categorization", ex.Message, "OK");
                 CategorizeButton.IsEnabled = true;
                 CategorizeButton.Text = "Categorize";
             }

@@ -11,6 +11,7 @@
 * [Show exploratory viewshed from geoelement in scene](WPF.Viewer/Samples/Analysis/ShowExploratoryViewshedFromGeoelementInScene) - Analyze the exploratory viewshed for an object (GeoElement) in a scene.
 * [Show exploratory viewshed from point in scene](WPF.Viewer/Samples/Analysis/ShowExploratoryViewshedFromPointInScene) - Perform an exploratory viewshed analysis from a defined vantage point.
 * [Show interactive viewshed with analysis overlay](WPF.Viewer/Samples/Analysis/ShowInteractiveViewshedInAnalysisOverlay) - Perform an interactive viewshed analysis to determine visible and non-visible areas from a given observer position.
+* [Show line of sight analysis in map](WPF.Viewer/Samples/Analysis/ShowLineOfSightAnalysisOnMap) - Perform a line of sight analysis in a map view between fixed observer and target positions.
 
 ## Data
 
@@ -47,6 +48,7 @@
 * [Create geometries](WPF.Viewer/Samples/Geometry/CreateGeometries) - Create simple geometry types.
 * [Cut geometry](WPF.Viewer/Samples/Geometry/CutGeometry) - Cut a geometry along a polyline.
 * [Densify and generalize](WPF.Viewer/Samples/Geometry/DensifyAndGeneralize) - A multipart geometry can be densified by adding interpolated points at regular intervals. Generalizing multipart geometry simplifies it while preserving its general shape. Densifying a multipart geometry adds more vertices at regular intervals.
+* [Display geometry editor information during interaction](WPF.Viewer/Samples/Geometry/DisplayGeometryEditorInformationDuringInteraction) - Use the geometry editor to see information about the geometry editor's previewed geometry during an editing interaction.
 * [Edit geometries with programmatic reticle tool](WPF.Viewer/Samples/Geometry/EditGeometriesWithProgrammaticReticleTool) - Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate customized workflows such as those using buttons rather than tap interactions.
 * [Format coordinates](WPF.Viewer/Samples/Geometry/FormatCoordinates) - Format coordinates in a variety of common notations.
 * [Geodesic operations](WPF.Viewer/Samples/Geometry/GeodesicOperations) - Calculate a geodesic path between two points and measure its distance.

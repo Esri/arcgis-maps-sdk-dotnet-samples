@@ -135,7 +135,7 @@ namespace ArcGIS.Samples.ShowExploratoryViewshedFromGeoelementInScene
             }
             catch (Exception e)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", e.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", e.ToString(), "OK");
             }
         }
 

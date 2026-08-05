@@ -9,6 +9,7 @@
 
 using Esri.ArcGISRuntime.ArcGISServices;
 using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Security;
 using System.Diagnostics;
@@ -84,7 +85,8 @@ namespace ArcGIS.Samples.EditBranchVersioning
                 await _featureLayer.LoadAsync();
 
                 // When the feature layer has loaded set the viewpoint and update the UI.
-                await MyMapView.SetViewpointAsync(new Viewpoint(_featureLayer.FullExtent));
+                var startingExtent = new Envelope(-9812291, 5126950, -9811639, 5127468, SpatialReferences.WebMercator);
+                await MyMapView.SetViewpointAsync(new Viewpoint(startingExtent));
 
                 // Enable the UI.
                 CreateVersionButton.IsEnabled = true;
@@ -178,7 +180,7 @@ namespace ArcGIS.Samples.EditBranchVersioning
 
         private void ShowAlert(string alertText, string titleText = "Alert")
         {
-            Application.Current.Windows[0].Page.DisplayAlert(titleText, alertText, "OK");
+            Application.Current.Windows[0].Page.DisplayAlertAsync(titleText, alertText, "OK");
         }
 
         private async void MyMapView_GeoViewTapped(object sender, Esri.ArcGISRuntime.Maui.GeoViewInputEventArgs e)

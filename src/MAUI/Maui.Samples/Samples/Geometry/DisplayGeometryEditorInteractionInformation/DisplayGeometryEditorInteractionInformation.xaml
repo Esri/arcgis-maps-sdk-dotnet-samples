@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.DisplayGeometryEditorInteractionInformation.DisplayGeometryEditorInteractionInformation"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <ContentPage.Resources>
+        <Style x:Key="IconStyle" TargetType="Button">
+            <Style.Setters>
+                <Setter Property="FontFamily" Value="CalciteUIIconsMediumFontFamily" />
+                <Setter Property="FontSize" Value="24" />
+            </Style.Setters>
+        </Style>
+        <converters:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        <converters:VariableMultiValueConverter x:Key="VariableMultiValueConverter" ConditionType="All" />
+    </ContentPage.Resources>
+    <Grid RowDefinitions="*,auto">
+        <esriUI:MapView x:Name="MyMapView" Grid.Row="0"/>
+        <StackLayout Grid.Row="1" Orientation="Vertical" HorizontalOptions="Fill" VerticalOptions="End" Background="White" Padding="10">
+            <Label Text="Tap a graphic to start the geometry editor." TextColor="Black" IsVisible="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, Converter={StaticResource InvertedBoolConverter}, x:DataType=esriUI:MapView}" />
+            <Label Text="Use the control handles to rotate, scale, or move the graphic." TextColor="Black" LineBreakMode="WordWrap">
+                <Label.IsVisible>
+                    <MultiBinding Converter="{StaticResource VariableMultiValueConverter}">
+                        <Binding x:DataType="Grid"
+                            Converter="{StaticResource InvertedBoolConverter}"
+                            Path="IsVisible"
+                            Source="{x:Reference InteractionPreviewGrid}" />
+                        <Binding x:DataType="esriUI:MapView"
+                            Path="GeometryEditor.IsStarted"
+                            Source="{x:Reference MyMapView}" />
+                    </MultiBinding>
+                </Label.IsVisible>
+            </Label>
+            <Grid x:Name="InteractionPreviewGrid" IsVisible="False">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="InteractionPreviewDescriptionLabel" Grid.Column="0" TextColor="Black" Margin="0,0,5,0"/>
+                <Label x:Name="InteractionPreviewValueLabel" Grid.Column="1" TextColor="Black"/>
+            </Grid>
+            <Grid RowSpacing="3" ColumnSpacing="3" Margin="0,5,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.5*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="45"/>
+                    <RowDefinition Height="45"/>
+                </Grid.RowDefinitions>
+                <Button x:Name="SaveButton" Grid.Row="0" Grid.Column="0" Style="{StaticResource IconStyle}" ToolTipProperties.Text="Save edits" Text="{StaticResource CalciteUIIcons_Glyph_CheckCircle}" Clicked="SaveButton_Click" IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"/>
+                <Button x:Name="CancelButton" Grid.Row="0" Grid.Column="1" Style="{StaticResource IconStyle}" ToolTipProperties.Text="Discard edits" Text="{StaticResource CalciteUIIcons_Glyph_CircleDisallowed}" Clicked="CancelButton_Click" IsEnabled="{Binding GeometryEditor.IsStarted, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"/>
+                <Button x:Name="UndoButton" Grid.Row="1" Grid.Column="0" Style="{StaticResource IconStyle}" ToolTipProperties.Text="Undo" Text="{StaticResource CalciteUIIcons_Glyph_Undo}" Clicked="UndoButton_Click" IsEnabled="{Binding GeometryEditor.CanUndo, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"/>
+                <Button x:Name="RedoButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource IconStyle}" ToolTipProperties.Text="Redo" Text="{StaticResource CalciteUIIcons_Glyph_Redo}" Clicked="RedoButton_Click" IsEnabled="{Binding GeometryEditor.CanRedo, Source={x:Reference MyMapView}, x:DataType=esriUI:MapView}"/>
+            </Grid>
+        </StackLayout>
+    </Grid>
+</ContentPage>

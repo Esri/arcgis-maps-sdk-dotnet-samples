@@ -64,9 +64,16 @@
                        Margin="5"
                        HorizontalTextAlignment="Center"
                        Text="Choose a terminal for this junction." />
-                <ListView x:Name="TerminalPicker"
-                          Grid.Row="1"
-                          ItemSelected="Terminal_Selected" />
+                <CollectionView x:Name="TerminalPicker"
+                                Grid.Row="1"
+                                SelectionChanged="Terminal_Selected"
+                                SelectionMode="Single">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="x:String">
+                            <Label Padding="12,8" Text="{Binding .}" />
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
             </Grid>
         </Border>
     </Grid>

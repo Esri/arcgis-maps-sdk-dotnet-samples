@@ -131,17 +131,20 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
             }
             catch (ArgumentException)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", "Unsupported Geometry", "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", "Unsupported Geometry", "OK");
             }
         }
 
-        private void Apply_Style_Click(object sender, SelectedItemChangedEventArgs e)
+        private void Apply_Style_Click(object sender, SelectionChangedEventArgs e)
         {
+            string selected = e.CurrentSelection.FirstOrDefault() as string;
+            if (selected is null) return;
+
             // Get the color value if the selected item is a hexadecimal color.
             Color systemColor = Color.Transparent;
-            if (((string)e.SelectedItem).StartsWith('#'))
+            if (selected.StartsWith('#'))
             {
-                Color platColor = Color.FromArgb(Int32.Parse(((string)e.SelectedItem).Replace("#", ""), NumberStyles.HexNumber));
+                Color platColor = Color.FromArgb(Int32.Parse(selected.Replace("#", ""), NumberStyles.HexNumber));
                 systemColor = Color.FromArgb(255, (int)(platColor.R), (int)(platColor.G), (int)(platColor.B));
             }
 
@@ -153,7 +156,7 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
             {
                 // Create a KmlIconStyle using the selected icon.
                 case KmlGraphicType.Point:
-                    Uri iconLink = new Uri((string)e.SelectedItem);
+                    Uri iconLink = new Uri(selected);
                     _currentPlacemark.Style.IconStyle = new KmlIconStyle(new KmlIcon(iconLink), 1.0);
                     break;
 
@@ -310,7 +313,7 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
             catch (Exception ex)
             {
                 Debug.Write(ex.Message);
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.Message, "OK");
             }
         }
 
@@ -327,7 +330,7 @@ namespace ArcGIS.Samples.CreateAndSaveKmlFile
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert(ex.GetType().Name, ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync(ex.GetType().Name, ex.Message, "OK");
             }
         }
 

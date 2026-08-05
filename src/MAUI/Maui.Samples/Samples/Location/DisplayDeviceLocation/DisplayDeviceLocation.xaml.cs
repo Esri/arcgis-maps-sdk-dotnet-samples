@@ -106,7 +106,7 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
                     }
                     else
                     {
-                        await Application.Current.Windows[0].Page.DisplayAlert("Location not authorized", "Please allow access to the device location.", "OK");
+                        await Application.Current.Windows[0].Page.DisplayAlertAsync("Location not authorized", "Please allow access to the device location.", "OK");
                     }
                 }
             }
@@ -115,7 +115,7 @@ namespace ArcGIS.Samples.DisplayDeviceLocation
                 // Note for MacCatalyst: while on ethernet, without an external GPS device connected,
                 // location will be unknown.
                 Debug.WriteLine(ex);
-                await Application.Current.Windows[0].Page.DisplayAlert("Error", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error", ex.Message, "OK");
             }
             finally
             {

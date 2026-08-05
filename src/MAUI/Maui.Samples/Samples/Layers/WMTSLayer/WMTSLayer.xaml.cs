@@ -96,7 +96,7 @@ namespace ArcGIS.Samples.WMTSLayer
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlert("Sample error", ex.ToString(), "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Sample error", ex.ToString(), "OK");
             }
         }
     }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.ShowLineOfSightAnalysisOnMap.ShowLineOfSightAnalysisOnMap"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}"
+                VerticalOptions="Start"
+                MaximumWidthRequest="620">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="250" />
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" ColumnDefinitions="Auto,*">
+                    <CheckBox x:Name="VisibleOnlyCheckBox"
+                              Grid.Column="0"
+                              CheckedChanged="VisibleOnlyCheckBox_Changed" />
+                    <Label Grid.Column="1"
+                           Text="Show line of sight where target (circle) is visible from observer (triangle)"
+                           VerticalOptions="Center"
+                           LineBreakMode="WordWrap" />
+                </Grid>
+                <BoxView Grid.Row="1" HeightRequest="1" Color="Gray" Margin="0,4" />
+                <ScrollView Grid.Row="2">
+                    <VerticalStackLayout x:Name="ResultsStackLayout" />
+                </ScrollView>
+            </Grid>
+        </Border>
+        <Label Text="Raster data Copyright Scottish Government and SEPA (2014)"
+               Grid.RowSpan="2"
+               Grid.ColumnSpan="2"
+               HorizontalOptions="End"
+               VerticalOptions="End"
+               Margin="0,0,10,30"
+               FontAttributes="Italic"
+               FontSize="11"
+               TextColor="White" />
+    </Grid>
+</ContentPage>

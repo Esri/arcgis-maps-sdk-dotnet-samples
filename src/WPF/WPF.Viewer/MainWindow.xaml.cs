@@ -433,7 +433,10 @@ namespace ArcGIS.Samples.Desktop
 
         private void PopulateSearchedTree()
         {
-            var results = SampleManager.Current.FullTree.Search(SampleSearchFunc);
+            // Get the formal names of the samples that match the search text.
+            var sampleMatches = SampleManager.Current.SearchEngine.Search(SearchFilterBox.SearchText).Select(r => r.SampleFormalName).ToList();
+
+            var results = SampleManager.Current.FullTree.Search((s) => sampleMatches.Contains(s.FormalName) || string.IsNullOrWhiteSpace(SearchFilterBox.SearchText));
 
             // Set category data context
             Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(results);
@@ -467,11 +470,6 @@ namespace ArcGIS.Samples.Desktop
 #if ENABLE_ANALYTICS
             _ = AnalyticsHelper.TrackEvent("search_text", eventData);
 #endif
-        }
-
-        private bool SampleSearchFunc(SampleInfo sample)
-        {
-            return SampleManager.Current.SampleSearchFunc(sample, SearchFilterBox.SearchText);
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,4 @@
-﻿// Copyright 2018 Esri.
+// Copyright 2018 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -100,6 +100,12 @@ namespace ArcGIS.Samples.Managers
         /// The sample that is currently being shown to the user.
         /// </summary>
         public SampleInfo SelectedSample { get; set; }
+
+        private SearchEngine _searchEngine;
+        /// <summary>
+        /// A search engine for searching samples.
+        /// </summary>
+        public SearchEngine SearchEngine => _searchEngine ??= new SearchEngine(AllSamples);
 
         /// <summary>
         /// Initializes the sample manager by preparing the generated sample catalog when available.
@@ -331,21 +337,6 @@ namespace ArcGIS.Samples.Managers
             }
 
             throw new InvalidOperationException($"Sample '{sampleModel.FormalName}' cannot be created because no factory or sample type is available.");
-        }
-
-        /// <summary>
-        /// Common sample search predicate implementation
-        /// </summary>
-        /// <param name="sample">Sample to evaluate</param>
-        /// <param name="searchText">Query</param>
-        /// <returns><c>true</c> if the sample matches the query.</returns>
-        public bool SampleSearchFunc(SampleInfo sample, string searchText)
-        {
-            searchText = (searchText ?? string.Empty).ToLowerInvariant();
-            return sample.SampleName.ToLowerInvariant().Contains(searchText) ||
-                   sample.Category.ToLowerInvariant().Contains(searchText) ||
-                   sample.Description.ToLowerInvariant().Contains(searchText) ||
-                   sample.Tags.Any(tag => tag.ToLowerInvariant().Contains(searchText));
         }
 
 #if !(WinUI)

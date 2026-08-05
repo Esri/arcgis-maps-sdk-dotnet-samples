@@ -87,11 +87,14 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
             {
                 while (!_cancellationTokenSource!.IsCancellationRequested)
                 {
-                    // Process the next observation.
-                    var processed = await ProcessNextObservation();
+                    if (_streamReader == null) throw new ArgumentNullException("File stream not available.");
 
-                    // If the end of the file has been reached, break out of the loop.
-                    if (_streamReader != null && _streamReader.EndOfStream) break;
+                    // Read the next json entry.
+                    var json = await _streamReader.ReadLineAsync();
+                    if (json == null) break;
+
+                    // Process the observation.
+                    var processed = await ProcessObservation(json);
 
                     // If the observation was not processed, continue to the next observation.
                     if (!processed) continue;
@@ -113,13 +116,8 @@ namespace ArcGIS.WinUI.Samples.AddCustomDynamicEntityDataSource
             }
         }
 
-        private async Task<bool> ProcessNextObservation()
+        private async Task<bool> ProcessObservation(string json)
         {
-            _ = _streamReader ?? throw new ArgumentNullException("File stream not available.");
-            
-            // Read the next observation.
-            var json = await _streamReader.ReadLineAsync();
-
             // If there is no json to read or the schema is not available, return false.
             if (string.IsNullOrEmpty(json) || _fields is null) return false;
 

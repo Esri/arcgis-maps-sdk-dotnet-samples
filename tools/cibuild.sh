@@ -2,7 +2,7 @@
 
 # Default environment variables
 DOTNET_VERSION="${DOTNET_VERSION:-10.0.203}"
-RELEASE_VERSION="${RELEASE_VERSION:-300.1.0}"
+RELEASE_VERSION="${RELEASE_VERSION:-300.2.0}"
 FRAMEWORK="net${DOTNET_VERSION%%.*}.0-ios"
 
 # Get script directory

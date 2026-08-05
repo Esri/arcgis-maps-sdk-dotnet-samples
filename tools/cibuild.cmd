@@ -5,7 +5,7 @@ IF "%DOTNET_VERSION%" == "" (
   set DOTNET_VERSION=10.0.203
 )
 IF "%RELEASE_VERSION%" == "" (
-  SET RELEASE_VERSION=300.1.0
+  SET RELEASE_VERSION=300.2.0
 )
 
 REM Install the latest dotnet version if not already cached to the build machine

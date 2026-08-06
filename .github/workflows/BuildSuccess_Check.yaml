@@ -65,6 +65,8 @@ jobs:
     steps:
     - name: Clone .NET Samples
       uses: actions/checkout@v6
+      with:
+        path: 'samples-winui'
     
     - name: Setup Visual Studio Command Prompt
       uses: microsoft/setup-msbuild@v2

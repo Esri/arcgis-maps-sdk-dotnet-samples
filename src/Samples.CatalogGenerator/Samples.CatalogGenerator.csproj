@@ -1,7 +1,6 @@
-<Project Sdk="Microsoft.NET.Sdk" TreatAsLocalProperty="TargetFramework;RuntimeIdentifier">
+<Project Sdk="Microsoft.NET.Sdk" TreatAsLocalProperty="TargetFramework">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RuntimeIdentifier />
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <IsRoslynComponent>true</IsRoslynComponent>

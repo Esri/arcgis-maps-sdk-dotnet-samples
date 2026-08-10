@@ -93,7 +93,38 @@ namespace ArcGIS.Samples.Managers
             _cachedResults = sampleResults.OrderByDescending(sampleResults => sampleResults.Score).ThenBy(sampleResults => sampleResults.SampleFormalName).ToList();
             return _cachedResults;
         }
-        
+
+        /// <summary>
+        /// Searches <paramref name="fullTree"/> for samples matching <paramref name="searchText"/> and
+        /// returns every match flattened into a single category, sorted by score (desc) then title.
+        /// </summary>
+        /// <param name="searchText">The text to search for within the samples.</param>
+        /// <param name="fullTree">The full tree of categories and samples to search and filter.</param>
+        /// <returns>
+        /// <paramref name="fullTree"/> filtered but unflattened when <paramref name="searchText"/> is empty;
+        /// a single-category tree containing every match when there are results; otherwise <c>null</c>.
+        /// </returns>
+        public SearchableTreeNode Search(string searchText, SearchableTreeNode fullTree)
+        {
+            bool isSearching = !string.IsNullOrWhiteSpace(searchText);
+
+            var scoresByFormalName = Search(searchText).ToDictionary(r => r.SampleFormalName, r => r.Score);
+
+            var categoriesList = fullTree.Search((s) => scoresByFormalName.ContainsKey(s.FormalName) || !isSearching);
+
+            if (!isSearching || categoriesList == null) return categoriesList;
+
+            // Flatten every matching sample across all categories into a single list, then sort by
+            // score (desc) then title, so callers can show one flat, relevance-ordered result set.
+            var flatMatches = categoriesList.Items.OfType<SearchableTreeNode>()
+                .SelectMany(category => category.Items.OfType<SampleInfo>())
+                .DistinctBy(s => s.FormalName)
+                .OrderByDescending(s => scoresByFormalName.TryGetValue(s.FormalName, out var score) ? score : 0)
+                .ThenBy(s => s.SampleName, StringComparer.OrdinalIgnoreCase);
+
+            return new SearchableTreeNode("Search Results", new[] { new SearchableTreeNode("Search Results", flatMatches) });
+        }
+
         [GeneratedRegex("[^a-zA-Z0-9 -]")]
         private static partial Regex NonWordCharRegex();
 

@@ -204,9 +204,9 @@ namespace ArcGIS.WinUI.Viewer
             await Task.Delay(200);
             _waitFlag = false;
 
-            var sampleMatches = SampleManager.Current.SearchEngine.Search(SearchBox.Text).Select(r => r.SampleFormalName).ToList();
             // Search using the sample manager
-            var categoriesList = SampleManager.Current.FullTree.Search((s) => sampleMatches.Contains(s.FormalName) || string.IsNullOrWhiteSpace(SearchBox.Text));
+            var categoriesList = SampleManager.Current.SearchEngine.Search(SearchBox.Text, SampleManager.Current.FullTree);
+
             if (categoriesList == null)
             {
                 categoriesList = new SearchableTreeNode("Search", new[] { new SearchableTreeNode("No results", new List<object>()) });

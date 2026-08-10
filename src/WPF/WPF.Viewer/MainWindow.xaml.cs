@@ -433,16 +433,15 @@ namespace ArcGIS.Samples.Desktop
 
         private void PopulateSearchedTree()
         {
-            // Get the formal names of the samples that match the search text.
-            var sampleMatches = SampleManager.Current.SearchEngine.Search(SearchFilterBox.SearchText).Select(r => r.SampleFormalName).ToList();
+            bool isSearching = !string.IsNullOrWhiteSpace(SearchFilterBox.SearchText);
 
-            var results = SampleManager.Current.FullTree.Search((s) => sampleMatches.Contains(s.FormalName) || string.IsNullOrWhiteSpace(SearchFilterBox.SearchText));
+            var results = SampleManager.Current.SearchEngine.Search(SearchFilterBox.SearchText, SampleManager.Current.FullTree);
 
             // Set category data context
             Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(results);
 
             // Open all if query isn't empty
-            if (!string.IsNullOrWhiteSpace(SearchFilterBox.SearchText))
+            if (isSearching)
             {
                 OpenCategoryLeaves();
                 TrackSearchEvent();

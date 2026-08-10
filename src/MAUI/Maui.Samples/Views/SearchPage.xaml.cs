@@ -33,4 +33,10 @@ public partial class SearchPage : ContentPage
     {
         await Navigation.PopAsync(false);
     }
+
+    private void SampleSearchBar_SearchButtonPressed(object sender, EventArgs e)
+    {
+        // Dismiss the keyboard when the search button is pressed.
+        SampleSearchBar.Unfocus();
+    }
 }

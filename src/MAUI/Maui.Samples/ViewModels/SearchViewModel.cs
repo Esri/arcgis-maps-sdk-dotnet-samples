@@ -11,30 +11,13 @@ namespace ArcGIS.ViewModels
     {
         private IDispatcherTimer _delaySearchTimer;
         private const int _delayedTextChangedTimeout = 500;
-
-        private Dictionary<SampleInfo, (string[] nameKeywords, string[] categoryKeywords, string[] descriptionKeywords, string[] tagsKeywords)>
-            _sampleKeywords = new();
-
-        private static readonly HashSet<string> _commonWords = ["in", "a", "of", "the", "by", "an", "and"];
+        private const int _maxSearchResults = 15;
 
         private List<SearchResultViewModel> _results;
-
-        [GeneratedRegex("[^a-zA-Z0-9 -]")]
-        private static partial Regex NonWordCharRegex();
 
         public SearchViewModel()
         {
             SearchItems = new ObservableCollection<SearchResultViewModel>();
-
-            // Initialize the dictionary of sample keywords.
-            foreach (var sample in SampleManager.Current.AllSamples.ToList())
-            {
-                string[] sampleNameKeywords = GetKeywords(sample.SampleName).Append(sample.FormalName.ToLower()).ToArray();
-                var categoryKeywords = GetKeywords(sample.Category);
-                var descriptionKeywords = GetKeywords(sample.Description);
-                var tagsKeywords = sample.Tags.ToArray();
-                _sampleKeywords.Add(sample, (sampleNameKeywords, categoryKeywords, descriptionKeywords, tagsKeywords));
-            }
         }
 
         [ObservableProperty]
@@ -45,8 +28,6 @@ namespace ArcGIS.ViewModels
 
         [ObservableProperty]
         bool _noSearchResults;
-
-        private string[] _previousSearchKeywords = [];
 
         partial void OnSearchTextChanged(string value)
         {
@@ -64,108 +45,30 @@ namespace ArcGIS.ViewModels
             if (string.IsNullOrWhiteSpace(SearchText))
             {
                 SearchItems = new ObservableCollection<SearchResultViewModel>();
+                return;
             }
-            else
+
+            var sampleMatches = SampleManager.Current.SearchEngine.Search(SearchText);
+
+            _results = sampleMatches.Select(r =>
             {
-                // Remove punctuation from the search text and any trailing white space at the end.
-                var searchKeywords = SearchViewModel.GetKeywords(SearchText);
+                var sampleInfo = SampleManager.Current.GetSample(r.SampleFormalName);
+                return new SearchResultViewModel(sampleInfo, r.Score);
+            }).ToList();
 
-                // Check if the keywords are the same as the previous search.
-                if (Enumerable.SequenceEqual(searchKeywords, _previousSearchKeywords))
-                {
-                    return;
-                }
-                else
-                {
-                    _previousSearchKeywords = searchKeywords;
-                }
-
-                List<SearchResultViewModel> sampleResults = new List<SearchResultViewModel>();
-
-                foreach (var sample in _sampleKeywords)
-                {
-                    int score = 0;
-
-                    score += GetMatches(sample.Value.nameKeywords, searchKeywords) * 6;
-                    score += GetMatches(sample.Value.categoryKeywords, searchKeywords) * 3;
-                    score += GetMatches(sample.Value.descriptionKeywords, searchKeywords) * 2;
-                    score += GetMatches(sample.Value.tagsKeywords, searchKeywords);
-
-                    if (score > 0)
-                    {
-                        sampleResults.Add(new SearchResultViewModel(sample.Key, score));
-                    }
-                }
-
-                try
-                {
-                    if (sampleResults.Count != 0)
-                    {
-                        sampleResults = sampleResults.OrderByDescending(sampleResults => sampleResults.Score).ThenBy(sampleResults => sampleResults.SampleName).ToList();
-                        _results = sampleResults;
-
-                        // Limit the number of search results to 15
-                        if (sampleResults.Count > 15)
-                            sampleResults = sampleResults[0..15];
-
-                        SearchItems = new ObservableCollection<SearchResultViewModel>(sampleResults);
-                    }
-                    else
-                    {
-                        SearchItems = new ObservableCollection<SearchResultViewModel>();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.ToString());
-                }
-            }
+            SearchItems = new ObservableCollection<SearchResultViewModel>(_results.Take(_maxSearchResults));
         }
 
         [RelayCommand]
         void BatchResults()
         {
             var startIndex = SearchItems.Count;
-            var endIndex = Math.Min(startIndex + 15, _results.Count);
+            var endIndex = Math.Min(startIndex + _maxSearchResults, _results.Count);
 
             if (endIndex >= _results.Count) return;
 
-            foreach(var result in _results[startIndex..endIndex])
+            foreach (var result in _results[startIndex..endIndex])
                 SearchItems.Add(result);
-        }
-
-        private static int GetMatches(string[] contentKeywords, string[] searchKeywords)
-        {
-            int matches = 0;
-
-            foreach (var searchKeyword in searchKeywords)
-            {
-                foreach (var contentKeyword in contentKeywords)
-                {
-                    if (contentKeyword == searchKeyword)
-                    {
-                        matches += 2;
-                    }
-                    else if (contentKeyword.Contains(searchKeyword))
-                    {
-                        matches++;
-                    }
-                }
-            }
-
-            return matches;
-        }
-
-        private static string[] GetKeywords(string text)
-        {
-            // Remove punctuation from the search text and any trailing white space at the end.
-            text = NonWordCharRegex().Replace(text, "").ToLower();
-
-            // Split the text into words, remove duplicates, and filter out common words in one go.
-            return text.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries)
-                       .Distinct()
-                       .Where(static word => !_commonWords.Contains(word))
-                       .ToArray();
         }
 
         private void SearchTextChanged()
@@ -195,36 +98,5 @@ namespace ArcGIS.ViewModels
                 _delaySearchTimer.Stop();
             }
         }
-    }
-
-    public partial class SearchResultViewModel : ObservableObject
-    {
-        public SearchResultViewModel(SampleInfo sampleResult, int score)
-        {
-            SampleName = sampleResult.SampleName;
-            SampleCategory = sampleResult.Category;
-            SampleDescription = sampleResult.Description;
-            SampleImage = new FileImageSource() { File = sampleResult.SampleImageName };
-            Score = score;
-            SampleObject = sampleResult;
-        }
-
-        [ObservableProperty]
-        int _score;
-
-        [ObservableProperty]
-        string _sampleName;
-
-        [ObservableProperty]
-        string _sampleCategory;
-
-        [ObservableProperty]
-        string _sampleDescription;
-
-        [ObservableProperty]
-        ImageSource _sampleImage;
-
-        [ObservableProperty]
-        SampleInfo _sampleObject;
     }
 }

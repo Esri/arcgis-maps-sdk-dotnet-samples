@@ -13,10 +13,13 @@
                    Grid.Column="0"
                    ios:SearchBar.SearchBarStyle="Minimal"
                    Placeholder="Enter search term"
-                   SearchCommand="{Binding PerformSearchCommand}"
+                   SearchButtonPressed="SampleSearchBar_SearchButtonPressed"
                    Text="{Binding SearchText}">
             <SearchBar.Behaviors>
-                <toolkit:UserStoppedTypingBehavior MinimumLengthThreshold="0" ShouldDismissKeyboardAutomatically="False" />
+                <toolkit:EventToCommandBehavior EventName="SearchButtonPressed"
+                                                Command="{Binding PerformSearchCommand}" />
+                <toolkit:UserStoppedTypingBehavior StoppedTypingTimeThreshold="3000" ShouldDismissKeyboardAutomatically="True" 
+                    Command="{Binding PerformSearchCommand}" />
             </SearchBar.Behaviors>
         </SearchBar>
         <CollectionView Grid.Row="1"

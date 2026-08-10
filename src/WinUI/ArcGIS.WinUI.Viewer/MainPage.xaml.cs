@@ -205,7 +205,8 @@ namespace ArcGIS.WinUI.Viewer
             _waitFlag = false;
 
             // Search using the sample manager
-            var categoriesList = SampleManager.Current.FullTree.Search(SampleSearchFunc);
+            var categoriesList = SampleManager.Current.SearchEngine.Search(SearchBox.Text, SampleManager.Current.FullTree);
+
             if (categoriesList == null)
             {
                 categoriesList = new SearchableTreeNode("Search", new[] { new SearchableTreeNode("No results", new List<object>()) });
@@ -234,11 +235,6 @@ namespace ArcGIS.WinUI.Viewer
             SamplePageContainer.Content = null;
             SampleManager.Current.SelectedSample = null;
             SampleSelectionGrid.Visibility = Visibility.Visible;
-        }
-
-        private bool SampleSearchFunc(SampleInfo sample)
-        {
-            return SampleManager.Current.SampleSearchFunc(sample, SearchBox.Text);
         }
 
         private async void CategoriesTree_ItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs e)

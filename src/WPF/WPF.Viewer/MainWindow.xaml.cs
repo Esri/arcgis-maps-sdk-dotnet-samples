@@ -433,13 +433,15 @@ namespace ArcGIS.Samples.Desktop
 
         private void PopulateSearchedTree()
         {
-            var results = SampleManager.Current.FullTree.Search(SampleSearchFunc);
+            bool isSearching = !string.IsNullOrWhiteSpace(SearchFilterBox.SearchText);
+
+            var results = SampleManager.Current.SearchEngine.Search(SearchFilterBox.SearchText, SampleManager.Current.FullTree);
 
             // Set category data context
             Categories.DataContext = WPF.Viewer.Helpers.ToTreeViewItem(results);
 
             // Open all if query isn't empty
-            if (!string.IsNullOrWhiteSpace(SearchFilterBox.SearchText))
+            if (isSearching)
             {
                 OpenCategoryLeaves();
                 TrackSearchEvent();
@@ -467,11 +469,6 @@ namespace ArcGIS.Samples.Desktop
 #if ENABLE_ANALYTICS
             _ = AnalyticsHelper.TrackEvent("search_text", eventData);
 #endif
-        }
-
-        private bool SampleSearchFunc(SampleInfo sample)
-        {
-            return SampleManager.Current.SampleSearchFunc(sample, SearchFilterBox.SearchText);
         }
 
         private void SettingsButton_Click(object sender, RoutedEventArgs e)

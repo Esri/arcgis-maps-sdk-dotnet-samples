@@ -7,10 +7,6 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
 // language governing permissions and limitations under the License.
 
-
-// Uncomment the following line to include the samples subset in the app.
-//#define INCLUDE_SAMPLES_SUBSET
-
 using ArcGIS.Samples.Shared.Models;
 using System;
 using System.Collections.Generic;
@@ -31,7 +27,7 @@ namespace ArcGIS.Samples.Managers
         public IList<SampleSearchableProfile> ItemKeywords { get; private set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SearchManager"/> class with the provided list of samples.
+        /// Initializes a new instance of the <see cref="SearchEngine"/> class with the provided list of samples.
         /// </summary>
         /// <param name="samples">The list of samples to be managed by the search engine.</param>
         public SearchEngine(IList<SampleInfo> samples)
@@ -46,6 +42,11 @@ namespace ArcGIS.Samples.Managers
                 });
                 item.KeywordScoreCollection.Add(new SampleKeywordScore()
                 {
+                    Keywords = sample.Tags.ToArray(),
+                    ScoreFactor = 4
+                });
+                item.KeywordScoreCollection.Add(new SampleKeywordScore()
+                {
                     Keywords = GetKeywords(sample.Category),
                     ScoreFactor = 3
                 });
@@ -53,11 +54,6 @@ namespace ArcGIS.Samples.Managers
                 {
                     Keywords = GetKeywords(sample.Description),
                     ScoreFactor = 2
-                });
-                item.KeywordScoreCollection.Add(new SampleKeywordScore()
-                {
-                    Keywords = sample.Tags.ToArray(),
-                    ScoreFactor = 1
                 });
                 return item;
             }).ToList();

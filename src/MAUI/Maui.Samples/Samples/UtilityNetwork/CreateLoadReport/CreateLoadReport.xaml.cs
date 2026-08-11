@@ -104,6 +104,7 @@ namespace ArcGIS.Samples.CreateLoadReport
                     _traceParameters = new UtilityTraceParameters(UtilityTraceType.Downstream, new[] { startingLocation });
                     _traceParameters.ResultTypes.Add(UtilityTraceResultType.FunctionOutputs);
                     _traceParameters.TraceConfiguration = tier?.GetDefaultTraceConfiguration();
+                    _traceParameters.TraceConfiguration.IncludeBarriers = false;
 
                     // Create function input and output condition.
                     UtilityCategory serviceCategory = _utilityNetwork.Definition.Categories.FirstOrDefault(c => c.Name == ServiceCategoryName);

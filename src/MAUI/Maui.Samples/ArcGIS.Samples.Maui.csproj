@@ -142,7 +142,8 @@
     <ProjectReference Include="..\..\Samples.CatalogGenerator\Samples.CatalogGenerator.csproj"
                       OutputItemType="Analyzer"
                       ReferenceOutputAssembly="false"
-                      PrivateAssets="all" />
+                      PrivateAssets="all"
+                      SetTargetFramework="TargetFramework=netstandard2.0" />
   </ItemGroup>
 
   <!-- WinUIEx is used to workaround the lack of a WebAuthenticationBroker for WinUI. https://github.com/microsoft/WindowsAppSDK/issues/441 -->

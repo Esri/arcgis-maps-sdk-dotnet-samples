@@ -31,7 +31,7 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
         category: "Data",
         description: "Create features from preset and group shared templates, then save or discard the local edits.",
         instructions: "Click on a shared template to create features. Draw geometry. Save or undo local edits.",
-        tags: new[] { "edit", "feature", "preset", "shared template", "template" })]
+        tags: new[] { "edit", "feature", "group", "preset", "shared template", "shared template source", "template" })]
     public partial class AddFeaturesWithSharedTemplate
     {
         public AddFeaturesWithSharedTemplate()
@@ -51,11 +51,11 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
                 Map map = MyMapView.Map ?? throw new InvalidOperationException("The map view does not have a map.");
                 await map.LoadAsync();
 
-                ServiceGeodatabase? serviceGeodatabase = null;
+                ISharedTemplateSource? sharedTemplateSource = null;
 
                 foreach (var layer in map.OperationalLayers)
                 {
-                    if (serviceGeodatabase is not null)
+                    if (sharedTemplateSource is not null)
                     {
                         break;
                     }
@@ -64,21 +64,22 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
                     {
                         foreach (var childLayer in groupLayer.Layers)
                         {
-                            if (childLayer is FeatureLayer featureLayer && featureLayer.FeatureTable is ServiceFeatureTable sft)
+                            if (childLayer is FeatureLayer featureLayer && featureLayer.FeatureTable is ServiceFeatureTable table
+                               && table.ServiceGeodatabase is ISharedTemplateSource source)
                             {
-                                serviceGeodatabase = sft.ServiceGeodatabase;
+                                sharedTemplateSource = source;
                                 break;
                             }
                         }
                     }
                 }
 
-                if (serviceGeodatabase is null)
+                if (sharedTemplateSource is null)
                 {
-                    throw new InvalidOperationException("The map does not contain a service geodatabase.");
+                    throw new InvalidOperationException("The map does not contain a shared template source.");
                 }
 
-                IReadOnlyDictionary<long, IReadOnlyList<SharedTemplate>> templatesByLayer = await serviceGeodatabase.QuerySharedTemplatesAsync();
+                IReadOnlyDictionary<long, IReadOnlyList<SharedTemplate>> templatesByLayer = await sharedTemplateSource.QuerySharedTemplatesAsync();
                 var templateItems = new List<TemplatePickerItem>();
 
                 foreach (KeyValuePair<long, IReadOnlyList<SharedTemplate>> templatesForLayer in templatesByLayer)
@@ -157,12 +158,14 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
             {
                 GeometryConstructionTool constructionTool = templateItem.Template.GetDefaultConstructionTool(templateItem.LayerId)
                     ?? throw new InvalidOperationException("The shared template does not provide a default geometry construction tool.");
+
                 GeometryType geometryType = constructionTool.ToolType switch
                 {
                     GeometryConstructionToolType.Point => GeometryType.Point,
                     GeometryConstructionToolType.Line => GeometryType.Polyline,
                     _ => throw new NotSupportedException($"The {constructionTool.ToolType} geometry construction tool is not supported by this sample.")
                 };
+
                 TemplatePicker.Tag = templateItem;
                 StatusTextBlock.Text = "Place a point or sketch a polyline, then click Complete.";
 
@@ -199,13 +202,13 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
             try
             {
                 StatusTextBlock.Text = $"Creating {templateItem.Template.Name}.";
-                if (templateItem.Template.TemplateSource is not ServiceGeodatabase serviceGeodatabase)
+                if (templateItem.Template.TemplateSource is not ISharedTemplateSource sharedTemplateSource)
                 {
-                    throw new InvalidOperationException("The shared template is not backed by a service geodatabase.");
+                    throw new InvalidOperationException("The shared template is not backed by a shared template source.");
                 }
 
-                SharedTemplateFeatureCreationSet featureCreationSet = await serviceGeodatabase.CreateFeaturesAsync(templateItem.Template, geometry);
-                await serviceGeodatabase.AddFeaturesAsync(featureCreationSet);
+                SharedTemplateFeatureCreationSet featureCreationSet = await sharedTemplateSource.CreateFeaturesAsync(templateItem.Template, geometry);
+                await sharedTemplateSource.AddFeaturesAsync(featureCreationSet);
 
                 PendingEditsPanel.Visibility = Visibility.Visible;
                 StatusTextBlock.Text = "Save or cancel the local edit.";

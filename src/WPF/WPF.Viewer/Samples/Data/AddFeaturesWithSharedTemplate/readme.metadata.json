@@ -7,8 +7,10 @@
     "keywords": [
         "edit",
         "feature",
+        "group",
         "preset",
         "shared template",
+        "shared template source",
         "template"
     ],
     "offline_data": [],
@@ -17,6 +19,7 @@
     ],
     "relevant_apis": [
         "GeometryEditor",
+        "ISharedTemplateSource",
         "ServiceGeodatabase",
         "SharedTemplate",
         "SharedTemplateFeatureCreationSet",

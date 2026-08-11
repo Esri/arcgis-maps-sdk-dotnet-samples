@@ -16,6 +16,7 @@
 ## Data
 
 * [Add features with contingent values](WPF.Viewer/Samples/Data/AddFeaturesWithContingentValues) - Create and add features whose attribute values satisfy a predefined set of contingencies.
+* [Add features with shared templates](WPF.Viewer/Samples/Data/AddFeaturesWithSharedTemplate) - Create features from preset and group shared templates, then save or discard the local edits.
 * [Add rasters and feature tables from geopackage](WPF.Viewer/Samples/Data/AddRastersAndFeatureTablesFromGeopackage) - Add rasters and feature tables from a GeoPackage to a map.
 * [Create KML multi-track](WPF.Viewer/Samples/Data/CreateKmlMultiTrack) - Create, save and preview a KML multi-track, captured from a location data source.
 * [Create mobile geodatabase](WPF.Viewer/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.

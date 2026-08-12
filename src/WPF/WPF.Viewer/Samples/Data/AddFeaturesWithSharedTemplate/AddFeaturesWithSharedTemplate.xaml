@@ -38,7 +38,8 @@
                         <DataTemplate>
                             <Button HorizontalAlignment="Stretch"
                                     HorizontalContentAlignment="Stretch"
-                                    Click="OnSharedTemplateClicked">
+                                    Click="OnSharedTemplateClicked"
+                                    ToolTip="{Binding Template.Description}">
                                 <Grid Margin="0,3">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="44" />
@@ -49,11 +50,14 @@
                                            HorizontalAlignment="Center"
                                            VerticalAlignment="Center"
                                            Source="{Binding ImageSource}" />
-                                    <TextBlock Grid.Column="1"
-                                               Margin="6,0,0,0"
-                                               VerticalAlignment="Center"
-                                               FontWeight="SemiBold"
-                                               Text="{Binding Template.Name}" />
+                                    <StackPanel Grid.Column="1"
+                                                Margin="6,0,0,0"
+                                                VerticalAlignment="Center">
+                                        <TextBlock FontWeight="SemiBold"
+                                                   Text="{Binding Template.Name}"
+                                                   TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding Template.Type, StringFormat=({0})}" />
+                                    </StackPanel>
                                 </Grid>
                             </Button>
                         </DataTemplate>

@@ -9,7 +9,6 @@
 
 #nullable enable
 
-using Esri.ArcGISRuntime;
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -34,6 +33,9 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
         tags: new[] { "edit", "feature", "group", "preset", "shared template", "shared template source", "template" })]
     public partial class AddFeaturesWithSharedTemplate
     {
+        private static string Instruction = "Click on a shared template to create features.";
+        private TemplatePickerItem? _activeTemplateItem = null;
+
         public AddFeaturesWithSharedTemplate()
         {
             InitializeComponent();
@@ -45,32 +47,36 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
         {
             try
             {
-                MyMapView.GeometryEditor = new GeometryEditor();
-                MyMapView.Map = new Map(new Uri("https://arcgisruntime.maps.arcgis.com/home/item.html?id=dd64a70d17de4f16a93d2203c4cf1ab3"));
+                MyMapView.GeometryEditor ??= new GeometryEditor();          
 
-                Map map = MyMapView.Map ?? throw new InvalidOperationException("The map view does not have a map.");
+                // Load a web map that contains a feature service with shared templates.
+                var map = new Map(new Uri("https://arcgisruntime.maps.arcgis.com/home/item.html?id=dd64a70d17de4f16a93d2203c4cf1ab3"));
+                MyMapView.Map = map;
                 await map.LoadAsync();
 
+                // Find the shared template source in a service-backed feature layer.
                 ISharedTemplateSource? sharedTemplateSource = null;
-
                 foreach (var layer in map.OperationalLayers)
                 {
+                    if (layer is not GroupLayer groupLayer)
+                    {
+                        continue;
+                    }
+
+                    foreach (var childLayer in groupLayer.Layers)
+                    {
+                        if (childLayer is FeatureLayer featureLayer
+                            && featureLayer.FeatureTable is ServiceFeatureTable table
+                            && table.ServiceGeodatabase is ISharedTemplateSource source)
+                        {
+                            sharedTemplateSource = source;
+                            break;
+                        }
+                    }
+
                     if (sharedTemplateSource is not null)
                     {
                         break;
-                    }
-
-                    if (layer is GroupLayer groupLayer)
-                    {
-                        foreach (var childLayer in groupLayer.Layers)
-                        {
-                            if (childLayer is FeatureLayer featureLayer && featureLayer.FeatureTable is ServiceFeatureTable table
-                               && table.ServiceGeodatabase is ISharedTemplateSource source)
-                            {
-                                sharedTemplateSource = source;
-                                break;
-                            }
-                        }
                     }
                 }
 
@@ -79,6 +85,7 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
                     throw new InvalidOperationException("The map does not contain a shared template source.");
                 }
 
+                // Query without parameters will return all shared templates for all the layers in the map
                 IReadOnlyDictionary<long, IReadOnlyList<SharedTemplate>> templatesByLayer = await sharedTemplateSource.QuerySharedTemplatesAsync();
                 var templateItems = new List<TemplatePickerItem>();
 
@@ -91,101 +98,121 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
 
                     foreach (SharedTemplate template in templatesForLayer.Value)
                     {
-                        if (template.Type != SharedTemplateType.Preset && template.Type != SharedTemplateType.Group)
+                        if (templateItems.Count == 2)
+                        {
+                            break;
+                        }
+
+                        if ((template.Type != SharedTemplateType.Preset && template.Type != SharedTemplateType.Group)
+                            || templateItems.Any(item => item.Template.Type == template.Type))
                         {
                             continue;
                         }
 
-                        if (templateItems.Any(item => item.Template.Type == template.Type))
-                        {
-                            continue;
-                        }
-
-                        GeometryConstructionTool? constructionTool = template.GetDefaultConstructionTool(templatesForLayer.Key);
-                        if (constructionTool?.ToolType != GeometryConstructionToolType.Point
-                            && constructionTool?.ToolType != GeometryConstructionToolType.Line)
-                        {
-                            continue;
-                        }
-
+                        // Create a default swatch image for the template
                         ImageSource imageSource = new CalciteIconImageExtension
                         {
                             Icon = CalciteIcon.AddFeatures,
                             SymbolSize = 36
                         }.ProvideValue(null!) as ImageSource
-                            ?? throw new InvalidOperationException("Unable to create the fallback template image.");
+                            ?? throw new InvalidOperationException("Unable to create a default swatch image.");
 
                         try
                         {
+                            // Generate a swatch image for this template
                             RuntimeImage swatch = await template.CreateSwatchAsync(templatesForLayer.Key);
                             imageSource = await swatch.ToImageSourceAsync() ?? imageSource;
                         }
                         catch (Exception)
                         {
+                            // Template does not provide a swatch
                         }
 
                         templateItems.Add(new TemplatePickerItem(template, templatesForLayer.Key, imageSource));
-
-                        if (templateItems.Count == 2)
-                        {
-                            break;
-                        }
                     }
                 }
 
                 TemplatePicker.ItemsSource = templateItems;
-
-                StatusTextBlock.Text = templateItems.Count > 0
-                    ? "Click on a shared template to create features."
-                    : "No supported shared templates are available.";
+                TemplatePicker.Visibility = Visibility.Visible;
+                StatusTextBlock.Text = Instruction;
             }
             catch (Exception ex)
             {
-                ShowError(ex);
-                StatusTextBlock.Text = "Unable to load the shared templates.";
+                UpdateUI("Unable to load templates.", ex);
             }
+        }
+
+        private void UpdateUI(string status, Exception? exception = null)
+        {
+            if (exception is not null)
+            {
+                MessageBox.Show(exception.Message, exception.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            if (_activeTemplateItem?.Template.TemplateSource is ServiceGeodatabase serviceGeodatabase)
+            {
+                PendingEditsPanel.Visibility = serviceGeodatabase.HasLocalEdits() ? Visibility.Visible : Visibility.Collapsed;
+                TemplatePicker.Visibility = serviceGeodatabase.HasLocalEdits() ? Visibility.Collapsed : Visibility.Visible;
+            }
+            else
+            {
+                TemplatePicker.Visibility = Visibility.Visible;
+                PendingEditsPanel.Visibility = Visibility.Collapsed;
+            }
+            MyMapView.GeometryEditor?.Stop();
+            StatusTextBlock.Text = string.Format("{0} {1}", status, Instruction);
         }
 
         private void OnSharedTemplateClicked(object sender, RoutedEventArgs e)
         {
-            if (sender is not Button { DataContext: TemplatePickerItem templateItem }
-                || MyMapView.GeometryEditor?.IsStarted == true)
+            if (sender is not Button button 
+                || button.Tag is not TemplatePickerItem templateItem
+                || MyMapView.GeometryEditor is not GeometryEditor geometryEditor
+                || geometryEditor.IsStarted)
             {
                 return;
             }
 
             try
             {
-                GeometryConstructionTool constructionTool = templateItem.Template.GetDefaultConstructionTool(templateItem.LayerId)
-                    ?? throw new InvalidOperationException("The shared template does not provide a default geometry construction tool.");
+                TemplatePicker.Visibility = Visibility.Collapsed;
+                _activeTemplateItem = templateItem;
 
-                GeometryType geometryType = constructionTool.ToolType switch
+                GeometryConstructionToolType constructionToolType = _activeTemplateItem.Template.GetDefaultConstructionTool(_activeTemplateItem.LayerId)?.ToolType 
+                    ?? GeometryConstructionToolType.Unknown;
+
+                // Use the construction tool type to choose whether to draw a point or a polyline
+                GeometryType geometryType = constructionToolType switch
                 {
                     GeometryConstructionToolType.Point => GeometryType.Point,
                     GeometryConstructionToolType.Line => GeometryType.Polyline,
-                    _ => throw new NotSupportedException($"The {constructionTool.ToolType} geometry construction tool is not supported by this sample.")
+                    _ => throw new NotSupportedException($"The {constructionToolType} geometry construction tool is not supported by this sample.")
                 };
 
-                TemplatePicker.Tag = templateItem;
-                StatusTextBlock.Text = "Place a point or sketch a polyline, then click Complete.";
+                if (geometryType == GeometryType.Point)
+                {
+                    StatusTextBlock.Text = "Place a point, then click Complete or Cancel.";
+                }
+                else
+                {
+                    StatusTextBlock.Text = "Sketch a line, then click Complete or Cancel.";
+                }
 
-                GeometryEditor geometryEditor = MyMapView.GeometryEditor
-                    ?? throw new InvalidOperationException("The map view does not have a geometry editor.");
                 geometryEditor.Tool = new VertexTool();
                 geometryEditor.Start(geometryType);
             }
             catch (Exception ex)
             {
-                ShowError(ex);
-                ClearActiveTemplate();
-                StatusTextBlock.Text = "Unable to start drawing. Click on a shared template to create features again.";
+                UpdateUI("Unable to start drawing.", ex);
             }
         }
 
         private async void OnDrawCompleted(object sender, RoutedEventArgs e)
         {
-            if (TemplatePicker.Tag is not TemplatePickerItem templateItem
-                || MyMapView.GeometryEditor is not { IsStarted: true } geometryEditor)
+            if (_activeTemplateItem is null 
+                || _activeTemplateItem.Template.TemplateSource is not ISharedTemplateSource sharedTemplateSource
+                || MyMapView.GeometryEditor is not GeometryEditor geometryEditor
+                || !geometryEditor.IsStarted)
             {
                 return;
             }
@@ -194,43 +221,37 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
 
             if (geometry is null || geometry.IsEmpty)
             {
-                ClearActiveTemplate();
-                StatusTextBlock.Text = "No geometry was drawn. Click on a shared template to create features again.";
+                UpdateUI("No geometry was drawn.");
                 return;
             }
 
             try
             {
-                StatusTextBlock.Text = $"Creating {templateItem.Template.Name}.";
-                if (templateItem.Template.TemplateSource is not ISharedTemplateSource sharedTemplateSource)
-                {
-                    throw new InvalidOperationException("The shared template is not backed by a shared template source.");
-                }
 
-                SharedTemplateFeatureCreationSet featureCreationSet = await sharedTemplateSource.CreateFeaturesAsync(templateItem.Template, geometry);
+                // Creates in-memory features from different layers with default geometry and attributes.
+                SharedTemplateFeatureCreationSet featureCreationSet = await sharedTemplateSource.CreateFeaturesAsync(_activeTemplateItem.Template, geometry);
+
+                // Note: You can continue to make attribute changes to this feature creation set.
+
+                // Commits the feature creation set to the database.
                 await sharedTemplateSource.AddFeaturesAsync(featureCreationSet);
 
                 PendingEditsPanel.Visibility = Visibility.Visible;
-                StatusTextBlock.Text = "Save or cancel the local edit.";
+                StatusTextBlock.Text = "Save or undo edits.";
             }
             catch (Exception ex)
             {
-                ShowError(ex);
-                ClearActiveTemplate();
-                StatusTextBlock.Text = "Unable to create features. Click on a shared template to create features again.";
+                UpdateUI("Unable to create or add features.", ex);
             }
         }
-
         private void OnDrawCanceled(object sender, RoutedEventArgs e)
         {
-            MyMapView.GeometryEditor?.Stop();
-            ClearActiveTemplate();
-            StatusTextBlock.Text = "Click on a shared template to create features.";
+            UpdateUI("Draw canceled.");
         }
 
         private async void OnEditsSaved(object sender, RoutedEventArgs e)
         {
-            if (TemplatePicker.Tag is not TemplatePickerItem { Template.TemplateSource: ServiceGeodatabase serviceGeodatabase })
+            if (_activeTemplateItem?.Template.TemplateSource is not ServiceGeodatabase serviceGeodatabase)
             {
                 return;
             }
@@ -239,50 +260,31 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
             {
                 StatusTextBlock.Text = "Saving edits.";
                 await serviceGeodatabase.ApplyEditsAsync();
-                CompletePendingEdits("Edits saved. Click on a shared template to create features again.");
+                UpdateUI("Edits saved.");
             }
             catch (Exception ex)
             {
-                ShowError(ex);
-                StatusTextBlock.Text = "Unable to save edits. Save again or cancel them.";
+                UpdateUI("Unable to save edits.", ex);
             }
         }
 
         private async void OnEditsUndone(object sender, RoutedEventArgs e)
         {
-            if (TemplatePicker.Tag is not TemplatePickerItem { Template.TemplateSource: ServiceGeodatabase serviceGeodatabase })
+            if (_activeTemplateItem?.Template.TemplateSource is not ServiceGeodatabase serviceGeodatabase)
             {
                 return;
             }
 
             try
             {
-                StatusTextBlock.Text = "Canceling local edits.";
+                StatusTextBlock.Text = "Undoing local edits.";
                 await serviceGeodatabase.UndoLocalEditsAsync();
-                CompletePendingEdits("Edits undone. Click on a shared template to create features again.");
+                UpdateUI("Edits undone.");  
             }
             catch (Exception ex)
             {
-                ShowError(ex);
-                StatusTextBlock.Text = "Unable to cancel local edits.";
+                UpdateUI("Unable to undo edits.", ex);
             }
-        }
-
-        private void CompletePendingEdits(string status)
-        {
-            PendingEditsPanel.Visibility = Visibility.Collapsed;
-            ClearActiveTemplate();
-            StatusTextBlock.Text = status;
-        }
-
-        private void ClearActiveTemplate()
-        {
-            TemplatePicker.Tag = null;
-        }
-
-        private static void ShowError(Exception exception)
-        {
-            MessageBox.Show(exception.Message, exception.GetType().Name, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 

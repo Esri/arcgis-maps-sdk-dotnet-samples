@@ -18,27 +18,14 @@
                            Text="Loading shared templates..."
                            TextWrapping="Wrap" />
                 <ItemsControl x:Name="TemplatePicker"
+                              Visibility="Collapsed"
                               Margin="0,8,0,0">
-                    <ItemsControl.Style>
-                        <Style TargetType="{x:Type ItemsControl}">
-                            <Setter Property="Visibility" Value="Collapsed" />
-                            <Style.Triggers>
-                                <MultiDataTrigger>
-                                    <MultiDataTrigger.Conditions>
-                                        <Condition Binding="{Binding Tag, RelativeSource={RelativeSource Self}}" Value="{x:Null}" />
-                                        <Condition Binding="{Binding HasItems, RelativeSource={RelativeSource Self}}" Value="True" />
-                                        <Condition Binding="{Binding GeometryEditor.IsStarted, ElementName=MyMapView}" Value="False" />
-                                    </MultiDataTrigger.Conditions>
-                                    <Setter Property="Visibility" Value="Visible" />
-                                </MultiDataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ItemsControl.Style>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Button HorizontalAlignment="Stretch"
                                     HorizontalContentAlignment="Stretch"
                                     Click="OnSharedTemplateClicked"
+                                    Tag="{Binding}"
                                     ToolTip="{Binding Template.Description}">
                                 <Grid Margin="0,3">
                                     <Grid.ColumnDefinitions>
@@ -74,7 +61,7 @@
                             Orientation="Horizontal"
                             Visibility="Collapsed">
                     <Button Margin="0,0,6,0" Click="OnEditsSaved" Content="Save" />
-                    <Button Click="OnEditsUndone" Content="Cancel" />
+                    <Button Click="OnEditsUndone" Content="Undo" />
                 </StackPanel>
             </StackPanel>
         </Border>

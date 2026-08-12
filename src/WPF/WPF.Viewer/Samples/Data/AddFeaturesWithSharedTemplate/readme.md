@@ -6,7 +6,7 @@ Create features from preset and group shared templates, then save or discard the
 
 ## Use case
 
-Preset and group shared templates support guided, repeatable, high-quality editing. Preset templates place predefined feature arrangements, while group templates create related feature sets relative to a user-defined base geometry. By automatically applying attributes, symbology, geometry settings, and feature relationships, they help field staff create consistent, fully configured assets with only a few choices.
+Preset and group shared templates support guided, repeatable, high-quality editing. Preset templates place predefined feature arrangements, while group templates create feature sets relative to a user-defined base geometry. By automatically applying attributes, symbology, geometry settings, and feature relationships/associations, they help field staff create consistent, fully configured assets with only a few choices.
 
 ## How to use the sample
 

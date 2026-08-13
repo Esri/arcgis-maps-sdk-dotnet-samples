@@ -1,0 +1,14 @@
+<Solution>
+  <Configurations>
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+  </Configurations>
+
+  <Project DefaultStartup="true" Path="ArcGIS.WinUI.Viewer/ArcGIS.WinUI.Viewer.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Deploy />
+  </Project>
+  <Project Path="../Samples.CatalogGenerator/Samples.CatalogGenerator.csproj" />
+  <Project Path="../Samples.Shared/ArcGIS.Samples.Shared.shproj" />
+</Solution>

@@ -1,0 +1,13 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+  </Configurations>
+
+  <Project DefaultStartup="true" Path="Maui.Samples/ArcGIS.Samples.Maui.csproj">
+    <Deploy />
+  </Project>
+  <Project Path="../Samples.CatalogGenerator/Samples.CatalogGenerator.csproj" />
+  <Project Path="../Samples.Shared/ArcGIS.Samples.Shared.shproj" />
+</Solution>

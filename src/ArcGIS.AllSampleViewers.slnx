@@ -4,13 +4,15 @@
     <Platform Name="ARM64" />
     <Platform Name="x64" />
   </Configurations>
+  <Folder Name="/Build/">
+    <File Path="Directory.Packages.props" />
+  </Folder>
   <Folder Name="/MAUI/">
-    <Project Path="MAUI/Maui.Samples/ArcGIS.Samples.Maui.csproj">
+    <Project DefaultStartup="true" Path="MAUI/Maui.Samples/ArcGIS.Samples.Maui.csproj">
       <Deploy />
     </Project>
   </Folder>
   <Folder Name="/WinUI/">
-    <Project Path="Samples.CatalogGenerator/Samples.CatalogGenerator.csproj" />
     <Project Path="WinUI/ArcGIS.WinUI.Viewer/ArcGIS.WinUI.Viewer.csproj">
       <Platform Solution="*|Any CPU" Project="x64" />
       <Platform Solution="*|ARM64" Project="ARM64" />
@@ -24,5 +26,6 @@
       <Platform Solution="*|x64" Project="x64" />
     </Project>
   </Folder>
+  <Project Path="Samples.CatalogGenerator/Samples.CatalogGenerator.csproj" />
   <Project Path="Samples.Shared/ArcGIS.Samples.Shared.shproj" />
 </Solution>

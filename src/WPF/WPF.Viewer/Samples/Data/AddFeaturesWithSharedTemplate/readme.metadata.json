@@ -1,9 +1,11 @@
 {
     "category": "Data",
-    "description": "Create features from preset and group shared templates, then save or discard the local edits.",
+    "description": "Create features from preset and group shared templates.",
     "formal_name": "AddFeaturesWithSharedTemplate",
     "ignore": false,
-    "images": [],
+    "images": [
+        "AddFeaturesWithSharedTemplate.jpg"
+    ],
     "keywords": [
         "edit",
         "feature",

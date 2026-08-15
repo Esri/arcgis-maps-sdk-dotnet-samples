@@ -53,8 +53,8 @@
                 <StackPanel Margin="0,8,0,0"
                             Orientation="Horizontal"
                             Visibility="{Binding GeometryEditor.IsStarted, ElementName=MyMapView, Converter={StaticResource BoolToVisibilityConverter}}">
-                    <Button Margin="0,0,6,0" Click="OnDrawCompleted" Content="Complete" />
-                    <Button Click="OnDrawCanceled" Content="Cancel" />
+                    <Button Margin="0,0,6,0" Click="OnGeometryEditorCompleted" Content="Complete" />
+                    <Button Click="OnGeometryEditorCanceled" Content="Cancel" />
                 </StackPanel>
                 <StackPanel x:Name="PendingEditsPanel"
                             Margin="0,8,0,0"

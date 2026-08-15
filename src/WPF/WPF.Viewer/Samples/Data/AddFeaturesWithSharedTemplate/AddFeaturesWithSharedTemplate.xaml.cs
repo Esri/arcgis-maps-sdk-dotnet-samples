@@ -28,8 +28,8 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Add features with shared templates",
         category: "Data",
-        description: "Create features from preset and group shared templates, then save or discard the local edits.",
-        instructions: "Click on a shared template to create features. Draw geometry. Save or undo local edits.",
+        description: "Create features from preset and group shared templates.",
+        instructions: "Hover over a shared template to view its description. Select a template and click on the map to place the geometry. Choose \"Complete\" to create the feature, \"Save\" to apply local edits, or \"Undo\" to discard them.",
         tags: new[] { "edit", "feature", "group", "preset", "shared template", "shared template source", "template" })]
     public partial class AddFeaturesWithSharedTemplate
     {
@@ -50,40 +50,17 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
                 MyMapView.GeometryEditor ??= new GeometryEditor();          
 
                 // Load a web map that contains a feature service with shared templates.
-                var map = new Map(new Uri("https://arcgisruntime.maps.arcgis.com/home/item.html?id=dd64a70d17de4f16a93d2203c4cf1ab3"));
+                var map = new Map(new Uri("https://www.maps.arcgis.com/home/item.html?id=b635be46dfb545b888077389ac7f0962"));
                 MyMapView.Map = map;
                 await map.LoadAsync();
 
                 // Find the shared template source in a service-backed feature layer.
-                ISharedTemplateSource? sharedTemplateSource = null;
-                foreach (var layer in map.OperationalLayers)
-                {
-                    if (layer is not GroupLayer groupLayer)
-                    {
-                        continue;
-                    }
-
-                    foreach (var childLayer in groupLayer.Layers)
-                    {
-                        if (childLayer is FeatureLayer featureLayer
-                            && featureLayer.FeatureTable is ServiceFeatureTable table
-                            && table.ServiceGeodatabase is ISharedTemplateSource source)
-                        {
-                            sharedTemplateSource = source;
-                            break;
-                        }
-                    }
-
-                    if (sharedTemplateSource is not null)
-                    {
-                        break;
-                    }
-                }
-
-                if (sharedTemplateSource is null)
-                {
-                    throw new InvalidOperationException("The map does not contain a shared template source.");
-                }
+                ISharedTemplateSource sharedTemplateSource = 
+                    map.OperationalLayers
+                       .OfType<FeatureLayer>()
+                       .Select(layer => (layer.FeatureTable as ServiceFeatureTable)?.ServiceGeodatabase)
+                       .OfType<ISharedTemplateSource>()
+                       .FirstOrDefault() ?? throw new InvalidOperationException("The map does not contain a shared template source.");
 
                 // Query without parameters will return all shared templates for all the layers in the map
                 IReadOnlyDictionary<long, IReadOnlyList<SharedTemplate>> templatesByLayer = await sharedTemplateSource.QuerySharedTemplatesAsync();
@@ -207,7 +184,7 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
             }
         }
 
-        private async void OnDrawCompleted(object sender, RoutedEventArgs e)
+        private async void OnGeometryEditorCompleted(object sender, RoutedEventArgs e)
         {
             if (_activeTemplateItem is null 
                 || _activeTemplateItem.Template.TemplateSource is not ISharedTemplateSource sharedTemplateSource
@@ -244,7 +221,8 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
                 UpdateUI("Unable to create or add features.", ex);
             }
         }
-        private void OnDrawCanceled(object sender, RoutedEventArgs e)
+
+        private void OnGeometryEditorCanceled(object sender, RoutedEventArgs e)
         {
             UpdateUI("Draw canceled.");
         }

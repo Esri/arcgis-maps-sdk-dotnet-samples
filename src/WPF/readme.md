@@ -1,7 +1,12 @@
 # Table of contents
 
+## Accessibility
+
+* [Update basemap for contrast accessibility](WPF.Viewer/Samples/Accessibility/UpdateBasemapForContrastAccessibility) - Display a map view that updates between authored light, dark, and high-contrast basemaps.
+
 ## Analysis
 
+* [Analyze terrain suitability from slope and aspect](WPF.Viewer/Samples/Analysis/AnalyzeTerrainSuitabilityFromSlopeAndAspect) - Analyze terrain suitability from an elevation raster by deriving slope and aspect.
 * [Apply map algebra](WPF.Viewer/Samples/Analysis/ApplyMapAlgebra) - Apply map algebra to an elevation raster to floor, mask, and categorize the elevation values into discrete integer-based categories.
 * [Distance measurement analysis](WPF.Viewer/Samples/Analysis/DistanceMeasurement) - Measure distances between two points in 3D.
 * [Query feature count and extent](WPF.Viewer/Samples/Analysis/QueryFeatureCountAndExtent) - Zoom to features matching a query and count the features in the current visible extent.
@@ -48,7 +53,7 @@
 * [Create geometries](WPF.Viewer/Samples/Geometry/CreateGeometries) - Create simple geometry types.
 * [Cut geometry](WPF.Viewer/Samples/Geometry/CutGeometry) - Cut a geometry along a polyline.
 * [Densify and generalize](WPF.Viewer/Samples/Geometry/DensifyAndGeneralize) - A multipart geometry can be densified by adding interpolated points at regular intervals. Generalizing multipart geometry simplifies it while preserving its general shape. Densifying a multipart geometry adds more vertices at regular intervals.
-* [Display geometry editor information during interaction](WPF.Viewer/Samples/Geometry/DisplayGeometryEditorInformationDuringInteraction) - Use the geometry editor to see information about the geometry editor's previewed geometry during an editing interaction.
+* [Display geometry editor information during interaction](WPF.Viewer/Samples/Geometry/DisplayGeometryEditorInteractionInformation) - Use the geometry editor to see information about the geometry editor's previewed geometry during an editing interaction.
 * [Edit geometries with programmatic reticle tool](WPF.Viewer/Samples/Geometry/EditGeometriesWithProgrammaticReticleTool) - Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate customized workflows such as those using buttons rather than tap interactions.
 * [Format coordinates](WPF.Viewer/Samples/Geometry/FormatCoordinates) - Format coordinates in a variety of common notations.
 * [Geodesic operations](WPF.Viewer/Samples/Geometry/GeodesicOperations) - Calculate a geodesic path between two points and measure its distance.

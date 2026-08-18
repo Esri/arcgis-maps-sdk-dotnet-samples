@@ -5,6 +5,7 @@
 			<Sample>UpdateBasemapForContrastAccessibility</Sample>
 		</Category>
 		<Category name="Analysis">
+			<Sample>AnalyzeTerrainSuitabilityFromSlopeAndAspect</Sample>
 			<Sample>ApplyMapAlgebra</Sample>
 			<Sample>DistanceMeasurement</Sample>
 			<Sample>ShowInteractiveViewshedInAnalysisOverlay</Sample>

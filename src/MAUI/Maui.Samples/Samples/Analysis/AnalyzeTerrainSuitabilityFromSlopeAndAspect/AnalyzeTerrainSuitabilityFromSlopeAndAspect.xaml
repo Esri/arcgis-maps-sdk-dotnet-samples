@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.AnalyzeTerrainSuitabilityFromSlopeAndAspect.AnalyzeTerrainSuitabilityFromSlopeAndAspect"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}"
+                VerticalOptions="Start">
+            <ScrollView>
+                <VerticalStackLayout>
+                    <Label Text="Sheltered vs. exposed terrain suitability"
+                           FontAttributes="Bold" />
+                    <RadioButton x:Name="LowlandSouthFacingSlopesRadioButton"
+                                 Content="Gentle, lowland south-facing slopes"
+                                 GroupName="scenarios"
+                                 IsChecked="True"
+                                 CheckedChanged="OnScenarioSelectionChanged" />
+                    <RadioButton x:Name="UplandWestToNorthFacingSlopesRadioButton"
+                                 Content="Steep, upland west- through north-facing slopes"
+                                 GroupName="scenarios"
+                                 CheckedChanged="OnScenarioSelectionChanged" />
+                    <ActivityIndicator x:Name="AnalysisActivityIndicator"
+                                       HeightRequest="20"
+                                       IsRunning="True"
+                                       IsVisible="False" />
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+        <Label Text="Raster data Copyright Scottish Government and SEPA (2014)"
+               Grid.RowSpan="2"
+               Grid.ColumnSpan="2"
+               HorizontalOptions="End"
+               VerticalOptions="End"
+               Margin="0,0,10,30"
+               FontAttributes="Italic"
+               FontSize="11"
+               TextColor="Gray" />
+    </Grid>
+</ContentPage>

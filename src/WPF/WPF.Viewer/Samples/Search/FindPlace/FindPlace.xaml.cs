@@ -147,8 +147,8 @@ namespace ArcGIS.WPF.Samples.FindPlace
                 // Create the geocode parameters.
                 GeocodeParameters parameters = new GeocodeParameters();
 
-                // Request that the "Address" attribute is included with results, to display in callouts.
-                parameters.ResultAttributeNames.Add("Address");
+                // Request the matched address so it can be displayed in callouts.
+                parameters.ResultAttributeNames.Add("Match_addr");
 
                 // Get the MapPoint for the current search location.
                 MapPoint searchLocation = await GetSearchMapPoint(locationText);
@@ -195,7 +195,7 @@ namespace ArcGIS.WPF.Samples.FindPlace
 
                     // Add the specific result data to the point.
                     point.Attributes["Match_Title"] = location.Label;
-                    point.Attributes["Match_Address"] = location.Attributes["Address"];
+                    point.Attributes["Match_Address"] = location.Attributes["Match_addr"];
 
                     // Add the Graphic to the GraphicsOverlay.
                     resultOverlay.Graphics.Add(point);

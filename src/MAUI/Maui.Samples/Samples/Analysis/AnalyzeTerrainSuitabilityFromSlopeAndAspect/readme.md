@@ -19,7 +19,7 @@ When the sample opens, the map shows the results of a preconfigured terrain suit
 3. Derive a `Slope` function and an `Aspect` function from the continuous field function.
 4. Create `BooleanFieldFunction` masks for slope, aspect, and elevation using range checks with map algebra.
 5. Combine the masks with `LogicalAnd` and apply a land-only mask to exclude areas below sea level.
-6. Create a `FieldAnalysis` from the boolean field function.
+6. Create a `FieldAnalysis` from the resultant `BooleanFieldFunction`.
 7. Apply a `ColormapRenderer` with a color for areas not matching the terrain suitability criteria, and a color for matching areas.
 8. Add the analysis to an `AnalysisOverlay`.
 

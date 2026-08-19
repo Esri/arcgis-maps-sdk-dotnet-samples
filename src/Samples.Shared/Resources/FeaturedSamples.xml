@@ -51,10 +51,11 @@
 			<Sample>QueryDynamicEntities</Sample>
 		</Category>
 		<Category name="Scene">
+			<Sample>ApplyPointCloudRendererAndFilter</Sample>
 			<Sample>ConfigureSceneEnvironment</Sample>
+			<Sample>DisplayLocalScene</Sample>
 			<Sample>FilterFeaturesInScene</Sample>
 			<Sample>ShowLabelsOnLayer3D</Sample>
-			<Sample>DisplayLocalScene</Sample>
 		</Category>
 		<Category name="Symbology">
 			<Sample>StyleGeometryTypesWithSymbols</Sample>

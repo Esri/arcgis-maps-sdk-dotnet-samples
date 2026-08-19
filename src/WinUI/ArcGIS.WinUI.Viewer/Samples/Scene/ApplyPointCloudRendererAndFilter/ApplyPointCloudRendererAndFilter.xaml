@@ -1,0 +1,151 @@
+<UserControl x:Class="ArcGIS.WinUI.Samples.ApplyPointCloudRendererAndFilter.ApplyPointCloudRendererAndFilter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <!-- Point cloud rendering and filtering require the local-scene control. -->
+        <esriUI:LocalSceneView x:Name="MySceneView" />
+
+        <Border MaxHeight="720" Style="{StaticResource BorderStyle}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock FontSize="16"
+                               FontWeight="Bold"
+                               Text="Rendering" />
+
+                    <Border Margin="0,8,0,8"
+                            Padding="8"
+                            BorderBrush="Gray"
+                            BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Margin="0,0,0,4" Text="Renderer" />
+                            <RadioButton x:Name="RgbRendererRadioButton"
+                                         Checked="RendererRadioButton_Checked"
+                                         GroupName="Renderer"
+                                         IsChecked="True">
+                                <TextBlock Text="RGB" />
+                            </RadioButton>
+                            <RadioButton x:Name="StretchRendererRadioButton"
+                                         Checked="RendererRadioButton_Checked"
+                                         GroupName="Renderer">
+                                <TextBlock Text="Stretch" />
+                            </RadioButton>
+                            <RadioButton x:Name="ClassBreaksRendererRadioButton"
+                                         Checked="RendererRadioButton_Checked"
+                                         GroupName="Renderer">
+                                <TextBlock Text="Class breaks" />
+                            </RadioButton>
+                            <RadioButton x:Name="UniqueValueRendererRadioButton"
+                                         Checked="RendererRadioButton_Checked"
+                                         GroupName="Renderer">
+                                <TextBlock Text="Unique value" />
+                            </RadioButton>
+
+                            <TextBlock Margin="0,8,0,0" Text="Point size" />
+                            <Slider x:Name="PointSizeSlider"
+                                    Maximum="5"
+                                    Minimum="0.5"
+                                    Value="1"
+                                    ValueChanged="PointSizeSlider_ValueChanged" />
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock FontSize="16"
+                               FontWeight="Bold"
+                               Text="Filtering" />
+
+                    <Border Margin="0,8,0,0"
+                            Padding="8"
+                            BorderBrush="Gray"
+                            BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Margin="0,0,0,4" Text="Value filter" />
+                            <TextBlock FontWeight="SemiBold" Text="Filter mode" />
+                            <StackPanel Orientation="Horizontal">
+                                <RadioButton x:Name="IncludeValueFilterRadioButton"
+                                             Margin="0,0,12,0"
+                                             Checked="ValueFilterModeRadioButton_Checked"
+                                             GroupName="ValueFilterMode"
+                                             IsChecked="True">
+                                    <TextBlock Text="Include selected" />
+                                </RadioButton>
+                                <RadioButton x:Name="ExcludeValueFilterRadioButton"
+                                             Checked="ValueFilterModeRadioButton_Checked"
+                                             GroupName="ValueFilterMode">
+                                    <TextBlock Text="Exclude selected" />
+                                </RadioButton>
+                            </StackPanel>
+                            <CheckBox x:Name="GroundCheckBox"
+                                      Checked="ValueFilterCheckBox_CheckedChanged"
+                                      Content="Ground"
+                                      Unchecked="ValueFilterCheckBox_CheckedChanged" />
+                            <CheckBox x:Name="HighVegetationCheckBox"
+                                      Checked="ValueFilterCheckBox_CheckedChanged"
+                                      Content="High vegetation"
+                                      Unchecked="ValueFilterCheckBox_CheckedChanged" />
+                            <CheckBox x:Name="BuildingCheckBox"
+                                      Checked="ValueFilterCheckBox_CheckedChanged"
+                                      Content="Building"
+                                      Unchecked="ValueFilterCheckBox_CheckedChanged" />
+                            <Button Margin="0,4,0,0"
+                                    Click="ClearValueFilterButton_Click"
+                                    Content="Clear value filter" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Margin="0,8,0,0"
+                            Padding="8"
+                            BorderBrush="Gray"
+                            BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Margin="0,0,0,4" Text="Return filter" />
+                            <CheckBox x:Name="FirstOfManyCheckBox"
+                                      Checked="ReturnFilterCheckBox_CheckedChanged"
+                                      Content="First of many"
+                                      Unchecked="ReturnFilterCheckBox_CheckedChanged" />
+                            <CheckBox x:Name="LastCheckBox"
+                                      Checked="ReturnFilterCheckBox_CheckedChanged"
+                                      Content="Last"
+                                      Unchecked="ReturnFilterCheckBox_CheckedChanged" />
+                            <CheckBox x:Name="LastOfManyCheckBox"
+                                      Checked="ReturnFilterCheckBox_CheckedChanged"
+                                      Content="Last of many"
+                                      Unchecked="ReturnFilterCheckBox_CheckedChanged" />
+                            <CheckBox x:Name="SingleCheckBox"
+                                      Checked="ReturnFilterCheckBox_CheckedChanged"
+                                      Content="Single"
+                                      Unchecked="ReturnFilterCheckBox_CheckedChanged" />
+                            <Button Margin="0,4,0,0"
+                                    Click="ClearReturnFilterButton_Click"
+                                    Content="Clear return filter" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Margin="0,8,0,0"
+                            Padding="8"
+                            BorderBrush="Gray"
+                            BorderThickness="1">
+                        <StackPanel>
+                            <TextBlock Margin="0,0,0,4" Text="Bitfield filter" />
+                            <TextBlock Text="Scan direction flag (bit 6)" />
+                            <StackPanel Orientation="Horizontal">
+                                <CheckBox x:Name="RequireSetCheckBox"
+                                          Margin="0,0,12,0"
+                                          Checked="BitfieldFilterCheckBox_CheckedChanged"
+                                          Content="Require set"
+                                          Unchecked="BitfieldFilterCheckBox_CheckedChanged" />
+                                <CheckBox x:Name="RequireClearCheckBox"
+                                          Checked="BitfieldFilterCheckBox_CheckedChanged"
+                                          Content="Require clear"
+                                          Unchecked="BitfieldFilterCheckBox_CheckedChanged" />
+                            </StackPanel>
+                            <Button Margin="0,4,0,0"
+                                    Click="ClearBitfieldFilterButton_Click"
+                                    Content="Clear bitfield filter" />
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

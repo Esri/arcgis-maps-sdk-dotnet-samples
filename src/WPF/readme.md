@@ -224,6 +224,7 @@
 
 ## Scene
 
+* [Apply point cloud renderer and filter](WPF.Viewer/Samples/Scene/ApplyPointCloudRendererAndFilter) - Visualize point cloud data using different renderers and filters.
 * [Change atmosphere effect](WPF.Viewer/Samples/Scene/ChangeAtmosphereEffect) - Changes the appearance of the atmosphere in a scene.
 * [Configure scene environment](WPF.Viewer/Samples/Scene/ConfigureSceneEnvironment) - Configure the environment settings in a local scene to change the lighting conditions and background appearance.
 * [Create terrain from local tile package](WPF.Viewer/Samples/Scene/CreateTerrainSurfaceTilePackage) - Set the terrain surface with elevation described by a local tile package.

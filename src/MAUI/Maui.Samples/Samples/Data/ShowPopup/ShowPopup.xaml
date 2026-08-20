@@ -4,51 +4,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriTK="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
-    <Grid ColumnDefinitions="*,500"
-          Style="{DynamicResource EsriSampleContainer}">
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="WidthStates">
-                <VisualState x:Name="PhoneState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter TargetName="PopupPanel"
-                                Property="Grid.Column"
-                                Value="0" />
-                        <Setter TargetName="PopupPanel"
-                                Property="Grid.ColumnSpan"
-                                Value="2" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="DesktopState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="800" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter TargetName="PopupPanel"
-                                Property="Grid.Column"
-                                Value="1" />
-                        <Setter TargetName="PopupPanel"
-                                Property="Grid.ColumnSpan"
-                                Value="1" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-
+    <Grid Style="{DynamicResource EsriSampleContainer}">
         <esriUI:MapView x:Name="MyMapView"
-                        Grid.ColumnSpan="2"
                         Style="{DynamicResource EsriSampleGeoView}" />
         <Border x:Name="PopupPanel"
-                Grid.Column="1"
-                Padding="8"
-                Background="{AppThemeBinding Light=White,
-                                             Dark=Black}"
-                IsVisible="False">
+                IsVisible="False"
+                MaximumHeightRequest="500"
+                Style="{DynamicResource EsriSampleControlPanel}">
             <Grid RowDefinitions="*,Auto">
                 <esriTK:PopupViewer x:Name="PopupViewer"
-                                    MinimumWidthRequest="400"
                                     HorizontalOptions="Fill" />
                 <Button Grid.Row="1"
                         HorizontalOptions="Fill"

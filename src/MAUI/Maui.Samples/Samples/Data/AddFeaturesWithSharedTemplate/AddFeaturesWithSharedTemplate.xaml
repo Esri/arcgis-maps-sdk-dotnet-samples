@@ -15,13 +15,29 @@
                                SelectionMode="None">
                    <CollectionView.ItemTemplate>
                        <DataTemplate>
-                           <Button Margin="0,3"
-                                   Clicked="OnSharedTemplateClicked"
-                                   CommandParameter="{Binding}"
-                                   ContentLayout="Left,10"
-                                   ImageSource="{Binding ImageSource}"
-                                   Text="{Binding DisplayText}"
-                                   ToolTipProperties.Text="{Binding Template.Description}" />
+                           <Border Margin="0,3"
+                                   Padding="10,6"
+                                   BackgroundColor="{AppThemeBinding Dark=#333333, Light=#E0E0E0}"
+                                   StrokeThickness="0"
+                                   ToolTipProperties.Text="{Binding Template.Description}">
+                               <Border.GestureRecognizers>
+                                   <TapGestureRecognizer CommandParameter="{Binding}"
+                                                         Tapped="OnSharedTemplateTapped" />
+                               </Border.GestureRecognizers>
+                               <Grid ColumnDefinitions="44,*">
+                                   <Image WidthRequest="36"
+                                          HeightRequest="36"
+                                          Aspect="AspectFit"
+                                          Source="{Binding ImageSource}" />
+                                   <VerticalStackLayout Grid.Column="1"
+                                                        VerticalOptions="Center">
+                                       <Label FontAttributes="Bold"
+                                              LineBreakMode="TailTruncation"
+                                              Text="{Binding Template.Name}" />
+                                       <Label Text="{Binding TypeText}" />
+                                   </VerticalStackLayout>
+                               </Grid>
+                           </Border>
                        </DataTemplate>
                    </CollectionView.ItemTemplate>
                </CollectionView>

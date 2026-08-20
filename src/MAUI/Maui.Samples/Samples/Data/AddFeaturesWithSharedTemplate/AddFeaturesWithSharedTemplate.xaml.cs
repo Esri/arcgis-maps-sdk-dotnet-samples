@@ -130,10 +130,10 @@ namespace ArcGIS.Samples.AddFeaturesWithSharedTemplate
             StatusLabel.Text = $"{status} {Instruction}";
         }
 
-        private async void OnSharedTemplateClicked(object sender, EventArgs e)
+        private async void OnSharedTemplateTapped(object sender, TappedEventArgs e)
         {
-            if (sender is not Button button
-                || button.CommandParameter is not TemplatePickerItem templateItem
+            if (sender is not TapGestureRecognizer tapGesture
+                || tapGesture.CommandParameter is not TemplatePickerItem templateItem
                 || MyMapView.GeometryEditor is not GeometryEditor geometryEditor
                 || geometryEditor.IsStarted)
             {
@@ -265,6 +265,6 @@ namespace ArcGIS.Samples.AddFeaturesWithSharedTemplate
 
         public ImageSource ImageSource { get; }
 
-        public string DisplayText => $"{Template.Name} ({Template.Type})";
+        public string TypeText => $"({Template.Type})";
     }
 }

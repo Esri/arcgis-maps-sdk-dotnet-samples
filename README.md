@@ -34,7 +34,7 @@ Or, you can browse a searchable list of samples on the ArcGIS for developers web
 
 If you want to modify or debug sample code, you can clone this repo and load one of the following solutions:
 
-- All: `src\ArcGIS.Viewers.All.sln`
+- All: `src\ArcGIS.Viewers.All.slnx`
 
 If you are only interested in one platform, you can open a platform-specific solutions:
 

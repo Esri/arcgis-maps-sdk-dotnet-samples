@@ -86,7 +86,7 @@ namespace ArcGIS.Samples.AddFeaturesWithSharedTemplate
                         {
                             // Generate a swatch image for this template.
                             RuntimeImage swatch = await template.CreateSwatchAsync(templatesForLayer.Key);
-                            imageSource = await Esri.ArcGISRuntime.Maui.RuntimeImageExtensions.ToImageSourceAsync(swatch);
+                            imageSource = await Esri.ArcGISRuntime.Maui.RuntimeImageExtensions.ToImageSourceAsync(swatch) ?? imageSource;
                         }
                         catch (Exception)
                         {

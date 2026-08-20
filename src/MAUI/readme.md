@@ -16,6 +16,7 @@
 ## Data
 
 * [Add features with contingent values](Maui.Samples/Samples/Data/AddFeaturesWithContingentValues) - Create and add features whose attribute values satisfy a predefined set of contingencies.
+* [Add features with shared templates](Maui.Samples/Samples/Data/AddFeaturesWithSharedTemplate) - Create features from preset and group shared templates.
 * [Add rasters and feature tables from geopackage](Maui.Samples/Samples/Data/AddRastersAndFeatureTablesFromGeopackage) - Add rasters and feature tables from a GeoPackage to a map.
 * [Create KML multi-track](Maui.Samples/Samples/Data/CreateKmlMultiTrack) - Create, save and preview a KML multi-track, captured from a location data source.
 * [Create mobile geodatabase](Maui.Samples/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.

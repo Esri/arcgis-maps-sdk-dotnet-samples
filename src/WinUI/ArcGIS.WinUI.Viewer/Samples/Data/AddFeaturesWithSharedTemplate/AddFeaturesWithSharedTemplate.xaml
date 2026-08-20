@@ -28,8 +28,9 @@
                                         <TextBlock HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
                                                    FontSize="24"
+                                                   FontFamily="{StaticResource CalciteUIIconsMediumFontFamily}"
                                                    Opacity="{Binding FallbackOpacity}"
-                                                   Text="+" />
+                                                   Text="{StaticResource CalciteUIIcons_Glyph_AddFeatures}" />
                                         <Image HorizontalAlignment="Stretch"
                                                VerticalAlignment="Stretch"
                                                Source="{Binding ImageSource}" />

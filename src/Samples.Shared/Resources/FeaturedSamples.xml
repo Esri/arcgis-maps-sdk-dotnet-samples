@@ -14,7 +14,6 @@
 			<Sample>CreateKmlMultiTrack</Sample>
 			<Sample>EditFeaturesUsingFeatureForms</Sample>
 			<Sample>ManageFeatures</Sample>
-			<Sample>ShowPopup</Sample>
 		</Category>
 		<Category name="Geometry">
 			<Sample>CreateAndEditGeometries</Sample>

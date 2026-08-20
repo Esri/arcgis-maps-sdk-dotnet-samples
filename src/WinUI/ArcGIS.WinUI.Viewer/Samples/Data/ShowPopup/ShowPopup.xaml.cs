@@ -70,13 +70,15 @@ namespace ArcGIS.WinUI.Samples.ShowPopup
                 if (result.GeoElements.FirstOrDefault() is not Feature feature ||
                     result.Popups.FirstOrDefault() is not Popup popup)
                 {
+                    PopupViewer.Popup = null;
+                    PopupViewer.Visibility = Visibility.Collapsed;
                     return;
                 }
 
                 // Select the identified feature and display its popup.
                 _featureLayer.SelectFeature(feature);
                 PopupViewer.Popup = popup;
-                PopupBackground.Visibility = Visibility.Visible;
+                PopupViewer.Visibility = Visibility.Visible;
             }
             catch (Exception ex)
             {
@@ -86,13 +88,6 @@ namespace ArcGIS.WinUI.Samples.ShowPopup
             {
                 _isIdentifying = false;
             }
-        }
-
-        private void ClosePopup_Click(object sender, RoutedEventArgs e)
-        {
-            PopupBackground.Visibility = Visibility.Collapsed;
-            PopupViewer.Popup = null;
-            _featureLayer?.ClearSelection();
         }
     }
 }

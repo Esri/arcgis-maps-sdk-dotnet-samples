@@ -15,6 +15,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace ArcGIS.WPF.Samples.ShowPopup
 {
@@ -70,6 +71,8 @@ namespace ArcGIS.WPF.Samples.ShowPopup
                 if (result.GeoElements.FirstOrDefault() is not Feature feature ||
                     result.Popups.FirstOrDefault() is not Popup popup)
                 {
+                    PopupViewer.Popup = null;
+                    PopupBackground.Visibility = Visibility.Collapsed;
                     return;
                 }
 
@@ -88,8 +91,10 @@ namespace ArcGIS.WPF.Samples.ShowPopup
             }
         }
 
-        private void ClosePopup_Click(object sender, RoutedEventArgs e)
+        private void PopupBackground_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            if (!ReferenceEquals(e.OriginalSource, PopupBackground)) return;
+
             PopupBackground.Visibility = Visibility.Collapsed;
             PopupViewer.Popup = null;
             _featureLayer?.ClearSelection();

@@ -4,32 +4,18 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:esriTK="using:Esri.ArcGISRuntime.Toolkit.UI.Controls"
     xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
-    <Grid>
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
         <esriUI:MapView x:Name="MyMapView" />
-        <Grid x:Name="PopupBackground"
-              Background="#AA333333"
-              Visibility="Collapsed">
-            <Border MaxWidth="600"
-                    MaxHeight="600"
-                    Margin="20"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Background="White">
-                <Grid Margin="5">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <esriTK:PopupViewer x:Name="PopupViewer"
-                                        Margin="5"
-                                        Padding="5" />
-                    <Button Grid.Row="1"
-                            Margin="5"
-                            HorizontalAlignment="Center"
-                            Click="ClosePopup_Click"
-                            Content="Close" />
-                </Grid>
-            </Border>
-        </Grid>
+        <esriTK:PopupViewer x:Name="PopupViewer"
+                            Grid.Column="1"
+                            Width="300"
+                            Padding="10"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Visibility="Collapsed" />
     </Grid>
 </UserControl>

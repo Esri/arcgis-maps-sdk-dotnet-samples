@@ -14,7 +14,7 @@ Hover over a shared template to view its description. Select a template and tap 
 
 ## How it works
 
-1. Create a map using the URL to a web map. 
+1. Create a map using the URL to a web map.
 2. Determine the `ISharedTemplateSource` by inspecting map layers, identifying `FeatureLayer` instances backed by a `ServiceFeatureTable`, and retrieving their `ServiceGeodatabase`.
 3. Call `ISharedTemplateSource.QuerySharedTemplatesAsync()` to populate a template picker. Store each template's `layerId`, display its name and type, and use native contextual help to show its description.
 4. Call `SharedTemplate.CreateSwatchAsync(layerId)` to generate a swatch image for each template, falling back to a default image when a swatch is unavailable.

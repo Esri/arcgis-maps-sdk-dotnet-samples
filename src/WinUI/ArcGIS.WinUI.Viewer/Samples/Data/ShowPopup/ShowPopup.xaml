@@ -12,7 +12,7 @@
         <esriUI:MapView x:Name="MyMapView" />
         <esriTK:PopupViewer x:Name="PopupViewer"
                             Grid.Column="1"
-                            Width="300"
+                            Width="400"
                             Padding="10"
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"

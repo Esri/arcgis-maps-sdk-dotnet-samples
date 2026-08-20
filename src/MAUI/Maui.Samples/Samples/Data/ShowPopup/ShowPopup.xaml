@@ -8,9 +8,17 @@
         <esriUI:MapView x:Name="MyMapView"
                         Style="{DynamicResource EsriSampleGeoView}" />
         <Border x:Name="PopupPanel"
-                IsVisible="False"
-                MaximumHeightRequest="500"
-                Style="{DynamicResource EsriSampleControlPanel}">
+                Grid.RowSpan="2"
+                Grid.Column="{OnIdiom Phone=0,
+                                      Default=1}"
+                Grid.ColumnSpan="{OnIdiom Phone=2,
+                                          Default=1}"
+                WidthRequest="{OnIdiom Phone=-1,
+                                       Default=400}"
+                Padding="8"
+                Background="{AppThemeBinding Light=White,
+                                             Dark=Black}"
+                IsVisible="False">
             <Grid RowDefinitions="*,Auto">
                 <esriTK:PopupViewer x:Name="PopupViewer"
                                     HorizontalOptions="Fill" />

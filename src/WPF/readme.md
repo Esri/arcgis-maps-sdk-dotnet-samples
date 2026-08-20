@@ -31,6 +31,7 @@
 * [Manage features](WPF.Viewer/Samples/Data/ManageFeatures) - Create, update, and delete features to manage a feature layer.
 * [Query features with Arcade expression](WPF.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
 * [Read shapefile metadata](WPF.Viewer/Samples/Data/ReadShapefileMetadata) - Read a shapefile and display its metadata.
+* [Show popup](WPF.Viewer/Samples/Data/ShowPopup) - Show predefined popups from a web map.
 * [Statistical query](WPF.Viewer/Samples/Data/StatisticalQuery) - Query a table to get aggregated statistics back for a specific field.
 * [Statistical query group and sort](WPF.Viewer/Samples/Data/StatsQueryGroupAndSort) - Query a feature table for statistics, grouping and sorting by different fields.
 * [Symbolize shapefile](WPF.Viewer/Samples/Data/SymbolizeShapefile) - Display a shapefile with custom symbology.

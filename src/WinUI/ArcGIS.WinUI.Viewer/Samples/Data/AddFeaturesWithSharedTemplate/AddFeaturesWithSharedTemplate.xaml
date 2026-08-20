@@ -28,6 +28,7 @@
                                         <TextBlock HorizontalAlignment="Center"
                                                    VerticalAlignment="Center"
                                                    FontSize="24"
+                                                   Opacity="{Binding FallbackOpacity}"
                                                    Text="+" />
                                         <Image HorizontalAlignment="Stretch"
                                                VerticalAlignment="Stretch"

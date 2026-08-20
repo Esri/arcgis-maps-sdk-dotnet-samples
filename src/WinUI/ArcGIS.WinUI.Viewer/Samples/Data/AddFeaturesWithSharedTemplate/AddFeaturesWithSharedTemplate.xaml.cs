@@ -268,6 +268,8 @@ namespace ArcGIS.WinUI.Samples.AddFeaturesWithSharedTemplate
 
         public ImageSource ImageSource { get; }
 
+        public double FallbackOpacity => ImageSource is null ? 1 : 0;
+
         public string TypeText => $"({Template.Type})";
     }
 }

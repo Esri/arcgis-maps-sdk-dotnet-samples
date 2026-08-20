@@ -3,7 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <!-- Point cloud rendering and filtering require the local-scene control. -->
         <esriUI:LocalSceneView x:Name="MySceneView" />
 
         <Border MaxHeight="720" Style="{StaticResource BorderStyle}">

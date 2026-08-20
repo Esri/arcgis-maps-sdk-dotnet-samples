@@ -4,7 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
     <Grid Style="{DynamicResource EsriSampleContainer}">
-        <!-- Point cloud rendering and filtering require the local-scene control. -->
         <esriUI:LocalSceneView x:Name="MySceneView"
                                Style="{DynamicResource EsriSampleGeoView}" />
 

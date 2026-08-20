@@ -50,6 +50,8 @@ namespace ArcGIS.WinUI.Samples.ApplyPointCloudRendererAndFilter
 
             // Create the point cloud layer from the scene service.
             _pointCloudLayer = new PointCloudLayer(new Uri(PointCloudServiceUrl));
+            scene.OperationalLayers.Add(_pointCloudLayer);
+            MySceneView.Scene = scene;
 
             // Load the layer to populate the attribute schema used by the renderers and filters.
             await _pointCloudLayer.LoadAsync();
@@ -116,9 +118,7 @@ namespace ArcGIS.WinUI.Samples.ApplyPointCloudRendererAndFilter
             // Apply the RGB renderer initially.
             _pointCloudLayer.Renderer = rgbRenderer;
 
-            // Add the point cloud layer and show a close street-level view.
-            scene.OperationalLayers.Add(_pointCloudLayer);
-            MySceneView.Scene = scene;
+            // Show a close street-level view of the point cloud.
             MapPoint cameraLocation = new MapPoint(
                 -13631735.748425495,
                 4621846.155726249,

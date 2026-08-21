@@ -53,8 +53,16 @@ namespace ArcGIS.WPF.Samples.ApplyPointCloudRendererAndFilter
             scene.OperationalLayers.Add(_pointCloudLayer);
             MySceneView.Scene = scene;
 
-            // Load the layer to populate the attribute schema used by the renderers and filters.
-            await _pointCloudLayer.LoadAsync();
+            try
+            {
+                // Load the layer to populate the attribute schema used by the renderers and filters.
+                await _pointCloudLayer.LoadAsync();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Sample error");
+                return;
+            }
 
             // Render each point using its RGB attribute.
             PointCloudRGBRenderer rgbRenderer = new PointCloudRGBRenderer("RGB");
@@ -101,7 +109,6 @@ namespace ArcGIS.WPF.Samples.ApplyPointCloudRendererAndFilter
             };
             PointCloudUniqueValueRenderer uniqueValueRenderer = new PointCloudUniqueValueRenderer("CLASS_CODE", uniqueValues);
 
-            // PointsPerInch controls display density; the splat scale controls each point's size.
             _renderers = new PointCloudRenderer[]
             {
                 rgbRenderer,
@@ -111,6 +118,7 @@ namespace ArcGIS.WPF.Samples.ApplyPointCloudRendererAndFilter
             };
             foreach (PointCloudRenderer renderer in _renderers)
             {
+                // PointsPerInch controls display density; the splat scale controls each point's size.
                 renderer.PointsPerInch = 25;
                 renderer.SizeAlgorithm = new PointCloudSplatAlgorithm(1.0);
             }

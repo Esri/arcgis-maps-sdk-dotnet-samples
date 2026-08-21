@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.PointCloud;
 using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,8 +54,22 @@ namespace ArcGIS.WinUI.Samples.ApplyPointCloudRendererAndFilter
             scene.OperationalLayers.Add(_pointCloudLayer);
             MySceneView.Scene = scene;
 
-            // Load the layer to populate the attribute schema used by the renderers and filters.
-            await _pointCloudLayer.LoadAsync();
+            try
+            {
+                // Load the layer to populate the attribute schema used by the renderers and filters.
+                await _pointCloudLayer.LoadAsync();
+            }
+            catch (Exception ex)
+            {
+                await new ContentDialog
+                {
+                    Title = "Sample error",
+                    Content = ex.Message,
+                    CloseButtonText = "OK",
+                    XamlRoot = XamlRoot
+                }.ShowAsync();
+                return;
+            }
 
             // Read each point's packed color from the RGB attribute.
             PointCloudRGBRenderer rgbRenderer = new PointCloudRGBRenderer("RGB");

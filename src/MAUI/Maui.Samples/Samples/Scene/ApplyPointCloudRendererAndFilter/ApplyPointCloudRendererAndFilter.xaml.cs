@@ -53,8 +53,16 @@ namespace ArcGIS.Samples.ApplyPointCloudRendererAndFilter
             scene.OperationalLayers.Add(_pointCloudLayer);
             MySceneView.Scene = scene;
 
-            // Load the layer to populate the attribute schema used by the renderers and filters.
-            await _pointCloudLayer.LoadAsync();
+            try
+            {
+                // Load the layer to populate the attribute schema used by the renderers and filters.
+                await _pointCloudLayer.LoadAsync();
+            }
+            catch (Exception ex)
+            {
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Sample error", ex.Message, "OK");
+                return;
+            }
 
             // Read each point's packed color from the RGB attribute.
             PointCloudRGBRenderer rgbRenderer = new PointCloudRGBRenderer("RGB");

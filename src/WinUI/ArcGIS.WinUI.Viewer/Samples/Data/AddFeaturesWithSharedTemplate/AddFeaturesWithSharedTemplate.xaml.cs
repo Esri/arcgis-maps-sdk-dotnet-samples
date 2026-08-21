@@ -7,6 +7,8 @@
 // "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific 
 // language governing permissions and limitations under the License.
 
+#nullable enable
+
 using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
@@ -32,7 +34,7 @@ namespace ArcGIS.WinUI.Samples.AddFeaturesWithSharedTemplate
     public partial class AddFeaturesWithSharedTemplate
     {
         private const string Instruction = "Click on a shared template to create features.";
-        private TemplatePickerItem _activeTemplateItem;
+        private TemplatePickerItem? _activeTemplateItem = null;
 
         public AddFeaturesWithSharedTemplate()
         {
@@ -83,7 +85,7 @@ namespace ArcGIS.WinUI.Samples.AddFeaturesWithSharedTemplate
                             continue;
                         }
 
-                        ImageSource imageSource = null;
+                        ImageSource? imageSource = null;
 
                         try
                         {
@@ -110,7 +112,7 @@ namespace ArcGIS.WinUI.Samples.AddFeaturesWithSharedTemplate
             }
         }
 
-        private async Task UpdateUIAsync(string status, Exception exception = null)
+        private async Task UpdateUIAsync(string status, Exception? exception = null)
         {
             if (exception is not null)
             {
@@ -183,7 +185,7 @@ namespace ArcGIS.WinUI.Samples.AddFeaturesWithSharedTemplate
                 return;
             }
 
-            Geometry geometry = geometryEditor.Stop();
+            Geometry? geometry = geometryEditor.Stop();
             DrawingButtonsPanel.Visibility = Visibility.Collapsed;
 
             if (geometry is null || geometry.IsEmpty)
@@ -255,7 +257,7 @@ namespace ArcGIS.WinUI.Samples.AddFeaturesWithSharedTemplate
 
     internal sealed class TemplatePickerItem
     {
-        internal TemplatePickerItem(SharedTemplate template, long layerId, ImageSource imageSource)
+        internal TemplatePickerItem(SharedTemplate template, long layerId, ImageSource? imageSource)
         {
             Template = template;
             LayerId = layerId;
@@ -266,9 +268,9 @@ namespace ArcGIS.WinUI.Samples.AddFeaturesWithSharedTemplate
 
         public long LayerId { get; }
 
-        public ImageSource ImageSource { get; }
+        public ImageSource? ImageSource { get; }
 
-        public double FallbackOpacity => ImageSource is null ? 1 : 0;
+        public double FallbackIconOpacity => ImageSource is null ? 1 : 0;
 
         public string TypeText => $"({Template.Type})";
     }

@@ -1,11 +1,7 @@
 <UserControl x:Class="ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate.AddFeaturesWithSharedTemplate"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013"
-             xmlns:converters="clr-namespace:ArcGIS.WPF.Viewer.Converters">
-    <UserControl.Resources>
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter" />
-    </UserControl.Resources>
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border MaxWidth="270"
@@ -50,9 +46,10 @@
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
-                <StackPanel Margin="0,8,0,0"
+                <StackPanel x:Name="DrawingButtonsPanel"
+                            Margin="0,8,0,0"
                             Orientation="Horizontal"
-                            Visibility="{Binding GeometryEditor.IsStarted, ElementName=MyMapView, Converter={StaticResource BoolToVisibilityConverter}}">
+                            Visibility="Collapsed">
                     <Button Margin="0,0,6,0" Click="OnGeometryEditorCompleted" Content="Complete" />
                     <Button Click="OnGeometryEditorCanceled" Content="Cancel" />
                 </StackPanel>

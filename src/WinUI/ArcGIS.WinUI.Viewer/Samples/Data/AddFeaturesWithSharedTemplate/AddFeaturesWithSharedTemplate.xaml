@@ -29,7 +29,7 @@
                                                    VerticalAlignment="Center"
                                                    FontSize="24"
                                                    FontFamily="{StaticResource CalciteUIIconsMediumFontFamily}"
-                                                   Opacity="{Binding FallbackOpacity}"
+                                                   Opacity="{Binding FallbackIconOpacity}"
                                                    Text="{StaticResource CalciteUIIcons_Glyph_AddFeatures}" />
                                         <Image HorizontalAlignment="Stretch"
                                                VerticalAlignment="Stretch"

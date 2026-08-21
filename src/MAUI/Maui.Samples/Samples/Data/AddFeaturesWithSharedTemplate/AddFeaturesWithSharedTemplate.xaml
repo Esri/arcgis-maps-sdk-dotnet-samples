@@ -12,18 +12,16 @@
                <CollectionView x:Name="TemplatePicker"
                                HeightRequest="120"
                                IsVisible="False"
-                               SelectionMode="None">
+                               SelectionChanged="OnSharedTemplateSelected"
+                               SelectionMode="Single">
                    <CollectionView.ItemTemplate>
                        <DataTemplate>
                            <Border Margin="0,3"
                                    Padding="10,6"
                                    BackgroundColor="{AppThemeBinding Dark=#333333, Light=#E0E0E0}"
+                                   InputTransparent="{OnPlatform Android=True, Default=False}"
                                    StrokeThickness="0"
                                    ToolTipProperties.Text="{Binding Template.Description}">
-                               <Border.GestureRecognizers>
-                                   <TapGestureRecognizer CommandParameter="{Binding}"
-                                                         Tapped="OnSharedTemplateTapped" />
-                               </Border.GestureRecognizers>
                                <Grid ColumnDefinitions="44,*">
                                    <Image WidthRequest="36"
                                           HeightRequest="36"

@@ -33,7 +33,7 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
         tags: new[] { "edit", "feature", "group", "preset", "shared template", "shared template source", "template" })]
     public partial class AddFeaturesWithSharedTemplate
     {
-        private static string Instruction = "Click on a shared template to create features.";
+        private const string Instruction = "Click on a shared template to create features.";
         private TemplatePickerItem? _activeTemplateItem = null;
 
         public AddFeaturesWithSharedTemplate()
@@ -137,7 +137,8 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
                 PendingEditsPanel.Visibility = Visibility.Collapsed;
             }
             MyMapView.GeometryEditor?.Stop();
-            StatusTextBlock.Text = string.Format("{0} {1}", status, Instruction);
+            DrawingButtonsPanel.Visibility = Visibility.Collapsed;
+            StatusTextBlock.Text = $"{status} {Instruction}";
         }
 
         private void OnSharedTemplateClicked(object sender, RoutedEventArgs e)
@@ -153,6 +154,7 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
             try
             {
                 TemplatePicker.Visibility = Visibility.Collapsed;
+                DrawingButtonsPanel.Visibility = Visibility.Visible;
                 _activeTemplateItem = templateItem;
 
                 GeometryConstructionToolType constructionToolType = _activeTemplateItem.Template.GetDefaultConstructionTool(_activeTemplateItem.LayerId)?.ToolType 
@@ -166,14 +168,9 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
                     _ => throw new NotSupportedException($"The {constructionToolType} geometry construction tool is not supported by this sample.")
                 };
 
-                if (geometryType == GeometryType.Point)
-                {
-                    StatusTextBlock.Text = "Place a point, then click Complete or Cancel.";
-                }
-                else
-                {
-                    StatusTextBlock.Text = "Sketch a line, then click Complete or Cancel.";
-                }
+                StatusTextBlock.Text = geometryType == GeometryType.Point
+                    ? "Place a point, then click Complete or Cancel."
+                    : "Sketch a line, then click Complete or Cancel.";
 
                 geometryEditor.Tool = new VertexTool();
                 geometryEditor.Start(geometryType);
@@ -195,6 +192,7 @@ namespace ArcGIS.WPF.Samples.AddFeaturesWithSharedTemplate
             }
 
             Geometry? geometry = geometryEditor.Stop();
+            DrawingButtonsPanel.Visibility = Visibility.Collapsed;
 
             if (geometry is null || geometry.IsEmpty)
             {

@@ -24,7 +24,7 @@ namespace ArcGIS.Samples.AddFeaturesWithSharedTemplate
         tags: new[] { "edit", "feature", "group", "preset", "shared template", "shared template source", "template" })]
     public partial class AddFeaturesWithSharedTemplate : ContentPage
     {
-        private const string Instruction = "Click on a shared template to create features.";
+        private const string Instruction = "Select a shared template to create features.";
         private TemplatePickerItem _activeTemplateItem;
 
         public AddFeaturesWithSharedTemplate()
@@ -130,15 +130,16 @@ namespace ArcGIS.Samples.AddFeaturesWithSharedTemplate
             StatusLabel.Text = $"{status} {Instruction}";
         }
 
-        private async void OnSharedTemplateTapped(object sender, TappedEventArgs e)
+        private async void OnSharedTemplateSelected(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is not TapGestureRecognizer tapGesture
-                || tapGesture.CommandParameter is not TemplatePickerItem templateItem
+            if (e.CurrentSelection.FirstOrDefault() is not TemplatePickerItem templateItem
                 || MyMapView.GeometryEditor is not GeometryEditor geometryEditor
                 || geometryEditor.IsStarted)
             {
                 return;
             }
+
+            TemplatePicker.SelectedItem = null;
 
             try
             {

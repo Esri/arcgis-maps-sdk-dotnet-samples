@@ -56,7 +56,7 @@ namespace ArcGIS.WPF.Samples.ApplyPointCloudRendererAndFilter
             // Load the layer to populate the attribute schema used by the renderers and filters.
             await _pointCloudLayer.LoadAsync();
 
-            // Read each point's packed color from the RGB attribute.
+            // Render each point using its RGB attribute.
             PointCloudRGBRenderer rgbRenderer = new PointCloudRGBRenderer("RGB");
 
             // Map continuous ELEVATION values through a blue-to-red color ramp.

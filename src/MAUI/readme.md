@@ -36,6 +36,7 @@
 * [Manage features](Maui.Samples/Samples/Data/ManageFeatures) - Create, update, and delete features to manage a feature layer.
 * [Query features with Arcade expression](Maui.Samples/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
 * [Read shapefile metadata](Maui.Samples/Samples/Data/ReadShapefileMetadata) - Read a shapefile and display its metadata.
+* [Show popup](Maui.Samples/Samples/Data/ShowPopup) - Show predefined popups from a web map.
 * [Statistical query](Maui.Samples/Samples/Data/StatisticalQuery) - Query a table to get aggregated statistics back for a specific field.
 * [Statistical query group and sort](Maui.Samples/Samples/Data/StatsQueryGroupAndSort) - Query a feature table for statistics, grouping and sorting by different fields.
 * [Symbolize shapefile](Maui.Samples/Samples/Data/SymbolizeShapefile) - Display a shapefile with custom symbology.

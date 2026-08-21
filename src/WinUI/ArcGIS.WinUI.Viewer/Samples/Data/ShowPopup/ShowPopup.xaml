@@ -1,0 +1,21 @@
+<UserControl 
+    x:Class="ArcGIS.WinUI.Samples.ShowPopup.ShowPopup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:esriTK="using:Esri.ArcGISRuntime.Toolkit.UI.Controls"
+    xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+        <esriUI:MapView x:Name="MyMapView" />
+        <esriTK:PopupViewer x:Name="PopupViewer"
+                            Grid.Column="1"
+                            Width="400"
+                            Padding="10"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Visibility="Collapsed" />
+    </Grid>
+</UserControl>

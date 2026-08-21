@@ -13,8 +13,8 @@
 		</Category>
 		<Category name="Data">
 			<Sample>CreateKmlMultiTrack</Sample>
-			<Sample>ManageFeatures</Sample>
 			<Sample>EditFeaturesUsingFeatureForms</Sample>
+			<Sample>ManageFeatures</Sample>
 		</Category>
 		<Category name="Geometry">
 			<Sample>CreateAndEditGeometries</Sample>

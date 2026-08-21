@@ -1,0 +1,72 @@
+<UserControl x:Class="ArcGIS.WinUI.Samples.AddFeaturesWithSharedTemplate.AddFeaturesWithSharedTemplate"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock x:Name="StatusTextBlock"
+                           Text="Loading shared templates..."
+                           TextWrapping="Wrap" />
+                <ItemsControl x:Name="TemplatePicker"
+                              Margin="0,8,0,0"
+                              Visibility="Collapsed">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Stretch"
+                                    Click="OnSharedTemplateClicked"
+                                    Tag="{Binding}"
+                                    ToolTipService.ToolTip="{Binding Template.Description}">
+                                <Grid Margin="0,3">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="44" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid Width="36" Height="36">
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center"
+                                                   FontSize="24"
+                                                   FontFamily="{StaticResource CalciteUIIconsMediumFontFamily}"
+                                                   Opacity="{Binding FallbackIconOpacity}"
+                                                   Text="{StaticResource CalciteUIIcons_Glyph_AddFeatures}" />
+                                        <Image HorizontalAlignment="Stretch"
+                                               VerticalAlignment="Stretch"
+                                               Source="{Binding ImageSource}" />
+                                    </Grid>
+                                    <StackPanel Grid.Column="1"
+                                                Margin="6,0,0,0"
+                                                VerticalAlignment="Center">
+                                        <TextBlock FontWeight="SemiBold"
+                                                   Text="{Binding Template.Name}"
+                                                   TextWrapping="Wrap" />
+                                        <TextBlock Text="{Binding TypeText}" />
+                                    </StackPanel>
+                                </Grid>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <StackPanel x:Name="DrawingButtonsPanel"
+                            Margin="0,8,0,0"
+                            Orientation="Horizontal"
+                            Visibility="Collapsed">
+                    <Button Margin="0,0,6,0"
+                            Click="OnGeometryEditorCompleted"
+                            Content="Complete" />
+                    <Button Click="OnGeometryEditorCanceled" Content="Cancel" />
+                </StackPanel>
+                <StackPanel x:Name="PendingEditsPanel"
+                            Margin="0,8,0,0"
+                            Orientation="Horizontal"
+                            Visibility="Collapsed">
+                    <Button Margin="0,0,6,0"
+                            Click="OnEditsSaved"
+                            Content="Save" />
+                    <Button Click="OnEditsUndone" Content="Undo" />
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

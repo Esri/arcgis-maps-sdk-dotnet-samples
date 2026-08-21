@@ -12,9 +12,10 @@
 			<Sample>ShowLineOfSightAnalysisOnMap</Sample>
 		</Category>
 		<Category name="Data">
+			<Sample>AddFeaturesWithSharedTemplate</Sample>
 			<Sample>CreateKmlMultiTrack</Sample>
-			<Sample>ManageFeatures</Sample>
 			<Sample>EditFeaturesUsingFeatureForms</Sample>
+			<Sample>ManageFeatures</Sample>
 		</Category>
 		<Category name="Geometry">
 			<Sample>CreateAndEditGeometries</Sample>

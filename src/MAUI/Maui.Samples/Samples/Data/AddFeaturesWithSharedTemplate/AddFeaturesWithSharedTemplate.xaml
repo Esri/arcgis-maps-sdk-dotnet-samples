@@ -1,0 +1,57 @@
+﻿<ContentPage x:Class="ArcGIS.Samples.AddFeaturesWithSharedTemplate.AddFeaturesWithSharedTemplate"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <VerticalStackLayout Spacing="8">
+               <Label x:Name="StatusLabel"
+                      Text="Loading shared templates..."
+                      LineBreakMode="WordWrap" />
+               <CollectionView x:Name="TemplatePicker"
+                               HeightRequest="120"
+                               IsVisible="False"
+                               SelectionChanged="OnSharedTemplateSelected"
+                               SelectionMode="Single">
+                   <CollectionView.ItemTemplate>
+                       <DataTemplate>
+                           <Border Margin="0,3"
+                                   Padding="10,6"
+                                   BackgroundColor="{AppThemeBinding Dark=#333333, Light=#E0E0E0}"
+                                   InputTransparent="{OnPlatform Android=True, Default=False}"
+                                   StrokeThickness="0"
+                                   ToolTipProperties.Text="{Binding Template.Description}">
+                               <Grid ColumnDefinitions="44,*">
+                                   <Image WidthRequest="36"
+                                          HeightRequest="36"
+                                          Aspect="AspectFit"
+                                          Source="{Binding ImageSource}" />
+                                   <VerticalStackLayout Grid.Column="1"
+                                                        VerticalOptions="Center">
+                                       <Label FontAttributes="Bold"
+                                              LineBreakMode="TailTruncation"
+                                              Text="{Binding Template.Name}" />
+                                       <Label Text="{Binding TypeText}" />
+                                   </VerticalStackLayout>
+                               </Grid>
+                           </Border>
+                       </DataTemplate>
+                   </CollectionView.ItemTemplate>
+               </CollectionView>
+               <HorizontalStackLayout x:Name="DrawingButtonsPanel"
+                                      IsVisible="False"
+                                      Spacing="6">
+                   <Button Clicked="OnGeometryEditorCompleted" Text="Complete" />
+                   <Button Clicked="OnGeometryEditorCanceled" Text="Cancel" />
+               </HorizontalStackLayout>
+               <HorizontalStackLayout x:Name="PendingEditsPanel"
+                                      IsVisible="False"
+                                      Spacing="6">
+                   <Button Clicked="OnEditsSaved" Text="Save" />
+                   <Button Clicked="OnEditsUndone" Text="Undo" />
+               </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

@@ -35,8 +35,6 @@ namespace ArcGIS.WinUI.Samples.ApplyPointCloudRendererAndFilter
         private PointCloudLayer _pointCloudLayer;
         private PointCloudRenderer[] _renderers;
 
-        private bool _isUpdatingBitfieldControls;
-
         public ApplyPointCloudRendererAndFilter()
         {
             InitializeComponent();
@@ -331,12 +329,11 @@ namespace ArcGIS.WinUI.Samples.ApplyPointCloudRendererAndFilter
 
         private void BitfieldFilterCheckBox_CheckedChanged(object sender, RoutedEventArgs e)
         {
-            if (_pointCloudLayer == null || _isUpdatingBitfieldControls)
+            if (_pointCloudLayer == null)
             {
                 return;
             }
 
-            _isUpdatingBitfieldControls = true;
             if (ReferenceEquals(sender, RequireSetCheckBox) && RequireSetCheckBox.IsChecked == true)
             {
                 RequireClearCheckBox.IsChecked = false;
@@ -345,7 +342,6 @@ namespace ArcGIS.WinUI.Samples.ApplyPointCloudRendererAndFilter
             {
                 RequireSetCheckBox.IsChecked = false;
             }
-            _isUpdatingBitfieldControls = false;
 
             UpdateBitfieldFilter();
         }
@@ -403,10 +399,8 @@ namespace ArcGIS.WinUI.Samples.ApplyPointCloudRendererAndFilter
 
         private void ClearBitfieldFilterButton_Click(object sender, RoutedEventArgs e)
         {
-            _isUpdatingBitfieldControls = true;
             RequireSetCheckBox.IsChecked = false;
             RequireClearCheckBox.IsChecked = false;
-            _isUpdatingBitfieldControls = false;
             UpdateBitfieldFilter();
         }
     }

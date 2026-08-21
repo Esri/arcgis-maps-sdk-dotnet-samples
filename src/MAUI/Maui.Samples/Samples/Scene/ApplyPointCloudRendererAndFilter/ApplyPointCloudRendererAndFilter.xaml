@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.ApplyPointCloudRendererAndFilter.ApplyPointCloudRendererAndFilter"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:LocalSceneView x:Name="MySceneView"
+                               Style="{DynamicResource EsriSampleGeoView}" />
+
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <ScrollView MaximumHeightRequest="500">
+                <VerticalStackLayout Padding="5" Spacing="8">
+                    <Label FontAttributes="Bold"
+                           FontSize="16"
+                           Text="Rendering" />
+
+                    <Border Padding="8" Stroke="Gray">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Renderer" />
+                            <RadioButton x:Name="RgbRendererRadioButton"
+                                         CheckedChanged="RendererRadioButton_CheckedChanged"
+                                         Content="RGB"
+                                         GroupName="Renderer"
+                                         IsChecked="True" />
+                            <RadioButton x:Name="StretchRendererRadioButton"
+                                         CheckedChanged="RendererRadioButton_CheckedChanged"
+                                         Content="Stretch"
+                                         GroupName="Renderer" />
+                            <RadioButton x:Name="ClassBreaksRendererRadioButton"
+                                         CheckedChanged="RendererRadioButton_CheckedChanged"
+                                         Content="Class breaks"
+                                         GroupName="Renderer" />
+                            <RadioButton x:Name="UniqueValueRendererRadioButton"
+                                         CheckedChanged="RendererRadioButton_CheckedChanged"
+                                         Content="Unique value"
+                                         GroupName="Renderer" />
+
+                            <Label Margin="0,6,0,0" Text="Point size" />
+                            <Slider x:Name="PointSizeSlider"
+                                    Maximum="5"
+                                    Minimum="0.5"
+                                    Value="1"
+                                    ValueChanged="PointSizeSlider_ValueChanged" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Label FontAttributes="Bold"
+                           FontSize="16"
+                           Text="Filtering" />
+
+                    <Border Padding="8" Stroke="Gray">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Value filter" />
+                            <Label FontAttributes="Bold" Text="Filter mode" />
+                            <Grid ColumnDefinitions="*,*">
+                                <RadioButton x:Name="IncludeValueFilterRadioButton"
+                                             CheckedChanged="ValueFilterModeRadioButton_CheckedChanged"
+                                             Content="Include selected"
+                                             GroupName="ValueFilterMode"
+                                             IsChecked="True" />
+                                <RadioButton x:Name="ExcludeValueFilterRadioButton"
+                                             Grid.Column="1"
+                                             CheckedChanged="ValueFilterModeRadioButton_CheckedChanged"
+                                             Content="Exclude selected"
+                                             GroupName="ValueFilterMode" />
+                            </Grid>
+                            <HorizontalStackLayout Spacing="4">
+                                <CheckBox x:Name="GroundCheckBox"
+                                          CheckedChanged="ValueFilterCheckBox_CheckedChanged" />
+                                <Label Text="Ground" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="4">
+                                <CheckBox x:Name="HighVegetationCheckBox"
+                                          CheckedChanged="ValueFilterCheckBox_CheckedChanged" />
+                                <Label Text="High vegetation" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="4">
+                                <CheckBox x:Name="BuildingCheckBox"
+                                          CheckedChanged="ValueFilterCheckBox_CheckedChanged" />
+                                <Label Text="Building" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <Button Margin="0,4,0,0"
+                                    Clicked="ClearValueFilterButton_Clicked"
+                                    Text="Clear value filter" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Padding="8" Stroke="Gray">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Return filter" />
+                            <HorizontalStackLayout Spacing="4">
+                                <CheckBox x:Name="FirstOfManyCheckBox"
+                                          CheckedChanged="ReturnFilterCheckBox_CheckedChanged" />
+                                <Label Text="First of many" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="4">
+                                <CheckBox x:Name="LastCheckBox"
+                                          CheckedChanged="ReturnFilterCheckBox_CheckedChanged" />
+                                <Label Text="Last" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="4">
+                                <CheckBox x:Name="LastOfManyCheckBox"
+                                          CheckedChanged="ReturnFilterCheckBox_CheckedChanged" />
+                                <Label Text="Last of many" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <HorizontalStackLayout Spacing="4">
+                                <CheckBox x:Name="SingleCheckBox"
+                                          CheckedChanged="ReturnFilterCheckBox_CheckedChanged" />
+                                <Label Text="Single" VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+                            <Button Margin="0,4,0,0"
+                                    Clicked="ClearReturnFilterButton_Clicked"
+                                    Text="Clear return filter" />
+                        </VerticalStackLayout>
+                    </Border>
+
+                    <Border Padding="8" Stroke="Gray">
+                        <VerticalStackLayout Spacing="2">
+                            <Label Text="Bitfield filter" />
+                            <Label Text="Scan direction flag (bit 6)" />
+                            <Grid ColumnDefinitions="*,*">
+                                <HorizontalStackLayout Spacing="4">
+                                    <CheckBox x:Name="RequireSetCheckBox"
+                                              CheckedChanged="BitfieldFilterCheckBox_CheckedChanged" />
+                                    <Label Text="Require set" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Grid.Column="1" Spacing="4">
+                                    <CheckBox x:Name="RequireClearCheckBox"
+                                              CheckedChanged="BitfieldFilterCheckBox_CheckedChanged" />
+                                    <Label Text="Require clear" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                            </Grid>
+                            <Button Margin="0,4,0,0"
+                                    Clicked="ClearBitfieldFilterButton_Clicked"
+                                    Text="Clear bitfield filter" />
+                        </VerticalStackLayout>
+                    </Border>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+    </Grid>
+</ContentPage>

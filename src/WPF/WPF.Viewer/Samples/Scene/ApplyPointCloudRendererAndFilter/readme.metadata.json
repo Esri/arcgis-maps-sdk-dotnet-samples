@@ -1,0 +1,40 @@
+{
+    "category": "Scene",
+    "description": "Visualize point cloud data using different renderers and filters.",
+    "formal_name": "ApplyPointCloudRendererAndFilter",
+    "ignore": false,
+    "images": [
+        "ApplyPointCloudRendererAndFilter.jpg"
+    ],
+    "keywords": [
+        "3D",
+        "classification",
+        "filter",
+        "lidar",
+        "point cloud",
+        "renderer",
+        "scene layer",
+        "visualization"
+    ],
+    "offline_data": [],
+    "redirect_from": [],
+    "relevant_apis": [
+        "PointCloudBitfieldFilter",
+        "PointCloudClassBreaksRenderer",
+        "PointCloudColorClassBreak",
+        "PointCloudColorStop",
+        "PointCloudColorUniqueValue",
+        "PointCloudLayer",
+        "PointCloudRGBRenderer",
+        "PointCloudReturnFilter",
+        "PointCloudSplatAlgorithm",
+        "PointCloudStretchRenderer",
+        "PointCloudUniqueValueRenderer",
+        "PointCloudValueFilter"
+    ],
+    "snippets": [
+        "ApplyPointCloudRendererAndFilter.xaml.cs",
+        "ApplyPointCloudRendererAndFilter.xaml"
+    ],
+    "title": "Apply point cloud renderer and filter"
+}

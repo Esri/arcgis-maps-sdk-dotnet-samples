@@ -4,18 +4,18 @@
       xmlns:arcgisruntime="using:ArcGIS"
       xmlns:winui="using:Microsoft.UI.Xaml.Controls"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <winui:TabView x:Name="Tabs">
-        <winui:TabViewItem Header="About">
+    <winui:TabView x:Name="Tabs" IsAddTabButtonVisible="False">
+        <winui:TabViewItem Header="About" IsClosable="False">
             <WebView x:Name="AboutBlock"
                      Margin="5"
                      DefaultBackgroundColor="Transparent" />
         </winui:TabViewItem>
-        <winui:TabViewItem Header="Third party software">
+        <winui:TabViewItem Header="Third party software" IsClosable="False">
             <WebView x:Name="LicensesBlock"
                      Margin="5"
                      DefaultBackgroundColor="Transparent" />
         </winui:TabViewItem>
-        <winui:TabViewItem Header="Offline data">
+        <winui:TabViewItem Header="Offline data" IsClosable="False">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -108,7 +108,7 @@
                 </Grid>
             </Grid>
         </winui:TabViewItem>
-        <winui:TabViewItem Header="API Key">
+        <winui:TabViewItem Header="API Key" IsClosable="False">
             <arcgisruntime:ApiKeyPrompt />
         </winui:TabViewItem>
     </winui:TabView>

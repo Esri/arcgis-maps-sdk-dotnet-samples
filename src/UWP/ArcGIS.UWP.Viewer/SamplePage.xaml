@@ -34,10 +34,11 @@
             Grid.Row="0"
             Grid.Column="1"
             HorizontalAlignment="Right"
-            SelectionChanged="TabChanged">
-            <winui:TabViewItem FontSize="20" Header="Live Sample" />
-            <winui:TabViewItem FontSize="20" Header="Description" />
-            <winui:TabViewItem FontSize="20" Header="Source Code" />
+            SelectionChanged="TabChanged"
+            IsAddTabButtonVisible="False">
+            <winui:TabViewItem FontSize="20" Header="Live Sample" IsClosable="False" />
+            <winui:TabViewItem FontSize="20" Header="Description" IsClosable="False" />
+            <winui:TabViewItem FontSize="20" Header="Source Code" IsClosable="False" />
         </winui:TabView>
 
         <Grid

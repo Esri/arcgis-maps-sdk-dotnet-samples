@@ -55,7 +55,7 @@ namespace ArcGIS.UWP.Viewer
                 string source = File.ReadAllText(filepath);
 
                 // Create a new tab.
-                TabViewItem newTab = new TabViewItem();
+                TabViewItem newTab = new TabViewItem() { IsClosable = false };
 
                 // Set the tab text to the file name.
                 newTab.Header = Path.GetFileName(filepath);

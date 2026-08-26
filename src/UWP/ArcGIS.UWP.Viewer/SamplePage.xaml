@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:winui="using:Microsoft.UI.Xaml.Controls"
     xmlns:local="using:ArcGIS.UWP.Viewer">
 
     <Grid Name="MainGrid">
@@ -28,17 +29,17 @@
             FontWeight="Bold"
             Text="{Binding SampleName}" />
 
-        <controls:TabView
+        <winui:TabView
             x:Name="Tabs"
             Grid.Row="0"
             Grid.Column="1"
             HorizontalAlignment="Right"
             SelectionChanged="TabChanged"
-            TabWidthBehavior="Actual">
-            <controls:TabViewItem FontSize="20" Header="Live Sample" />
-            <controls:TabViewItem FontSize="20" Header="Description" />
-            <controls:TabViewItem FontSize="20" Header="Source Code" />
-        </controls:TabView>
+            IsAddTabButtonVisible="False">
+            <winui:TabViewItem FontSize="20" Header="Live Sample" IsClosable="False" />
+            <winui:TabViewItem FontSize="20" Header="Description" IsClosable="False" />
+            <winui:TabViewItem FontSize="20" Header="Source Code" IsClosable="False" />
+        </winui:TabView>
 
         <Grid
             x:Name="ContentArea"

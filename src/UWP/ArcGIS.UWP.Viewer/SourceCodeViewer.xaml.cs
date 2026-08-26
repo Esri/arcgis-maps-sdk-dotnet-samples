@@ -8,7 +8,7 @@
 // language governing permissions and limitations under the License.
 
 using ArcGIS.Samples.Managers;
-using Microsoft.Toolkit.Uwp.UI.Controls;
+using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -55,7 +55,7 @@ namespace ArcGIS.UWP.Viewer
                 string source = File.ReadAllText(filepath);
 
                 // Create a new tab.
-                TabViewItem newTab = new TabViewItem();
+                TabViewItem newTab = new TabViewItem() { IsClosable = false };
 
                 // Set the tab text to the file name.
                 newTab.Header = Path.GetFileName(filepath);
@@ -83,7 +83,7 @@ namespace ArcGIS.UWP.Viewer
             }
 
             // Set the Tab source to the list of tabs.
-            Tabs.ItemsSource = tabs;
+            Tabs.TabItemsSource = tabs;
         }
     }
 }

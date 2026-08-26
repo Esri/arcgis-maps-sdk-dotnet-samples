@@ -2,20 +2,20 @@
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:arcgisruntime="using:ArcGIS"
-      xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+      xmlns:winui="using:Microsoft.UI.Xaml.Controls"
       Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-    <controls:TabView x:Name="Tabs">
-        <controls:TabViewItem Header="About">
+    <winui:TabView x:Name="Tabs" IsAddTabButtonVisible="False">
+        <winui:TabViewItem Header="About" IsClosable="False">
             <WebView x:Name="AboutBlock"
                      Margin="5"
                      DefaultBackgroundColor="Transparent" />
-        </controls:TabViewItem>
-        <controls:TabViewItem Header="Third party software">
+        </winui:TabViewItem>
+        <winui:TabViewItem Header="Third party software" IsClosable="False">
             <WebView x:Name="LicensesBlock"
                      Margin="5"
                      DefaultBackgroundColor="Transparent" />
-        </controls:TabViewItem>
-        <controls:TabViewItem Header="Offline data">
+        </winui:TabViewItem>
+        <winui:TabViewItem Header="Offline data" IsClosable="False">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -107,9 +107,9 @@
                                  Visibility="Collapsed" />
                 </Grid>
             </Grid>
-        </controls:TabViewItem>
-        <controls:TabViewItem Header="API Key">
+        </winui:TabViewItem>
+        <winui:TabViewItem Header="API Key" IsClosable="False">
             <arcgisruntime:ApiKeyPrompt />
-        </controls:TabViewItem>
-    </controls:TabView>
+        </winui:TabViewItem>
+    </winui:TabView>
 </Page>

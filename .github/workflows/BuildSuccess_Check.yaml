@@ -28,6 +28,15 @@ jobs:
     - name: Install MAUI Workload
       run: dotnet workload install maui
 
+    # Platforms are in order from quickest build to slowest
+    - name: Build MAUI (iOS)
+      run: |
+        dotnet build src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -c Release -f net10.0-ios
+
+    - name: Build MAUI (Mac)
+      run: |
+        dotnet build src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -c Release -f net10.0-maccatalyst
+
     - name: Build MAUI (Windows)
       run: |
         dotnet build src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -c Release -f net10.0-windows10.0.19041.0
@@ -35,14 +44,6 @@ jobs:
     - name: Build MAUI (Android)
       run: |
         dotnet build src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -c Release -f net10.0-android
-    
-    - name: Build MAUI (iOS)
-      run: |
-        dotnet build src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -c Release -f net10.0-ios
-    
-    - name: Build MAUI (Mac)
-      run: |
-        dotnet build src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -c Release -f net10.0-maccatalyst
 
 
 # WPF .NET Build
@@ -59,7 +60,6 @@ jobs:
     - name: Build WPF .NET
       run: |
         msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.Net.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true /p:Platform=x64
-        msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.Net.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true /p:Platform=arm64
 
 
 # WinUI Build
@@ -76,6 +76,6 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Build WinUI
+      # The command sets output paths to the repository root since WinUI often runs into path length problems
       run: |
-        dotnet build src\WinUI\ArcGIS.WinUI.Viewer\ArcGIS.WinUI.Viewer.csproj -c Release -r win-x64
-        dotnet build src\WinUI\ArcGIS.WinUI.Viewer\ArcGIS.WinUI.Viewer.csproj -c Release -r win-arm64
+        dotnet build src\WinUI\ArcGIS.WinUI.Viewer\ArcGIS.WinUI.Viewer.csproj -c Release -r win-x64 -p:IntermediateOutputPath=..\..\..\..\obj\ -p:BaseOutputPath=..\..\..\..\bin\

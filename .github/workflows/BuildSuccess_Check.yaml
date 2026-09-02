@@ -20,26 +20,30 @@ jobs:
     - name: Clone .NET Samples
       uses: actions/checkout@v6
 
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v6
+      with:
+        dotnet-version: 10.0.x
+
     - name: Install MAUI Workload
       run: dotnet workload install maui
 
-    - name: Setup Visual Studio Command Prompt
-      uses: microsoft/setup-msbuild@v2
-    - name: Build MAUI (Windows)
-      run: |
-        msbuild /restore /t:Build src/MAUI/ArcGIS.Samples.MAUI.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true /p:TargetFramework=net9.0-windows10.0.19041.0 /p:RuntimeIdentifier=win10-x64 /p:RuntimeIdentifierOverride=win10-x64 /p:UseRidGraph=true
-    
-    - name: Build MAUI (Android)
-      run: |
-        msbuild /restore /t:Build src/MAUI/ArcGIS.Samples.MAUI.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true /p:TargetFramework=net9.0-android
-    
+    # Platforms are in order from quickest build to slowest
     - name: Build MAUI (iOS)
       run: |
-        msbuild /restore /t:Build src/MAUI/ArcGIS.Samples.MAUI.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true /p:TargetFramework=net9.0-ios
-    
+        dotnet build src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -c Release -f net10.0-ios
+
     - name: Build MAUI (Mac)
       run: |
-        msbuild /restore /t:Build src/MAUI/ArcGIS.Samples.MAUI.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true /p:TargetFramework=net9.0-maccatalyst
+        dotnet build src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -c Release -f net10.0-maccatalyst
+
+    - name: Build MAUI (Windows)
+      run: |
+        dotnet build src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -c Release -f net10.0-windows10.0.19041.0
+
+    - name: Build MAUI (Android)
+      run: |
+        dotnet build src\MAUI\Maui.Samples\ArcGIS.Samples.Maui.csproj -c Release -f net10.0-android
 
 
 # WPF .NET Build
@@ -51,11 +55,11 @@ jobs:
       uses: actions/checkout@v6
     
     - name: Setup Visual Studio Command Prompt
-      uses: microsoft/setup-msbuild@v2
+      uses: microsoft/setup-msbuild@v3
 
     - name: Build WPF .NET
       run: |
-        msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.Net.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true
+        msbuild /restore /t:Build src/WPF/ArcGIS.WPF.Viewer.Net.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true /p:Platform=x64
 
 
 # WinUI Build
@@ -66,9 +70,12 @@ jobs:
     - name: Clone .NET Samples
       uses: actions/checkout@v6
     
-    - name: Setup Visual Studio Command Prompt
-      uses: microsoft/setup-msbuild@v2
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v6
+      with:
+        dotnet-version: 8.0.x
 
     - name: Build WinUI
+      # The command sets output paths to the repository root since WinUI often runs into path length problems
       run: |
-        msbuild /restore /t:Build src/WinUI/ArcGIS.WinUI.Viewer.sln /p:Configuration=Release /p:CentralPackageManagementEnabled=true
+        dotnet build src\WinUI\ArcGIS.WinUI.Viewer\ArcGIS.WinUI.Viewer.csproj -c Release -r win-x64 -p:IntermediateOutputPath=..\..\..\..\obj\ -p:BaseOutputPath=..\..\..\..\bin\

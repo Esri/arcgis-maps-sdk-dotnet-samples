@@ -5,37 +5,44 @@
     <Grid>
         <esri:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <StackPanel>
-                <StackPanel Margin="5">
-                    <ListView x:Name="BasemapStyleGallery"
-                              MaxHeight="500"
-                              SelectionMode="Single">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Margin="5">
-                                    <Label Content="{Binding StyleName}" FontWeight="Bold" />
-                                    <Image Height="125"
-                                           HorizontalAlignment="Left"
-                                           Source="{Binding Thumbnail.Source}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <Label Content="Language strategy:" FontWeight="Bold" />
-                    <ComboBox x:Name="StrategyPicker" IsEnabled="False" />
-                    <Label Content="Language:" FontWeight="Bold" />
-                    <ComboBox x:Name="LanguagePicker"
-                              DisplayMemberPath="DisplayName"
-                              IsEnabled="False" />
-                    <Label Content="Worldview:" FontWeight="Bold" />
-                    <ComboBox x:Name="WorldviewPicker"
-                              DisplayMemberPath="DisplayName"
-                              IsEnabled="False" />
-                    <Button Margin="0,10,0,0"
-                            Click="LoadButton_Click"
-                            Content="Load" />
-                </StackPanel>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ListView x:Name="BasemapStyleGallery"
+                          SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5">
+                                <Label Content="{Binding StyleName}" FontWeight="Bold" />
+                                <Image Height="100"
+                                       HorizontalAlignment="Left"
+                                       Source="{Binding Thumbnail.Source}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <Label Content="Language strategy:" FontWeight="Bold" />
+                        <ComboBox x:Name="StrategyPicker" IsEnabled="False" />
+                        <Label Content="Language:" FontWeight="Bold" />
+                        <ComboBox x:Name="LanguagePicker"
+                                  DisplayMemberPath="DisplayName"
+                                  IsEnabled="False" />
+                        <Label Content="Worldview:" FontWeight="Bold" />
+                        <ComboBox x:Name="WorldviewPicker"
+                                  DisplayMemberPath="DisplayName"
+                                  IsEnabled="False" />
+                        <Button Margin="0,10,0,0"
+                                Click="LoadButton_Click"
+                                Content="Load" />
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

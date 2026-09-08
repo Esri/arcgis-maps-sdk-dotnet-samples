@@ -2,6 +2,7 @@
 
 ## Accessibility
 
+* [Navigate map view and identify features with keyboard](ArcGIS.WinUI.Viewer/Samples/Accessibility/NavigateMapViewAndIdentifyFeaturesWithKeyboard) - Perform all map navigation operations using only the keyboard.
 * [Update basemap for contrast accessibility](ArcGIS.WinUI.Viewer/Samples/Accessibility/UpdateBasemapForContrastAccessibility) - Display a map view that updates between authored light, dark, and high-contrast basemaps.
 
 ## Analysis

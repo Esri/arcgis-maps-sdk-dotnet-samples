@@ -1,0 +1,37 @@
+{
+    "category": "Accessibility",
+    "description": "Perform all map navigation operations using only the keyboard.",
+    "formal_name": "NavigateMapViewAndIdentifyFeaturesWithKeyboard",
+    "ignore": false,
+    "images": [
+        "navigatemapviewandidentifyfeatureswithkeyboard.jpg"
+    ],
+    "keywords": [
+        "WCAG",
+        "accessibility",
+        "accessible",
+        "identify",
+        "inclusive",
+        "input",
+        "interaction",
+        "keyboard",
+        "navigation",
+        "selection"
+    ],
+    "offline_data": [],
+    "redirect_from": [],
+    "relevant_apis": [
+        "Envelope",
+        "FeatureLayer",
+        "Graphic",
+        "GraphicsOverlay",
+        "Map",
+        "MapView"
+    ],
+    "snippets": [
+        "NavigateMapViewAndIdentifyFeaturesWithKeyboard.xaml.cs",
+        "NavigateMapViewAndIdentifyFeaturesWithKeyboard.xaml",
+        "../../.././MauiProgram.cs"
+    ],
+    "title": "Navigate map view and identify features with keyboard"
+}

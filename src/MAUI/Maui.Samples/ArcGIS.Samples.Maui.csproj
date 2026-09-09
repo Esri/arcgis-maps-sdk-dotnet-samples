@@ -95,6 +95,9 @@
 	<None Remove="Samples\**\*.md" />
     <MauiAsset Include="Samples\**\*.md" />
     <MauiAsset Include="Converters\*.cs" />
+    <MauiAsset Include="MauiProgram.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </MauiAsset>
     <MauiImage Include="Samples\**\*.jpg" />
     <MauiAsset Include="Samples\**\*.cs" />
     <MauiAsset Include="Samples\**\*.xaml" />

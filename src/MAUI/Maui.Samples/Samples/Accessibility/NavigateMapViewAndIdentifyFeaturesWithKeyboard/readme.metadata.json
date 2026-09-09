@@ -30,7 +30,8 @@
     ],
     "snippets": [
         "NavigateMapViewAndIdentifyFeaturesWithKeyboard.xaml.cs",
-        "NavigateMapViewAndIdentifyFeaturesWithKeyboard.xaml"
+        "NavigateMapViewAndIdentifyFeaturesWithKeyboard.xaml",
+        "../../.././MauiProgram.cs"
     ],
     "title": "Navigate map view and identify features with keyboard"
 }

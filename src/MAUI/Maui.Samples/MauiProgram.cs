@@ -22,6 +22,12 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
             })
             .UseArcGISRuntime()
+            .ConfigureMauiHandlers(handlers =>
+            {
+                handlers.AddHandler<
+                    global::ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard.KeyboardMapView,
+                    global::ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard.KeyboardMapViewHandler>();
+            })
             .UseArcGISToolkit()
             .UseCalcite();
 

@@ -14,7 +14,6 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 #if IOS || MACCATALYST
 using Foundation;
-using ObjCRuntime;
 using UIKit;
 #endif
 
@@ -28,6 +27,7 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
         description: "Perform all map navigation operations using only the keyboard.",
         instructions: "When the sample is launched, a fixed area of interest appears centered over the map, and any features inside it are automatically selected and labeled <kbd>1</kbd> – <kbd>9</kbd>. As you navigate, the selection and labels update to match the features currently inside the area of interest. Use the arrow keys to pan and <kbd>+</kbd> / <kbd>-</kbd> to zoom. Use <kbd>Alt</kbd> + <kbd>←</kbd> / <kbd>→</kbd> to rotate, with <kbd>Alt</kbd> + <kbd>↑</kbd> resetting the map to north. Press <kbd>1</kbd> – <kbd>9</kbd> to show a callout for the matching numbered feature, and press <kbd>Esc</kbd> to dismiss the callout.",
         tags: new[] { "WCAG", "accessibility", "accessible", "identify", "inclusive", "input", "interaction", "keyboard", "navigation", "selection" })]
+    [ArcGIS.Samples.Shared.Attributes.ClassFile("./MauiProgram.cs")]
     public partial class NavigateMapViewAndIdentifyFeaturesWithKeyboard
     {
         // Attribute used to title and label each feature.
@@ -48,13 +48,13 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
 #if WINDOWS || ANDROID || IOS || MACCATALYST
         private Esri.ArcGISRuntime.UI.Controls.MapView _nativeMapView;
 #endif
-#if IOS || MACCATALYST
-        private KeyboardCommandView _keyboardCommandView;
-#endif
 
         public NavigateMapViewAndIdentifyFeaturesWithKeyboard()
         {
             InitializeComponent();
+#if IOS || MACCATALYST
+            MyMapView.AppleKeyDownHandler = OnAppleKeyDown;
+#endif
             Initialize();
         }
 
@@ -286,9 +286,6 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             _nativeMapView.Focusable = true;
             _nativeMapView.FocusableInTouchMode = true;
             _nativeMapView.KeyPress += OnNativeMapViewKeyPress;
-#elif IOS || MACCATALYST
-            _keyboardCommandView = new KeyboardCommandView(OnAppleKeyCommand);
-            _nativeMapView.AddSubview(_keyboardCommandView);
 #endif
             FocusKeyboardInput();
 #endif
@@ -303,11 +300,6 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             _nativeMapView.KeyDown -= OnNativeMapViewKeyDown;
 #elif ANDROID
             _nativeMapView.KeyPress -= OnNativeMapViewKeyPress;
-#elif IOS || MACCATALYST
-            _keyboardCommandView?.ResignFirstResponder();
-            _keyboardCommandView?.RemoveFromSuperview();
-            _keyboardCommandView?.Dispose();
-            _keyboardCommandView = null;
 #endif
             _nativeMapView = null;
 #endif
@@ -320,7 +312,7 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
 #elif ANDROID
             _nativeMapView?.RequestFocus();
 #elif IOS || MACCATALYST
-            _keyboardCommandView?.BecomeFirstResponder();
+            _nativeMapView?.BecomeFirstResponder();
 #endif
         }
 
@@ -375,53 +367,115 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             }
         }
 #elif IOS || MACCATALYST
-        private void OnAppleKeyCommand(string input)
+        private bool OnAppleKeyDown(string input)
         {
             if (input == "\u001b")
             {
                 DismissCallout();
+                return true;
             }
-            else if (input.Length == 1 && input[0] >= '1' && input[0] <= '9')
+
+            if (input.Length == 1 && input[0] >= '1' && input[0] <= '9')
             {
-                ShowCalloutForIndex(input[0] - '1');
+                return ShowCalloutForIndex(input[0] - '1');
+            }
+
+            return false;
+        }
+#endif
+    }
+
+    // Custom MAUI view used to register the sample-specific native Apple handler.
+    public sealed class KeyboardMapView : Esri.ArcGISRuntime.Maui.MapView
+    {
+#if IOS || MACCATALYST
+        internal Func<string, bool> AppleKeyDownHandler { get; set; }
+#endif
+    }
+
+    // Create a native MapView subclass on Apple platforms without changing the handler for other samples.
+    public sealed class KeyboardMapViewHandler : Esri.ArcGISRuntime.Maui.Handlers.MapViewHandler
+    {
+#if IOS || MACCATALYST
+        protected override Esri.ArcGISRuntime.UI.Controls.MapView CreatePlatformView() =>
+            new AppleKeyboardMapView();
+
+        protected override void ConnectHandler(Esri.ArcGISRuntime.UI.Controls.MapView platformView)
+        {
+            base.ConnectHandler(platformView);
+
+            if (platformView is AppleKeyboardMapView appleMapView &&
+                VirtualView is KeyboardMapView keyboardMapView)
+            {
+                appleMapView.KeyDownHandler = input =>
+                    keyboardMapView.AppleKeyDownHandler?.Invoke(input) == true;
             }
         }
 
-        private sealed class KeyboardCommandView : UIView
+        protected override void DisconnectHandler(Esri.ArcGISRuntime.UI.Controls.MapView platformView)
         {
-            private const string KeyCommandSelector = "handleKeyCommand:";
-            private readonly Action<string> _onKeyCommand;
-
-            public KeyboardCommandView(Action<string> onKeyCommand)
+            if (platformView is AppleKeyboardMapView appleMapView)
             {
-                _onKeyCommand = onKeyCommand;
-
-                List<UIKeyCommand> commands = new List<UIKeyCommand>();
-                for (int index = 1; index <= 9; index++)
-                {
-                    commands.Add(UIKeyCommand.Create(
-                        new NSString(index.ToString()),
-                        (UIKeyModifierFlags)0,
-                        new Selector(KeyCommandSelector)));
-                }
-                commands.Add(UIKeyCommand.Create(
-                    new NSString("\u001b"),
-                    (UIKeyModifierFlags)0,
-                    new Selector(KeyCommandSelector)));
-                KeyCommands = commands.ToArray();
+                appleMapView.KeyDownHandler = null;
             }
 
-            public override bool CanBecomeFirstResponder => true;
+            base.DisconnectHandler(platformView);
+        }
 
-            public override UIKeyCommand[] KeyCommands { get; }
+        private sealed class AppleKeyboardMapView : Esri.ArcGISRuntime.UI.Controls.MapView
+        {
+            internal Func<string, bool> KeyDownHandler { get; set; }
 
-            [Export(KeyCommandSelector)]
-            private void HandleKeyCommand(UIKeyCommand command)
+            public override void PressesBegan(NSSet<UIPress> presses, UIPressesEvent evt)
             {
-                if (command.Input is { } input)
+                // Consume only sample shortcuts and leave navigation keys with the ArcGIS MapView.
+                List<UIPress> unhandledPresses = new List<UIPress>();
+                foreach (UIPress press in presses)
                 {
-                    _onKeyCommand(input.ToString());
+                    string input = GetInput(press.Key);
+                    if (input == null || KeyDownHandler?.Invoke(input) != true)
+                    {
+                        unhandledPresses.Add(press);
+                    }
                 }
+
+                if (unhandledPresses.Count == (int)presses.Count)
+                {
+                    base.PressesBegan(presses, evt);
+                }
+                else if (unhandledPresses.Count > 0)
+                {
+                    using NSSet<UIPress> remainingPresses = new NSSet<UIPress>(unhandledPresses.ToArray());
+                    base.PressesBegan(remainingPresses, evt);
+                }
+            }
+
+            public override void MovedToWindow()
+            {
+                base.MovedToWindow();
+                if (Window != null)
+                {
+                    BecomeFirstResponder();
+                }
+            }
+
+            private static string GetInput(UIKey key)
+            {
+                if (key == null) return null;
+
+                int keyCode = (int)key.KeyCode;
+
+                // Number-row and numpad HID usages are independent of the active keyboard layout.
+                if (keyCode is >= 30 and <= 38)
+                {
+                    return ((char)('1' + keyCode - 30)).ToString();
+                }
+                if (keyCode is >= 89 and <= 97)
+                {
+                    return ((char)('1' + keyCode - 89)).ToString();
+                }
+
+                return keyCode == 41 ? "\u001b" : key.CharactersIgnoringModifiers;
             }
         }
 #endif

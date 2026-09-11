@@ -18,19 +18,7 @@
     "offline_data": [],
     "redirect_from": [],
     "relevant_apis": [
-        "CalloutDefinition",
-        "Configuration.FontScale",
-        "Control.IsTextScaleFactorEnabled",
-        "FeatureLayer",
-        "GeoView.UseSystemTextScale",
-        "IComponentCallbacks.OnConfigurationChanged",
-        "IdentifyLayerAsync",
-        "LabelDefinition",
-        "TextSymbol",
-        "UIApplication.Notifications.ObserveContentSizeCategoryChanged",
-        "UIFontMetrics.GetScaledValue",
-        "UISettings.TextScaleFactor",
-        "UISettings.TextScaleFactorChanged"
+        "GeoView.UseSystemTextScale"
     ],
     "snippets": [
         "UpdateLabelsAndSymbolsToScaleForVisualAccessibility.xaml.cs",

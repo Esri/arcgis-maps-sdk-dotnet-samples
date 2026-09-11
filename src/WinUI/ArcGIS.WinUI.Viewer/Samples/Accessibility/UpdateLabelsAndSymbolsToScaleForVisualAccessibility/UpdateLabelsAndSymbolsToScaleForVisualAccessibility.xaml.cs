@@ -28,7 +28,7 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
         name: "Update labels and symbols to scale for visual accessibility",
         category: "Accessibility",
         description: "Scale feature labels and symbols according to the system text-size setting.",
-        instructions: "Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**.",
+        instructions: "Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**. On Mac Catalyst, open **System Settings** > **Accessibility** > **Display**.",
         tags: new[] { "accessibility", "label", "readability", "scale", "symbol", "text", "visual impairment" })]
     public partial class UpdateLabelsAndSymbolsToScaleForVisualAccessibility
     {

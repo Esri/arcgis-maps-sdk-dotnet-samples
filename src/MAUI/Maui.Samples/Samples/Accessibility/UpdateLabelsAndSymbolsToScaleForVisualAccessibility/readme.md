@@ -10,7 +10,7 @@ Use this pattern to improve map readability for users who increase text size in 
 
 ## How to use the sample
 
-Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**.
+Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**. On Mac Catalyst, open **System Settings** > **Accessibility** > **Display**.
 
 Clear **Apply OS text size to labels** to stop labels from following the system text size, then select it again to restore system text scaling. Restaurant symbols continue to follow the system text size independently of this setting. The legend and current values show how labels and symbols are scaled.
 
@@ -38,7 +38,7 @@ This sample uses a [Redlands restaurants](https://www.arcgis.com/home/item.html?
 
 On WPF, use `GeoView.UseSystemTextScale` to control system text scaling for feature labels. Use `UISettings.TextScaleFactor` and `UISettings.TextScaleFactorChanged` to scale symbols and respond to Windows text-size changes.
 
-On WinUI, the map view uses the inherited `Control.IsTextScaleFactorEnabled` property for labels. On MAUI, the map view uses `GeoView.UseSystemTextScale` for labels. Symbols use `Configuration.FontScale` with `IComponentCallbacks.OnConfigurationChanged` on Android and `UIFontMetrics.GetScaledValue` with `ObserveContentSizeCategoryChanged` on iOS.
+On WinUI, the map view uses the inherited `Control.IsTextScaleFactorEnabled` property for labels. On MAUI, the map view uses `GeoView.UseSystemTextScale` for labels. Symbols use `Configuration.FontScale` with `IComponentCallbacks.OnConfigurationChanged` on Android and `UIFontMetrics.GetScaledValue` with `ObserveContentSizeCategoryChanged` on iOS and Mac Catalyst.
 
 ## Tags
 

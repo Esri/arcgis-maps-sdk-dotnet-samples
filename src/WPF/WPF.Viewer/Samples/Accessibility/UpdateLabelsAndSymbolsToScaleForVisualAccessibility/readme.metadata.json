@@ -1,0 +1,40 @@
+{
+    "category": "Accessibility",
+    "description": "Scale feature labels and symbols according to the system text-size setting.",
+    "formal_name": "UpdateLabelsAndSymbolsToScaleForVisualAccessibility",
+    "ignore": false,
+    "images": [
+        "UpdateLabelsAndSymbolsToScaleForVisualAccessibility.jpg"
+    ],
+    "keywords": [
+        "accessibility",
+        "label",
+        "readability",
+        "scale",
+        "symbol",
+        "text",
+        "visual impairment"
+    ],
+    "offline_data": [],
+    "redirect_from": [],
+    "relevant_apis": [
+        "CalloutDefinition",
+        "Configuration.FontScale",
+        "Control.IsTextScaleFactorEnabled",
+        "FeatureLayer",
+        "GeoView.UseSystemTextScale",
+        "IComponentCallbacks.OnConfigurationChanged",
+        "IdentifyLayerAsync",
+        "LabelDefinition",
+        "TextSymbol",
+        "UIApplication.Notifications.ObserveContentSizeCategoryChanged",
+        "UIFontMetrics.GetScaledValue",
+        "UISettings.TextScaleFactor",
+        "UISettings.TextScaleFactorChanged"
+    ],
+    "snippets": [
+        "UpdateLabelsAndSymbolsToScaleForVisualAccessibility.xaml.cs",
+        "UpdateLabelsAndSymbolsToScaleForVisualAccessibility.xaml"
+    ],
+    "title": "Update labels and symbols to scale for visual accessibility"
+}

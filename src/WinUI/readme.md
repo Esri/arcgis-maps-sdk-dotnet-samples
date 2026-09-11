@@ -3,6 +3,7 @@
 ## Accessibility
 
 * [Update basemap for contrast accessibility](ArcGIS.WinUI.Viewer/Samples/Accessibility/UpdateBasemapForContrastAccessibility) - Display a map view that updates between authored light, dark, and high-contrast basemaps.
+* [Update labels and symbols to scale for visual accessibility](ArcGIS.WinUI.Viewer/Samples/Accessibility/UpdateLabelsAndSymbolsToScaleForVisualAccessibility) - Scale feature labels and symbols according to the system text-size setting.
 
 ## Analysis
 

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ContentPage x:Class="ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility.UpdateLabelsAndSymbolsToScaleForVisualAccessibility"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <ScrollView MaximumHeightRequest="500">
+                <VerticalStackLayout Spacing="6">
+                    <Label Text="Change the OS text size to scale feature labels and symbols, then select a feature to view its name and coordinates."
+                           LineBreakMode="WordWrap" />
+                    <BoxView Margin="0,6,0,2"
+                             HeightRequest="1" />
+                    <Label FontAttributes="Bold"
+                           Text="Scaling source" />
+                    <Grid ColumnDefinitions="Auto, *"
+                          RowDefinitions="Auto, Auto"
+                          Margin="0,4,0,0">
+                        <Label FontAttributes="Bold"
+                               Text="Aa"
+                               VerticalOptions="Center" />
+                        <Label Grid.Column="1"
+                               Margin="8,0,0,0"
+                               Text="Labels: GeoView API"
+                               LineBreakMode="WordWrap" />
+                        <Ellipse Grid.Row="1"
+                                 Fill="#FF0B4F8A"
+                                 HeightRequest="14"
+                                 HorizontalOptions="Start"
+                                 Stroke="White"
+                                 WidthRequest="14"
+                                 VerticalOptions="Center" />
+                        <Label Grid.Row="1"
+                               Grid.Column="1"
+                               Margin="8,0,0,0"
+                               Text="Symbols: OS text size"
+                               LineBreakMode="WordWrap" />
+                    </Grid>
+                    <BoxView Margin="0,6,0,2"
+                             HeightRequest="1" />
+                    <Label FontAttributes="Bold"
+                           Text="Toggles" />
+                    <HorizontalStackLayout Spacing="8">
+                        <CheckBox x:Name="ApplyTextScaleToLabelsCheckBox"
+                                  IsChecked="True"
+                                  CheckedChanged="OnLabelTextScaleChanged"
+                                  VerticalOptions="Center" />
+                        <Label Text="Apply OS text size to labels"
+                               VerticalOptions="Center"
+                               LineBreakMode="WordWrap" />
+                    </HorizontalStackLayout>
+                    <Button x:Name="OpenTextSizeSettingsButton"
+                            Clicked="OpenTextSizeSettingsButton_Clicked"
+                            Text="Open OS text-size settings" />
+                    <BoxView Margin="0,6,0,2"
+                             HeightRequest="1" />
+                    <Label FontAttributes="Bold"
+                           Text="Current controls" />
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="OS text size: " />
+                                <Span x:Name="WindowsTextScaleValue"
+                                      FontAttributes="Bold" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Labels: " />
+                                <Span x:Name="LabelScaleValue"
+                                      FontAttributes="Bold" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                    <Label>
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <Span Text="Symbols: " />
+                                <Span x:Name="MarkerScaleValue"
+                                      FontAttributes="Bold" />
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </VerticalStackLayout>
+            </ScrollView>
+        </Border>
+    </Grid>
+</ContentPage>

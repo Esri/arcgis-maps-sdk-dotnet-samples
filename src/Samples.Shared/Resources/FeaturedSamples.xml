@@ -3,6 +3,7 @@
 	<Categories>
 		<Category name="Accessibility">
 			<Sample>UpdateBasemapForContrastAccessibility</Sample>
+			<Sample>UpdateLabelsAndSymbolsToScaleForVisualAccessibility</Sample>
 		</Category>
 		<Category name="Analysis">
 			<Sample>AnalyzeTerrainSuitabilityFromSlopeAndAspect</Sample>

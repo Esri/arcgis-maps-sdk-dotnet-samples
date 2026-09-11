@@ -1,0 +1,94 @@
+<UserControl x:Class="ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility.UpdateLabelsAndSymbolsToScaleForVisualAccessibility"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="using:Esri.ArcGISRuntime"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
+    <Grid>
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <TextBlock Text="Change the OS text size to scale feature labels and symbols, then select a feature to view its name and coordinates."
+                               TextWrapping="Wrap" />
+                    <Border Height="1"
+                            Margin="0,12,0,8"
+                            Background="Gray" />
+                    <TextBlock FontWeight="Bold"
+                               Text="Scaling source" />
+                    <Grid Margin="0,4,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock VerticalAlignment="Center"
+                                   FontWeight="Bold"
+                                   Text="Aa" />
+                        <TextBlock Grid.Column="1"
+                                   Margin="8,0,0,0"
+                                   Text="Labels: Control.IsTextScaleFactorEnabled"
+                                   TextWrapping="Wrap" />
+                        <Ellipse Grid.Row="1"
+                                 Width="14"
+                                 Height="14"
+                                 VerticalAlignment="Center"
+                                 Fill="#FF0B4F8A"
+                                 Stroke="White" />
+                        <TextBlock Grid.Row="1"
+                                   Grid.Column="1"
+                                   Margin="8,0,0,0"
+                                   Text="Symbols: OS text size"
+                                   TextWrapping="Wrap" />
+                    </Grid>
+                    <Border Height="1"
+                            Margin="0,12,0,8"
+                            Background="Gray" />
+                    <TextBlock FontWeight="Bold"
+                               Text="Toggles" />
+                    <CheckBox x:Name="ApplyTextScaleToLabelsCheckBox"
+                              Margin="0,4,0,0"
+                              AutomationProperties.HelpText="Enables or disables OS text scaling for map labels."
+                              IsChecked="{Binding ElementName=MyMapView, Path=IsTextScaleFactorEnabled, Mode=TwoWay}"
+                              Checked="OnLabelTextScaleChanged"
+                              Unchecked="OnLabelTextScaleChanged">
+                        <TextBlock Text="Apply OS text size to labels"
+                                   TextWrapping="Wrap" />
+                    </CheckBox>
+                    <Button Margin="0,8,0,0"
+                            HorizontalContentAlignment="Stretch"
+                            AutomationProperties.HelpText="Opens the OS accessibility page for changing text size."
+                            Click="OpenTextSizeSettingsButton_Click">
+                        <TextBlock MaxWidth="275"
+                                   Text="Open OS text-size settings"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap" />
+                    </Button>
+                    <Border Height="1"
+                            Margin="0,12,0,8"
+                            Background="Gray" />
+                    <TextBlock FontWeight="Bold"
+                               Text="Current controls" />
+                    <TextBlock Margin="0,4,0,0"
+                               TextWrapping="Wrap">
+                        <Run Text="OS text size: " /><Run x:Name="WindowsTextScaleValue"
+                                                             FontWeight="Bold" />
+                    </TextBlock>
+                    <TextBlock Margin="0,4,0,0"
+                               TextWrapping="Wrap">
+                        <Run Text="Labels: " /><Run x:Name="LabelScaleValue"
+                                                         FontWeight="Bold" />
+                    </TextBlock>
+                    <TextBlock Margin="0,4,0,0"
+                               TextWrapping="Wrap">
+                        <Run Text="Symbols: " /><Run x:Name="MarkerScaleValue"
+                                                          FontWeight="Bold" />
+                    </TextBlock>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+    </Grid>
+</UserControl>

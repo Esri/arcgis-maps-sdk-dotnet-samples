@@ -14,6 +14,7 @@ using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 #if IOS || MACCATALYST
 using Foundation;
+using ObjCRuntime;
 using UIKit;
 #endif
 
@@ -27,7 +28,6 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
         description: "Perform all map navigation operations using only the keyboard.",
         instructions: "When the sample is launched, a fixed area of interest appears centered over the map, and any features inside it are automatically selected and labeled <kbd>1</kbd> – <kbd>9</kbd>. As you navigate, the selection and labels update to match the features currently inside the area of interest. Use the arrow keys to pan and <kbd>+</kbd> / <kbd>-</kbd> to zoom. Use <kbd>Alt</kbd> + <kbd>←</kbd> / <kbd>→</kbd> to rotate, with <kbd>Alt</kbd> + <kbd>↑</kbd> resetting the map to north. Press <kbd>1</kbd> – <kbd>9</kbd> to show a callout for the matching numbered feature, and press <kbd>Esc</kbd> to dismiss the callout.",
         tags: new[] { "WCAG", "accessibility", "accessible", "identify", "inclusive", "input", "interaction", "keyboard", "navigation", "selection" })]
-    [ArcGIS.Samples.Shared.Attributes.ClassFile("./MauiProgram.cs")]
     public partial class NavigateMapViewAndIdentifyFeaturesWithKeyboard
     {
         // Attribute used to title and label each feature.
@@ -52,9 +52,6 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
         public NavigateMapViewAndIdentifyFeaturesWithKeyboard()
         {
             InitializeComponent();
-#if IOS || MACCATALYST
-            MyMapView.AppleKeyDownHandler = OnAppleKeyDown;
-#endif
             Initialize();
         }
 
@@ -96,10 +93,15 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             // Trigger the initial selection once the view finishes its first draw.
             MyMapView.DrawStatusChanged += OnInitialDrawCompleted;
 
-            // Native key events preserve the MapView's built-in keyboard navigation while adding 1-9 and Escape.
+            // Native keyboard input preserves the MapView's built-in navigation while adding 1-9 and Escape.
             MyMapView.HandlerChanged += OnMapViewHandlerChanged;
-            Loaded += OnPageLoaded;
-            Unloaded += OnPageUnloaded;
+
+            // The viewer hosts the page's content, so observe the root layout's lifecycle.
+#if IOS || MACCATALYST
+            Content.HandlerChanging += OnContentHandlerChanging;
+#endif
+            Content.Loaded += OnContentLoaded;
+            Content.Unloaded += OnContentUnloaded;
         }
 
         private async void OnInitialDrawCompleted(object sender, DrawStatusChangedEventArgs e)
@@ -123,29 +125,22 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
 
             int requestVersion = ++_selectionRequestVersion;
 
-            // Get the center point of the MapView in map space.
+            // Convert all four screen corners so the query follows the rectangle when the map rotates.
             Point screenCenter = new Point(MyMapView.Width / 2, MyMapView.Height / 2);
-            MapPoint mapCenter = MyMapView.ScreenToLocation(screenCenter);
-            if (mapCenter == null) return;
-
-            // Measure the rectangle's half-width in map units.
             double rectangleHalfWidth = SelectionRectangle.WidthRequest / 2;
-            MapPoint rightMap = MyMapView.ScreenToLocation(new Point(screenCenter.X + rectangleHalfWidth, screenCenter.Y));
-            if (rightMap == null) return;
+            double rectangleHalfHeight = SelectionRectangle.HeightRequest / 2;
+            MapPoint topLeft = MyMapView.ScreenToLocation(new Point(screenCenter.X - rectangleHalfWidth, screenCenter.Y - rectangleHalfHeight));
+            MapPoint topRight = MyMapView.ScreenToLocation(new Point(screenCenter.X + rectangleHalfWidth, screenCenter.Y - rectangleHalfHeight));
+            MapPoint bottomRight = MyMapView.ScreenToLocation(new Point(screenCenter.X + rectangleHalfWidth, screenCenter.Y + rectangleHalfHeight));
+            MapPoint bottomLeft = MyMapView.ScreenToLocation(new Point(screenCenter.X - rectangleHalfWidth, screenCenter.Y + rectangleHalfHeight));
+            if (topLeft == null || topRight == null || bottomRight == null || bottomLeft == null) return;
 
-            // Build a square envelope matching the rectangle's footprint in map space.
-            double mapHalfWidth = GeometryEngine.Distance(mapCenter, rightMap);
-            Envelope envelope = new Envelope(
-                mapCenter.X - mapHalfWidth,
-                mapCenter.Y - mapHalfWidth,
-                mapCenter.X + mapHalfWidth,
-                mapCenter.Y + mapHalfWidth,
-                mapCenter.SpatialReference);
+            Polygon selectionArea = new Polygon(new[] { topLeft, topRight, bottomRight, bottomLeft });
 
-            // Query for features that intersect the envelope. Normalize for crossings of the antimeridian.
+            // Query for features inside the polygon. Normalize for crossings of the antimeridian.
             QueryParameters query = new QueryParameters
             {
-                Geometry = GeometryEngine.NormalizeCentralMeridian(envelope),
+                Geometry = GeometryEngine.NormalizeCentralMeridian(selectionArea),
                 SpatialRelationship = SpatialRelationship.Intersects
             };
 
@@ -263,9 +258,23 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             }
         }
 
-        private void OnPageLoaded(object sender, EventArgs e) => AttachKeyboardInput();
+#if IOS || MACCATALYST
+        private void OnContentHandlerChanging(object sender, HandlerChangingEventArgs args)
+        {
+            if (args.NewHandler?.MauiContext is IMauiContext context &&
+                (MyMapView.Handler is not KeyboardMapViewHandler || MyMapView.Handler.MauiContext != context))
+            {
+                // Assign the map's handler before the layout handler creates its child views.
+                KeyboardMapViewHandler handler = new KeyboardMapViewHandler();
+                handler.SetMauiContext(context);
+                MyMapView.Handler = handler;
+            }
+        }
+#endif
 
-        private void OnPageUnloaded(object sender, EventArgs e)
+        private void OnContentLoaded(object sender, EventArgs e) => AttachKeyboardInput();
+
+        private void OnContentUnloaded(object sender, EventArgs e)
         {
             DetachKeyboardInput();
             _selectionRequestVersion++;
@@ -286,6 +295,11 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             _nativeMapView.Focusable = true;
             _nativeMapView.FocusableInTouchMode = true;
             _nativeMapView.KeyPress += OnNativeMapViewKeyPress;
+#elif IOS || MACCATALYST
+            if (_nativeMapView is AppleKeyboardMapView appleMapView)
+            {
+                appleMapView.KeyCommandHandler = OnAppleKeyCommand;
+            }
 #endif
             FocusKeyboardInput();
 #endif
@@ -300,6 +314,11 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             _nativeMapView.KeyDown -= OnNativeMapViewKeyDown;
 #elif ANDROID
             _nativeMapView.KeyPress -= OnNativeMapViewKeyPress;
+#elif IOS || MACCATALYST
+            if (_nativeMapView is AppleKeyboardMapView appleMapView)
+            {
+                appleMapView.KeyCommandHandler = null;
+            }
 #endif
             _nativeMapView = null;
 #endif
@@ -367,117 +386,73 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             }
         }
 #elif IOS || MACCATALYST
-        private bool OnAppleKeyDown(string input)
+        private void OnAppleKeyCommand(string input)
         {
-            if (input == "\u001b")
+            if (input == UIKeyCommand.Escape.ToString())
             {
                 DismissCallout();
-                return true;
             }
-
-            if (input.Length == 1 && input[0] >= '1' && input[0] <= '9')
+            else if (input.Length == 1 && input[0] >= '1' && input[0] <= '9')
             {
-                return ShowCalloutForIndex(input[0] - '1');
+                ShowCalloutForIndex(input[0] - '1');
             }
-
-            return false;
         }
 #endif
     }
 
-    // Custom MAUI view used to register the sample-specific native Apple handler.
-    public sealed class KeyboardMapView : Esri.ArcGISRuntime.Maui.MapView
-    {
 #if IOS || MACCATALYST
-        internal Func<string, bool> AppleKeyDownHandler { get; set; }
-#endif
-    }
-
-    // Create a native MapView subclass on Apple platforms without changing the handler for other samples.
-    public sealed class KeyboardMapViewHandler : Esri.ArcGISRuntime.Maui.Handlers.MapViewHandler
+    internal sealed class KeyboardMapViewHandler : Esri.ArcGISRuntime.Maui.Handlers.MapViewHandler
     {
-#if IOS || MACCATALYST
         protected override Esri.ArcGISRuntime.UI.Controls.MapView CreatePlatformView() =>
             new AppleKeyboardMapView();
-
-        protected override void ConnectHandler(Esri.ArcGISRuntime.UI.Controls.MapView platformView)
-        {
-            base.ConnectHandler(platformView);
-
-            if (platformView is AppleKeyboardMapView appleMapView &&
-                VirtualView is KeyboardMapView keyboardMapView)
-            {
-                appleMapView.KeyDownHandler = input =>
-                    keyboardMapView.AppleKeyDownHandler?.Invoke(input) == true;
-            }
-        }
-
-        protected override void DisconnectHandler(Esri.ArcGISRuntime.UI.Controls.MapView platformView)
-        {
-            if (platformView is AppleKeyboardMapView appleMapView)
-            {
-                appleMapView.KeyDownHandler = null;
-            }
-
-            base.DisconnectHandler(platformView);
-        }
-
-        private sealed class AppleKeyboardMapView : Esri.ArcGISRuntime.UI.Controls.MapView
-        {
-            internal Func<string, bool> KeyDownHandler { get; set; }
-
-            public override void PressesBegan(NSSet<UIPress> presses, UIPressesEvent evt)
-            {
-                // Consume only sample shortcuts and leave navigation keys with the ArcGIS MapView.
-                List<UIPress> unhandledPresses = new List<UIPress>();
-                foreach (UIPress press in presses)
-                {
-                    string input = GetInput(press.Key);
-                    if (input == null || KeyDownHandler?.Invoke(input) != true)
-                    {
-                        unhandledPresses.Add(press);
-                    }
-                }
-
-                if (unhandledPresses.Count == (int)presses.Count)
-                {
-                    base.PressesBegan(presses, evt);
-                }
-                else if (unhandledPresses.Count > 0)
-                {
-                    using NSSet<UIPress> remainingPresses = new NSSet<UIPress>(unhandledPresses.ToArray());
-                    base.PressesBegan(remainingPresses, evt);
-                }
-            }
-
-            public override void MovedToWindow()
-            {
-                base.MovedToWindow();
-                if (Window != null)
-                {
-                    BecomeFirstResponder();
-                }
-            }
-
-            private static string GetInput(UIKey key)
-            {
-                if (key == null) return null;
-
-                int keyCode = (int)key.KeyCode;
-
-                // Number-row and numpad HID usages are independent of the active keyboard layout.
-                if (keyCode is >= 30 and <= 38)
-                {
-                    return ((char)('1' + keyCode - 30)).ToString();
-                }
-                if (keyCode is >= 89 and <= 97)
-                {
-                    return ((char)('1' + keyCode - 89)).ToString();
-                }
-
-                return keyCode == 41 ? "\u001b" : key.CharactersIgnoringModifiers;
-            }
-        }
-#endif
     }
+
+    internal sealed class AppleKeyboardMapView : Esri.ArcGISRuntime.UI.Controls.MapView
+    {
+        private readonly List<UIKeyCommand> _keyCommands = new List<UIKeyCommand>();
+
+        internal Action<string> KeyCommandHandler { get; set; }
+
+        public AppleKeyboardMapView()
+        {
+            Selector action = new Selector("handleSampleKeyCommand:");
+            for (int number = 1; number <= 9; number++)
+            {
+                using NSString input = new NSString(number.ToString());
+                _keyCommands.Add(UIKeyCommand.Create(input, 0, action));
+                _keyCommands.Add(UIKeyCommand.Create(input, UIKeyModifierFlags.NumericPad, action));
+            }
+
+            _keyCommands.Add(UIKeyCommand.Create(UIKeyCommand.Escape, 0, action));
+        }
+
+        // Retain the MapView's navigation commands alongside the sample shortcuts.
+        public override UIKeyCommand[] KeyCommands =>
+            (base.KeyCommands ?? Array.Empty<UIKeyCommand>()).Concat(_keyCommands).ToArray();
+
+        [Export("handleSampleKeyCommand:")]
+        public void HandleSampleKeyCommand(UIKeyCommand command) =>
+            KeyCommandHandler?.Invoke(command.Input);
+
+        public override bool AccessibilityPerformEscape()
+        {
+            if (!IsCalloutVisible || KeyCommandHandler == null)
+            {
+                return base.AccessibilityPerformEscape();
+            }
+
+            KeyCommandHandler(UIKeyCommand.Escape.ToString());
+            return true;
+        }
+
+        public override void MovedToWindow()
+        {
+            base.MovedToWindow();
+            if (Window != null)
+            {
+                BecomeFirstResponder();
+            }
+        }
+    }
+#endif
 }

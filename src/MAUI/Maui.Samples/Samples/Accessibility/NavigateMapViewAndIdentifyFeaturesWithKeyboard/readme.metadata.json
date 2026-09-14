@@ -21,17 +21,16 @@
     "offline_data": [],
     "redirect_from": [],
     "relevant_apis": [
-        "Envelope",
         "FeatureLayer",
         "Graphic",
         "GraphicsOverlay",
         "Map",
-        "MapView"
+        "MapView",
+        "Polygon"
     ],
     "snippets": [
         "NavigateMapViewAndIdentifyFeaturesWithKeyboard.xaml.cs",
-        "NavigateMapViewAndIdentifyFeaturesWithKeyboard.xaml",
-        "../../.././MauiProgram.cs"
+        "NavigateMapViewAndIdentifyFeaturesWithKeyboard.xaml"
     ],
     "title": "Navigate map view and identify features with keyboard"
 }

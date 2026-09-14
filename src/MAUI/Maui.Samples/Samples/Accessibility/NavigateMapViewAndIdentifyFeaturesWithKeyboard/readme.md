@@ -17,19 +17,21 @@ When the sample is launched, a fixed area of interest appears centered over the 
 1. Create a `Map` with a basemap and add a `FeatureLayer`.
 2. Overlay a fixed-size rectangle on the `MapView` to mark the area of interest.
 3. Listen for `GeoView.NavigationCompleted` to re-run the selection after every pan, zoom, or rotation.
-4. Convert the rectangle's screen bounds to a map-space `Envelope` using `MapView.ScreenToLocation` and `GeometryEngine.Distance`.
-5. Build `QueryParameters` with the envelope geometry and `SpatialRelationship.Intersects`, then call `FeatureTable.QueryFeaturesAsync`.
+4. Convert the rectangle's four screen corners to map points using `MapView.ScreenToLocation`, then create a `Polygon` that follows the rectangle at any map rotation.
+5. Build `QueryParameters` with the polygon geometry and `SpatialRelationship.Intersects`, then call `FeatureTable.QueryFeaturesAsync`.
 6. Call `FeatureLayer.SelectFeature` on each returned feature, and add a numbered `TextSymbol` graphic to a `GraphicsOverlay` at each feature's location.
 7. Handle keyboard input to show callouts via the number keys and to dismiss the callout on <kbd>Esc</kbd>.
 
+On iOS and Mac Catalyst, a sample-local handler adds `UIKeyCommand` shortcuts for numbers and Escape while preserving built-in map navigation. Accessibility Escape dismisses an open callout; otherwise, default navigation is preserved.
+
 ## Relevant API
 
-* Envelope
 * FeatureLayer
 * Graphic
 * GraphicsOverlay
 * Map
 * MapView
+* Polygon
 
 ## About the data
 
@@ -38,6 +40,8 @@ This sample uses a [Redlands restaurants](https://www.arcgis.com/home/item.html?
 ## Additional information
 
 The map view supports built-in keyboard shortcuts for pan (arrow keys), zoom (<kbd>+</kbd> / <kbd>-</kbd>), rotate (<kbd>Alt</kbd> + <kbd>←</kbd> / <kbd>→</kbd>), and reset to north (<kbd>Alt</kbd> + <kbd>↑</kbd>). On macOS, use <kbd>Option</kbd> in place of <kbd>Alt</kbd>. See [Navigate a map view](https://developers.arcgis.com/net/maps-2d/navigate-a-map-view/) for the complete list of built-in interactions.
+
+On iOS and Mac Catalyst, the number shortcuts follow the active hardware keyboard layout rather than fixed physical key positions. Numeric keypad shortcuts are also registered.
 
 ## Tags
 

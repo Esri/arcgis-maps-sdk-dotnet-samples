@@ -102,26 +102,21 @@ namespace ArcGIS.WinUI.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
 
             int requestVersion = ++_selectionRequestVersion;
 
-            // Convert the fixed rectangle from screen space to a map-space envelope.
+            // Convert all four screen corners so the query follows the rectangle when the map rotates.
             Point screenCenter = new Point(MyMapView.ActualWidth / 2, MyMapView.ActualHeight / 2);
-            MapPoint mapCenter = MyMapView.ScreenToLocation(screenCenter);
-            if (mapCenter == null) return;
-
             double rectangleHalfWidth = SelectionRectangle.Width / 2;
-            MapPoint rightMap = MyMapView.ScreenToLocation(new Point(screenCenter.X + rectangleHalfWidth, screenCenter.Y));
-            if (rightMap == null) return;
+            double rectangleHalfHeight = SelectionRectangle.Height / 2;
+            MapPoint topLeft = MyMapView.ScreenToLocation(new Point(screenCenter.X - rectangleHalfWidth, screenCenter.Y - rectangleHalfHeight));
+            MapPoint topRight = MyMapView.ScreenToLocation(new Point(screenCenter.X + rectangleHalfWidth, screenCenter.Y - rectangleHalfHeight));
+            MapPoint bottomRight = MyMapView.ScreenToLocation(new Point(screenCenter.X + rectangleHalfWidth, screenCenter.Y + rectangleHalfHeight));
+            MapPoint bottomLeft = MyMapView.ScreenToLocation(new Point(screenCenter.X - rectangleHalfWidth, screenCenter.Y + rectangleHalfHeight));
+            if (topLeft == null || topRight == null || bottomRight == null || bottomLeft == null) return;
 
-            double mapHalfWidth = GeometryEngine.Distance(mapCenter, rightMap);
-            Envelope envelope = new Envelope(
-                mapCenter.X - mapHalfWidth,
-                mapCenter.Y - mapHalfWidth,
-                mapCenter.X + mapHalfWidth,
-                mapCenter.Y + mapHalfWidth,
-                mapCenter.SpatialReference);
+            Polygon selectionArea = new Polygon(new[] { topLeft, topRight, bottomRight, bottomLeft });
 
             QueryParameters query = new QueryParameters
             {
-                Geometry = GeometryEngine.NormalizeCentralMeridian(envelope),
+                Geometry = GeometryEngine.NormalizeCentralMeridian(selectionArea),
                 SpatialRelationship = SpatialRelationship.Intersects
             };
 

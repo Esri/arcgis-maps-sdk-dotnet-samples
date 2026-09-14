@@ -60,11 +60,16 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
 #if IOS || MACCATALYST
         private IDisposable _contentSizeCategoryObserver;
 #endif
-        private bool _isActive;
+        private bool _eventsSubscribed;
+        private double _appliedTextScale = double.NaN;
 
         public UpdateLabelsAndSymbolsToScaleForVisualAccessibility()
         {
             InitializeComponent();
+
+            // The viewer hosts this page's content, so use the map view's lifecycle events.
+            MyMapView.Loaded += OnMapViewLoaded;
+            MyMapView.Unloaded += OnMapViewUnloaded;
 
             // Initialize the sample.
             _ = Initialize();
@@ -148,10 +153,17 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
 
             // Get the current platform text scale.
             double systemTextScale = GetSystemTextScaleFactor();
+            if (systemTextScale == _appliedTextScale)
+                return;
+
+            _appliedTextScale = systemTextScale;
 
             // Apply the system text scale to the marker and outline.
             _restaurantMarker.Size = BaseMarkerSize * systemTextScale;
             _restaurantMarker.Outline.Width = BaseOutlineWidth * systemTextScale;
+
+            // Reapply the renderer with the updated symbol.
+            _restaurantsLayer.Renderer = new SimpleRenderer(_restaurantMarker);
 
             // Update the displayed scale values.
             UpdateScaleStatus(systemTextScale);
@@ -186,41 +198,44 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
             UpdateScaleStatus(GetSystemTextScaleFactor());
         }
 
-        protected override void OnAppearing()
+        private void OnMapViewLoaded(object sender, EventArgs e)
         {
-            base.OnAppearing();
-            _isActive = true;
-
+            // Subscribe to system text scale changes.
+            if (!_eventsSubscribed)
+            {
 #if WINDOWS
-            _uiSettings.TextScaleFactorChanged += OnTextScaleFactorChanged;
+                _uiSettings.TextScaleFactorChanged += OnTextScaleFactorChanged;
 #elif ANDROID
-            _androidConfigurationCallback = new AndroidConfigurationCallback(QueueSystemTextScaleUpdate);
-            Android.App.Application.Context.RegisterComponentCallbacks(_androidConfigurationCallback);
+                _androidConfigurationCallback = new AndroidConfigurationCallback(QueueSystemTextScaleUpdate);
+                Android.App.Application.Context.RegisterComponentCallbacks(_androidConfigurationCallback);
 #elif IOS || MACCATALYST
-            _contentSizeCategoryObserver = UIApplication.Notifications.ObserveContentSizeCategoryChanged(
-                (_, _) => QueueSystemTextScaleUpdate());
+                _contentSizeCategoryObserver = UIApplication.Notifications.ObserveContentSizeCategoryChanged(
+                    (_, _) => QueueSystemTextScaleUpdate());
 #endif
+                _eventsSubscribed = true;
+            }
 
-            // Apply the current system text scale when the page is attached.
+            // Apply the current system text scale when the map view is attached.
             ApplySystemTextScale();
         }
 
-        protected override void OnDisappearing()
+        private void OnMapViewUnloaded(object sender, EventArgs e)
         {
-            _isActive = false;
-
+            // Unsubscribe from system text scale changes.
+            if (_eventsSubscribed)
+            {
+                _eventsSubscribed = false;
 #if WINDOWS
-            _uiSettings.TextScaleFactorChanged -= OnTextScaleFactorChanged;
+                _uiSettings.TextScaleFactorChanged -= OnTextScaleFactorChanged;
 #elif ANDROID
-            Android.App.Application.Context.UnregisterComponentCallbacks(_androidConfigurationCallback);
-            _androidConfigurationCallback.Dispose();
-            _androidConfigurationCallback = null;
+                Android.App.Application.Context.UnregisterComponentCallbacks(_androidConfigurationCallback);
+                _androidConfigurationCallback.Dispose();
+                _androidConfigurationCallback = null;
 #elif IOS || MACCATALYST
-            _contentSizeCategoryObserver.Dispose();
-            _contentSizeCategoryObserver = null;
+                _contentSizeCategoryObserver.Dispose();
+                _contentSizeCategoryObserver = null;
 #endif
-
-            base.OnDisappearing();
+            }
         }
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
@@ -332,10 +347,11 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
         }
 #endif
 
+        // Apply the text scale change on the UI thread.
         private void QueueSystemTextScaleUpdate() =>
             Dispatcher.Dispatch(() =>
             {
-                if (_isActive)
+                if (_eventsSubscribed)
                     ApplySystemTextScale();
             });
 

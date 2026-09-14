@@ -2,7 +2,7 @@
 
 Scale feature labels and symbols according to the system text-size setting.
 
-![Labels and symbols scaled to 225% system text size](updatelabelsandsymbolstoscaleforvisualaccessibility.jpg)
+![Labels and symbols scaled to system text size](updatelabelsandsymbolstoscaleforvisualaccessibility.jpg)
 
 ## Use case
 
@@ -37,6 +37,8 @@ This sample uses a [Redlands restaurants](https://www.arcgis.com/home/item.html?
 ## Additional information
 
 On MAUI, use `GeoView.UseSystemTextScale` for labels. Symbols use `UISettings.TextScaleFactor` with `UISettings.TextScaleFactorChanged` on Windows, `Configuration.FontScale` with `IComponentCallbacks.OnConfigurationChanged` on Android, and `UIFontMetrics.GetScaledValue` with `ObserveContentSizeCategoryChanged` on iOS and Mac Catalyst.
+
+On Android, include `ConfigChanges.FontScale` in the existing `ConfigurationChanges` flags of the `[Activity]` attribute in `Platforms/Android/MainActivity.cs`. This lets the activity handle font-size changes without being recreated, while the sample's `IComponentCallbacks.OnConfigurationChanged` callback updates the symbols.
 
 ## Tags
 

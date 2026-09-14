@@ -31,7 +31,7 @@ namespace ArcGIS.WPF.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
         name: "Update labels and symbols to scale for visual accessibility",
         category: "Accessibility",
         description: "Scale feature labels and symbols according to the system text-size setting.",
-        instructions: "Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**. On Mac Catalyst, open **System Settings** > **Accessibility** > **Display**.",
+        instructions: "Change the text size in Windows accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** to open the relevant settings page.",
         tags: new[] { "accessibility", "label", "readability", "scale", "symbol", "text", "visual impairment" })]
     public partial class UpdateLabelsAndSymbolsToScaleForVisualAccessibility
     {
@@ -49,7 +49,6 @@ namespace ArcGIS.WPF.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
 
         // Flag indicating if the text scale change event is subscribed.
         private bool _eventsSubscribed;
-        private int _identifyRequestId;
 
         public UpdateLabelsAndSymbolsToScaleForVisualAccessibility()
         {
@@ -210,8 +209,6 @@ namespace ArcGIS.WPF.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            int identifyRequestId = ++_identifyRequestId;
-
             _restaurantsLayer.ClearSelection();
             MyMapView.DismissCallout();
             _calloutLocation = null;
@@ -223,9 +220,6 @@ namespace ArcGIS.WPF.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
                 // Identify at most one restaurant near the tapped screen position.
                 IdentifyLayerResult result = await MyMapView.IdentifyLayerAsync(
                     _restaurantsLayer, e.Position, 12, false, 1);
-
-                if (identifyRequestId != _identifyRequestId)
-                    return;
 
                 if (result.GeoElements.FirstOrDefault() is not Feature restaurant ||
                     restaurant.Geometry is not MapPoint restaurantLocation)

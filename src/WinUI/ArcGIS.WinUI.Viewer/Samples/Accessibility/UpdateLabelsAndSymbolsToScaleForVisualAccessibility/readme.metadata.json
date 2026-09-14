@@ -18,7 +18,7 @@
     "offline_data": [],
     "redirect_from": [],
     "relevant_apis": [
-        "GeoView.UseSystemTextScale"
+        "Control.IsTextScaleFactorEnabled"
     ],
     "snippets": [
         "UpdateLabelsAndSymbolsToScaleForVisualAccessibility.xaml.cs",

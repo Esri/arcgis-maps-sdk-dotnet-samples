@@ -6,11 +6,11 @@ Scale feature labels and symbols according to the system text-size setting.
 
 ## Use case
 
-Use this pattern to improve map readability for users who increase text size in their operating system’s accessibility settings. Enable `GeoView.UseSystemTextScale` to scale feature labels automatically. To scale feature symbols, subscribe to system text-size changes and apply the reported scaling factor to the symbol sizes.
+Use this pattern to improve map readability for users who increase text size in their operating system’s accessibility settings. Enable `Control.IsTextScaleFactorEnabled` to scale feature labels automatically. To scale feature symbols, subscribe to system text-size changes and apply the reported scaling factor to the symbol sizes.
 
 ## How to use the sample
 
-Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**. On Mac Catalyst, open **System Settings** > **Accessibility** > **Display**.
+Change the text size in Windows accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** to open the relevant settings page.
 
 Clear **Apply OS text size to labels** to stop labels from following the system text size, then select it again to restore system text scaling. Restaurant symbols continue to follow the system text size independently of this setting. The legend and current values show how labels and symbols are scaled.
 
@@ -28,7 +28,7 @@ Select a restaurant to show its name and WGS 84 coordinates in a callout. Select
 
 ## Relevant API
 
-* GeoView.UseSystemTextScale
+* Control.IsTextScaleFactorEnabled
 
 ## About the data
 
@@ -36,9 +36,7 @@ This sample uses a [Redlands restaurants](https://www.arcgis.com/home/item.html?
 
 ## Additional information
 
-On WPF, use `GeoView.UseSystemTextScale` to control system text scaling for feature labels. Use `UISettings.TextScaleFactor` and `UISettings.TextScaleFactorChanged` to scale symbols and respond to Windows text-size changes.
-
-On WinUI, the map view uses the inherited `Control.IsTextScaleFactorEnabled` property for labels. On MAUI, the map view uses `GeoView.UseSystemTextScale` for labels. Symbols use `Configuration.FontScale` with `IComponentCallbacks.OnConfigurationChanged` on Android and `UIFontMetrics.GetScaledValue` with `ObserveContentSizeCategoryChanged` on iOS and Mac Catalyst.
+On WinUI, use the inherited `Control.IsTextScaleFactorEnabled` property for labels. Use `UISettings.TextScaleFactor` and `UISettings.TextScaleFactorChanged` to scale symbols and respond to Windows text-size changes.
 
 ## Tags
 

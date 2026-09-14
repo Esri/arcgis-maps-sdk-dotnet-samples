@@ -51,8 +51,7 @@
                                VerticalOptions="Center"
                                LineBreakMode="WordWrap" />
                     </HorizontalStackLayout>
-                    <Button x:Name="OpenTextSizeSettingsButton"
-                            Clicked="OpenTextSizeSettingsButton_Clicked"
+                    <Button Clicked="OpenTextSizeSettingsButton_Clicked"
                             Text="Open OS text-size settings" />
                     <BoxView Margin="0,6,0,2"
                              HeightRequest="1" />

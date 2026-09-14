@@ -28,27 +28,24 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
         name: "Update labels and symbols to scale for visual accessibility",
         category: "Accessibility",
         description: "Scale feature labels and symbols according to the system text-size setting.",
-        instructions: "Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**. On Mac Catalyst, open **System Settings** > **Accessibility** > **Display**.",
+        instructions: "Change the text size in Windows accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** to open the relevant settings page.",
         tags: new[] { "accessibility", "label", "readability", "scale", "symbol", "text", "visual impairment" })]
     public partial class UpdateLabelsAndSymbolsToScaleForVisualAccessibility
     {
-        // Base sizes for the marker, outline, and label in device-independent pixels.
+        // Base sizes for the marker and outline in device-independent pixels.
         private const double BaseMarkerSize = 12;
         private const double BaseOutlineWidth = 1.5;
-        private const double BaseLabelSize = 12;
 
         // Hold references to the Windows text settings and map content.
         private readonly UISettings _uiSettings = new();
         private FeatureLayer _restaurantsLayer;
         private SimpleMarkerSymbol _restaurantMarker;
-        private TextSymbol _restaurantLabel;
         private MapPoint _calloutLocation;
         private string _calloutTitle;
         private string _calloutDetails;
 
         // Flag indicating if the text scale change event is subscribed.
         private bool _eventsSubscribed;
-        private int _identifyRequestId;
 
         public UpdateLabelsAndSymbolsToScaleForVisualAccessibility()
         {
@@ -93,16 +90,6 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
             // Assign the map to the map view.
             MyMapView.Map = map;
 
-            // Create the label symbol. MapView inherits Control.IsTextScaleFactorEnabled,
-            // which propagates the Windows text scale setting to ArcGIS labels.
-            _restaurantLabel = new TextSymbol
-            {
-                Color = Color.FromArgb(31, 35, 40),
-                HaloColor = Color.White,
-                HaloWidth = 2,
-                Size = BaseLabelSize
-            };
-
             // Apply the current system text scale to the marker symbol.
             ApplySystemTextScale();
 
@@ -118,7 +105,13 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
                 // Create a label definition and add it to the feature layer.
                 _restaurantsLayer.LabelDefinitions.Add(new LabelDefinition(
                     new SimpleLabelExpression("[name]"),
-                    _restaurantLabel)
+                    new TextSymbol
+                    {
+                        Color = Color.FromArgb(31, 35, 40),
+                        HaloColor = Color.White,
+                        HaloWidth = 2,
+                        Size = 12
+                    })
                 {
                     DeconflictionStrategy = LabelDeconflictionStrategy.None,
                     Placement = Esri.ArcGISRuntime.ArcGISServices.LabelingPlacement.PointAboveCenter
@@ -168,7 +161,7 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
 
         private void OnLabelTextScaleChanged(object sender, RoutedEventArgs e)
         {
-            if (_restaurantMarker == null || _restaurantLabel == null)
+            if (_restaurantMarker == null)
                 return;
 
             // The checkbox is bound directly to the MapView control property.
@@ -206,8 +199,6 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            int identifyRequestId = ++_identifyRequestId;
-
             _restaurantsLayer.ClearSelection();
             MyMapView.DismissCallout();
             _calloutLocation = null;
@@ -219,9 +210,6 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
                 // Identify at most one restaurant near the tapped screen position.
                 IdentifyLayerResult result = await MyMapView.IdentifyLayerAsync(
                     _restaurantsLayer, e.Position, 12, false, 1);
-
-                if (identifyRequestId != _identifyRequestId)
-                    return;
 
                 if (result.GeoElements.FirstOrDefault() is not Feature restaurant ||
                     restaurant.Geometry is not MapPoint restaurantLocation)

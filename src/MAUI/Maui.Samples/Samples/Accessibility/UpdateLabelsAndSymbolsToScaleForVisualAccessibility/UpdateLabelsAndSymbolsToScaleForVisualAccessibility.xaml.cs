@@ -61,7 +61,6 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
         private IDisposable _contentSizeCategoryObserver;
 #endif
         private bool _isActive;
-        private int _identifyRequestId;
 
         public UpdateLabelsAndSymbolsToScaleForVisualAccessibility()
         {
@@ -226,8 +225,6 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
-            int identifyRequestId = ++_identifyRequestId;
-
             _restaurantsLayer.ClearSelection();
             MyMapView.DismissCallout();
             _calloutLocation = null;
@@ -239,9 +236,6 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
                 // Identify at most one restaurant near the tapped screen position.
                 IdentifyLayerResult result = await MyMapView.IdentifyLayerAsync(
                     _restaurantsLayer, e.Position, 12, false, 1);
-
-                if (identifyRequestId != _identifyRequestId)
-                    return;
 
                 if (result.GeoElements.FirstOrDefault() is not Feature restaurant ||
                     restaurant.Geometry is not MapPoint restaurantLocation)

@@ -36,9 +36,7 @@ This sample uses a [Redlands restaurants](https://www.arcgis.com/home/item.html?
 
 ## Additional information
 
-On WPF, use `GeoView.UseSystemTextScale` to control system text scaling for feature labels. Use `UISettings.TextScaleFactor` and `UISettings.TextScaleFactorChanged` to scale symbols and respond to Windows text-size changes.
-
-On WinUI, the map view uses the inherited `Control.IsTextScaleFactorEnabled` property for labels. On MAUI, the map view uses `GeoView.UseSystemTextScale` for labels. Symbols use `Configuration.FontScale` with `IComponentCallbacks.OnConfigurationChanged` on Android and `UIFontMetrics.GetScaledValue` with `ObserveContentSizeCategoryChanged` on iOS and Mac Catalyst.
+On MAUI, use `GeoView.UseSystemTextScale` for labels. Symbols use `UISettings.TextScaleFactor` with `UISettings.TextScaleFactorChanged` on Windows, `Configuration.FontScale` with `IComponentCallbacks.OnConfigurationChanged` on Android, and `UIFontMetrics.GetScaledValue` with `ObserveContentSizeCategoryChanged` on iOS and Mac Catalyst.
 
 ## Tags
 

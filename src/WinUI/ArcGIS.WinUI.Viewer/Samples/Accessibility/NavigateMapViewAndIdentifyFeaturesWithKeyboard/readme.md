@@ -20,7 +20,7 @@ When the sample is launched, a fixed area of interest appears centered over the 
 4. Convert the rectangle's four screen corners to map points using `MapView.ScreenToLocation`, then create a `Polygon` that follows the rectangle at any map rotation.
 5. Build `QueryParameters` with the polygon geometry and `SpatialRelationship.Intersects`, then call `FeatureTable.QueryFeaturesAsync`.
 6. Call `FeatureLayer.SelectFeature` on each returned feature, and add a numbered `TextSymbol` graphic to a `GraphicsOverlay` at each feature's location.
-7. Handle keyboard input to show callouts via the number keys and to dismiss the callout on <kbd>Esc</kbd>.
+7. Handle `PreviewKeyDown` to show callouts via the number keys and to dismiss the callout on <kbd>Esc</kbd>.
 
 ## Relevant API
 

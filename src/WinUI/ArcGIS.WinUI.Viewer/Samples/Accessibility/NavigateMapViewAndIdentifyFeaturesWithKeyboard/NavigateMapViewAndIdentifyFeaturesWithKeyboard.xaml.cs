@@ -149,6 +149,8 @@ namespace ArcGIS.WinUI.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
                 foreach ((Feature feature, MapPoint anchor, _) in ordered)
                 {
                     _restaurantsLayer.SelectFeature(feature);
+
+                    // Only the first nine features have a matching number key.
                     if (index > 9) continue;
 
                     string name = GetFeatureName(feature, fallback: null);
@@ -211,10 +213,12 @@ namespace ArcGIS.WinUI.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
         {
             if (feature.Geometry is not MapPoint anchor) return;
 
+            // Project the anchor to WGS84 for the latitude and longitude readout.
             MapPoint wgs84Anchor = (MapPoint)GeometryEngine.Project(anchor, SpatialReferences.Wgs84);
             string name = GetFeatureName(feature, fallback: "Restaurant");
             string detail = $"Lat: {wgs84Anchor.Y:0.000000}\nLon: {wgs84Anchor.X:0.000000}";
 
+            // Offset the callout so the restaurant feature remains unobstructed.
             Point screen = MyMapView.LocationToScreen(anchor);
             MapPoint leaderAnchor = MyMapView.ScreenToLocation(new Point(screen.X, screen.Y - 4)) ?? anchor;
 

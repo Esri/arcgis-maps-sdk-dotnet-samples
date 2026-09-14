@@ -41,7 +41,9 @@ This sample uses a [Redlands restaurants](https://www.arcgis.com/home/item.html?
 
 The map view supports built-in keyboard shortcuts for pan (arrow keys), zoom (<kbd>+</kbd> / <kbd>-</kbd>), rotate (<kbd>Alt</kbd> + <kbd>←</kbd> / <kbd>→</kbd>), and reset to north (<kbd>Alt</kbd> + <kbd>↑</kbd>). On macOS, use <kbd>Option</kbd> in place of <kbd>Alt</kbd>. See [Navigate a map view](https://developers.arcgis.com/net/maps-2d/navigate-a-map-view/) for the complete list of built-in interactions.
 
-On iOS and Mac Catalyst, the number shortcuts follow the active hardware keyboard layout rather than fixed physical key positions. Numeric keypad shortcuts are also registered.
+On iOS and Mac Catalyst, `UIKeyCommand` handles number-key shortcuts, including the numeric keypad.
+
+On Android, the native map view's `KeyPress` event handles number-key shortcuts, including the numeric keypad.
 
 ## Tags
 

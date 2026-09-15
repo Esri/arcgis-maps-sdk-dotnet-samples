@@ -53,11 +53,9 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
 
 #if WINDOWS
         private readonly UISettings _uiSettings = new();
-#endif
-#if ANDROID
+#elif ANDROID
         private AndroidConfigurationCallback _androidConfigurationCallback;
-#endif
-#if IOS || MACCATALYST
+#elif IOS || MACCATALYST
         private IDisposable _contentSizeCategoryObserver;
 #endif
         private bool _eventsSubscribed;
@@ -67,7 +65,8 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
         {
             InitializeComponent();
 
-            // The viewer hosts this page's content, so use the map view's lifecycle events.
+            // SamplePage in the MAUI samples app displays this page's Content, not the ContentPage itself.
+            // Since this page isn't added to the visual tree, use the displayed MapView's Loaded/Unloaded events.
             MyMapView.Loaded += OnMapViewLoaded;
             MyMapView.Unloaded += OnMapViewUnloaded;
 

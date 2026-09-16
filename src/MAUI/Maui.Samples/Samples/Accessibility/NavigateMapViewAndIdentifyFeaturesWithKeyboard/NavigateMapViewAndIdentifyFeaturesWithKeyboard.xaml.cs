@@ -1,0 +1,460 @@
+﻿// Copyright 2026 Esri.
+//
+// Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an
+// "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific
+// language governing permissions and limitations under the License.
+
+using Esri.ArcGISRuntime.Data;
+using Esri.ArcGISRuntime.Geometry;
+using Esri.ArcGISRuntime.Mapping;
+using Esri.ArcGISRuntime.Symbology;
+using Esri.ArcGISRuntime.UI;
+#if IOS || MACCATALYST
+using Foundation;
+using ObjCRuntime;
+using UIKit;
+#endif
+
+using Point = Microsoft.Maui.Graphics.Point;
+
+namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
+{
+    [ArcGIS.Samples.Shared.Attributes.Sample(
+        name: "Navigate map view and identify features with keyboard",
+        category: "Accessibility",
+        description: "Perform all map navigation operations using only the keyboard.",
+        instructions: "When the sample is launched, a fixed area of interest appears centered over the map, and any features inside it are automatically selected and labeled <kbd>1</kbd> – <kbd>9</kbd>. As you navigate, the selection and labels update to match the features currently inside the area of interest. Use the arrow keys to pan and <kbd>+</kbd> / <kbd>-</kbd> to zoom. Use <kbd>Alt</kbd> + <kbd>←</kbd> / <kbd>→</kbd> to rotate, with <kbd>Alt</kbd> + <kbd>↑</kbd> resetting the map to north. Press <kbd>1</kbd> – <kbd>9</kbd> to show a callout for the matching numbered feature, and press <kbd>Esc</kbd> to dismiss the callout.",
+        tags: new[] { "WCAG", "accessibility", "accessible", "identify", "inclusive", "input", "interaction", "keyboard", "navigation", "selection" })]
+    public partial class NavigateMapViewAndIdentifyFeaturesWithKeyboard
+    {
+        // Attribute used to title and label each feature.
+        private const string NameAttribute = "name";
+
+        // Feature layer holding the restaurants displayed and identified by the sample.
+        private FeatureLayer _restaurantsLayer;
+
+        // Overlay for the numbered 1-9 labels.
+        private readonly GraphicsOverlay _labelOverlay = new GraphicsOverlay();
+
+        // Features currently in the area of interest, indexed by the matching number key.
+        private readonly List<Feature> _rectangleFeatures = new List<Feature>();
+
+        private int _selectionRequestVersion;
+        private bool _isErrorDialogOpen;
+
+#if WINDOWS || ANDROID || IOS || MACCATALYST
+        private Esri.ArcGISRuntime.UI.Controls.MapView _nativeMapView;
+#endif
+
+        public NavigateMapViewAndIdentifyFeaturesWithKeyboard()
+        {
+            InitializeComponent();
+            Initialize();
+        }
+
+        private void Initialize()
+        {
+            // Create a light gray basemap centered on Redlands.
+            Map map = new Map(BasemapStyle.ArcGISLightGray)
+            {
+                InitialViewpoint = new Viewpoint(new MapPoint(-117.1825, 34.0556, SpatialReferences.Wgs84), 2500)
+            };
+
+            // Create the restaurants feature layer.
+            Uri serviceUri = new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/redlands_food/FeatureServer/0");
+            _restaurantsLayer = new FeatureLayer(serviceUri)
+            {
+                // Symbolize each restaurant as a filled circle with a white outline.
+                Renderer = new SimpleRenderer(new SimpleMarkerSymbol(
+                    SimpleMarkerSymbolStyle.Circle,
+                    System.Drawing.Color.FromArgb(255, 11, 79, 138),
+                    12)
+                {
+                    Outline = new SimpleLineSymbol(SimpleLineSymbolStyle.Solid, System.Drawing.Color.White, 1.5)
+                })
+            };
+
+            // Add the feature layer to the map.
+            map.OperationalLayers.Add(_restaurantsLayer);
+
+            // Display the map and apply the selection halo color.
+            MyMapView.Map = map;
+            MyMapView.SelectionProperties.Color = System.Drawing.Color.FromArgb(255, 190, 24, 93);
+
+            // Add the label overlay on top of the map.
+            MyMapView.GraphicsOverlays.Add(_labelOverlay);
+
+            // Refresh the selection after every pan, zoom, or rotation.
+            MyMapView.NavigationCompleted += OnNavigationCompleted;
+
+            // Trigger the initial selection once the view finishes its first draw.
+            MyMapView.DrawStatusChanged += OnInitialDrawCompleted;
+
+            // Native keyboard input preserves the MapView's built-in navigation while adding 1-9 and Escape.
+            MyMapView.HandlerChanged += OnMapViewHandlerChanged;
+
+            // The viewer hosts the page's content, so observe the root layout's lifecycle.
+#if IOS || MACCATALYST
+            Content.HandlerChanging += OnContentHandlerChanging;
+#endif
+            Content.Loaded += OnContentLoaded;
+            Content.Unloaded += OnContentUnloaded;
+        }
+
+        private async void OnInitialDrawCompleted(object sender, DrawStatusChangedEventArgs e)
+        {
+            if (e.Status != DrawStatus.Completed) return;
+
+            MyMapView.DrawStatusChanged -= OnInitialDrawCompleted;
+            FocusKeyboardInput();
+            await SelectFeaturesInRectangleAsync();
+        }
+
+        private async void OnNavigationCompleted(object sender, EventArgs e)
+        {
+            FocusKeyboardInput();
+            await SelectFeaturesInRectangleAsync();
+        }
+
+        private async Task SelectFeaturesInRectangleAsync()
+        {
+            if (_restaurantsLayer?.FeatureTable is not ServiceFeatureTable table) return;
+
+            int requestVersion = ++_selectionRequestVersion;
+
+            // Convert all four screen corners so the query follows the rectangle when the map rotates.
+            Point screenCenter = new Point(MyMapView.Width / 2, MyMapView.Height / 2);
+            double rectangleHalfWidth = SelectionRectangle.WidthRequest / 2;
+            double rectangleHalfHeight = SelectionRectangle.HeightRequest / 2;
+            MapPoint topLeft = MyMapView.ScreenToLocation(new Point(screenCenter.X - rectangleHalfWidth, screenCenter.Y - rectangleHalfHeight));
+            MapPoint topRight = MyMapView.ScreenToLocation(new Point(screenCenter.X + rectangleHalfWidth, screenCenter.Y - rectangleHalfHeight));
+            MapPoint bottomRight = MyMapView.ScreenToLocation(new Point(screenCenter.X + rectangleHalfWidth, screenCenter.Y + rectangleHalfHeight));
+            MapPoint bottomLeft = MyMapView.ScreenToLocation(new Point(screenCenter.X - rectangleHalfWidth, screenCenter.Y + rectangleHalfHeight));
+            if (topLeft == null || topRight == null || bottomRight == null || bottomLeft == null) return;
+
+            Polygon selectionArea = new Polygon(new[] { topLeft, topRight, bottomRight, bottomLeft });
+
+            // Query for features inside the polygon. Normalize for crossings of the antimeridian.
+            QueryParameters query = new QueryParameters
+            {
+                Geometry = GeometryEngine.NormalizeCentralMeridian(selectionArea),
+                SpatialRelationship = SpatialRelationship.Intersects
+            };
+
+            try
+            {
+                FeatureQueryResult results = await table.QueryFeaturesAsync(query, QueryFeatureFields.LoadAll);
+                if (requestVersion != _selectionRequestVersion) return;
+
+                // Project each result to its on-screen position so labels can be ordered by reading order.
+                List<(Feature Feature, MapPoint Anchor, Point Screen)> ordered = new List<(Feature, MapPoint, Point)>();
+                foreach (Feature feature in results)
+                {
+                    if (feature.Geometry is not MapPoint anchor) continue;
+                    ordered.Add((feature, anchor, MyMapView.LocationToScreen(anchor)));
+                }
+
+                // Sort top-to-bottom, then left-to-right.
+                ordered.Sort((first, second) =>
+                {
+                    int yComparison = first.Screen.Y.CompareTo(second.Screen.Y);
+                    return yComparison != 0 ? yComparison : first.Screen.X.CompareTo(second.Screen.X);
+                });
+
+                // Replace the previous selection only after the latest query completes.
+                _restaurantsLayer.ClearSelection();
+                _labelOverlay.Graphics.Clear();
+                _rectangleFeatures.Clear();
+                OverflowMessage.IsVisible = ordered.Count > 9;
+
+                int index = 1;
+                foreach ((Feature feature, MapPoint anchor, _) in ordered)
+                {
+                    _restaurantsLayer.SelectFeature(feature);
+
+                    // Only the first nine features have a matching number key.
+                    if (index > 9) continue;
+
+                    string name = GetFeatureName(feature, fallback: null);
+                    string text = name != null ? $"{index}: {name}" : index.ToString();
+                    TextSymbol label = new TextSymbol(
+                        text,
+                        System.Drawing.Color.FromArgb(255, 31, 35, 40),
+                        15,
+                        Esri.ArcGISRuntime.Symbology.HorizontalAlignment.Center,
+                        Esri.ArcGISRuntime.Symbology.VerticalAlignment.Top)
+                    {
+                        HaloColor = System.Drawing.Color.White,
+                        HaloWidth = 2,
+                        OffsetY = -14
+                    };
+
+                    _labelOverlay.Graphics.Add(new Graphic(anchor, label));
+                    _rectangleFeatures.Add(feature);
+                    index++;
+                }
+            }
+            catch (Exception ex)
+            {
+                if (requestVersion != _selectionRequestVersion) return;
+
+                await ShowIdentifyErrorAsync(ex.Message);
+            }
+        }
+
+        private bool ShowCalloutForIndex(int featureIndex)
+        {
+            if (featureIndex < 0 || featureIndex >= _rectangleFeatures.Count) return false;
+
+            ShowCalloutForFeature(_rectangleFeatures[featureIndex]);
+            return true;
+        }
+
+        private void DismissCallout()
+        {
+            MyMapView.DismissCallout();
+            SelectionRectangle.IsVisible = true;
+        }
+
+        private void ShowCalloutForFeature(Feature feature)
+        {
+            if (feature.Geometry is not MapPoint anchor) return;
+
+            // Project the anchor to WGS84 for the latitude and longitude readout.
+            MapPoint wgs84Anchor = (MapPoint)GeometryEngine.Project(anchor, SpatialReferences.Wgs84);
+            string name = GetFeatureName(feature, fallback: "Restaurant");
+            string detail = $"Lat: {wgs84Anchor.Y:0.000000}\nLon: {wgs84Anchor.X:0.000000}";
+
+            // Offset the callout so the restaurant feature remains unobstructed.
+            Point screen = MyMapView.LocationToScreen(anchor);
+            MapPoint leaderAnchor = MyMapView.ScreenToLocation(new Point(screen.X, screen.Y - 4)) ?? anchor;
+
+            MyMapView.ShowCalloutAt(leaderAnchor, new CalloutDefinition(name, detail));
+            SelectionRectangle.IsVisible = false;
+        }
+
+        private static string GetFeatureName(Feature feature, string fallback)
+        {
+            return feature.Attributes.TryGetValue(NameAttribute, out object value) &&
+                   value is string name &&
+                   !string.IsNullOrWhiteSpace(name)
+                ? name
+                : fallback;
+        }
+
+        private async Task ShowIdentifyErrorAsync(string message)
+        {
+            if (_isErrorDialogOpen) return;
+
+            _isErrorDialogOpen = true;
+            try
+            {
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Identify error", message, "OK");
+            }
+            finally
+            {
+                _isErrorDialogOpen = false;
+            }
+        }
+
+#if IOS || MACCATALYST
+        private void OnContentHandlerChanging(object sender, HandlerChangingEventArgs args)
+        {
+            if (args.NewHandler?.MauiContext is IMauiContext context &&
+                (MyMapView.Handler is not KeyboardMapViewHandler || MyMapView.Handler.MauiContext != context))
+            {
+                // Assign the map's handler before the layout handler creates its child views.
+                KeyboardMapViewHandler handler = new KeyboardMapViewHandler();
+                handler.SetMauiContext(context);
+                MyMapView.Handler = handler;
+            }
+        }
+#endif
+
+        private void OnContentLoaded(object sender, EventArgs e) => AttachKeyboardInput();
+
+        private void OnContentUnloaded(object sender, EventArgs e)
+        {
+            DetachKeyboardInput();
+            _selectionRequestVersion++;
+        }
+
+        private void OnMapViewHandlerChanged(object sender, EventArgs e) => AttachKeyboardInput();
+
+        private void AttachKeyboardInput()
+        {
+#if WINDOWS || ANDROID || IOS || MACCATALYST
+            DetachKeyboardInput();
+            if (MyMapView.Handler?.PlatformView is not Esri.ArcGISRuntime.UI.Controls.MapView nativeMapView) return;
+
+            _nativeMapView = nativeMapView;
+#if WINDOWS
+            _nativeMapView.KeyDown += OnNativeMapViewKeyDown;
+#elif ANDROID
+            _nativeMapView.Focusable = true;
+            _nativeMapView.FocusableInTouchMode = true;
+            _nativeMapView.KeyPress += OnNativeMapViewKeyPress;
+#elif IOS || MACCATALYST
+            if (_nativeMapView is AppleKeyboardMapView appleMapView)
+            {
+                appleMapView.KeyCommandHandler = OnAppleKeyCommand;
+            }
+#endif
+            FocusKeyboardInput();
+#endif
+        }
+
+        private void DetachKeyboardInput()
+        {
+#if WINDOWS || ANDROID || IOS || MACCATALYST
+            if (_nativeMapView == null) return;
+
+#if WINDOWS
+            _nativeMapView.KeyDown -= OnNativeMapViewKeyDown;
+#elif ANDROID
+            _nativeMapView.KeyPress -= OnNativeMapViewKeyPress;
+#elif IOS || MACCATALYST
+            if (_nativeMapView is AppleKeyboardMapView appleMapView)
+            {
+                appleMapView.KeyCommandHandler = null;
+            }
+#endif
+            _nativeMapView = null;
+#endif
+        }
+
+        private void FocusKeyboardInput()
+        {
+#if WINDOWS
+            _nativeMapView?.Focus(Microsoft.UI.Xaml.FocusState.Programmatic);
+#elif ANDROID
+            _nativeMapView?.RequestFocus();
+#elif IOS || MACCATALYST
+            _nativeMapView?.BecomeFirstResponder();
+#endif
+        }
+
+#if WINDOWS
+        private void OnNativeMapViewKeyDown(object sender, Microsoft.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Escape)
+            {
+                DismissCallout();
+                e.Handled = true;
+                return;
+            }
+
+            int featureIndex = e.Key switch
+            {
+                >= Windows.System.VirtualKey.Number1 and <= Windows.System.VirtualKey.Number9 =>
+                    (int)e.Key - (int)Windows.System.VirtualKey.Number1,
+                >= Windows.System.VirtualKey.NumberPad1 and <= Windows.System.VirtualKey.NumberPad9 =>
+                    (int)e.Key - (int)Windows.System.VirtualKey.NumberPad1,
+                _ => -1
+            };
+
+            if (ShowCalloutForIndex(featureIndex))
+            {
+                e.Handled = true;
+            }
+        }
+#elif ANDROID
+        private void OnNativeMapViewKeyPress(object sender, Android.Views.View.KeyEventArgs e)
+        {
+            if (e.Event?.Action != Android.Views.KeyEventActions.Down) return;
+
+            if (e.KeyCode == Android.Views.Keycode.Escape)
+            {
+                DismissCallout();
+                e.Handled = true;
+                return;
+            }
+
+            int featureIndex = e.KeyCode switch
+            {
+                >= Android.Views.Keycode.Num1 and <= Android.Views.Keycode.Num9 =>
+                    (int)e.KeyCode - (int)Android.Views.Keycode.Num1,
+                >= Android.Views.Keycode.Numpad1 and <= Android.Views.Keycode.Numpad9 =>
+                    (int)e.KeyCode - (int)Android.Views.Keycode.Numpad1,
+                _ => -1
+            };
+
+            if (ShowCalloutForIndex(featureIndex))
+            {
+                e.Handled = true;
+            }
+        }
+#elif IOS || MACCATALYST
+        private void OnAppleKeyCommand(string input)
+        {
+            if (input == UIKeyCommand.Escape.ToString())
+            {
+                DismissCallout();
+            }
+            else if (input.Length == 1 && input[0] >= '1' && input[0] <= '9')
+            {
+                ShowCalloutForIndex(input[0] - '1');
+            }
+        }
+#endif
+    }
+
+#if IOS || MACCATALYST
+    internal sealed class KeyboardMapViewHandler : Esri.ArcGISRuntime.Maui.Handlers.MapViewHandler
+    {
+        protected override Esri.ArcGISRuntime.UI.Controls.MapView CreatePlatformView() =>
+            new AppleKeyboardMapView();
+    }
+
+    internal sealed class AppleKeyboardMapView : Esri.ArcGISRuntime.UI.Controls.MapView
+    {
+        private readonly List<UIKeyCommand> _keyCommands = new List<UIKeyCommand>();
+
+        internal Action<string> KeyCommandHandler { get; set; }
+
+        public AppleKeyboardMapView()
+        {
+            Selector action = new Selector("handleSampleKeyCommand:");
+            for (int number = 1; number <= 9; number++)
+            {
+                using NSString input = new NSString(number.ToString());
+                _keyCommands.Add(UIKeyCommand.Create(input, 0, action));
+                _keyCommands.Add(UIKeyCommand.Create(input, UIKeyModifierFlags.NumericPad, action));
+            }
+
+            _keyCommands.Add(UIKeyCommand.Create(UIKeyCommand.Escape, 0, action));
+        }
+
+        // Retain the MapView's navigation commands alongside the sample shortcuts.
+        public override UIKeyCommand[] KeyCommands =>
+            (base.KeyCommands ?? Array.Empty<UIKeyCommand>()).Concat(_keyCommands).ToArray();
+
+        [Export("handleSampleKeyCommand:")]
+        public void HandleSampleKeyCommand(UIKeyCommand command) =>
+            KeyCommandHandler?.Invoke(command.Input);
+
+        public override bool AccessibilityPerformEscape()
+        {
+            if (!IsCalloutVisible || KeyCommandHandler == null)
+            {
+                return base.AccessibilityPerformEscape();
+            }
+
+            KeyCommandHandler(UIKeyCommand.Escape.ToString());
+            return true;
+        }
+
+        public override void MovedToWindow()
+        {
+            base.MovedToWindow();
+            if (Window != null)
+            {
+                BecomeFirstResponder();
+            }
+        }
+    }
+#endif
+}

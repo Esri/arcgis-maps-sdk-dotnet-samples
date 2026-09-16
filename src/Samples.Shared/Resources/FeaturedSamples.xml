@@ -2,9 +2,9 @@
 <FeaturedSamples>
 	<Categories>
 		<Category name="Accessibility">
-			<Sample>NavigateMapViewAndIdentifyFeaturesWithKeyboard</Sample>
+			<Sample>NavigateMapViewWithKeyboard</Sample>
 			<Sample>UpdateBasemapForContrastAccessibility</Sample>
-			<Sample>UpdateLabelsAndSymbolsToScaleForVisualAccessibility</Sample>
+			<Sample>UpdateLabelsAndSymbolsForAccessibility</Sample>
 		</Category>
 		<Category name="Analysis">
 			<Sample>AnalyzeTerrainSuitabilityFromSlopeAndAspect</Sample>

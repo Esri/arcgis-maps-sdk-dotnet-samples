@@ -20,7 +20,7 @@ using UIKit;
 
 using Point = Microsoft.Maui.Graphics.Point;
 
-namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
+namespace ArcGIS.Samples.NavigateMapViewWithKeyboard
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Navigate map view and identify features with keyboard",
@@ -28,7 +28,7 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
         description: "Perform all map navigation operations using only the keyboard.",
         instructions: "When the sample is launched, a fixed area of interest appears centered over the map, and any features inside it are automatically selected and labeled <kbd>1</kbd> – <kbd>9</kbd>. As you navigate, the selection and labels update to match the features currently inside the area of interest. Use the arrow keys to pan and <kbd>+</kbd> / <kbd>-</kbd> to zoom. Use <kbd>Alt</kbd> + <kbd>←</kbd> / <kbd>→</kbd> to rotate, with <kbd>Alt</kbd> + <kbd>↑</kbd> resetting the map to north. Press <kbd>1</kbd> – <kbd>9</kbd> to show a callout for the matching numbered feature, and press <kbd>Esc</kbd> to dismiss the callout.",
         tags: new[] { "WCAG", "accessibility", "accessible", "identify", "inclusive", "input", "interaction", "keyboard", "navigation", "selection" })]
-    public partial class NavigateMapViewAndIdentifyFeaturesWithKeyboard
+    public partial class NavigateMapViewWithKeyboard
     {
         // Attribute used to title and label each feature.
         private const string NameAttribute = "name";
@@ -49,7 +49,7 @@ namespace ArcGIS.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
         private Esri.ArcGISRuntime.UI.Controls.MapView _nativeMapView;
 #endif
 
-        public NavigateMapViewAndIdentifyFeaturesWithKeyboard()
+        public NavigateMapViewWithKeyboard()
         {
             InitializeComponent();
             Initialize();

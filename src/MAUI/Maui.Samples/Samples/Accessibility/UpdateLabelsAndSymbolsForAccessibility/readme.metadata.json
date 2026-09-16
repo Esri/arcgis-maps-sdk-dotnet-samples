@@ -1,10 +1,10 @@
 {
     "category": "Accessibility",
     "description": "Scale feature labels and symbols according to the system text-size setting.",
-    "formal_name": "UpdateLabelsAndSymbolsToScaleForVisualAccessibility",
+    "formal_name": "UpdateLabelsAndSymbolsForAccessibility",
     "ignore": false,
     "images": [
-        "UpdateLabelsAndSymbolsToScaleForVisualAccessibility.jpg"
+        "updatelabelsandsymbolsforaccessibility.jpg"
     ],
     "keywords": [
         "accessibility",
@@ -18,11 +18,11 @@
     "offline_data": [],
     "redirect_from": [],
     "relevant_apis": [
-        "Control.IsTextScaleFactorEnabled"
+        "GeoView.UseSystemTextScale"
     ],
     "snippets": [
-        "UpdateLabelsAndSymbolsToScaleForVisualAccessibility.xaml.cs",
-        "UpdateLabelsAndSymbolsToScaleForVisualAccessibility.xaml"
+        "UpdateLabelsAndSymbolsForAccessibility.xaml.cs",
+        "UpdateLabelsAndSymbolsForAccessibility.xaml"
     ],
     "title": "Update labels and symbols to scale for visual accessibility"
 }

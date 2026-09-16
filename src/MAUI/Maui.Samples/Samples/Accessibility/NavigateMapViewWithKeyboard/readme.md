@@ -2,7 +2,7 @@
 
 Perform all map navigation operations using only the keyboard.
 
-![Image of navigate map view and identify features with keyboard](navigatemapviewandidentifyfeatureswithkeyboard.jpg)
+![Image of navigate map view and identify features with keyboard](navigatemapviewwithkeyboard.jpg)
 
 ## Use case
 

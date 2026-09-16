@@ -78,11 +78,11 @@
 
 	<!-- Exclude text scaling sample on Mac Catalyst, where it is not supported. -->
 	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
-	  <AndroidResource Remove="Samples\Accessibility\UpdateLabelsAndSymbolsToScaleForVisualAccessibility\**" />
-	  <Compile Remove="Samples\Accessibility\UpdateLabelsAndSymbolsToScaleForVisualAccessibility\**" />
-	  <MauiCss Remove="Samples\Accessibility\UpdateLabelsAndSymbolsToScaleForVisualAccessibility\**" />
-	  <MauiXaml Remove="Samples\Accessibility\UpdateLabelsAndSymbolsToScaleForVisualAccessibility\**" />
-	  <None Remove="Samples\Accessibility\UpdateLabelsAndSymbolsToScaleForVisualAccessibility\**" />
+	  <AndroidResource Remove="Samples\Accessibility\UpdateLabelsAndSymbolsForAccessibility\**" />
+	  <Compile Remove="Samples\Accessibility\UpdateLabelsAndSymbolsForAccessibility\**" />
+	  <MauiCss Remove="Samples\Accessibility\UpdateLabelsAndSymbolsForAccessibility\**" />
+	  <MauiXaml Remove="Samples\Accessibility\UpdateLabelsAndSymbolsForAccessibility\**" />
+	  <None Remove="Samples\Accessibility\UpdateLabelsAndSymbolsForAccessibility\**" />
 	</ItemGroup>
 
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">

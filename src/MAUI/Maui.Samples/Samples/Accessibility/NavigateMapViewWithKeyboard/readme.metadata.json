@@ -1,10 +1,10 @@
 {
     "category": "Accessibility",
     "description": "Perform all map navigation operations using only the keyboard.",
-    "formal_name": "NavigateMapViewAndIdentifyFeaturesWithKeyboard",
+    "formal_name": "NavigateMapViewWithKeyboard",
     "ignore": false,
     "images": [
-        "NavigateMapViewAndIdentifyFeaturesWithKeyboard.jpg"
+        "navigatemapviewwithkeyboard.jpg"
     ],
     "keywords": [
         "WCAG",
@@ -29,8 +29,8 @@
         "Polygon"
     ],
     "snippets": [
-        "NavigateMapViewAndIdentifyFeaturesWithKeyboard.xaml.cs",
-        "NavigateMapViewAndIdentifyFeaturesWithKeyboard.xaml"
+        "NavigateMapViewWithKeyboard.xaml.cs",
+        "NavigateMapViewWithKeyboard.xaml"
     ],
     "title": "Navigate map view and identify features with keyboard"
 }

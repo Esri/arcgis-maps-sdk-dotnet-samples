@@ -2,7 +2,7 @@
 
 ## Accessibility
 
-* [Navigate map view and identify features with keyboard](Maui.Samples/Samples/Accessibility/NavigateMapViewAndIdentifyFeaturesWithKeyboard) - Perform all map navigation operations using only the keyboard.
+* [Navigate map view and identify features with keyboard](Maui.Samples/Samples/Accessibility/NavigateMapViewWithKeyboard) - Perform all map navigation operations using only the keyboard.
 * [Update basemap for contrast accessibility](Maui.Samples/Samples/Accessibility/UpdateBasemapForContrastAccessibility) - Display a map view that updates between authored light, dark, and high-contrast basemaps.
 * [Update labels and symbols to scale for visual accessibility](Maui.Samples/Samples/Accessibility/UpdateLabelsAndSymbolsForAccessibility) - Scale feature labels and symbols according to the system text-size setting.
 

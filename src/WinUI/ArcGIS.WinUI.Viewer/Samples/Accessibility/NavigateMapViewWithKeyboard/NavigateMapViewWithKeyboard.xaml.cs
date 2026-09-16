@@ -1,4 +1,4 @@
-﻿// Copyright 2026 Esri.
+// Copyright 2026 Esri.
 //
 // Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at: http://www.apache.org/licenses/LICENSE-2.0
@@ -12,16 +12,17 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Input;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+using Windows.System;
 
-using Point = System.Windows.Point;
+using Point = Windows.Foundation.Point;
 
-namespace ArcGIS.WPF.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
+namespace ArcGIS.WinUI.Samples.NavigateMapViewWithKeyboard
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Navigate map view and identify features with keyboard",
@@ -29,7 +30,7 @@ namespace ArcGIS.WPF.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
         description: "Perform all map navigation operations using only the keyboard.",
         instructions: "When the sample is launched, a fixed area of interest appears centered over the map, and any features inside it are automatically selected and labeled <kbd>1</kbd> – <kbd>9</kbd>. As you navigate, the selection and labels update to match the features currently inside the area of interest. Use the arrow keys to pan and <kbd>+</kbd> / <kbd>-</kbd> to zoom. Use <kbd>Alt</kbd> + <kbd>←</kbd> / <kbd>→</kbd> to rotate, with <kbd>Alt</kbd> + <kbd>↑</kbd> resetting the map to north. Press <kbd>1</kbd> – <kbd>9</kbd> to show a callout for the matching numbered feature, and press <kbd>Esc</kbd> to dismiss the callout.",
         tags: new[] { "WCAG", "accessibility", "accessible", "identify", "inclusive", "input", "interaction", "keyboard", "navigation", "selection" })]
-    public partial class NavigateMapViewAndIdentifyFeaturesWithKeyboard
+    public partial class NavigateMapViewWithKeyboard
     {
         private const string NameAttribute = "name";
 
@@ -38,12 +39,13 @@ namespace ArcGIS.WPF.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
         private readonly List<Feature> _rectangleFeatures = new List<Feature>();
 
         private int _selectionRequestVersion;
+        private bool _isErrorDialogOpen;
 
         private static readonly Color MarkerFill = Color.FromArgb(255, 11, 79, 138);
         private static readonly Color SelectionHalo = Color.FromArgb(255, 190, 24, 93);
         private static readonly Color LabelText = Color.FromArgb(255, 31, 35, 40);
 
-        public NavigateMapViewAndIdentifyFeaturesWithKeyboard()
+        public NavigateMapViewWithKeyboard()
         {
             InitializeComponent();
             Initialize();
@@ -84,13 +86,13 @@ namespace ArcGIS.WPF.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             if (e.Status != DrawStatus.Completed) return;
 
             MyMapView.DrawStatusChanged -= OnInitialDrawCompleted;
-            MyMapView.Focus();
+            MyMapView.Focus(FocusState.Programmatic);
             await SelectFeaturesInRectangleAsync();
         }
 
         private async void OnNavigationCompleted(object sender, EventArgs e)
         {
-            MyMapView.Focus();
+            MyMapView.Focus(FocusState.Programmatic);
             await SelectFeaturesInRectangleAsync();
         }
 
@@ -174,13 +176,13 @@ namespace ArcGIS.WPF.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             {
                 if (requestVersion != _selectionRequestVersion) return;
 
-                MessageBox.Show(ex.Message, "Identify error");
+                await ShowIdentifyErrorAsync(ex.Message);
             }
         }
 
-        private void OnMapPreviewKeyDown(object sender, KeyEventArgs e)
+        private void OnMapPreviewKeyDown(object sender, KeyRoutedEventArgs e)
         {
-            if (e.Key == Key.Escape)
+            if (e.Key == VirtualKey.Escape)
             {
                 MyMapView.DismissCallout();
                 SelectionRectangle.Visibility = Visibility.Visible;
@@ -189,13 +191,13 @@ namespace ArcGIS.WPF.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             }
 
             int featureIndex;
-            if (e.Key >= Key.D1 && e.Key <= Key.D9)
+            if (e.Key >= VirtualKey.Number1 && e.Key <= VirtualKey.Number9)
             {
-                featureIndex = (int)e.Key - (int)Key.D1;
+                featureIndex = (int)e.Key - (int)VirtualKey.Number1;
             }
-            else if (e.Key >= Key.NumPad1 && e.Key <= Key.NumPad9)
+            else if (e.Key >= VirtualKey.NumberPad1 && e.Key <= VirtualKey.NumberPad9)
             {
-                featureIndex = (int)e.Key - (int)Key.NumPad1;
+                featureIndex = (int)e.Key - (int)VirtualKey.NumberPad1;
             }
             else
             {
@@ -233,6 +235,21 @@ namespace ArcGIS.WPF.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
                    !string.IsNullOrWhiteSpace(name)
                 ? name
                 : fallback;
+        }
+
+        private async Task ShowIdentifyErrorAsync(string message)
+        {
+            if (_isErrorDialogOpen) return;
+
+            _isErrorDialogOpen = true;
+            try
+            {
+                await new MessageDialog2(message, "Identify error").ShowAsync();
+            }
+            finally
+            {
+                _isErrorDialogOpen = false;
+            }
         }
     }
 }

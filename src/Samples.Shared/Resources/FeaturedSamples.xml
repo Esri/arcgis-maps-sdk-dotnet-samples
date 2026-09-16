@@ -2,7 +2,7 @@
 <FeaturedSamples>
 	<Categories>
 		<Category name="Accessibility">
-			<Sample>NavigateMapViewAndIdentifyFeaturesWithKeyboard</Sample>
+			<Sample>NavigateMapViewWithKeyboard</Sample>
 			<Sample>UpdateBasemapForContrastAccessibility</Sample>
 			<Sample>UpdateLabelsAndSymbolsForAccessibility</Sample>
 		</Category>

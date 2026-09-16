@@ -2,7 +2,7 @@
 
 Scale feature labels and symbols according to the system text-size setting.
 
-![Labels and symbols scaled to system text size](UpdateLabelsAndSymbolsToScaleForVisualAccessibility.jpg)
+![Labels and symbols scaled to system text size](UpdateLabelsAndSymbolsForAccessibility.jpg)
 
 ## Use case
 

@@ -11,45 +11,64 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Labeling;
+using Esri.ArcGISRuntime.Maui;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
-using Esri.ArcGISRuntime.UI.Controls;
+using Microsoft.Maui.ApplicationModel;
+#if WINDOWS
+using Windows.UI.ViewManagement;
+#endif
+#if IOS
+using UIKit;
+#endif
+#if ANDROID
+using Android.Content;
+using Android.Provider;
+#endif
 using System;
-using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.UI.Xaml;
-using Windows.UI.ViewManagement;
 
-namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
+namespace ArcGIS.Samples.UpdateLabelsAndSymbolsForAccessibility
 {
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Update labels and symbols to scale for visual accessibility",
         category: "Accessibility",
         description: "Scale feature labels and symbols according to the system text-size setting.",
-        instructions: "Change the text size in Windows accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** to open the relevant settings page.",
+        instructions: "Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**.",
         tags: new[] { "accessibility", "label", "readability", "scale", "symbol", "text", "visual impairment" })]
-    public partial class UpdateLabelsAndSymbolsToScaleForVisualAccessibility
+    public partial class UpdateLabelsAndSymbolsForAccessibility : ContentPage
     {
         // Base sizes for the marker and outline in device-independent pixels.
         private const double BaseMarkerSize = 12;
         private const double BaseOutlineWidth = 1.5;
 
-        // Hold references to the Windows text settings and map content.
-        private readonly UISettings _uiSettings = new();
+        // Hold references to the device text settings and map content.
         private FeatureLayer _restaurantsLayer;
         private SimpleMarkerSymbol _restaurantMarker;
         private MapPoint _calloutLocation;
         private string _calloutTitle;
         private string _calloutDetails;
 
-        // Flag indicating if the text scale change event is subscribed.
+#if WINDOWS
+        private readonly UISettings _uiSettings = new();
+#elif ANDROID
+        private AndroidConfigurationCallback _androidConfigurationCallback;
+#elif IOS
+        private IDisposable _contentSizeCategoryObserver;
+#endif
         private bool _eventsSubscribed;
+        private double _appliedTextScale = double.NaN;
 
-        public UpdateLabelsAndSymbolsToScaleForVisualAccessibility()
+        public UpdateLabelsAndSymbolsForAccessibility()
         {
             InitializeComponent();
+
+            // SamplePage in the MAUI samples app displays this page's Content, not the ContentPage itself.
+            // Since this page isn't added to the visual tree, use the displayed MapView's Loaded/Unloaded events.
+            MyMapView.Loaded += OnMapViewLoaded;
+            MyMapView.Unloaded += OnMapViewUnloaded;
 
             // Initialize the sample.
             _ = Initialize();
@@ -58,7 +77,7 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
         private async Task Initialize()
         {
             // Create a map with a light gray basemap and an initial viewpoint.
-            Map map = new Map(BasemapStyle.ArcGISLightGray)
+            Esri.ArcGISRuntime.Mapping.Map map = new Esri.ArcGISRuntime.Mapping.Map(BasemapStyle.ArcGISLightGray)
             {
                 InitialViewpoint = new Viewpoint(
                     new MapPoint(-117.1793, 34.0556, SpatialReferences.Wgs84),
@@ -68,12 +87,12 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
             // Create a marker symbol for the restaurants.
             _restaurantMarker = new SimpleMarkerSymbol(
                 SimpleMarkerSymbolStyle.Circle,
-                Color.FromArgb(11, 79, 138),
+                System.Drawing.Color.FromArgb(11, 79, 138),
                 BaseMarkerSize)
             {
                 Outline = new SimpleLineSymbol(
                     SimpleLineSymbolStyle.Solid,
-                    Color.White,
+                    System.Drawing.Color.White,
                     BaseOutlineWidth)
             };
 
@@ -90,12 +109,11 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
             // Assign the map to the map view.
             MyMapView.Map = map;
 
+            // Enable system text scaling for labels.
+            MyMapView.UseSystemTextScale = ApplyTextScaleToLabelsCheckBox.IsChecked;
+
             // Apply the current system text scale to the marker symbol.
             ApplySystemTextScale();
-
-            // Subscribe to the control and lifecycle events.
-            Loaded += OnLoaded;
-            Unloaded += OnUnloaded;
 
             try
             {
@@ -107,8 +125,8 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
                     new SimpleLabelExpression("[name]"),
                     new TextSymbol
                     {
-                        Color = Color.FromArgb(31, 35, 40),
-                        HaloColor = Color.White,
+                        Color = System.Drawing.Color.FromArgb(31, 35, 40),
+                        HaloColor = System.Drawing.Color.White,
                         HaloWidth = 2,
                         Size = 12
                     })
@@ -123,23 +141,33 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
             }
             catch (Exception ex)
             {
-                await new MessageDialog2(ex.Message, "Error loading restaurant data").ShowAsync();
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error loading restaurant data", ex.Message, "OK");
             }
         }
 
         private void ApplySystemTextScale()
         {
-            // Get the current Windows text scale.
-            double systemTextScale = _uiSettings.TextScaleFactor;
+            if (_restaurantMarker == null)
+                return;
 
-            // Apply the Windows text scale to the marker and outline.
+            // Get the current platform text scale.
+            double systemTextScale = GetSystemTextScaleFactor();
+            if (systemTextScale == _appliedTextScale)
+                return;
+
+            _appliedTextScale = systemTextScale;
+
+            // Apply the system text scale to the marker and outline.
             _restaurantMarker.Size = BaseMarkerSize * systemTextScale;
             _restaurantMarker.Outline.Width = BaseOutlineWidth * systemTextScale;
+
+            // Reapply the renderer with the updated symbol.
+            _restaurantsLayer.Renderer = new SimpleRenderer(_restaurantMarker);
 
             // Update the displayed scale values.
             UpdateScaleStatus(systemTextScale);
 
-            // Refresh the visible callout so its text uses the current Windows text scale.
+            // Refresh the visible callout so its text uses the current system text scale.
             if (MyMapView.IsCalloutVisible && _calloutLocation != null)
             {
                 MapPoint calloutLocation = _calloutLocation;
@@ -147,7 +175,7 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
                 string calloutDetails = _calloutDetails;
 
                 MyMapView.DismissCallout();
-                DispatcherQueue.TryEnqueue(() =>
+                Dispatcher.Dispatch(() =>
                 {
                     if (ReferenceEquals(_calloutLocation, calloutLocation))
                     {
@@ -159,42 +187,54 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
             }
         }
 
-        private void OnLabelTextScaleChanged(object sender, RoutedEventArgs e)
+        private void OnLabelTextScaleChanged(object sender, CheckedChangedEventArgs e)
         {
             if (_restaurantMarker == null)
                 return;
 
-            // The checkbox is bound directly to the MapView control property.
-            UpdateScaleStatus(_uiSettings.TextScaleFactor);
+            // Enable or disable system text scaling for labels.
+            MyMapView.UseSystemTextScale = e.Value;
+            UpdateScaleStatus(GetSystemTextScaleFactor());
         }
 
-        private void OnLoaded(object sender, RoutedEventArgs e)
+        private void OnMapViewLoaded(object sender, EventArgs e)
         {
             // Subscribe to system text scale changes.
             if (!_eventsSubscribed)
             {
+#if WINDOWS
                 _uiSettings.TextScaleFactorChanged += OnTextScaleFactorChanged;
+#elif ANDROID
+                _androidConfigurationCallback = new AndroidConfigurationCallback(QueueSystemTextScaleUpdate);
+                Android.App.Application.Context.RegisterComponentCallbacks(_androidConfigurationCallback);
+#elif IOS
+                _contentSizeCategoryObserver = UIApplication.Notifications.ObserveContentSizeCategoryChanged(
+                    (_, _) => QueueSystemTextScaleUpdate());
+#endif
                 _eventsSubscribed = true;
             }
 
-            // Apply the current system text scale.
+            // Apply the current system text scale when the map view is attached.
             ApplySystemTextScale();
         }
 
-        private void OnUnloaded(object sender, RoutedEventArgs e)
+        private void OnMapViewUnloaded(object sender, EventArgs e)
         {
             // Unsubscribe from system text scale changes.
             if (_eventsSubscribed)
             {
-                _uiSettings.TextScaleFactorChanged -= OnTextScaleFactorChanged;
                 _eventsSubscribed = false;
+#if WINDOWS
+                _uiSettings.TextScaleFactorChanged -= OnTextScaleFactorChanged;
+#elif ANDROID
+                Android.App.Application.Context.UnregisterComponentCallbacks(_androidConfigurationCallback);
+                _androidConfigurationCallback.Dispose();
+                _androidConfigurationCallback = null;
+#elif IOS
+                _contentSizeCategoryObserver.Dispose();
+                _contentSizeCategoryObserver = null;
+#endif
             }
-        }
-
-        private void OnTextScaleFactorChanged(UISettings sender, object args)
-        {
-            // Apply the text scale change on the UI thread.
-            DispatcherQueue.TryEnqueue(ApplySystemTextScale);
         }
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
@@ -240,7 +280,7 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
             }
             catch (Exception ex)
             {
-                await new MessageDialog2(ex.Message, "Error identifying restaurant").ShowAsync();
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error identifying restaurant", ex.Message, "OK");
             }
         }
 
@@ -248,23 +288,75 @@ namespace ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibili
         {
             // Display the current text scale, label setting, and marker size.
             WindowsTextScaleValue.Text = $"{systemTextScale:P0}";
-            LabelScaleValue.Text = MyMapView.IsTextScaleFactorEnabled
-                ? "scaled by Control.IsTextScaleFactorEnabled."
+            LabelScaleValue.Text = ApplyTextScaleToLabelsCheckBox.IsChecked
+                ? "scaled by GeoView.UseSystemTextScale."
                 : "API text scaling is disabled.";
             MarkerScaleValue.Text = $"{BaseMarkerSize:0.#} DIPs × {systemTextScale:P0} = {_restaurantMarker.Size:0.#} DIPs.";
         }
 
-        private async void OpenTextSizeSettingsButton_Click(object sender, RoutedEventArgs e)
+        private async void OpenTextSizeSettingsButton_Clicked(object sender, EventArgs e)
         {
             try
             {
-                // Open the Windows text-size settings.
-                await Windows.System.Launcher.LaunchUriAsync(new Uri("ms-settings:easeofaccess-display"));
+#if WINDOWS
+                await Launcher.OpenAsync(new Uri("ms-settings:easeofaccess-display"));
+#elif ANDROID
+                Intent intent = new Intent(Settings.ActionAccessibilitySettings);
+                intent.AddFlags(ActivityFlags.NewTask);
+                Android.App.Application.Context.StartActivity(intent);
+                await Task.CompletedTask;
+#elif IOS
+                await Application.Current.Windows[0].Page.DisplayAlertAsync(
+                    "System text-size settings",
+                    "Open Settings > Accessibility > Display & Text Size > Larger Text to change Dynamic Type. iOS does not provide a stable public link to this setting.",
+                    "OK");
+#else
+                await Task.CompletedTask;
+#endif
             }
             catch (Exception ex)
             {
-                await new MessageDialog2(ex.Message, "Unable to open Windows text-size settings").ShowAsync();
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Unable to open text-size settings", ex.Message, "OK");
             }
         }
+
+        private double GetSystemTextScaleFactor()
+        {
+#if WINDOWS
+            return _uiSettings.TextScaleFactor;
+#elif ANDROID
+            return Android.App.Application.Context.Resources.Configuration.FontScale;
+#elif IOS
+            return (double)UIFontMetrics.GetMetrics(UIFontTextStyle.Body.GetConstant().ToString())
+                .GetScaledValue((System.Runtime.InteropServices.NFloat)BaseMarkerSize) / BaseMarkerSize;
+#else
+            return 1.0;
+#endif
+        }
+
+#if WINDOWS
+        private void OnTextScaleFactorChanged(UISettings sender, object args)
+        {
+            QueueSystemTextScaleUpdate();
+        }
+#endif
+
+        // Apply the text scale change on the UI thread.
+        private void QueueSystemTextScaleUpdate() =>
+            Dispatcher.Dispatch(() =>
+            {
+                if (_eventsSubscribed)
+                    ApplySystemTextScale();
+            });
+
+#if ANDROID
+        private sealed class AndroidConfigurationCallback(Action configurationChanged) : Java.Lang.Object, IComponentCallbacks
+        {
+            public void OnConfigurationChanged(Android.Content.Res.Configuration _) =>
+                configurationChanged();
+
+            public void OnLowMemory() { }
+        }
+#endif
     }
 }

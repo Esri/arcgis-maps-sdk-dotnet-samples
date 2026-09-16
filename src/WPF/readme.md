@@ -4,7 +4,7 @@
 
 * [Navigate map view and identify features with keyboard](WPF.Viewer/Samples/Accessibility/NavigateMapViewAndIdentifyFeaturesWithKeyboard) - Perform all map navigation operations using only the keyboard.
 * [Update basemap for contrast accessibility](WPF.Viewer/Samples/Accessibility/UpdateBasemapForContrastAccessibility) - Display a map view that updates between authored light, dark, and high-contrast basemaps.
-* [Update labels and symbols to scale for visual accessibility](WPF.Viewer/Samples/Accessibility/UpdateLabelsAndSymbolsToScaleForVisualAccessibility) - Scale feature labels and symbols according to the system text-size setting.
+* [Update labels and symbols to scale for visual accessibility](WPF.Viewer/Samples/Accessibility/UpdateLabelsAndSymbolsForAccessibility) - Scale feature labels and symbols according to the system text-size setting.
 
 ## Analysis
 

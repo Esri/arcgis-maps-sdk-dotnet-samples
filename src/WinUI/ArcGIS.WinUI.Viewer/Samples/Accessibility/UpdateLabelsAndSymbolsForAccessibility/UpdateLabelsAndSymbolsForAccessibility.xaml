@@ -1,17 +1,19 @@
-﻿<UserControl x:Class="ArcGIS.WPF.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility.UpdateLabelsAndSymbolsToScaleForVisualAccessibility"
+<UserControl x:Class="ArcGIS.WinUI.Samples.UpdateLabelsAndSymbolsForAccessibility.UpdateLabelsAndSymbolsForAccessibility"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+             xmlns:esri="using:Esri.ArcGISRuntime"
+             xmlns:esriUI="using:Esri.ArcGISRuntime.UI.Controls">
     <Grid>
-        <esri:MapView x:Name="MyMapView" />
-        <Border Width="350"
-                Style="{StaticResource BorderStyle}">
+        <esriUI:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
             <ScrollViewer HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto">
                 <StackPanel>
                     <TextBlock Text="Change the OS text size to scale feature labels and symbols, then select a feature to view its name and coordinates."
                                TextWrapping="Wrap" />
-                    <Separator Margin="0,12,0,8" />
+                    <Border Height="1"
+                            Margin="0,12,0,8"
+                            Background="Gray" />
                     <TextBlock FontWeight="Bold"
                                Text="Scaling source" />
                     <Grid Margin="0,4,0,0">
@@ -28,7 +30,7 @@
                                    Text="Aa" />
                         <TextBlock Grid.Column="1"
                                    Margin="8,0,0,0"
-                                   Text="Labels: GeoView API"
+                                   Text="Labels: Control.IsTextScaleFactorEnabled"
                                    TextWrapping="Wrap" />
                         <Ellipse Grid.Row="1"
                                  Width="14"
@@ -42,13 +44,16 @@
                                    Text="Symbols: OS text size"
                                    TextWrapping="Wrap" />
                     </Grid>
-                    <Separator Margin="0,12,0,8" />
+                    <Border Height="1"
+                            Margin="0,12,0,8"
+                            Background="Gray" />
                     <TextBlock FontWeight="Bold"
                                Text="Toggles" />
-                    <CheckBox x:Name="ApplyTextScaleToLabelsCheckBox"
-                              Margin="0,4,0,0"
-                              AutomationProperties.HelpText="Enables or disables OS text scaling for map labels through the GeoView API."
-                              IsChecked="True">
+                    <CheckBox Margin="0,4,0,0"
+                              AutomationProperties.HelpText="Enables or disables OS text scaling for map labels."
+                              IsChecked="{Binding ElementName=MyMapView, Path=IsTextScaleFactorEnabled, Mode=TwoWay}"
+                              Checked="OnLabelTextScaleChanged"
+                              Unchecked="OnLabelTextScaleChanged">
                         <TextBlock Text="Apply OS text size to labels"
                                    TextWrapping="Wrap" />
                     </CheckBox>
@@ -61,7 +66,9 @@
                                    TextAlignment="Center"
                                    TextWrapping="Wrap" />
                     </Button>
-                    <Separator Margin="0,12,0,8" />
+                    <Border Height="1"
+                            Margin="0,12,0,8"
+                            Background="Gray" />
                     <TextBlock FontWeight="Bold"
                                Text="Current controls" />
                     <TextBlock Margin="0,4,0,0"

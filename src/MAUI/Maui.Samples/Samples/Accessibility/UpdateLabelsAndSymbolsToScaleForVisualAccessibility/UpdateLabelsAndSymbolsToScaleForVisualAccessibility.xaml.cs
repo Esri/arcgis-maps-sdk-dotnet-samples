@@ -15,10 +15,13 @@ using Esri.ArcGISRuntime.Maui;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Microsoft.Maui.ApplicationModel;
+#if MACCATALYST
+using Microsoft.Maui.Platform;
+#endif
 #if WINDOWS
 using Windows.UI.ViewManagement;
 #endif
-#if IOS || MACCATALYST
+#if IOS
 using UIKit;
 #endif
 #if ANDROID
@@ -35,18 +38,21 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
     [ArcGIS.Samples.Shared.Attributes.Sample(
         name: "Update labels and symbols to scale for visual accessibility",
         category: "Accessibility",
-        description: "Scale feature labels and symbols according to the system text-size setting.",
-        instructions: "Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**. On Mac Catalyst, open **System Settings** > **Accessibility** > **Display**.",
+        description: "Scale feature labels and symbols according to the system text-size setting or an app-provided Mac Catalyst scale.",
+        instructions: "Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**. On Mac Catalyst, use the in-app text-scale slider.",
         tags: new[] { "accessibility", "label", "readability", "scale", "symbol", "text", "visual impairment" })]
     public partial class UpdateLabelsAndSymbolsToScaleForVisualAccessibility : ContentPage
     {
-        // Base sizes for the marker and outline in device-independent pixels.
+        // Base label, halo, marker, and outline sizes in device-independent pixels.
         private const double BaseMarkerSize = 12;
         private const double BaseOutlineWidth = 1.5;
+        private const double BaseLabelSize = 12;
+        private const double BaseHaloWidth = 2;
 
         // Hold references to the device text settings and map content.
         private FeatureLayer _restaurantsLayer;
         private SimpleMarkerSymbol _restaurantMarker;
+        private TextSymbol _restaurantLabelSymbol;
         private MapPoint _calloutLocation;
         private string _calloutTitle;
         private string _calloutDetails;
@@ -55,7 +61,7 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
         private readonly UISettings _uiSettings = new();
 #elif ANDROID
         private AndroidConfigurationCallback _androidConfigurationCallback;
-#elif IOS || MACCATALYST
+#elif IOS
         private IDisposable _contentSizeCategoryObserver;
 #endif
         private bool _eventsSubscribed;
@@ -64,6 +70,15 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
         public UpdateLabelsAndSymbolsToScaleForVisualAccessibility()
         {
             InitializeComponent();
+
+#if MACCATALYST
+            CatalystTextScaleControls.IsVisible = true;
+            OpenTextSizeSettingsButton.IsVisible = false;
+            TextScaleInstructions.Text = "Use the app slider to manually scale labels, symbols, and callouts. This workaround does not follow the macOS text-size setting.";
+            LabelScalingSource.Text = "Labels: manually sized TextSymbol";
+            MyMapView.UseSystemTextScale = false;
+            MyMapView.SizeChanged += OnMapViewSizeChanged;
+#endif
 
             // SamplePage in the MAUI samples app displays this page's Content, not the ContentPage itself.
             // Since this page isn't added to the visual tree, use the displayed MapView's Loaded/Unloaded events.
@@ -96,6 +111,15 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
                     BaseOutlineWidth)
             };
 
+            // Retain the label symbol before loading so early scale changes are not lost.
+            _restaurantLabelSymbol = new TextSymbol
+            {
+                Color = System.Drawing.Color.FromArgb(31, 35, 40),
+                HaloColor = System.Drawing.Color.White,
+                HaloWidth = BaseHaloWidth,
+                Size = BaseLabelSize
+            };
+
             // Create the feature layer and apply the symbol with a renderer.
             _restaurantsLayer = new FeatureLayer(
                 new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/redlands_food/FeatureServer/0"))
@@ -109,8 +133,12 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
             // Assign the map to the map view.
             MyMapView.Map = map;
 
-            // Enable system text scaling for labels.
+            // Catalyst sizes labels manually; other platforms retain automatic scaling.
+#if MACCATALYST
+            MyMapView.UseSystemTextScale = false;
+#else
             MyMapView.UseSystemTextScale = ApplyTextScaleToLabelsCheckBox.IsChecked;
+#endif
 
             // Apply the current system text scale to the marker symbol.
             ApplySystemTextScale();
@@ -123,13 +151,7 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
                 // Create a label definition and add it to the feature layer.
                 _restaurantsLayer.LabelDefinitions.Add(new LabelDefinition(
                     new SimpleLabelExpression("[name]"),
-                    new TextSymbol
-                    {
-                        Color = System.Drawing.Color.FromArgb(31, 35, 40),
-                        HaloColor = System.Drawing.Color.White,
-                        HaloWidth = 2,
-                        Size = 12
-                    })
+                    _restaurantLabelSymbol)
                 {
                     DeconflictionStrategy = LabelDeconflictionStrategy.None,
                     Placement = Esri.ArcGISRuntime.ArcGISServices.LabelingPlacement.PointAboveCenter
@@ -150,8 +172,17 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
             if (_restaurantMarker == null)
                 return;
 
-            // Get the current platform text scale.
+            // Get the platform scale, or the explicit app scale on Catalyst.
             double systemTextScale = GetSystemTextScaleFactor();
+
+#if MACCATALYST
+            // Apply before the cache check: changing the checkbox does not change the slider.
+            double labelScale = ApplyTextScaleToLabelsCheckBox.IsChecked ? systemTextScale : 1.0;
+            _restaurantLabelSymbol.Size = BaseLabelSize * labelScale;
+            _restaurantLabelSymbol.HaloWidth = BaseHaloWidth * labelScale;
+            UpdateScaleStatus(systemTextScale);
+#endif
+
             if (systemTextScale == _appliedTextScale)
                 return;
 
@@ -167,7 +198,12 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
             // Update the displayed scale values.
             UpdateScaleStatus(systemTextScale);
 
-            // Refresh the visible callout so its text uses the current system text scale.
+            RefreshVisibleCallout();
+        }
+
+        private void RefreshVisibleCallout()
+        {
+            // Re-show at the same anchor to remeasure the content with its new font sizes.
             if (MyMapView.IsCalloutVisible && _calloutLocation != null)
             {
                 MapPoint calloutLocation = _calloutLocation;
@@ -177,14 +213,24 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
                 MyMapView.DismissCallout();
                 Dispatcher.Dispatch(() =>
                 {
-                    if (ReferenceEquals(_calloutLocation, calloutLocation))
+                    if (_eventsSubscribed && ReferenceEquals(_calloutLocation, calloutLocation))
                     {
-                        MyMapView.ShowCalloutAt(
-                            calloutLocation,
-                            new CalloutDefinition(calloutTitle, calloutDetails));
+                        ShowRestaurantCallout(calloutLocation, calloutTitle, calloutDetails);
                     }
                 });
             }
+        }
+
+#if MACCATALYST
+        private void OnMapViewSizeChanged(object sender, EventArgs e) => RefreshVisibleCallout();
+#endif
+
+        private void OnCatalystTextScaleChanged(object sender, ValueChangedEventArgs e)
+        {
+            CatalystTextScaleValue.Text = $"{e.NewValue:P0}";
+#if MACCATALYST
+            ApplySystemTextScale();
+#endif
         }
 
         private void OnLabelTextScaleChanged(object sender, CheckedChangedEventArgs e)
@@ -192,9 +238,13 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
             if (_restaurantMarker == null)
                 return;
 
-            // Enable or disable system text scaling for labels.
+            // On Catalyst the checkbox changes only the manually sized feature labels.
+#if MACCATALYST
+            ApplySystemTextScale();
+#else
             MyMapView.UseSystemTextScale = e.Value;
             UpdateScaleStatus(GetSystemTextScaleFactor());
+#endif
         }
 
         private void OnMapViewLoaded(object sender, EventArgs e)
@@ -207,7 +257,7 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
 #elif ANDROID
                 _androidConfigurationCallback = new AndroidConfigurationCallback(QueueSystemTextScaleUpdate);
                 Android.App.Application.Context.RegisterComponentCallbacks(_androidConfigurationCallback);
-#elif IOS || MACCATALYST
+#elif IOS
                 _contentSizeCategoryObserver = UIApplication.Notifications.ObserveContentSizeCategoryChanged(
                     (_, _) => QueueSystemTextScaleUpdate());
 #endif
@@ -230,11 +280,16 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
                 Android.App.Application.Context.UnregisterComponentCallbacks(_androidConfigurationCallback);
                 _androidConfigurationCallback.Dispose();
                 _androidConfigurationCallback = null;
-#elif IOS || MACCATALYST
+#elif IOS
                 _contentSizeCategoryObserver.Dispose();
                 _contentSizeCategoryObserver = null;
 #endif
             }
+
+            MyMapView.DismissCallout();
+            _calloutLocation = null;
+            _calloutTitle = null;
+            _calloutDetails = null;
         }
 
         private async void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
@@ -250,6 +305,10 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
                 // Identify at most one restaurant near the tapped screen position.
                 IdentifyLayerResult result = await MyMapView.IdentifyLayerAsync(
                     _restaurantsLayer, e.Position, 12, false, 1);
+
+                // Navigation may have detached the sample while identification was in progress.
+                if (!_eventsSubscribed)
+                    return;
 
                 if (result.GeoElements.FirstOrDefault() is not Feature restaurant ||
                     restaurant.Geometry is not MapPoint restaurantLocation)
@@ -274,9 +333,7 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
                 _calloutDetails = calloutDetails;
 
                 _restaurantsLayer.SelectFeature(restaurant);
-                MyMapView.ShowCalloutAt(
-                    _calloutLocation,
-                    new CalloutDefinition(_calloutTitle, _calloutDetails));
+                ShowRestaurantCallout(_calloutLocation, _calloutTitle, _calloutDetails);
             }
             catch (Exception ex)
             {
@@ -284,13 +341,60 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
             }
         }
 
+        private void ShowRestaurantCallout(MapPoint location, string title, string details)
+        {
+#if MACCATALYST
+            double scale = GetSystemTextScaleFactor();
+            Label titleLabel = new Label
+            {
+                Text = title,
+                FontSize = 17 * scale,
+                FontAutoScalingEnabled = false,
+                LineBreakMode = LineBreakMode.WordWrap
+            };
+            Label detailsLabel = new Label
+            {
+                Text = details,
+                FontSize = 15 * scale,
+                FontAutoScalingEnabled = false,
+                LineBreakMode = LineBreakMode.WordWrap
+            };
+            titleLabel.SetAppThemeColor(Label.TextColorProperty, Colors.Black, Colors.White);
+            detailsLabel.SetAppThemeColor(Label.TextColorProperty, Colors.Black, Colors.White);
+
+            // Native callouts reserve roughly one third of the viewport width. Measure
+            // within that limit, allowing room for the balloon padding and leader.
+            VerticalStackLayout content = new VerticalStackLayout
+            {
+                Spacing = 4,
+                WidthRequest = Math.Min(300 * scale, Math.Max(1, MyMapView.Width * 2 / 3 - 32)),
+                Children = { titleLabel, detailsLabel }
+            };
+
+            // Create the MAUI handlers before measuring wrapped text. Supply the measured
+            // height because older native callouts do not remeasure after constraining width.
+            if (MyMapView.Handler?.MauiContext is not { } context)
+                return;
+
+            content.ToPlatform(context);
+            content.HeightRequest = ((Microsoft.Maui.IView)content).Measure(content.WidthRequest, double.PositiveInfinity).Height;
+            MyMapView.ShowCalloutAt(location, content);
+#else
+            MyMapView.ShowCalloutAt(location, new CalloutDefinition(title, details));
+#endif
+        }
+
         private void UpdateScaleStatus(double systemTextScale)
         {
             // Display the current text scale, label setting, and marker size.
             WindowsTextScaleValue.Text = $"{systemTextScale:P0}";
+#if MACCATALYST
+            LabelScaleValue.Text = $"{_restaurantLabelSymbol.Size:0.#} DIPs (manual scaling {(ApplyTextScaleToLabelsCheckBox.IsChecked ? "enabled" : "disabled")}).";
+#else
             LabelScaleValue.Text = ApplyTextScaleToLabelsCheckBox.IsChecked
                 ? "scaled by GeoView.UseSystemTextScale."
                 : "API text scaling is disabled.";
+#endif
             MarkerScaleValue.Text = $"{BaseMarkerSize:0.#} DIPs × {systemTextScale:P0} = {_restaurantMarker.Size:0.#} DIPs.";
         }
 
@@ -312,8 +416,8 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
                     "OK");
 #elif MACCATALYST
                 await Application.Current.Windows[0].Page.DisplayAlertAsync(
-                    "System text-size settings",
-                    "Open System Settings > Accessibility > Display to change the text size. Mac Catalyst does not provide a stable public link to this setting.",
+                    "App text scale",
+                    "Use the in-app text-scale slider. This sample's Mac Catalyst workaround does not follow the macOS text-size setting.",
                     "OK");
 #else
                 await Task.CompletedTask;
@@ -331,9 +435,11 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
             return _uiSettings.TextScaleFactor;
 #elif ANDROID
             return Android.App.Application.Context.Resources.Configuration.FontScale;
-#elif IOS || MACCATALYST
+#elif IOS
             return (double)UIFontMetrics.GetMetrics(UIFontTextStyle.Body.GetConstant().ToString())
                 .GetScaledValue((System.Runtime.InteropServices.NFloat)BaseMarkerSize) / BaseMarkerSize;
+#elif MACCATALYST
+            return CatalystTextScaleSlider.Value;
 #else
             return 1.0;
 #endif

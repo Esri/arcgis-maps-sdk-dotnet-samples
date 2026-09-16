@@ -10,7 +10,7 @@ Use this pattern to improve map readability for users who increase text size in 
 
 ## How to use the sample
 
-Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**. On Mac Catalyst, open **System Settings** > **Accessibility** > **Display**.
+Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**.
 
 Clear **Apply OS text size to labels** to stop labels from following the system text size, then select it again to restore system text scaling. Restaurant symbols continue to follow the system text size independently of this setting. The legend and current values show how labels and symbols are scaled.
 
@@ -36,7 +36,9 @@ This sample uses a [Redlands restaurants](https://www.arcgis.com/home/item.html?
 
 ## Additional information
 
-On MAUI, use `GeoView.UseSystemTextScale` for labels. Symbols use `UISettings.TextScaleFactor` with `UISettings.TextScaleFactorChanged` on Windows, `Configuration.FontScale` with `IComponentCallbacks.OnConfigurationChanged` on Android, and `UIFontMetrics.GetScaledValue` with `ObserveContentSizeCategoryChanged` on iOS and Mac Catalyst.
+On MAUI, use `GeoView.UseSystemTextScale` for labels. Symbols use `UISettings.TextScaleFactor` with `UISettings.TextScaleFactorChanged` on Windows, `Configuration.FontScale` with `IComponentCallbacks.OnConfigurationChanged` on Android, and `UIFontMetrics.GetScaledValue` with `ObserveContentSizeCategoryChanged` on iOS.
+
+This sample is not available on Mac Catalyst because system text scaling is not supported there.
 
 On Android, include `ConfigChanges.FontScale` in the existing `ConfigurationChanges` flags of the `[Activity]` attribute in `Platforms/Android/MainActivity.cs`. This lets the activity handle font-size changes without being recreated, while the sample's `IComponentCallbacks.OnConfigurationChanged` callback updates the symbols.
 

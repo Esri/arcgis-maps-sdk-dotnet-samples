@@ -18,7 +18,7 @@ using Microsoft.Maui.ApplicationModel;
 #if WINDOWS
 using Windows.UI.ViewManagement;
 #endif
-#if IOS || MACCATALYST
+#if IOS
 using UIKit;
 #endif
 #if ANDROID
@@ -36,7 +36,7 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
         name: "Update labels and symbols to scale for visual accessibility",
         category: "Accessibility",
         description: "Scale feature labels and symbols according to the system text-size setting.",
-        instructions: "Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**. On Mac Catalyst, open **System Settings** > **Accessibility** > **Display**.",
+        instructions: "Change the text size in the operating system's accessibility settings to see the restaurant labels and symbols resize. Use **Open OS text-size settings** on Windows or Android. On iOS, open **Settings** > **Accessibility** > **Display & Text Size** > **Larger Text**.",
         tags: new[] { "accessibility", "label", "readability", "scale", "symbol", "text", "visual impairment" })]
     public partial class UpdateLabelsAndSymbolsToScaleForVisualAccessibility : ContentPage
     {
@@ -55,7 +55,7 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
         private readonly UISettings _uiSettings = new();
 #elif ANDROID
         private AndroidConfigurationCallback _androidConfigurationCallback;
-#elif IOS || MACCATALYST
+#elif IOS
         private IDisposable _contentSizeCategoryObserver;
 #endif
         private bool _eventsSubscribed;
@@ -207,7 +207,7 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
 #elif ANDROID
                 _androidConfigurationCallback = new AndroidConfigurationCallback(QueueSystemTextScaleUpdate);
                 Android.App.Application.Context.RegisterComponentCallbacks(_androidConfigurationCallback);
-#elif IOS || MACCATALYST
+#elif IOS
                 _contentSizeCategoryObserver = UIApplication.Notifications.ObserveContentSizeCategoryChanged(
                     (_, _) => QueueSystemTextScaleUpdate());
 #endif
@@ -230,7 +230,7 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
                 Android.App.Application.Context.UnregisterComponentCallbacks(_androidConfigurationCallback);
                 _androidConfigurationCallback.Dispose();
                 _androidConfigurationCallback = null;
-#elif IOS || MACCATALYST
+#elif IOS
                 _contentSizeCategoryObserver.Dispose();
                 _contentSizeCategoryObserver = null;
 #endif
@@ -310,11 +310,6 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
                     "System text-size settings",
                     "Open Settings > Accessibility > Display & Text Size > Larger Text to change Dynamic Type. iOS does not provide a stable public link to this setting.",
                     "OK");
-#elif MACCATALYST
-                await Application.Current.Windows[0].Page.DisplayAlertAsync(
-                    "System text-size settings",
-                    "Open System Settings > Accessibility > Display to change the text size. Mac Catalyst does not provide a stable public link to this setting.",
-                    "OK");
 #else
                 await Task.CompletedTask;
 #endif
@@ -331,7 +326,7 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsToScaleForVisualAccessibility
             return _uiSettings.TextScaleFactor;
 #elif ANDROID
             return Android.App.Application.Context.Resources.Configuration.FontScale;
-#elif IOS || MACCATALYST
+#elif IOS
             return (double)UIFontMetrics.GetMetrics(UIFontTextStyle.Body.GetConstant().ToString())
                 .GetScaledValue((System.Runtime.InteropServices.NFloat)BaseMarkerSize) / BaseMarkerSize;
 #else

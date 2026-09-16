@@ -76,6 +76,15 @@
 	  <None Remove="Samples\Location\IndoorPositioning\**" />
 	</ItemGroup>
 
+	<!-- Exclude text scaling sample on Mac Catalyst, where it is not supported. -->
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+	  <AndroidResource Remove="Samples\Accessibility\UpdateLabelsAndSymbolsToScaleForVisualAccessibility\**" />
+	  <Compile Remove="Samples\Accessibility\UpdateLabelsAndSymbolsToScaleForVisualAccessibility\**" />
+	  <MauiCss Remove="Samples\Accessibility\UpdateLabelsAndSymbolsToScaleForVisualAccessibility\**" />
+	  <MauiXaml Remove="Samples\Accessibility\UpdateLabelsAndSymbolsToScaleForVisualAccessibility\**" />
+	  <None Remove="Samples\Accessibility\UpdateLabelsAndSymbolsToScaleForVisualAccessibility\**" />
+	</ItemGroup>
+
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
       <Content Include="Resources\*.md">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -172,6 +172,8 @@ namespace ArcGIS.WPF.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             }
             catch (Exception ex)
             {
+                if (requestVersion != _selectionRequestVersion) return;
+
                 MessageBox.Show(ex.Message, "Identify error");
             }
         }

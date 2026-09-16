@@ -174,6 +174,8 @@ namespace ArcGIS.WinUI.Samples.NavigateMapViewAndIdentifyFeaturesWithKeyboard
             }
             catch (Exception ex)
             {
+                if (requestVersion != _selectionRequestVersion) return;
+
                 await ShowIdentifyErrorAsync(ex.Message);
             }
         }

@@ -67,7 +67,7 @@
                 <Label x:Name="OverflowMessage"
                        Margin="0,8,0,0"
                        FontAttributes="Italic"
-                       TextColor="#BE185D"
+                       TextColor="{AppThemeBinding Light=#BE185D, Dark=#F9A8D4}"
                        LineBreakMode="WordWrap"
                        IsVisible="False"
                        Text="Too many features in the area. Zoom in to see fewer." />

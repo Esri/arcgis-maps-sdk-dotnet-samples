@@ -9,8 +9,28 @@
         <Border Style="{DynamicResource EsriSampleControlPanel}">
             <ScrollView MaximumHeightRequest="500">
                 <VerticalStackLayout Spacing="6">
-                    <Label Text="Change the OS text size to scale feature labels and symbols, then select a feature to view its name and coordinates."
+                    <Label x:Name="TextScaleInstructions"
+                           Text="Change the OS text size to scale feature labels and symbols, then select a feature to view its name and coordinates."
                            LineBreakMode="WordWrap" />
+                    <VerticalStackLayout x:Name="CatalystTextScaleControls"
+                                         IsVisible="False"
+                                         Spacing="2">
+                        <Label FontAttributes="Bold"
+                               Text="App text scale (labels, symbols, and callouts)" />
+                        <Grid ColumnDefinitions="*, Auto">
+                            <Slider x:Name="CatalystTextScaleSlider"
+                                    Maximum="2"
+                                    Minimum="1"
+                                    Value="1"
+                                    ValueChanged="OnCatalystTextScaleChanged"
+                                    SemanticProperties.Description="App text scale from 100 to 200 percent" />
+                            <Label x:Name="CatalystTextScaleValue"
+                                   Grid.Column="1"
+                                   Margin="8,0,0,0"
+                                   Text="100%"
+                                   VerticalOptions="Center" />
+                        </Grid>
+                    </VerticalStackLayout>
                     <BoxView Margin="0,6,0,2"
                              HeightRequest="1" />
                     <Label FontAttributes="Bold"
@@ -21,7 +41,8 @@
                         <Label FontAttributes="Bold"
                                Text="Aa"
                                VerticalOptions="Center" />
-                        <Label Grid.Column="1"
+                        <Label x:Name="LabelScalingSource"
+                               Grid.Column="1"
                                Margin="8,0,0,0"
                                Text="Labels: GeoView API"
                                LineBreakMode="WordWrap" />
@@ -35,7 +56,7 @@
                         <Label Grid.Row="1"
                                Grid.Column="1"
                                Margin="8,0,0,0"
-                               Text="Symbols: OS text size"
+                               Text="Symbols: selected text scale"
                                LineBreakMode="WordWrap" />
                     </Grid>
                     <BoxView Margin="0,6,0,2"
@@ -47,11 +68,12 @@
                                   IsChecked="True"
                                   CheckedChanged="OnLabelTextScaleChanged"
                                   VerticalOptions="Center" />
-                        <Label Text="Apply OS text size to labels"
+                        <Label Text="Apply text scale to labels"
                                VerticalOptions="Center"
                                LineBreakMode="WordWrap" />
                     </HorizontalStackLayout>
-                    <Button Clicked="OpenTextSizeSettingsButton_Clicked"
+                    <Button x:Name="OpenTextSizeSettingsButton"
+                            Clicked="OpenTextSizeSettingsButton_Clicked"
                             Text="Open OS text-size settings" />
                     <BoxView Margin="0,6,0,2"
                              HeightRequest="1" />
@@ -60,7 +82,7 @@
                     <Label>
                         <Label.FormattedText>
                             <FormattedString>
-                                <Span Text="OS text size: " />
+                                <Span Text="Text scale: " />
                                 <Span x:Name="WindowsTextScaleValue"
                                       FontAttributes="Bold" />
                             </FormattedString>

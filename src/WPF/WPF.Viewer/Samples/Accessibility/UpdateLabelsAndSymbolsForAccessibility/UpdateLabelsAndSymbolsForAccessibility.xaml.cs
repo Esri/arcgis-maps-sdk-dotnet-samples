@@ -11,6 +11,7 @@ using Esri.ArcGISRuntime.Data;
 using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Labeling;
+using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Esri.ArcGISRuntime.UI.Controls;
@@ -35,14 +36,13 @@ namespace ArcGIS.WPF.Samples.UpdateLabelsAndSymbolsForAccessibility
         tags: new[] { "accessibility", "label", "readability", "scale", "symbol", "text", "visual impairment" })]
     public partial class UpdateLabelsAndSymbolsForAccessibility
     {
-        // Base sizes for the marker and outline in device-independent pixels.
-        private const double BaseMarkerSize = 12;
-        private const double BaseOutlineWidth = 1.5;
+        // Base size for the restaurant symbol in device-independent pixels.
+        private const double BaseMarkerSize = 24;
 
         // Hold references to the Windows text settings and map content.
         private readonly UISettings _uiSettings = new();
         private FeatureLayer _restaurantsLayer;
-        private SimpleMarkerSymbol _restaurantMarker;
+        private MultilayerPointSymbol _restaurantMarker;
         private MapPoint _calloutLocation;
         private string _calloutTitle;
         private string _calloutDetails;
@@ -54,59 +54,58 @@ namespace ArcGIS.WPF.Samples.UpdateLabelsAndSymbolsForAccessibility
         {
             InitializeComponent();
 
+            // Subscribe to the control and lifecycle events before loading the symbol.
+            ApplyTextScaleToLabelsCheckBox.Checked += OnLabelTextScaleChanged;
+            ApplyTextScaleToLabelsCheckBox.Unchecked += OnLabelTextScaleChanged;
+            Loaded += OnLoaded;
+            Unloaded += OnUnloaded;
+
             // Initialize the sample.
             _ = Initialize();
         }
 
         private async Task Initialize()
         {
-            // Create a map with a light gray basemap and an initial viewpoint.
-            Map map = new Map(BasemapStyle.ArcGISLightGray)
-            {
-                InitialViewpoint = new Viewpoint(
-                    new MapPoint(-117.1793, 34.0556, SpatialReferences.Wgs84),
-                    2500)
-            };
-
-            // Create a marker symbol for the restaurants.
-            _restaurantMarker = new SimpleMarkerSymbol(
-                SimpleMarkerSymbolStyle.Circle,
-                Color.FromArgb(11, 79, 138),
-                BaseMarkerSize)
-            {
-                Outline = new SimpleLineSymbol(
-                    SimpleLineSymbolStyle.Solid,
-                    Color.White,
-                    BaseOutlineWidth)
-            };
-
-            // Create the feature layer and apply the symbol with a renderer.
-            _restaurantsLayer = new FeatureLayer(
-                new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/redlands_food/FeatureServer/0"))
-            {
-                Renderer = new SimpleRenderer(_restaurantMarker)
-            };
-
-            // Add the feature layer to the map.
-            map.OperationalLayers.Add(_restaurantsLayer);
-
-            // Assign the map to the map view.
-            MyMapView.Map = map;
-
-            // Enable system text scaling for labels.
-            MyMapView.UseSystemTextScale = ApplyTextScaleToLabelsCheckBox.IsChecked == true;
-
-            // Apply the current system text scale to the marker symbol.
-            ApplySystemTextScale();
-
-            // Subscribe to the control and lifecycle events.
-            ApplyTextScaleToLabelsCheckBox.Checked += OnLabelTextScaleChanged;
-            ApplyTextScaleToLabelsCheckBox.Unchecked += OnLabelTextScaleChanged;
-            Loaded += OnLoaded;
-            Unloaded += OnUnloaded;
-
             try
             {
+                // Create a map with a light gray basemap and an initial viewpoint.
+                Map map = new Map(BasemapStyle.ArcGISLightGray)
+                {
+                    InitialViewpoint = new Viewpoint(
+                        new MapPoint(-117.1793, 34.0556, SpatialReferences.Wgs84),
+                        2500)
+                };
+
+                // Load the restaurant symbol from Esri's 2D point symbol web style.
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+                SymbolStyle style = await SymbolStyle.OpenAsync("Esri2DPointSymbolsStyle", portal);
+                MultilayerPointSymbol restaurantMarker = (MultilayerPointSymbol)await style.GetSymbolAsync(new[] { "restaurant" });
+                restaurantMarker.Size = BaseMarkerSize;
+
+                // Create a fixed-size legend swatch before applying system text scaling.
+                RuntimeImage swatch = await restaurantMarker.CreateSwatchAsync();
+                RestaurantSymbolImage.Source = await swatch.ToImageSourceAsync();
+                _restaurantMarker = restaurantMarker;
+
+                // Create the feature layer and apply the symbol with a renderer.
+                _restaurantsLayer = new FeatureLayer(
+                    new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/redlands_food/FeatureServer/0"))
+                {
+                    Renderer = new SimpleRenderer(_restaurantMarker)
+                };
+
+                // Add the feature layer to the map.
+                map.OperationalLayers.Add(_restaurantsLayer);
+
+                // Assign the map to the map view.
+                MyMapView.Map = map;
+
+                // Enable system text scaling for labels.
+                MyMapView.UseSystemTextScale = ApplyTextScaleToLabelsCheckBox.IsChecked == true;
+
+                // Apply the current system text scale to the marker symbol.
+                ApplySystemTextScale();
+
                 // Load the feature layer before using its service-provided attributes.
                 await _restaurantsLayer.LoadAsync();
 
@@ -131,18 +130,20 @@ namespace ArcGIS.WPF.Samples.UpdateLabelsAndSymbolsForAccessibility
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error loading restaurant data");
+                MessageBox.Show(ex.Message, "Error loading restaurant sample");
             }
         }
 
         private void ApplySystemTextScale()
         {
+            if (_restaurantMarker == null)
+                return;
+
             // Get the current system text scale.
             double systemTextScale = _uiSettings.TextScaleFactor;
 
-            // Apply the system text scale to the marker and outline.
+            // Scale all symbol layers proportionately.
             _restaurantMarker.Size = BaseMarkerSize * systemTextScale;
-            _restaurantMarker.Outline.Width = BaseOutlineWidth * systemTextScale;
 
             // Update the displayed scale values.
             UpdateScaleStatus();
@@ -175,7 +176,8 @@ namespace ArcGIS.WPF.Samples.UpdateLabelsAndSymbolsForAccessibility
             MyMapView.UseSystemTextScale = ApplyTextScaleToLabelsCheckBox.IsChecked == true;
 
             // Update the displayed scale values.
-            UpdateScaleStatus();
+            if (_restaurantMarker != null)
+                UpdateScaleStatus();
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)

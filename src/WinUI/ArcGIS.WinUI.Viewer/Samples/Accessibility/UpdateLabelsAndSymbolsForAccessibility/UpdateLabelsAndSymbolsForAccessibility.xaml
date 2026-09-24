@@ -32,12 +32,11 @@
                                    Margin="8,0,0,0"
                                    Text="Labels: Control.IsTextScaleFactorEnabled"
                                    TextWrapping="Wrap" />
-                        <Ellipse Grid.Row="1"
-                                 Width="14"
-                                 Height="14"
-                                 VerticalAlignment="Center"
-                                 Fill="#FF0B4F8A"
-                                 Stroke="White" />
+                        <Image x:Name="RestaurantSymbolImage"
+                               Grid.Row="1"
+                               Width="24"
+                               Height="24"
+                               VerticalAlignment="Center" />
                         <TextBlock Grid.Row="1"
                                    Grid.Column="1"
                                    Margin="8,0,0,0"

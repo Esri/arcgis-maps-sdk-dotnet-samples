@@ -19,10 +19,10 @@ Select a restaurant to show its name and WGS 84 coordinates in a callout. Select
 ## How it works
 
 1. Create a `Map` and add a `FeatureLayer`.
-2. Create a `SimpleMarkerSymbol` and apply it to the feature layer with a `SimpleRenderer`.
+2. Open `Esri2DPointSymbolsStyle` with `SymbolStyle.OpenAsync` and get the `restaurant` symbol with `GetSymbolAsync`. Set the resulting `MultilayerPointSymbol.Size` to 24 DIPs, create a fixed-size legend image with `CreateSwatchAsync` and `ToImageSourceAsync`, and apply the symbol to the feature layer with a `SimpleRenderer`.
 3. Load the feature layer, then add a `LabelDefinition` with a `TextSymbol`.
 4. To scale labels, enable `Control.IsTextScaleFactorEnabled`.
-5. To scale symbols, read `UISettings.TextScaleFactor` and observe `UISettings.TextScaleFactorChanged`.
+5. To scale symbols, read `UISettings.TextScaleFactor` and observe `UISettings.TextScaleFactorChanged`. Multiply the base size by the text-scale factor and set `MultilayerPointSymbol.Size` to scale all symbol layers proportionately.
 6. Use the checkbox to toggle system text scaling for labels without changing symbol scaling.
 7. Identify a restaurant with `IdentifyLayerAsync` and show its name and WGS 84 coordinates in a callout.
 
@@ -33,6 +33,8 @@ Select a restaurant to show its name and WGS 84 coordinates in a callout. Select
 ## About the data
 
 This sample uses a [Redlands restaurants](https://www.arcgis.com/home/item.html?id=46119989eccd46a58b8f3d7aedadeb90) feature layer covering food establishments in Redlands, California. Each feature represents a single restaurant.
+
+The restaurant symbol comes from [Esri's 2D point symbol web style](https://www.arcgis.com/home/item.html?id=220936cc6ed342c9937abd8f180e7d1e). Its 24-DIP base size makes the icon's detail easier to distinguish. The legend stays at this base size while map symbols follow the system text size.
 
 ## Additional information
 

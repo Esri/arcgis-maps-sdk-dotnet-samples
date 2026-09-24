@@ -12,6 +12,7 @@ using Esri.ArcGISRuntime.Geometry;
 using Esri.ArcGISRuntime.Mapping;
 using Esri.ArcGISRuntime.Mapping.Labeling;
 using Esri.ArcGISRuntime.Maui;
+using Esri.ArcGISRuntime.Portal;
 using Esri.ArcGISRuntime.Symbology;
 using Esri.ArcGISRuntime.UI;
 using Microsoft.Maui.ApplicationModel;
@@ -40,13 +41,12 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsForAccessibility
         tags: new[] { "accessibility", "label", "readability", "scale", "symbol", "text", "visual impairment" })]
     public partial class UpdateLabelsAndSymbolsForAccessibility : ContentPage
     {
-        // Base sizes for the marker and outline in device-independent pixels.
-        private const double BaseMarkerSize = 12;
-        private const double BaseOutlineWidth = 1.5;
+        // Base size for the restaurant symbol in device-independent pixels.
+        private const double BaseMarkerSize = 24;
 
         // Hold references to the device text settings and map content.
         private FeatureLayer _restaurantsLayer;
-        private SimpleMarkerSymbol _restaurantMarker;
+        private MultilayerPointSymbol _restaurantMarker;
         private MapPoint _calloutLocation;
         private string _calloutTitle;
         private string _calloutDetails;
@@ -76,47 +76,46 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsForAccessibility
 
         private async Task Initialize()
         {
-            // Create a map with a light gray basemap and an initial viewpoint.
-            Esri.ArcGISRuntime.Mapping.Map map = new Esri.ArcGISRuntime.Mapping.Map(BasemapStyle.ArcGISLightGray)
-            {
-                InitialViewpoint = new Viewpoint(
-                    new MapPoint(-117.1793, 34.0556, SpatialReferences.Wgs84),
-                    2500)
-            };
-
-            // Create a marker symbol for the restaurants.
-            _restaurantMarker = new SimpleMarkerSymbol(
-                SimpleMarkerSymbolStyle.Circle,
-                System.Drawing.Color.FromArgb(11, 79, 138),
-                BaseMarkerSize)
-            {
-                Outline = new SimpleLineSymbol(
-                    SimpleLineSymbolStyle.Solid,
-                    System.Drawing.Color.White,
-                    BaseOutlineWidth)
-            };
-
-            // Create the feature layer and apply the symbol with a renderer.
-            _restaurantsLayer = new FeatureLayer(
-                new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/redlands_food/FeatureServer/0"))
-            {
-                Renderer = new SimpleRenderer(_restaurantMarker)
-            };
-
-            // Add the feature layer to the map.
-            map.OperationalLayers.Add(_restaurantsLayer);
-
-            // Assign the map to the map view.
-            MyMapView.Map = map;
-
-            // Enable system text scaling for labels.
-            MyMapView.UseSystemTextScale = ApplyTextScaleToLabelsCheckBox.IsChecked;
-
-            // Apply the current system text scale to the marker symbol.
-            ApplySystemTextScale();
-
             try
             {
+                // Create a map with a light gray basemap and an initial viewpoint.
+                Esri.ArcGISRuntime.Mapping.Map map = new Esri.ArcGISRuntime.Mapping.Map(BasemapStyle.ArcGISLightGray)
+                {
+                    InitialViewpoint = new Viewpoint(
+                        new MapPoint(-117.1793, 34.0556, SpatialReferences.Wgs84),
+                        2500)
+                };
+
+                // Load the restaurant symbol from Esri's 2D point symbol web style.
+                ArcGISPortal portal = await ArcGISPortal.CreateAsync();
+                SymbolStyle style = await SymbolStyle.OpenAsync("Esri2DPointSymbolsStyle", portal);
+                MultilayerPointSymbol restaurantMarker = (MultilayerPointSymbol)await style.GetSymbolAsync(new[] { "restaurant" });
+                restaurantMarker.Size = BaseMarkerSize;
+
+                // Create a fixed-size legend swatch before applying system text scaling.
+                RuntimeImage swatch = await restaurantMarker.CreateSwatchAsync();
+                RestaurantSymbolImage.Source = await Esri.ArcGISRuntime.Maui.RuntimeImageExtensions.ToImageSourceAsync(swatch);
+                _restaurantMarker = restaurantMarker;
+
+                // Create the feature layer and apply the symbol with a renderer.
+                _restaurantsLayer = new FeatureLayer(
+                    new Uri("https://services2.arcgis.com/ZQgQTuoyBrtmoGdP/arcgis/rest/services/redlands_food/FeatureServer/0"))
+                {
+                    Renderer = new SimpleRenderer(_restaurantMarker)
+                };
+
+                // Add the feature layer to the map.
+                map.OperationalLayers.Add(_restaurantsLayer);
+
+                // Assign the map to the map view.
+                MyMapView.Map = map;
+
+                // Enable system text scaling for labels.
+                MyMapView.UseSystemTextScale = ApplyTextScaleToLabelsCheckBox.IsChecked;
+
+                // Apply the current system text scale to the marker symbol.
+                ApplySystemTextScale();
+
                 // Load the feature layer before using its service-provided attributes.
                 await _restaurantsLayer.LoadAsync();
 
@@ -141,7 +140,7 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsForAccessibility
             }
             catch (Exception ex)
             {
-                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error loading restaurant data", ex.Message, "OK");
+                await Application.Current.Windows[0].Page.DisplayAlertAsync("Error loading restaurant sample", ex.Message, "OK");
             }
         }
 
@@ -157,9 +156,8 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsForAccessibility
 
             _appliedTextScale = systemTextScale;
 
-            // Apply the system text scale to the marker and outline.
+            // Scale all symbol layers proportionately.
             _restaurantMarker.Size = BaseMarkerSize * systemTextScale;
-            _restaurantMarker.Outline.Width = BaseOutlineWidth * systemTextScale;
 
             // Reapply the renderer with the updated symbol.
             _restaurantsLayer.Renderer = new SimpleRenderer(_restaurantMarker);

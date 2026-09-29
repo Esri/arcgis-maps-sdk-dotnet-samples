@@ -42,6 +42,16 @@ If you are only interested in one platform, you can open a platform-specific sol
 - [.NET MAUI](src/MAUI/readme.md): `src\MAUI\ArcGIS.Samples.Maui.slnx`
 - [WinUI](src/WinUI/readme.md): `src\WinUI\ArcGIS.WinUI.Viewer.slnx`
 
+### Test local Vulkan SDK packages on Android
+
+See the [Vulkan Android reproduction instructions](tools/VulkanRepro/README.md)
+for the pinned `300.2.0-vulkan.20260922.1` package bundle, based on native daily
+5088, and MapView, SceneView, and LocalSceneView comparison steps.
+The bootstrap script imports privately obtained packages into an ignored local
+feed and builds an ARM64 APK with Vulkan enabled. It does not install the app.
+Standard builds retain their original package versions, platforms, and Android
+OpenGL ES backend.
+
 ## Notes
 
 > **IMPORTANT** When you run the samples, you will need to provide an API key. An API key is a unique long-lived access token that is used to authenticate and monitor requests to ArcGIS location services and private portal items. You can create and manage an API key using your portal when you sign in with an ArcGIS Location Platform account or an ArcGIS Online account with administrator access or a custom role that has the Generate API keys privilege. To learn how to create and manage API keys, go to the [Create an API key](https://links.esri.com/create-an-api-key) tutorial to create a new API key.

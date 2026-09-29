@@ -10,6 +10,9 @@ public static class MauiProgram
     public static MauiApp CreateMauiApp()
     {
 #if __ANDROID__
+#if ENABLE_VULKAN_RENDERING
+        AppContext.SetSwitch("Switch.Esri.ArcGISRuntime.EnableVulkanRendering", true);
+#endif
         Esri.ArcGISRuntime.UI.Controls.SceneView.MemoryLimit = 2 * 1073741824L; // 2Gb
 #endif
         var builder = MauiApp.CreateBuilder();

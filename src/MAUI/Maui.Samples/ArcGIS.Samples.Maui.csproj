@@ -3,6 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net10.0-android;net10.0-ios;net10.0-maccatalyst</TargetFrameworks>
 		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net10.0-windows10.0.19041.0</TargetFrameworks>
+		<TargetFrameworks Condition="'$(EnableVulkanRendering)' == 'true'">net10.0-android</TargetFrameworks>
 		<OutputType>Exe</OutputType>
 		<RootNamespace>ArcGIS.Samples</RootNamespace>
 		<UseMaui>true</UseMaui>
@@ -33,6 +34,16 @@
 		<AppxPackageDir>..\..\..\output\$(RuntimeIdentifier)\</AppxPackageDir>
 		<MauiEnableXamlCBindingWithSourceCompilation>true</MauiEnableXamlCBindingWithSourceCompilation>
 	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(EnableVulkanRendering)' == 'true' and '$(TargetFramework)' == 'net10.0-android'">
+		<DefineConstants>$(DefineConstants);ENABLE_VULKAN_RENDERING</DefineConstants>
+	</PropertyGroup>
+
+	<Target Name="ValidateVulkanRuntime" BeforeTargets="PrepareForBuild"
+			Condition="'$(EnableVulkanRendering)' == 'true' and '$(TargetFramework)' == 'net10.0-android'">
+		<Error Condition="'$(RuntimeIdentifier)' != 'android-arm64'"
+			   Text="Vulkan rendering requires RuntimeIdentifier=android-arm64 and a Vulkan-capable ARM64 Android device." />
+	</Target>
 
     <ItemGroup>
 		<!-- App Icon -->

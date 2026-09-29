@@ -92,7 +92,7 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsForAccessibility
                 MultilayerPointSymbol restaurantMarker = (MultilayerPointSymbol)await style.GetSymbolAsync(new[] { "restaurant" });
                 restaurantMarker.Size = BaseMarkerSize;
 
-                // Create a fixed-size legend swatch before applying system text scaling.
+                // Create the legend swatch before applying system text scaling.
                 RuntimeImage swatch = await restaurantMarker.CreateSwatchAsync();
                 RestaurantSymbolImage.Source = await Esri.ArcGISRuntime.Maui.RuntimeImageExtensions.ToImageSourceAsync(swatch);
                 _restaurantMarker = restaurantMarker;
@@ -158,6 +158,10 @@ namespace ArcGIS.Samples.UpdateLabelsAndSymbolsForAccessibility
 
             // Scale all symbol layers proportionately.
             _restaurantMarker.Size = BaseMarkerSize * systemTextScale;
+
+            // Apply the same scale to the legend swatch.
+            RestaurantSymbolImage.WidthRequest = BaseMarkerSize * systemTextScale;
+            RestaurantSymbolImage.HeightRequest = BaseMarkerSize * systemTextScale;
 
             // Reapply the renderer with the updated symbol.
             _restaurantsLayer.Renderer = new SimpleRenderer(_restaurantMarker);

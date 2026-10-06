@@ -74,6 +74,8 @@ Esri uses several tools to more efficiently manage the content in this repo. See
 
 Anyone and everyone is welcome to [contribute](https://github.com/Esri/arcgis-maps-sdk-dotnet-samples/wiki/Contributing).
 
+For AI-assisted ports from other ArcGIS SDKs, see the [sample porter skill](tools/readme.md#sample-porter-skill).
+
 ## License
 
 Copyright 2022 Esri

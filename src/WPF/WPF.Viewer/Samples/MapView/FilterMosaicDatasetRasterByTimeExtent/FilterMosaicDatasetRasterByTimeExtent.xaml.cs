@@ -63,7 +63,7 @@ namespace ArcGIS.WPF.Samples.FilterMosaicDatasetRasterByTimeExtent
                 // avoids time ranges with no imagery when acquisitions are irregular.
                 _timestamps = (await raster.GetDistinctTimestampsAsync(CancellationToken.None)).ToList();
 
-                // Frame the mosaic dataset with the same padding for every timestamp.
+                // Set the initial viewpoint to the mosaic dataset's full extent.
                 await MyMapView.SetViewpointGeometryAsync(_rasterLayer.FullExtent, 100);
 
                 if (_timestamps.Count > 0)

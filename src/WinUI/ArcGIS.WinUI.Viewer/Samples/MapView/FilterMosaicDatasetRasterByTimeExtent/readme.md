@@ -29,6 +29,12 @@ When the sample starts, the mosaic dataset raster is displayed in a map view and
 * MosaicDatasetRaster
 * RasterLayer
 
+## Offline data
+
+This sample downloads the following item from ArcGIS Online automatically:
+
+* [ElToroMosaicDataset.zip](https://www.arcgis.com/home/item.html?id=5d1c805850054a098667cdb217d76476) - Mobile mosaic dataset containing imagery of El Toro across multiple acquisition timestamps.
+
 ## About the data
 
 The sample uses a mobile mosaic dataset [ElToroMosaicDataset](https://www.arcgis.com/home/item.html?id=5d1c805850054a098667cdb217d76476) containing imagery rasters for one local area across multiple acquisition timestamps.

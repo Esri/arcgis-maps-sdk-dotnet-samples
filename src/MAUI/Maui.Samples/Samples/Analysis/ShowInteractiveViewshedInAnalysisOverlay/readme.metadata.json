@@ -25,6 +25,7 @@
         "ColormapRenderer",
         "ContinuousField",
         "ContinuousFieldFunction",
+        "ContinuousFieldSupplier",
         "DiscreteFieldFunction",
         "FieldAnalysis",
         "ViewshedFunction",

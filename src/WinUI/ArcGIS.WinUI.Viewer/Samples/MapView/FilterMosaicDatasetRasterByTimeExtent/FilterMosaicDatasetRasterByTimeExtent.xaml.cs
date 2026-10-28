@@ -17,7 +17,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace ArcGIS.WinUI.Samples.FilterMosaicDatasetRasterByTimeExtent
@@ -62,7 +61,7 @@ namespace ArcGIS.WinUI.Samples.FilterMosaicDatasetRasterByTimeExtent
 
                 // The distinct timestamps are sorted chronologically. Stepping through them
                 // avoids time ranges with no imagery when acquisitions are irregular.
-                _timestamps = (await raster.GetDistinctTimestampsAsync(CancellationToken.None)).ToList();
+                _timestamps = (await raster.GetDistinctTimestampsAsync()).ToList();
 
                 // Set the initial viewpoint to the mosaic dataset's full extent.
                 await MyMapView.SetViewpointGeometryAsync(_rasterLayer.FullExtent, 100);

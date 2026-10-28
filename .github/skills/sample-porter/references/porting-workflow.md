@@ -5,11 +5,12 @@ Read this reference before creating or changing a sample. Commands run from the
 
 ## Protect existing work
 
-Record the repository root, current branch, declared base branch, initial Git
-status, and destination paths before editing. Keep a task-owned `port-state.json`
-in the agent's artifact directory or a task-specific temporary directory outside
-the repository. Record completed phases, source revisions, derived inputs,
-commands and exit codes, changed paths, and validation results there.
+Record the repository root, current branch, declared base branch, initial commit,
+known branch point, initial Git status, and destination paths before editing.
+Keep a task-owned `port-state.json` in the agent's artifact directory or a
+task-specific temporary directory outside the repository. Record completed
+phases, source revisions, derived inputs, commands and exit codes, changed paths,
+and validation results there.
 
 Before modifying an existing file, preserve its exact bytes and hash. After
 generation and each completed phase, record the task-owned paths and their hashes.
@@ -27,10 +28,16 @@ without identifying its cause or establishing that the failure was transient.
 ## Resolve the source design
 
 Use the supplied design directory or a design name within a `common-samples`
-checkout. Accept `designs\FormalName`, `designs/FormalName`, or `FormalName` as
-design identifiers. Obtain the checkout location from the user or existing task
-context; an optional `COMMON_SAMPLES_ROOT` environment variable can supply it.
-Do not assume a developer-specific absolute path or access to a private repository.
+checkout. For a sibling SDK PR URL, inspect its repository, head revision, base
+branch, and changed sample files. Derive the sample identifier from its README
+and implementation, then resolve the corresponding common design. If the PR
+contains multiple samples, ask which to port. Read source files at the recorded
+revision rather than a moving branch tip.
+
+Accept `designs\FormalName`, `designs/FormalName`, or `FormalName` as design
+identifiers. Obtain the checkout location from the user or existing task context;
+an optional `COMMON_SAMPLES_ROOT` environment variable can supply it. Do not
+assume a developer-specific absolute path or access to a private repository.
 
 For identifiers, normalize separators, remove one leading `designs` segment, and
 resolve one directory beneath the checkout's `designs` folder. Reject traversal,
@@ -64,11 +71,17 @@ Derive and record:
 | --- | --- |
 | Friendly title and one-line description | Canonical README |
 | Formal name | Explicit design field, otherwise the PascalCase directory name |
-| Category | Explicit design category, mapped to the established .NET folder spelling |
+| Category | Explicit design category and central SDK lesson, mapped to an established .NET category |
 | Geo-view and scene mode | Required behavior and source control, verified against .NET APIs |
 | Initial state, controls, and update/reset behavior | README, implementation details, and source implementation |
 | Constants, URLs, item IDs, colors, and ordering | Complete design and source implementation |
 | Offline downloads, attribution, tags, and assets | README and supporting files |
+
+SDK category taxonomies are not necessarily one-to-one. A broad source category
+such as Visualization can map to several .NET categories. Use the central API
+lesson and nearby .NET samples to propose an existing category; ask when multiple
+mappings remain plausible. Record the decision rather than creating a category
+solely to copy the source SDK's name.
 
 Require a README. Missing implementation details are acceptable only if the
 remaining material fully specifies the sample. Ask only for information that
@@ -92,6 +105,34 @@ Conversely, translating a source name to PascalCase does not establish that it
 exists. If the required API is unavailable, report the blocker rather than
 inventing a stub, substituting different behavior, or leaving knowingly
 uncompilable code as a completed port.
+
+### Align the base branch and SDK
+
+Resolve required API availability and the selected SDK before generation. A
+source PR's base branch is a clue, not proof of the required .NET release line.
+If the API requires a different development line, explain the mismatch and ask
+before changing the .NET base branch or SDK policy.
+
+For an approved base change, establish the branch point and intended commit
+range first. Preserve recorded task work without blindly replaying unrelated
+commits inherited from the old development line. If that range or ownership is
+unclear, stop instead of resetting, stashing, or guessing. Record the new base,
+verify the resulting diff, and use that base for any later PR.
+
+Resolve the formal name before final branch naming. Honor the host's supported
+branch-management operations and rename limits; do not bypass them with raw Git
+commands or assume repeated renames are available.
+
+### Verify offline asset paths
+
+For offline downloads, inspect the item metadata and the archive manifest or
+extracted file tree before constructing data paths. Record the actual download
+filename and required paths relative to the extraction root. A Swift bundle,
+on-demand-resource directory, or another SDK's asset packaging is not evidence
+that the same directory exists inside the downloaded archive.
+
+Use the shared `DataManager` with those verified paths. Confirm required files
+exist after extraction; do not invent fallback filenames to hide a mismatch.
 
 ## Generate the baseline
 
@@ -164,9 +205,12 @@ For offline data, follow nearby uses of the shared `DataManager` and
 `[OfflineData]` attribute; do not hardcode developer-machine download paths.
 Surface load and interaction failures with the viewer's established error UI.
 
-Retain all three generated screenshots byte-for-byte. Keep the five-file layout
-unless the design genuinely requires support files; record and justify additions.
-Use the current year for new copyright headers.
+Retain all three generated screenshots byte-for-byte during implementation.
+For a later, explicit request to replace them, follow the
+[screenshot workflow](validation.md#screenshots-and-repository-assets) without
+altering the original generated baseline. Keep the five-file layout unless the
+design genuinely requires support files; record and justify additions. Use the
+current year for new copyright headers.
 
 Add the formal name once under its category in
 `src\Samples.Shared\Resources\FeaturedSamples.xml`. Insert in alphabetical order

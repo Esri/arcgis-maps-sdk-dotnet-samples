@@ -18,11 +18,13 @@ viewer refactoring or general ArcGIS application development.
 
 ## Inputs
 
-Start with a sample design name or directory. Use a supplied `common-samples`
-checkout, source implementation, and source revision when available. Ask for a
-missing checkout location or inaccessible design instead of assuming a local
-machine path. Derive title, category, formal name, constants, and offline item IDs
-from the design; do not ask the user to repeat information already present there.
+Start with a sample design name, directory, or sibling SDK pull-request URL.
+Resolve a supplied PR to its sample and fixed source revision before locating the
+common design. Use a supplied `common-samples` checkout, source implementation,
+and source revision when available. Ask for a missing checkout location or
+inaccessible design instead of assuming a local machine path. Derive title,
+category, formal name, constants, and offline item IDs from the design; do not
+ask the user to repeat information already present there.
 
 ## Reference routing
 
@@ -34,6 +36,7 @@ every unrelated example at the start.
 | Before source discovery, scaffolding, or resuming edits | [Porting workflow](references/porting-workflow.md) |
 | Before writing XAML, C#, and the WPF README | [Platform conventions](references/platform-conventions.md) |
 | When choosing a prerelease SDK, synchronizing, building, or auditing | [Validation](references/validation.md) |
+| Before capturing/replacing screenshots or publishing/updating a PR | [Validation](references/validation.md) |
 
 Use the live generator, project files, and nearby samples to confirm details
 that can change between branches. References document the workflow; they do not
@@ -61,9 +64,11 @@ replace inspecting the current checkout.
 5. **Synchronize.** Snapshot affected files, run `python tools\sample_sync.py`,
    and verify target-sample output and diagnostics. Restore only unrelated
    changes proven to have been caused by that run, preserving pre-existing work.
-6. **Validate.** Build the target viewers with the selected SDK. Exercise the
-   sample's runtime interactions where the host permits. Classify failures before
-   changing source; record unsupported or unavailable validation explicitly.
+6. **Validate.** Run the documentation checks and build the target viewers with
+   the selected SDK. Record build, initial-rendering, and interaction results
+   separately for each platform. Exercise runtime interactions where the host
+   permits; check existing Android emulators as well as connected devices.
+   Classify failures before changing source and record unavailable checks.
 7. **Audit and report.** Check final platform parity, documentation, metadata,
    registration, screenshot hashes, and the complete diff. Report delivered
    files, validation evidence, intentional deviations, and remaining blockers.
@@ -78,8 +83,10 @@ rather than rerunning completed destructive operations.
   existing destination without evidence, or perform broad cleanup.
 - Use the repository generator for new samples and edit its output in place.
   Do not add per-sample project entries or edit generated sample catalogs.
-- Keep the generated placeholder screenshots unchanged, including MAUI's
-  lowercase filename. A human replaces them after the port.
+- Keep generated placeholder screenshots unchanged during scaffolding and by
+  default afterward. Replace them only on explicit user request, using verified
+  .NET runtime captures and preserving filenames. Keep the generated baseline
+  immutable and record approved replacement hashes separately.
 - Preserve specified values, data attribution, workflow ordering, initial state,
   and reset behavior. Simplify only incidental UI, not required interactions.
 - Distinguish `LocalSceneView` from `SceneView` and the view control from the

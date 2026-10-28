@@ -24,6 +24,14 @@ Keep business logic and SDK operation order equivalent across platforms.
 Differences should have a concrete platform reason, not arise from three
 independent implementations.
 
+## Teaching comments
+
+Comment meaningful SDK operations and non-obvious semantic choices, not ordinary
+C# syntax or straightforward button handlers. Describe when an operation occurs:
+an initialization comment must not imply that the operation repeats on every
+interaction. Keep comments equivalent across platforms unless the platform
+difference itself needs explanation.
+
 ## README and screenshots
 
 Edit the canonical .NET README in the WPF sample folder only. Synchronization
@@ -50,11 +58,17 @@ Use verified .NET identifiers: for example, `MapPoint` rather than a source
 language's `Point`, and `Async` only when that .NET method actually has the suffix.
 Translate the Relevant API list as well as the numbered workflow.
 
+End the WPF README with exactly one newline, and verify that both synchronized
+copies retain it. Follow the [documentation checks](validation.md#check-readme-and-metadata-formatting);
+the Python metadata checks alone do not catch markdownlint `MD047`.
+
 The screenshot filename, README image reference, and metadata `images` entry
 must agree. Preserve the generator's `<FormalName>.jpg` for WPF/WinUI and
-`<formalname>.jpg` for MAUI. The placeholders are intentionally left for a human
-to replace; never substitute source-design screenshots or claim they show the
-finished sample.
+`<formalname>.jpg` for MAUI. Leave placeholders unchanged unless the user
+explicitly requests replacement; never substitute source-design screenshots or
+claim placeholders show the finished sample. Authorized replacements must use
+actual JPEG encoding, not PNG bytes renamed to `.jpg`, and follow the
+[screenshot workflow](validation.md#screenshots-and-repository-assets).
 
 Review semantics, not just matching strings: the documented initial state,
 controls, layer sources, renderer/filter types, constants, update/removal logic,

@@ -213,6 +213,7 @@
 * [Display layer view state](WPF.Viewer/Samples/MapView/DisplayLayerViewState) - Determine if a layer is currently being viewed.
 * [Feature layer time offset](WPF.Viewer/Samples/MapView/FeatureLayerTimeOffset) - Display a time-enabled feature layer with a time offset.
 * [Filter by time extent](WPF.Viewer/Samples/MapView/FilterByTimeExtent) - The time slider provides controls that allow you to visualize temporal data by applying a specific time extent to a map view.
+* [Filter mosaic dataset raster by time extent](WPF.Viewer/Samples/MapView/FilterMosaicDatasetRasterByTimeExtent) - Visualize changes in rasters over time by filtering a mosaic dataset raster for a selected timestamp.
 * [Identify layers](WPF.Viewer/Samples/MapView/IdentifyLayers) - Identify features in all layers in a map.
 * [Map rotation](WPF.Viewer/Samples/MapView/MapRotation) - Rotate a map.
 * [Show callout](WPF.Viewer/Samples/MapView/ShowCallout) - Show a callout with the latitude and longitude of user-tapped points.

@@ -209,6 +209,7 @@
 * [Display grid](ArcGIS.WinUI.Viewer/Samples/MapView/DisplayGrid) - Display and customize coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view or scene view.
 * [Display layer view state](ArcGIS.WinUI.Viewer/Samples/MapView/DisplayLayerViewState) - Determine if a layer is currently being viewed.
 * [Feature layer time offset](ArcGIS.WinUI.Viewer/Samples/MapView/FeatureLayerTimeOffset) - Display a time-enabled feature layer with a time offset.
+* [Filter mosaic dataset raster by time extent](ArcGIS.WinUI.Viewer/Samples/MapView/FilterMosaicDatasetRasterByTimeExtent) - Visualize changes in rasters over time by filtering a mosaic dataset raster for a selected timestamp.
 * [Identify layers](ArcGIS.WinUI.Viewer/Samples/MapView/IdentifyLayers) - Identify features in all layers in a map.
 * [Map rotation](ArcGIS.WinUI.Viewer/Samples/MapView/MapRotation) - Rotate a map.
 * [Show callout](ArcGIS.WinUI.Viewer/Samples/MapView/ShowCallout) - Show a callout with the latitude and longitude of user-tapped points.

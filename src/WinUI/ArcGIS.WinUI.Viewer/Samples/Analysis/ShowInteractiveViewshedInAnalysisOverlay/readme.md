@@ -20,7 +20,7 @@ The sample loads with a viewshed analysis initialized from an elevation raster c
 2. Add a `GraphicsOverlay` to draw the observer point and an `AnalysisOverlay` to the map view.
 3. Create a `ContinuousField` from a raster file containing elevation data.
 4. Create and configure `ViewshedParameters`, passing in a `MapPoint` as the observer position for the viewshed.
-5. Create a `ContinuousFieldFunction` from the continuous field.
+5. Create a `ContinuousFieldFunction` from the continuous field, using `ContinuousFieldSupplier`.
 6. Create a `ViewshedFunction` using the continuous field function and viewshed parameters, then convert it to a `DiscreteFieldFunction`.
 7. Create a `ColormapRenderer` from a `Colormap` with colors that represent visible and non-visible results.
 8. Create a `FieldAnalysis` from the discrete field function and colormap renderer, then add it to the `AnalysisOverlay`'s collection of analysis objects to display the results. As parameter values change, the result is recalculated and redrawn automatically.
@@ -32,6 +32,7 @@ The sample loads with a viewshed analysis initialized from an elevation raster c
 * ColormapRenderer
 * ContinuousField
 * ContinuousFieldFunction
+* ContinuousFieldSupplier
 * DiscreteFieldFunction
 * FieldAnalysis
 * ViewshedFunction

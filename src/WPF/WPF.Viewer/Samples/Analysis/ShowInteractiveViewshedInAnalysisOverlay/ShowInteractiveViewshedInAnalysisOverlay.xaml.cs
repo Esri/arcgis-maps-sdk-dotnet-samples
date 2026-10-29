@@ -97,7 +97,7 @@ namespace ArcGIS.WPF.Samples.ShowInteractiveViewshedInAnalysisOverlay
                 };
 
                 // Create a ContinuousFieldFunction from the continuous field.
-                var continuousFieldFunction = ContinuousFieldFunction.Create(continuousField);
+                var continuousFieldFunction = new ContinuousFieldSupplier(continuousField);
 
                 // Create a ViewshedFunction and convert to a DiscreteFieldFunction for visible/not-visible classification.
                 var viewshedFunction = new ViewshedFunction(continuousFieldFunction, _viewshedParameters);

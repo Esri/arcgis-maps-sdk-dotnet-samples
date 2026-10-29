@@ -27,6 +27,7 @@
         "ColormapRenderer",
         "ContinuousField",
         "ContinuousFieldFunction",
+        "ContinuousFieldSupplier",
         "FieldAnalysis"
     ],
     "snippets": [

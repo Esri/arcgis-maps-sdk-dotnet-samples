@@ -63,7 +63,7 @@ namespace ArcGIS.Samples.AnalyzeTerrainSuitabilityFromSlopeAndAspect
                 _elevationField = await ContinuousField.CreateAsync(new[] { rasterPath }, 0, Utm30N);
 
                 // Create a continuous field function from the elevation field.
-                _elevationFieldFunction = ContinuousFieldFunction.Create(_elevationField);
+                _elevationFieldFunction = new ContinuousFieldSupplier(_elevationField);
 
                 // Derive the slope and the aspect of the terrain from the elevation field function.
                 _slopeFunction = _elevationFieldFunction.Slope();

@@ -50,6 +50,7 @@
 		</Category>
 		<Category name="MapView">
 			<Sample>DisplayGrid</Sample>
+			<Sample>FilterMosaicDatasetRasterByTimeExtent</Sample>
 		</Category>
 		<Category name="Search">
 			<Sample>QueryDynamicEntities</Sample>

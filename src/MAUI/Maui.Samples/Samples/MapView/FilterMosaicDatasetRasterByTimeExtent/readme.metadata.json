@@ -1,0 +1,36 @@
+{
+    "category": "MapView",
+    "description": "Visualize changes in rasters over time by filtering a mosaic dataset raster for a selected timestamp.",
+    "formal_name": "FilterMosaicDatasetRasterByTimeExtent",
+    "ignore": false,
+    "images": [
+        "filtermosaicdatasetrasterbytimeextent.jpg"
+    ],
+    "keywords": [
+        "aerial imagery",
+        "date",
+        "mosaic dataset",
+        "raster",
+        "time",
+        "time extent",
+        "time-aware",
+        "time-enabled",
+        "timestamp"
+    ],
+    "offline_data": [
+        "5d1c805850054a098667cdb217d76476"
+    ],
+    "redirect_from": [],
+    "relevant_apis": [
+        "ITimeAware",
+        "Map",
+        "MapView",
+        "MosaicDatasetRaster",
+        "RasterLayer"
+    ],
+    "snippets": [
+        "FilterMosaicDatasetRasterByTimeExtent.xaml.cs",
+        "FilterMosaicDatasetRasterByTimeExtent.xaml"
+    ],
+    "title": "Filter mosaic dataset raster by time extent"
+}

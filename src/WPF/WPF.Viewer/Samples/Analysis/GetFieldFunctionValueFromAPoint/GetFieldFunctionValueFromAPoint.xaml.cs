@@ -152,6 +152,10 @@ namespace ArcGIS.WPF.Samples.GetFieldFunctionValueFromAPoint
             {
                 if (_isActive) ErrorMessage.Text = $"Unable to initialize field sampling: {ex.Message}";
             }
+            finally
+            {
+                LoadingStatus.Visibility = Visibility.Collapsed;
+            }
         }
 
         private async Task SampleAtAsync(MapPoint location)
@@ -241,8 +245,14 @@ namespace ArcGIS.WPF.Samples.GetFieldFunctionValueFromAPoint
                 else
                     _updatingAnalyses.Remove(analysis);
 
-                LoadingProgressBar.Visibility = _updatingAnalyses.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-                AnalysisStatus.Text = _updatingAnalyses.Count > 0 ? "Analysis updating..." : "Analysis idle";
+                // Show updating text only while analysis is active; retain the dot when idle.
+                bool isUpdating = _updatingAnalyses.Count > 0;
+                string status = isUpdating ? "Analysis updating" : "Analysis idle";
+                UpdatingStatus.Visibility = isUpdating ? Visibility.Visible : Visibility.Collapsed;
+                AnalysisStatusDot.Foreground = new System.Windows.Media.SolidColorBrush(
+                    isUpdating ? System.Windows.Media.Color.FromRgb(105, 242, 110) : System.Windows.Media.Color.FromRgb(158, 158, 158));
+                AnalysisStatusDot.ToolTip = status;
+                System.Windows.Automation.AutomationProperties.SetName(AnalysisStatusDot, status);
 
                 if (e.AnalysisViewState.Status == AnalysisViewStatus.Error)
                 {

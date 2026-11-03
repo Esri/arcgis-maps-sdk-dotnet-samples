@@ -155,6 +155,10 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
             {
                 if (_isActive) ErrorMessage.Text = $"Unable to initialize field sampling: {ex.Message}";
             }
+            finally
+            {
+                LoadingStatus.IsVisible = false;
+            }
         }
 
         private async Task SampleAtAsync(MapPoint location)
@@ -249,8 +253,13 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
                 else
                     _updatingAnalyses.Remove(analysis);
 
-                LoadingIndicator.IsVisible = _updatingAnalyses.Count > 0;
-                AnalysisStatus.Text = _updatingAnalyses.Count > 0 ? "Analysis updating..." : "Analysis idle";
+                // Show updating text only while analysis is active; retain the dot when idle.
+                bool isUpdating = _updatingAnalyses.Count > 0;
+                string status = isUpdating ? "Analysis updating" : "Analysis idle";
+                UpdatingStatus.IsVisible = isUpdating;
+                AnalysisStatusDot.TextColor = Microsoft.Maui.Graphics.Color.FromArgb(isUpdating ? "#69F26E" : "#9E9E9E");
+                ToolTipProperties.SetText(AnalysisStatusDot, status);
+                SemanticProperties.SetDescription(AnalysisStatusDot, status);
 
                 if (e.AnalysisViewState.Status == AnalysisViewStatus.Error)
                 {

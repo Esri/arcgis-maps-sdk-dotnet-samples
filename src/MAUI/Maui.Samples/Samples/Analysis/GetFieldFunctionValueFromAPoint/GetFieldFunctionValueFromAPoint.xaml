@@ -17,8 +17,21 @@
                         Value="2000"
                         IsEnabled="False"
                         ValueChanged="OnAltitudeChanged" />
-                <Label x:Name="AnalysisStatus" Text="Loading elevation data..." />
-                <ActivityIndicator x:Name="LoadingIndicator" IsRunning="True" IsVisible="False" />
+                <HorizontalStackLayout Spacing="8">
+                    <Label x:Name="AnalysisStatusDot"
+                           VerticalOptions="Center"
+                           FontSize="16"
+                           FontAutoScalingEnabled="False"
+                           Text="&#x25CF;"
+                           TextColor="#9E9E9E"
+                           ToolTipProperties.Text="Analysis idle"
+                           SemanticProperties.Description="Analysis idle" />
+                    <Label x:Name="UpdatingStatus"
+                           VerticalOptions="Center"
+                           Text="Analysis updating..."
+                           IsVisible="False" />
+                </HorizontalStackLayout>
+                <Label x:Name="LoadingStatus" Text="Loading elevation data..." />
                 <Label x:Name="ErrorMessage" TextColor="Red" />
             </VerticalStackLayout>
         </Border>

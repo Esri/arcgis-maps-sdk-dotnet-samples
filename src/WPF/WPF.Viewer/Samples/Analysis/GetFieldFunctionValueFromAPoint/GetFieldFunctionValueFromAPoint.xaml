@@ -14,8 +14,21 @@
                         Value="2000"
                         IsEnabled="False"
                         ValueChanged="OnAltitudeChanged" />
-                <TextBlock x:Name="AnalysisStatus" Text="Loading elevation data..." />
-                <ProgressBar x:Name="LoadingProgressBar" IsIndeterminate="True" Visibility="Collapsed" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="AnalysisStatusDot"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="#9E9E9E"
+                               Text="&#x25CF;"
+                               ToolTip="Analysis idle"
+                               AutomationProperties.Name="Analysis idle" />
+                    <TextBlock x:Name="UpdatingStatus"
+                               Margin="8,0,0,0"
+                               VerticalAlignment="Center"
+                               Text="Analysis updating..."
+                               Visibility="Collapsed" />
+                </StackPanel>
+                <TextBlock x:Name="LoadingStatus" Text="Loading elevation data..." />
                 <TextBlock x:Name="ErrorMessage" Foreground="Red" TextWrapping="Wrap" />
             </StackPanel>
         </Border>

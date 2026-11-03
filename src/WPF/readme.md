@@ -11,6 +11,7 @@
 * [Analyze terrain suitability from slope and aspect](WPF.Viewer/Samples/Analysis/AnalyzeTerrainSuitabilityFromSlopeAndAspect) - Analyze terrain suitability from an elevation raster by deriving slope and aspect.
 * [Apply map algebra](WPF.Viewer/Samples/Analysis/ApplyMapAlgebra) - Apply map algebra to an elevation raster to floor, mask, and categorize the elevation values into discrete integer-based categories.
 * [Distance measurement analysis](WPF.Viewer/Samples/Analysis/DistanceMeasurement) - Measure distances between two points in 3D.
+* [Get field function value from a point](WPF.Viewer/Samples/Analysis/GetFieldFunctionValueFromAPoint) - Sample field function values at a given position from a field analysis.
 * [Query feature count and extent](WPF.Viewer/Samples/Analysis/QueryFeatureCountAndExtent) - Zoom to features matching a query and count the features in the current visible extent.
 * [Show exploratory line of sight between geoelements](WPF.Viewer/Samples/Analysis/ShowExploratoryLineOfSightBetweenGeoelements) - Show an exploratory line of sight between two moving objects.
 * [Show exploratory line of sight between points](WPF.Viewer/Samples/Analysis/ShowExploratoryLineOfSightBetweenPoints) - Perform an exploratory line of sight analysis between two points in real time.

@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.GetFieldFunctionValueFromAPoint.GetFieldFunctionValueFromAPoint"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                       Style="{DynamicResource EsriSampleGeoView}"
+                       GeoViewTapped="OnMapViewTapped" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <VerticalStackLayout>
+                <Label Text="Tap the map or drag the helicopter to sample the fields." />
+                <Label x:Name="AltitudeLabel" Margin="0,8,0,0" Text="Aircraft altitude (MSL): 2000 m" />
+                <Slider x:Name="AltitudeSlider"
+                        Minimum="1500"
+                        Maximum="2595"
+                        Value="2000"
+                        IsEnabled="False"
+                        ValueChanged="OnAltitudeChanged" />
+                <Label x:Name="AnalysisStatus" Text="Loading elevation data..." />
+                <ActivityIndicator x:Name="LoadingIndicator" IsRunning="True" IsVisible="False" />
+                <Label x:Name="ErrorMessage" TextColor="Red" />
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

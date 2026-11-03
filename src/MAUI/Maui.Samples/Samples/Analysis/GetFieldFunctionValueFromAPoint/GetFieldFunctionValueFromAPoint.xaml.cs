@@ -38,6 +38,7 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
     {
         private const double AltitudeStep = (2595.0 - 1500.0) / 100;
 
+        // Share a mutable aircraft altitude between the clearance analysis and its sampling function.
         private readonly FloatSupplier _altitudeSupplier = new FloatSupplier(2000);
         private readonly Graphic _sampleGraphic = new Graphic();
         private readonly GeometryEditor _pointEditor = new GeometryEditor();
@@ -59,18 +60,24 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
 
         private async Task Initialize()
         {
+            // Create a map with a dark hillshade basemap to provide terrain context.
             MyMapView.Map = new Map(BasemapStyle.ArcGISHillshadeDark);
+
+            // Disable panning so dragging can be used to move the sampling point.
             MyMapView.InteractionOptions = new MapViewInteractionOptions { IsPanEnabled = false };
 
+            // Add a graphics overlay to display the helicopter at the sampling position.
             var graphicsOverlay = new GraphicsOverlay();
             graphicsOverlay.Graphics.Add(_sampleGraphic);
             MyMapView.GraphicsOverlays.Add(graphicsOverlay);
 
+            // Add an analysis overlay to display the elevation and ground-clearance fields.
             var analysisOverlay = new AnalysisOverlay();
             MyMapView.AnalysisOverlays.Add(analysisOverlay);
 
             try
             {
+                // Create the helicopter marker symbol from an embedded image.
                 string resourceName = GetType().Assembly.GetManifestResourceNames()
                     .Single(name => name.EndsWith(".helicopter.png"));
                 using (Stream image = GetType().Assembly.GetManifestResourceStream(resourceName))
@@ -81,36 +88,51 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
                     _sampleGraphic.Symbol = symbol;
                 }
 
-                // Load the elevation field and map before displaying analyses in the map's spatial reference.
+                // Get the path to the elevation raster downloaded for this sample.
                 string rasterPath = DataManager.GetDataFolder("6bb0ad0e3bd5410fa52191184578f0b2", "Meribel.tif");
+
+                // Create a continuous elevation field from the raster's first band (index 0).
                 var elevationField = await ContinuousField.CreateAsync(new[] { rasterPath }, 0);
+
+                // Load the map before creating field analyses so its spatial reference is available.
                 await MyMapView.Map.LoadAsync();
                 if (!_isActive) return;
 
-                // Sampling functions share the same fields that the analysis overlay displays.
+                // Wrap the field in a function shared by the rendered analysis and the elevation sampler.
                 var elevationFunction = new ContinuousFieldSupplier(elevationField);
+
+                // Create an elevation sampler whose position will be assigned before evaluation.
                 _elevationSampleFunction = new ContinuousFieldSampleFunction(elevationFunction, null);
 
                 // True means terrain is below the aircraft. Changing the supplier updates this expression in place.
                 var clearanceFunction = elevationFunction.IsLessThan(_altitudeSupplier);
+
+                // Create a sampler for the boolean ground-clearance result.
                 _clearanceSampleFunction = new BooleanFieldSampleFunction(clearanceFunction, null);
 
+                // Render elevation with fixed stretch limits and a purple-gray-to-white color ramp.
                 var elevationRenderer = new StretchRenderer(
                     new MinMaxStretchParameters(new[] { 1199.0 }, new[] { 2740.0 }),
                     new[] { 1.0 }, false,
                     ColorRamp.Create(new[] { System.Drawing.Color.FromArgb(96, 98, 148), System.Drawing.Color.White }, 256));
 
                 // Boolean fields use index 0 for false (no clearance) and 1 for true (clear).
+                // Leave clear areas transparent so the elevation analysis remains visible beneath them.
                 var clearanceRenderer = new ColormapRenderer(Colormap.Create(new[]
                 {
                     System.Drawing.Color.FromArgb(255, 210, 60, 60),
                     System.Drawing.Color.FromArgb(0, 50, 170, 90)
                 }));
 
+                // Track rendering progress and errors independently of the point-sampling results.
                 MyMapView.AnalysisViewStateChanged += OnAnalysisViewStateChanged;
+
+                // Field analyses evaluate and redraw automatically when their function inputs change.
+                // Display elevation first, then clearance, retaining hillshade detail with half opacity.
                 analysisOverlay.Analyses.Add(new FieldAnalysis(elevationFunction, elevationRenderer) { Opacity = 0.5f });
                 analysisOverlay.Analyses.Add(new FieldAnalysis(clearanceFunction, clearanceRenderer) { Opacity = 0.5f });
 
+                // Set the initial viewpoint to the center of the elevation field.
                 MyMapView.SetViewpoint(new Viewpoint(elevationField.Extent.GetCenter(), 50000));
 
                 // Use the geometry editor for native point dragging; the graphics overlay supplies the visible marker.
@@ -125,6 +147,8 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
 
                 _isReady = true;
                 AltitudeSlider.IsEnabled = true;
+
+                // Sample both fields at the center of the data to populate the initial callout.
                 await SampleAtAsync(elevationField.Extent.GetCenter());
             }
             catch (Exception ex)
@@ -137,6 +161,7 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
         {
             if (!_isReady || location == null) return;
 
+            // Move the sampling graphic to the requested location at the current aircraft altitude.
             _samplePoint = new MapPoint(location.X, location.Y, _altitudeSupplier.Value.Value, location.SpatialReference);
             _sampleGraphic.Geometry = _samplePoint;
             if (_isSampling) return;
@@ -149,16 +174,23 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
                 {
                     MapPoint point = _samplePoint;
                     float? altitude = _altitudeSupplier.Value;
+
+                    // Set the position used by both sampling functions.
                     _elevationSampleFunction.Position = point;
                     _clearanceSampleFunction.Position = point;
 
+                    // Evaluate the functions explicitly to retrieve elevation and the clearance criterion.
                     var elevationSample = await _elevationSampleFunction.EvaluateAsync();
                     var clearanceSample = await _clearanceSampleFunction.EvaluateAsync();
                     if (!_isActive || !_isReady) return;
+
+                    // Discard outdated results and sample the latest position on the next iteration.
                     if (!ReferenceEquals(point, _samplePoint)) continue;
 
                     // A null sample is NoData, including positions outside the raster extent.
                     string elevation = elevationSample.Value?.ToString("F2") ?? "null";
+
+                    // Calculate numeric clearance from the sampled elevation, preserving null for NoData.
                     string clearance = (altitude - elevationSample.Value)?.ToString("F2") ?? "null";
                     string status = clearanceSample.Value.HasValue
                         ? (clearanceSample.Value.Value ? "Clear" : "Not Clear") : "null";
@@ -170,6 +202,8 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
                         MaximumWidthRequest = 320
                     };
                     callout.SetAppThemeColor(Label.TextColorProperty, Colors.Black, Colors.White);
+
+                    // Anchor the current values to the sampled map position.
                     MyMapView.ShowCalloutAt(point, callout, default);
                     ErrorMessage.Text = string.Empty;
                     break;
@@ -194,6 +228,8 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
             if (!_isReady) return;
 
             double altitude = 1500 + Math.Round((e.NewValue - 1500) / AltitudeStep) * AltitudeStep;
+
+            // Update the supplier rather than rebuilding the clearance function or its analysis.
             _altitudeSupplier.Value = (float)altitude;
             AltitudeLabel.Text = $"Aircraft altitude (MSL): {altitude:F0} m";
 
@@ -207,6 +243,7 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
             {
                 if (!_isActive || !(e.Analysis is FieldAnalysis analysis)) return;
 
+                // The two field analyses can finish updating at different times.
                 if (e.AnalysisViewState.Status == AnalysisViewStatus.Updating)
                     _updatingAnalyses.Add(analysis);
                 else
@@ -228,6 +265,8 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
         private void OnMapViewTapped(object sender, GeoViewInputEventArgs e)
         {
             if (!_isReady || e.Location == null) return;
+
+            // Keep map taps and native point dragging in the same geometry-editing workflow.
             _pointEditor.ReplaceGeometry(e.Location);
             _pointEditor.SelectGeometry();
             e.Handled = true;
@@ -235,6 +274,7 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
 
         private void OnPointGeometryChanged(object sender, PropertyChangedEventArgs e)
         {
+            // Refresh samples after a point edit is committed or the geometry is replaced programmatically.
             if (e.PropertyName == nameof(GeometryEditor.Geometry) && _pointEditor.Geometry is MapPoint point)
                 Dispatcher.Dispatch(() => _ = SampleAtAsync(point));
         }
@@ -248,6 +288,7 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
 
         private void OnSampleUnloaded(object sender, EventArgs e)
         {
+            // Stop view updates and detach input and analysis callbacks when leaving the sample.
             _isActive = false;
             _isReady = false;
             MyMapView.AnalysisViewStateChanged -= OnAnalysisViewStateChanged;

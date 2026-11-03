@@ -32,15 +32,15 @@ Red areas indicate terrain that would have no ground clearance given the set alt
 
 ## Relevant API
 
-- AnalysisOverlay
-- BooleanFieldFunction
-- BooleanFieldSampleFunction
-- ContinuousField
-- ContinuousFieldFunction
-- ContinuousFieldSampleFunction
-- ContinuousFieldSupplier
-- FieldAnalysis
-- FloatSupplier
+* AnalysisOverlay
+* BooleanFieldFunction
+* BooleanFieldSampleFunction
+* ContinuousField
+* ContinuousFieldFunction
+* ContinuousFieldSampleFunction
+* ContinuousFieldSupplier
+* FieldAnalysis
+* FloatSupplier
 
 ## About the data
 

@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.ControlMapAlgebraInputsWithFloatSuppliers.ControlMapAlgebraInputsWithFloatSuppliers"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <VerticalStackLayout>
+                <Label x:Name="SlopeRangeText"
+                       Margin="0,0,0,8"
+                       Text="Slope range: 0 to 10 degrees" />
+                <AbsoluteLayout x:Name="SlopeRangeSlider"
+                                HeightRequest="44"
+                                IsEnabled="False"
+                                SizeChanged="OnSlopeRangeSizeChanged">
+                    <BoxView x:Name="SlopeTrack"
+                             Color="#A0A0A0"
+                             InputTransparent="True" />
+                    <BoxView x:Name="SelectedSlopeTrack"
+                             Color="#7F3BAF"
+                             InputTransparent="True" />
+                    <Border x:Name="MinimumSlopeThumb"
+                            BackgroundColor="Transparent"
+                            StrokeThickness="0"
+                            SemanticProperties.Description="Minimum slope: 0 degrees"
+                            SemanticProperties.Hint="Drag to adjust the minimum slope.">
+                        <Border.GestureRecognizers>
+                            <PanGestureRecognizer PanUpdated="OnMinimumSlopePanUpdated" />
+                        </Border.GestureRecognizers>
+                        <Border WidthRequest="20"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                BackgroundColor="#7F3BAF"
+                                Stroke="White"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 10"
+                                InputTransparent="True" />
+                    </Border>
+                    <Border x:Name="MaximumSlopeThumb"
+                            BackgroundColor="Transparent"
+                            StrokeThickness="0"
+                            SemanticProperties.Description="Maximum slope: 10 degrees"
+                            SemanticProperties.Hint="Drag to adjust the maximum slope.">
+                        <Border.GestureRecognizers>
+                            <PanGestureRecognizer PanUpdated="OnMaximumSlopePanUpdated" />
+                        </Border.GestureRecognizers>
+                        <Border WidthRequest="20"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                BackgroundColor="#7F3BAF"
+                                Stroke="White"
+                                StrokeThickness="2"
+                                StrokeShape="RoundRectangle 10"
+                                InputTransparent="True" />
+                    </Border>
+                </AbsoluteLayout>
+                <Label Margin="0,8,0,0"
+                       Text="Slope colors on the map: dark purple (flat, 0&#176;) to yellow (steep, 85&#176;)." />
+                <Label x:Name="AnalysisStatusText"
+                       Margin="0,8,0,0"
+                       Text="Loading elevation..." />
+                <ActivityIndicator x:Name="AnalysisActivityIndicator"
+                                   IsRunning="True"
+                                   IsVisible="False" />
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

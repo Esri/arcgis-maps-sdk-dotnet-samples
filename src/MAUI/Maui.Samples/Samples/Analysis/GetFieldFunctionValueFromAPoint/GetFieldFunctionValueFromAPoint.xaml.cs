@@ -201,9 +201,11 @@ namespace ArcGIS.Samples.GetFieldFunctionValueFromAPoint
                     // Native mobile callout details are single-line; use wrapping content for all three readings.
                     var callout = new Label
                     {
-                        Text = $"Elevation (m): {elevation}\nClearance above the ground (m): {clearance}\nGround clearance status: {status}",
+                        Text = $"Elevation: {elevation} m\n" +
+                               $"Ground clearance: {clearance} m\n" +
+                               $"Status: {status}",
                         LineBreakMode = LineBreakMode.WordWrap,
-                        MaximumWidthRequest = 320
+                        WidthRequest = 240
                     };
                     callout.SetAppThemeColor(Label.TextColorProperty, Colors.Black, Colors.White);
 

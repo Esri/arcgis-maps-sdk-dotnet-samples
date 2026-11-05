@@ -1,0 +1,38 @@
+{
+    "category": "Analysis",
+    "description": "Sample field function values at a given position from a field analysis.",
+    "formal_name": "GetFieldFunctionValueFromAPoint",
+    "ignore": false,
+    "images": [
+        "GetFieldFunctionValueFromAPoint.jpg"
+    ],
+    "keywords": [
+        "analysis overlay",
+        "elevation",
+        "field analysis",
+        "interactive",
+        "map algebra",
+        "raster",
+        "sample",
+        "spatial analysis",
+        "terrain"
+    ],
+    "offline_data": [],
+    "redirect_from": [],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "BooleanFieldFunction",
+        "BooleanFieldSampleFunction",
+        "ContinuousField",
+        "ContinuousFieldFunction",
+        "ContinuousFieldSampleFunction",
+        "ContinuousFieldSupplier",
+        "FieldAnalysis",
+        "FloatSupplier"
+    ],
+    "snippets": [
+        "GetFieldFunctionValueFromAPoint.xaml.cs",
+        "GetFieldFunctionValueFromAPoint.xaml"
+    ],
+    "title": "Get field function value from a point"
+}

@@ -10,6 +10,7 @@
 			<Sample>AnalyzeTerrainSuitabilityFromSlopeAndAspect</Sample>
 			<Sample>ApplyMapAlgebra</Sample>
 			<Sample>DistanceMeasurement</Sample>
+			<Sample>GetFieldFunctionValueFromAPoint</Sample>
 			<Sample>ShowInteractiveViewshedInAnalysisOverlay</Sample>
 			<Sample>ShowLineOfSightAnalysisOnMap</Sample>
 		</Category>

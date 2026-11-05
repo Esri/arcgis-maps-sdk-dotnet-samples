@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.GetFieldFunctionValueFromAPoint.GetFieldFunctionValueFromAPoint"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <Grid>
+        <esri:MapView x:Name="MyMapView" GeoViewTapped="OnMapViewTapped" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock Text="Tap the map or drag the helicopter to sample the fields." TextWrapping="Wrap" />
+                <TextBlock x:Name="AltitudeLabel" Margin="0,8,0,0" Text="Aircraft altitude (MSL): 2000 m" />
+                <Slider x:Name="AltitudeSlider"
+                        Minimum="1500"
+                        Maximum="2595"
+                        Value="2000"
+                        IsEnabled="False"
+                        ValueChanged="OnAltitudeChanged" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="AnalysisStatusDot"
+                               VerticalAlignment="Center"
+                               FontSize="16"
+                               Foreground="#9E9E9E"
+                               Text="&#x25CF;"
+                               ToolTip="Analysis idle"
+                               AutomationProperties.Name="Analysis idle" />
+                    <TextBlock x:Name="UpdatingStatus"
+                               Margin="8,0,0,0"
+                               VerticalAlignment="Center"
+                               Text="Analysis updating..."
+                               Visibility="Collapsed" />
+                </StackPanel>
+                <TextBlock x:Name="LoadingStatus" Text="Loading elevation data..." />
+                <TextBlock x:Name="ErrorMessage" Foreground="Red" TextWrapping="Wrap" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

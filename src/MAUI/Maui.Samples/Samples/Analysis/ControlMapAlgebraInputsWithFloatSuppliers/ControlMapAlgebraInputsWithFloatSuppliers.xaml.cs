@@ -40,9 +40,24 @@ namespace ArcGIS.Samples.ControlMapAlgebraInputsWithFloatSuppliers
         private double _maximumDragStart;
         private bool _analysisErrorReported;
 
+#if ANDROID
+        private double _minimumTouchStartX;
+        private double _maximumTouchStartX;
+#endif
+
         public ControlMapAlgebraInputsWithFloatSuppliers()
         {
             InitializeComponent();
+
+#if ANDROID
+            foreach (Border thumb in new[] { MinimumSlopeThumb, MaximumSlopeThumb })
+            {
+                thumb.GestureRecognizers.Clear();
+                thumb.HandlerChanging += OnSlopeThumbHandlerChanging;
+                thumb.HandlerChanged += OnSlopeThumbHandlerChanged;
+            }
+#endif
+
             _ = Initialize();
         }
 
@@ -182,6 +197,79 @@ namespace ArcGIS.Samples.ControlMapAlgebraInputsWithFloatSuppliers
             MinimumSlopeThumb.ZIndex = minimumOnTop ? 1 : 0;
             MaximumSlopeThumb.ZIndex = minimumOnTop ? 0 : 1;
         }
+
+#if ANDROID
+        private void OnSlopeThumbHandlerChanging(object sender, HandlerChangingEventArgs e)
+        {
+            if (e.OldHandler?.PlatformView is Android.Views.View view)
+            {
+                view.Touch -= OnMinimumSlopeTouch;
+                view.Touch -= OnMaximumSlopeTouch;
+            }
+        }
+
+        private void OnSlopeThumbHandlerChanged(object sender, EventArgs e)
+        {
+            if (sender is Border thumb && thumb.Handler?.PlatformView is Android.Views.View view)
+            {
+                if (thumb == MinimumSlopeThumb)
+                    view.Touch += OnMinimumSlopeTouch;
+                else
+                    view.Touch += OnMaximumSlopeTouch;
+            }
+        }
+
+        private void OnMinimumSlopeTouch(object sender, Android.Views.View.TouchEventArgs e) => OnSlopeTouch(true, (Android.Views.View)sender, e);
+
+        private void OnMaximumSlopeTouch(object sender, Android.Views.View.TouchEventArgs e) => OnSlopeTouch(false, (Android.Views.View)sender, e);
+
+        private void OnSlopeTouch(bool minimum, Android.Views.View view, Android.Views.View.TouchEventArgs e)
+        {
+            if (e.Event is not Android.Views.MotionEvent touch) return;
+
+            switch (touch.ActionMasked)
+            {
+                case Android.Views.MotionEventActions.Down:
+                    // Capture screen coordinates once; moving the thumb must not move the gesture's origin.
+                    if (minimum)
+                    {
+                        _minimumTouchStartX = touch.RawX;
+                        _minimumDragStart = _rangeStart;
+                    }
+                    else
+                    {
+                        _maximumTouchStartX = touch.RawX;
+                        _maximumDragStart = _rangeEnd;
+                    }
+                    view.Parent?.RequestDisallowInterceptTouchEvent(true);
+                    break;
+
+                case Android.Views.MotionEventActions.Move:
+                case Android.Views.MotionEventActions.Up:
+                    if (SlopeRangeSlider.Width > ThumbSize)
+                    {
+                        double startX = minimum ? _minimumTouchStartX : _maximumTouchStartX;
+                        double startValue = minimum ? _minimumDragStart : _maximumDragStart;
+                        double distance = (touch.RawX - startX) / Microsoft.Maui.Devices.DeviceDisplay.Current.MainDisplayInfo.Density;
+                        SetSlopeBoundary(minimum, startValue + distance / (SlopeRangeSlider.Width - ThumbSize) * MaximumSlope);
+                    }
+                    if (touch.ActionMasked == Android.Views.MotionEventActions.Up)
+                    {
+                        view.Parent?.RequestDisallowInterceptTouchEvent(false);
+                        BringSlopeThumbForward(minimum);
+                        view.PerformClick();
+                    }
+                    break;
+
+                case Android.Views.MotionEventActions.Cancel:
+                    view.Parent?.RequestDisallowInterceptTouchEvent(false);
+                    BringSlopeThumbForward(minimum);
+                    break;
+            }
+
+            e.Handled = true;
+        }
+#endif
 
         private async void OnAnalysisViewStateChanged(object sender, AnalysisViewStateChangedEventArgs e)
         {

@@ -59,12 +59,17 @@
                 </AbsoluteLayout>
                 <Label Margin="0,8,0,0"
                        Text="Slope colors on the map: dark purple (flat, 0&#176;) to yellow (steep, 85&#176;)." />
-                <Label x:Name="AnalysisStatusText"
-                       Margin="0,8,0,0"
-                       Text="Loading elevation..." />
-                <ActivityIndicator x:Name="AnalysisActivityIndicator"
-                                   IsRunning="True"
-                                   IsVisible="False" />
+                <HorizontalStackLayout Margin="0,8,0,0" Spacing="8">
+                    <ActivityIndicator x:Name="AnalysisActivityIndicator"
+                                       WidthRequest="20"
+                                       HeightRequest="20"
+                                       VerticalOptions="Center"
+                                       IsRunning="True"
+                                       IsVisible="False" />
+                    <Label x:Name="AnalysisStatusText"
+                           VerticalOptions="Center"
+                           Text="Loading elevation..." />
+                </HorizontalStackLayout>
             </VerticalStackLayout>
         </Border>
     </Grid>

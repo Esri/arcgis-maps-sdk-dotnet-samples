@@ -26,15 +26,15 @@ When the sample opens, the map shows the result of a slope analysis which displa
 
 ## Relevant API
 
-- AnalysisOverlay
-- BooleanFieldFunction
-- ColorRamp
-- ContinuousField
-- ContinuousFieldFunction
-- ContinuousFieldSupplier
-- FieldAnalysis
-- FloatSupplier
-- StretchRenderer
+* AnalysisOverlay
+* BooleanFieldFunction
+* ColorRamp
+* ContinuousField
+* ContinuousFieldFunction
+* ContinuousFieldSupplier
+* FieldAnalysis
+* FloatSupplier
+* StretchRenderer
 
 ## About the data
 

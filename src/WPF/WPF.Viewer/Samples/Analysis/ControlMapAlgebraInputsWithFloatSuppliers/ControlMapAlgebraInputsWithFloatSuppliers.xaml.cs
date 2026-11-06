@@ -124,6 +124,32 @@ namespace ArcGIS.WPF.Samples.ControlMapAlgebraInputsWithFloatSuppliers
             _maximumSlopeSupplier.Value = (float)_rangeEnd;
         }
 
+        private void OnAnalysisViewStateChanged(object sender, AnalysisViewStateChangedEventArgs e)
+        {
+            // Either the elevation analysis or the slope analysis can still be updating.
+            if (e.AnalysisViewState.Status == AnalysisViewStatus.Updating)
+                _updatingAnalyses.Add(e.Analysis);
+            else
+                _updatingAnalyses.Remove(e.Analysis);
+
+            if (_analysisErrorReported) return;
+
+            AnalysisProgressBar.Visibility = _updatingAnalyses.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
+            AnalysisStatusText.Text = _updatingAnalyses.Count > 0 ? "Analysis updating..." : "Analysis up to date.";
+
+            // Report the first unrecoverable error and prevent further updates to the failed analysis.
+            if (e.AnalysisViewState.Status == AnalysisViewStatus.Error)
+            {
+                _analysisErrorReported = true;
+                SlopeRangeSlider.IsEnabled = false;
+                AnalysisProgressBar.Visibility = Visibility.Collapsed;
+                AnalysisStatusText.Text = "Analysis failed.";
+                MessageBox.Show(e.AnalysisViewState.Error?.Message ?? "The field analysis could not be displayed.", "Error displaying analysis");
+            }
+        }
+
+        #region Slider
+
         private void SetSlopeBoundary(bool minimum, double value)
         {
             if (_minimumSlopeSupplier == null || _analysisErrorReported) return;
@@ -213,28 +239,6 @@ namespace ArcGIS.WPF.Samples.ControlMapAlgebraInputsWithFloatSuppliers
             e.Handled = true;
         }
 
-        private void OnAnalysisViewStateChanged(object sender, AnalysisViewStateChangedEventArgs e)
-        {
-            // Either the elevation analysis or the slope analysis can still be updating.
-            if (e.AnalysisViewState.Status == AnalysisViewStatus.Updating)
-                _updatingAnalyses.Add(e.Analysis);
-            else
-                _updatingAnalyses.Remove(e.Analysis);
-
-            if (_analysisErrorReported) return;
-
-            AnalysisProgressBar.Visibility = _updatingAnalyses.Count > 0 ? Visibility.Visible : Visibility.Collapsed;
-            AnalysisStatusText.Text = _updatingAnalyses.Count > 0 ? "Analysis updating..." : "Analysis up to date.";
-
-            // Report the first unrecoverable error and prevent further updates to the failed analysis.
-            if (e.AnalysisViewState.Status == AnalysisViewStatus.Error)
-            {
-                _analysisErrorReported = true;
-                SlopeRangeSlider.IsEnabled = false;
-                AnalysisProgressBar.Visibility = Visibility.Collapsed;
-                AnalysisStatusText.Text = "Analysis failed.";
-                MessageBox.Show(e.AnalysisViewState.Error?.Message ?? "The field analysis could not be displayed.", "Error displaying analysis");
-            }
-        }
+        #endregion
     }
 }

@@ -10,6 +10,7 @@
 
 * [Analyze terrain suitability from slope and aspect](Maui.Samples/Samples/Analysis/AnalyzeTerrainSuitabilityFromSlopeAndAspect) - Analyze terrain suitability from an elevation raster by deriving slope and aspect.
 * [Apply map algebra](Maui.Samples/Samples/Analysis/ApplyMapAlgebra) - Apply map algebra to an elevation raster to floor, mask, and categorize the elevation values into discrete integer-based categories.
+* [Control map algebra inputs with float suppliers](Maui.Samples/Samples/Analysis/ControlMapAlgebraInputsWithFloatSuppliers) - Use float suppliers to dynamically update numeric inputs to a map algebra expression and automatically refresh analysis results as input values change.
 * [Distance measurement analysis](Maui.Samples/Samples/Analysis/DistanceMeasurement) - Measure distances between two points in 3D.
 * [Get field function value from a point](Maui.Samples/Samples/Analysis/GetFieldFunctionValueFromAPoint) - Sample field function values at a given position from a field analysis.
 * [Query feature count and extent](Maui.Samples/Samples/Analysis/QueryFeatureCountAndExtent) - Zoom to features matching a query and count the features in the current visible extent.

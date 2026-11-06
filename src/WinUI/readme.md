@@ -10,6 +10,7 @@
 
 * [Analyze terrain suitability from slope and aspect](ArcGIS.WinUI.Viewer/Samples/Analysis/AnalyzeTerrainSuitabilityFromSlopeAndAspect) - Analyze terrain suitability from an elevation raster by deriving slope and aspect.
 * [Apply map algebra](ArcGIS.WinUI.Viewer/Samples/Analysis/ApplyMapAlgebra) - Apply map algebra to an elevation raster to floor, mask, and categorize the elevation values into discrete integer-based categories.
+* [Control map algebra inputs with float suppliers](ArcGIS.WinUI.Viewer/Samples/Analysis/ControlMapAlgebraInputsWithFloatSuppliers) - Use float suppliers to dynamically update numeric inputs to a map algebra expression and automatically refresh analysis results as input values change.
 * [Distance measurement analysis](ArcGIS.WinUI.Viewer/Samples/Analysis/DistanceMeasurement) - Measure distances between two points in 3D.
 * [Get field function value from a point](ArcGIS.WinUI.Viewer/Samples/Analysis/GetFieldFunctionValueFromAPoint) - Sample field function values at a given position from a field analysis.
 * [Query feature count and extent](ArcGIS.WinUI.Viewer/Samples/Analysis/QueryFeatureCountAndExtent) - Zoom to features matching a query and count the features in the current visible extent.

@@ -9,6 +9,7 @@
 		<Category name="Analysis">
 			<Sample>AnalyzeTerrainSuitabilityFromSlopeAndAspect</Sample>
 			<Sample>ApplyMapAlgebra</Sample>
+			<Sample>ControlMapAlgebraInputsWithFloatSuppliers</Sample>
 			<Sample>DistanceMeasurement</Sample>
 			<Sample>GetFieldFunctionValueFromAPoint</Sample>
 			<Sample>ShowInteractiveViewshedInAnalysisOverlay</Sample>

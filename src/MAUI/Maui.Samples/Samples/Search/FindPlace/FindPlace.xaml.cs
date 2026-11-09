@@ -138,8 +138,8 @@ namespace ArcGIS.Samples.FindPlace
             // Create the geocode parameters.
             GeocodeParameters parameters = new GeocodeParameters();
 
-            // Request that the "Address" attribute is included with results, to display in callouts.
-            parameters.ResultAttributeNames.Add("Address");
+            // Request the place address so it can be displayed in callouts.
+            parameters.ResultAttributeNames.Add("Place_addr");
 
             try
             {
@@ -192,7 +192,7 @@ namespace ArcGIS.Samples.FindPlace
 
                     // Add the specific result data to the point.
                     point.Attributes["Match_Title"] = location.Label;
-                    point.Attributes["Match_Address"] = location.Attributes["Address"];
+                    point.Attributes["Match_Address"] = location.Attributes["Place_addr"];
 
                     // Add the Graphic to the GraphicsOverlay.
                     resultOverlay.Graphics.Add(point);

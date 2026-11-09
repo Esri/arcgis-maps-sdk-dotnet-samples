@@ -107,9 +107,6 @@ namespace ArcGIS.WPF.Samples.DisplayUtilityAssociations
 
                 // Set the starting viewpoint.
                 await MyMapView.SetViewpointAsync(InitialViewpoint);
-
-                // Add the associations in the starting viewpoint.
-                _ = AddAssociations();
             }
             catch (Exception ex)
             {

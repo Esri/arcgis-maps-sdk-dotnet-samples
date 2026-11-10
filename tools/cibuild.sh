@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Default environment variables
-DOTNET_VERSION="${DOTNET_VERSION:-10.0.404}"
+DOTNET_VERSION="${DOTNET_VERSION:-10.0.403}"
 RELEASE_VERSION="${RELEASE_VERSION:-300.2.0}"
 FRAMEWORK="net${DOTNET_VERSION%%.*}.0-ios"
 

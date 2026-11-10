@@ -2,7 +2,7 @@ REM @ECHO OFF
 
 REM Default environment variables
 IF "%DOTNET_VERSION%" == "" (
-  set DOTNET_VERSION=10.0.203
+  set DOTNET_VERSION=10.0.404
 )
 IF "%RELEASE_VERSION%" == "" (
   SET RELEASE_VERSION=300.2.0

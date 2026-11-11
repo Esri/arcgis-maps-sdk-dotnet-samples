@@ -1,7 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk" TreatAsLocalProperty="TargetFrameworks;TargetFramework;RuntimeIdentifier">
+<Project Sdk="Microsoft.NET.Sdk" TreatAsLocalProperty="TargetFrameworks;TargetFramework;PlatformTarget;RuntimeIdentifier">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0</TargetFrameworks>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <PlatformTarget>anycpu</PlatformTarget>
     <RuntimeIdentifier>any</RuntimeIdentifier>
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>

@@ -28,6 +28,7 @@ REM Configure NuGet
 IF "%NUGET_REPO%" NEQ "" IF EXIST "%NUGET_REPO%" (
 %DOTNET_EXE% nuget add source %NUGET_REPO%
 )
+powershell -Command "$config = [xml](Get-Content -Path '..\nuget.config'); $mappings = $config.configuration.AppendChild($config.CreateElement('packageSourceMapping')); $mappings.AppendChild($config.CreateElement('clear')); $config.Save('../nuget.config');"
 SET NUGET_PACKAGES=%~dp0..\.nuget\packages
 SET NUGET_HTTP_CACHE_PATH=%~dp0..\.nuget\cache
 md %NUGET_PACKAGES%

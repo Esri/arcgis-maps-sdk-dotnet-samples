@@ -45,12 +45,6 @@
                    <Button Clicked="OnGeometryEditorCompleted" Text="Complete" />
                    <Button Clicked="OnGeometryEditorCanceled" Text="Cancel" />
                </HorizontalStackLayout>
-               <HorizontalStackLayout x:Name="PendingEditsPanel"
-                                      IsVisible="False"
-                                      Spacing="6">
-                   <Button Clicked="OnEditsSaved" Text="Save" />
-                   <Button Clicked="OnEditsUndone" Text="Undo" />
-               </HorizontalStackLayout>
             </VerticalStackLayout>
         </Border>
     </Grid>

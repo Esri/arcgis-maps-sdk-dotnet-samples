@@ -53,13 +53,6 @@
                     <Button Margin="0,0,6,0" Click="OnGeometryEditorCompleted" Content="Complete" />
                     <Button Click="OnGeometryEditorCanceled" Content="Cancel" />
                 </StackPanel>
-                <StackPanel x:Name="PendingEditsPanel"
-                            Margin="0,8,0,0"
-                            Orientation="Horizontal"
-                            Visibility="Collapsed">
-                    <Button Margin="0,0,6,0" Click="OnEditsSaved" Content="Save" />
-                    <Button Click="OnEditsUndone" Content="Undo" />
-                </StackPanel>
             </StackPanel>
         </Border>
     </Grid>

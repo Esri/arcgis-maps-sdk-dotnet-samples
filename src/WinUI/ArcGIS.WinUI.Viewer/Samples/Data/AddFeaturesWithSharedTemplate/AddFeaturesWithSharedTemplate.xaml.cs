@@ -29,7 +29,7 @@ namespace ArcGIS.WinUI.Samples.AddFeaturesWithSharedTemplate
         name: "Add features with shared templates",
         category: "Data",
         description: "Create features from preset and group shared templates.",
-        instructions: "Hover over a shared template to view its description. Select a template and click on the map to place the geometry. Choose \"Complete\" to create the feature, \"Save\" to apply local edits, or \"Undo\" to discard them.",
+        instructions: "Hover over a shared template to view its description. Select a template and click on the map to place the geometry. Choose \"Complete\" to create and add the features locally, or \"Cancel\" to discard the sketch.",
         tags: new[] { "edit", "feature", "group", "preset", "shared template", "shared template source", "template" })]
     public partial class AddFeaturesWithSharedTemplate
     {
@@ -119,16 +119,7 @@ namespace ArcGIS.WinUI.Samples.AddFeaturesWithSharedTemplate
                 await new MessageDialog2(exception.Message, exception.GetType().Name).ShowAsync();
             }
 
-            if (_activeTemplateItem?.Template.TemplateSource is ServiceGeodatabase serviceGeodatabase)
-            {
-                PendingEditsPanel.Visibility = serviceGeodatabase.HasLocalEdits() ? Visibility.Visible : Visibility.Collapsed;
-                TemplatePicker.Visibility = serviceGeodatabase.HasLocalEdits() ? Visibility.Collapsed : Visibility.Visible;
-            }
-            else
-            {
-                TemplatePicker.Visibility = Visibility.Visible;
-                PendingEditsPanel.Visibility = Visibility.Collapsed;
-            }
+            TemplatePicker.Visibility = Visibility.Visible;
 
             MyMapView.GeometryEditor?.Stop();
             DrawingButtonsPanel.Visibility = Visibility.Collapsed;
@@ -202,8 +193,7 @@ namespace ArcGIS.WinUI.Samples.AddFeaturesWithSharedTemplate
                 // The feature creation set can be modified before committing it to the database.
                 await sharedTemplateSource.AddFeaturesAsync(featureCreationSet);
 
-                PendingEditsPanel.Visibility = Visibility.Visible;
-                StatusTextBlock.Text = "Save or undo edits.";
+                await UpdateUIAsync("Features added.");
             }
             catch (Exception ex)
             {
@@ -214,44 +204,6 @@ namespace ArcGIS.WinUI.Samples.AddFeaturesWithSharedTemplate
         private async void OnGeometryEditorCanceled(object sender, RoutedEventArgs e)
         {
             await UpdateUIAsync("Draw canceled.");
-        }
-
-        private async void OnEditsSaved(object sender, RoutedEventArgs e)
-        {
-            if (_activeTemplateItem?.Template.TemplateSource is not ServiceGeodatabase serviceGeodatabase)
-            {
-                return;
-            }
-
-            try
-            {
-                StatusTextBlock.Text = "Saving edits.";
-                await serviceGeodatabase.ApplyEditsAsync();
-                await UpdateUIAsync("Edits saved.");
-            }
-            catch (Exception ex)
-            {
-                await UpdateUIAsync("Unable to save edits.", ex);
-            }
-        }
-
-        private async void OnEditsUndone(object sender, RoutedEventArgs e)
-        {
-            if (_activeTemplateItem?.Template.TemplateSource is not ServiceGeodatabase serviceGeodatabase)
-            {
-                return;
-            }
-
-            try
-            {
-                StatusTextBlock.Text = "Undoing local edits.";
-                await serviceGeodatabase.UndoLocalEditsAsync();
-                await UpdateUIAsync("Edits undone.");
-            }
-            catch (Exception ex)
-            {
-                await UpdateUIAsync("Unable to undo edits.", ex);
-            }
         }
     }
 

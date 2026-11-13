@@ -10,7 +10,7 @@ Preset and group shared templates support guided, repeatable, high-quality editi
 
 ## How to use the sample
 
-Hover over a shared template to view its description. Select a template and click on the map to place the geometry. Choose "Complete" to create the feature, "Save" to apply local edits, or "Undo" to discard them.
+Hover over a shared template to view its description. Select a template and click on the map to place the geometry. Choose "Complete" to create and add the features locally, or "Cancel" to discard the sketch.
 
 ## How it works
 
@@ -20,7 +20,6 @@ Hover over a shared template to view its description. Select a template and clic
 4. Call `SharedTemplate.CreateSwatchAsync(layerId)` to generate a swatch image for each template, falling back to a default image when a swatch is unavailable.
 5. Call `SharedTemplate.GetDefaultConstructionTool(layerId)` to get the template’s default construction method. Use its `GeometryConstructionTool.ToolType` to choose whether the `GeometryEditor` draws a point or polyline.
 6. After the user selects "Complete", call `GeometryEditor.Stop()` and use the returned geometry to create features with `ISharedTemplateSource.CreateFeaturesAsync(sharedTemplate, geometry)`. Then call `ISharedTemplateSource.AddFeaturesAsync()` to add the resulting feature set to the geodatabase.
-7. Select "Save" to apply local edits with `ServiceGeodatabase.ApplyEditsAsync()`, or select "Undo" to discard them with `ServiceGeodatabase.UndoLocalEditsAsync()`.
 
 ## Relevant API
 

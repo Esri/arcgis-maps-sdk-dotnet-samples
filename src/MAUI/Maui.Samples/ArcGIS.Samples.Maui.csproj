@@ -22,7 +22,7 @@
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">18.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">18.0</SupportedOSPlatformVersion>
-		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">26.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">29.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</TargetPlatformMinVersion>
 		<RootNamespace>ArcGIS</RootNamespace>
@@ -76,6 +76,15 @@
 	  <None Remove="Samples\Location\IndoorPositioning\**" />
 	</ItemGroup>
 
+	<!-- Exclude text scaling sample on Mac Catalyst, where it is not supported. -->
+	<ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">
+	  <AndroidResource Remove="Samples\Accessibility\UpdateLabelsAndSymbolsForAccessibility\**" />
+	  <Compile Remove="Samples\Accessibility\UpdateLabelsAndSymbolsForAccessibility\**" />
+	  <MauiCss Remove="Samples\Accessibility\UpdateLabelsAndSymbolsForAccessibility\**" />
+	  <MauiXaml Remove="Samples\Accessibility\UpdateLabelsAndSymbolsForAccessibility\**" />
+	  <None Remove="Samples\Accessibility\UpdateLabelsAndSymbolsForAccessibility\**" />
+	</ItemGroup>
+
   <ItemGroup Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">
       <Content Include="Resources\*.md">
           <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -105,9 +114,7 @@
 	  <MauiImage Include="Resources\Icons\*.svg" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\beacon.png" />
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_blue.png" />
-    <EmbeddedResource Include="Resources\PictureMarkerSymbols\pin_star_blue.png" />
+    <EmbeddedResource Include="Resources\PictureMarkerSymbols\*.png" />
   </ItemGroup>
 	<ItemGroup>
     <MauiAsset Include="SyntaxHighlighting\github-markdown.css">

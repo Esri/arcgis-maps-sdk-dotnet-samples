@@ -2,10 +2,10 @@ REM @ECHO OFF
 
 REM Default environment variables
 IF "%DOTNET_VERSION%" == "" (
-  set DOTNET_VERSION=10.0.203
+  set DOTNET_VERSION=10.0.404
 )
 IF "%RELEASE_VERSION%" == "" (
-  SET RELEASE_VERSION=300.1.0
+  SET RELEASE_VERSION=300.2.0
 )
 
 REM Install the latest dotnet version if not already cached to the build machine
@@ -28,6 +28,7 @@ REM Configure NuGet
 IF "%NUGET_REPO%" NEQ "" IF EXIST "%NUGET_REPO%" (
 %DOTNET_EXE% nuget add source %NUGET_REPO%
 )
+powershell -Command "$config = [xml](Get-Content -Path '..\nuget.config'); $mappings = $config.configuration.AppendChild($config.CreateElement('packageSourceMapping')); $mappings.AppendChild($config.CreateElement('clear')); $config.Save('../nuget.config');"
 SET NUGET_PACKAGES=%~dp0..\.nuget\packages
 SET NUGET_HTTP_CACHE_PATH=%~dp0..\.nuget\cache
 md %NUGET_PACKAGES%

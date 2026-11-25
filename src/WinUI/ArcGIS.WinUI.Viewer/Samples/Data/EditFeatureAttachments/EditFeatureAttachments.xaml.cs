@@ -156,10 +156,11 @@ namespace ArcGIS.WinUI.Samples.EditFeatureAttachments
                 }
 
                 // Read the file contents into memory.
-                Stream dataStream = await file.OpenStreamForReadAsync();
-                attachmentData = new byte[dataStream.Length];
-                dataStream.Read(attachmentData, 0, attachmentData.Length);
-                dataStream.Close();
+                using (Stream dataStream = await file.OpenStreamForReadAsync())
+                {
+                    attachmentData = new byte[dataStream.Length];
+                    dataStream.ReadExactly(attachmentData);
+                }
 
                 // Add the attachment.
                 // The contentType string is the MIME type for JPEG files, image/jpeg.

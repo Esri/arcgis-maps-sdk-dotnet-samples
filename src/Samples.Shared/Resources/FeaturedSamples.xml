@@ -2,18 +2,24 @@
 <FeaturedSamples>
 	<Categories>
 		<Category name="Accessibility">
+			<Sample>NavigateMapViewWithKeyboard</Sample>
 			<Sample>UpdateBasemapForContrastAccessibility</Sample>
+			<Sample>UpdateLabelsAndSymbolsForAccessibility</Sample>
 		</Category>
 		<Category name="Analysis">
+			<Sample>AnalyzeTerrainSuitabilityFromSlopeAndAspect</Sample>
 			<Sample>ApplyMapAlgebra</Sample>
+			<Sample>ControlMapAlgebraInputsWithFloatSuppliers</Sample>
 			<Sample>DistanceMeasurement</Sample>
+			<Sample>GetFieldFunctionValueFromAPoint</Sample>
 			<Sample>ShowInteractiveViewshedInAnalysisOverlay</Sample>
 			<Sample>ShowLineOfSightAnalysisOnMap</Sample>
 		</Category>
 		<Category name="Data">
+			<Sample>AddFeaturesWithSharedTemplate</Sample>
 			<Sample>CreateKmlMultiTrack</Sample>
-			<Sample>ManageFeatures</Sample>
 			<Sample>EditFeaturesUsingFeatureForms</Sample>
+			<Sample>ManageFeatures</Sample>
 		</Category>
 		<Category name="Geometry">
 			<Sample>CreateAndEditGeometries</Sample>
@@ -46,15 +52,17 @@
 		</Category>
 		<Category name="MapView">
 			<Sample>DisplayGrid</Sample>
+			<Sample>FilterMosaicDatasetRasterByTimeExtent</Sample>
 		</Category>
 		<Category name="Search">
 			<Sample>QueryDynamicEntities</Sample>
 		</Category>
 		<Category name="Scene">
+			<Sample>ApplyPointCloudRendererAndFilter</Sample>
 			<Sample>ConfigureSceneEnvironment</Sample>
+			<Sample>DisplayLocalScene</Sample>
 			<Sample>FilterFeaturesInScene</Sample>
 			<Sample>ShowLabelsOnLayer3D</Sample>
-			<Sample>DisplayLocalScene</Sample>
 		</Category>
 		<Category name="Symbology">
 			<Sample>StyleGeometryTypesWithSymbols</Sample>

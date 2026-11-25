@@ -1,0 +1,36 @@
+{
+    "category": "Data",
+    "description": "Create features from preset and group shared templates.",
+    "formal_name": "AddFeaturesWithSharedTemplate",
+    "ignore": false,
+    "images": [
+        "AddFeaturesWithSharedTemplate.jpg"
+    ],
+    "keywords": [
+        "edit",
+        "feature",
+        "group",
+        "preset",
+        "shared template",
+        "shared template source",
+        "template"
+    ],
+    "offline_data": [],
+    "redirect_from": [
+        "/net/latest/wpf/sample-code/add-features-with-shared-template.htm"
+    ],
+    "relevant_apis": [
+        "GeometryConstructionTool",
+        "GeometryEditor",
+        "ISharedTemplateSource",
+        "ServiceGeodatabase",
+        "SharedTemplate",
+        "SharedTemplateFeatureCreationSet",
+        "SharedTemplateQueryParameters"
+    ],
+    "snippets": [
+        "AddFeaturesWithSharedTemplate.xaml.cs",
+        "AddFeaturesWithSharedTemplate.xaml"
+    ],
+    "title": "Add features with shared templates"
+}

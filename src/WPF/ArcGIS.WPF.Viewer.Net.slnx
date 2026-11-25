@@ -1,0 +1,17 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+  </Configurations>
+
+  <Project DefaultStartup="true" Path="WPF.Viewer/ArcGIS.WPF.Viewer.Net.csproj">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+  </Project>
+  <Project Path="WPF.StorePackage/ArcGIS.WPF.StorePackage.wapproj" Type="c7167f0d-bc9f-4e6e-afe1-012c56b48db5">
+    <Deploy />
+  </Project>
+  <Project Path="../Samples.CatalogGenerator/Samples.CatalogGenerator.csproj" />
+  <Project Path="../Samples.Shared/ArcGIS.Samples.Shared.shproj" />
+</Solution>

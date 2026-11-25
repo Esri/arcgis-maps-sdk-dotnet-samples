@@ -1,0 +1,35 @@
+{
+    "category": "Analysis",
+    "description": "Use float suppliers to dynamically update numeric inputs to a map algebra expression and automatically refresh analysis results as input values change.",
+    "formal_name": "ControlMapAlgebraInputsWithFloatSuppliers",
+    "ignore": false,
+    "images": [
+        "controlmapalgebrainputswithfloatsuppliers.jpg"
+    ],
+    "keywords": [
+        "elevation",
+        "map algebra",
+        "raster",
+        "slope",
+        "spatial analysis",
+        "terrain"
+    ],
+    "offline_data": [],
+    "redirect_from": [],
+    "relevant_apis": [
+        "AnalysisOverlay",
+        "BooleanFieldFunction",
+        "ColorRamp",
+        "ContinuousField",
+        "ContinuousFieldFunction",
+        "ContinuousFieldSupplier",
+        "FieldAnalysis",
+        "FloatSupplier",
+        "StretchRenderer"
+    ],
+    "snippets": [
+        "ControlMapAlgebraInputsWithFloatSuppliers.xaml.cs",
+        "ControlMapAlgebraInputsWithFloatSuppliers.xaml"
+    ],
+    "title": "Control map algebra inputs with float suppliers"
+}

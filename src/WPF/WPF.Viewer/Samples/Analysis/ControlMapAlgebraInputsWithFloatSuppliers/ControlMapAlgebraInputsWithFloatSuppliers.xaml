@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="ArcGIS.WPF.Samples.ControlMapAlgebraInputsWithFloatSuppliers.ControlMapAlgebraInputsWithFloatSuppliers"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:esri="http://schemas.esri.com/arcgis/runtime/2013">
+    <UserControl.Resources>
+        <Style x:Key="SlopeThumbStyle" TargetType="Thumb">
+            <Setter Property="Width" Value="44" />
+            <Setter Property="Height" Value="44" />
+            <Setter Property="Focusable" Value="True" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Grid Background="Transparent">
+                            <Ellipse x:Name="Handle"
+                                     Width="20"
+                                     Height="20"
+                                     Fill="#7F3BAF"
+                                     Stroke="White"
+                                     StrokeThickness="2" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Handle" Property="Stroke" Value="Black" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Handle" Property="Fill" Value="Gray" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <esri:MapView x:Name="MyMapView" />
+        <Border Style="{StaticResource BorderStyle}">
+            <StackPanel>
+                <TextBlock x:Name="SlopeRangeText"
+                           Margin="0,0,0,8"
+                           Text="Slope range: 0 to 10 degrees" />
+                <Canvas x:Name="SlopeRangeSlider"
+                        Height="44"
+                        Background="Transparent"
+                        IsEnabled="False"
+                        MouseLeftButtonDown="OnSlopeTrackClicked"
+                        SizeChanged="OnSlopeRangeSizeChanged">
+                    <Border x:Name="SlopeTrack"
+                            Canvas.Left="22"
+                            Canvas.Top="20"
+                            Height="4"
+                            Background="#A0A0A0"
+                            CornerRadius="2" />
+                    <Border x:Name="SelectedSlopeTrack"
+                            Canvas.Top="20"
+                            Height="4"
+                            Background="#7F3BAF" />
+                    <Thumb x:Name="MinimumSlopeThumb"
+                           AutomationProperties.Name="Minimum slope"
+                           AutomationProperties.HelpText="Use the arrow keys to adjust the minimum slope."
+                           Style="{StaticResource SlopeThumbStyle}"
+                           DragStarted="OnSlopeThumbDragStarted"
+                           DragDelta="OnSlopeThumbDragDelta"
+                           KeyDown="OnSlopeThumbKeyDown" />
+                    <Thumb x:Name="MaximumSlopeThumb"
+                           AutomationProperties.Name="Maximum slope"
+                           AutomationProperties.HelpText="Use the arrow keys to adjust the maximum slope."
+                           Style="{StaticResource SlopeThumbStyle}"
+                           DragStarted="OnSlopeThumbDragStarted"
+                           DragDelta="OnSlopeThumbDragDelta"
+                           KeyDown="OnSlopeThumbKeyDown" />
+                </Canvas>
+                <TextBlock Margin="0,8,0,0"
+                           Text="Slope colors on the map: dark purple (flat, 0&#176;) to yellow (steep, 85&#176;)."
+                           TextWrapping="Wrap" />
+                <TextBlock x:Name="AnalysisStatusText"
+                           Margin="0,8,0,0"
+                           Text="Loading elevation..." />
+                <ProgressBar x:Name="AnalysisProgressBar"
+                             Margin="0,4,0,0"
+                             IsIndeterminate="True"
+                             Visibility="Collapsed" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

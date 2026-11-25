@@ -262,9 +262,12 @@ namespace ArcGIS.WPF.Samples.EditFeatureAttachments
                 }
 
                 // Load the data into a byte array.
-                Stream attachmentDataStream = await selectedAttachment.GetDataAsync();
-                byte[] attachmentData = new byte[attachmentDataStream.Length];
-                attachmentDataStream.Read(attachmentData, 0, attachmentData.Length);
+                byte[] attachmentData;
+                using (Stream dataStream = await selectedAttachment.GetDataAsync())
+                {
+                    attachmentData = new byte[dataStream.Length];
+                    dataStream.ReadExactly(attachmentData);
+                }
 
                 // Write out the file.
                 FileStream fs = new FileStream(dlg.FileName,

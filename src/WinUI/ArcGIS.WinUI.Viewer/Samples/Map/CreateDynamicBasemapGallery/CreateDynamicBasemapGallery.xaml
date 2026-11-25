@@ -8,42 +8,50 @@
     <Grid>
         <esriControls:MapView x:Name="MyMapView" />
         <Border Style="{StaticResource BorderStyle}">
-            <StackPanel>
-                <StackPanel Margin="5" Spacing="5">
-                    <ListView x:Name="BasemapStyleGallery"
-                              MaxHeight="500"
-                              SelectionMode="Single">
-                        <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="mapping:BasemapStyleInfo">
-                                <StackPanel Margin="5">
-                                    <TextBlock FontWeight="Bold" Text="{Binding StyleName}" />
-                                    <Image Height="150"
-                                           HorizontalAlignment="Left"
-                                           Source="{x:Bind esriUI:RuntimeImageExtensions.ToImageSource(Thumbnail)}" />
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                    <TextBlock FontWeight="Bold" Text="Language strategy:" />
-                    <ComboBox x:Name="StrategyPicker"
-                              HorizontalAlignment="Stretch"
-                              IsEnabled="False" />
-                    <TextBlock FontWeight="Bold" Text="Language:" />
-                    <ComboBox x:Name="LanguagePicker"
-                              HorizontalAlignment="Stretch"
-                              DisplayMemberPath="DisplayName"
-                              IsEnabled="False" />
-                    <TextBlock FontWeight="Bold" Text="Worldview:" />
-                    <ComboBox x:Name="WorldviewPicker"
-                              HorizontalAlignment="Stretch"
-                              DisplayMemberPath="DisplayName"
-                              IsEnabled="False" />
-                    <Button Margin="0,10,0,0"
-                            HorizontalAlignment="Stretch"
-                            Click="LoadButton_Click"
-                            Content="Load" />
-                </StackPanel>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ListView x:Name="BasemapStyleGallery"
+                            MaxHeight="500"
+                            SelectionMode="Single">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="mapping:BasemapStyleInfo">
+                            <StackPanel Margin="5">
+                                <TextBlock FontWeight="Bold" Text="{Binding StyleName}" />
+                                <Image Height="100"
+                                        HorizontalAlignment="Left"
+                                        Source="{x:Bind esriUI:RuntimeImageExtensions.ToImageSource(Thumbnail)}" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <ScrollView Grid.Row="1">
+                    <StackPanel Margin="5" Spacing="5">
+                        <TextBlock FontWeight="Bold" Text="Language strategy:" />
+                        <ComboBox x:Name="StrategyPicker"
+                                  HorizontalAlignment="Stretch"
+                                  IsEnabled="False" />
+                        <TextBlock FontWeight="Bold" Text="Language:" />
+                        <ComboBox x:Name="LanguagePicker"
+                                  HorizontalAlignment="Stretch"
+                                  DisplayMemberPath="DisplayName"
+                                  IsEnabled="False" />
+                        <TextBlock FontWeight="Bold" Text="Worldview:" />
+                        <ComboBox x:Name="WorldviewPicker"
+                                  HorizontalAlignment="Stretch"
+                                  DisplayMemberPath="DisplayName"
+                                  IsEnabled="False" />
+                        <Button Margin="0,10,0,0"
+                                HorizontalAlignment="Stretch"
+                                Click="LoadButton_Click"
+                                Content="Load" />
+                    </StackPanel>
+                </ScrollView>
+            </Grid>
         </Border>
     </Grid>
 </UserControl>

@@ -23,6 +23,7 @@
         "ColormapRenderer",
         "ContinuousField",
         "ContinuousFieldFunction",
+        "ContinuousFieldSupplier",
         "DiscreteField",
         "DiscreteFieldFunction",
         "MinMaxStretchParameters",

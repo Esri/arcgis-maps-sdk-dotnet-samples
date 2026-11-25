@@ -89,7 +89,7 @@ namespace ArcGIS.WPF.Samples.ApplyMapAlgebra
         private async Task CreateGeomorphicCategoryField()
         {
             // Create a continuous field function from the elevation field.
-            var continuousFieldFunction = ContinuousFieldFunction.Create(_elevationField);
+            var continuousFieldFunction = new ContinuousFieldSupplier(_elevationField);
 
             // Mask out values below sea level to categorize only land.
             var elevationFieldFunction = continuousFieldFunction.Mask(

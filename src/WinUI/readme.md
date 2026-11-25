@@ -1,9 +1,18 @@
 # Table of contents
 
+## Accessibility
+
+* [Navigate map view and identify features with keyboard](ArcGIS.WinUI.Viewer/Samples/Accessibility/NavigateMapViewWithKeyboard) - Perform all map navigation operations using only the keyboard.
+* [Update basemap for contrast accessibility](ArcGIS.WinUI.Viewer/Samples/Accessibility/UpdateBasemapForContrastAccessibility) - Display a map view that updates between authored light, dark, and high-contrast basemaps.
+* [Update labels and symbols to scale for visual accessibility](ArcGIS.WinUI.Viewer/Samples/Accessibility/UpdateLabelsAndSymbolsForAccessibility) - Scale feature labels and symbols according to the system text-size setting.
+
 ## Analysis
 
+* [Analyze terrain suitability from slope and aspect](ArcGIS.WinUI.Viewer/Samples/Analysis/AnalyzeTerrainSuitabilityFromSlopeAndAspect) - Analyze terrain suitability from an elevation raster by deriving slope and aspect.
 * [Apply map algebra](ArcGIS.WinUI.Viewer/Samples/Analysis/ApplyMapAlgebra) - Apply map algebra to an elevation raster to floor, mask, and categorize the elevation values into discrete integer-based categories.
+* [Control map algebra inputs with float suppliers](ArcGIS.WinUI.Viewer/Samples/Analysis/ControlMapAlgebraInputsWithFloatSuppliers) - Use float suppliers to dynamically update numeric inputs to a map algebra expression and automatically refresh analysis results as input values change.
 * [Distance measurement analysis](ArcGIS.WinUI.Viewer/Samples/Analysis/DistanceMeasurement) - Measure distances between two points in 3D.
+* [Get field function value from a point](ArcGIS.WinUI.Viewer/Samples/Analysis/GetFieldFunctionValueFromAPoint) - Sample field function values at a given position from a field analysis.
 * [Query feature count and extent](ArcGIS.WinUI.Viewer/Samples/Analysis/QueryFeatureCountAndExtent) - Zoom to features matching a query and count the features in the current visible extent.
 * [Show exploratory line of sight between geoelements](ArcGIS.WinUI.Viewer/Samples/Analysis/ShowExploratoryLineOfSightBetweenGeoelements) - Show an exploratory line of sight between two moving objects.
 * [Show exploratory line of sight between points](ArcGIS.WinUI.Viewer/Samples/Analysis/ShowExploratoryLineOfSightBetweenPoints) - Perform an exploratory line of sight analysis between two points in real time.
@@ -16,6 +25,7 @@
 ## Data
 
 * [Add features with contingent values](ArcGIS.WinUI.Viewer/Samples/Data/AddFeaturesWithContingentValues) - Create and add features whose attribute values satisfy a predefined set of contingencies.
+* [Add features with shared templates](ArcGIS.WinUI.Viewer/Samples/Data/AddFeaturesWithSharedTemplate) - Create features from preset and group shared templates.
 * [Add rasters and feature tables from geopackage](ArcGIS.WinUI.Viewer/Samples/Data/AddRastersAndFeatureTablesFromGeopackage) - Add rasters and feature tables from a GeoPackage to a map.
 * [Create KML multi-track](ArcGIS.WinUI.Viewer/Samples/Data/CreateKmlMultiTrack) - Create, save and preview a KML multi-track, captured from a location data source.
 * [Create mobile geodatabase](ArcGIS.WinUI.Viewer/Samples/Data/CreateMobileGeodatabase) - Create and share a mobile geodatabase.
@@ -31,6 +41,7 @@
 * [Manage features](ArcGIS.WinUI.Viewer/Samples/Data/ManageFeatures) - Create, update, and delete features to manage a feature layer.
 * [Query features with Arcade expression](ArcGIS.WinUI.Viewer/Samples/Data/QueryFeaturesWithArcadeExpression) - Query features on a map using an Arcade expression.
 * [Read shapefile metadata](ArcGIS.WinUI.Viewer/Samples/Data/ReadShapefileMetadata) - Read a shapefile and display its metadata.
+* [Show popup](ArcGIS.WinUI.Viewer/Samples/Data/ShowPopup) - Show predefined popups from a web map.
 * [Statistical query](ArcGIS.WinUI.Viewer/Samples/Data/StatisticalQuery) - Query a table to get aggregated statistics back for a specific field.
 * [Statistical query group and sort](ArcGIS.WinUI.Viewer/Samples/Data/StatsQueryGroupAndSort) - Query a feature table for statistics, grouping and sorting by different fields.
 * [Symbolize shapefile](ArcGIS.WinUI.Viewer/Samples/Data/SymbolizeShapefile) - Display a shapefile with custom symbology.
@@ -48,7 +59,7 @@
 * [Create geometries](ArcGIS.WinUI.Viewer/Samples/Geometry/CreateGeometries) - Create simple geometry types.
 * [Cut geometry](ArcGIS.WinUI.Viewer/Samples/Geometry/CutGeometry) - Cut a geometry along a polyline.
 * [Densify and generalize](ArcGIS.WinUI.Viewer/Samples/Geometry/DensifyAndGeneralize) - A multipart geometry can be densified by adding interpolated points at regular intervals. Generalizing multipart geometry simplifies it while preserving its general shape. Densifying a multipart geometry adds more vertices at regular intervals.
-* [Display geometry editor information during interaction](ArcGIS.WinUI.Viewer/Samples/Geometry/DisplayGeometryEditorInformationDuringInteraction) - Use the geometry editor to see information about the geometry editor's previewed geometry during an editing interaction.
+* [Display geometry editor information during interaction](ArcGIS.WinUI.Viewer/Samples/Geometry/DisplayGeometryEditorInteractionInformation) - Use the geometry editor to see information about the geometry editor's previewed geometry during an editing interaction.
 * [Edit geometries with programmatic reticle tool](ArcGIS.WinUI.Viewer/Samples/Geometry/EditGeometriesWithProgrammaticReticleTool) - Use the Programmatic Reticle Tool to edit and create geometries with programmatic operations to facilitate customized workflows such as those using buttons rather than tap interactions.
 * [Format coordinates](ArcGIS.WinUI.Viewer/Samples/Geometry/FormatCoordinates) - Format coordinates in a variety of common notations.
 * [Geodesic operations](ArcGIS.WinUI.Viewer/Samples/Geometry/GeodesicOperations) - Calculate a geodesic path between two points and measure its distance.
@@ -200,6 +211,7 @@
 * [Display grid](ArcGIS.WinUI.Viewer/Samples/MapView/DisplayGrid) - Display and customize coordinate system grids including Latitude/Longitude, MGRS, UTM and USNG on a map view or scene view.
 * [Display layer view state](ArcGIS.WinUI.Viewer/Samples/MapView/DisplayLayerViewState) - Determine if a layer is currently being viewed.
 * [Feature layer time offset](ArcGIS.WinUI.Viewer/Samples/MapView/FeatureLayerTimeOffset) - Display a time-enabled feature layer with a time offset.
+* [Filter mosaic dataset raster by time extent](ArcGIS.WinUI.Viewer/Samples/MapView/FilterMosaicDatasetRasterByTimeExtent) - Visualize changes in rasters over time by filtering a mosaic dataset raster for a selected timestamp.
 * [Identify layers](ArcGIS.WinUI.Viewer/Samples/MapView/IdentifyLayers) - Identify features in all layers in a map.
 * [Map rotation](ArcGIS.WinUI.Viewer/Samples/MapView/MapRotation) - Rotate a map.
 * [Show callout](ArcGIS.WinUI.Viewer/Samples/MapView/ShowCallout) - Show a callout with the latitude and longitude of user-tapped points.
@@ -220,6 +232,7 @@
 
 ## Scene
 
+* [Apply point cloud renderer and filter](ArcGIS.WinUI.Viewer/Samples/Scene/ApplyPointCloudRendererAndFilter) - Visualize point cloud data using different renderers and filters.
 * [Change atmosphere effect](ArcGIS.WinUI.Viewer/Samples/Scene/ChangeAtmosphereEffect) - Changes the appearance of the atmosphere in a scene.
 * [Configure scene environment](ArcGIS.WinUI.Viewer/Samples/Scene/ConfigureSceneEnvironment) - Configure the environment settings in a local scene to change the lighting conditions and background appearance.
 * [Create terrain from local tile package](ArcGIS.WinUI.Viewer/Samples/Scene/CreateTerrainSurfaceTilePackage) - Set the terrain surface with elevation described by a local tile package.

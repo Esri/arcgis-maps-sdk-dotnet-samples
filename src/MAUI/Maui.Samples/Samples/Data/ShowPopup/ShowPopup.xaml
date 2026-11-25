@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.ShowPopup.ShowPopup"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriTK="clr-namespace:Esri.ArcGISRuntime.Toolkit.Maui;assembly=Esri.ArcGISRuntime.Toolkit.Maui"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView"
+                        Style="{DynamicResource EsriSampleGeoView}" />
+        <Border x:Name="PopupPanel"
+                Grid.RowSpan="2"
+                Grid.Column="{OnIdiom Phone=0,
+                                      Default=1}"
+                Grid.ColumnSpan="{OnIdiom Phone=2,
+                                          Default=1}"
+                WidthRequest="{OnIdiom Phone=-1,
+                                       Default=400}"
+                Padding="8"
+                Background="{AppThemeBinding Light=White,
+                                             Dark=Black}"
+                IsVisible="False">
+            <Grid RowDefinitions="*,Auto">
+                <esriTK:PopupViewer x:Name="PopupViewer"
+                                    HorizontalOptions="Fill" />
+                <Button Grid.Row="1"
+                        HorizontalOptions="Fill"
+                        Clicked="ClosePopup_Click"
+                        Text="Close" />
+            </Grid>
+        </Border>
+    </Grid>
+</ContentPage>

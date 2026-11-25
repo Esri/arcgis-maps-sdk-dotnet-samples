@@ -15,7 +15,7 @@ When the sample opens, it displays the source elevation raster. Select the **Cat
 ## How it works
 
 1. Create a `ContinuousField` from a raster file using `ContinuousField.CreateAsync`.
-2. Create a `ContinuousFieldFunction` from the continuous field and mask values below sea level using `IsGreaterThanOrEqualTo`.
+2. Create a `ContinuousFieldFunction` from the continuous field, using `ContinuousFieldSupplier`, and mask values below sea level using `IsGreaterThanOrEqualTo`.
 3. Round elevation values down to the lowest 10-meter interval with map algebra operators
     `((continuousFieldFunction / 10).Floor() * 10)`, and then convert the result to a `DiscreteFieldFunction` with
     `ToDiscreteFieldFunction`.
@@ -34,6 +34,7 @@ When the sample opens, it displays the source elevation raster. Select the **Cat
 * ColorRamp
 * ContinuousField
 * ContinuousFieldFunction
+* ContinuousFieldSupplier
 * DiscreteField
 * DiscreteFieldFunction
 * MinMaxStretchParameters

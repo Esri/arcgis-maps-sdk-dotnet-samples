@@ -21,7 +21,7 @@
                 Clicked="ShowGallery_Clicked"
                 FontSize="{OnIdiom Default=80,
                                    Phone=50}"
-                HorizontalOptions="Start"
+                HorizontalOptions="End"
                 TextColor="White"
                 ToolTipProperties.Text="Show Gallery"
                 VerticalOptions="Start"
@@ -33,17 +33,8 @@
                 <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" />
             </Border.GestureRecognizers>
         </Border>
-        <StackLayout x:Name="DynamicBasemapStyleGallery"
-                     Margin="5"
-                     Padding="5"
-                     Background="{AppThemeBinding Light=#dfdfdf,
-                                                  Dark=#303030}"
-                     IsVisible="False"
-                     MaximumHeightRequest="{OnIdiom Default=850,
-                                                    Phone=650}"
-                     MaximumWidthRequest="{OnIdiom Default=400,
-                                                   Phone=300}"
-                     Spacing="5">
+
+        <Grid x:Name="DynamicBasemapStyleGallery" IsVisible="False" RowDefinitions="*,*" Background="{AppThemeBinding Light=#dfdfdf, Dark=#303030}">
             <CollectionView x:Name="BasemapStyleGallery"
                             Margin="5"
                             MaximumHeightRequest="{OnIdiom Default=500,
@@ -53,37 +44,42 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="esri:BasemapStyleInfo">
                         <StackLayout Margin="5">
-                            <Label FontAttributes="Bold" Text="{Binding StyleName}" />
-                            <Image HeightRequest="{OnIdiom Default=200,
-                                                           Phone=150}"
-                                   HorizontalOptions="Start"
+                            <Label FontAttributes="Bold" Text="{Binding StyleName}" HorizontalOptions="Center" />
+                            <Image HeightRequest="{OnIdiom Default=100,
+                                                           Phone=75}"
+                                   HorizontalOptions="Center"
                                    Source="{Binding Thumbnail, Converter={StaticResource RuntimeImageToImageSource}}" />
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-            <Label FontAttributes="Bold" Text="Language strategy:" />
-            <Picker x:Name="StrategyPicker"
-                    Margin="5"
-                    HorizontalOptions="Fill"
-                    IsEnabled="False" />
-            <Label Margin="5"
-                   FontAttributes="Bold"
-                   Text="Language:" />
-            <Picker x:Name="LanguagePicker"
-                    Margin="5"
-                    HorizontalOptions="Fill"
-                    IsEnabled="False"
-                    ItemDisplayBinding="{Binding DisplayName, x:DataType=esri:BasemapStyleLanguageInfo}" />
-            <Label FontAttributes="Bold" Text="Worldview:" />
-            <Picker x:Name="WorldviewPicker"
-                    Margin="5"
-                    HorizontalOptions="Fill"
-                    IsEnabled="False"
-                    ItemDisplayBinding="{Binding DisplayName, x:DataType=esri:Worldview}" />
-            <Button Margin="5"
-                    Clicked="LoadButton_Click"
-                    Text="Load" />
-        </StackLayout>
+
+            <StackLayout MaximumWidthRequest="{OnIdiom Default=400, Phone=300}"
+                         Spacing="5" Grid.Row="1">
+                <Label FontAttributes="Bold" Text="Language strategy:" />
+                <Picker x:Name="StrategyPicker"
+                        Margin="5"
+                        HorizontalOptions="Fill"
+                        IsEnabled="False" />
+                <Label Margin="5"
+                       FontAttributes="Bold"
+                       Text="Language:" />
+                <Picker x:Name="LanguagePicker"
+                        Margin="5"
+                        HorizontalOptions="Fill"
+                        IsEnabled="False"
+                        ItemDisplayBinding="{Binding DisplayName, x:DataType=esri:BasemapStyleLanguageInfo}" />
+                <Label FontAttributes="Bold" Text="Worldview:" />
+                <Picker x:Name="WorldviewPicker"
+                        Margin="5"
+                        HorizontalOptions="Fill"
+                        IsEnabled="False"
+                        ItemDisplayBinding="{Binding DisplayName, x:DataType=esri:Worldview}" />
+                <Button Margin="5"
+                        Clicked="LoadButton_Click"
+                        Text="Load" />
+            </StackLayout>
+
+        </Grid>
     </Grid>
 </ContentPage>

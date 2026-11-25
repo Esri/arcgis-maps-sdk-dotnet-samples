@@ -1,0 +1,64 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="ArcGIS.Samples.FilterMosaicDatasetRasterByTimeExtent.FilterMosaicDatasetRasterByTimeExtent"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:esriUI="clr-namespace:Esri.ArcGISRuntime.Maui;assembly=Esri.ArcGISRuntime.Maui">
+    <Grid Style="{DynamicResource EsriSampleContainer}">
+        <esriUI:MapView x:Name="MyMapView" Style="{DynamicResource EsriSampleGeoView}" />
+        <Border Style="{DynamicResource EsriSampleControlPanel}">
+            <VerticalStackLayout Spacing="5">
+                <Grid ColumnDefinitions="Auto,Auto,*,Auto,Auto" ColumnSpacing="4">
+                    <Button x:Name="FirstButton"
+                            Padding="0"
+                            WidthRequest="40"
+                            Clicked="FirstButton_Click"
+                            IsEnabled="False"
+                            SemanticProperties.Description="First timestamp"
+                            Text="|&lt;" />
+                    <Button x:Name="PreviousButton"
+                            Grid.Column="1"
+                            Padding="0"
+                            WidthRequest="40"
+                            Clicked="PreviousButton_Click"
+                            IsEnabled="False"
+                            SemanticProperties.Description="Previous timestamp"
+                            Text="&lt;" />
+                    <Label x:Name="TimestampText"
+                           Grid.Column="2"
+                           HorizontalTextAlignment="Center"
+                           Text="Loading..."
+                           VerticalTextAlignment="Center" />
+                    <Button x:Name="NextButton"
+                            Grid.Column="3"
+                            Padding="0"
+                            WidthRequest="40"
+                            Clicked="NextButton_Click"
+                            IsEnabled="False"
+                            SemanticProperties.Description="Next timestamp"
+                            Text="&gt;" />
+                    <Button x:Name="LastButton"
+                            Grid.Column="4"
+                            Padding="0"
+                            WidthRequest="40"
+                            Clicked="LastButton_Click"
+                            IsEnabled="False"
+                            SemanticProperties.Description="Last timestamp"
+                            Text="&gt;|" />
+                </Grid>
+                <Grid Margin="0,7,0,0">
+                    <Label Text="Opacity" />
+                    <Label x:Name="OpacityValue"
+                           HorizontalOptions="End"
+                           Text="100%" />
+                </Grid>
+                <Slider x:Name="OpacitySlider"
+                        IsEnabled="False"
+                        Maximum="1"
+                        Minimum="0"
+                        SemanticProperties.Description="Raster opacity"
+                        Value="1"
+                        ValueChanged="OpacitySlider_ValueChanged" />
+            </VerticalStackLayout>
+        </Border>
+    </Grid>
+</ContentPage>

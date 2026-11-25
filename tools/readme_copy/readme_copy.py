@@ -5,8 +5,11 @@ import copy
 
 excluded_samples = [
     ("ChangeBasemap", "WinUI"),
+    ("NavigateMapViewWithKeyboard", "MAUI"),
     ("UpdateBasemapForContrastAccessibility", "MAUI"),
-    ("UpdateBasemapForContrastAccessibility", "WinUI")
+    ("UpdateBasemapForContrastAccessibility", "WinUI"),
+    ("UpdateLabelsAndSymbolsForAccessibility", "MAUI"),
+    ("UpdateLabelsAndSymbolsForAccessibility", "WinUI")
 ]
 
 def get_platform_samples_root(platform, sample_root):
